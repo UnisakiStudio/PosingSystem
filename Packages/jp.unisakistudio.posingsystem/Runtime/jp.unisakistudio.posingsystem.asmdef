@@ -1,9 +1,8 @@
 {
-    "name": "VRChatPackageTemplate.Editor",
+    "name": "jp.unisakistudio.posingsystem",
+    "rootNamespace": "",
     "references": [],
-    "includePlatforms": [
-        "Editor"
-    ],
+    "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,
