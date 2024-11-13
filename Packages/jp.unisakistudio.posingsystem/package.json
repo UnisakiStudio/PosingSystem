@@ -16,7 +16,11 @@
   "url": "https://github.com/UnisakiStudio/PosingSystem/releases/download/2.0.0/jp.unisakistudio.posingsystem-2.0.0.zip",
   "repo": "https://github.com/UnisakiStudio/PosingSystem",
   "dependencies": {
-    "nadena.dev.modular-avatar": "",
-    "nadena.dev.ndmf": ""
+    "nadena.dev.modular-avatar": "1.10.0",
+    "nadena.dev.ndmf": "1.5.0"
+  },
+  "vpmDependencies": {
+    "nadena.dev.modular-avatar": "1.10.0",
+    "nadena.dev.ndmf": "1.5.0"
   }
 }
