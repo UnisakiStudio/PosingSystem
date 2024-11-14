@@ -6,3 +6,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [2.0.0] - 2024-11-12
 - VPM/VCC対応バージョンリリース
+- エラー時に表示されるツールの表示名を変更 #1
+- 利用規約を追加 #5
