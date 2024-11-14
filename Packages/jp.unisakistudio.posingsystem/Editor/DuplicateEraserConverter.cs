@@ -25,7 +25,7 @@ namespace jp.unisakistudio.posingsystemeditor
         /// <summary>
         /// The plugin name shown in debug UIs. If not set, the qualified name will be shown.
         /// </summary>
-        public override string DisplayName => "Erase duplicate components.";
+        public override string DisplayName => "ゆにさきポーズシステム・重複オブジェクト削除機能";
 
         protected override void Configure()
         {

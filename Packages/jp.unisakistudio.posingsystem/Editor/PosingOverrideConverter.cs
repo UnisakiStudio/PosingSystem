@@ -27,7 +27,7 @@ namespace jp.unisakistudio.posingsystemeditor
         /// <summary>
         /// The plugin name shown in debug UIs. If not set, the qualified name will be shown.
         /// </summary>
-        public override string DisplayName => "Override animation in animatorController.";
+        public override string DisplayName => "ゆにさきポーズシステム・既存ポーズマージ機能";
 
         List<(PosingOverride.OverrideDefine.AnimationStateType type, string layerName, string stateMachineName, string stateName, bool isBlendTree, float posX, float posY)> overrideSettings = new List<(PosingOverride.OverrideDefine.AnimationStateType type, string layerName, string stateMachineName, string stateName, bool isBlendTree, float posX, float posY)>
         {

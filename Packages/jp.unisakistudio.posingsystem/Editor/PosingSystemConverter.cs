@@ -26,7 +26,7 @@ namespace jp.unisakistudio.posingsystemeditor
         /// <summary>
         /// The plugin name shown in debug UIs. If not set, the qualified name will be shown.
         /// </summary>
-        public override string DisplayName => "Convert posing system animator controller.";
+        public override string DisplayName => "ゆにさきポーズシステム";
 
         delegate float ValueChanger(Keyframe value, int i);
 
