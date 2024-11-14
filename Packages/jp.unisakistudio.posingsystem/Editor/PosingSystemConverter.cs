@@ -21,7 +21,7 @@ namespace jp.unisakistudio.posingsystemeditor
         /// This name is used to identify the plugin internally, and can be used to declare BeforePlugin/AfterPlugin
         /// dependencies. If not set, the full type name will be used.
         /// </summary>
-        public override string QualifiedName => "jp.unisakistudio.posingsystemconverter";
+        public override string QualifiedName => "jp.unisakistudio.posingsystemeditor.posingsystemconverter";
 
         /// <summary>
         /// The plugin name shown in debug UIs. If not set, the qualified name will be shown.
