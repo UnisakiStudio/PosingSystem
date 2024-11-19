@@ -65,7 +65,6 @@ namespace jp.unisakistudio.posingsystemeditor
                 exMenuBackground = AssetDatabase.LoadAssetAtPath<Texture2D>(AssetDatabase.GUIDToAssetPath(AssetDatabase.FindAssets("ExMenuBackground t:Texture")[0]));
             }
 
-            TakeScreenshot(posingSystem);
             EditorGUILayout.LabelField(posingSystem.settingName, new GUIStyle() { fontStyle = FontStyle.Bold, fontSize = 20, }, GUILayout.Height(30));
 
             EditorGUILayout.HelpBox("ModularAvatarで服を着せているとポーズサムネイルの洋服が外れて見えますが、アバターアップロード時に再撮影されて正しい画像がメニューに設定されるのでご安心ください", MessageType.Info);
@@ -77,18 +76,24 @@ namespace jp.unisakistudio.posingsystemeditor
             }
 
             Transform avatar = posingSystem.transform;
+            VRC.SDK3.Avatars.Components.VRCAvatarDescriptor avatarDescriptor = null;
             while (avatar != null)
             {
-                if (avatar.TryGetComponent<VRC.SDK3.Avatars.Components.VRCAvatarDescriptor>(out _))
+                if (avatar.TryGetComponent<VRC.SDK3.Avatars.Components.VRCAvatarDescriptor>(out avatarDescriptor))
                 {
                     break;
                 }
                 avatar = avatar.parent;
             }
+            if (avatarDescriptor == null)
+            {
+                EditorGUILayout.HelpBox("オブジェクトがVRC用のアバターオブジェクトの中に入っていません。このオブジェクトはVRCAvatarDescriptorコンポーネントの付いたオブジェクトの中に配置してください", MessageType.Error);
+                return;
+            }
             if (existProducts == null)
             {
                 if (avatar != null) {
-                    existProducts = CheckExistProduct(avatar.GetComponent<VRC.SDK3.Avatars.Components.VRCAvatarDescriptor>());
+                    existProducts = CheckExistProduct(avatarDescriptor);
                 }
             }
             if (existProducts != null)
@@ -98,10 +103,40 @@ namespace jp.unisakistudio.posingsystemeditor
                     EditorGUILayout.HelpBox(existProduct + "の設定がアバターに残っています！不具合が発生する可能性があるので、自動で設定を取り除く機能を使用してください。また、アバター購入時にBaseLayerに設定されていたLocomotion用のAnimatorControllerがある場合は、恐れ入りますが手動で復仇してお使いください。", MessageType.Error);
                     if (GUILayout.Button(existProduct + "の設定を取り除く"))
                     {
-                        RemoveExistProduct(avatar.GetComponent<VRC.SDK3.Avatars.Components.VRCAvatarDescriptor>(), existProduct);
+                        RemoveExistProduct(avatarDescriptor, existProduct);
                         existProducts = null;
                     }
                 }
+            }
+
+            if (avatarDescriptor.autoFootsteps)
+            {
+                EditorGUILayout.HelpBox("アバター設定の「Use Auto-Footsteps for 3 and 4 point tracking」がオンになっています。この設定がオンだと、アバターがゲーム内で自動的に足踏みをしてしまい、姿勢が崩れる可能性があるため、オフにすることが推奨されます", MessageType.Warning);
+                if (GUILayout.Button("「Use Auto-Footsteps for 3 and 4 point tracking」をオフにする"))
+                {
+                    Undo.RecordObject(avatarDescriptor, "Disable auto footsteps");
+                    avatarDescriptor.autoFootsteps = false;
+                    EditorUtility.SetDirty(avatarDescriptor);
+                }
+            }
+
+            var avatarAnimator = avatar.GetComponent<Animator>();
+            if (avatarAnimator == null)
+            {
+                EditorGUILayout.HelpBox("アバターにAnimatorが設定されていません。このアバターではこのツールは使えません", MessageType.Error);
+                return;
+            }
+
+            if (avatarAnimator.avatar == null)
+            {
+                EditorGUILayout.HelpBox("アバターのAnimatorにAvatarが設定されていません。このアバターではこのツールは使えません", MessageType.Error);
+                return;
+            }
+
+            if (!avatarAnimator.isHuman)
+            {
+                EditorGUILayout.HelpBox("このアバターは人型ではありません。アバターのAnimatorにHumanoid型のAvatarが設定されていない場合はこのツールは使えません。", MessageType.Error);
+                return;
             }
 
             EditorGUILayout.BeginVertical(GUI.skin.box);
@@ -115,6 +150,7 @@ namespace jp.unisakistudio.posingsystemeditor
             }
             EditorGUILayout.EndVertical();
 
+            TakeScreenshot(posingSystem);
             serializedObject.Update();
 
             for (int i = 0; i < posingSystem.defines.Count; i++)
