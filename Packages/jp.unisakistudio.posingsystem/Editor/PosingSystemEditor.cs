@@ -104,6 +104,17 @@ namespace jp.unisakistudio.posingsystemeditor
                 }
             }
 
+            EditorGUILayout.BeginVertical(GUI.skin.box);
+            EditorGUILayout.LabelField("設定", new GUIStyle() { fontStyle = FontStyle.Bold, });
+            var isIconDisabled = EditorGUILayout.Toggle("姿勢アイコン無しモード（Quest等）", posingSystem.isIconDisabled);
+            if (isIconDisabled != posingSystem.isIconDisabled)
+            {
+                Undo.RecordObject(posingSystem, "Disable icon");
+                posingSystem.isIconDisabled = isIconDisabled;
+                EditorUtility.SetDirty(posingSystem);
+            }
+            EditorGUILayout.EndVertical();
+
             serializedObject.Update();
 
             for (int i = 0; i < posingSystem.defines.Count; i++)

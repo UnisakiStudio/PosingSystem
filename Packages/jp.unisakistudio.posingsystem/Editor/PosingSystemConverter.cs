@@ -643,6 +643,10 @@ namespace jp.unisakistudio.posingsystemeditor
                                         {
                                             continue;
                                         }
+                                        if (posingSystem.isIconDisabled)
+                                        {
+                                            continue;
+                                        }
                                         AnimationMode.StartAnimationMode();
                                         if (animation.animationClip == null)
                                         {

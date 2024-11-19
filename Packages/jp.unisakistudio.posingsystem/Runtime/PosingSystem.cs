@@ -14,6 +14,7 @@ namespace jp.unisakistudio.posingsystem
         [HideInInspector]
         public bool isPosingSystemLicensed = false;
         public string settingName;
+        public bool isIconDisabled = false;
         [System.Serializable]
         public class AnimationDefine
         {
