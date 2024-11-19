@@ -90,6 +90,8 @@ namespace jp.unisakistudio.posingsystemeditor
                             menu.Control.type = VRC.SDK3.Avatars.ScriptableObjects.VRCExpressionsMenu.Control.ControlType.SubMenu;
                             menu.Control.name = define.menuName;
                             menu.Control.icon = define.icon;
+                            menu.Control.parameter = new() { name = "USSPS_LastMenu" };
+                            menu.Control.value = define.locomotionTypeValue;
                             menuObject.transform.parent = submenuRoot;
                         }
                         else
@@ -412,23 +414,6 @@ namespace jp.unisakistudio.posingsystemeditor
                                     motion = animationDefine.animationClip;
                                 }
 
-                                var animationName = animationDefine.animationClip != null ? animationDefine.animationClip.name : "Animation";
-                                var state = stateMachine.AddState(animationName, new Vector3(500, (animationDefine.syncdParameterValue - 1) * 60));
-
-                                state.motion = motion;
-                                state.writeDefaultValues = writeDefaults;
-                                if (animationDefine.isMotionTime)
-                                {
-                                    if (animatorController.parameters.Where(param => param.name == animationDefine.motionTimeParamName).Count() == 0)
-                                    {
-                                        animatorController.AddParameter(animationDefine.motionTimeParamName, AnimatorControllerParameterType.Float);
-                                    }
-                                    state.timeParameterActive = true;
-                                    state.timeParameter = animationDefine.motionTimeParamName;
-                                }
-                                state.mirrorParameterActive = true;
-                                state.mirrorParameter = "USSPS_Mirror";
-
                                 var syncdParamName = "USSPS_Pose";
                                 var syncdParamValue = animationDefine.syncdParameterValue;
                                 if (syncdParamValue > 255)
@@ -437,14 +422,68 @@ namespace jp.unisakistudio.posingsystemeditor
                                     syncdParamName += paramNum.ToString();
                                     syncdParamValue = (animationDefine.syncdParameterValue - 1) % 255 + 1;
                                 }
+                                var animationName = animationDefine.animationClip != null ? animationDefine.animationClip.name : "Animation";
 
-                                var transition = stateMachine.AddEntryTransition(state);
-                                transition.AddCondition(AnimatorConditionMode.Equals, syncdParamValue, syncdParamName);
+                                // デスクトップ用
+                                {
+                                    var state = stateMachine.AddState(animationName + "_Desktop", new Vector3(500, (animationDefine.syncdParameterValue - 1) * 120));
 
-                                var exitTransition = state.AddExitTransition(false);
-                                exitTransition.AddCondition(AnimatorConditionMode.NotEqual, syncdParamValue, syncdParamName);
-                                exitTransition.duration = 0.5f;
-                                exitTransition.interruptionSource = TransitionInterruptionSource.Destination;
+                                    state.motion = motion;
+                                    state.writeDefaultValues = writeDefaults;
+                                    if (animationDefine.isMotionTime)
+                                    {
+                                        if (animatorController.parameters.Where(param => param.name == animationDefine.motionTimeParamName).Count() == 0)
+                                        {
+                                            animatorController.AddParameter(animationDefine.motionTimeParamName, AnimatorControllerParameterType.Float);
+                                        }
+                                        state.timeParameterActive = true;
+                                        state.timeParameter = animationDefine.motionTimeParamName;
+                                    }
+                                    state.mirrorParameterActive = true;
+                                    state.mirrorParameter = "USSPS_Mirror";
+
+                                    var poseSpace = state.AddStateMachineBehaviour<VRC.SDK3.Avatars.Components.VRCAnimatorTemporaryPoseSpace>();
+                                    poseSpace.enterPoseSpace = true;
+                                    poseSpace.fixedDelay = false;
+                                    poseSpace.delayTime = 0.0f;
+
+                                    var transition = stateMachine.AddEntryTransition(state);
+                                    transition.AddCondition(AnimatorConditionMode.Equals, syncdParamValue, syncdParamName);
+                                    transition.AddCondition(AnimatorConditionMode.Equals, 0, "VRMode");
+
+                                    var exitTransition = state.AddExitTransition(false);
+                                    exitTransition.AddCondition(AnimatorConditionMode.NotEqual, syncdParamValue, syncdParamName);
+                                    exitTransition.duration = 0.0f;
+                                    exitTransition.interruptionSource = TransitionInterruptionSource.Destination;
+                                }
+
+                                // ３点トラッキング用
+                                {
+                                    var state = stateMachine.AddState(animationName, new Vector3(500, (animationDefine.syncdParameterValue - 1) * 120 + 60));
+
+                                    state.motion = motion;
+                                    state.writeDefaultValues = writeDefaults;
+                                    if (animationDefine.isMotionTime)
+                                    {
+                                        if (animatorController.parameters.Where(param => param.name == animationDefine.motionTimeParamName).Count() == 0)
+                                        {
+                                            animatorController.AddParameter(animationDefine.motionTimeParamName, AnimatorControllerParameterType.Float);
+                                        }
+                                        state.timeParameterActive = true;
+                                        state.timeParameter = animationDefine.motionTimeParamName;
+                                    }
+                                    state.mirrorParameterActive = true;
+                                    state.mirrorParameter = "USSPS_Mirror";
+
+                                    var transition = stateMachine.AddEntryTransition(state);
+                                    transition.AddCondition(AnimatorConditionMode.Equals, syncdParamValue, syncdParamName);
+                                    transition.AddCondition(AnimatorConditionMode.Equals, 1, "VRMode");
+
+                                    var exitTransition = state.AddExitTransition(false);
+                                    exitTransition.AddCondition(AnimatorConditionMode.NotEqual, syncdParamValue, syncdParamName);
+                                    exitTransition.duration = 0.5f;
+                                    exitTransition.interruptionSource = TransitionInterruptionSource.Destination;
+                                }
 
                                 // LocomotionType switch
                                 var typeState = typeStateMachine.AddState(animationName, new Vector3(500, (animationDefine.typeParameterValue - 1) * 60));
@@ -577,6 +616,7 @@ namespace jp.unisakistudio.posingsystemeditor
                             {
                                 return;
                             }
+
 
                             // パラメータ名がヒットしたのでdefineを探す
                             foreach (var posingSystem in posingSystems)
