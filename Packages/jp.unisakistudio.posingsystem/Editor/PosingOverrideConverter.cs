@@ -44,6 +44,9 @@ namespace jp.unisakistudio.posingsystemeditor
             (PosingOverride.OverrideDefine.AnimationStateType.LongLanding, "USSPS_Locomotion", "Jump and Fall", "Hard Landing", false, 0, 0),
         };
 
+        static string TMP_FOLDER_PATH = "Packages/jp.unisakistudio.posingsystem";
+        static string TMP_FOLDER_NAME = "tmp";
+
         protected override void Configure()
         {
             InPhase(BuildPhase.Generating)
@@ -82,6 +85,12 @@ namespace jp.unisakistudio.posingsystemeditor
                 .BeforePlugin("com.anatawa12.avatar-optimizer")
                 .Run("Override animation", ctx =>
                 {
+                    // 一時ファイルを削除する
+                    if (AssetDatabase.IsValidFolder(TMP_FOLDER_PATH + "/" + TMP_FOLDER_NAME))
+                    {
+                        AssetDatabase.DeleteAsset(TMP_FOLDER_PATH + "/" + TMP_FOLDER_NAME);
+                    }
+
                     if (ctx == null || ctx.AvatarRootObject == null)
                     {
                         return;
@@ -454,8 +463,13 @@ namespace jp.unisakistudio.posingsystemeditor
 
         AnimatorController CloneAnimatorController(AnimatorController srcAnimatorControlloer)
         {
-            var path = "Assets/Temp/ani.controller";
+            if (!AssetDatabase.IsValidFolder(TMP_FOLDER_PATH + "/" + TMP_FOLDER_NAME))
+            {
+                AssetDatabase.CreateFolder(TMP_FOLDER_PATH, TMP_FOLDER_NAME);
+            }
+            var path = TMP_FOLDER_PATH + "/" + TMP_FOLDER_NAME + "/tmp.controller";
             path = AssetDatabase.GenerateUniqueAssetPath(path);
+            
             if (AssetDatabase.IsNativeAsset(srcAnimatorControlloer))
             {
                 AssetDatabase.CopyAsset(AssetDatabase.GetAssetPath(srcAnimatorControlloer), path);
@@ -464,6 +478,7 @@ namespace jp.unisakistudio.posingsystemeditor
             {
                 AssetDatabase.CreateAsset(srcAnimatorControlloer, path);
             }
+
             return AssetDatabase.LoadAssetAtPath<AnimatorController>(path);
         }
     }
