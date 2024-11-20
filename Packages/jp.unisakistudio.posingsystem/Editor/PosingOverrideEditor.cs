@@ -17,19 +17,29 @@ namespace jp.unisakistudio.posingsystemeditor
         {
             PosingOverride posingOverride = target as PosingOverride;
 
-            if (posingOverride.deleteExistingLayer != EditorGUILayout.Toggle("アバターの元移動レイヤーを削除する", posingOverride.deleteExistingLayer))
+            if (posingOverride.deleteExistingLayer != EditorGUILayout.ToggleLeft("アバターの元移動レイヤーを削除する", posingOverride.deleteExistingLayer))
             {
+                Undo.RecordObject(posingOverride, "DeleteExistingLayer");
                 posingOverride.deleteExistingLayer = !posingOverride.deleteExistingLayer;
                 EditorUtility.SetDirty(posingOverride);
                 AssetDatabase.SaveAssets();
             }
-            if (posingOverride.deleteExistingTrackingControl != EditorGUILayout.Toggle("アバターの元トラッキング制御を無効にする", posingOverride.deleteExistingTrackingControl))
+            if (posingOverride.mergeTrackingControl != EditorGUILayout.ToggleLeft("他のAnimatorControllerのトラッキング機能を統合する", posingOverride.mergeTrackingControl))
             {
+                Undo.RecordObject(posingOverride, "MergeTrackingControl");
+                posingOverride.mergeTrackingControl = !posingOverride.mergeTrackingControl;
+                EditorUtility.SetDirty(posingOverride);
+                AssetDatabase.SaveAssets();
+            }
+            if (posingOverride.deleteExistingTrackingControl != EditorGUILayout.ToggleLeft("アバターの元トラッキング制御を無効にする", posingOverride.deleteExistingTrackingControl))
+            {
+                Undo.RecordObject(posingOverride, "DeleteExistingTrackingControl");
                 posingOverride.deleteExistingTrackingControl = !posingOverride.deleteExistingTrackingControl;
                 EditorUtility.SetDirty(posingOverride);
                 AssetDatabase.SaveAssets();
             }
-            if (posingOverride.ビルド時自動実行 != EditorGUILayout.Toggle("ビルド時自動実行", posingOverride.ビルド時自動実行)) {
+            if (posingOverride.ビルド時自動実行 != EditorGUILayout.ToggleLeft("ビルド時自動実行", posingOverride.ビルド時自動実行)) {
+                Undo.RecordObject(posingOverride, "ビルド時自動実行");
                 posingOverride.ビルド時自動実行 = !posingOverride.ビルド時自動実行;
                 EditorUtility.SetDirty(posingOverride);
                 AssetDatabase.SaveAssets();

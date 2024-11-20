@@ -69,7 +69,7 @@ namespace jp.unisakistudio.posingsystemeditor
 
             EditorGUILayout.HelpBox("ModularAvatarで服を着せているとポーズサムネイルの洋服が外れて見えますが、アバターアップロード時に再撮影されて正しい画像がメニューに設定されるのでご安心ください", MessageType.Info);
 
-            if (posingSystem.developmentMode != EditorGUILayout.Toggle("開発モード", posingSystem.developmentMode))
+            if (posingSystem.developmentMode != EditorGUILayout.ToggleLeft("開発モード", posingSystem.developmentMode))
             {
                 reorderableLists.Clear();
                 posingSystem.developmentMode = !posingSystem.developmentMode;
@@ -141,7 +141,7 @@ namespace jp.unisakistudio.posingsystemeditor
 
             EditorGUILayout.BeginVertical(GUI.skin.box);
             EditorGUILayout.LabelField("設定", new GUIStyle() { fontStyle = FontStyle.Bold, });
-            var isIconDisabled = EditorGUILayout.Toggle("姿勢アイコン無しモード（Quest等）", posingSystem.isIconDisabled);
+            var isIconDisabled = EditorGUILayout.ToggleLeft("姿勢アイコン無しモード（Quest等）", posingSystem.isIconDisabled);
             if (isIconDisabled != posingSystem.isIconDisabled)
             {
                 Undo.RecordObject(posingSystem, "Disable icon");

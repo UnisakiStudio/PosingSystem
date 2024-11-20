@@ -7,7 +7,9 @@ using UnityEngine;
 using UnityEditor;
 using UnityEditor.Animations;
 using VRC.SDKBase;
+using VRC.SDK3.Avatars.Components;
 using nadena.dev.ndmf;
+using nadena.dev.modular_avatar.core;
 using jp.unisakistudio.posingsystem;
 
 #endregion
@@ -53,6 +55,7 @@ namespace jp.unisakistudio.posingsystemeditor
                         return;
                     }
                     var posingOverrides = ctx.AvatarRootObject.GetComponentsInChildren<PosingOverride>();
+                    bool mergeTrackingControl = false;
                     foreach (var posingOverride in posingOverrides)
                     {
                         if (posingOverride.ビルド時自動実行)
@@ -60,6 +63,16 @@ namespace jp.unisakistudio.posingsystemeditor
                             posingOverride.defines.Clear();
                             PosingOverrideEditor.DetecAutoOverride(posingOverride, ctx.AvatarDescriptor);
                         }
+
+                        // TrackingControlの統合を行う
+                        if (posingOverride.mergeTrackingControl)
+                        {
+                            mergeTrackingControl = true;
+                        }
+                    }
+                    if (mergeTrackingControl)
+                    {
+                        MergeTrackingControl(ctx.AvatarDescriptor);
                     }
                 });
 
@@ -75,7 +88,7 @@ namespace jp.unisakistudio.posingsystemeditor
                     }
                     var posingOverrides = ctx.AvatarRootObject.GetComponentsInChildren<PosingOverride>();
                     var waitAnimation = AssetDatabase.LoadAssetAtPath<AnimationClip>(AssetDatabase.GUIDToAssetPath(AssetDatabase.FindAssets("PosingSystem_Empty")[0]));
-                    var runtimeAnimatorController = ctx.AvatarDescriptor.baseAnimationLayers[(int)VRC.SDK3.Avatars.Components.VRCAvatarDescriptor.AnimLayerType.Base].animatorController;
+                    var runtimeAnimatorController = ctx.AvatarDescriptor.baseAnimationLayers[(int)VRCAvatarDescriptor.AnimLayerType.Base].animatorController;
                     if (runtimeAnimatorController == null && runtimeAnimatorController.GetType() != typeof(AnimatorController))
                     {
                         Debug.Log("animatorController == null");
@@ -162,7 +175,7 @@ namespace jp.unisakistudio.posingsystemeditor
                                     {
                                         foreach (var behaviour in state.state.behaviours)
                                         {
-                                            if (behaviour.GetType() == typeof(VRC.SDK3.Avatars.Components.VRCAnimatorTrackingControl) || behaviour.GetType() == typeof(VRC.SDKBase.VRC_AnimatorTrackingControl))
+                                            if (behaviour.GetType() == typeof(VRCAnimatorTrackingControl) || behaviour.GetType() == typeof(VRC.SDKBase.VRC_AnimatorTrackingControl))
                                             {
                                                 Object.DestroyImmediate(behaviour, true);
                                             }
@@ -223,6 +236,235 @@ namespace jp.unisakistudio.posingsystemeditor
                         Object.DestroyImmediate(posingOverride);
                     }
                 });
+        }
+
+        void MergeTrackingControl(VRCAvatarDescriptor avatarDescriptor)
+        {
+            // アバターに最初から設定されているBaseLayerのAnimatorControllerは全て同じsuffixとしてTrackingControlをParameterDriverに置き換える
+            var suffixIndex = 0;
+            var trackingTypesList = new List<(string suffix, List<string> trackingTypes)>();
+            var avatarTrackingTypes = new List<string>();
+            for (var i=0; i<avatarDescriptor.baseAnimationLayers.Length; i++)
+            {
+                var animLayer = avatarDescriptor.baseAnimationLayers[i];
+                if (animLayer.animatorController != null)
+                {
+                    avatarTrackingTypes = ReplaceTrackingControlToParameterDriver((AnimatorController)animLayer.animatorController, suffixIndex.ToString(), avatarTrackingTypes);
+                }
+            }
+            trackingTypesList.Add(new(suffixIndex.ToString(), avatarTrackingTypes));
+
+            // 全てのMAMergeAnimatorを調べてそれぞれsuffixを振ってTrackingControlをParameterDriverに置き換える
+            foreach (var mergeAnimator in avatarDescriptor.GetComponentsInChildren<ModularAvatarMergeAnimator>())
+            {
+                suffixIndex++;
+                if (mergeAnimator.animator == null)
+                {
+                    continue;
+                }
+                mergeAnimator.animator = CloneAnimatorController((AnimatorController)mergeAnimator.animator);
+                var trackingTypes = ReplaceTrackingControlToParameterDriver((AnimatorController)mergeAnimator.animator, suffixIndex.ToString(), new());
+                trackingTypesList.Add((suffixIndex.ToString(), trackingTypes));
+            }
+
+            // 各TrackingTypeにどのSuffixがあるかのハッシュに変換
+            var trackingTypeHash = new Dictionary<string, List<string>>();
+            foreach (var trackingTypePair in trackingTypesList)
+            {
+                foreach (var trackingType in trackingTypePair.trackingTypes) {
+                    if (trackingTypeHash.GetValueOrDefault(trackingType) == null)
+                    {
+                        trackingTypeHash[trackingType] = new();
+                    }
+                    trackingTypeHash[trackingType].Add(trackingTypePair.suffix);
+                }
+            }
+
+            // MAParameterを既存のオブジェクトにくっつけるとMAParameterが既についててエラーになることがあるので新規オブジェクトを作る
+            var maObject = new GameObject("PosingOverrideMergeTrackingControl");
+            maObject.transform.parent = avatarDescriptor.transform;
+
+            // 実際にTrackingControlを行うAnimatorControllerをMergeするMAMergeAnimatorを準備
+            var maMergeAnimator = maObject.AddComponent<ModularAvatarMergeAnimator>();
+            AnimatorController animator = new AnimatorController();
+            maMergeAnimator.animator = animator;
+
+            var parameters = new List<AnimatorControllerParameter>();
+            foreach (var trackingType in trackingTypeHash.Keys)
+            {
+                // Animatorにパラメータを追加
+                foreach (var suffix in trackingTypeHash[trackingType])
+                {
+                    parameters.Add(new() { name = trackingType + suffix, type = AnimatorControllerParameterType.Bool, defaultBool = true, });
+                }
+
+                // 実際のTrackingControlを行うレイヤーを追加
+                var layer = new AnimatorControllerLayer();
+                layer.name = "Merge_" + trackingType;
+
+                // TrackingControl用のステート
+                layer.stateMachine = new();
+                var trackingState = layer.stateMachine.AddState("Tracking", new Vector3(500, 0, 0));
+                var animationState = layer.stateMachine.AddState("Animation", new Vector3(500, 60, 0));
+
+                // 実際のTrackingControl
+                var trackingBehaviour = trackingState.AddStateMachineBehaviour<VRCAnimatorTrackingControl>();
+                var animationBehaviour = animationState.AddStateMachineBehaviour<VRCAnimatorTrackingControl>();
+
+                switch (trackingType)
+                {
+                    case "trackingHead": trackingBehaviour.trackingHead = VRC_AnimatorTrackingControl.TrackingType.Tracking; animationBehaviour.trackingHead = VRC_AnimatorTrackingControl.TrackingType.Animation; break;
+                    case "trackingLeftHand": trackingBehaviour.trackingLeftHand = VRC_AnimatorTrackingControl.TrackingType.Tracking; animationBehaviour.trackingLeftHand = VRC_AnimatorTrackingControl.TrackingType.Animation; break;
+                    case "trackingRightHand": trackingBehaviour.trackingRightHand = VRC_AnimatorTrackingControl.TrackingType.Tracking; animationBehaviour.trackingRightHand = VRC_AnimatorTrackingControl.TrackingType.Animation; break;
+                    case "trackingLeftFingers": trackingBehaviour.trackingLeftFingers = VRC_AnimatorTrackingControl.TrackingType.Tracking; animationBehaviour.trackingLeftFingers = VRC_AnimatorTrackingControl.TrackingType.Animation; break;
+                    case "trackingRightFingers": trackingBehaviour.trackingRightFingers = VRC_AnimatorTrackingControl.TrackingType.Tracking; animationBehaviour.trackingRightFingers = VRC_AnimatorTrackingControl.TrackingType.Animation; break;
+                    case "trackingHip": trackingBehaviour.trackingHip = VRC_AnimatorTrackingControl.TrackingType.Tracking; animationBehaviour.trackingHip = VRC_AnimatorTrackingControl.TrackingType.Animation; break;
+                    case "trackingLeftFoot": trackingBehaviour.trackingLeftFoot = VRC_AnimatorTrackingControl.TrackingType.Tracking; animationBehaviour.trackingLeftFoot = VRC_AnimatorTrackingControl.TrackingType.Animation; break;
+                    case "trackingRightFoot": trackingBehaviour.trackingRightFoot = VRC_AnimatorTrackingControl.TrackingType.Tracking; animationBehaviour.trackingRightFoot = VRC_AnimatorTrackingControl.TrackingType.Animation; break;
+                }
+                /*
+                Debug.Log(typeof(VRC_AnimatorTrackingControl).GetProperty(trackingType));
+                typeof(VRC_AnimatorTrackingControl).GetProperty(trackingType).SetValue(trackingBehaviour, VRC_AnimatorTrackingControl.TrackingType.Tracking);
+                typeof(VRC_AnimatorTrackingControl).GetProperty(trackingType).SetValue(animationBehaviour, VRC_AnimatorTrackingControl.TrackingType.Animation);
+                */
+
+                // trackingを行うのがデフォルト
+                layer.stateMachine.AddEntryTransition(trackingState);
+
+                // 1つでもtrackingがfalseだったらAnimationに遷移する（Lockする）
+                foreach (var suffix in trackingTypeHash[trackingType])
+                {
+                    var toAnimationTransition = trackingState.AddTransition(animationState, false);
+                    toAnimationTransition.duration = 0;
+                    toAnimationTransition.hasExitTime = false;
+                    toAnimationTransition.AddCondition(AnimatorConditionMode.IfNot, 0, trackingType + suffix);
+                }
+
+                // 全部のtrackingがtrueだったらtrackingに戻る（Lock解除する）
+                var toTrackingTransition = animationState.AddTransition(trackingState, false);
+                toTrackingTransition.duration = 0;
+                toTrackingTransition.hasExitTime = false;
+                foreach (var suffix in trackingTypeHash[trackingType])
+                {
+                    toTrackingTransition.AddCondition(AnimatorConditionMode.If, 0, trackingType + suffix);
+                }
+
+                animator.AddLayer(layer);
+            }
+            // Animatorにパラメータを設定
+            animator.parameters = parameters.ToArray();
+
+            // 同期しないExpressionParametersのためにMAParameterを設定
+            var maParameter = maObject.AddComponent<ModularAvatarParameters>();
+            foreach (var parameter in parameters)
+            {
+                maParameter.parameters.Add(new() { nameOrPrefix = parameter.name, saved = false, syncType = ParameterSyncType.NotSynced, defaultValue = 1, });
+            }
+        }
+
+        List<string> ReplaceTrackingControlToParameterDriver(AnimatorController animatorController, string paramSuffix, List<string> trackingTypes)
+        {
+            // VRCAvatarTrackingControlによるトラッキングコントロールを変数に置き換える
+            foreach (var layer in animatorController.layers)
+            {
+                trackingTypes = ReplaceTrackingControlToParameterDriver(layer.stateMachine, paramSuffix, trackingTypes);
+            }
+
+            // パラメータが必要になるので追加する
+            foreach (var trackingType in trackingTypes)
+            {
+                var paramName = trackingType + paramSuffix;
+                if (animatorController.parameters.Where(param => param.name == paramName).Count() == 0)
+                {
+                    animatorController.AddParameter(new() { name = paramName, type = AnimatorControllerParameterType.Bool, defaultBool = true });
+                }
+            }
+
+            return trackingTypes;
+        }
+
+        List<string> ReplaceTrackingControlToParameterDriver(AnimatorStateMachine stateMachine, string paramSuffix, List<string> trackingTypes)
+        {
+            // StateについてるTrackingControlを列挙して置き換える
+            foreach (var state in stateMachine.states)
+            {
+                foreach (var behaviour in state.state.behaviours.Where(behav => behav.GetType() == typeof(VRCAnimatorTrackingControl)))
+                {
+                    var trackingControl = (VRCAnimatorTrackingControl)behaviour;
+
+                    // フェイストラッキングとかで使うEye、Mouthは怖いので触らない
+                    var trackingTargets = new (string name, VRC_AnimatorTrackingControl.TrackingType type)[] {
+                        ("trackingHead", trackingControl.trackingHead),
+                        ("trackingLeftHand", trackingControl.trackingLeftHand),
+                        ("trackingRightHand", trackingControl.trackingRightHand),
+                        ("trackingLeftFingers", trackingControl.trackingLeftFingers),
+                        ("trackingRightFingers", trackingControl.trackingRightFingers),
+                        ("trackingHip", trackingControl.trackingHip),
+                        ("trackingLeftFoot", trackingControl.trackingLeftFoot),
+                        ("trackingRightFoot", trackingControl.trackingRightFoot),
+                    };
+
+                    foreach (var trackingTarget in trackingTargets)
+                    {
+                        // アニメーションに固定する場合
+                        if (trackingTarget.type == VRC_AnimatorTrackingControl.TrackingType.Animation)
+                        {
+                            AddParameterDriverToState(state.state, trackingTarget.name + paramSuffix, false);
+                            if (trackingTypes.IndexOf(trackingTarget.name) == -1)
+                            {
+                                trackingTypes.Add(trackingTarget.name);
+                            }
+                        }
+                        // トラッキングを優先する場合
+                        if (trackingTarget.type == VRC_AnimatorTrackingControl.TrackingType.Tracking)
+                        {
+                            AddParameterDriverToState(state.state, trackingTarget.name + paramSuffix, true);
+                            if (trackingTypes.IndexOf(trackingTarget.name) == -1)
+                            {
+                                trackingTypes.Add(trackingTarget.name);
+                            }
+                        }
+                    }
+
+                    // パラメータに置き換えたので、EyeとMouth以外はすべてスルーする
+                    trackingControl.trackingHead = VRC_AnimatorTrackingControl.TrackingType.NoChange;
+                    trackingControl.trackingLeftHand = VRC_AnimatorTrackingControl.TrackingType.NoChange;
+                    trackingControl.trackingRightHand = VRC_AnimatorTrackingControl.TrackingType.NoChange;
+                    trackingControl.trackingLeftFingers = VRC_AnimatorTrackingControl.TrackingType.NoChange;
+                    trackingControl.trackingRightFingers = VRC_AnimatorTrackingControl.TrackingType.NoChange;
+                    trackingControl.trackingHip = VRC_AnimatorTrackingControl.TrackingType.NoChange;
+                    trackingControl.trackingLeftFoot = VRC_AnimatorTrackingControl.TrackingType.NoChange;
+                    trackingControl.trackingRightFoot = VRC_AnimatorTrackingControl.TrackingType.NoChange;
+                }
+            }
+
+            // SubStateMachineに潜る
+            foreach (var subStateMachine in stateMachine.stateMachines)
+            {
+                trackingTypes = ReplaceTrackingControlToParameterDriver(subStateMachine.stateMachine, paramSuffix, trackingTypes);
+            }
+            return trackingTypes;
+        }
+
+        void AddParameterDriverToState(AnimatorState state, string paramName, bool value)
+        {
+            var parameterDriver = state.AddStateMachineBehaviour<VRCAvatarParameterDriver>();
+            parameterDriver.parameters.Add(new() { type = VRC_AvatarParameterDriver.ChangeType.Set, name = paramName, value = value ? 1 : 0, });
+        }
+
+        AnimatorController CloneAnimatorController(AnimatorController srcAnimatorControlloer)
+        {
+            var path = "Assets/Temp/ani.controller";
+            path = AssetDatabase.GenerateUniqueAssetPath(path);
+            if (AssetDatabase.IsNativeAsset(srcAnimatorControlloer))
+            {
+                AssetDatabase.CopyAsset(AssetDatabase.GetAssetPath(srcAnimatorControlloer), path);
+            }
+            else
+            {
+                AssetDatabase.CreateAsset(srcAnimatorControlloer, path);
+            }
+            return AssetDatabase.LoadAssetAtPath<AnimatorController>(path);
         }
     }
 }

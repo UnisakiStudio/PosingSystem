@@ -32,6 +32,7 @@ Transform:
   m_Children:
   - {fileID: 1349146810221834049}
   - {fileID: 6777864231134229789}
+  - {fileID: 1762945089683593122}
   - {fileID: 6323969900648483451}
   m_Father: {fileID: 5349737914996196103}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -295,6 +296,68 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetObject: {fileID: 0}
+--- !u!1 &2458723833979730020
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1762945089683593122}
+  - component: {fileID: 3385141257451228010}
+  m_Layer: 0
+  m_Name: "\u3042\u304A\u3080\u3051\u6642\u81EA\u52D5\u982D\u56FA\u5B9A"
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1762945089683593122
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2458723833979730020}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 91883449057368357}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3385141257451228010
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2458723833979730020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b29d45007c5493d926d2cd45a489529, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Control:
+    name: "\u8DB3\u56FA\u5B9A"
+    icon: {fileID: 2800000, guid: 81bc10009851d424eaa1a23360fb6d33, type: 3}
+    type: 102
+    parameter:
+      name: USSPS_AutoLockHead
+    value: 1
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters:
+    - name: FootHeight
+    labels: []
+  MenuSource: 0
+  menuSource_otherObjectChildren: {fileID: 0}
+  isSynced: 1
+  isSaved: 1
+  isDefault: 0
+  automaticValue: 0
 --- !u!1 &2650168226536633657
 GameObject:
   m_ObjectHideFlags: 0
@@ -751,6 +814,73 @@ MonoBehaviour:
   isSaved: 1
   isDefault: 0
   automaticValue: 0
+--- !u!1 &6009249839522818091
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4696614760206550004}
+  - component: {fileID: 7408305432579305352}
+  - component: {fileID: 7794827056812285946}
+  m_Layer: 0
+  m_Name: "\u3042\u304A\u3080\u3051\u6642\u81EA\u52D5\u982D\u56FA\u5B9A"
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4696614760206550004
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6009249839522818091}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 5864725431271323250}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7408305432579305352
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6009249839522818091}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1bb122659f724ebf85fe095ac02dc339, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 9100000, guid: 2654e5a4125e4574099b48d4413c7014, type: 2}
+  layerType: 0
+  deleteAttachedAnimator: 0
+  pathMode: 1
+  matchAvatarWriteDefaults: 1
+  relativePathRoot:
+    referencePath: 
+    targetObject: {fileID: 0}
+  layerPriority: 0
+--- !u!114 &7794827056812285946
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6009249839522818091}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64057a377e671e7498a11e1eec12457d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: jp.unisakistudio.posingsystem_autolockhead
 --- !u!1 &6683198001544478910
 GameObject:
   m_ObjectHideFlags: 0
@@ -797,7 +927,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Control:
     name: 
-    icon: {fileID: 2800000, guid: a06f97758ea0bd948a179f3bc7e247f8, type: 3}
+    icon: {fileID: 2800000, guid: 0915dfecd9c2c7447b8e82641ff8bbbd, type: 3}
     type: 102
     parameter:
       name: USSPS_TypeFix
@@ -845,6 +975,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1113682734153845391}
+  - {fileID: 4696614760206550004}
   - {fileID: 1506260025925657832}
   - {fileID: 2550358210574256928}
   m_Father: {fileID: 0}
@@ -862,8 +993,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   "\u30D3\u30EB\u30C9\u6642\u81EA\u52D5\u5B9F\u884C": 1
-  deleteExistingLayer: 1
-  deleteExistingTrackingControl: 1
+  deleteExistingLayer: 0
+  mergeTrackingControl: 1
+  deleteExistingTrackingControl: 0
   defines: []
 --- !u!114 &3111512797015574386
 MonoBehaviour:
@@ -880,6 +1012,7 @@ MonoBehaviour:
   developmentMode: 1
   isPosingSystemLicensed: 1
   settingName: 
+  isIconDisabled: 0
   defines: []
   SubmenuRoot: {fileID: 7038226818119546702}
   data: 
@@ -934,16 +1067,6 @@ MonoBehaviour:
     localOnly: 1
     defaultValue: 0
     saved: 1
-    hasExplicitDefaultValue: 0
-    m_overrideAnimatorDefaults: 0
-  - nameOrPrefix: TrackingInterrupt
-    remapTo: 
-    internalParameter: 0
-    isPrefix: 0
-    syncType: 3
-    localOnly: 1
-    defaultValue: 0
-    saved: 0
     hasExplicitDefaultValue: 0
     m_overrideAnimatorDefaults: 0
   - nameOrPrefix: TrackingHandReset
@@ -1064,7 +1187,7 @@ MonoBehaviour:
     localOnly: 0
     defaultValue: 0
     saved: 0
-    hasExplicitDefaultValue: 0
+    hasExplicitDefaultValue: 1
     m_overrideAnimatorDefaults: 0
   - nameOrPrefix: LocomotionType
     remapTo: 
@@ -1165,6 +1288,26 @@ MonoBehaviour:
     defaultValue: 0
     saved: 0
     hasExplicitDefaultValue: 0
+    m_overrideAnimatorDefaults: 0
+  - nameOrPrefix: USSPS_AutoLockHead
+    remapTo: 
+    internalParameter: 0
+    isPrefix: 0
+    syncType: 3
+    localOnly: 1
+    defaultValue: 0
+    saved: 1
+    hasExplicitDefaultValue: 1
+    m_overrideAnimatorDefaults: 1
+  - nameOrPrefix: USSPS_AutoLockHead_Init
+    remapTo: 
+    internalParameter: 0
+    isPrefix: 0
+    syncType: 3
+    localOnly: 1
+    defaultValue: 0
+    saved: 1
+    hasExplicitDefaultValue: 1
     m_overrideAnimatorDefaults: 0
 --- !u!1 &6968364246133046160
 GameObject:
@@ -1315,7 +1458,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 8998192771322225317}
   - {fileID: 6342676833062962034}

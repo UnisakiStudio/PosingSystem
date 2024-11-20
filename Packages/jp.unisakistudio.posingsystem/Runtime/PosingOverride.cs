@@ -40,7 +40,9 @@ namespace jp.unisakistudio.posingsystem
         [HideInInspector]
         public bool deleteExistingLayer = true;
         [HideInInspector]
-        public bool deleteExistingTrackingControl = true;
+        public bool mergeTrackingControl = true;
+        [HideInInspector]
+        public bool deleteExistingTrackingControl = false;
 
         [SerializeField]
         public List<OverrideDefine> defines = new List<OverrideDefine>();
