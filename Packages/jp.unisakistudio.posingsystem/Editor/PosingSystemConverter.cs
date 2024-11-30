@@ -106,7 +106,12 @@ namespace jp.unisakistudio.posingsystemeditor
                             menuObject = menu.gameObject;
                         }
 
-                        var exParamMax = ctx.AvatarRootObject.GetComponentsInChildren<ModularAvatarMenuItem>().Max(item => item.Control != null && item.Control.parameter != null && item.Control.parameter.name == define.paramName ? (int)item.Control.value : 0);
+                        var exParamMax = 0;
+                        var menuItems = ctx.AvatarRootObject.GetComponentsInChildren<ModularAvatarMenuItem>();
+                        if (menuItems.Length > 0)
+                        {
+                            exParamMax = menuItems.Max(item => item.Control != null && item.Control.parameter != null && item.Control.parameter.name == define.paramName ? (int)item.Control.value : 0);
+                        }
                         int animationValue = exParamMax + 1;
                         foreach (var animation in define.animations)
                         {

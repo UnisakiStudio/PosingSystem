@@ -222,7 +222,11 @@ namespace jp.unisakistudio.posingsystemeditor
 
                         foreach (var define in posingOverride.defines)
                         {
-                            var overrideSetting = overrideSettings.First(setting => setting.type == define.type);
+                            var overrideSetting = overrideSettings.FirstOrDefault(setting => setting.type == define.type);
+                            if (overrideSetting == default)
+                            {
+                                continue;
+                            }
                             var layerIndex = animatorController.layers.ToList().FindIndex(l => l.name == overrideSetting.layerName);
                             if (layerIndex == -1)
                             {
@@ -232,12 +236,19 @@ namespace jp.unisakistudio.posingsystemeditor
                             AnimatorState animatorState = null;
                             if (overrideSetting.stateMachineName.Length > 0)
                             {
-                                var stateMachine = layer.stateMachine.stateMachines.First(s => s.stateMachine.name == overrideSetting.stateMachineName).stateMachine;
-                                animatorState = stateMachine.states.First(state => state.state.name == overrideSetting.stateName).state;
+                                var stateMachine = layer.stateMachine.stateMachines.FirstOrDefault(s => s.stateMachine.name == overrideSetting.stateMachineName).stateMachine;
+                                if (stateMachine != null)
+                                {
+                                    animatorState = stateMachine.states.First(state => state.state.name == overrideSetting.stateName).state;
+                                }
                             }
                             else
                             {
-                                animatorState = layer.stateMachine.states.First(state => state.state.name == overrideSetting.stateName).state;
+                                animatorState = layer.stateMachine.states.FirstOrDefault(state => state.state.name == overrideSetting.stateName).state;
+                            }
+                            if (animatorState == null)
+                            {
+                                continue;
                             }
 
                             if (overrideSetting.isBlendTree)

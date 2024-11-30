@@ -626,7 +626,11 @@ namespace jp.unisakistudio.posingsystemeditor
 
         void RemoveExistProduct(VRC.SDK3.Avatars.Components.VRCAvatarDescriptor avatar, string productName)
         {
-            var productDefine = productDefines.First(define => define.name == productName);
+            var productDefine = productDefines.FirstOrDefault(define => define.name == productName);
+            if (productDefine == default)
+            {
+                return;
+            }
 
             // AnimatorControllerが商品のか調べる
             var animatorController = avatar.baseAnimationLayers[(int)VRC.SDK3.Avatars.Components.VRCAvatarDescriptor.AnimLayerType.Base];
