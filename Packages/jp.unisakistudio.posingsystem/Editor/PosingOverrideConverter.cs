@@ -430,6 +430,10 @@ namespace jp.unisakistudio.posingsystemeditor
 
         List<string> ReplaceTrackingControlToParameterDriver(AnimatorStateMachine stateMachine, string paramSuffix, List<string> trackingTypes)
         {
+            if (stateMachine == null)
+            {
+                return trackingTypes;
+            }
             // StateについてるTrackingControlを列挙して置き換える
             foreach (var state in stateMachine.states)
             {
