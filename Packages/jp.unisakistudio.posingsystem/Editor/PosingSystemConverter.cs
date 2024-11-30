@@ -32,6 +32,13 @@ namespace jp.unisakistudio.posingsystemeditor
 
         protected override void Configure()
         {
+            var errorLocalizer = new nadena.dev.ndmf.localization.Localizer("ja-jp", () =>
+            {
+                return new()
+                {
+                    AssetDatabase.LoadAssetAtPath<LocalizationAsset>(AssetDatabase.GUIDToAssetPath(AssetDatabase.FindAssets("PosingSystem_Localization_ja-jp")[0])),
+                };
+            });
 
             // メニューアイテムを作成
             InPhase(BuildPhase.Generating)
@@ -443,6 +450,11 @@ namespace jp.unisakistudio.posingsystemeditor
                                     state.mirrorParameter = "USSPS_Mirror";
 
                                     var poseSpace = state.AddStateMachineBehaviour<VRC.SDK3.Avatars.Components.VRCAnimatorTemporaryPoseSpace>();
+                                    if (poseSpace == null)
+                                    {
+                                        ErrorReport.ReportError(errorLocalizer, ErrorSeverity.Error, "AddStateMachineBehaviourに失敗しました");
+                                        return;
+                                    }
                                     poseSpace.enterPoseSpace = true;
                                     poseSpace.fixedDelay = false;
                                     poseSpace.delayTime = 0.0f;
@@ -523,6 +535,11 @@ namespace jp.unisakistudio.posingsystemeditor
                                 typeExitTransition1.interruptionSource = TransitionInterruptionSource.Destination;
 
                                 var typeParameterDriver = typeState.AddStateMachineBehaviour<VRC.SDK3.Avatars.Components.VRCAvatarParameterDriver>();
+                                if (typeParameterDriver == null)
+                                {
+                                    ErrorReport.ReportError(errorLocalizer, ErrorSeverity.Error, "AddStateMachineBehaviourに失敗しました");
+                                    return;
+                                }
                                 typeParameterDriver.isLocalPlayer = true;
                                 for (var i = 0; i < syncdParamNum; i++)
                                 {

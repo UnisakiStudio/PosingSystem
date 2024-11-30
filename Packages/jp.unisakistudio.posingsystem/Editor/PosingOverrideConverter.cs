@@ -47,8 +47,20 @@ namespace jp.unisakistudio.posingsystemeditor
         static string TMP_FOLDER_PATH = "Packages/jp.unisakistudio.posingsystem";
         static string TMP_FOLDER_NAME = "tmp";
 
+        class AddStateMachineBehaviourFailedException : System.Exception
+        {
+        };
+
         protected override void Configure()
         {
+            var errorLocalizer = new nadena.dev.ndmf.localization.Localizer("ja-jp", () =>
+            {
+                return new()
+                {
+                    AssetDatabase.LoadAssetAtPath<LocalizationAsset>(AssetDatabase.GUIDToAssetPath(AssetDatabase.FindAssets("PosingSystem_Localization_ja-jp")[0])),
+                };
+            });
+
             InPhase(BuildPhase.Generating)
                 .BeforePlugin("nadena.dev.modular-avatar")
                 .Run("Add auto detect override setting", ctx =>
@@ -75,7 +87,15 @@ namespace jp.unisakistudio.posingsystemeditor
                     }
                     if (mergeTrackingControl)
                     {
-                        MergeTrackingControl(ctx.AvatarDescriptor);
+                        try
+                        {
+                            MergeTrackingControl(ctx.AvatarDescriptor);
+                        }
+                        catch (AddStateMachineBehaviourFailedException e)
+                        {
+                            ErrorReport.ReportError(errorLocalizer, ErrorSeverity.Error, "AddStateMachineBehaviourに失敗しました");
+                            return;
+                        }
                     }
                 });
 
@@ -320,6 +340,11 @@ namespace jp.unisakistudio.posingsystemeditor
                 var trackingBehaviour = trackingState.AddStateMachineBehaviour<VRCAnimatorTrackingControl>();
                 var animationBehaviour = animationState.AddStateMachineBehaviour<VRCAnimatorTrackingControl>();
 
+                if (trackingBehaviour == null || animationBehaviour == null)
+                {
+                    throw new AddStateMachineBehaviourFailedException();
+                }
+
                 switch (trackingType)
                 {
                     case "trackingHead": trackingBehaviour.trackingHead = VRC_AnimatorTrackingControl.TrackingType.Tracking; animationBehaviour.trackingHead = VRC_AnimatorTrackingControl.TrackingType.Animation; break;
@@ -458,6 +483,10 @@ namespace jp.unisakistudio.posingsystemeditor
         void AddParameterDriverToState(AnimatorState state, string paramName, bool value)
         {
             var parameterDriver = state.AddStateMachineBehaviour<VRCAvatarParameterDriver>();
+            if (parameterDriver == null)
+            {
+                throw new AddStateMachineBehaviourFailedException();
+            }
             parameterDriver.parameters.Add(new() { type = VRC_AvatarParameterDriver.ChangeType.Set, name = paramName, value = value ? 1 : 0, });
         }
 

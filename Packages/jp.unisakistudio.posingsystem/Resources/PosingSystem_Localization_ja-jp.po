@@ -1,0 +1,6 @@
+msgid ""
+msgstr ""
+"Language: ja-jp\n"
+
+msgid "AddStateMachineBehaviourに失敗しました"
+msgstr "AddStateMachineBehaviourに失敗しました。多くの場合原因は別のツールなどにエラーが発生していることです。アバタービルド・アップロード前にConsoleウィンドウを確認してエラーを解消してから再度お試しください"
