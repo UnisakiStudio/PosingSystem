@@ -273,7 +273,15 @@ namespace jp.unisakistudio.posingsystemeditor
                                     isTypeParameterFloat = true;
                                 }
                             }
-
+                            var vrmodeParameter = animatorController.parameters.FirstOrDefault(param => param.name == "VRMode");
+                            bool isVRModeParameterFloat = false;
+                            if (vrmodeParameter != null)
+                            {
+                                if (vrmodeParameter.type == AnimatorControllerParameterType.Float)
+                                {
+                                    isVRModeParameterFloat = true;
+                                }
+                            }
                             foreach (var animationDefine in define.animations)
                             {
                                 if (!animationDefine.enabled)
@@ -466,7 +474,14 @@ namespace jp.unisakistudio.posingsystemeditor
 
                                     var transition = stateMachine.AddEntryTransition(state);
                                     transition.AddCondition(AnimatorConditionMode.Equals, syncdParamValue, syncdParamName);
-                                    transition.AddCondition(AnimatorConditionMode.Equals, 0, "VRMode");
+                                    if (isVRModeParameterFloat)
+                                    {
+                                        transition.AddCondition(AnimatorConditionMode.Less, 0.01f, "VRMode");
+                                    }
+                                    else
+                                    {
+                                        transition.AddCondition(AnimatorConditionMode.Equals, 0, "VRMode");
+                                    }
 
                                     var exitTransition = state.AddExitTransition(false);
                                     exitTransition.AddCondition(AnimatorConditionMode.NotEqual, syncdParamValue, syncdParamName);
@@ -494,7 +509,14 @@ namespace jp.unisakistudio.posingsystemeditor
 
                                     var transition = stateMachine.AddEntryTransition(state);
                                     transition.AddCondition(AnimatorConditionMode.Equals, syncdParamValue, syncdParamName);
-                                    transition.AddCondition(AnimatorConditionMode.Equals, 1, "VRMode");
+                                    if (isVRModeParameterFloat)
+                                    {
+                                        transition.AddCondition(AnimatorConditionMode.Greater, 0.01f, "VRMode");
+                                    }
+                                    else
+                                    {
+                                        transition.AddCondition(AnimatorConditionMode.Equals, 1, "VRMode");
+                                    }
 
                                     var exitTransition = state.AddExitTransition(false);
                                     exitTransition.AddCondition(AnimatorConditionMode.NotEqual, syncdParamValue, syncdParamName);
