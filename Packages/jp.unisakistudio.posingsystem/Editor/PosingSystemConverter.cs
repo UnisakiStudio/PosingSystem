@@ -251,10 +251,10 @@ namespace jp.unisakistudio.posingsystemeditor
                         clipInfo.keepOriginalPositionY = true;
                         AnimationUtility.SetAnimationClipSettings(baseAnimationClip, clipInfo);
                         AnimationMode.StartAnimationMode();
-                        ctx.AvatarRootTransform.position = Vector3.zero;
-                        ctx.AvatarRootTransform.rotation = Quaternion.identity;
                         AnimationMode.BeginSampling();
                         AnimationMode.SampleAnimationClip(ctx.AvatarRootObject, baseAnimationClip, 0);
+                        ctx.AvatarRootTransform.position = Vector3.zero;
+                        ctx.AvatarRootTransform.rotation = Quaternion.identity;
                         AnimationMode.EndSampling();
                         avatarHeightUnit = ctx.AvatarRootObject.GetComponent<Animator>().GetBoneTransform(HumanBodyBones.Hips).position.y;
                         AnimationMode.StopAnimationMode();
