@@ -30,9 +30,11 @@ namespace jp.unisakistudio.posingsystemeditor
 
         delegate float ValueChanger(Keyframe value, int i);
 
+        nadena.dev.ndmf.localization.Localizer errorLocalizer;
+
         protected override void Configure()
         {
-            var errorLocalizer = new nadena.dev.ndmf.localization.Localizer("ja-jp", () =>
+            errorLocalizer = new nadena.dev.ndmf.localization.Localizer("ja-jp", () =>
             {
                 return new()
                 {
@@ -937,11 +939,138 @@ namespace jp.unisakistudio.posingsystemeditor
                         }
                     }
 
+                    // 全てのAnimatorStateのTransitionConditionをチェックして、問題があるものがあれば修正する
+                    foreach (var baseLayer in ctx.AvatarDescriptor.baseAnimationLayers)
+                    {
+                        if (baseLayer.animatorController == null)
+                        {
+                            continue;
+                        }
+
+                        if (baseLayer.animatorController.GetType() != typeof(AnimatorController))
+                        {
+                            continue;
+                        }
+                        var baseLayerAnimatorController = (AnimatorController)baseLayer.animatorController;
+
+                        var paramDic = new Dictionary<string, AnimatorControllerParameterType>();
+                        foreach (var param in baseLayerAnimatorController.parameters)
+                        {
+                            paramDic.Add(param.name, param.type);
+                        }
+
+                        foreach (var l in baseLayerAnimatorController.layers)
+                        {
+                            checkTransitionConditionValueType(l.stateMachine, paramDic, animatorController.name, layer.name);
+                        }
+                    }
+
                     foreach (var posingSystem in posingSystems)
                     {
                         Object.DestroyImmediate(posingSystem);
                     }
                 });
+        }
+
+        void checkTransitionConditionValueType(AnimatorStateMachine stateMachine, Dictionary<string, AnimatorControllerParameterType> paramDic, string fileName, string layerName)
+        {
+            foreach (var transition in stateMachine.entryTransitions)
+            {
+                foreach (var condition in transition.conditions)
+                {
+                    switch (paramDic[condition.parameter])
+                    {
+                        case AnimatorControllerParameterType.Bool:
+                            if (condition.mode != AnimatorConditionMode.If && condition.mode != AnimatorConditionMode.IfNot)
+                            {
+                                ErrorReport.ReportError(errorLocalizer, ErrorSeverity.Information, "条件式が間違っているパラメータがあります", fileName, layerName, condition.parameter, typeof(AnimatorControllerParameterType).GetEnumName(paramDic[condition.parameter]), typeof(AnimatorConditionMode).GetEnumName(condition.mode));
+                            }
+                            break;
+                        case AnimatorControllerParameterType.Int:
+                            if (condition.mode != AnimatorConditionMode.Equals && condition.mode != AnimatorConditionMode.NotEqual && condition.mode != AnimatorConditionMode.Greater && condition.mode != AnimatorConditionMode.Less)
+                            {
+                                ErrorReport.ReportError(errorLocalizer, ErrorSeverity.Information, "条件式が間違っているパラメータがあります", fileName, layerName, condition.parameter, typeof(AnimatorControllerParameterType).GetEnumName(paramDic[condition.parameter]), typeof(AnimatorConditionMode).GetEnumName(condition.mode));
+                            }
+                            break;
+                        case AnimatorControllerParameterType.Float:
+                            if (condition.mode != AnimatorConditionMode.Greater && condition.mode != AnimatorConditionMode.Less)
+                            {
+                                ErrorReport.ReportError(errorLocalizer, ErrorSeverity.Information, "条件式が間違っているパラメータがあります", fileName, layerName, condition.parameter, typeof(AnimatorControllerParameterType).GetEnumName(paramDic[condition.parameter]), typeof(AnimatorConditionMode).GetEnumName(condition.mode));
+                            }
+                            break;
+                        case AnimatorControllerParameterType.Trigger:
+                            break;
+                    }
+                }
+            }
+
+            foreach (var transition in stateMachine.anyStateTransitions)
+            {
+                foreach (var condition in transition.conditions)
+                {
+                    switch (paramDic[condition.parameter])
+                    {
+                        case AnimatorControllerParameterType.Bool:
+                            if (condition.mode != AnimatorConditionMode.If && condition.mode != AnimatorConditionMode.IfNot)
+                            {
+                                ErrorReport.ReportError(errorLocalizer, ErrorSeverity.Information, "条件式が間違っているパラメータがあります", fileName, layerName, condition.parameter, typeof(AnimatorControllerParameterType).GetEnumName(paramDic[condition.parameter]), typeof(AnimatorConditionMode).GetEnumName(condition.mode));
+                            }
+                            break;
+                        case AnimatorControllerParameterType.Int:
+                            if (condition.mode != AnimatorConditionMode.Equals && condition.mode != AnimatorConditionMode.NotEqual && condition.mode != AnimatorConditionMode.Greater && condition.mode != AnimatorConditionMode.Less)
+                            {
+                                ErrorReport.ReportError(errorLocalizer, ErrorSeverity.Information, "条件式が間違っているパラメータがあります", fileName, layerName, condition.parameter, typeof(AnimatorControllerParameterType).GetEnumName(paramDic[condition.parameter]), typeof(AnimatorConditionMode).GetEnumName(condition.mode));
+                            }
+                            break;
+                        case AnimatorControllerParameterType.Float:
+                            if (condition.mode != AnimatorConditionMode.Greater && condition.mode != AnimatorConditionMode.Less)
+                            {
+                                ErrorReport.ReportError(errorLocalizer, ErrorSeverity.Information, "条件式が間違っているパラメータがあります", fileName, layerName, condition.parameter, typeof(AnimatorControllerParameterType).GetEnumName(paramDic[condition.parameter]), typeof(AnimatorConditionMode).GetEnumName(condition.mode));
+                            }
+                            break;
+                        case AnimatorControllerParameterType.Trigger:
+                            break;
+                    }
+                }
+            }
+
+            foreach (var state in stateMachine.states)
+            {
+                foreach (var transition in state.state.transitions)
+                {
+                    foreach (var condition in transition.conditions)
+                    {
+                        switch (paramDic[condition.parameter])
+                        {
+                            case AnimatorControllerParameterType.Bool:
+                                if (condition.mode != AnimatorConditionMode.If && condition.mode != AnimatorConditionMode.IfNot)
+                                {
+                                    ErrorReport.ReportError(errorLocalizer, ErrorSeverity.Information, "条件式が間違っているパラメータがあります", fileName, layerName, condition.parameter, typeof(AnimatorControllerParameterType).GetEnumName(paramDic[condition.parameter]), typeof(AnimatorConditionMode).GetEnumName(condition.mode));
+                                }
+                                break;
+                            case AnimatorControllerParameterType.Int:
+                                if (condition.mode != AnimatorConditionMode.Equals && condition.mode != AnimatorConditionMode.NotEqual && condition.mode != AnimatorConditionMode.Greater && condition.mode != AnimatorConditionMode.Less)
+                                {
+                                    ErrorReport.ReportError(errorLocalizer, ErrorSeverity.Information, "条件式が間違っているパラメータがあります", fileName, layerName, condition.parameter, typeof(AnimatorControllerParameterType).GetEnumName(paramDic[condition.parameter]), typeof(AnimatorConditionMode).GetEnumName(condition.mode));
+                                }
+                                break;
+                            case AnimatorControllerParameterType.Float:
+                                if (condition.mode != AnimatorConditionMode.Greater && condition.mode != AnimatorConditionMode.Less)
+                                {
+                                    ErrorReport.ReportError(errorLocalizer, ErrorSeverity.Information, "条件式が間違っているパラメータがあります", fileName, layerName, condition.parameter, typeof(AnimatorControllerParameterType).GetEnumName(paramDic[condition.parameter]), typeof(AnimatorConditionMode).GetEnumName(condition.mode));
+                                }
+                                break;
+                            case AnimatorControllerParameterType.Trigger:
+                                break;
+                        }
+                    }
+                }
+            }
+
+            foreach (var subStateMachine in stateMachine.stateMachines)
+            {
+                checkTransitionConditionValueType(subStateMachine.stateMachine, paramDic, fileName, layerName);
+            }
         }
     }
 }
