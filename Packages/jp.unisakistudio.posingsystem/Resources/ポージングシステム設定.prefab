@@ -993,7 +993,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   "\u30D3\u30EB\u30C9\u6642\u81EA\u52D5\u5B9F\u884C": 1
-  deleteExistingLayer: 0
+  deleteExistingLayer: 1
   mergeTrackingControl: 1
   deleteExistingTrackingControl: 0
   defines: []
