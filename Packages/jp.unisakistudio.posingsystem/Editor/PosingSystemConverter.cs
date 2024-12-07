@@ -986,24 +986,29 @@ namespace jp.unisakistudio.posingsystemeditor
             {
                 foreach (var condition in transition.conditions)
                 {
+                    if (!paramDic.ContainsKey(condition.parameter))
+                    {
+                        ErrorReport.ReportError(errorLocalizer, ErrorSeverity.NonFatal, "AnimatorにParameterとして登録されていないパラメータが条件式に使われています", fileName, layerName, condition.parameter);
+                        continue;
+                    }
                     switch (paramDic[condition.parameter])
                     {
                         case AnimatorControllerParameterType.Bool:
                             if (condition.mode != AnimatorConditionMode.If && condition.mode != AnimatorConditionMode.IfNot)
                             {
-                                ErrorReport.ReportError(errorLocalizer, ErrorSeverity.Information, "条件式が間違っているパラメータがあります", fileName, layerName, condition.parameter, typeof(AnimatorControllerParameterType).GetEnumName(paramDic[condition.parameter]), typeof(AnimatorConditionMode).GetEnumName(condition.mode));
+                                ErrorReport.ReportError(errorLocalizer, ErrorSeverity.NonFatal, "条件式が間違っているパラメータがあります", fileName, layerName, condition.parameter, typeof(AnimatorControllerParameterType).GetEnumName(paramDic[condition.parameter]), typeof(AnimatorConditionMode).GetEnumName(condition.mode));
                             }
                             break;
                         case AnimatorControllerParameterType.Int:
                             if (condition.mode != AnimatorConditionMode.Equals && condition.mode != AnimatorConditionMode.NotEqual && condition.mode != AnimatorConditionMode.Greater && condition.mode != AnimatorConditionMode.Less)
                             {
-                                ErrorReport.ReportError(errorLocalizer, ErrorSeverity.Information, "条件式が間違っているパラメータがあります", fileName, layerName, condition.parameter, typeof(AnimatorControllerParameterType).GetEnumName(paramDic[condition.parameter]), typeof(AnimatorConditionMode).GetEnumName(condition.mode));
+                                ErrorReport.ReportError(errorLocalizer, ErrorSeverity.NonFatal, "条件式が間違っているパラメータがあります", fileName, layerName, condition.parameter, typeof(AnimatorControllerParameterType).GetEnumName(paramDic[condition.parameter]), typeof(AnimatorConditionMode).GetEnumName(condition.mode));
                             }
                             break;
                         case AnimatorControllerParameterType.Float:
                             if (condition.mode != AnimatorConditionMode.Greater && condition.mode != AnimatorConditionMode.Less)
                             {
-                                ErrorReport.ReportError(errorLocalizer, ErrorSeverity.Information, "条件式が間違っているパラメータがあります", fileName, layerName, condition.parameter, typeof(AnimatorControllerParameterType).GetEnumName(paramDic[condition.parameter]), typeof(AnimatorConditionMode).GetEnumName(condition.mode));
+                                ErrorReport.ReportError(errorLocalizer, ErrorSeverity.NonFatal, "条件式が間違っているパラメータがあります", fileName, layerName, condition.parameter, typeof(AnimatorControllerParameterType).GetEnumName(paramDic[condition.parameter]), typeof(AnimatorConditionMode).GetEnumName(condition.mode));
                             }
                             break;
                         case AnimatorControllerParameterType.Trigger:
@@ -1016,24 +1021,29 @@ namespace jp.unisakistudio.posingsystemeditor
             {
                 foreach (var condition in transition.conditions)
                 {
+                    if (!paramDic.ContainsKey(condition.parameter))
+                    {
+                        ErrorReport.ReportError(errorLocalizer, ErrorSeverity.NonFatal, "AnimatorにParameterとして登録されていないパラメータが条件式に使われています", fileName, layerName, condition.parameter);
+                        continue;
+                    }
                     switch (paramDic[condition.parameter])
                     {
                         case AnimatorControllerParameterType.Bool:
                             if (condition.mode != AnimatorConditionMode.If && condition.mode != AnimatorConditionMode.IfNot)
                             {
-                                ErrorReport.ReportError(errorLocalizer, ErrorSeverity.Information, "条件式が間違っているパラメータがあります", fileName, layerName, condition.parameter, typeof(AnimatorControllerParameterType).GetEnumName(paramDic[condition.parameter]), typeof(AnimatorConditionMode).GetEnumName(condition.mode));
+                                ErrorReport.ReportError(errorLocalizer, ErrorSeverity.NonFatal, "条件式が間違っているパラメータがあります", fileName, layerName, condition.parameter, typeof(AnimatorControllerParameterType).GetEnumName(paramDic[condition.parameter]), typeof(AnimatorConditionMode).GetEnumName(condition.mode));
                             }
                             break;
                         case AnimatorControllerParameterType.Int:
                             if (condition.mode != AnimatorConditionMode.Equals && condition.mode != AnimatorConditionMode.NotEqual && condition.mode != AnimatorConditionMode.Greater && condition.mode != AnimatorConditionMode.Less)
                             {
-                                ErrorReport.ReportError(errorLocalizer, ErrorSeverity.Information, "条件式が間違っているパラメータがあります", fileName, layerName, condition.parameter, typeof(AnimatorControllerParameterType).GetEnumName(paramDic[condition.parameter]), typeof(AnimatorConditionMode).GetEnumName(condition.mode));
+                                ErrorReport.ReportError(errorLocalizer, ErrorSeverity.NonFatal, "条件式が間違っているパラメータがあります", fileName, layerName, condition.parameter, typeof(AnimatorControllerParameterType).GetEnumName(paramDic[condition.parameter]), typeof(AnimatorConditionMode).GetEnumName(condition.mode));
                             }
                             break;
                         case AnimatorControllerParameterType.Float:
                             if (condition.mode != AnimatorConditionMode.Greater && condition.mode != AnimatorConditionMode.Less)
                             {
-                                ErrorReport.ReportError(errorLocalizer, ErrorSeverity.Information, "条件式が間違っているパラメータがあります", fileName, layerName, condition.parameter, typeof(AnimatorControllerParameterType).GetEnumName(paramDic[condition.parameter]), typeof(AnimatorConditionMode).GetEnumName(condition.mode));
+                                ErrorReport.ReportError(errorLocalizer, ErrorSeverity.NonFatal, "条件式が間違っているパラメータがあります", fileName, layerName, condition.parameter, typeof(AnimatorControllerParameterType).GetEnumName(paramDic[condition.parameter]), typeof(AnimatorConditionMode).GetEnumName(condition.mode));
                             }
                             break;
                         case AnimatorControllerParameterType.Trigger:
@@ -1048,24 +1058,29 @@ namespace jp.unisakistudio.posingsystemeditor
                 {
                     foreach (var condition in transition.conditions)
                     {
+                        if (!paramDic.ContainsKey(condition.parameter))
+                        {
+                            ErrorReport.ReportError(errorLocalizer, ErrorSeverity.NonFatal, "AnimatorにParameterとして登録されていないパラメータが条件式に使われています", fileName, layerName, condition.parameter);
+                            continue;
+                        }
                         switch (paramDic[condition.parameter])
                         {
                             case AnimatorControllerParameterType.Bool:
                                 if (condition.mode != AnimatorConditionMode.If && condition.mode != AnimatorConditionMode.IfNot)
                                 {
-                                    ErrorReport.ReportError(errorLocalizer, ErrorSeverity.Information, "条件式が間違っているパラメータがあります", fileName, layerName, condition.parameter, typeof(AnimatorControllerParameterType).GetEnumName(paramDic[condition.parameter]), typeof(AnimatorConditionMode).GetEnumName(condition.mode));
+                                    ErrorReport.ReportError(errorLocalizer, ErrorSeverity.NonFatal, "条件式が間違っているパラメータがあります", fileName, layerName, condition.parameter, typeof(AnimatorControllerParameterType).GetEnumName(paramDic[condition.parameter]), typeof(AnimatorConditionMode).GetEnumName(condition.mode));
                                 }
                                 break;
                             case AnimatorControllerParameterType.Int:
                                 if (condition.mode != AnimatorConditionMode.Equals && condition.mode != AnimatorConditionMode.NotEqual && condition.mode != AnimatorConditionMode.Greater && condition.mode != AnimatorConditionMode.Less)
                                 {
-                                    ErrorReport.ReportError(errorLocalizer, ErrorSeverity.Information, "条件式が間違っているパラメータがあります", fileName, layerName, condition.parameter, typeof(AnimatorControllerParameterType).GetEnumName(paramDic[condition.parameter]), typeof(AnimatorConditionMode).GetEnumName(condition.mode));
+                                    ErrorReport.ReportError(errorLocalizer, ErrorSeverity.NonFatal, "条件式が間違っているパラメータがあります", fileName, layerName, condition.parameter, typeof(AnimatorControllerParameterType).GetEnumName(paramDic[condition.parameter]), typeof(AnimatorConditionMode).GetEnumName(condition.mode));
                                 }
                                 break;
                             case AnimatorControllerParameterType.Float:
                                 if (condition.mode != AnimatorConditionMode.Greater && condition.mode != AnimatorConditionMode.Less)
                                 {
-                                    ErrorReport.ReportError(errorLocalizer, ErrorSeverity.Information, "条件式が間違っているパラメータがあります", fileName, layerName, condition.parameter, typeof(AnimatorControllerParameterType).GetEnumName(paramDic[condition.parameter]), typeof(AnimatorConditionMode).GetEnumName(condition.mode));
+                                    ErrorReport.ReportError(errorLocalizer, ErrorSeverity.NonFatal, "条件式が間違っているパラメータがあります", fileName, layerName, condition.parameter, typeof(AnimatorControllerParameterType).GetEnumName(paramDic[condition.parameter]), typeof(AnimatorConditionMode).GetEnumName(condition.mode));
                                 }
                                 break;
                             case AnimatorControllerParameterType.Trigger:
