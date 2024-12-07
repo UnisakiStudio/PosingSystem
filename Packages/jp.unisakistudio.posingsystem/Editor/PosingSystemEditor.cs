@@ -312,6 +312,10 @@ namespace jp.unisakistudio.posingsystemeditor
                         AnimationMode.BeginSampling();
                         AnimationClip getFirstAnimationClip(Motion motion)
                         {
+                            if (motion == null)
+                            {
+                                return null;
+                            }
                             if (motion.GetType() == typeof(AnimationClip))
                             {
                                 return (AnimationClip)motion;
@@ -329,19 +333,23 @@ namespace jp.unisakistudio.posingsystemeditor
                             }
                             return null;
                         }
-                        AnimationMode.SampleAnimationClip(clone, getFirstAnimationClip(animation.animationClip), 0);
+                        var firstAnimationClip = getFirstAnimationClip(animation.animationClip);
+                        if (firstAnimationClip)
+                        {
+                            AnimationMode.SampleAnimationClip(clone, firstAnimationClip, 0);
 
-                        clone.transform.position = new Vector3(100, 0, 0);
-                        clone.transform.LookAt(new Vector3(100, 0, 1));
-                        if (animation.isRotate)
-                        {
-                            clone.transform.Rotate(0, animation.rotate, 0);
+                            clone.transform.position = new Vector3(100, 0, 0);
+                            clone.transform.LookAt(new Vector3(100, 0, 1));
+                            if (animation.isRotate)
+                            {
+                                clone.transform.Rotate(0, animation.rotate, 0);
+                            }
+                            foreach (var mergeArmature in clone.GetComponentsInChildren<ModularAvatarMergeArmature>())
+                            {
+                                mergeArmature.transform.position = new Vector3(200, 0, 0);
+                            }
+                            AnimationMode.EndSampling();
                         }
-                        foreach (var mergeArmature in clone.GetComponentsInChildren<ModularAvatarMergeArmature>())
-                        {
-                            mergeArmature.transform.position = new Vector3(200, 0, 0);
-                        }
-                        AnimationMode.EndSampling();
 
                         var cameraHeight = clone.GetComponent<Animator>().GetBoneTransform(HumanBodyBones.Head).position.y;
                         var cameraDepth = clone.GetComponent<Animator>().GetBoneTransform(HumanBodyBones.LeftFoot).position.z;

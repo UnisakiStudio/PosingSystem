@@ -703,6 +703,10 @@ namespace jp.unisakistudio.posingsystemeditor
                                             AnimationMode.BeginSampling();
                                             AnimationClip getFirstAnimationClip(Motion motion)
                                             {
+                                                if (motion == null)
+                                                {
+                                                    return null;
+                                                }
                                                 if (motion.GetType() == typeof(AnimationClip))
                                                 {
                                                     return (AnimationClip)motion;
@@ -720,8 +724,12 @@ namespace jp.unisakistudio.posingsystemeditor
                                                 }
                                                 return null;
                                             }
-                                            AnimationMode.SampleAnimationClip(ctx.AvatarRootObject, getFirstAnimationClip(animation.animationClip), 0);
-                                            AnimationMode.EndSampling();
+                                            var firstAnimationClip = getFirstAnimationClip(animation.animationClip);
+                                            if (firstAnimationClip)
+                                            {
+                                                AnimationMode.SampleAnimationClip(ctx.AvatarRootObject, firstAnimationClip, 0);
+                                                AnimationMode.EndSampling();
+                                            }
 
                                             ctx.AvatarRootTransform.position = new Vector3(100, 0, 0);
                                             ctx.AvatarRootTransform.LookAt(new Vector3(100, 0, 1));
