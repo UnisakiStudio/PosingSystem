@@ -34,8 +34,12 @@ namespace jp.unisakistudio.posingsystemeditor
         List<(PosingOverride.OverrideDefine.AnimationStateType type, string layerName, string stateMachineName, string stateName, bool isBlendTree, float posX, float posY)> overrideSettings = new List<(PosingOverride.OverrideDefine.AnimationStateType type, string layerName, string stateMachineName, string stateName, bool isBlendTree, float posX, float posY)>
         {
             (PosingOverride.OverrideDefine.AnimationStateType.StandWalkRun, "USSPS_Locomotion", "", "Standing", false, 0, 0),
+            (PosingOverride.OverrideDefine.AnimationStateType.StandWalkRun, "USSPS_Locomotion", "", "Standing_Desktop", false, 0, 0),
+            (PosingOverride.OverrideDefine.AnimationStateType.Stand, "USSPS_Locomotion", "", "Standing_Desktop", true, 0, 0),
             (PosingOverride.OverrideDefine.AnimationStateType.Stand, "USSPS_Locomotion", "", "Standing", true, 0, 0),
+            (PosingOverride.OverrideDefine.AnimationStateType.Crouch, "USSPS_Locomotion", "", "Crouching_Desktop", false, 0, 0),
             (PosingOverride.OverrideDefine.AnimationStateType.Crouch, "USSPS_Locomotion", "", "Crouching", false, 0, 0),
+            (PosingOverride.OverrideDefine.AnimationStateType.Prone, "USSPS_Locomotion", "", "Prone_Desktop", false, 0, 0),
             (PosingOverride.OverrideDefine.AnimationStateType.Prone, "USSPS_Locomotion", "", "Prone", false, 0, 0),
             (PosingOverride.OverrideDefine.AnimationStateType.Jump, "USSPS_Locomotion", "Jump and Fall", "Jump", false, 0, 0),
             (PosingOverride.OverrideDefine.AnimationStateType.ShortFall, "USSPS_Locomotion", "Jump and Fall", "Short Fall", false, 0, 0),
@@ -223,55 +227,53 @@ namespace jp.unisakistudio.posingsystemeditor
 
                         foreach (var define in posingOverride.defines)
                         {
-                            var overrideSetting = overrideSettings.FirstOrDefault(setting => setting.type == define.type);
-                            if (overrideSetting == default)
+                            foreach (var overrideSetting in overrideSettings.Where(setting => setting.type == define.type))
                             {
-                                continue;
-                            }
-                            var layerIndex = animatorController.layers.ToList().FindIndex(l => l.name == overrideSetting.layerName);
-                            if (layerIndex == -1)
-                            {
-                                continue;
-                            }
-                            var layer = animatorController.layers[layerIndex];
-                            AnimatorState animatorState = null;
-                            if (overrideSetting.stateMachineName.Length > 0)
-                            {
-                                var stateMachine = layer.stateMachine.stateMachines.FirstOrDefault(s => s.stateMachine.name == overrideSetting.stateMachineName).stateMachine;
-                                if (stateMachine != null)
+                                var layerIndex = animatorController.layers.ToList().FindIndex(l => l.name == overrideSetting.layerName);
+                                if (layerIndex == -1)
                                 {
-                                    animatorState = stateMachine.states.First(state => state.state.name == overrideSetting.stateName).state;
+                                    continue;
                                 }
-                            }
-                            else
-                            {
-                                animatorState = layer.stateMachine.states.FirstOrDefault(state => state.state.name == overrideSetting.stateName).state;
-                            }
-                            if (animatorState == null)
-                            {
-                                continue;
-                            }
-
-                            if (overrideSetting.isBlendTree)
-                            {
-                                if (animatorState.motion.GetType() == typeof(BlendTree) || animatorState.motion.GetType().IsSubclassOf(typeof(BlendTree)))
+                                var layer = animatorController.layers[layerIndex];
+                                AnimatorState animatorState = null;
+                                if (overrideSetting.stateMachineName.Length > 0)
                                 {
-                                    BlendTree blendTree = (BlendTree)animatorState.motion;
-                                    var blendTreeIndex = blendTree.children.ToList().FindIndex(child => Mathf.Approximately(child.position.x, overrideSetting.posX) && Mathf.Approximately(child.position.y, overrideSetting.posY));
-                                    if (blendTreeIndex != -1)
+                                    var stateMachine = layer.stateMachine.stateMachines.FirstOrDefault(s => s.stateMachine.name == overrideSetting.stateMachineName).stateMachine;
+                                    if (stateMachine != null)
                                     {
-                                        blendTree.RemoveChild(blendTreeIndex);
+                                        animatorState = stateMachine.states.First(state => state.state.name == overrideSetting.stateName).state;
                                     }
-                                    blendTree.AddChild(define.animation, new Vector2(overrideSetting.posX, overrideSetting.posY));
                                 }
                                 else
                                 {
-                                    Debug.LogError(string.Format("可愛いポーズツールのPosingOverride機能でBlendTreeのはずのAnimatorStateがBlendTreeではありませんでした。「立ちのみ」の変更を行う場合は「立ち・歩き・走り」にはBlendTreeを設定してください"));
+                                    animatorState = layer.stateMachine.states.FirstOrDefault(state => state.state.name == overrideSetting.stateName).state;
                                 }
-                            }
-                            else
-                            {
-                                animatorState.motion = define.animation;
+                                if (animatorState == null)
+                                {
+                                    continue;
+                                }
+
+                                if (overrideSetting.isBlendTree)
+                                {
+                                    if (animatorState.motion.GetType() == typeof(BlendTree) || animatorState.motion.GetType().IsSubclassOf(typeof(BlendTree)))
+                                    {
+                                        BlendTree blendTree = (BlendTree)animatorState.motion;
+                                        var blendTreeIndex = blendTree.children.ToList().FindIndex(child => Mathf.Approximately(child.position.x, overrideSetting.posX) && Mathf.Approximately(child.position.y, overrideSetting.posY));
+                                        if (blendTreeIndex != -1)
+                                        {
+                                            blendTree.RemoveChild(blendTreeIndex);
+                                        }
+                                        blendTree.AddChild(define.animation, new Vector2(overrideSetting.posX, overrideSetting.posY));
+                                    }
+                                    else
+                                    {
+                                        Debug.LogError(string.Format("可愛いポーズツールのPosingOverride機能でBlendTreeのはずのAnimatorStateがBlendTreeではありませんでした。「立ちのみ」の変更を行う場合は「立ち・歩き・走り」にはBlendTreeを設定してください"));
+                                    }
+                                }
+                                else
+                                {
+                                    animatorState.motion = define.animation;
+                                }
                             }
                         }
                         Object.DestroyImmediate(posingOverride);
