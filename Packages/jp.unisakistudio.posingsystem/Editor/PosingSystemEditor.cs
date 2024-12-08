@@ -15,10 +15,15 @@ namespace jp.unisakistudio.posingsystemeditor
     {
         private List<ReorderableList> reorderableLists = new List<ReorderableList>();
         List<string> existProducts;
+        List<string> existFolders;
         Texture2D exMenuBackground = null;
 
         const string REGKEY = @"SOFTWARE\UnisakiStudio";
         const string APPKEY = "posingsystem";
+        private void OnEnable()
+        {
+            existFolders = null;
+        }
 
         public override void OnInspectorGUI()
         {
@@ -105,6 +110,24 @@ namespace jp.unisakistudio.posingsystemeditor
                     {
                         RemoveExistProduct(avatarDescriptor, existProduct);
                         existProducts = null;
+                    }
+                }
+            }
+
+            // unitypackage版のAssets用フォルダがあったら警告を出す
+            if (existFolders == null)
+            {
+                existFolders = CheckExistFolder();
+            }
+            if (existFolders != null)
+            {
+                foreach (var existFolder in existFolders)
+                {
+                    EditorGUILayout.HelpBox("unitypackage版の「" + existFolder + "」フォルダがプロジェクトに残っています！不具合が発生する可能性があるので、自動で設定を取り除く機能を使用してください。", MessageType.Error);
+                    if (GUILayout.Button(existFolder + "のフォルダを取り除く"))
+                    {
+                        RemoveExistFolder(existFolder);
+                        existFolders = null;
                     }
                 }
             }
@@ -708,6 +731,30 @@ namespace jp.unisakistudio.posingsystemeditor
 
             AssetDatabase.SaveAssets();
         }
+
+        List<string> folderDefines = new()
+        {
+            "Assets/UnisakiStudio/PosingSystem",
+        };
+
+        virtual protected List<string> CheckExistFolder()
+        {
+            List<string> existFolders = new();
+            foreach (var folderDefine in folderDefines)
+            {
+                if (AssetDatabase.IsValidFolder(folderDefine))
+                {
+                    existFolders.Add(folderDefine);
+                }
+            }
+            return existFolders;
+        }
+
+        void RemoveExistFolder(string folder)
+        {
+            AssetDatabase.DeleteAsset(folder);
+        }
+
     }
 
 }
