@@ -732,7 +732,7 @@ namespace jp.unisakistudio.posingsystemeditor
             AssetDatabase.SaveAssets();
         }
 
-        List<string> folderDefines = new()
+        private readonly List<string> folderDefines = new()
         {
             "Assets/UnisakiStudio/PosingSystem",
         };

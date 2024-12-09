@@ -123,12 +123,20 @@ namespace jp.unisakistudio.posingsystemeditor
                     var posingOverrides = ctx.AvatarRootObject.GetComponentsInChildren<PosingOverride>();
                     var waitAnimation = AssetDatabase.LoadAssetAtPath<AnimationClip>(AssetDatabase.GUIDToAssetPath(AssetDatabase.FindAssets("PosingSystem_Empty")[0]));
                     var runtimeAnimatorController = ctx.AvatarDescriptor.baseAnimationLayers[(int)VRCAvatarDescriptor.AnimLayerType.Base].animatorController;
-                    if (runtimeAnimatorController == null && runtimeAnimatorController.GetType() != typeof(AnimatorController))
+                    AnimatorController animatorController = null;
+                    if (runtimeAnimatorController != null && runtimeAnimatorController is AnimatorOverrideController)
+                    {
+                        runtimeAnimatorController = (runtimeAnimatorController as AnimatorOverrideController).runtimeAnimatorController;
+                    }
+                    if (runtimeAnimatorController != null && runtimeAnimatorController is AnimatorController)
+                    {
+                        animatorController = runtimeAnimatorController as AnimatorController;
+                    }
+                    if (animatorController == null)
                     {
                         Debug.Log("animatorController == null");
                         return;
                     }
-                    var animatorController = (AnimatorController)runtimeAnimatorController;
 
                     foreach (var posingOverride in posingOverrides)
                     {
@@ -292,7 +300,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 var animLayer = avatarDescriptor.baseAnimationLayers[i];
                 if (animLayer.animatorController != null)
                 {
-                    avatarTrackingTypes = ReplaceTrackingControlToParameterDriver((AnimatorController)animLayer.animatorController, suffixIndex.ToString(), avatarTrackingTypes);
+                    avatarTrackingTypes = ReplaceTrackingControlToParameterDriver(animLayer.animatorController, suffixIndex.ToString(), avatarTrackingTypes);
                 }
             }
             trackingTypesList.Add(new(suffixIndex.ToString(), avatarTrackingTypes));
@@ -305,8 +313,8 @@ namespace jp.unisakistudio.posingsystemeditor
                 {
                     continue;
                 }
-                mergeAnimator.animator = CloneAnimatorController((AnimatorController)mergeAnimator.animator);
-                var trackingTypes = ReplaceTrackingControlToParameterDriver((AnimatorController)mergeAnimator.animator, suffixIndex.ToString(), new());
+                mergeAnimator.animator = CloneAnimatorController(mergeAnimator.animator);
+                var trackingTypes = ReplaceTrackingControlToParameterDriver(mergeAnimator.animator, suffixIndex.ToString(), new());
                 trackingTypesList.Add((suffixIndex.ToString(), trackingTypes));
             }
 
@@ -410,8 +418,22 @@ namespace jp.unisakistudio.posingsystemeditor
             }
         }
 
-        List<string> ReplaceTrackingControlToParameterDriver(AnimatorController animatorController, string paramSuffix, List<string> trackingTypes)
+        List<string> ReplaceTrackingControlToParameterDriver(RuntimeAnimatorController runtimeAnimatorController, string paramSuffix, List<string> trackingTypes)
         {
+            AnimatorController animatorController = null;
+            if (runtimeAnimatorController != null && runtimeAnimatorController is AnimatorOverrideController)
+            {
+                runtimeAnimatorController = (runtimeAnimatorController as AnimatorOverrideController).runtimeAnimatorController;
+            }
+            if (runtimeAnimatorController != null && runtimeAnimatorController is AnimatorController)
+            {
+                animatorController = runtimeAnimatorController as AnimatorController;
+            }
+            if (animatorController == null)
+            {
+                return trackingTypes;
+            }
+            
             // VRCAvatarTrackingControlによるトラッキングコントロールを変数に置き換える
             foreach (var layer in animatorController.layers)
             {
@@ -509,7 +531,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 var animLayer = avatarDescriptor.baseAnimationLayers[i];
                 if (animLayer.animatorController != null)
                 {
-                    avatarLocomotionTypes = ReplaceLocomotionControlToParameterDriver((AnimatorController)animLayer.animatorController, suffixIndex.ToString(), avatarLocomotionTypes);
+                    avatarLocomotionTypes = ReplaceLocomotionControlToParameterDriver(animLayer.animatorController, suffixIndex.ToString(), avatarLocomotionTypes);
                 }
             }
             locomotionTypesList.Add(new(suffixIndex.ToString(), avatarLocomotionTypes));
@@ -522,8 +544,8 @@ namespace jp.unisakistudio.posingsystemeditor
                 {
                     continue;
                 }
-                mergeAnimator.animator = CloneAnimatorController((AnimatorController)mergeAnimator.animator);
-                var locomotionTypes = ReplaceLocomotionControlToParameterDriver((AnimatorController)mergeAnimator.animator, suffixIndex.ToString(), new());
+                mergeAnimator.animator = CloneAnimatorController(mergeAnimator.animator);
+                var locomotionTypes = ReplaceLocomotionControlToParameterDriver(mergeAnimator.animator, suffixIndex.ToString(), new());
                 locomotionTypesList.Add((suffixIndex.ToString(), locomotionTypes));
             }
 
@@ -621,8 +643,22 @@ namespace jp.unisakistudio.posingsystemeditor
             }
         }
 
-        List<string> ReplaceLocomotionControlToParameterDriver(AnimatorController animatorController, string paramSuffix, List<string> locomotionTypes)
+        List<string> ReplaceLocomotionControlToParameterDriver(RuntimeAnimatorController runtimeAnimatorController, string paramSuffix, List<string> locomotionTypes)
         {
+            AnimatorController animatorController = null;
+            if (runtimeAnimatorController != null && runtimeAnimatorController is AnimatorOverrideController)
+            {
+                runtimeAnimatorController = (runtimeAnimatorController as AnimatorOverrideController).runtimeAnimatorController;
+            }
+            if (runtimeAnimatorController != null && runtimeAnimatorController is AnimatorController)
+            {
+                animatorController = runtimeAnimatorController as AnimatorController;
+            }
+            if (animatorController == null)
+            {
+                return locomotionTypes;
+            }
+
             // VRCAvatarLocomotionControlによるトラッキングコントロールを変数に置き換える
             foreach (var layer in animatorController.layers)
             {
@@ -704,7 +740,7 @@ namespace jp.unisakistudio.posingsystemeditor
             parameterDriver.parameters.Add(new() { type = VRC_AvatarParameterDriver.ChangeType.Set, name = paramName, value = value ? 1 : 0, });
         }
 
-        AnimatorController CloneAnimatorController(AnimatorController srcAnimatorControlloer)
+        RuntimeAnimatorController CloneAnimatorController(RuntimeAnimatorController srcAnimatorController)
         {
             if (!AssetDatabase.IsValidFolder(TMP_FOLDER_PATH + "/" + TMP_FOLDER_NAME))
             {
@@ -713,16 +749,16 @@ namespace jp.unisakistudio.posingsystemeditor
             var path = TMP_FOLDER_PATH + "/" + TMP_FOLDER_NAME + "/tmp.controller";
             path = AssetDatabase.GenerateUniqueAssetPath(path);
             
-            if (AssetDatabase.IsNativeAsset(srcAnimatorControlloer))
+            if (AssetDatabase.IsNativeAsset(srcAnimatorController))
             {
-                AssetDatabase.CopyAsset(AssetDatabase.GetAssetPath(srcAnimatorControlloer), path);
+                AssetDatabase.CopyAsset(AssetDatabase.GetAssetPath(srcAnimatorController), path);
             }
             else
             {
-                AssetDatabase.CreateAsset(srcAnimatorControlloer, path);
+                AssetDatabase.CreateAsset(srcAnimatorController, path);
             }
 
-            return AssetDatabase.LoadAssetAtPath<AnimatorController>(path);
+            return AssetDatabase.LoadAssetAtPath<RuntimeAnimatorController>(path);
         }
     }
 }
