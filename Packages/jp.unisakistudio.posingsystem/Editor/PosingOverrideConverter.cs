@@ -308,11 +308,16 @@ namespace jp.unisakistudio.posingsystemeditor
             // 全てのMAMergeAnimatorを調べてそれぞれsuffixを振ってTrackingControlをParameterDriverに置き換える
             foreach (var mergeAnimator in avatarDescriptor.GetComponentsInChildren<ModularAvatarMergeAnimator>())
             {
-                suffixIndex++;
                 if (mergeAnimator.animator == null)
                 {
                     continue;
                 }
+                // TrackingControlBehaviourがなかったら何もしない
+                if (!IsContainBehaviour<VRCAnimatorTrackingControl>(mergeAnimator.animator))
+                {
+                    continue;
+                }
+                suffixIndex++;
                 mergeAnimator.animator = CloneAnimatorController(mergeAnimator.animator);
                 var trackingTypes = ReplaceTrackingControlToParameterDriver(mergeAnimator.animator, suffixIndex.ToString(), new());
                 trackingTypesList.Add((suffixIndex.ToString(), trackingTypes));
@@ -539,11 +544,16 @@ namespace jp.unisakistudio.posingsystemeditor
             // 全てのMAMergeAnimatorを調べてそれぞれsuffixを振ってLocomotionControlをParameterDriverに置き換える
             foreach (var mergeAnimator in avatarDescriptor.GetComponentsInChildren<ModularAvatarMergeAnimator>())
             {
-                suffixIndex++;
                 if (mergeAnimator.animator == null)
                 {
                     continue;
                 }
+                // LocomotionControlBehaviourがなかったら何もしない
+                if (!IsContainBehaviour<VRCAnimatorLocomotionControl>(mergeAnimator.animator))
+                {
+                    continue;
+                }
+                suffixIndex++;
                 mergeAnimator.animator = CloneAnimatorController(mergeAnimator.animator);
                 var locomotionTypes = ReplaceLocomotionControlToParameterDriver(mergeAnimator.animator, suffixIndex.ToString(), new());
                 locomotionTypesList.Add((suffixIndex.ToString(), locomotionTypes));
@@ -740,25 +750,80 @@ namespace jp.unisakistudio.posingsystemeditor
             parameterDriver.parameters.Add(new() { type = VRC_AvatarParameterDriver.ChangeType.Set, name = paramName, value = value ? 1 : 0, });
         }
 
-        RuntimeAnimatorController CloneAnimatorController(RuntimeAnimatorController srcAnimatorController)
+        bool IsContainBehaviour<BehaviourType>(RuntimeAnimatorController runtimeAnimatorController)
         {
+            AnimatorController animatorController = null;
+            if (runtimeAnimatorController != null && runtimeAnimatorController is AnimatorOverrideController)
+            {
+                runtimeAnimatorController = (runtimeAnimatorController as AnimatorOverrideController).runtimeAnimatorController;
+            }
+            if (runtimeAnimatorController != null && runtimeAnimatorController is AnimatorController)
+            {
+                animatorController = runtimeAnimatorController as AnimatorController;
+            }
+            if (animatorController == null)
+            {
+                return false;
+            }
+
+            foreach (var layer in animatorController.layers)
+            {
+                if (IsContainBehaviour<BehaviourType>(layer.stateMachine))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        bool IsContainBehaviour<BehaviourType>(AnimatorStateMachine stateMachine)
+        {
+            foreach (var state in stateMachine.states)
+            {
+                if (state.state.behaviours.Any(beha => beha is BehaviourType))
+                {
+                    return true;
+                }
+            }
+
+            foreach (var subStateMachine in stateMachine.stateMachines)
+            {
+                if (IsContainBehaviour<BehaviourType>(subStateMachine.stateMachine))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        RuntimeAnimatorController CloneAnimatorController(RuntimeAnimatorController runtimeAnimatorController)
+        {
+            // ファイルがないなら自動生成されたものとみなしてそのまま変更しちゃうことにする
+            if (AssetDatabase.GetAssetPath(runtimeAnimatorController) == "")
+            {
+                return runtimeAnimatorController;
+            }
+
             if (!AssetDatabase.IsValidFolder(TMP_FOLDER_PATH + "/" + TMP_FOLDER_NAME))
             {
                 AssetDatabase.CreateFolder(TMP_FOLDER_PATH, TMP_FOLDER_NAME);
             }
             var path = TMP_FOLDER_PATH + "/" + TMP_FOLDER_NAME + "/tmp.controller";
             path = AssetDatabase.GenerateUniqueAssetPath(path);
-            
-            if (AssetDatabase.IsNativeAsset(srcAnimatorController))
+
+            AssetDatabase.CopyAsset(AssetDatabase.GetAssetPath(runtimeAnimatorController), path);
+            Debug.Log("CloneAnimatorController CopyAsset : " + runtimeAnimatorController.name + " -> " + path);
+
+            var newRuntimeAnimatorController = AssetDatabase.LoadAssetAtPath<RuntimeAnimatorController>(path);
+
+            if (newRuntimeAnimatorController != null && newRuntimeAnimatorController is AnimatorOverrideController)
             {
-                AssetDatabase.CopyAsset(AssetDatabase.GetAssetPath(srcAnimatorController), path);
-            }
-            else
-            {
-                AssetDatabase.CreateAsset(srcAnimatorController, path);
+                var animatorOverrideController = newRuntimeAnimatorController as AnimatorOverrideController;
+                var overridedRuntimeAnimatorController = CloneAnimatorController(animatorOverrideController.runtimeAnimatorController);
+                animatorOverrideController.runtimeAnimatorController = overridedRuntimeAnimatorController;
             }
 
-            return AssetDatabase.LoadAssetAtPath<RuntimeAnimatorController>(path);
+            return newRuntimeAnimatorController;
         }
     }
+
 }
