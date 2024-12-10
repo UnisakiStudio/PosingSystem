@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.1.5] - 2024-12-10
+- 一部のギミックとの競合する問題を解消
+- Unitypackage版を削除するボタンを追加
+
 ## [2.1.4] - 2024-12-08
 - アバターによってエラーが出る不具合を修正
 - ギミックやアバターとの競合によって足固定が使えなくなる不具合を修正
