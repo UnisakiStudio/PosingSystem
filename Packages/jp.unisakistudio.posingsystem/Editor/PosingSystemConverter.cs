@@ -211,7 +211,7 @@ namespace jp.unisakistudio.posingsystemeditor
                     {
                         return;
                     }
-                    var syncdParamValueMax = posingSystems.Max(posing => posing.defines.Max(def => def.animations.Max(anim => anim.syncdParameterValue)));
+                    var syncdParamValueMax = posingSystems.Max(posing => posing.defines.DefaultIfEmpty().Max(def => def == null ? 0 : def.animations.DefaultIfEmpty().Max(anim => anim == null ? 0 : anim.syncdParameterValue)));
                     var syncdParamNum = (syncdParamValueMax - 1) / 255 + 1;
                     for (var i = 1; i < syncdParamNum; i++)
                     {
