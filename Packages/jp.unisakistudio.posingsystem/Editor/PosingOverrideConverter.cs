@@ -190,10 +190,30 @@ namespace jp.unisakistudio.posingsystemeditor
                                 return false;
                             }
 
-                            var layer = animatorController.layers.FirstOrDefault(lay => lay.name != "USSPS_Locomotion" && lay.stateMachine.states.Any(sta =>
+                            var ignoreLayerNames = new string[] {
+                                "USSPS_ShallowThreshold",
+                                "USSPS_DeepThreshold",
+                                "USSPS_SleepThreshold",
+                                "USSPS_GroupSwitch",
+                                "USSPS_Standing",
+                                "USSPS_SitShallowSwitch",
+                                "USSPS_SitDeepSwitch",
+                                "USSPS_SitSleepSwitch",
+                                "USSPS_VirtualLoveSwitch",
+                                "USSPS_TypeFix",
+                                "USSPS_LocomotionType",
+                                "USSPS_Locomotion",
+                                "USSPS_Tracking Control",
+                                "USSPS_LocomotionSwitch",
+                                "USSPS_HeadTrackingSwitch",
+                                "USSPS_HandTrackingSwitch",
+                            };
+
+                            var layer = animatorController.layers.FirstOrDefault(lay => !ignoreLayerNames.Contains(lay.name) && lay.stateMachine.states.Any(sta =>
                             {
                                 return isContainHumanoidAnimationState(lay.stateMachine);
                             }));
+
                             if (layer != null)
                             {
                                 var layerIndex = animatorController.layers.ToList().FindIndex(lay => lay.name == layer.name);
