@@ -5,10 +5,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using VRC.SDKBase;
+#if NDMF
 using nadena.dev.ndmf;
+#endif
 using jp.unisakistudio.posingsystem;
 
 #endregion
+
+#if NDMF
 
 [assembly: ExportsPlugin(typeof(jp.unisakistudio.posingsystemeditor.DuplicateEraserConverter))]
 
@@ -62,3 +66,5 @@ namespace jp.unisakistudio.posingsystemeditor
         }
     }
 }
+
+#endif

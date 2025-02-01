@@ -5,7 +5,9 @@ using UnityEditorInternal;
 using System.Linq;
 using Microsoft.Win32;
 using jp.unisakistudio.posingsystem;
+#if MODULAR_AVATAR
 using nadena.dev.modular_avatar.core;
+#endif
 
 namespace jp.unisakistudio.posingsystemeditor
 {
@@ -367,10 +369,12 @@ namespace jp.unisakistudio.posingsystemeditor
                             {
                                 clone.transform.Rotate(0, animation.rotate, 0);
                             }
+#if MODULAR_AVATAR
                             foreach (var mergeArmature in clone.GetComponentsInChildren<ModularAvatarMergeArmature>())
                             {
                                 mergeArmature.transform.position = new Vector3(200, 0, 0);
                             }
+#endif
                             AnimationMode.EndSampling();
                         }
 

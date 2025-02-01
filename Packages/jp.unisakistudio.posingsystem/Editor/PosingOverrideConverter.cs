@@ -8,12 +8,17 @@ using UnityEditor;
 using UnityEditor.Animations;
 using VRC.SDKBase;
 using VRC.SDK3.Avatars.Components;
+#if NDMF
 using nadena.dev.ndmf;
+#endif
+#if MODULAR_AVATAR
 using nadena.dev.modular_avatar.core;
+#endif
 using jp.unisakistudio.posingsystem;
 
 #endregion
 
+#if NDMF && MODULAR_AVATAR
 [assembly: ExportsPlugin(typeof(jp.unisakistudio.posingsystemeditor.PosingOverrideConverter))]
 
 namespace jp.unisakistudio.posingsystemeditor
@@ -96,7 +101,7 @@ namespace jp.unisakistudio.posingsystemeditor
                             MergeTrackingControl(ctx.AvatarDescriptor);
                             MergeLocomotionControl(ctx.AvatarDescriptor);
                         }
-                        catch (AddStateMachineBehaviourFailedException e)
+                        catch (AddStateMachineBehaviourFailedException)
                         {
                             ErrorReport.ReportError(errorLocalizer, ErrorSeverity.Error, "AddStateMachineBehaviourに失敗しました");
                             return;
@@ -847,3 +852,5 @@ namespace jp.unisakistudio.posingsystemeditor
     }
 
 }
+
+#endif

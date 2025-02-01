@@ -1,15 +1,21 @@
 ﻿#region
 
-using nadena.dev.ndmf;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
 using UnityEditor.Animations;
 using UnityEngine;
 using jp.unisakistudio.posingsystem;
+#if NDMF
+using nadena.dev.ndmf;
+#endif
+#if MODULAR_AVATAR
 using nadena.dev.modular_avatar.core;
+#endif
 
 #endregion
+
+#if NDMF && MODULAR_AVATAR
 
 [assembly: ExportsPlugin(typeof(jp.unisakistudio.posingsystemeditor.PosingSystemConverter))]
 
@@ -1097,3 +1103,5 @@ namespace jp.unisakistudio.posingsystemeditor
         }
     }
 }
+
+#endif
