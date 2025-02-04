@@ -32,7 +32,17 @@ namespace jp.unisakistudio.posingsystemeditor
         /// <summary>
         /// The plugin name shown in debug UIs. If not set, the qualified name will be shown.
         /// </summary>
-        public override string DisplayName => "ゆにさきポーズシステム";
+        public override string DisplayName
+        {
+            get
+            {
+                var request = UnityEditor.PackageManager.Client.List(true, true);
+                while (!request.IsCompleted) { }
+                if (request.Status == UnityEditor.PackageManager.StatusCode.Success) { return "ゆにさきポーズシステム" + request.Result.FirstOrDefault(pkg => pkg.name == "jp.unisakistudio.posingsystem").version; }
+
+                return "ゆにさきポーズシステム";
+            }
+        }
 
         delegate float ValueChanger(Keyframe value, int i);
 

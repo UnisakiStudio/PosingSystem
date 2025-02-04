@@ -1,10 +1,9 @@
 ﻿
 #region
 
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using VRC.SDKBase;
+using System.Linq;
 #if NDMF
 using nadena.dev.ndmf;
 #endif
@@ -29,7 +28,17 @@ namespace jp.unisakistudio.posingsystemeditor
         /// <summary>
         /// The plugin name shown in debug UIs. If not set, the qualified name will be shown.
         /// </summary>
-        public override string DisplayName => "ゆにさきポーズシステム・重複オブジェクト削除機能";
+        public override string DisplayName
+        {
+            get
+            {
+                var request = UnityEditor.PackageManager.Client.List(true, true);
+                while (!request.IsCompleted) { }
+                if (request.Status == UnityEditor.PackageManager.StatusCode.Success) { return "ゆにさきポーズシステム・重複オブジェクト削除機能" + request.Result.FirstOrDefault(pkg => pkg.name == "jp.unisakistudio.posingsystem").version; }
+
+                return "ゆにさきポーズシステム・重複オブジェクト削除機能";
+            }
+        }
 
         protected override void Configure()
         {

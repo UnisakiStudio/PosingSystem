@@ -34,7 +34,17 @@ namespace jp.unisakistudio.posingsystemeditor
         /// <summary>
         /// The plugin name shown in debug UIs. If not set, the qualified name will be shown.
         /// </summary>
-        public override string DisplayName => "ゆにさきポーズシステム・既存ポーズマージ機能";
+        public override string DisplayName
+        {
+            get
+            {
+                var request = UnityEditor.PackageManager.Client.List(true, true);
+                while (!request.IsCompleted) { }
+                if (request.Status == UnityEditor.PackageManager.StatusCode.Success) { return "ゆにさきポーズシステム・既存ポーズマージ機能 Ver." + request.Result.FirstOrDefault(pkg => pkg.name == "jp.unisakistudio.posingsystem").version; }
+
+                return "ゆにさきポーズシステム・既存ポーズマージ機能";
+            }
+        }
 
         List<(PosingOverride.OverrideDefine.AnimationStateType type, string layerName, string stateMachineName, string stateName, bool isBlendTree, float posX, float posY)> overrideSettings = new List<(PosingOverride.OverrideDefine.AnimationStateType type, string layerName, string stateMachineName, string stateName, bool isBlendTree, float posX, float posY)>
         {
