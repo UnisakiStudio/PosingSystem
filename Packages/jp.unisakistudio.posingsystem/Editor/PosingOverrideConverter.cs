@@ -62,13 +62,7 @@ namespace jp.unisakistudio.posingsystemeditor
 
         protected override void Configure()
         {
-            var errorLocalizer = new nadena.dev.ndmf.localization.Localizer("ja-jp", () =>
-            {
-                return new()
-                {
-                    AssetDatabase.LoadAssetAtPath<LocalizationAsset>(AssetDatabase.GUIDToAssetPath(AssetDatabase.FindAssets("PosingSystem_Localization_ja-jp")[0])),
-                };
-            });
+            var errorLocalizer = LocalizationAsset.ErrorLocalization();
 
             InPhase(BuildPhase.Generating)
                 .BeforePlugin("nadena.dev.modular-avatar")
