@@ -9,9 +9,9 @@ public class LocalizationAsset
         var localizationAsset = new UnityEngine.LocalizationAsset();
 
         localizationAsset.localeIsoCode = "ja-jp";
-        localizationAsset.SetLocalizedString("AddStateMachineBehaviour�Ɏ��s���܂���", "AddStateMachineBehaviour�Ɏ��s���܂����B�����̏ꍇ�����͕ʂ̃c�[���ȂǂɃG���[���������Ă��邱�Ƃł��B�A�o�^�[�r���h�E�A�b�v���[�h�O��Console�E�B���h�E���m�F���ăG���[���������Ă���ēx��������������");
-        localizationAsset.SetLocalizedString("���������Ԉ���Ă���p�����[�^������܂�", "���������Ԉ���Ă���p�����[�^������܂��B�u{0}�v�t�@�C���́u{1}�v�Ƃ������C���[�Ŏg�p����Ă���u{2}�v�Ƃ����p�����[�^�́AAnimatorController���ł́u{3}�v�Ƃ����^�ł����A�������Ɂu{4}�v���g���Ă��邽�ߏ����������������삵�܂���B���̂��߃M�~�b�N�⏈�������������삵�Ȃ��\��������܂��B�g�p���Ă���c�[����M�~�b�N�̑����̖�肾�Ǝv���邽�߁A���̃p�����[�^���g�p���Ă���c�[���̊J���҂ɘA�����Ă�������");
-        localizationAsset.SetLocalizedString("Animator��Parameter�Ƃ��ēo�^����Ă��Ȃ��p�����[�^���������Ɏg���Ă��܂�", "Animator��Parameter�Ƃ��ēo�^����Ă��Ȃ��p�����[�^���������Ɏg���Ă��܂��B�u{0}�v�t�@�C���́u{1}�v�Ƃ������C���[�Ŏg�p����Ă���u{2}�v�Ƃ����p�����[�^���������Ɏg���Ă��܂����AAnimatorController��Parameters�ɂ̓p�����[�^������܂���B�g�p���Ă���c�[����M�~�b�N�̑����̖�肾�Ǝv���邽�߁A���̃p�����[�^���g�p���Ă���c�[���̊J���҂ɘA�����Ă�������");
+        localizationAsset.SetLocalizedString("AddStateMachineBehaviourに失敗しました", "AddStateMachineBehaviourに失敗しました。多くの場合原因は別のツールなどにエラーが発生していることです。アバタービルド・アップロード前にConsoleウィンドウを確認してエラーを解消してから再度お試しください");
+        localizationAsset.SetLocalizedString("条件式が間違っているパラメータがあります", "条件式が間違っているパラメータがあります。「{0}」ファイルの「{1}」というレイヤーで使用されている「{2}」というパラメータは、AnimatorController内では「{3}」という型ですが、条件式に「{4}」が使われているため条件式が正しく動作しません。このためギミックや処理が正しく動作しない可能性があります。使用しているツールやギミックの相性の問題だと思われるため、このパラメータを使用しているツールの開発者に連絡してください");
+        localizationAsset.SetLocalizedString("AnimatorにParameterとして登録されていないパラメータが条件式に使われています", "AnimatorにParameterとして登録されていないパラメータが条件式に使われています。「{0}」ファイルの「{1}」というレイヤーで使用されている「{2}」というパラメータが条件式に使われていますが、AnimatorControllerのParametersにはパラメータがありません。使用しているツールやギミックの相性の問題だと思われるため、このパラメータを使用しているツールの開発者に連絡してください");
 
         return localizationAsset;
     }
