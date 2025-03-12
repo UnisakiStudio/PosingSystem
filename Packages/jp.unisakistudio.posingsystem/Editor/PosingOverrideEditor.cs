@@ -143,6 +143,10 @@ namespace jp.unisakistudio.posingsystemeditor
                         {
                             continue;
                         }
+                        if (!isContainHumanoidAnimation(state.state.motion))
+                        {
+                            continue;
+                        }
 
                         returnString += string.Format("\nレイヤー「{0}」のステート「{1}({2})」は自動置き換え設定がインポート可能です", layer.name, state.state.name, state.state.motion.name);
                     }
@@ -192,6 +196,10 @@ namespace jp.unisakistudio.posingsystemeditor
                     {
                         continue;
                     }
+                    if (!isContainHumanoidAnimation(state.state.motion))
+                    {
+                        continue;
+                    }
 
                     var define = new PosingOverride.OverrideDefine();
                     define.type = detectSetting.type;
@@ -204,6 +212,35 @@ namespace jp.unisakistudio.posingsystemeditor
             {
                 addOverrideFromStateMachine(layer.stateMachine);
             }
+        }
+
+        static bool isContainHumanoidAnimation(Motion motion)
+        {
+            if (motion == null)
+            {
+                return false;
+            }
+            if (motion.GetType() == typeof(AnimationClip))
+            {
+                if (AnimationUtility.GetCurveBindings((AnimationClip)motion).Any(bind => {
+                    Debug.Log(bind.propertyName);
+                    return HumanTrait.MuscleName.ToList().IndexOf(bind.propertyName) != -1;
+                }))
+                {
+                    return true;
+                }
+            }
+            if (motion.GetType() == typeof(BlendTree))
+            {
+                foreach (var child in ((BlendTree)motion).children)
+                {
+                    if (isContainHumanoidAnimation(child.motion))
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
     }
 
