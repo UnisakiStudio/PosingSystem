@@ -1551,6 +1551,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5256636774324005339}
+  - component: {fileID: 4052343654520795902}
   - component: {fileID: 4581809860952884592}
   - component: {fileID: 6071388857120900125}
   - component: {fileID: 7542970187112077835}
@@ -1577,6 +1578,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 5864725431271323250}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4052343654520795902
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8447216925551669078}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64057a377e671e7498a11e1eec12457d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: 
 --- !u!114 &4581809860952884592
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1611,24 +1625,44 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parameters:
-  - nameOrPrefix: USSPS_FingerGestureInit
+  - nameOrPrefix: USSPS_FingerGestureDisable_Menu
     remapTo: 
     internalParameter: 0
     isPrefix: 0
     syncType: 3
-    localOnly: 0
+    localOnly: 1
+    defaultValue: 0
+    saved: 0
+    hasExplicitDefaultValue: 0
+    m_overrideAnimatorDefaults: 0
+  - nameOrPrefix: USSPS_FingerGestureDisable_Desktop
+    remapTo: 
+    internalParameter: 0
+    isPrefix: 0
+    syncType: 3
+    localOnly: 1
     defaultValue: 0
     saved: 1
     hasExplicitDefaultValue: 0
     m_overrideAnimatorDefaults: 0
-  - nameOrPrefix: USSPS_FingerGestureDisable
+  - nameOrPrefix: USSPS_FingerGestureDisable_VR
+    remapTo: 
+    internalParameter: 0
+    isPrefix: 0
+    syncType: 3
+    localOnly: 1
+    defaultValue: 0
+    saved: 1
+    hasExplicitDefaultValue: 0
+    m_overrideAnimatorDefaults: 0
+  - nameOrPrefix: USSPS_FingerGestureDisable_Sync
     remapTo: 
     internalParameter: 0
     isPrefix: 0
     syncType: 3
     localOnly: 0
     defaultValue: 0
-    saved: 1
+    saved: 0
     hasExplicitDefaultValue: 0
     m_overrideAnimatorDefaults: 0
 --- !u!114 &7542970187112077835
@@ -1648,7 +1682,7 @@ MonoBehaviour:
     icon: {fileID: 2800000, guid: 32ff2b3e588c1eb429c1e3efcfce4b02, type: 3}
     type: 102
     parameter:
-      name: USSPS_FingerGestureDisable
+      name: USSPS_FingerGestureDisable_Menu
     value: 1
     style: 0
     subMenu: {fileID: 0}
