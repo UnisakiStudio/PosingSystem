@@ -644,6 +644,7 @@ namespace jp.unisakistudio.posingsystemeditor
                     camera.backgroundColor = new Color(0, 0, 0, 0);
 
                     var defineParamNames = posingSystems.SelectMany(posingSystem => posingSystem.defines.Select(define => define.paramName));
+                    var checkedSubMenus = new HashSet<int>();
 
                     // メニューから本システムのメニューアイテムを探す
                     void takeIconForControl(VRC.SDK3.Avatars.ScriptableObjects.VRCExpressionsMenu.Control control)
@@ -654,6 +655,12 @@ namespace jp.unisakistudio.posingsystemeditor
                             {
                                 return;
                             }
+                            int subMenuInstanceId = control.subMenu.GetInstanceID();
+                            if (checkedSubMenus.Contains(subMenuInstanceId))
+                            {
+                                return;
+                            }
+                            checkedSubMenus.Add(subMenuInstanceId);
                             foreach (var subControl in control.subMenu.controls)
                             {
                                 takeIconForControl(subControl);
