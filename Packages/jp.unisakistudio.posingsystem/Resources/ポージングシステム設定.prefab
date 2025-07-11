@@ -622,11 +622,11 @@ MonoBehaviour:
   height: 3
   position: {x: 0, y: -2, z: 0}
   rotation: {x: 0, y: 0, z: 0, w: 1}
+  localOnly: 0
   collisionTags:
   - KawaiiPosing_IsDown
   allowSelf: 1
   allowOthers: 0
-  localOnly: 0
   receiverType: 0
   parameter: KawaiiPosing_IsDown
   minVelocity: 0.05
@@ -746,6 +746,7 @@ MonoBehaviour:
   height: 2
   position: {x: 0, y: 0, z: 0}
   rotation: {x: 0, y: 0, z: 0, w: 1}
+  localOnly: 0
   collisionTags:
   - KawaiiPosing_IsDown
 --- !u!114 &7902805980895963500
@@ -879,6 +880,7 @@ MonoBehaviour:
     referencePath: 
     targetObject: {fileID: 0}
   layerPriority: 0
+  mergeAnimatorMode: 0
 --- !u!114 &7794827056812285946
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -963,7 +965,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5864725431271323250}
-  - component: {fileID: 3332120556264647984}
   - component: {fileID: 3111512797015574386}
   - component: {fileID: 4484946395121339899}
   m_Layer: 0
@@ -993,23 +994,6 @@ Transform:
   - {fileID: 2550358210574256928}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3332120556264647984
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6832260626802651101}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce6c21eb904abfa47ba60b69c92e20a0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  "\u30D3\u30EB\u30C9\u6642\u81EA\u52D5\u5B9F\u884C": 1
-  deleteExistingLayer: 1
-  mergeTrackingControl: 1
-  deleteExistingTrackingControl: 0
-  defines: []
 --- !u!114 &3111512797015574386
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1026,7 +1010,9 @@ MonoBehaviour:
   isPosingSystemLicensed: 1
   settingName: 
   isIconDisabled: 0
+  previewAvatarObject: {fileID: 0}
   defines: []
+  overrideDefines: []
   SubmenuRoot: {fileID: 7038226818119546702}
   data: 
 --- !u!114 &4484946395121339899
@@ -1612,6 +1598,7 @@ MonoBehaviour:
     referencePath: 
     targetObject: {fileID: 0}
   layerPriority: 0
+  mergeAnimatorMode: 0
 --- !u!114 &6071388857120900125
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,5 +1,7 @@
 fileFormatVersion: 2
 guid: bae077741884ed04793d0f4bbb95f991
+labels:
+- PosingSystemResourceFolder
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

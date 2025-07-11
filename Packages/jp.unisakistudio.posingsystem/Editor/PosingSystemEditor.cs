@@ -2,9 +2,16 @@
 using UnityEngine;
 using UnityEditor;
 using UnityEditorInternal;
+using UnityEditor.Animations;
 using System.Linq;
-using Microsoft.Win32;
 using jp.unisakistudio.posingsystem;
+using System;
+using UnityEditor.Presets;
+using System.IO;
+#if UNITY_EDITOR_WIN
+using Microsoft.Win32;
+#endif
+
 #if MODULAR_AVATAR
 using nadena.dev.modular_avatar.core;
 #endif
@@ -19,12 +26,114 @@ namespace jp.unisakistudio.posingsystemeditor
         List<string> existProducts;
         List<string> existFolders;
         Texture2D exMenuBackground = null;
+        
+        // プリセット選択用の変数
+        private List<PosingSystemPresetDefines.PresetDefine> _availablePresetDefines = new List<PosingSystemPresetDefines.PresetDefine>();
+        private List<string> _presetDefineNames = new List<string>();
+        private int _selectedPresetDefineIndex = 0;
+
+        public delegate List<string> CheckFunction();
+        protected static List<CheckFunction> checkFunctions = new List<CheckFunction>();
 
         const string REGKEY = @"SOFTWARE\UnisakiStudio";
         const string APPKEY = "posingsystem";
+        private bool isPosingSystemLicensed = false;
+        
+        // Mac/Linux用の設定ファイルパス取得
+        private static string GetLicenseFilePath()
+        {
+#if UNITY_EDITOR_OSX
+            // Mac: ~/Library/Application Support/UnisakiStudio/
+            string appSupport = System.Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData);
+            return Path.Combine(appSupport, "UnisakiStudio", "posingsystem.lic");
+#elif UNITY_EDITOR_LINUX
+            // Linux: ~/.local/share/UnisakiStudio/
+            string homeDir = System.Environment.GetEnvironmentVariable("HOME");
+            return Path.Combine(homeDir, ".local", "share", "UnisakiStudio", "posingsystem.lic");
+#else
+            return null;
+#endif
+        }
         private void OnEnable()
         {
             existFolders = null;
+            //            AnimationMode.StartAnimationMode();
+            //            AnimationMode.BeginSampling();
+
+            PosingSystem posingSystem = target as PosingSystem;
+            posingSystem.previousErrorCheckTime = DateTime.MinValue;
+            
+            // プリセット一覧を読み込み
+            LoadAvailablePresetDefines();
+        }
+
+        private static bool IsAndroidBuildTarget()
+        {
+            return UnityEditor.EditorUserBuildSettings.activeBuildTarget == UnityEditor.BuildTarget.Android;
+        }
+        
+        private void LoadAvailablePresetDefines()
+        {
+            var posingSystem = target as PosingSystem;
+            
+            _availablePresetDefines.Clear();
+            _presetDefineNames.Clear();
+            
+            // プロジェクト内のすべてのPosingSystemPresetDefinesを検索
+            var guids = AssetDatabase.FindAssets("t:PosingSystemPresetDefines");
+            foreach (var guid in guids)
+            {
+                var path = AssetDatabase.GUIDToAssetPath(guid);
+                var presetDefines = AssetDatabase.LoadAssetAtPath<PosingSystemPresetDefines>(path);
+                if (presetDefines != null)
+                {
+                    foreach (var presetDefine in presetDefines.presetDefines)
+                    {
+                        // PosingSystemがどのPrefabsを使っているか調べる
+                        var prefabs = PrefabUtility.GetCorrespondingObjectFromSource<GameObject>(posingSystem.gameObject);
+                        if (presetDefine.prefabs.Contains(prefabs))
+                        {
+                            _availablePresetDefines.Add(presetDefine);
+                            _presetDefineNames.Add(presetDefine.avatarName);
+                        }
+                    }
+                }
+            }
+            
+            // デフォルト選択をリセット
+            _selectedPresetDefineIndex = 0;
+        }
+        
+        private void ApplySelectedPreset()
+        {
+            if (_availablePresetDefines.Count == 0 || _selectedPresetDefineIndex < 0 || _selectedPresetDefineIndex >= _availablePresetDefines.Count)
+            {
+                EditorUtility.DisplayDialog("エラー", "選択されたプリセットが無効です。", "OK");
+                return;
+            }
+            
+            var selectedPresetDefine = _availablePresetDefines[_selectedPresetDefineIndex];
+            var posingSystem = target as PosingSystem;
+            
+            // 適用可能なプリセットを検索
+            if (selectedPresetDefine.preset != null)
+            {
+                // プリセットのdefinesプロパティのみを適用
+                Undo.RecordObject(posingSystem, "Apply Preset Defines");
+                selectedPresetDefine.preset.ApplyTo(posingSystem, new string[] { "defines", "overrideDefines", });
+                EditorUtility.SetDirty(posingSystem);
+                
+                Debug.Log($"プリセット '{selectedPresetDefine.avatarName}' の設定を適用しました。");
+                return;
+            }
+            
+            EditorUtility.DisplayDialog("エラー", "選択されたプリセットに有効な設定が見つかりませんでした。", "OK");
+        }
+
+        private void OnDisable()
+        {
+//            AnimationMode.EndSampling();
+//            AnimationMode.StopAnimationMode();
         }
 
         public override void OnInspectorGUI()
@@ -36,14 +145,53 @@ namespace jp.unisakistudio.posingsystemeditor
              * つまり購入者はライセンスにまつわるこの先のソースコードを削除して再配布を行うことができます。
              * 逆に、購入をせずにGithubなどからソースコードを取得しただけの場合、このライセンスに関するソースコードに手を加えることは許可しません。
              */
-            if (!posingSystem.isPosingSystemLicensed)
+            if (!isPosingSystemLicensed)
             {
-                var regKey = Registry.CurrentUser.CreateSubKey(REGKEY);
-                var regValue = (string)regKey.GetValue(APPKEY);
-
-                if (regValue == "licensed")
+                bool hasLicense = false;
+                
+                // Windows: レジストリをチェック
+#if UNITY_EDITOR_WIN
+                try
                 {
-                    posingSystem.isPosingSystemLicensed = true;
+                    var regKey = Registry.CurrentUser.CreateSubKey(REGKEY);
+                    var regValue = (string)regKey.GetValue(APPKEY);
+                    if (regValue == "licensed")
+                    {
+                        hasLicense = true;
+                    }
+                }
+                catch (System.Exception)
+                {
+                    // レジストリアクセスに失敗した場合は次のチェックへ
+                }
+#endif
+                
+                // Mac/Linux: 設定ファイルをチェック
+#if UNITY_EDITOR_OSX || UNITY_EDITOR_LINUX
+                if (!hasLicense)
+                {
+                    try
+                    {
+                        string licenseFilePath = GetLicenseFilePath();
+                        if (File.Exists(licenseFilePath))
+                        {
+                            string fileContent = File.ReadAllText(licenseFilePath);
+                            if (fileContent == "licensed")
+                            {
+                                hasLicense = true;
+                            }
+                        }
+                    }
+                    catch (System.Exception)
+                    {
+                        // ファイルアクセスに失敗
+                    }
+                }
+#endif
+                
+                if (hasLicense)
+                {
+                    isPosingSystemLicensed = true;
                 }
                 else
                 {
@@ -64,7 +212,49 @@ namespace jp.unisakistudio.posingsystemeditor
             if (posingSystem.developmentMode)
             {
                 base.OnInspectorGUI();
+
+                // ここに、非表示にしてあるpreviewAvatar等を表示するトグルを追加する
+                if (posingSystem.previewAvatarObject != null)
+                {
+                    var previewAvatarToggle = EditorGUILayout.ToggleLeft("プレビューアバター表示", posingSystem.previewAvatarObject.activeSelf);
+                    if (previewAvatarToggle != posingSystem.previewAvatarObject.activeSelf)
+                    {
+                        posingSystem.previewAvatarObject.SetActive(previewAvatarToggle);
+                        posingSystem.previewAvatarObject.hideFlags = previewAvatarToggle ? HideFlags.None : HideFlags.HideInHierarchy;
+                        EditorUtility.SetDirty(posingSystem);
+                    }
+                }
+
+                // シーンのHierarchyの一番上の階層で非表示になっているオブジェクトをすべて表示するボタンを追加
+                    if (GUILayout.Button("Hierarchyで非表示になっているオブジェクトをすべて表示"))
+                    {
+                        foreach (var obj in posingSystem.gameObject.scene.GetRootGameObjects())
+                        {
+                            if (obj.hideFlags == HideFlags.HideInHierarchy)
+                            {
+                                obj.hideFlags = HideFlags.None;
+                                obj.SetActive(true);
+                            }
+                        }
+                    }
                 return;
+            }
+
+            // 調整ウィンドウが表示されている時は何もできないようにして、ウィンドウを閉じるボタンを用意する
+            if (Resources.FindObjectsOfTypeAll<PosingAnimationAdjustmentWindow>().Where(window => window.IsOpen).Count() > 0)
+            {
+                EditorGUILayout.HelpBox("アニメーション調整ウィンドウが表示されています。調整が終わったらウィンドウを閉じてください", MessageType.Info);
+                if (GUILayout.Button("アニメーション調整ウィンドウを閉じる"))
+                {
+                    foreach (var window in Resources.FindObjectsOfTypeAll<PosingAnimationAdjustmentWindow>().Where(window => window.IsOpen))
+                    {
+                        window.IsOpen = false;
+                    }
+                }
+                else
+                {
+                    return;
+                }
             }
 
             if (exMenuBackground == null)
@@ -74,33 +264,23 @@ namespace jp.unisakistudio.posingsystemeditor
 
             EditorGUILayout.LabelField(posingSystem.settingName, new GUIStyle() { fontStyle = FontStyle.Bold, fontSize = 20, }, GUILayout.Height(30));
 
-            EditorGUILayout.HelpBox("ModularAvatarで服を着せているとポーズサムネイルの洋服が外れて見えますが、アバターアップロード時に再撮影されて正しい画像がメニューに設定されるのでご安心ください", MessageType.Info);
-
-            if (posingSystem.developmentMode != EditorGUILayout.ToggleLeft("開発モード", posingSystem.developmentMode))
+            if (posingSystem.previewAvatarObject == null)
             {
-                reorderableLists.Clear();
-                posingSystem.developmentMode = !posingSystem.developmentMode;
+                EditorGUILayout.HelpBox("ModularAvatarで服を着せているとポーズサムネイルの洋服が外れて見えますが、アバターアップロード時に再撮影されて正しい画像がメニューに設定されるのでご安心ください", MessageType.Info);
             }
 
-            Transform avatar = posingSystem.transform;
-            VRC.SDK3.Avatars.Components.VRCAvatarDescriptor avatarDescriptor = null;
-            while (avatar != null)
-            {
-                if (avatar.TryGetComponent<VRC.SDK3.Avatars.Components.VRCAvatarDescriptor>(out avatarDescriptor))
-                {
-                    break;
-                }
-                avatar = avatar.parent;
-            }
-            if (avatarDescriptor == null)
+            var avatar = posingSystem.GetAvatar();
+            if (avatar == null)
             {
                 EditorGUILayout.HelpBox("オブジェクトがVRC用のアバターオブジェクトの中に入っていません。このオブジェクトはVRCAvatarDescriptorコンポーネントの付いたオブジェクトの中に配置してください", MessageType.Error);
                 return;
             }
             if (existProducts == null)
             {
-                if (avatar != null) {
-                    existProducts = CheckExistProduct(avatarDescriptor);
+                if (avatar != null)
+                {
+                    existProducts = CheckExistProduct(avatar);
+                    posingSystem.previousErrorCheckTime = DateTime.MinValue;
                 }
             }
             if (existProducts != null)
@@ -110,8 +290,9 @@ namespace jp.unisakistudio.posingsystemeditor
                     EditorGUILayout.HelpBox(existProduct + "の設定がアバターに残っています！不具合が発生する可能性があるので、自動で設定を取り除く機能を使用してください。また、アバター購入時にBaseLayerに設定されていたLocomotion用のAnimatorControllerがある場合は、恐れ入りますが手動で復仇してお使いください。", MessageType.Error);
                     if (GUILayout.Button(existProduct + "の設定を取り除く"))
                     {
-                        RemoveExistProduct(avatarDescriptor, existProduct);
+                        RemoveExistProduct(avatar, existProduct);
                         existProducts = null;
+                        posingSystem.previousErrorCheckTime = DateTime.MinValue;
                     }
                 }
             }
@@ -130,18 +311,20 @@ namespace jp.unisakistudio.posingsystemeditor
                     {
                         RemoveExistFolder(existFolder);
                         existFolders = null;
+                        posingSystem.previousErrorCheckTime = DateTime.MinValue;
                     }
                 }
             }
 
-            if (avatarDescriptor.autoFootsteps)
+            if (avatar.autoFootsteps)
             {
                 EditorGUILayout.HelpBox("アバター設定の「Use Auto-Footsteps for 3 and 4 point tracking」がオンになっています。この設定がオンだと、アバターがゲーム内で自動的に足踏みをしてしまい、姿勢が崩れる可能性があるため、オフにすることが推奨されます", MessageType.Warning);
                 if (GUILayout.Button("「Use Auto-Footsteps for 3 and 4 point tracking」をオフにする"))
                 {
-                    Undo.RecordObject(avatarDescriptor, "Disable auto footsteps");
-                    avatarDescriptor.autoFootsteps = false;
-                    EditorUtility.SetDirty(avatarDescriptor);
+                    Undo.RecordObject(avatar, "Disable auto footsteps");
+                    avatar.autoFootsteps = false;
+                    EditorUtility.SetDirty(avatar);
+                    posingSystem.previousErrorCheckTime = DateTime.MinValue;
                 }
             }
 
@@ -165,18 +348,235 @@ namespace jp.unisakistudio.posingsystemeditor
             }
 
             EditorGUILayout.BeginVertical(GUI.skin.box);
-            EditorGUILayout.LabelField("設定", new GUIStyle() { fontStyle = FontStyle.Bold, });
-            var isIconDisabled = EditorGUILayout.ToggleLeft("姿勢アイコン無しモード（Quest等）", posingSystem.isIconDisabled);
-            if (isIconDisabled != posingSystem.isIconDisabled)
+            EditorGUILayout.LabelField("設定", new GUIStyle() { fontStyle = FontStyle.Bold, fontSize = 16, });
+            if (IsAndroidBuildTarget())
             {
-                Undo.RecordObject(posingSystem, "Disable icon");
-                posingSystem.isIconDisabled = isIconDisabled;
-                EditorUtility.SetDirty(posingSystem);
+                EditorGUILayout.HelpBox("Androidビルドターゲットでは姿勢アイコンは生成・設定されません（サイズ削減のため強制無効化）", MessageType.Info);
+            }
+            else
+            {
+                var isIconDisabled = EditorGUILayout.ToggleLeft("姿勢アイコン無しモード（Quest等）", posingSystem.isIconDisabled);
+                if (isIconDisabled != posingSystem.isIconDisabled)
+                {
+                    Undo.RecordObject(posingSystem, "Disable icon");
+                    posingSystem.isIconDisabled = isIconDisabled;
+                    EditorUtility.SetDirty(posingSystem);
+                }
             }
             EditorGUILayout.EndVertical();
 
-            TakeScreenshot(posingSystem);
+            EditorGUILayout.Space(10);
+            EditorGUILayout.BeginVertical(GUI.skin.box);
+            EditorGUILayout.LabelField("プレビルド関係", new GUIStyle() { fontStyle = FontStyle.Bold, fontSize = 16, });
+            // 警告表示を元の位置に戻し、常にHelpBoxを表示してGUI要素数を安定化
+            if (PosingSystemConverter.IsPosingSystemDataUpdated(posingSystem))
+            {
+                EditorGUILayout.HelpBox("オブジェクトの設定が更新されています。再度プレビルドを行ってください", MessageType.Warning);
+            }
+            else
+            {
+                EditorGUILayout.HelpBox("設定は最新の状態です", MessageType.None);
+            }
+            // 大きなボタンスタイルを定義
+            var bigButtonStyle = new GUIStyle(GUI.skin.button)
+            {
+                fontSize = 16,
+                fontStyle = FontStyle.Normal,
+                fixedHeight = 40,
+                padding = new RectOffset(10, 10, 10, 10)
+            };
+            
+            var descriptionStyle = new GUIStyle(GUI.skin.label)
+            {
+                fontSize = 11,
+                wordWrap = true,
+                normal = { textColor = Color.black },
+                margin = new RectOffset(0, 0, 1, 1) // 行間を狭く
+            };
+
+            // 更新ボタンとその説明
+            EditorGUILayout.BeginHorizontal();
+            {
+                EditorGUILayout.BeginVertical(GUILayout.Width(120));
+                if (GUILayout.Button("プレビルド実行", bigButtonStyle))
+                {
+                    PosingSystemConverter.ConvertToModularAvatarComponents(posingSystem);
+                    posingSystem.previousErrorCheckTime = DateTime.MinValue;
+                }
+                EditorGUILayout.EndVertical();
+                
+                EditorGUILayout.BeginVertical();
+                EditorGUILayout.LabelField("ModularAvatarコンポーネントを生成・更新します", descriptionStyle);
+                EditorGUILayout.LabelField("姿勢設定を変更した場合はこのボタンを押すとアバターのビルドが早くなります", descriptionStyle);
+                EditorGUILayout.EndVertical();
+            }
+            EditorGUILayout.EndHorizontal();
+
+            // アイコン更新ボタンとその説明（Android以外）
+            if (!IsAndroidBuildTarget())
+            {
+                GUI.enabled = posingSystem.data != null && posingSystem.data.Length > 0;
+
+                EditorGUILayout.BeginHorizontal();
+                {
+                    EditorGUILayout.BeginVertical(GUILayout.Width(120));
+                    if (GUILayout.Button("アバター更新", bigButtonStyle))
+                    {
+                        GameObject.DestroyImmediate(posingSystem.previewAvatarObject);
+                        posingSystem.previewAvatarObject = null;
+                        PosingSystemConverter.TakeScreenshot(posingSystem, true, false);
+                        posingSystem.previousErrorCheckTime = DateTime.MinValue;
+                    }
+                    EditorGUILayout.EndVertical();
+
+                    EditorGUILayout.BeginVertical();
+                    EditorGUILayout.LabelField("アイコン撮影用のアバターを更新します", descriptionStyle);
+                    EditorGUILayout.LabelField("アバターの見た目を変えたときはこのボタンを押してください", descriptionStyle);
+                    EditorGUILayout.EndVertical();
+                }
+                EditorGUILayout.EndHorizontal();
+
+                GUI.enabled = true;
+            }
+            EditorGUILayout.EndVertical();
+
             serializedObject.Update();
+
+            EditorGUILayout.Space(10);
+            EditorGUILayout.BeginVertical(GUI.skin.box);
+            EditorGUILayout.LabelField("モーション置き換え機能", new GUIStyle() { fontStyle = FontStyle.Bold, fontSize = 16, });
+            if (GUILayout.Button("アバターから自動インポート") || posingSystem.overrideDefines == null)
+            {
+                Undo.RecordObject(posingSystem, "Auto detect override settings");
+                AutoDetectOverrideSettings();
+                serializedObject.Update();
+                EditorUtility.SetDirty(posingSystem);
+                AssetDatabase.SaveAssets();
+            }
+            var definesProperty = serializedObject.FindProperty("overrideDefines");
+            //            EditorGUILayout.PropertyField(definesProperty);
+            // 無かったら「設定なし」と表示して、アバターから自動インポートする説明を表示する
+            if (posingSystem.overrideDefines == null || posingSystem.overrideDefines?.Count == 0)
+            {
+                EditorGUILayout.LabelField("設定なし", new GUIStyle() { fontSize = 16, });
+                EditorGUILayout.LabelField("既にアバターに固有の姿勢モーションがある場合はアバターから自動インポートできます", descriptionStyle);
+            }
+            int removeIndex = -1;
+            for (int i = 0; i < posingSystem.overrideDefines.Count; i++)
+            {
+                var overrideDefine = posingSystem.overrideDefines[i];
+                var defineProperty = serializedObject.FindProperty("overrideDefines").GetArrayElementAtIndex(i);
+                EditorGUILayout.BeginHorizontal();
+                {
+                    EditorGUILayout.PropertyField(defineProperty);
+                    // ボタンサイズは横幅30で縦は高さ20
+                    if (GUILayout.Button("x", new GUIStyle(GUI.skin.button)
+                    {
+                        fontStyle = FontStyle.Normal,
+                        fixedWidth = 30,
+                        padding = new RectOffset(10, 10, 10, 10)
+                    }))
+                    {
+                        removeIndex = i;
+                    }
+                }
+                EditorGUILayout.EndHorizontal();
+            }
+
+            if (removeIndex != -1)
+            {
+                Undo.RecordObject(posingSystem, "Remove override define");
+                posingSystem.overrideDefines.RemoveAt(removeIndex);
+                EditorUtility.SetDirty(posingSystem);
+                AssetDatabase.SaveAssets();
+            }
+
+            EditorGUILayout.BeginHorizontal();
+            // 追加ボタン
+            if (GUILayout.Button("追加"))
+            {
+                Undo.RecordObject(posingSystem, "Add override define");
+                posingSystem.overrideDefines.Add(new PosingSystem.OverrideAnimationDefine());
+                EditorUtility.SetDirty(posingSystem);
+                AssetDatabase.SaveAssets();
+            }
+            // 一つ以上あったらクリアボタンを有効
+            GUI.enabled = posingSystem.overrideDefines.Count > 0;
+            if (GUILayout.Button("全クリア"))
+            {
+                Undo.RecordObject(posingSystem, "Clear all override defines");
+                posingSystem.overrideDefines.Clear();
+                EditorUtility.SetDirty(posingSystem);
+                AssetDatabase.SaveAssets();
+            }
+            GUI.enabled = true;
+            EditorGUILayout.EndHorizontal();
+            EditorGUILayout.EndVertical();
+
+            if (!IsAndroidBuildTarget())
+            {
+                PosingSystemConverter.TakeScreenshot(posingSystem, false, true);
+            }
+
+            // definesセクション全体をBeginVerticalで囲んでObjectFieldのGUI順序を安定化
+            EditorGUILayout.Space(10);
+            EditorGUILayout.BeginVertical(GUI.skin.box);
+            EditorGUILayout.LabelField("姿勢アニメーション設定", new GUIStyle() { fontStyle = FontStyle.Bold, fontSize = 16, });
+
+            // プリセット選択と適用
+            EditorGUILayout.LabelField("プリセット選択", EditorStyles.boldLabel);
+            EditorGUILayout.BeginHorizontal();
+            {
+                if (_availablePresetDefines.Count > 0)
+                {
+                    _selectedPresetDefineIndex = EditorGUILayout.Popup(_selectedPresetDefineIndex, _presetDefineNames.ToArray());
+                    
+                    if (GUILayout.Button("プリセットを適用"))
+                    {
+                        ApplySelectedPreset();
+                    }
+                }
+                else
+                {
+                    EditorGUILayout.LabelField("プリセットが見つかりません", EditorStyles.helpBox);
+                    if (GUILayout.Button("再読込"))
+                    {
+                        LoadAvailablePresetDefines();
+                    }
+                }
+            }
+            EditorGUILayout.EndHorizontal();
+
+            EditorGUILayout.BeginHorizontal();
+            {
+                EditorGUILayout.BeginVertical(GUILayout.Width(160));
+                if (GUILayout.Button("プリセットを作成", bigButtonStyle))
+                {
+                    PosingPresetCreatorWindow.ShowWindow(posingSystem);
+                }
+                EditorGUILayout.EndVertical();
+                EditorGUILayout.BeginVertical();
+                EditorGUILayout.LabelField("予めアバターに合わせてアニメーション調整したデータをまとめたプリセットを適用すると、アバターに合わせた姿勢を簡単に設定できます", descriptionStyle);
+                EditorGUILayout.EndVertical();
+            }
+            EditorGUILayout.EndHorizontal();
+
+            // アニメーション調整ウィンドウを開くボタン
+            EditorGUILayout.BeginHorizontal();
+            {
+                EditorGUILayout.BeginVertical(GUILayout.Width(160));
+                if (GUILayout.Button("アニメーションを調整", bigButtonStyle))
+                {
+                    PosingAnimationAdjustmentWindow.ShowWindow(posingSystem);
+                }
+                EditorGUILayout.EndVertical();
+
+                EditorGUILayout.BeginVertical();
+                EditorGUILayout.LabelField("アニメーションを微調整するためのウィンドウを開きます", descriptionStyle);
+                EditorGUILayout.LabelField("アバターの体型の違いにより姿勢に気になるところがある場合に使用します", descriptionStyle);
+                EditorGUILayout.EndVertical();
+            }
+            EditorGUILayout.EndHorizontal();
 
             for (int i = 0; i < posingSystem.defines.Count; i++)
             {
@@ -207,14 +607,26 @@ namespace jp.unisakistudio.posingsystemeditor
                             EditorGUI.LabelField(rect, define.menuName + define.description);
                         }
                     };
-                    if (define.icon != null) {
+                    reorderableList.onSelectCallback += (ReorderableList list) =>
+                    {
+                        foreach (var otherList in reorderableLists)
+                        {
+                            if (reorderableList == otherList)
+                            {
+                                continue;
+                            }
+                            otherList.index = -1;
+                        }
+                    };
+                    if (define.icon != null)
+                    {
                         reorderableList.headerHeight = 40;
                     }
                     else
                     {
                         reorderableList.headerHeight = EditorGUIUtility.singleLineHeight;
                     }
-                    reorderableList.elementHeight = EditorGUIUtility.singleLineHeight * 5 + 5;
+                    reorderableList.elementHeight = EditorGUIUtility.singleLineHeight * 6 + 5;
                     reorderableLists.Add(reorderableList);
                 }
                 else
@@ -250,11 +662,13 @@ namespace jp.unisakistudio.posingsystemeditor
                                     animation.initial = false;
                                     animation.initialSet = false;
                                     animation.previewImage = null;
+                                    posingSystem.previousErrorCheckTime = DateTime.MinValue;
                                 }
                                 else if (changedAnimation == animation)
                                 {
                                     animation.initial = animation.initialSet;
                                     animation.previewImage = null;
+                                    posingSystem.previousErrorCheckTime = DateTime.MinValue;
                                 }
                             }
                         }
@@ -263,165 +677,28 @@ namespace jp.unisakistudio.posingsystemeditor
 
                 EditorGUILayout.EndVertical();
             }
+            EditorGUILayout.EndVertical(); // definesセクション全体の終了
 
 
             serializedObject.ApplyModifiedProperties();
 
-            if (GUILayout.Button("サムネ更新"))
+            if (!IsAndroidBuildTarget())
             {
-                TakeScreenshot(posingSystem, true);
-            }
-        }
-        public void TakeScreenshot(PosingSystem posingSystem, bool force = false)
-        {
-            var avatarTransform = posingSystem.transform;
-            while (avatarTransform != null && avatarTransform.GetComponent<VRC.SDK3.Avatars.Components.VRCAvatarDescriptor>() == null)
-            {
-                avatarTransform = avatarTransform.parent;
-            }
-            if (avatarTransform == null)
-            {
-                return;
-            }
-            bool skip = true;
-            for (int i = 0; i < posingSystem.defines.Count; i++)
-            {
-                for (int j = 0; j < posingSystem.defines[i].animations.Count; j++)
+                if (GUILayout.Button("サムネ更新"))
                 {
-                    if (force == false && posingSystem.defines[i].animations[j].previewImage != null)
-                    {
-                        continue;
-                    }
-                    if (force == false && posingSystem.defines[i].animations[j].isCustomIcon)
-                    {
-                        continue;
-                    }
-                    skip = false;
+                    PosingSystemConverter.TakeScreenshot(posingSystem, true, false);
                 }
             }
-            if (skip)
+
+            if (posingSystem.developmentMode != EditorGUILayout.ToggleLeft("開発モード", posingSystem.developmentMode))
             {
-                return;
+                Undo.RecordObject(posingSystem, "Toggle development mode");
+                reorderableLists.Clear();
+                posingSystem.developmentMode = !posingSystem.developmentMode;
             }
-
-            var clone = Instantiate(avatarTransform.gameObject);
-
-            var cameraGameObject = new GameObject();
-            var camera = cameraGameObject.AddComponent<Camera>();
-            camera.fieldOfView = 30;
-            camera.clearFlags = CameraClearFlags.Color;
-
-            clone.transform.position = new Vector3(0, 0, 0);
-            clone.transform.LookAt(new Vector3(0, 0, 1));
-            for (int i = 0; i < posingSystem.defines.Count; i++)
-            {
-                for (int j = 0; j < posingSystem.defines[i].animations.Count; j++)
-                {
-                    var animation = posingSystem.defines[i].animations[j];
-                    if (force == false && animation.previewImage != null)
-                    {
-                        continue;
-                    }
-                    if (force == false && posingSystem.defines[i].animations[j].isCustomIcon)
-                    {
-                        continue;
-                    }
-
-                    AnimationMode.StartAnimationMode();
-                    if (animation.animationClip == null)
-                    {
-                        clone.transform.position = new Vector3(0, 0, 0);
-                    }
-                    else
-                    {
-                        AnimationMode.BeginSampling();
-                        AnimationClip getFirstAnimationClip(Motion motion)
-                        {
-                            if (motion == null)
-                            {
-                                return null;
-                            }
-                            if (motion.GetType() == typeof(AnimationClip))
-                            {
-                                return (AnimationClip)motion;
-                            }
-                            if (motion.GetType() == typeof(UnityEditor.Animations.BlendTree))
-                            {
-                                foreach (var child in ((UnityEditor.Animations.BlendTree)motion).children)
-                                {
-                                    var clip = getFirstAnimationClip(child.motion);
-                                    if (clip)
-                                    {
-                                        return clip;
-                                    }
-                                }
-                            }
-                            return null;
-                        }
-                        var firstAnimationClip = getFirstAnimationClip(animation.animationClip);
-                        if (firstAnimationClip)
-                        {
-                            AnimationMode.SampleAnimationClip(clone, firstAnimationClip, 0);
-
-                            clone.transform.position = new Vector3(100, 0, 0);
-                            clone.transform.LookAt(new Vector3(100, 0, 1));
-                            if (animation.isRotate)
-                            {
-                                clone.transform.Rotate(0, animation.rotate, 0);
-                            }
-#if MODULAR_AVATAR
-                            foreach (var mergeArmature in clone.GetComponentsInChildren<ModularAvatarMergeArmature>())
-                            {
-                                mergeArmature.transform.position = new Vector3(200, 0, 0);
-                            }
-#endif
-                            AnimationMode.EndSampling();
-                        }
-
-                        var cameraHeight = clone.GetComponent<Animator>().GetBoneTransform(HumanBodyBones.Head).position.y;
-                        var cameraDepth = clone.GetComponent<Animator>().GetBoneTransform(HumanBodyBones.LeftFoot).position.z;
-                        var cameraDepth2 = clone.GetComponent<Animator>().GetBoneTransform(HumanBodyBones.Head).position.z;
-                        var cameraBase = clone.GetComponent<Animator>().GetBoneTransform(HumanBodyBones.Hips).position.z;
-                        var distance = Mathf.Max(Mathf.Abs(cameraDepth - cameraBase), cameraHeight) + 0.5f;
-                        camera.transform.position = new Vector3(100 - distance, /*cameraHeight + 0.2f*/1, cameraBase + distance + (cameraDepth + cameraDepth2) * 0.5f / 2);
-                        camera.transform.LookAt(new Vector3(100, cameraHeight * 0.5f, /*cameraDepth / 2*/(cameraDepth + cameraDepth2) * 0.5f));
-                    }
-
-                    if (!animation.enabled || animation.animationClip == null)
-                    {
-                        camera.backgroundColor = new Color(0.3f, 0.3f, 0.3f, 1);
-                    }
-                    else if (animation.initial)
-                    {
-                        camera.backgroundColor = new Color(0.3f, 0.3f, 0.8f, 1);
-                    }
-                    else
-                    {
-                        camera.backgroundColor = new Color(0.7f, 0.7f, 0.7f, 1);
-                    }
-
-                    camera.targetTexture = new RenderTexture(300, 300, 24);
-                    camera.Render();
-                    AnimationMode.StopAnimationMode();
-
-                    clone.SetActive(false);
-                    clone.SetActive(true);
-
-                    Texture2D texture2D = new Texture2D(300, 300, TextureFormat.ARGB32, false);
-                    texture2D.hideFlags = HideFlags.DontSaveInEditor;
-                    RenderTexture.active = camera.targetTexture;
-                    texture2D.ReadPixels(new Rect(0, 0, 300, 300), 0, 0);
-                    texture2D.Apply();
-
-                    animation.previewImage = texture2D;
-                }
-            }
-            RenderTexture.active = null;
-            Object.DestroyImmediate(cameraGameObject);
-            Object.DestroyImmediate(clone.gameObject);
         }
 
-        List<(string name, List<string> animatorControllerNames, List<string> checkExpressionParametersNames, List<string> expressionParametersNames, List<string> expressionsMenuNames, List<string> prefabsNames)> productDefines = new List<(string name, List<string> animatorControllerNames, List<string> checkExpressionParametersNames, List<string> expressionParametersNames, List<string> expressionsMenuNames, List<string> prefabsNames)>
+        public static List<(string name, List<string> animatorControllerNames, List<string> checkExpressionParametersNames, List<string> expressionParametersNames, List<string> expressionsMenuNames, List<string> prefabsNames)> productDefines = new List<(string name, List<string> animatorControllerNames, List<string> checkExpressionParametersNames, List<string> expressionParametersNames, List<string> expressionsMenuNames, List<string> prefabsNames)>
         {
             (
                 "可愛い座りツール",
@@ -572,7 +849,7 @@ namespace jp.unisakistudio.posingsystemeditor
             ),
         };
 
-        List<string> CheckExistProduct(VRC.SDK3.Avatars.Components.VRCAvatarDescriptor avatar)
+        public static List<string> CheckExistProduct(VRC.SDK3.Avatars.Components.VRCAvatarDescriptor avatar)
         {
             var existProducts = new List<string>();
 
@@ -736,14 +1013,18 @@ namespace jp.unisakistudio.posingsystemeditor
             AssetDatabase.SaveAssets();
         }
 
-        private readonly List<string> folderDefines = new()
+        private static readonly List<string> folderDefines = new()
         {
             "Assets/UnisakiStudio/PosingSystem",
         };
 
-        virtual protected List<string> CheckExistFolder()
+        public static List<string> CheckExistFolder()
         {
             List<string> existFolders = new();
+            foreach (var checkFunction in checkFunctions)
+            {
+                existFolders.AddRange(checkFunction());
+            }
             foreach (var folderDefine in folderDefines)
             {
                 if (AssetDatabase.IsValidFolder(folderDefine))
@@ -759,6 +1040,111 @@ namespace jp.unisakistudio.posingsystemeditor
             AssetDatabase.DeleteAsset(folder);
         }
 
+        public static List<(PosingSystem.OverrideAnimationDefine.AnimationStateType type, string stateName, string defaultMotionName)> detectSettings = new List<(PosingSystem.OverrideAnimationDefine.AnimationStateType stateType, string stateName, string defaultMotionName)>()
+        {
+            (PosingSystem.OverrideAnimationDefine.AnimationStateType.StandWalkRun, "stand", "vrc_StandingLocomotion"),
+            (PosingSystem.OverrideAnimationDefine.AnimationStateType.Crouch, "crouch", "vrc_CrouchingLocomotion"),
+            (PosingSystem.OverrideAnimationDefine.AnimationStateType.Prone, "prone", "vrc_ProneLocomotion"),
+            (PosingSystem.OverrideAnimationDefine.AnimationStateType.Jump, "jump", "proxy_fall_short"),
+            (PosingSystem.OverrideAnimationDefine.AnimationStateType.ShortFall, "shortfall", "proxy_fall_short"),
+            (PosingSystem.OverrideAnimationDefine.AnimationStateType.ShortFall, "softfall", "proxy_fall_short"),
+            (PosingSystem.OverrideAnimationDefine.AnimationStateType.ShortFall, "quickfall", "proxy_fall_short"),
+            (PosingSystem.OverrideAnimationDefine.AnimationStateType.ShortLanding, "shortland", "proxy_land_quick"),
+            (PosingSystem.OverrideAnimationDefine.AnimationStateType.ShortLanding, "softland", "proxy_land_quick"),
+            (PosingSystem.OverrideAnimationDefine.AnimationStateType.ShortLanding, "quickland", "proxy_land_quick"),
+            (PosingSystem.OverrideAnimationDefine.AnimationStateType.LongFall, "longfall", "proxy_fall_long"),
+            (PosingSystem.OverrideAnimationDefine.AnimationStateType.LongFall, "hardfall", "proxy_fall_long"),
+            (PosingSystem.OverrideAnimationDefine.AnimationStateType.LongLanding, "longland", "proxy_landing"),
+            (PosingSystem.OverrideAnimationDefine.AnimationStateType.LongLanding, "hardland", "proxy_landing"),
+            (PosingSystem.OverrideAnimationDefine.AnimationStateType.AvatarSelect, "avatarselect", "vrc_StandingLocomotion"),
+        };
+
+        void AutoDetectOverrideSettings()
+        {
+            var posingSystem = target as PosingSystem;
+            var avatar = posingSystem.GetAvatar();
+
+            var posingSystems = avatar.GetComponentsInChildren<PosingSystem>().ToList();
+            var animatorController = avatar.baseAnimationLayers[(int)VRC.SDK3.Avatars.Components.VRCAvatarDescriptor.AnimLayerType.Base];
+            if (animatorController.animatorController == null)
+            {
+                return;
+            }
+
+            void addOverrideFromStateMachine(AnimatorStateMachine stateMachine)
+            {
+                foreach (var subStateMachine in stateMachine.stateMachines)
+                {
+                    addOverrideFromStateMachine(subStateMachine.stateMachine);
+                }
+                foreach (var state in stateMachine.states)
+                {
+                    var searchName = state.state.name;
+                    searchName = searchName.Replace("ing", "").Replace(" ", "").Replace("_", "").ToLower();
+                    var detectSettingIndex = detectSettings.FindIndex(setting => setting.stateName == searchName);
+                    if (detectSettingIndex == -1)
+                    {
+                        continue;
+                    }
+                    var detectSetting = detectSettings[detectSettingIndex];
+                    if (posingSystems.FindIndex(ov => ov.overrideDefines.FindIndex(def => def.stateType == detectSetting.type) != -1) != -1)
+                    {
+                        continue;
+                    }
+
+                    if (state.state.motion == null)
+                    {
+                        continue;
+                    }
+                    if (state.state.motion.name == detectSetting.defaultMotionName)
+                    {
+                        continue;
+                    }
+                    if (!isContainHumanoidAnimation(state.state.motion))
+                    {
+                        continue;
+                    }
+
+                    var define = new PosingSystem.OverrideAnimationDefine();
+                    define.stateType = detectSetting.type;
+                    define.animationClip = state.state.motion;
+                    posingSystem.overrideDefines.Add(define);
+                }
+            }
+
+            foreach (var layer in ((UnityEditor.Animations.AnimatorController)animatorController.animatorController).layers)
+            {
+                addOverrideFromStateMachine(layer.stateMachine);
+            }
+        }
+
+        static bool isContainHumanoidAnimation(Motion motion)
+        {
+            if (motion == null)
+            {
+                return false;
+            }
+            if (motion.GetType() == typeof(AnimationClip))
+            {
+                if (AnimationUtility.GetCurveBindings((AnimationClip)motion).Any(bind => {
+                    return HumanTrait.MuscleName.ToList().IndexOf(bind.propertyName) != -1;
+                }))
+                {
+                    return true;
+                }
+            }
+            if (motion.GetType() == typeof(UnityEditor.Animations.BlendTree))
+            {
+                foreach (var child in ((UnityEditor.Animations.BlendTree)motion).children)
+                {
+                    if (isContainHumanoidAnimation(child.motion))
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
     }
 
 }

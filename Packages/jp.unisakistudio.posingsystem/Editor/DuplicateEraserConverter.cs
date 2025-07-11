@@ -63,15 +63,21 @@ namespace jp.unisakistudio.posingsystemeditor
                     erasers.RemoveAt(0);
                     Debug.Log("DuplicateEraseComponent：完了");
                 }
-
-                erasers = new List<DuplicateEraser>(avatarGameObject.GetComponentsInChildren<DuplicateEraser>());
-                while (erasers.Count > 0)
-                {
-                    GameObject.DestroyImmediate(erasers[0]);
-                    erasers.RemoveAt(0);
-                }
                 Debug.Log("DuplicateEraseComponent：終了");
             });
+
+            InPhase(BuildPhase.Optimizing)
+                .BeforePlugin("com.anatawa12.avatar-optimizer")
+                .Run("Erase duplicate components", ctx =>
+                {
+                    var avatarGameObject = ctx.AvatarRootObject;
+                    var erasers = new List<DuplicateEraser>(avatarGameObject.GetComponentsInChildren<DuplicateEraser>());
+                    while (erasers.Count > 0)
+                    {
+                        GameObject.DestroyImmediate(erasers[0]);
+                        erasers.RemoveAt(0);
+                    }
+                });
         }
     }
 }

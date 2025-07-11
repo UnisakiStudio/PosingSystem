@@ -10,106 +10,157 @@ namespace jp.unisakistudio.posingsystemeditor
     [CustomPropertyDrawer(typeof(PosingSystem.AnimationDefine))]
     public class AnimationDefineDrawer : PropertyDrawer
     {
+        // レイアウト用の定数を定義
+        private const float ToggleWidth = 20f;
+        private const float DefaultButtonWidth = 60f;
+        private const float FieldIndentSpacing = 2f;
+        private const float AnimationLabelWidth = 80f;
+        private const float MotionTimeLabelWidth = 100f;
+        private const float RotateLabelWidth = 100f;
+        private const float IconLabelWidth = 100f;
+
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
-            // 共通インデント
-            var indent = (position.height - 1) - EditorGUIUtility.singleLineHeight;
-
-            // 有効無効
+            // 各プロパティを取得
             var enabledProperty = property.FindPropertyRelative("enabled");
-            var enabledOld = enabledProperty.boolValue;
-            enabledProperty.boolValue = EditorGUI.Toggle(new Rect(position.x + 2, position.y, 20, EditorGUIUtility.singleLineHeight), enabledProperty.boolValue);
-            if (enabledOld != enabledProperty.boolValue)
-            {
-                property.FindPropertyRelative("previewImage").objectReferenceValue = null;
-            }
-
-            // 表示名
             var displayNameProperty = property.FindPropertyRelative("displayName");
-            displayNameProperty.stringValue = EditorGUI.TextField(new Rect(position.x + 20, position.y, position.width - 20 - 60 - 1, EditorGUIUtility.singleLineHeight), displayNameProperty.stringValue);
-
-            // 標準化
             var initialSetProperty = property.FindPropertyRelative("initialSet");
-            GUI.enabled = !initialSetProperty.boolValue;
-            if (GUI.Button(new Rect(position.x + position.width - 60, position.y, 60, 20 - 1), "デフォルト"))
-            {
-                initialSetProperty.boolValue = true;
-            }
-            GUI.enabled = true;
-            position.y += EditorGUIUtility.singleLineHeight;
-
-            // アイコン
-            var iconProperty = property.FindPropertyRelative("icon");
             var previewImageProperty = property.FindPropertyRelative("previewImage");
-            if (property.FindPropertyRelative("isCustomIcon").boolValue)
-            {
-                if (iconProperty.objectReferenceValue != null)
-                {
-                    GUI.DrawTexture(new Rect(position.x, position.y + 1, (position.height - 2 - EditorGUIUtility.singleLineHeight), (position.height - 2 - EditorGUIUtility.singleLineHeight)), (Texture2D)iconProperty.objectReferenceValue, ScaleMode.ScaleToFit);
-                }
-            }
-            else if (previewImageProperty.objectReferenceValue != null)
-            {
-                GUI.DrawTexture(new Rect(position.x, position.y + 1, (position.height - 2 - EditorGUIUtility.singleLineHeight), (position.height - 2 - EditorGUIUtility.singleLineHeight)), (Texture2D)previewImageProperty.objectReferenceValue, ScaleMode.ScaleToFit);
-            }
-
-            // アニメーション
             var animationClipProperty = property.FindPropertyRelative("animationClip");
-            var animationClipOld = animationClipProperty.objectReferenceValue;
-            EditorGUI.LabelField(new Rect(position.x + indent, position.y, 80, EditorGUIUtility.singleLineHeight), "アニメーション");
-            animationClipProperty.objectReferenceValue = EditorGUI.ObjectField(new Rect(position.x + 80 + indent, position.y, position.width - 80 - indent, EditorGUIUtility.singleLineHeight), property.FindPropertyRelative("animationClip").objectReferenceValue, typeof(Motion), false);
-            if (animationClipOld != animationClipProperty.objectReferenceValue)
-            {
-                property.FindPropertyRelative("previewImage").objectReferenceValue = null;
-            }
-            position.y += EditorGUIUtility.singleLineHeight;
-
-            // MotionTime
+            var adjustmentClipProperty = property.FindPropertyRelative("adjustmentClip");
+            var initialProperty = property.FindPropertyRelative("initial");
+            var isCustomIconProperty = property.FindPropertyRelative("isCustomIcon");
+            var iconProperty = property.FindPropertyRelative("icon");
             var isMotionTimeProperty = property.FindPropertyRelative("isMotionTime");
-            isMotionTimeProperty.boolValue = EditorGUI.Toggle(new Rect(position.x + 2 + indent, position.y, 20, EditorGUIUtility.singleLineHeight), isMotionTimeProperty.boolValue);
-            EditorGUI.LabelField(new Rect(position.x + 22 + indent, position.y, 100, EditorGUIUtility.singleLineHeight), "motionTime");
-            if (isMotionTimeProperty.boolValue)
-            {
-                var motionTimeParamNameProperty = property.FindPropertyRelative("motionTimeParamName");
-                motionTimeParamNameProperty.stringValue = EditorGUI.TextField(new Rect(position.x + indent + 122, position.y, position.width - indent - 122, EditorGUIUtility.singleLineHeight), motionTimeParamNameProperty.stringValue);
-            }
-            position.y += EditorGUIUtility.singleLineHeight;
-
-            float mirrorWidth = 0;
-
-            // 回転
+            var motionTimeParamNameProperty = property.FindPropertyRelative("motionTimeParamName");
             var isRotateProperty = property.FindPropertyRelative("isRotate");
-            if(isRotateProperty.boolValue != EditorGUI.Toggle(new Rect(position.x + 2 + indent + mirrorWidth, position.y, 20, EditorGUIUtility.singleLineHeight), isRotateProperty.boolValue))
+            var rotateProperty = property.FindPropertyRelative("rotate");
+
+            // --- 変更検出 ---
+            // このブロック内のUIが変更された場合、プレビュー画像をリセットする
+            EditorGUI.BeginChangeCheck();
+
+            // --- レイアウト ---
+            // 1行目: 有効トグル、表示名、デフォルトボタン
+            var lineRect = new Rect(position.x, position.y, position.width, EditorGUIUtility.singleLineHeight);
+
+            var enabledRect = new Rect(lineRect.x, lineRect.y, ToggleWidth, lineRect.height);
+            var buttonRect = new Rect(lineRect.xMax - DefaultButtonWidth, lineRect.y, DefaultButtonWidth, lineRect.height);
+            var nameRect = new Rect(enabledRect.xMax, lineRect.y, buttonRect.x - enabledRect.xMax - FieldIndentSpacing, lineRect.height);
+
+            enabledProperty.boolValue = EditorGUI.Toggle(enabledRect, enabledProperty.boolValue);
+            displayNameProperty.stringValue = EditorGUI.TextField(nameRect, displayNameProperty.stringValue);
+
+            using (new EditorGUI.DisabledScope(initialSetProperty.boolValue))
             {
-                isRotateProperty.boolValue = !isRotateProperty.boolValue;
-                property.FindPropertyRelative("previewImage").objectReferenceValue = null;
-            }
-            EditorGUI.LabelField(new Rect(position.x + 22 + indent + mirrorWidth, position.y, 100, EditorGUIUtility.singleLineHeight), "回転角度(360度)");
-            if (isRotateProperty.boolValue)
-            {
-                var rotateProperty = property.FindPropertyRelative("rotate");
-                var rotateOld = rotateProperty.intValue;
-                rotateProperty.intValue = EditorGUI.IntField(new Rect(position.x + indent + 122 + mirrorWidth, position.y, position.width - indent - 122 - mirrorWidth, EditorGUIUtility.singleLineHeight), rotateProperty.intValue);
-                if (rotateOld != rotateProperty.intValue)
+                if (GUI.Button(buttonRect, "デフォルト"))
                 {
-                    property.FindPropertyRelative("previewImage").objectReferenceValue = null;
+                    initialSetProperty.boolValue = true;
                 }
             }
+
             position.y += EditorGUIUtility.singleLineHeight;
 
-            // アイコン
-            var isCustomIconProperty = property.FindPropertyRelative("isCustomIcon");
-            isCustomIconProperty.boolValue = EditorGUI.Toggle(new Rect(position.x + 2 + indent, position.y, 20, EditorGUIUtility.singleLineHeight), isCustomIconProperty.boolValue);
-            EditorGUI.LabelField(new Rect(position.x + 22 + indent, position.y, 100, EditorGUIUtility.singleLineHeight), "アイコン画像");
+            // 2行目以降: 左側にアイコン、右側に設定項目
+            float iconSize = position.height - EditorGUIUtility.singleLineHeight - 2f; // -2fは僅かなパディング
+            var iconRect = new Rect(position.x, position.y, iconSize, iconSize);
+            var contentStartX = iconRect.xMax + EditorGUIUtility.standardVerticalSpacing;
+            var contentWidth = position.xMax - contentStartX;
+            var contentRect = new Rect(contentStartX, position.y, contentWidth, EditorGUIUtility.singleLineHeight);
+
+            // --- アイコン背景描画 ---
+            var prevColor = GUI.color;
+            if (!enabledProperty.boolValue || animationClipProperty.objectReferenceValue == null)
+            {
+                GUI.color = new Color(0.3f, 0.3f, 0.3f, 1);
+            }
+            else if (initialProperty.boolValue)
+            {
+                GUI.color = new Color(0.3f, 0.3f, 0.8f, 1);
+            }
+            else
+            {
+                GUI.color = new Color(0.7f, 0.7f, 0.7f, 1);
+            }
+            GUI.DrawTexture(iconRect, EditorGUIUtility.whiteTexture, ScaleMode.ScaleToFit);
+            GUI.color = prevColor;
+
+            // --- アイコン描画 ---
+            Texture2D iconToShow = null;
             if (isCustomIconProperty.boolValue)
             {
-                iconProperty.objectReferenceValue = EditorGUI.ObjectField(new Rect(position.x + indent + 122, position.y, position.width - indent - 122, EditorGUIUtility.singleLineHeight), iconProperty.objectReferenceValue, typeof(Texture2D), false);
+                iconToShow = (Texture2D)iconProperty.objectReferenceValue;
             }
-            position.y += EditorGUIUtility.singleLineHeight;
+            else
+            {
+                iconToShow = (Texture2D)previewImageProperty.objectReferenceValue;
+            }
+            if (iconToShow != null)
+            {
+                GUI.DrawTexture(iconRect, iconToShow, ScaleMode.ScaleToFit);
+            }
+
+            // --- 設定項目描画 ---
+            // 2行目: アニメーション
+            var animLabelRect = new Rect(contentRect.x, contentRect.y, AnimationLabelWidth, contentRect.height);
+            var animFieldRect = new Rect(animLabelRect.xMax, contentRect.y, contentRect.width - AnimationLabelWidth, contentRect.height);
+            EditorGUI.LabelField(animLabelRect, "アニメーション");
+            animationClipProperty.objectReferenceValue = EditorGUI.ObjectField(animFieldRect, animationClipProperty.objectReferenceValue, typeof(Motion), false);
+            contentRect.y += EditorGUIUtility.singleLineHeight;
+
+            // 3行目: MotionTime
+            var motionTimeToggleRect = new Rect(contentRect.x + FieldIndentSpacing, contentRect.y, ToggleWidth, contentRect.height);
+            var motionTimeLabelRect = new Rect(motionTimeToggleRect.xMax, contentRect.y, MotionTimeLabelWidth, contentRect.height);
+            var motionTimeFieldRect = new Rect(motionTimeLabelRect.xMax, contentRect.y, contentRect.width - (motionTimeLabelRect.xMax - contentRect.x), contentRect.height);
+            isMotionTimeProperty.boolValue = EditorGUI.Toggle(motionTimeToggleRect, isMotionTimeProperty.boolValue);
+            EditorGUI.LabelField(motionTimeLabelRect, "motionTime");
+            if (isMotionTimeProperty.boolValue)
+            {
+                motionTimeParamNameProperty.stringValue = EditorGUI.TextField(motionTimeFieldRect, motionTimeParamNameProperty.stringValue);
+            }
+            contentRect.y += EditorGUIUtility.singleLineHeight;
+
+            // 4行目: 回転
+            var rotateToggleRect = new Rect(contentRect.x + FieldIndentSpacing, contentRect.y, ToggleWidth, contentRect.height);
+            var rotateLabelRect = new Rect(rotateToggleRect.xMax, contentRect.y, RotateLabelWidth, contentRect.height);
+            var rotateFieldRect = new Rect(rotateLabelRect.xMax, contentRect.y, contentRect.width - (rotateLabelRect.xMax - contentRect.x), contentRect.height);
+            isRotateProperty.boolValue = EditorGUI.Toggle(rotateToggleRect, isRotateProperty.boolValue);
+            EditorGUI.LabelField(rotateLabelRect, "回転角度(360度)");
+            if (isRotateProperty.boolValue)
+            {
+                rotateProperty.intValue = EditorGUI.IntField(rotateFieldRect, rotateProperty.intValue);
+            }
+            contentRect.y += EditorGUIUtility.singleLineHeight;
+
+            // 5行目: カスタムアイコン
+            var customIconToggleRect = new Rect(contentRect.x + FieldIndentSpacing, contentRect.y, ToggleWidth, contentRect.height);
+            var customIconLabelRect = new Rect(customIconToggleRect.xMax, contentRect.y, IconLabelWidth, contentRect.height);
+            var customIconFieldRect = new Rect(customIconLabelRect.xMax, contentRect.y, contentRect.width - (customIconLabelRect.xMax - contentRect.x), contentRect.height);
+            isCustomIconProperty.boolValue = EditorGUI.Toggle(customIconToggleRect, isCustomIconProperty.boolValue);
+            EditorGUI.LabelField(customIconLabelRect, "アイコン画像");
+            if (isCustomIconProperty.boolValue)
+            {
+                iconProperty.objectReferenceValue = EditorGUI.ObjectField(customIconFieldRect, iconProperty.objectReferenceValue, typeof(Texture2D), false);
+            }
+            contentRect.y += EditorGUIUtility.singleLineHeight;
+
+            // 6行目: 調整アニメーション
+            var adjustmentLabelRect = new Rect(contentRect.x, contentRect.y, AnimationLabelWidth, contentRect.height);
+            var adjustmentFieldRect = new Rect(adjustmentLabelRect.xMax, contentRect.y, contentRect.width - AnimationLabelWidth, contentRect.height);
+            EditorGUI.LabelField(adjustmentLabelRect, "調整クリップ");
+            adjustmentClipProperty.objectReferenceValue = EditorGUI.ObjectField(adjustmentFieldRect, adjustmentClipProperty.objectReferenceValue, typeof(AnimationClip), false);
+            contentRect.y += EditorGUIUtility.singleLineHeight;
+
+            // --- 変更検出終了 ---
+            if (EditorGUI.EndChangeCheck())
+            {
+                previewImageProperty.objectReferenceValue = null;
+            }
+
         }
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
         {
-            return EditorGUIUtility.singleLineHeight * 5;
+            return EditorGUIUtility.singleLineHeight * 6;
         }
 
     }
