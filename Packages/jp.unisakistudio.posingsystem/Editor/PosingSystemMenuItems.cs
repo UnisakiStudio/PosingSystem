@@ -53,6 +53,8 @@ namespace jp.unisakistudio.posingsystemeditor
 
                 // 導入するPosingSystemのPrefabsをアバターに配置する
                 var instance = PrefabUtility.InstantiatePrefab(prefabs, avatar.transform);
+                Undo.RegisterCreatedObjectUndo(instance, "Add Prefab");
+                UnityEditor.EditorUtility.SetDirty(instance);
 
                 // アバターのオブジェクトを取得
                 var avatarObject = avatar.gameObject;
@@ -82,47 +84,54 @@ namespace jp.unisakistudio.posingsystemeditor
                     .Select(path => AssetDatabase.LoadAssetAtPath<PosingSystemPresetDefines>(path))
                     .SelectMany(defines => defines.presetDefines);
 
-                Debug.Log(presetDefines.Count() + "個のPresetDefineが見つかりました");
-                Debug.Log(variantParentGUIDHashes.Count() + "個のGUIDが見つかりました:" + variantParentGUIDHashes.Aggregate((a, b) => a + ", " + b));
-                Debug.Log(variantParentNames.Count() + "個の名前が見つかりました:" + variantParentNames.Aggregate((a, b) => a + ", " + b));
+                Debug.Log("[PosingSystem]" + presetDefines.Count() + "個のPresetDefineが見つかりました");
+                Debug.Log("[PosingSystem]" + variantParentGUIDHashes.Count() + "個のGUIDが見つかりました:" + variantParentGUIDHashes.Aggregate((a, b) => a + ", " + b));
+                Debug.Log("[PosingSystem]" + variantParentNames.Count() + "個の名前が見つかりました:" + variantParentNames.Aggregate((a, b) => a + ", " + b));
 
                 // 配置するPrefabsに対応しているものだけにしぼる
                 presetDefines = presetDefines.Where(presetDefine => presetDefine.prefabs.Contains(prefabs)).ToList();
 
-                Debug.Log(presetDefines.Count() + "個のPresetDefineがPrefabsに適合しました");
+                Debug.Log("[PosingSystem]" + presetDefines.Count() + "個のPresetDefineがPrefabsに適合しました");
 
                 // 配置するPrefabsに対応しているPresetDefineを探す
                 var presetDefine = presetDefines.FirstOrDefault(presetDefine => presetDefine.prefabsHashes.FindAll(variantParentGUIDHashes.Contains).Count() > 0);
                 if (presetDefine == null)
                 {
-                    Debug.Log("PrefabsのGUIDでPresetDefineが見つかりませんでした");
-                    Debug.Log("名前で探します");
+                    Debug.Log("[PosingSystem]PrefabsのGUIDに合ったPresetDefineはありませんでした");
+                    Debug.Log("[PosingSystem]名前で探します");
                     presetDefine = presetDefines.FirstOrDefault(presetDefine => presetDefine.prefabsNames.FindAll(variantParentNames.Contains).Count() > 0);
                     if (presetDefine == null)
                     {
-                        Debug.Log("名前でもPresetDefineが見つかりませんでした");
+                        Debug.Log("[PosingSystem]名前に合ったPresetDefineはありませんでした");
                     }
                 }
                 else
                 {
-                    Debug.Log("PrefabsのGUIDでPresetDefineが見つかりました");
+                    Debug.Log("[PosingSystem]PrefabsのGUIDでPresetDefineが見つかりました");
                 }
 
                 // PresetDefineを適用する
                 if (presetDefine != null)
                 {
-                    Debug.Log(presetDefine.avatarName + "を適用します");
-                    presetDefine.preset.ApplyTo((instance as GameObject).GetComponent<PosingSystem>(), new string[] { "defines", "overrideDefines", });
+                    if (EditorUtility.DisplayDialog("情報", "このアバターのために作成された「" + presetDefine.avatarName + "」向けのプリセットが見つかりました。\nこのプリセットを適用するとアバターごとの体型の違いに対応した調整データが自動で設定されます。\n\nプリセットを適用しますか？", "適用する", "スキップ"))
+                    {
+                        Debug.Log("[PosingSystem]" + presetDefine.avatarName + "を適用します");
+                        presetDefine.preset.ApplyTo((instance as GameObject).GetComponent<PosingSystem>(), new string[] { "defines", "overrideDefines", });
+                    }
                 }
 
-                // さっそくプリビルドをするかどうかユーザーに尋ねる
-                if (EditorUtility.DisplayDialog("プリビルド", "プリビルドをしますか？\nプリビルドを行うとアバターのビルドとアップロードが速くなります。", "はい", "いいえ"))
+                // さっそくプレビルドをするかどうかユーザーに尋ねる
+                if (EditorUtility.DisplayDialog("プレビルド", "プレビルドをしますか？\nプレビルドを行うとアバターのビルドとアップロードが速くなります。", "はい", "いいえ"))
                 {
-                    // プリビルドをする
+                    // プレビルドをする
                     PosingSystem posingSystem = (instance as GameObject).GetComponent<PosingSystem>();
                     PosingSystemConverter.ConvertToModularAvatarComponents(posingSystem);
                     PosingSystemConverter.TakeScreenshot(posingSystem, true, false);
-                    EditorUtility.DisplayDialog("プリビルド", "プリビルドが完了しました", "OK");
+                    posingSystem.savedInstanceId = UnityEditor.GlobalObjectId.GetGlobalObjectIdSlow(posingSystem).ToString();
+                    posingSystem.previousErrorCheckTime = DateTime.MinValue;
+                    EditorUtility.SetDirty(posingSystem);
+
+                    EditorUtility.DisplayDialog("プレビルド", "プレビルドが完了しました", "OK");
                 }
             }
        }

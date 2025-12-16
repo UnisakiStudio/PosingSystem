@@ -6,11 +6,12 @@ using UnityEditor.Animations;
 using System.Linq;
 using jp.unisakistudio.posingsystem;
 using System;
-using UnityEditor.Presets;
 using System.IO;
 #if UNITY_EDITOR_WIN
 using Microsoft.Win32;
+
 #endif
+
 
 #if MODULAR_AVATAR
 using nadena.dev.modular_avatar.core;
@@ -22,11 +23,12 @@ namespace jp.unisakistudio.posingsystemeditor
     [CustomEditor(typeof(PosingSystem))]
     public class PosingSystemEditor : Editor
     {
+        private const string DefaultAdjustmentFolderRoot = "Assets/UnisakiStudio/GeneratedResources";
         private List<ReorderableList> reorderableLists = new List<ReorderableList>();
         List<string> existProducts;
         List<string> existFolders;
         Texture2D exMenuBackground = null;
-        
+
         // プリセット選択用の変数
         private List<PosingSystemPresetDefines.PresetDefine> _availablePresetDefines = new List<PosingSystemPresetDefines.PresetDefine>();
         private List<string> _presetDefineNames = new List<string>();
@@ -38,7 +40,7 @@ namespace jp.unisakistudio.posingsystemeditor
         const string REGKEY = @"SOFTWARE\UnisakiStudio";
         const string APPKEY = "posingsystem";
         private bool isPosingSystemLicensed = false;
-        
+
         // Mac/Linux用の設定ファイルパス取得
         private static string GetLicenseFilePath()
         {
@@ -62,23 +64,62 @@ namespace jp.unisakistudio.posingsystemeditor
 
             PosingSystem posingSystem = target as PosingSystem;
             posingSystem.previousErrorCheckTime = DateTime.MinValue;
-            
+
             // プリセット一覧を読み込み
             LoadAvailablePresetDefines();
+
+            // 使われていないプレビュー用アバターを削除
+            DeleteUnusedPreviewAvatar();
+
+            CreateThumbnailPack(posingSystem);
+        }
+
+        private void DeleteUnusedPreviewAvatar()
+        {
+            // シーンのすべてのPosingSystemのPreviewAvatarとPreviewAvatarRootの中身を比較して、使っていないものがあれば削除する
+            var usingPreviewAvatars = GameObject.FindObjectsOfType<PosingSystem>().Select(posingSystem => posingSystem.previewAvatarObject).ToList();
+            var deletePreviewAvatars = new List<GameObject>();
+            foreach (Transform previewAvatarTransform in GetPreviewAvatarRoot())
+            {
+                if (!usingPreviewAvatars.Contains(previewAvatarTransform.gameObject))
+                {
+                    deletePreviewAvatars.Add(previewAvatarTransform.gameObject);
+                }
+            }
+            while (deletePreviewAvatars.Count > 0)
+            {
+                var deletePreviewAvatar = deletePreviewAvatars.First();
+                deletePreviewAvatars.Remove(deletePreviewAvatar);
+                GameObject.DestroyImmediate(deletePreviewAvatar);
+            }
+            AssetDatabase.SaveAssets();
+        }
+
+        public static Transform GetPreviewAvatarRoot()
+        {
+            // シーンのHierarchyの一番上の階層にある「PreviewAvatarRoot」を取得する
+            var previewAvatarRoot = GameObject.Find("PreviewAvatarRoot");
+            if (previewAvatarRoot == null)
+            {
+                previewAvatarRoot = new GameObject("PreviewAvatarRoot");
+                previewAvatarRoot.hideFlags = HideFlags.HideInHierarchy;
+                EditorUtility.SetDirty(previewAvatarRoot);
+            }
+            return previewAvatarRoot.transform;
         }
 
         private static bool IsAndroidBuildTarget()
         {
             return UnityEditor.EditorUserBuildSettings.activeBuildTarget == UnityEditor.BuildTarget.Android;
         }
-        
+
         private void LoadAvailablePresetDefines()
         {
             var posingSystem = target as PosingSystem;
-            
+
             _availablePresetDefines.Clear();
             _presetDefineNames.Clear();
-            
+
             // プロジェクト内のすべてのPosingSystemPresetDefinesを検索
             var guids = AssetDatabase.FindAssets("t:PosingSystemPresetDefines");
             foreach (var guid in guids)
@@ -99,11 +140,11 @@ namespace jp.unisakistudio.posingsystemeditor
                     }
                 }
             }
-            
+
             // デフォルト選択をリセット
             _selectedPresetDefineIndex = 0;
         }
-        
+
         private void ApplySelectedPreset()
         {
             if (_availablePresetDefines.Count == 0 || _selectedPresetDefineIndex < 0 || _selectedPresetDefineIndex >= _availablePresetDefines.Count)
@@ -111,10 +152,10 @@ namespace jp.unisakistudio.posingsystemeditor
                 EditorUtility.DisplayDialog("エラー", "選択されたプリセットが無効です。", "OK");
                 return;
             }
-            
+
             var selectedPresetDefine = _availablePresetDefines[_selectedPresetDefineIndex];
             var posingSystem = target as PosingSystem;
-            
+
             // 適用可能なプリセットを検索
             if (selectedPresetDefine.preset != null)
             {
@@ -122,18 +163,18 @@ namespace jp.unisakistudio.posingsystemeditor
                 Undo.RecordObject(posingSystem, "Apply Preset Defines");
                 selectedPresetDefine.preset.ApplyTo(posingSystem, new string[] { "defines", "overrideDefines", });
                 EditorUtility.SetDirty(posingSystem);
-                
-                Debug.Log($"プリセット '{selectedPresetDefine.avatarName}' の設定を適用しました。");
+
+                Debug.Log($"[PosingSystem]プリセット '{selectedPresetDefine.avatarName}' の設定を適用しました。");
                 return;
             }
-            
+
             EditorUtility.DisplayDialog("エラー", "選択されたプリセットに有効な設定が見つかりませんでした。", "OK");
         }
 
         private void OnDisable()
         {
-//            AnimationMode.EndSampling();
-//            AnimationMode.StopAnimationMode();
+            //            AnimationMode.EndSampling();
+            //            AnimationMode.StopAnimationMode();
         }
 
         public override void OnInspectorGUI()
@@ -143,12 +184,12 @@ namespace jp.unisakistudio.posingsystemeditor
             /*
              * このコメント分を含むここから先の処理はゆにさきポーズシステムを含む商品をゆにさきスタジオから購入した場合に変更することを許可します。
              * つまり購入者はライセンスにまつわるこの先のソースコードを削除して再配布を行うことができます。
-             * 逆に、購入をせずにGithubなどからソースコードを取得しただけの場合、このライセンスに関するソースコードに手を加えることは許可しません。
+             * 逆に、購入をせずにGitHubなどからソースコードを取得しただけの場合、このライセンスに関するソースコードに手を加えることは許可しません。
              */
             if (!isPosingSystemLicensed)
             {
                 bool hasLicense = false;
-                
+
                 // Windows: レジストリをチェック
 #if UNITY_EDITOR_WIN
                 try
@@ -165,7 +206,7 @@ namespace jp.unisakistudio.posingsystemeditor
                     // レジストリアクセスに失敗した場合は次のチェックへ
                 }
 #endif
-                
+
                 // Mac/Linux: 設定ファイルをチェック
 #if UNITY_EDITOR_OSX || UNITY_EDITOR_LINUX
                 if (!hasLicense)
@@ -188,7 +229,7 @@ namespace jp.unisakistudio.posingsystemeditor
                     }
                 }
 #endif
-                
+
                 if (hasLicense)
                 {
                     isPosingSystemLicensed = true;
@@ -226,17 +267,25 @@ namespace jp.unisakistudio.posingsystemeditor
                 }
 
                 // シーンのHierarchyの一番上の階層で非表示になっているオブジェクトをすべて表示するボタンを追加
-                    if (GUILayout.Button("Hierarchyで非表示になっているオブジェクトをすべて表示"))
+                if (GUILayout.Button("Hierarchyで非表示になっているオブジェクトをすべて表示"))
+                {
+                    foreach (var obj in posingSystem.gameObject.scene.GetRootGameObjects())
                     {
-                        foreach (var obj in posingSystem.gameObject.scene.GetRootGameObjects())
+                        if (obj.hideFlags == HideFlags.HideInHierarchy)
                         {
-                            if (obj.hideFlags == HideFlags.HideInHierarchy)
-                            {
-                                obj.hideFlags = HideFlags.None;
-                                obj.SetActive(true);
-                            }
+                            obj.hideFlags = HideFlags.None;
+                            obj.SetActive(true);
                         }
                     }
+                }
+
+                if (posingSystem.developmentMode != EditorGUILayout.ToggleLeft("開発モード", posingSystem.developmentMode))
+                {
+                    Undo.RecordObject(posingSystem, "Toggle development mode");
+                    reorderableLists.Clear();
+                    posingSystem.developmentMode = !posingSystem.developmentMode;
+                }
+
                 return;
             }
 
@@ -287,7 +336,7 @@ namespace jp.unisakistudio.posingsystemeditor
             {
                 foreach (var existProduct in existProducts)
                 {
-                    EditorGUILayout.HelpBox(existProduct + "の設定がアバターに残っています！不具合が発生する可能性があるので、自動で設定を取り除く機能を使用してください。また、アバター購入時にBaseLayerに設定されていたLocomotion用のAnimatorControllerがある場合は、恐れ入りますが手動で復仇してお使いください。", MessageType.Error);
+                    EditorGUILayout.HelpBox(existProduct + "の設定がアバターに残っています！ 不具合が発生する可能性があるので、自動で設定を取り除く機能を使用してください。また、アバター購入時にBaseLayerに設定されていたLocomotion用のAnimatorControllerがある場合は、恐れ入りますが手動で復仇してお使いください。", MessageType.Error);
                     if (GUILayout.Button(existProduct + "の設定を取り除く"))
                     {
                         RemoveExistProduct(avatar, existProduct);
@@ -306,7 +355,7 @@ namespace jp.unisakistudio.posingsystemeditor
             {
                 foreach (var existFolder in existFolders)
                 {
-                    EditorGUILayout.HelpBox("unitypackage版の「" + existFolder + "」フォルダがプロジェクトに残っています！不具合が発生する可能性があるので、自動で設定を取り除く機能を使用してください。", MessageType.Error);
+                    EditorGUILayout.HelpBox("unitypackage版の「" + existFolder + "」フォルダがプロジェクトに残っています！ 不具合が発生する可能性があるので、自動で設定を取り除く機能を使用してください。", MessageType.Error);
                     if (GUILayout.Button(existFolder + "のフォルダを取り除く"))
                     {
                         RemoveExistFolder(existFolder);
@@ -369,7 +418,11 @@ namespace jp.unisakistudio.posingsystemeditor
             EditorGUILayout.BeginVertical(GUI.skin.box);
             EditorGUILayout.LabelField("プレビルド関係", new GUIStyle() { fontStyle = FontStyle.Bold, fontSize = 16, });
             // 警告表示を元の位置に戻し、常にHelpBoxを表示してGUI要素数を安定化
-            if (PosingSystemConverter.IsPosingSystemDataUpdated(posingSystem))
+            if (posingSystem.data == null || posingSystem.data.Length == 0)
+            {
+                EditorGUILayout.HelpBox("プレビルドが実行されていません。プレビルドを行ってください", MessageType.Warning);
+            }
+            else if (PosingSystemConverter.IsPosingSystemDataUpdated(posingSystem))
             {
                 EditorGUILayout.HelpBox("オブジェクトの設定が更新されています。再度プレビルドを行ってください", MessageType.Warning);
             }
@@ -385,7 +438,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 fixedHeight = 40,
                 padding = new RectOffset(10, 10, 10, 10)
             };
-            
+
             var descriptionStyle = new GUIStyle(GUI.skin.label)
             {
                 fontSize = 11,
@@ -404,7 +457,7 @@ namespace jp.unisakistudio.posingsystemeditor
                     posingSystem.previousErrorCheckTime = DateTime.MinValue;
                 }
                 EditorGUILayout.EndVertical();
-                
+
                 EditorGUILayout.BeginVertical();
                 EditorGUILayout.LabelField("ModularAvatarコンポーネントを生成・更新します", descriptionStyle);
                 EditorGUILayout.LabelField("姿勢設定を変更した場合はこのボタンを押すとアバターのビルドが早くなります", descriptionStyle);
@@ -424,8 +477,11 @@ namespace jp.unisakistudio.posingsystemeditor
                     {
                         GameObject.DestroyImmediate(posingSystem.previewAvatarObject);
                         posingSystem.previewAvatarObject = null;
+                        ClearThumbnailPack(posingSystem);
                         PosingSystemConverter.TakeScreenshot(posingSystem, true, false);
+                        posingSystem.savedInstanceId = UnityEditor.GlobalObjectId.GetGlobalObjectIdSlow(posingSystem).ToString();
                         posingSystem.previousErrorCheckTime = DateTime.MinValue;
+                        EditorUtility.SetDirty(posingSystem);
                     }
                     EditorGUILayout.EndVertical();
 
@@ -530,7 +586,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 if (_availablePresetDefines.Count > 0)
                 {
                     _selectedPresetDefineIndex = EditorGUILayout.Popup(_selectedPresetDefineIndex, _presetDefineNames.ToArray());
-                    
+
                     if (GUILayout.Button("プリセットを適用"))
                     {
                         ApplySelectedPreset();
@@ -556,7 +612,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 }
                 EditorGUILayout.EndVertical();
                 EditorGUILayout.BeginVertical();
-                EditorGUILayout.LabelField("予めアバターに合わせてアニメーション調整したデータをまとめたプリセットを適用すると、アバターに合わせた姿勢を簡単に設定できます", descriptionStyle);
+                EditorGUILayout.LabelField("あらかじめアバターに合わせてアニメーション調整したデータをまとめたプリセットを適用すると、アバターに合わせた姿勢を簡単に設定できます", descriptionStyle);
                 EditorGUILayout.EndVertical();
             }
             EditorGUILayout.EndHorizontal();
@@ -968,7 +1024,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 {
                     return;
                 }
-                for (var i=menu.controls.Count -1; i>=0; i--)
+                for (var i = menu.controls.Count - 1; i >= 0; i--)
                 {
                     var control = menu.controls[i];
                     if (control.type != VRC.SDK3.Avatars.ScriptableObjects.VRCExpressionsMenu.Control.ControlType.SubMenu)
@@ -1005,7 +1061,8 @@ namespace jp.unisakistudio.posingsystemeditor
             foreach (var prefabsName in productDefine.prefabsNames)
             {
                 Transform prefabsTransform;
-                while ((prefabsTransform = avatar.transform.Find(prefabsName)) != null) {
+                while ((prefabsTransform = avatar.transform.Find(prefabsName)) != null)
+                {
                     GameObject.DestroyImmediate(prefabsTransform.gameObject);
                 }
             }
@@ -1126,7 +1183,8 @@ namespace jp.unisakistudio.posingsystemeditor
             }
             if (motion.GetType() == typeof(AnimationClip))
             {
-                if (AnimationUtility.GetCurveBindings((AnimationClip)motion).Any(bind => {
+                if (AnimationUtility.GetCurveBindings((AnimationClip)motion).Any(bind =>
+                {
                     return HumanTrait.MuscleName.ToList().IndexOf(bind.propertyName) != -1;
                 }))
                 {
@@ -1144,6 +1202,81 @@ namespace jp.unisakistudio.posingsystemeditor
                 }
             }
             return false;
+        }
+        
+        public static void ClearThumbnailPack(PosingSystem posingSystem)
+        {
+            CreateThumbnailPack(posingSystem);
+
+            // 既にあるなら一度すべてのアニメーションのプレビュー画像を削除            
+            if (posingSystem.thumbnailPackObject != null)
+            {
+                var assetRepresentations = AssetDatabase.LoadAllAssetRepresentationsAtPath(AssetDatabase.GetAssetPath(posingSystem.thumbnailPackObject));
+                foreach (var assetRepresentation in assetRepresentations)
+                {
+                    AssetDatabase.RemoveObjectFromAsset(assetRepresentation);
+                }
+            }
+        }
+
+        public static void CreateThumbnailPack(PosingSystem posingSystem)
+        {
+            // アイコン画像作成時のアバターと違うなら、アイコン画像は全部削除する
+            var savedInstanceId = UnityEditor.GlobalObjectId.GetGlobalObjectIdSlow(posingSystem).ToString();
+            if (posingSystem.savedInstanceId != "" && savedInstanceId != posingSystem.savedInstanceId)
+            {
+                posingSystem.savedInstanceId = savedInstanceId;
+                posingSystem.thumbnailPackObject = null;
+
+                for (int index = 0; index < posingSystem.defines.Count; index++)
+                {
+                    var define = posingSystem.defines[index];
+                    {
+                        for (int animationIndex = 0; animationIndex < define.animations.Count; animationIndex++)
+                        {
+                            define.animations[animationIndex].previewImage = null;
+                        }
+                    }
+                }
+                for (int index = 0; index < posingSystem.overrideDefines.Count; index++)
+                {
+                    posingSystem.overrideDefines[index].previewImage = null;
+                }
+            }
+
+            // 既にあるなら作成しない
+            if (posingSystem.thumbnailPackObject != null)
+            {
+                return;
+            }
+
+            // 新規作成
+            posingSystem.thumbnailPackObject = ScriptableObject.CreateInstance<jp.unisakistudio.posingsystem.PosingSystemThumbnailPack>();
+            var generatedFolderPath = GetGeneratedFolderPath();
+            var filePath = $"{generatedFolderPath}/{posingSystem.GetAvatar().name}.asset";
+            filePath = AssetDatabase.GenerateUniqueAssetPath(filePath);
+            EditorUtility.SetDirty(posingSystem);
+            AssetDatabase.CreateAsset(posingSystem.thumbnailPackObject, filePath);
+            AssetDatabase.SaveAssets();
+        }
+
+        public static string GetGeneratedFolderPath()
+        {
+            var label = "PosingSystemResourceFolder";
+            var folder = AssetDatabase.FindAssets($"l:{label}")
+                .Select(AssetDatabase.GUIDToAssetPath)
+                .FirstOrDefault();
+            if (string.IsNullOrEmpty(folder))
+            {
+                folder = DefaultAdjustmentFolderRoot;
+                if (!Directory.Exists(folder))
+                {
+                    Directory.CreateDirectory(folder);
+                }
+                var folderObject = AssetDatabase.LoadMainAssetAtPath(folder);
+                AssetDatabase.SetLabels(folderObject, new string[] { label });
+            }
+            return folder;
         }
     }
 

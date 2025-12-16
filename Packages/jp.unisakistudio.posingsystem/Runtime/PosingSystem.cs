@@ -13,6 +13,7 @@ namespace jp.unisakistudio.posingsystem
 {
     public class PosingSystem : MonoBehaviour, IEditorOnly
     {
+        [HideInInspector]
         public bool developmentMode = false;
         public string settingName;
         public bool isIconDisabled = false;
@@ -136,6 +137,9 @@ namespace jp.unisakistudio.posingsystem
         public Transform SubmenuRoot;
 
         public string data;
+
+        public string savedInstanceId = "";
+        public UnityEngine.Object thumbnailPackObject = null;
 
         [NonSerialized]
         public bool isWarning = false;

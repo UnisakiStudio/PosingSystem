@@ -5,13 +5,14 @@ using UnityEditor;
 using UnityEngine;
 using jp.unisakistudio.posingsystem;
 using VRC.SDK3.Avatars.Components;
+using System.IO;
 
 namespace jp.unisakistudio.posingsystemeditor
 {
     public class PosingAnimationAdjustmentWindow : EditorWindow
     {
         public bool IsOpen = false;
-        private const string DefaultAdjustmentFolderRoot = "Packages/jp.unisakistudio.posingsystem/Resources";
+        private const string DefaultAdjustmentFolderRoot = "Assets/UnisakiStudio/GeneratedResources";
         private static readonly char[] InvalidFileNameChars = System.IO.Path.GetInvalidFileNameChars();
         
         // マッスル名の日本語翻訳配列（HumanTrait.MuscleCountに対応）
@@ -22,6 +23,7 @@ namespace jp.unisakistudio.posingsystemeditor
         private readonly List<MuscleGroup> _muscleGroups = new();
 
         private PosingSystem _posingSystem;
+        private string _posingSystemInstanceId = "";
         private readonly List<AnimationEntry> _animationEntries = new();
         private string[] _animationLabels = Array.Empty<string>();
         private int _selectedAnimationIndex = -1;
@@ -713,6 +715,7 @@ namespace jp.unisakistudio.posingsystemeditor
             IsOpen = true;
 
             _posingSystem = posingSystem;
+            _posingSystemInstanceId = UnityEditor.GlobalObjectId.GetGlobalObjectIdSlow(_posingSystem).ToString();
             BuildMuscleGroups();
             RebuildAnimationEntries();
             
@@ -868,6 +871,14 @@ namespace jp.unisakistudio.posingsystemeditor
 
             // Undo操作による値変更をチェック
             CheckForUndoChanges();
+
+            if (_posingSystem == null && _posingSystemInstanceId != "")
+            {
+                Debug.Log("[PosingSystem] PosingSystem が見つかりません。InstanceID: " + _posingSystemInstanceId + ", SelectedObject: " + UnityEditor.GlobalObjectId.GetGlobalObjectIdSlow(Selection.activeGameObject));
+                UnityEditor.GlobalObjectId globalObjectId;
+                UnityEditor.GlobalObjectId.TryParse(_posingSystemInstanceId, out globalObjectId);
+                _posingSystem = UnityEditor.GlobalObjectId.GlobalObjectIdentifierToObjectSlow(globalObjectId) as PosingSystem;
+            }
             
             if (_posingSystem == null)
             {
@@ -1320,7 +1331,7 @@ namespace jp.unisakistudio.posingsystemeditor
             }
             else
             {
-                EditorUtility.DisplayDialog("情報", "複製保存する変更が見つかりませんでした。", "OK");
+                EditorUtility.DisplayDialog("情報", "複製保存する変更はありませんでした。", "OK");
             }
         }
         
@@ -2258,6 +2269,12 @@ namespace jp.unisakistudio.posingsystemeditor
             if (string.IsNullOrEmpty(folder))
             {
                 folder = DefaultAdjustmentFolderRoot;
+                if (!Directory.Exists(folder))
+                {
+                    Directory.CreateDirectory(folder);
+                }
+                var folderObject = AssetDatabase.LoadMainAssetAtPath(folder);
+                AssetDatabase.SetLabels(folderObject, new string[] { label });
             }
             var avatarName = _posingSystem.GetAvatar().gameObject.name;
             avatarName = SanitizeFileName(avatarName);
@@ -2265,7 +2282,7 @@ namespace jp.unisakistudio.posingsystemeditor
             {
                 avatarName = "PosingSystem";
             }
-            return $"{folder}/Generated/{avatarName}";
+            return $"{folder}/{avatarName}";
         }
 
         private static string SanitizeFileName(string value)

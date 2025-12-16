@@ -77,7 +77,7 @@ namespace jp.unisakistudio.posingsystemeditor
             string commonPath = GetCommonPath(variantPaths);
             if (string.IsNullOrEmpty(commonPath)) return;
 
-            Debug.Log($"検出されたアバターデータフォルダ: {commonPath}");
+            Debug.Log($"[PosingSystem]検出されたアバターデータフォルダ: {commonPath}");
 
             // 共通フォルダ配下のすべてのPrefabとFBXを検索
             var allAssets = AssetDatabase.FindAssets("t:GameObject", new[] { commonPath });
@@ -128,7 +128,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 }
             }
 
-            Debug.Log($"自動検出完了: {targetAvatarPrefabs.Count}個のPrefab/FBX, {targetGameObjectNames.Count}個の名前");
+            Debug.Log($"[PosingSystem]自動検出完了: {targetAvatarPrefabs.Count}個のPrefab/FBX, {targetGameObjectNames.Count}個の名前");
         }
 
         private string GetCommonPath(List<string> paths)
@@ -288,64 +288,28 @@ namespace jp.unisakistudio.posingsystemeditor
             }
 
             // PosingSystemResourceFolderを探す
-            var resourceFolderGuids = AssetDatabase.FindAssets("l:PosingSystemResourceFolder");
-            string resourceFolderPath = "";
-            
-            if (resourceFolderGuids.Length > 0)
-            {
-                // 複数ある場合は最初のものを使用するか、特定のルールで選ぶか。ここでは最初に見つかったフォルダを使用。
-                resourceFolderPath = AssetDatabase.GUIDToAssetPath(resourceFolderGuids[0]);
-                if (!AssetDatabase.IsValidFolder(resourceFolderPath))
-                {
-                    resourceFolderPath = "Assets"; // フォールバック
-                }
-            }
-            else
-            {
-                // ラベルが見つからない場合、現在のスクリプトの位置から推測するか、Assets直下にする
-                resourceFolderPath = "Assets";
-            }
-
-            // Generatedフォルダを確保
-            string generatedFolderPath = Path.Combine(resourceFolderPath, "Generated").Replace("\\", "/");
-            if (!AssetDatabase.IsValidFolder(generatedFolderPath))
-            {
-                AssetDatabase.CreateFolder(resourceFolderPath, "Generated");
-            }
+            var generatedFolderPath = PosingSystemEditor.GetGeneratedFolderPath();
 
             // フォルダ作成 (名前重複回避)
-            string targetFolderName = avatarName;
-            string targetFolderPath = Path.Combine(generatedFolderPath, targetFolderName).Replace("\\", "/");
-            
-            if (AssetDatabase.IsValidFolder(targetFolderPath))
-            {
-                 // 重複回避ロジック
-                 int count = 1;
-                 while (AssetDatabase.IsValidFolder(targetFolderPath + " " + count))
-                 {
-                     count++;
-                 }
-                 targetFolderName = targetFolderName + " " + count;
-                 targetFolderPath = targetFolderPath + " " + count;
-            }
-
-            AssetDatabase.CreateFolder(generatedFolderPath, targetFolderName);
+            string targetFolderPath = Path.Combine(generatedFolderPath, avatarName).Replace("\\", "/");
+            targetFolderPath = AssetDatabase.GenerateUniqueAssetPath(targetFolderPath);
+            Directory.CreateDirectory(targetFolderPath);
 
             try
             {
                 // PosingSystemをクローンして初期化
                 GameObject tempObj = Instantiate(sourcePosingSystem.gameObject);
                 PosingSystem tempPs = tempObj.GetComponent<PosingSystem>();
-                
+
                 // プロパティ初期化
                 tempPs.developmentMode = false;
                 tempPs.previewAvatarObject = null; // プレビューアバターは保存しない
                 tempPs.isWarning = false;
                 tempPs.isError = false;
-                
+
                 // 調整アニメーションをコピーして参照を更新
                 CopyAndUpdateAdjustmentClips(tempPs, targetFolderPath);
-                
+
                 // Preset作成
                 Preset preset = new Preset(tempPs);
                 string presetPath = Path.Combine(targetFolderPath, avatarName + "_Preset.preset").Replace("\\", "/");
@@ -357,12 +321,12 @@ namespace jp.unisakistudio.posingsystemeditor
                 // PosingSystemPresetDefines作成
                 var defines = CreateInstance<PosingSystemPresetDefines>();
                 var presetDefine = new PosingSystemPresetDefines.PresetDefine();
-                
+
                 presetDefine.avatarName = avatarName;
                 presetDefine.prefabs = new List<GameObject>(applicablePrefabs.Where(x => x != null));
                 presetDefine.preset = preset;
                 presetDefine.prefabsNames = new List<string>(targetGameObjectNames.Where(x => !string.IsNullOrEmpty(x)));
-                
+
                 // Prefab GUIDのハッシュ化
                 presetDefine.prefabsHashes = new List<string>();
                 foreach (var prefab in targetAvatarPrefabs)
@@ -383,7 +347,7 @@ namespace jp.unisakistudio.posingsystemeditor
 
                 AssetDatabase.SaveAssets();
                 AssetDatabase.Refresh();
-                
+
                 // 作成したフォルダを選択状態にする
                 var folderObj = AssetDatabase.LoadAssetAtPath<UnityEngine.Object>(targetFolderPath);
                 Selection.activeObject = folderObj;
