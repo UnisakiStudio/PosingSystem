@@ -125,11 +125,8 @@ namespace jp.unisakistudio.posingsystemeditor
                 {
                     // プレビルドをする
                     PosingSystem posingSystem = (instance as GameObject).GetComponent<PosingSystem>();
-                    PosingSystemConverter.ConvertToModularAvatarComponents(posingSystem);
-                    PosingSystemConverter.TakeScreenshot(posingSystem, true, false);
-                    posingSystem.savedInstanceId = UnityEditor.GlobalObjectId.GetGlobalObjectIdSlow(posingSystem).ToString();
-                    posingSystem.previousErrorCheckTime = DateTime.MinValue;
-                    EditorUtility.SetDirty(posingSystem);
+                    PosingSystemEditor.Prebuild(posingSystem);
+                    PosingSystemEditor.RenewAvatar(posingSystem);
 
                     EditorUtility.DisplayDialog("プレビルド", "プレビルドが完了しました", "OK");
                 }

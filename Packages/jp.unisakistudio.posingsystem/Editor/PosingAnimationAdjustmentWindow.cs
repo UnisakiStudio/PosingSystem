@@ -11,7 +11,7 @@ namespace jp.unisakistudio.posingsystemeditor
 {
     public class PosingAnimationAdjustmentWindow : EditorWindow
     {
-        public bool IsOpen = false;
+        private bool _isOpen = false;
         private const string DefaultAdjustmentFolderRoot = "Assets/UnisakiStudio/GeneratedResources";
         private static readonly char[] InvalidFileNameChars = System.IO.Path.GetInvalidFileNameChars();
         
@@ -23,7 +23,6 @@ namespace jp.unisakistudio.posingsystemeditor
         private readonly List<MuscleGroup> _muscleGroups = new();
 
         private PosingSystem _posingSystem;
-        private string _posingSystemInstanceId = "";
         private readonly List<AnimationEntry> _animationEntries = new();
         private string[] _animationLabels = Array.Empty<string>();
         private int _selectedAnimationIndex = -1;
@@ -111,6 +110,11 @@ namespace jp.unisakistudio.posingsystemeditor
             public string Name;
             public int Order;
             public readonly List<int> Indexes = new();
+        }
+
+        public bool IsOpen
+        {
+            get { return _isOpen && _posingSystem != null; }
         }
 
         private string GetAnimationKey(AnimationEntry entry)
@@ -696,6 +700,7 @@ namespace jp.unisakistudio.posingsystemeditor
             foreach (var existWindow in Resources.FindObjectsOfTypeAll<PosingAnimationAdjustmentWindow>())
             {
                 window = existWindow;
+                existWindow.CleanupPreview();
             }
 
             if (!window)
@@ -712,10 +717,9 @@ namespace jp.unisakistudio.posingsystemeditor
 
         private void Initialize(PosingSystem posingSystem)
         {
-            IsOpen = true;
+            _isOpen = true;
 
             _posingSystem = posingSystem;
-            _posingSystemInstanceId = UnityEditor.GlobalObjectId.GetGlobalObjectIdSlow(_posingSystem).ToString();
             BuildMuscleGroups();
             RebuildAnimationEntries();
             
@@ -735,6 +739,18 @@ namespace jp.unisakistudio.posingsystemeditor
             Repaint();
         }
 
+        public void Close()
+        {
+            _isOpen = false;
+            CleanupPreview();
+            _posingSystem = null;
+            _animationEntries.Clear();
+            _animationLabels = Array.Empty<string>();
+            _selectedAnimationIndex = -1;
+            _adjustments = null;
+            Repaint();
+        }
+
         private void OnEnable()
         {
             if (!IsOpen)
@@ -747,10 +763,10 @@ namespace jp.unisakistudio.posingsystemeditor
             Selection.selectionChanged += OnSelectionChanged;
             BuildMuscleGroups();
             RebuildAnimationEntries();
-            
+
             // 全ての姿勢の調整値を事前に読み込み
             PreloadAllAdjustmentData();
-            
+
             if (_animationEntries.Count > 0)
             {
                 _selectedAnimationIndex = Mathf.Clamp(_selectedAnimationIndex, 0, _animationEntries.Count - 1);
@@ -865,20 +881,12 @@ namespace jp.unisakistudio.posingsystemeditor
             if (!IsOpen)
             {
                 EditorGUILayout.HelpBox("アニメーションの調整は現在停止中です", MessageType.Warning);
-                
+
                 return;
             }
 
             // Undo操作による値変更をチェック
             CheckForUndoChanges();
-
-            if (_posingSystem == null && _posingSystemInstanceId != "")
-            {
-                Debug.Log("[PosingSystem] PosingSystem が見つかりません。InstanceID: " + _posingSystemInstanceId + ", SelectedObject: " + UnityEditor.GlobalObjectId.GetGlobalObjectIdSlow(Selection.activeGameObject));
-                UnityEditor.GlobalObjectId globalObjectId;
-                UnityEditor.GlobalObjectId.TryParse(_posingSystemInstanceId, out globalObjectId);
-                _posingSystem = UnityEditor.GlobalObjectId.GlobalObjectIdentifierToObjectSlow(globalObjectId) as PosingSystem;
-            }
             
             if (_posingSystem == null)
             {
@@ -2339,15 +2347,17 @@ namespace jp.unisakistudio.posingsystemeditor
             {
                 originalPosition = _posingSystem.GetAvatar().transform.position;
                 originalRotation = _posingSystem.GetAvatar().transform.rotation;
-                
+
                 // プレビューアバターが元のアバターと異なる場合のみ、元のアバターを非アクティブにする
                 if (_previewAvatar.gameObject != _posingSystem.GetAvatar().gameObject)
                 {
                     _posingSystem.GetAvatar().gameObject.SetActive(false);
+                    EditorUtility.SetDirty(_posingSystem.gameObject);
                 }
             }
             
             _previewAvatar.gameObject.SetActive(true);
+            EditorUtility.SetDirty(_posingSystem.gameObject);
 
             HumanPoseHandler poseHandler = null;
             try
@@ -2410,12 +2420,14 @@ namespace jp.unisakistudio.posingsystemeditor
                 if (_posingSystem.GetAvatar() != null && _previewAvatar.gameObject != _posingSystem.GetAvatar().gameObject)
                 {
                     _previewAvatar.gameObject.SetActive(false);
+                    EditorUtility.SetDirty(_posingSystem.gameObject);
                 }
                 _previewAvatar = null;
             }
-            if (_posingSystem.GetAvatar() != null)
+            if (_posingSystem != null && _posingSystem.GetAvatar() != null)
             {
                 _posingSystem.GetAvatar().gameObject.SetActive(true);
+                EditorUtility.SetDirty(_posingSystem.gameObject);
             }
         }
 

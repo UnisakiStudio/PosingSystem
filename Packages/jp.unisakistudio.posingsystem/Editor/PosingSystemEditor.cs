@@ -70,8 +70,6 @@ namespace jp.unisakistudio.posingsystemeditor
 
             // 使われていないプレビュー用アバターを削除
             DeleteUnusedPreviewAvatar();
-
-            CreateThumbnailPack(posingSystem);
         }
 
         private void DeleteUnusedPreviewAvatar()
@@ -297,7 +295,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 {
                     foreach (var window in Resources.FindObjectsOfTypeAll<PosingAnimationAdjustmentWindow>().Where(window => window.IsOpen))
                     {
-                        window.IsOpen = false;
+                        window.Close();
                     }
                 }
                 else
@@ -453,8 +451,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 EditorGUILayout.BeginVertical(GUILayout.Width(120));
                 if (GUILayout.Button("プレビルド実行", bigButtonStyle))
                 {
-                    PosingSystemConverter.ConvertToModularAvatarComponents(posingSystem);
-                    posingSystem.previousErrorCheckTime = DateTime.MinValue;
+                    Prebuild(posingSystem);
                 }
                 EditorGUILayout.EndVertical();
 
@@ -475,24 +472,36 @@ namespace jp.unisakistudio.posingsystemeditor
                     EditorGUILayout.BeginVertical(GUILayout.Width(120));
                     if (GUILayout.Button("アバター更新", bigButtonStyle))
                     {
-                        GameObject.DestroyImmediate(posingSystem.previewAvatarObject);
-                        posingSystem.previewAvatarObject = null;
-                        ClearThumbnailPack(posingSystem);
-                        PosingSystemConverter.TakeScreenshot(posingSystem, true, false);
-                        posingSystem.savedInstanceId = UnityEditor.GlobalObjectId.GetGlobalObjectIdSlow(posingSystem).ToString();
-                        posingSystem.previousErrorCheckTime = DateTime.MinValue;
-                        EditorUtility.SetDirty(posingSystem);
+                        RenewAvatar(posingSystem);
                     }
                     EditorGUILayout.EndVertical();
 
                     EditorGUILayout.BeginVertical();
-                    EditorGUILayout.LabelField("アイコン撮影用のアバターを更新します", descriptionStyle);
+                    EditorGUILayout.LabelField("アイコン撮影用のアバターを更新してアイコンを撮影します", descriptionStyle);
                     EditorGUILayout.LabelField("アバターの見た目を変えたときはこのボタンを押してください", descriptionStyle);
                     EditorGUILayout.EndVertical();
                 }
                 EditorGUILayout.EndHorizontal();
 
                 GUI.enabled = true;
+
+                // ThumbnailPackObjectを選択
+                EditorGUILayout.BeginHorizontal();
+                var thumbnailPackProperty = serializedObject.FindProperty("thumbnailPackObject");
+                EditorGUILayout.PropertyField(thumbnailPackProperty, new GUIContent("アイコン画像ファイル"));
+                if (GUILayout.Button("削除", new GUIStyle(GUI.skin.button){ fixedWidth = 40, }))
+                {
+                    // ダイアログで確認する
+                    if (EditorUtility.DisplayDialog("確認", "アイコン画像ファイルを削除しますか？ この操作は元に戻せませんが、アバター更新で簡単に作り直せます。", "削除する", "キャンセル"))
+                    {
+                        Undo.RecordObject(posingSystem, "Delete thumbnail pack");
+                        AssetDatabase.DeleteAsset(AssetDatabase.GetAssetPath(posingSystem.thumbnailPackObject));
+                        posingSystem.thumbnailPackObject = null;
+                        EditorUtility.SetDirty(posingSystem);
+                        AssetDatabase.SaveAssets();
+                    }
+                }
+                EditorGUILayout.EndHorizontal();
             }
             EditorGUILayout.EndVertical();
 
@@ -571,6 +580,7 @@ namespace jp.unisakistudio.posingsystemeditor
 
             if (!IsAndroidBuildTarget())
             {
+                CheckAndDeleteThumbnailPack(posingSystem);
                 PosingSystemConverter.TakeScreenshot(posingSystem, false, true);
             }
 
@@ -742,6 +752,8 @@ namespace jp.unisakistudio.posingsystemeditor
             {
                 if (GUILayout.Button("サムネ更新"))
                 {
+                    ClearThumbnailPack(posingSystem);
+                    CreateThumbnailPack(posingSystem);
                     PosingSystemConverter.TakeScreenshot(posingSystem, true, false);
                 }
             }
@@ -752,6 +764,30 @@ namespace jp.unisakistudio.posingsystemeditor
                 reorderableLists.Clear();
                 posingSystem.developmentMode = !posingSystem.developmentMode;
             }
+        }
+
+        public static void Prebuild(PosingSystem posingSystem)
+        {
+            PosingSystemConverter.ConvertToModularAvatarComponents(posingSystem);
+            posingSystem.previousErrorCheckTime = DateTime.MinValue;
+            EditorUtility.SetDirty(posingSystem);
+        }
+
+        public static void RenewAvatar(PosingSystem posingSystem)
+        {
+            if (posingSystem.previewAvatarObject != null)
+            {
+                GameObject.DestroyImmediate(posingSystem.previewAvatarObject);
+                posingSystem.previewAvatarObject = null;
+            }
+            ClearThumbnailPack(posingSystem);
+            CreateThumbnailPack(posingSystem);
+            PosingSystemConverter.TakeScreenshot(posingSystem, true, false);
+            PosingSystemConverter.SetMenuIcon(posingSystem);
+
+            posingSystem.savedInstanceId = UnityEditor.GlobalObjectId.GetGlobalObjectIdSlow(posingSystem).ToString();
+            posingSystem.previousErrorCheckTime = DateTime.MinValue;
+            EditorUtility.SetDirty(posingSystem);
         }
 
         public static List<(string name, List<string> animatorControllerNames, List<string> checkExpressionParametersNames, List<string> expressionParametersNames, List<string> expressionsMenuNames, List<string> prefabsNames)> productDefines = new List<(string name, List<string> animatorControllerNames, List<string> checkExpressionParametersNames, List<string> expressionParametersNames, List<string> expressionsMenuNames, List<string> prefabsNames)>
@@ -1206,8 +1242,6 @@ namespace jp.unisakistudio.posingsystemeditor
         
         public static void ClearThumbnailPack(PosingSystem posingSystem)
         {
-            CreateThumbnailPack(posingSystem);
-
             // 既にあるなら一度すべてのアニメーションのプレビュー画像を削除            
             if (posingSystem.thumbnailPackObject != null)
             {
@@ -1221,6 +1255,34 @@ namespace jp.unisakistudio.posingsystemeditor
 
         public static void CreateThumbnailPack(PosingSystem posingSystem)
         {
+            CheckAndDeleteThumbnailPack(posingSystem);
+
+            // 既にあるなら作成しない
+            if (posingSystem.thumbnailPackObject != null)
+            {
+                return;
+            }
+
+            Debug.Log("CreateThumbnailPack: " + posingSystem.name);
+
+            // 新規作成
+            posingSystem.thumbnailPackObject = ScriptableObject.CreateInstance<jp.unisakistudio.posingsystem.PosingSystemThumbnailPack>();
+            var generatedFolderPath = GetGeneratedFolderPath();
+            var filePath = $"{generatedFolderPath}/{posingSystem.GetAvatar().name}.asset";
+            filePath = AssetDatabase.GenerateUniqueAssetPath(filePath);
+//            posingSystem.savedInstanceId = UnityEditor.GlobalObjectId.GetGlobalObjectIdSlow(posingSystem).ToString();
+            EditorUtility.SetDirty(posingSystem);
+            AssetDatabase.CreateAsset(posingSystem.thumbnailPackObject, filePath);
+            AssetDatabase.SaveAssets();
+        }
+
+        public static void CheckAndDeleteThumbnailPack(PosingSystem posingSystem)
+        {
+            if (posingSystem.thumbnailPackObject == null)
+            {
+                return;
+            }
+
             // アイコン画像作成時のアバターと違うなら、アイコン画像は全部削除する
             var savedInstanceId = UnityEditor.GlobalObjectId.GetGlobalObjectIdSlow(posingSystem).ToString();
             if (posingSystem.savedInstanceId != "" && savedInstanceId != posingSystem.savedInstanceId)
@@ -1243,21 +1305,6 @@ namespace jp.unisakistudio.posingsystemeditor
                     posingSystem.overrideDefines[index].previewImage = null;
                 }
             }
-
-            // 既にあるなら作成しない
-            if (posingSystem.thumbnailPackObject != null)
-            {
-                return;
-            }
-
-            // 新規作成
-            posingSystem.thumbnailPackObject = ScriptableObject.CreateInstance<jp.unisakistudio.posingsystem.PosingSystemThumbnailPack>();
-            var generatedFolderPath = GetGeneratedFolderPath();
-            var filePath = $"{generatedFolderPath}/{posingSystem.GetAvatar().name}.asset";
-            filePath = AssetDatabase.GenerateUniqueAssetPath(filePath);
-            EditorUtility.SetDirty(posingSystem);
-            AssetDatabase.CreateAsset(posingSystem.thumbnailPackObject, filePath);
-            AssetDatabase.SaveAssets();
         }
 
         public static string GetGeneratedFolderPath()

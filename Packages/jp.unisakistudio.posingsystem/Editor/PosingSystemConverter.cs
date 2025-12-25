@@ -148,13 +148,14 @@ namespace jp.unisakistudio.posingsystemeditor
 
                     foreach (var posingSystem in ctx.AvatarRootObject.GetComponentsInChildren<PosingSystem>())
                     {
-                        if (posingSystem.data != null && posingSystem.data != GetDefineSerializeJson(posingSystem))
+                        if (posingSystem.data != null && posingSystem.data != GetDefineSerializeJson(posingSystem, true))
                         {
                             ErrorReport.ReportError(errorLocalizer, ErrorSeverity.NonFatal, "オブジェクトの設定が更新されています。再度プレビルドを行ってください", posingSystem.name);
                         }
 
-                        if (posingSystem.data == null || posingSystem.data.Length == 0 || posingSystem.data != GetDefineSerializeJson(posingSystem))
+                        if (posingSystem.data == null || posingSystem.data.Length == 0 || posingSystem.data != GetDefineSerializeJson(posingSystem, true))
                         {
+                            Debug.Log("ConvertToModularAvatarComponents: " + ctx.AvatarRootObject.name + " " + posingSystem.name);
                             ConvertToModularAvatarComponents(posingSystem);
                         }
                     }
@@ -182,7 +183,7 @@ namespace jp.unisakistudio.posingsystemeditor
 
                         foreach (var posingSystem in ctx.AvatarRootObject.GetComponentsInChildren<PosingSystem>())
                         {
-                            if (posingSystem.previewAvatarObject == null)
+                            if (posingSystem.thumbnailPackObject == null)
                             {
                                 TakeScreenshot(posingSystem, true, true);
                                 SetMenuIcon(posingSystem);
@@ -510,7 +511,7 @@ namespace jp.unisakistudio.posingsystemeditor
             return hash.ToString();
         }
 
-        public static string GetDefineSerializeJson(PosingSystem posingSystem)
+        public static string GetDefineSerializeJson(PosingSystem posingSystem, bool ignoreInstanceId = false)
         {
             // Map to DTOs that do NOT have previewImage fields
             var dto = new DefineSerializeRootDTO
@@ -518,7 +519,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 list = new System.Collections.Generic.List<LayerDefineDTO>(),
                 overrides = new System.Collections.Generic.List<OverrideAnimationDefineDTO>(),
                 version = VersionName,
-                savedInstanceId = UnityEditor.GlobalObjectId.GetGlobalObjectIdSlow(posingSystem).ToString(),
+                savedInstanceId = ignoreInstanceId ? posingSystem.savedInstanceId : UnityEditor.GlobalObjectId.GetGlobalObjectIdSlow(posingSystem).ToString(),
             };
 
             if (posingSystem.defines != null)
@@ -879,9 +880,22 @@ namespace jp.unisakistudio.posingsystemeditor
         {
             // 共通ポージングAnimatorを探す
             var maMergeAnimator = GetCommonMergeAnimator(posingSystem);
+            
+            if (maMergeAnimator == null || maMergeAnimator.animator == null)
+            {
+                Debug.LogError("[PosingSystem] MergeAnimator or its animator is null");
+                return;
+            }
+            
+            var animatorController = maMergeAnimator.animator as AnimatorController;
+            if (animatorController == null)
+            {
+                Debug.LogError("[PosingSystem] Animator is not an AnimatorController");
+                return;
+            }
 
             // 設定されているAnimatorControllerが標準のものかどうかをチェックし、標準じゃないなら処理はもうしなくていい
-            var isDefault = (maMergeAnimator.animator as AnimatorController).layers.Any(l => l.name == "USSPS_IsDefault");
+            var isDefault = animatorController.layers.Any(l => l.name == "USSPS_IsDefault");
             if (!isDefault)
             {
                 // 他のPosingSystemの共通ポージングAnimatorにも同じものを設定する
@@ -912,28 +926,43 @@ namespace jp.unisakistudio.posingsystemeditor
             }
             var avatar = posingSystem.GetAvatar();
 
-            var templeteAnimatorControllerPath = AssetDatabase.GetAssetPath(maMergeAnimator.animator);
+            var templeteAnimatorControllerPath = AssetDatabase.GetAssetPath(animatorController);
 
             // AnimatorControllerの保存先を決める
             var directoryPath = PosingSystemEditor.GetGeneratedFolderPath();
             var newAnimatorControllerPath = directoryPath + "/" + avatar.name + ".controller";
             newAnimatorControllerPath = AssetDatabase.GenerateUniqueAssetPath(newAnimatorControllerPath);
+            Debug.Log("newAnimatorControllerPath: " + newAnimatorControllerPath);
 
             // 複製を実行
-            AssetDatabase.CopyAsset(templeteAnimatorControllerPath, newAnimatorControllerPath);
+            Debug.Log("templeteAnimatorControllerPath: " + templeteAnimatorControllerPath);
+            /*
+            var newAnimatorController = new AnimatorController();
+            EditorUtility.CopySerialized(maMergeAnimator.animator, newAnimatorController);
+            AssetDatabase.CreateAsset(newAnimatorController, newAnimatorControllerPath);
+            */
+            var newAnimatorController = AnimatorControllerDeepCopy.CloneAnimatorController(animatorController, newAnimatorControllerPath);
+//            AssetDatabase.CopyAsset(templeteAnimatorControllerPath, newAnimatorControllerPath);
+
+            if (newAnimatorController == null)
+            {
+                Debug.LogError("Failed to clone AnimatorController");
+                return;
+            }
 
             // オブジェクトに割り当てる
-            maMergeAnimator.animator = AssetDatabase.LoadAssetAtPath<AnimatorController>(newAnimatorControllerPath);
+            maMergeAnimator.animator = newAnimatorController;
 
             // 新しいAnimatorControllerの「USSPS_IsDefault」レイヤーを削除する
-            var animatorController = maMergeAnimator.animator as AnimatorController;
-            var isDefaultLayerIndex = animatorController.layers.ToList().FindIndex(l => l.name == "USSPS_IsDefault");
+            var isDefaultLayerIndex = newAnimatorController.layers.ToList().FindIndex(l => l.name == "USSPS_IsDefault");
             if (isDefaultLayerIndex != -1)
             {
-                var layers = animatorController.layers.ToList();
+                var layers = newAnimatorController.layers.ToList();
                 layers.RemoveAt(isDefaultLayerIndex);
-                animatorController.layers = layers.ToArray();
+                newAnimatorController.layers = layers.ToArray();
+                EditorUtility.SetDirty(newAnimatorController);
             }
+            AssetDatabase.SaveAssets();
 
             // 変更を記録
             Undo.RecordObject(maMergeAnimator, "set animator controller");
@@ -1832,8 +1861,6 @@ namespace jp.unisakistudio.posingsystemeditor
                 return;
             }
 
-            PosingSystemEditor.CreateThumbnailPack(posingSystem);
-
             var srcAvatar = posingSystem.GetAvatar();
             if (srcAvatar == null)
             {
@@ -1857,7 +1884,7 @@ namespace jp.unisakistudio.posingsystemeditor
                     posingSystem.previewAvatarObject = clone;
                     foreach (var clonePosingSystem in clone.GetComponentsInChildren<PosingSystem>())
                     {
-                        clonePosingSystem.tag = "EditorOnly";
+                        clonePosingSystem.gameObject.tag = "EditorOnly";
                     }
                     VRC.SDKBase.Editor.BuildPipeline.VRCBuildPipelineCallbacks.OnPreprocessAvatar(clone);
                     Object.DestroyImmediate(clone.GetComponent<VRC.SDK3.Avatars.Components.VRCAvatarDescriptor>());
@@ -1893,7 +1920,10 @@ namespace jp.unisakistudio.posingsystemeditor
                         TakeIconScreenshot(animation, clone, camera, force);
                         if (!AssetDatabase.IsSubAsset(animation.previewImage))
                         {
-                            AssetDatabase.AddObjectToAsset(animation.previewImage, posingSystem.thumbnailPackObject);
+                            if (posingSystem.thumbnailPackObject != null)
+                            {
+                                AssetDatabase.AddObjectToAsset(animation.previewImage, posingSystem.thumbnailPackObject);
+                            }
                         }
                     }
                 }
@@ -1909,7 +1939,10 @@ namespace jp.unisakistudio.posingsystemeditor
                     TakeIconScreenshot(animation, clone, camera, force);
                     if (!AssetDatabase.IsSubAsset(animation.previewImage))
                     {
-                        AssetDatabase.AddObjectToAsset(animation.previewImage, posingSystem.thumbnailPackObject);
+                        if (posingSystem.thumbnailPackObject != null)
+                        {
+                            AssetDatabase.AddObjectToAsset(animation.previewImage, posingSystem.thumbnailPackObject);
+                        }
                     }
                 }
                 AssetDatabase.SaveAssets();
@@ -1996,6 +2029,12 @@ namespace jp.unisakistudio.posingsystemeditor
                 }
             }
 
+            foreach (var menuItem in posingSystem.GetComponentsInChildren<ModularAvatarMenuItem>())
+            {
+                controlHash[(menuItem.Control.parameter.name, (int)menuItem.Control.value)] = menuItem.Control;
+            }
+
+
             for (int i = 0; i < posingSystem.defines.Count; i++)
             {
                 for (int j = 0; j < posingSystem.defines[i].animations.Count; j++)
@@ -2004,7 +2043,6 @@ namespace jp.unisakistudio.posingsystemeditor
                     if (controlHash.ContainsKey((posingSystem.defines[i].paramName, animation.typeParameterValue)))
                     {
                         controlHash[(posingSystem.defines[i].paramName, animation.typeParameterValue)].icon = animation.previewImage;
-                        controlHash[(posingSystem.defines[i].paramName, animation.typeParameterValue)].icon.hideFlags = HideFlags.None;
                     }
                 }
             }
