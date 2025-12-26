@@ -488,8 +488,10 @@ namespace jp.unisakistudio.posingsystemeditor
                 // ThumbnailPackObjectを選択
                 EditorGUILayout.BeginHorizontal();
                 var thumbnailPackProperty = serializedObject.FindProperty("thumbnailPackObject");
+                GUI.enabled = false;
                 EditorGUILayout.PropertyField(thumbnailPackProperty, new GUIContent("アイコン画像ファイル"));
-                if (GUILayout.Button("削除", new GUIStyle(GUI.skin.button){ fixedWidth = 40, }))
+                GUI.enabled = posingSystem.thumbnailPackObject != null;
+                if (GUILayout.Button("削除", new GUIStyle(GUI.skin.button) { fixedWidth = 40, }))
                 {
                     // ダイアログで確認する
                     if (EditorUtility.DisplayDialog("確認", "アイコン画像ファイルを削除しますか？ この操作は元に戻せませんが、アバター更新で簡単に作り直せます。", "削除する", "キャンセル"))
@@ -501,6 +503,7 @@ namespace jp.unisakistudio.posingsystemeditor
                         AssetDatabase.SaveAssets();
                     }
                 }
+                GUI.enabled = true;
                 EditorGUILayout.EndHorizontal();
             }
             EditorGUILayout.EndVertical();
