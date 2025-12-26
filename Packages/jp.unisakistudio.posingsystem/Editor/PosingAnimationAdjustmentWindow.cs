@@ -78,6 +78,11 @@ namespace jp.unisakistudio.posingsystemeditor
         private bool _previewActive;
         private Animator _previewAvatar;
         
+        // プレビュー開始時の初期位置・回転を保存（累積回転問題の回避用）
+        private Vector3 _initialAvatarPosition;
+        private Quaternion _initialAvatarRotation;
+        private bool _initialTransformSaved;
+        
         // Undo検知用の前回の値を保存
         private float[] _previousAdjustmentValues;
         
@@ -2230,6 +2235,10 @@ namespace jp.unisakistudio.posingsystemeditor
                 clipName = "Adjustment";
             }
             var folder = GetAdjustmentFolderPath();
+            if (!Directory.Exists(folder))
+            {
+                Directory.CreateDirectory(folder);
+            }
             var path = AssetDatabase.GenerateUniqueAssetPath($"{folder}/{clipName}.anim");
             var clip = new AnimationClip
             {
@@ -2340,20 +2349,19 @@ namespace jp.unisakistudio.posingsystemeditor
                 return;
             }
 
-            // 元のアバターの位置と回転を保存
-            Vector3 originalPosition = Vector3.zero;
-            Quaternion originalRotation = Quaternion.identity;
-            if (_posingSystem.GetAvatar() != null)
+            // 初回のみ元のアバターの位置と回転を保存（累積回転問題の回避）
+            if (!_initialTransformSaved && _posingSystem.GetAvatar() != null)
             {
-                originalPosition = _posingSystem.GetAvatar().transform.position;
-                originalRotation = _posingSystem.GetAvatar().transform.rotation;
-
-                // プレビューアバターが元のアバターと異なる場合のみ、元のアバターを非アクティブにする
-                if (_previewAvatar.gameObject != _posingSystem.GetAvatar().gameObject)
-                {
-                    _posingSystem.GetAvatar().gameObject.SetActive(false);
-                    EditorUtility.SetDirty(_posingSystem.gameObject);
-                }
+                _initialAvatarPosition = _posingSystem.GetAvatar().transform.position;
+                _initialAvatarRotation = _posingSystem.GetAvatar().transform.rotation;
+                _initialTransformSaved = true;
+            }
+            
+            // プレビューアバターが元のアバターと異なる場合のみ、元のアバターを非アクティブにする
+            if (_posingSystem.GetAvatar() != null && _previewAvatar.gameObject != _posingSystem.GetAvatar().gameObject)
+            {
+                _posingSystem.GetAvatar().gameObject.SetActive(false);
+                EditorUtility.SetDirty(_posingSystem.gameObject);
             }
             
             _previewAvatar.gameObject.SetActive(true);
@@ -2392,8 +2400,8 @@ namespace jp.unisakistudio.posingsystemeditor
                 poseHandler.SetHumanPose(ref pose);
             
                 // プレビューアバターの位置を元のアバターの位置に設定し、RootTYとRootQの調整値を適用
-                _previewAvatar.transform.position = originalPosition + new Vector3(0, _adjustments.rootTYAdjustment, 0);
-                _previewAvatar.transform.rotation = originalRotation * Quaternion.Euler(_adjustments.rootQAdjustments);
+                _previewAvatar.transform.position = _initialAvatarPosition + new Vector3(0, _adjustments.rootTYAdjustment, 0);
+                _previewAvatar.transform.rotation = _initialAvatarRotation * Quaternion.Euler(_adjustments.rootQAdjustments);
 
                 SceneView.RepaintAll();
             }
@@ -2422,6 +2430,12 @@ namespace jp.unisakistudio.posingsystemeditor
                     _previewAvatar.gameObject.SetActive(false);
                     EditorUtility.SetDirty(_posingSystem.gameObject);
                 }
+                // プレビューアバターが元のアバターと同じ場合、元の位置・回転に戻す
+                else if (_initialTransformSaved && _posingSystem.GetAvatar() != null)
+                {
+                    _posingSystem.GetAvatar().transform.position = _initialAvatarPosition;
+                    _posingSystem.GetAvatar().transform.rotation = _initialAvatarRotation;
+                }
                 _previewAvatar = null;
             }
             if (_posingSystem != null && _posingSystem.GetAvatar() != null)
@@ -2429,6 +2443,8 @@ namespace jp.unisakistudio.posingsystemeditor
                 _posingSystem.GetAvatar().gameObject.SetActive(true);
                 EditorUtility.SetDirty(_posingSystem.gameObject);
             }
+            // 初期位置・回転の保存状態をリセット
+            _initialTransformSaved = false;
         }
 
         private void PreloadAllAdjustmentData()
