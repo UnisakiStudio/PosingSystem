@@ -581,7 +581,7 @@ namespace jp.unisakistudio.posingsystemeditor
             EditorGUILayout.EndHorizontal();
             EditorGUILayout.EndVertical();
 
-            if (!IsAndroidBuildTarget())
+            if (!IsAndroidBuildTarget() && !Application.isPlaying)
             {
                 CheckAndDeleteThumbnailPack(posingSystem);
                 PosingSystemConverter.TakeScreenshot(posingSystem, false, true);

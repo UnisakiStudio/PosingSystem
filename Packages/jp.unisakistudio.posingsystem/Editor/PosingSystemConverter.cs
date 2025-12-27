@@ -148,6 +148,10 @@ namespace jp.unisakistudio.posingsystemeditor
 
                     foreach (var posingSystem in ctx.AvatarRootObject.GetComponentsInChildren<PosingSystem>())
                     {
+                        if (posingSystem.tag == "EditorOnly")
+                        {
+                            continue;
+                        }
                         if (posingSystem.data != null && posingSystem.data != GetDefineSerializeJson(posingSystem, true))
                         {
                             ErrorReport.ReportError(errorLocalizer, ErrorSeverity.NonFatal, "オブジェクトの設定が更新されています。再度プレビルドを行ってください", posingSystem.name);

@@ -47,7 +47,65 @@ namespace jp.unisakistudio.posingsystemeditor
             if (psPrefab != null && !applicablePrefabs.Contains(psPrefab))
             {
                 applicablePrefabs.Add(psPrefab);
+                
+                // 同じフォルダ内のPrefabVariantも自動追加
+                AutoDetectPosingSystemVariants(psPrefab);
             }
+        }
+
+        private void AutoDetectPosingSystemVariants(GameObject basePrefab)
+        {
+            // ベースPrefabのパスとフォルダを取得
+            string basePrefabPath = AssetDatabase.GetAssetPath(basePrefab);
+            if (string.IsNullOrEmpty(basePrefabPath)) return;
+
+            string folderPath = Path.GetDirectoryName(basePrefabPath).Replace("\\", "/");
+
+            // 同じフォルダ内のPrefabを検索
+            var prefabGuids = AssetDatabase.FindAssets("t:Prefab", new[] { folderPath });
+            
+            foreach (var guid in prefabGuids)
+            {
+                string prefabPath = AssetDatabase.GUIDToAssetPath(guid);
+                
+                // サブフォルダのPrefabは除外（同じ階層のみ）
+                if (Path.GetDirectoryName(prefabPath).Replace("\\", "/") != folderPath)
+                    continue;
+
+                // ベースPrefab自身は除外
+                if (prefabPath == basePrefabPath)
+                    continue;
+
+                GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject>(prefabPath);
+                if (prefab == null) continue;
+
+                // このPrefabがベースPrefabのVariantかどうかをチェック
+                if (IsPrefabVariantOf(prefab, basePrefab))
+                {
+                    if (!applicablePrefabs.Contains(prefab))
+                    {
+                        applicablePrefabs.Add(prefab);
+                        Debug.Log($"[PosingSystem] PrefabVariantを自動検出: {prefab.name}");
+                    }
+                }
+            }
+        }
+
+        private bool IsPrefabVariantOf(GameObject prefab, GameObject targetBase)
+        {
+            // PrefabのVariant親を辿って、targetBaseに到達するかチェック
+            var current = PrefabUtility.GetCorrespondingObjectFromSource(prefab);
+            
+            while (current != null)
+            {
+                if (current == targetBase)
+                {
+                    return true;
+                }
+                current = PrefabUtility.GetCorrespondingObjectFromSource(current);
+            }
+            
+            return false;
         }
 
         private void AutoDetectAvatarPrefabsAndNames()
@@ -373,6 +431,7 @@ namespace jp.unisakistudio.posingsystemeditor
             {
                 foreach (var animation in define.animations)
                 {
+                    animation.previewImage = null;
                     if (animation.adjustmentClip != null)
                     {
                         string poseName = animation.displayName;
@@ -386,6 +445,7 @@ namespace jp.unisakistudio.posingsystemeditor
             {
                 foreach (var overrideDefine in posingSystem.overrideDefines)
                 {
+                    overrideDefine.previewImage = null;
                     if (overrideDefine.adjustmentClip != null)
                     {
                         string poseName = overrideDefine.stateType.ToString();
