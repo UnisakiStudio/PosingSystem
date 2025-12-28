@@ -732,12 +732,14 @@ namespace jp.unisakistudio.posingsystemeditor
                                     animation.initialSet = false;
                                     animation.previewImage = null;
                                     posingSystem.previousErrorCheckTime = DateTime.MinValue;
+                                    EditorUtility.SetDirty(avatarPosingSystem);
                                 }
                                 else if (changedAnimation == animation)
                                 {
                                     animation.initial = animation.initialSet;
                                     animation.previewImage = null;
                                     posingSystem.previousErrorCheckTime = DateTime.MinValue;
+                                    EditorUtility.SetDirty(avatarPosingSystem);
                                 }
                             }
                         }

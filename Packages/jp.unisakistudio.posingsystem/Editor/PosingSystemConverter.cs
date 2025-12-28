@@ -740,37 +740,45 @@ namespace jp.unisakistudio.posingsystemeditor
             // 必要なパラメータを追加
             foreach (var param in parameters.Where(p => p.sync && maParameter.parameters.Where(param => p.name == param.nameOrPrefix).Count() == 0))
             {
-                // 姿勢決定用パラメータの初期値を取得
-                int initialValue = 0;
-                foreach (var define in posingSystem.defines)
-                {
-                    if (param.name != define.paramName)
-                    {
-                        continue;
-                    }
-                    foreach (var animation in define.animations)
-                    {
-                        if (!animation.enabled)
-                        {
-                            continue;
-                        }
-                        if (animation.initial)
-                        {
-                            initialValue = animation.typeParameterValue;
-                            break;
-                        }
-                    }
-                }
-
                 var paramConfig = new ParameterConfig();
                 paramConfig.syncType = param.type;
                 paramConfig.localOnly = false;
                 paramConfig.nameOrPrefix = param.name;
-                paramConfig.defaultValue = initialValue;
+                paramConfig.defaultValue = 0;
                 paramConfig.saved = false;
                 maParameter.parameters.Add(paramConfig);
             }
 
+            // initialが設定されている姿勢があったら、その姿勢のパラメータの数値を記録
+            var initialParamValues = new Dictionary<string, int>();
+            foreach (var otherPosingSystem in avatar.GetComponentsInChildren<PosingSystem>())
+            {
+                foreach (var define in otherPosingSystem.defines)
+                {
+                    foreach (var animation in define.animations)
+                    {
+                        if (!initialParamValues.ContainsKey(define.paramName))
+                        {
+                            initialParamValues[define.paramName] = 0;
+                        }
+                        if (animation.initial)
+                        {
+                            initialParamValues[define.paramName] = animation.typeParameterValue;
+                        }
+                    }
+                }
+            }
+            foreach (var otherPosingSystem in avatar.GetComponentsInChildren<PosingSystem>())
+            {
+                var otherMaParameter = otherPosingSystem.GetComponent<ModularAvatarParameters>();
+                otherMaParameter.parameters = otherMaParameter.parameters.Select(param => {
+                    if (initialParamValues.ContainsKey(param.nameOrPrefix))
+                    {
+                        param.defaultValue = initialParamValues[param.nameOrPrefix];
+                    }
+                    return param;
+                }).ToList();
+            }
 
             Undo.RecordObject(maParameter, "reset parameter");
             EditorUtility.SetDirty(maParameter);
