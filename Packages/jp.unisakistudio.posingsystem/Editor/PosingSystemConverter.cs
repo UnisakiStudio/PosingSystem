@@ -467,6 +467,12 @@ namespace jp.unisakistudio.posingsystemeditor
             // アニメーションをOverrideする
             ConvertOverrideAnimations(posingSystem);
 
+            // アイコン画像ファイルがあったらメニューに設定する
+            if (posingSystem.thumbnailPackObject != null)
+            {
+                SetMenuIcon(posingSystem);
+            }
+
             // 変更を保存
             posingSystem.data = GetDefineSerializeJson(posingSystem);
 
@@ -1074,7 +1080,7 @@ namespace jp.unisakistudio.posingsystemeditor
             avatar.transform.position = Vector3.zero;
             avatar.transform.rotation = Quaternion.identity;
             AnimationMode.EndSampling();
-            avatarHeightUnit = avatar.GetComponent<Animator>().GetBoneTransform(HumanBodyBones.Hips).position.y;
+            avatarHeightUnit = avatar.GetComponent<Animator>().GetBoneTransform(HumanBodyBones.Head).position.y / 2;
             AnimationMode.StopAnimationMode();
             avatar.gameObject.SetActive(false);
             avatar.gameObject.SetActive(true);
