@@ -159,7 +159,6 @@ namespace jp.unisakistudio.posingsystemeditor
 
                         if (posingSystem.data == null || posingSystem.data.Length == 0 || posingSystem.data != GetDefineSerializeJson(posingSystem, true))
                         {
-                            Debug.Log("ConvertToModularAvatarComponents: " + ctx.AvatarRootObject.name + " " + posingSystem.name);
                             ConvertToModularAvatarComponents(posingSystem);
                         }
                     }
@@ -936,10 +935,8 @@ namespace jp.unisakistudio.posingsystemeditor
             var directoryPath = PosingSystemEditor.GetGeneratedFolderPath();
             var newAnimatorControllerPath = directoryPath + "/" + avatar.name + ".controller";
             newAnimatorControllerPath = AssetDatabase.GenerateUniqueAssetPath(newAnimatorControllerPath);
-            Debug.Log("newAnimatorControllerPath: " + newAnimatorControllerPath);
 
             // 複製を実行
-            Debug.Log("templeteAnimatorControllerPath: " + templeteAnimatorControllerPath);
             /*
             var newAnimatorController = new AnimatorController();
             EditorUtility.CopySerialized(maMergeAnimator.animator, newAnimatorController);
@@ -950,7 +947,6 @@ namespace jp.unisakistudio.posingsystemeditor
 
             if (newAnimatorController == null)
             {
-                Debug.LogError("Failed to clone AnimatorController");
                 return;
             }
 

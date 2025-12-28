@@ -1266,8 +1266,6 @@ namespace jp.unisakistudio.posingsystemeditor
                 return;
             }
 
-            Debug.Log("CreateThumbnailPack: " + posingSystem.name);
-
             // 新規作成
             posingSystem.thumbnailPackObject = ScriptableObject.CreateInstance<jp.unisakistudio.posingsystem.PosingSystemThumbnailPack>();
             var generatedFolderPath = GetGeneratedFolderPath();
