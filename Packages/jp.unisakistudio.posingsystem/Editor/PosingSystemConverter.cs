@@ -1040,8 +1040,8 @@ namespace jp.unisakistudio.posingsystemeditor
                 throw new System.Exception("「" + posingSystem.name + "」の共通ポージングAnimatorに設定されているAnimatorControllerが不正です。AnimatorOverrideController等は使用できません");
             }
 
-            var avatarAnimator = avatar.GetComponent<Animator>();
-            if (avatarAnimator == null || avatarAnimator.avatar == null || !avatarAnimator.isHuman)
+            var srcAvatarAnimator = avatar.GetComponent<Animator>();
+            if (srcAvatarAnimator == null || srcAvatarAnimator.avatar == null || !srcAvatarAnimator.isHuman)
             {
                 // ヒューマノイド前提の変換処理のため、環境が整っていない場合はスキップ
                 return;
@@ -1060,6 +1060,39 @@ namespace jp.unisakistudio.posingsystemeditor
             var typeLayer = animatorController.layers.FirstOrDefault(l => l.name == "USSPS_LocomotionType");
             if (typeLayer == null)
             {
+                return;
+            }
+
+            // 作業用アバターを準備（元アバターを直接操作しない）
+            GameObject workingAvatar = null;
+            bool isTemporaryClone = false;
+            
+            if (posingSystem.previewAvatarObject != null)
+            {
+                workingAvatar = posingSystem.previewAvatarObject;
+            }
+            else
+            {
+                // 一時的なクローンを作成
+                workingAvatar = GameObject.Instantiate(avatar.gameObject, PosingSystemEditor.GetPreviewAvatarRoot());
+                workingAvatar.name = "_PosingSystem_TempConvertAvatar";
+                workingAvatar.hideFlags = HideFlags.HideAndDontSave;
+                isTemporaryClone = true;
+            }
+
+            // 作業用アバターのAnimatorとボーンのnullチェック
+            var workingAnimator = workingAvatar.GetComponent<Animator>();
+            if (workingAnimator == null)
+            {
+                Debug.LogError("[PosingSystem] アバターにAnimatorコンポーネントがありません。");
+                if (isTemporaryClone) Object.DestroyImmediate(workingAvatar);
+                return;
+            }
+            var headBone = workingAnimator.GetBoneTransform(HumanBodyBones.Head);
+            if (headBone == null)
+            {
+                Debug.LogError("[PosingSystem] アバターのHeadボーンが見つかりません。Humanoidリグが正しく設定されているか確認してください。");
+                if (isTemporaryClone) Object.DestroyImmediate(workingAvatar);
                 return;
             }
 
@@ -1082,106 +1115,139 @@ namespace jp.unisakistudio.posingsystemeditor
                 keepOriginalPositionY = true
             };
             AnimationUtility.SetAnimationClipSettings(baseAnimationClip, clipInfo);
-            AnimationMode.StartAnimationMode();
-            AnimationMode.BeginSampling();
-            AnimationMode.SampleAnimationClip(avatar.gameObject, baseAnimationClip, 0);
-            avatar.transform.position = Vector3.zero;
-            avatar.transform.rotation = Quaternion.identity;
-            AnimationMode.EndSampling();
-            avatarHeightUnit = avatar.GetComponent<Animator>().GetBoneTransform(HumanBodyBones.Head).position.y / 2;
-            AnimationMode.StopAnimationMode();
-            avatar.gameObject.SetActive(false);
-            avatar.gameObject.SetActive(true);
-
-            foreach (var define in posingSystem.defines)
+            
+            try
             {
-                foreach (var animationDefine in define.animations)
+                workingAvatar.SetActive(true);
+                AnimationMode.StartAnimationMode();
+                AnimationMode.BeginSampling();
+                AnimationMode.SampleAnimationClip(workingAvatar, baseAnimationClip, 0);
+                workingAvatar.transform.position = Vector3.zero;
+                workingAvatar.transform.rotation = Quaternion.identity;
+                AnimationMode.EndSampling();
+                avatarHeightUnit = headBone.position.y / 2;
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogError($"[PosingSystem] アバターの高さ計算中にエラーが発生しました: {e.Message}\n{e.StackTrace}");
+                if (isTemporaryClone) Object.DestroyImmediate(workingAvatar);
+                return;
+            }
+            finally
+            {
+                AnimationMode.StopAnimationMode();
+                workingAvatar.SetActive(false);
+                workingAvatar.SetActive(true);
+            }
+
+            try
+            {
+                foreach (var define in posingSystem.defines)
                 {
-                    if (!animationDefine.enabled)
+                    foreach (var animationDefine in define.animations)
                     {
-                        continue;
-                    }
-
-                    if (animatorController.parameters.Where(param => param.name == animationDefine.motionTimeParamName).Count() == 0)
-                    {
-                        animatorController.AddParameter(animationDefine.motionTimeParamName, AnimatorControllerParameterType.Float);
-                    }
-
-                    // アニメーションを作成
-                    Motion motion = null;
-                    if (animationDefine.animationClip is AnimationClip baseClip)
-                    {
-                        var animationClip = baseClip != null ? baseClip : waitAnimation;
-                        AnimationMode.StartAnimationMode();
-                        //                                ctx.AvatarRootTransform.position = new Vector3(ctx.AvatarDescriptor.ViewPosition.x, 0, ctx.AvatarDescriptor.ViewPosition.z);
-                        AnimationMode.BeginSampling();
-                        var eyeObject = new GameObject();
-                        eyeObject.transform.parent = avatar.GetComponent<Animator>().GetBoneTransform(HumanBodyBones.Head);
-                        //eyeObject.transform.position = ctx.AvatarDescriptor.ViewPosition + new Vector3(0, 0.1f, 0);
-                        eyeObject.transform.localPosition = new Vector3(0, 0, 0);
-                        AnimationMode.SampleAnimationClip(avatar.gameObject, animationClip, 0);
-                        avatar.transform.LookAt(new Vector3(0, 0, 1));
-                        AnimationMode.EndSampling();
-                        //avatar.transform.transform.rotation = Quaternion.Euler(0, animationDefine.rotate, 0) * avatar.transform.transform.rotation;
-                        //var headPosision = avatar.GetComponent<Animator>().GetBoneTransform(HumanBodyBones.Head).position;
-                        var headPosision = eyeObject.transform.position;
-                        GameObject.DestroyImmediate(eyeObject);
-
-                        animationClip = Object.Instantiate(animationClip);
-
-                        var srcClipSetting = AnimationUtility.GetAnimationClipSettings(animationClip);
-                        if (srcClipSetting.mirror)
+                        if (!animationDefine.enabled)
                         {
-                            srcClipSetting.mirror = false;
-                            AnimationUtility.SetAnimationClipSettings(animationClip, srcClipSetting);
+                            continue;
                         }
 
-                        // RootQの各プロパティのカーブを個別に処理
-                        var rootQxCurve = AnimationUtility.GetEditorCurve(animationClip, EditorCurveBinding.FloatCurve(string.Empty, typeof(Animator), "RootQ.x"));
-                        var rootQyCurve = AnimationUtility.GetEditorCurve(animationClip, EditorCurveBinding.FloatCurve(string.Empty, typeof(Animator), "RootQ.y"));
-                        var rootQzCurve = AnimationUtility.GetEditorCurve(animationClip, EditorCurveBinding.FloatCurve(string.Empty, typeof(Animator), "RootQ.z"));
-                        var rootQwCurve = AnimationUtility.GetEditorCurve(animationClip, EditorCurveBinding.FloatCurve(string.Empty, typeof(Animator), "RootQ.w"));
-
-                        var rootTxList = new List<float>();
-                        var rootTyList = new List<float>();
-                        var rootTzList = new List<float>();
-                        foreach (var binding in AnimationUtility.GetCurveBindings(animationClip))
+                        if (animatorController.parameters.Where(param => param.name == animationDefine.motionTimeParamName).Count() == 0)
                         {
-                            if (!binding.propertyName.StartsWith("RootT."))
+                            animatorController.AddParameter(animationDefine.motionTimeParamName, AnimatorControllerParameterType.Float);
+                        }
+
+                        // アニメーションを作成
+                        Motion motion = null;
+                        if (animationDefine.animationClip is AnimationClip baseClip)
+                        {
+                            var animationClip = baseClip != null ? baseClip : waitAnimation;
+                            if (animationClip == null)
                             {
+                                Debug.LogWarning($"[PosingSystem] アニメーションクリップがnullです: {animationDefine.displayName}");
                                 continue;
                             }
-                            var curve = AnimationUtility.GetEditorCurve(animationClip, binding);
-                            for (int i = 0; i < curve.keys.Length; i++)
+                            
+                            Vector3 headPosision = Vector3.zero;
+                            GameObject eyeObject = null;
+                            var rootTxList = new List<float>();
+                            var rootTyList = new List<float>();
+                            var rootTzList = new List<float>();
+                            
+                            // RootQの各プロパティのカーブを個別に処理（AnimationMode外で取得可能）
+                            var tempClipForCurves = Object.Instantiate(animationClip);
+                            var srcClipSetting = AnimationUtility.GetAnimationClipSettings(tempClipForCurves);
+                            if (srcClipSetting.mirror)
                             {
-                                AnimationMode.BeginSampling();
-                                AnimationMode.SampleAnimationClip(avatar.gameObject, animationClip, curve.keys[i].time);
-                                AnimationMode.EndSampling();
-                                var rootT = new Vector3();
-                                var rootBinding = binding;
-                                rootBinding.propertyName = "RootT.x";
-                                AnimationUtility.GetFloatValue(avatar.gameObject, rootBinding, out rootT.x);
-                                rootBinding.propertyName = "RootT.y";
-                                AnimationUtility.GetFloatValue(avatar.gameObject, rootBinding, out rootT.y);
-                                rootBinding.propertyName = "RootT.z";
-                                AnimationUtility.GetFloatValue(avatar.gameObject, rootBinding, out rootT.z);
-
-                                rootT -= headPosision / avatarHeightUnit;
-                                //rootT = Quaternion.Euler(0, animationDefine.rotate, 0) * rootT;
-                                if (binding.propertyName == "RootT.x")
-                                    rootTxList.Add(rootT.x);
-                                if (binding.propertyName == "RootT.y")
-                                    rootTyList.Add(rootT.y);
-                                if (binding.propertyName == "RootT.z")
-                                    rootTzList.Add(rootT.z);
+                                srcClipSetting.mirror = false;
+                                AnimationUtility.SetAnimationClipSettings(tempClipForCurves, srcClipSetting);
                             }
-                        }
+                            var rootQxCurve = AnimationUtility.GetEditorCurve(tempClipForCurves, EditorCurveBinding.FloatCurve(string.Empty, typeof(Animator), "RootQ.x"));
+                            var rootQyCurve = AnimationUtility.GetEditorCurve(tempClipForCurves, EditorCurveBinding.FloatCurve(string.Empty, typeof(Animator), "RootQ.y"));
+                            var rootQzCurve = AnimationUtility.GetEditorCurve(tempClipForCurves, EditorCurveBinding.FloatCurve(string.Empty, typeof(Animator), "RootQ.z"));
+                            var rootQwCurve = AnimationUtility.GetEditorCurve(tempClipForCurves, EditorCurveBinding.FloatCurve(string.Empty, typeof(Animator), "RootQ.w"));
+                            
+                            try
+                            {
+                                AnimationMode.StartAnimationMode();
+                                AnimationMode.BeginSampling();
+                                eyeObject = new GameObject("_PosingSystem_TempEyeObject");
+                                eyeObject.transform.parent = headBone;
+                                eyeObject.transform.localPosition = new Vector3(0, 0, 0);
+                                AnimationMode.SampleAnimationClip(workingAvatar, animationClip, 0);
+                                workingAvatar.transform.LookAt(new Vector3(0, 0, 1));
+                                AnimationMode.EndSampling();
+                                headPosision = eyeObject.transform.position;
+                                
+                                foreach (var binding in AnimationUtility.GetCurveBindings(tempClipForCurves))
+                                {
+                                    if (!binding.propertyName.StartsWith("RootT."))
+                                    {
+                                        continue;
+                                    }
+                                    var curve = AnimationUtility.GetEditorCurve(tempClipForCurves, binding);
+                                    if (curve == null) continue;
+                                    
+                                    for (int i = 0; i < curve.keys.Length; i++)
+                                    {
+                                        AnimationMode.BeginSampling();
+                                        AnimationMode.SampleAnimationClip(workingAvatar, animationClip, curve.keys[i].time);
+                                        AnimationMode.EndSampling();
+                                        var rootT = new Vector3();
+                                        var rootBinding = binding;
+                                        rootBinding.propertyName = "RootT.x";
+                                        AnimationUtility.GetFloatValue(workingAvatar, rootBinding, out rootT.x);
+                                        rootBinding.propertyName = "RootT.y";
+                                        AnimationUtility.GetFloatValue(workingAvatar, rootBinding, out rootT.y);
+                                        rootBinding.propertyName = "RootT.z";
+                                        AnimationUtility.GetFloatValue(workingAvatar, rootBinding, out rootT.z);
 
-                        AnimationMode.StopAnimationMode();
-                        avatar.gameObject.SetActive(false);
-                        avatar.gameObject.SetActive(true);
+                                        rootT -= headPosision / avatarHeightUnit;
+                                        if (binding.propertyName == "RootT.x")
+                                            rootTxList.Add(rootT.x);
+                                        if (binding.propertyName == "RootT.y")
+                                            rootTyList.Add(rootT.y);
+                                        if (binding.propertyName == "RootT.z")
+                                            rootTzList.Add(rootT.z);
+                                    }
+                                }
+                            }
+                            catch (System.Exception e)
+                            {
+                                Debug.LogError($"[PosingSystem] アニメーション '{animationDefine.displayName}' の処理中にエラーが発生しました: {e.Message}\n{e.StackTrace}");
+                                continue;
+                            }
+                            finally
+                            {
+                                if (eyeObject != null)
+                                {
+                                    GameObject.DestroyImmediate(eyeObject);
+                                }
+                                AnimationMode.StopAnimationMode();
+                                workingAvatar.SetActive(false);
+                                workingAvatar.SetActive(true);
+                            }
 
-                        var newAnimationClip = Object.Instantiate(animationClip);
+                            var newAnimationClip = Object.Instantiate(tempClipForCurves);
                         if (animationDefine.adjustmentClip != null)
                         {
                             var adjustmentClip = animationDefine.adjustmentClip;
@@ -1645,7 +1711,15 @@ namespace jp.unisakistudio.posingsystemeditor
 
             // 古いSubAssetを削除（AnimatorController肥大化防止）
             RemoveOldSubAssets(animatorController);
-
+            }
+            finally
+            {
+                // 一時クローンの場合は削除
+                if (isTemporaryClone && workingAvatar != null)
+                {
+                    Object.DestroyImmediate(workingAvatar);
+                }
+            }
         }
 
         /// <summary>
@@ -1931,7 +2005,7 @@ namespace jp.unisakistudio.posingsystemeditor
                             continue;
                         }
 
-                        TakeIconScreenshot(animation, clone, camera, force);
+                        TakeIconScreenshot(animation, posingSystem, camera, force);
                         if (!AssetDatabase.IsSubAsset(animation.previewImage))
                         {
                             if (posingSystem.thumbnailPackObject != null)
@@ -1950,7 +2024,7 @@ namespace jp.unisakistudio.posingsystemeditor
                         continue;
                     }
 
-                    TakeIconScreenshot(animation, clone, camera, force);
+                    TakeIconScreenshot(animation, posingSystem, camera, force);
                     if (!AssetDatabase.IsSubAsset(animation.previewImage))
                     {
                         if (posingSystem.thumbnailPackObject != null)
@@ -2062,7 +2136,7 @@ namespace jp.unisakistudio.posingsystemeditor
             }
         }
 
-        public static void TakeIconScreenshot(PosingSystem.BaseAnimationDefine animation, GameObject avatarObject, Camera camera, bool force)
+        public static void TakeIconScreenshot(PosingSystem.BaseAnimationDefine animation, PosingSystem posingSystem, Camera camera, bool force)
         {
             var animationDefine = animation as PosingSystem.AnimationDefine;
             if (force == false && animation.previewImage != null)
@@ -2074,119 +2148,189 @@ namespace jp.unisakistudio.posingsystemeditor
                 return;
             }
 
-            AnimationMode.StartAnimationMode();
-            if (animation.animationClip == null)
+            // 元のアバターを取得
+            var srcAvatar = posingSystem.GetAvatar();
+            if (srcAvatar == null)
             {
-                avatarObject.transform.position = new Vector3(0, 0, 0);
+                Debug.LogWarning("[PosingSystem] スクリーンショット撮影: アバターが見つかりません。");
+                return;
+            }
+
+            // previewAvatarObjectがあればそれを使用、なければクローンを作成
+            GameObject workingAvatar = null;
+            bool isTemporaryClone = false;
+            
+            if (posingSystem.previewAvatarObject != null)
+            {
+                workingAvatar = posingSystem.previewAvatarObject;
             }
             else
             {
-                AnimationClip getFirstAnimationClip(Motion motion)
+                // 一時的なクローンを作成
+                workingAvatar = GameObject.Instantiate(srcAvatar.gameObject, PosingSystemEditor.GetPreviewAvatarRoot());
+                workingAvatar.name = "_PosingSystem_TempIconAvatar";
+                workingAvatar.hideFlags = HideFlags.HideAndDontSave;
+                isTemporaryClone = true;
+            }
+
+            // Animatorのnullチェック
+            var avatarAnimator = workingAvatar.GetComponent<Animator>();
+            if (avatarAnimator == null)
+            {
+                Debug.LogWarning("[PosingSystem] スクリーンショット撮影: アバターにAnimatorコンポーネントがありません。");
+                if (isTemporaryClone)
                 {
-                    if (motion == null)
+                    Object.DestroyImmediate(workingAvatar);
+                }
+                return;
+            }
+
+            try
+            {
+                workingAvatar.SetActive(true);
+                workingAvatar.layer = PosingSystem.PreviewMask;
+                foreach (var child in workingAvatar.GetComponentsInChildren<Transform>())
+                {
+                    child.gameObject.layer = workingAvatar.layer;
+                }
+
+                AnimationMode.StartAnimationMode();
+                if (animation.animationClip == null)
+                {
+                    workingAvatar.transform.position = new Vector3(0, 0, 0);
+                }
+                else
+                {
+                    AnimationClip getFirstAnimationClip(Motion motion)
                     {
+                        if (motion == null)
+                        {
+                            return null;
+                        }
+                        if (motion.GetType() == typeof(AnimationClip))
+                        {
+                            return (AnimationClip)motion;
+                        }
+                        if (motion.GetType() == typeof(UnityEditor.Animations.BlendTree))
+                        {
+                            foreach (var child in ((UnityEditor.Animations.BlendTree)motion).children)
+                            {
+                                var clip = getFirstAnimationClip(child.motion);
+                                if (clip)
+                                {
+                                    return clip;
+                                }
+                            }
+                        }
                         return null;
                     }
-                    if (motion.GetType() == typeof(AnimationClip))
+                    var firstAnimationClip = getFirstAnimationClip(animation.animationClip);
+                    if (firstAnimationClip)
                     {
-                        return (AnimationClip)motion;
-                    }
-                    if (motion.GetType() == typeof(UnityEditor.Animations.BlendTree))
-                    {
-                        foreach (var child in ((UnityEditor.Animations.BlendTree)motion).children)
+                        // 調整アニメーションを適用したクリップを作成
+                        var clipToSample = firstAnimationClip;
+                        if (animationDefine != null && animationDefine.adjustmentClip != null)
                         {
-                            var clip = getFirstAnimationClip(child.motion);
-                            if (clip)
+                            clipToSample = Object.Instantiate(firstAnimationClip);
+                            var adjustmentClip = animationDefine.adjustmentClip;
+                            foreach (var binding in AnimationUtility.GetCurveBindings(adjustmentClip))
                             {
-                                return clip;
+                                var adjustmentCurve = AnimationUtility.GetEditorCurve(adjustmentClip, binding);
+                                var baseCurve = AnimationUtility.GetEditorCurve(clipToSample, binding);
+                                if (baseCurve == null)
+                                {
+                                    baseCurve = new AnimationCurve();
+                                }
+                                baseCurve = AdditiveCurveUtility.AddCurve(baseCurve, adjustmentCurve);
+                                AnimationUtility.SetEditorCurve(clipToSample, binding, baseCurve);
                             }
                         }
-                    }
-                    return null;
-                }
-                var firstAnimationClip = getFirstAnimationClip(animation.animationClip);
-                if (firstAnimationClip)
-                {
-                    // 調整アニメーションを適用したクリップを作成
-                    var clipToSample = firstAnimationClip;
-                    if (animationDefine != null && animationDefine.adjustmentClip != null)
-                    {
-                        clipToSample = Object.Instantiate(firstAnimationClip);
-                        var adjustmentClip = animationDefine.adjustmentClip;
-                        foreach (var binding in AnimationUtility.GetCurveBindings(adjustmentClip))
+
+                        workingAvatar.transform.position = new Vector3(0, 0, 0);
+                        workingAvatar.transform.LookAt(new Vector3(0, 0, 1));
+                        AnimationMode.BeginSampling();
+                        AnimationMode.SampleAnimationClip(workingAvatar, clipToSample, 0);
+                        AnimationMode.EndSampling();
+
+                        // 一時的に作成したクリップを削除
+                        if (clipToSample != firstAnimationClip)
                         {
-                            var adjustmentCurve = AnimationUtility.GetEditorCurve(adjustmentClip, binding);
-                            var baseCurve = AnimationUtility.GetEditorCurve(clipToSample, binding);
-                            if (baseCurve == null)
-                            {
-                                baseCurve = new AnimationCurve();
-                            }
-                            baseCurve = AdditiveCurveUtility.AddCurve(baseCurve, adjustmentCurve);
-                            AnimationUtility.SetEditorCurve(clipToSample, binding, baseCurve);
+                            Object.DestroyImmediate(clipToSample);
                         }
-                    }
 
-                    avatarObject.transform.position = new Vector3(0, 0, 0);
-                    avatarObject.transform.LookAt(new Vector3(0, 0, 1));
-                    AnimationMode.BeginSampling();
-                    AnimationMode.SampleAnimationClip(avatarObject, clipToSample, 0);
-                    AnimationMode.EndSampling();
-
-                    // 一時的に作成したクリップを削除
-                    if (clipToSample != firstAnimationClip)
-                    {
-                        Object.DestroyImmediate(clipToSample);
-                    }
-
-
-                    if (animation.isRotate)
-                    {
-                        avatarObject.transform.Rotate(0, animation.rotate, 0);
-                    }
+                        if (animation.isRotate)
+                        {
+                            workingAvatar.transform.Rotate(0, animation.rotate, 0);
+                        }
 #if MODULAR_AVATAR
-                    foreach (var mergeArmature in avatarObject.GetComponentsInChildren<ModularAvatarMergeArmature>())
-                    {
-                        mergeArmature.transform.position = new Vector3(200, 0, 0);
-                    }
+                        foreach (var mergeArmature in workingAvatar.GetComponentsInChildren<ModularAvatarMergeArmature>())
+                        {
+                            mergeArmature.transform.position = new Vector3(200, 0, 0);
+                        }
 #endif
+                    }
+
+                    // ボーンのnullチェック
+                    var headBone = avatarAnimator.GetBoneTransform(HumanBodyBones.Head);
+                    var leftFootBone = avatarAnimator.GetBoneTransform(HumanBodyBones.LeftFoot);
+                    var hipsBone = avatarAnimator.GetBoneTransform(HumanBodyBones.Hips);
+                    
+                    if (headBone != null && leftFootBone != null && hipsBone != null)
+                    {
+                        var cameraHeight = headBone.position.y;
+                        var cameraDepth = leftFootBone.position.z;
+                        var cameraDepth2 = headBone.position.z;
+                        var cameraBase = hipsBone.position.z;
+                        var distance = Mathf.Max(Mathf.Abs(cameraDepth - cameraBase), cameraHeight) + 0.5f;
+                        camera.transform.position = new Vector3(100 - distance, 1, cameraBase + distance + (cameraDepth + cameraDepth2) * 0.5f / 2);
+                        camera.transform.LookAt(new Vector3(100, cameraHeight * 0.5f, (cameraDepth + cameraDepth2) * 0.5f));
+
+                        PosingSystemConverter.SetCameraForAvatar(camera, workingAvatar);
+                    }
+                    else
+                    {
+                        Debug.LogWarning("[PosingSystem] スクリーンショット撮影: 必要なボーンが見つかりません。デフォルトのカメラ位置を使用します。");
+                    }
                 }
 
-                var cameraHeight = avatarObject.GetComponent<Animator>().GetBoneTransform(HumanBodyBones.Head).position.y;
-                var cameraDepth = avatarObject.GetComponent<Animator>().GetBoneTransform(HumanBodyBones.LeftFoot).position.z;
-                var cameraDepth2 = avatarObject.GetComponent<Animator>().GetBoneTransform(HumanBodyBones.Head).position.z;
-                var cameraBase = avatarObject.GetComponent<Animator>().GetBoneTransform(HumanBodyBones.Hips).position.z;
-                var distance = Mathf.Max(Mathf.Abs(cameraDepth - cameraBase), cameraHeight) + 0.5f;
-                camera.transform.position = new Vector3(100 - distance, /*cameraHeight + 0.2f*/1, cameraBase + distance + (cameraDepth + cameraDepth2) * 0.5f / 2);
-                camera.transform.LookAt(new Vector3(100, cameraHeight * 0.5f, /*cameraDepth / 2*/(cameraDepth + cameraDepth2) * 0.5f));
+                camera.backgroundColor = new Color(0, 0, 0, 0);
 
-                PosingSystemConverter.SetCameraForAvatar(camera, avatarObject);
+                workingAvatar.SetActive(false);
+                workingAvatar.SetActive(true);
+
+                camera.targetTexture = new RenderTexture(300, 300, 24);
+                camera.Render();
+
+                if (animation.previewImage == null)
+                {
+                    animation.previewImage = new Texture2D(300, 300, TextureFormat.ARGB32, false);
+                }
+                RenderTexture.active = camera.targetTexture;
+                if (animation as PosingSystem.AnimationDefine != null)
+                {
+                    animation.previewImage.name = (animation as PosingSystem.AnimationDefine).displayName;
+                }
+                else if (animation as PosingSystem.OverrideAnimationDefine != null)
+                {
+                    animation.previewImage.name = (animation as PosingSystem.OverrideAnimationDefine).stateType.ToString();
+                }
+                animation.previewImage.ReadPixels(new Rect(0, 0, 300, 300), 0, 0);
+                animation.previewImage.Apply();
             }
-
-            camera.backgroundColor = new Color(0, 0, 0, 0);
-
-            avatarObject.SetActive(false);
-            avatarObject.SetActive(true);
-
-            camera.targetTexture = new RenderTexture(300, 300, 24);
-            camera.Render();
-            AnimationMode.StopAnimationMode();
-
-
-            if (animation.previewImage == null)
+            catch (System.Exception e)
             {
-                animation.previewImage = new Texture2D(300, 300, TextureFormat.ARGB32, false);
+                Debug.LogError($"[PosingSystem] スクリーンショット撮影中にエラーが発生しました: {e.Message}\n{e.StackTrace}");
             }
-            RenderTexture.active = camera.targetTexture;
-            if (animation as PosingSystem.AnimationDefine != null)
+            finally
             {
-                animation.previewImage.name = (animation as PosingSystem.AnimationDefine).displayName;
+                AnimationMode.StopAnimationMode();
+                
+                // 一時クローンの場合は削除
+                if (isTemporaryClone && workingAvatar != null)
+                {
+                    Object.DestroyImmediate(workingAvatar);
+                }
             }
-            else if (animation as PosingSystem.OverrideAnimationDefine != null)
-            {
-                animation.previewImage.name = (animation as PosingSystem.OverrideAnimationDefine).stateType.ToString();
-            }
-            animation.previewImage.ReadPixels(new Rect(0, 0, 300, 300), 0, 0);
-            animation.previewImage.Apply();
         }
 
         public static List<(PosingSystem.OverrideAnimationDefine.AnimationStateType stateType, string layerName, string stateMachineName, string stateName, bool isBlendTree, float posX, float posY)> OverrideSettings = new()

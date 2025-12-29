@@ -410,6 +410,14 @@ namespace jp.unisakistudio.posingsystemeditor
                     EditorUtility.SetDirty(posingSystem);
                 }
             }
+            
+            EditorGUILayout.Space(5);
+            EditorGUILayout.LabelField("トラブルシューティング", EditorStyles.boldLabel);
+            if (GUILayout.Button("アバターの姿勢をリセット（Tポーズに戻す）"))
+            {
+                ResetAvatarPose(avatar);
+            }
+            EditorGUILayout.HelpBox("エディタ上でアバターの姿勢がおかしくなった場合、このボタンで元のFBXの姿勢に戻せます", MessageType.None);
             EditorGUILayout.EndVertical();
 
             EditorGUILayout.Space(10);
@@ -776,6 +784,149 @@ namespace jp.unisakistudio.posingsystemeditor
             PosingSystemConverter.ConvertToModularAvatarComponents(posingSystem);
             posingSystem.previousErrorCheckTime = DateTime.MinValue;
             EditorUtility.SetDirty(posingSystem);
+        }
+
+        /// <summary>
+        /// アバターの姿勢をFBX内のモデルの姿勢（通常はTポーズ）にリセットします。
+        /// エディタ上でアバターの姿勢がおかしくなった場合の復旧用です。
+        /// </summary>
+        public static void ResetAvatarPose(VRC.SDK3.Avatars.Components.VRCAvatarDescriptor avatar)
+        {
+            if (avatar == null)
+            {
+                Debug.LogWarning("[PosingSystem] アバターが指定されていません。");
+                return;
+            }
+
+            var animator = avatar.GetComponent<Animator>();
+            if (animator == null)
+            {
+                Debug.LogWarning("[PosingSystem] アバターにAnimatorコンポーネントがありません。");
+                return;
+            }
+
+            if (animator.avatar == null)
+            {
+                Debug.LogWarning("[PosingSystem] AnimatorにAvatarが設定されていません。");
+                return;
+            }
+
+            try
+            {
+                // AnimationModeが動作中の場合は停止
+                if (AnimationMode.InAnimationMode())
+                {
+                    AnimationMode.StopAnimationMode();
+                }
+
+                // 元のPrefabまたはFBXを探す
+                GameObject sourcePrefab = FindOriginalPrefabOrFBX(avatar.gameObject);
+                
+                if (sourcePrefab != null)
+                {
+                    // 元のプレハブ/FBXからボーンのローカル回転をコピー
+                    CopyBoneTransformsFromSource(avatar.gameObject, sourcePrefab);
+                    Debug.Log("[PosingSystem] アバターの姿勢を元のFBX/Prefabの姿勢にリセットしました。");
+                }
+                else
+                {
+                    // 元のPrefabが見つからない場合はAnimator.Rebindを使用
+                    Debug.LogWarning("[PosingSystem] 元のPrefab/FBXが見つかりませんでした。Animator.Rebindで代替リセットを行います。");
+                    animator.Rebind();
+                    animator.Update(0f);
+                }
+
+                // Transform位置と回転もリセット
+                Undo.RecordObject(avatar.transform, "Reset Avatar Pose");
+                avatar.transform.localPosition = Vector3.zero;
+                avatar.transform.localRotation = Quaternion.identity;
+
+                // GameObjectをリフレッシュ
+                avatar.gameObject.SetActive(false);
+                avatar.gameObject.SetActive(true);
+
+                EditorUtility.SetDirty(avatar.gameObject);
+                SceneView.RepaintAll();
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogError($"[PosingSystem] 姿勢リセット中にエラーが発生しました: {e.Message}\n{e.StackTrace}");
+            }
+        }
+
+        /// <summary>
+        /// 元のPrefabまたはFBXを探す
+        /// </summary>
+        private static GameObject FindOriginalPrefabOrFBX(GameObject avatarObject)
+        {
+            // PrefabVariantを遡って元のPrefab/FBXを探す
+            var current = PrefabUtility.GetCorrespondingObjectFromSource(avatarObject);
+            GameObject lastValid = current;
+            
+            while (current != null)
+            {
+                lastValid = current;
+                current = PrefabUtility.GetCorrespondingObjectFromSource(current);
+            }
+            
+            return lastValid;
+        }
+
+        /// <summary>
+        /// 元のPrefab/FBXからボーンのローカル回転をコピー
+        /// </summary>
+        private static void CopyBoneTransformsFromSource(GameObject targetAvatar, GameObject sourcePrefab)
+        {
+            // ターゲットの全てのTransformを取得
+            var targetTransforms = targetAvatar.GetComponentsInChildren<Transform>(true);
+            
+            // ソースの全てのTransformを辞書化
+            var sourceTransformDict = new Dictionary<string, Transform>();
+            foreach (var t in sourcePrefab.GetComponentsInChildren<Transform>(true))
+            {
+                // フルパスを使用して一意に識別
+                string path = GetTransformPath(t, sourcePrefab.transform);
+                if (!sourceTransformDict.ContainsKey(path))
+                {
+                    sourceTransformDict[path] = t;
+                }
+            }
+            
+            // 各ターゲットTransformにソースの回転をコピー
+            foreach (var targetTransform in targetTransforms)
+            {
+                string path = GetTransformPath(targetTransform, targetAvatar.transform);
+                
+                if (sourceTransformDict.TryGetValue(path, out var sourceTransform))
+                {
+                    Undo.RecordObject(targetTransform, "Reset Bone Transform");
+                    targetTransform.localRotation = sourceTransform.localRotation;
+                    targetTransform.localPosition = sourceTransform.localPosition;
+                    targetTransform.localScale = sourceTransform.localScale;
+                }
+            }
+        }
+
+        /// <summary>
+        /// ルートからのTransformパスを取得
+        /// </summary>
+        private static string GetTransformPath(Transform transform, Transform root)
+        {
+            if (transform == root)
+            {
+                return "";
+            }
+            
+            var path = transform.name;
+            var current = transform.parent;
+            
+            while (current != null && current != root)
+            {
+                path = current.name + "/" + path;
+                current = current.parent;
+            }
+            
+            return path;
         }
 
         public static void RenewAvatar(PosingSystem posingSystem)
