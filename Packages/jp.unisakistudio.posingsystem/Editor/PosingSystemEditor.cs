@@ -179,6 +179,9 @@ namespace jp.unisakistudio.posingsystemeditor
         {
             PosingSystem posingSystem = target as PosingSystem;
 
+            var header1Label = new GUIStyle(EditorStyles.label) { fontStyle = FontStyle.Bold, fontSize = 20, };
+            var header2Label = new GUIStyle(EditorStyles.label) { fontStyle = FontStyle.Bold, fontSize = 16, };
+
             /*
              * このコメント分を含むここから先の処理はゆにさきポーズシステムを含む商品をゆにさきスタジオから購入した場合に変更することを許可します。
              * つまり購入者はライセンスにまつわるこの先のソースコードを削除して再配布を行うことができます。
@@ -234,7 +237,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 }
                 else
                 {
-                    EditorGUILayout.LabelField("ゆにさきポーズシステム", new GUIStyle() { fontStyle = FontStyle.Bold, fontSize = 20, }, GUILayout.Height(30));
+                    EditorGUILayout.LabelField("ゆにさきポーズシステム", header1Label, GUILayout.Height(30));
 
                     EditorGUILayout.HelpBox("このコンピュータにはゆにさきポーズシステムの使用が許諾されていません。Boothのショップから可愛いポーズツールを購入して、コンピュータにライセンスをインストールしてください", MessageType.Error);
                     if (EditorGUILayout.LinkButton("可愛いポーズツール(Booth)"))
@@ -309,7 +312,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 exMenuBackground = AssetDatabase.LoadAssetAtPath<Texture2D>(AssetDatabase.GUIDToAssetPath(AssetDatabase.FindAssets("ExMenuBackground t:Texture")[0]));
             }
 
-            EditorGUILayout.LabelField(posingSystem.settingName, new GUIStyle() { fontStyle = FontStyle.Bold, fontSize = 20, }, GUILayout.Height(30));
+            EditorGUILayout.LabelField(posingSystem.settingName, header1Label, GUILayout.Height(30));
 
             if (posingSystem.previewAvatarObject == null)
             {
@@ -395,7 +398,7 @@ namespace jp.unisakistudio.posingsystemeditor
             }
 
             EditorGUILayout.BeginVertical(GUI.skin.box);
-            EditorGUILayout.LabelField("設定", new GUIStyle() { fontStyle = FontStyle.Bold, fontSize = 16, });
+            EditorGUILayout.LabelField("設定", header2Label);
             if (IsAndroidBuildTarget())
             {
                 EditorGUILayout.HelpBox("Androidビルドターゲットでは姿勢アイコンは生成・設定されません（サイズ削減のため強制無効化）", MessageType.Info);
@@ -422,7 +425,7 @@ namespace jp.unisakistudio.posingsystemeditor
 
             EditorGUILayout.Space(10);
             EditorGUILayout.BeginVertical(GUI.skin.box);
-            EditorGUILayout.LabelField("プレビルド関係", new GUIStyle() { fontStyle = FontStyle.Bold, fontSize = 16, });
+            EditorGUILayout.LabelField("プレビルド関係", header2Label);
             // 警告表示を元の位置に戻し、常にHelpBoxを表示してGUI要素数を安定化
             if (posingSystem.data == null || posingSystem.data.Length == 0)
             {
@@ -449,7 +452,6 @@ namespace jp.unisakistudio.posingsystemeditor
             {
                 fontSize = 11,
                 wordWrap = true,
-                normal = { textColor = Color.black },
                 margin = new RectOffset(0, 0, 1, 1) // 行間を狭く
             };
 
@@ -520,7 +522,7 @@ namespace jp.unisakistudio.posingsystemeditor
 
             EditorGUILayout.Space(10);
             EditorGUILayout.BeginVertical(GUI.skin.box);
-            EditorGUILayout.LabelField("モーション置き換え機能", new GUIStyle() { fontStyle = FontStyle.Bold, fontSize = 16, });
+            EditorGUILayout.LabelField("モーション置き換え機能", header2Label);
             if (GUILayout.Button("アバターから自動インポート") || posingSystem.overrideDefines == null)
             {
                 Undo.RecordObject(posingSystem, "Auto detect override settings");
@@ -534,7 +536,7 @@ namespace jp.unisakistudio.posingsystemeditor
             // 無かったら「設定なし」と表示して、アバターから自動インポートする説明を表示する
             if (posingSystem.overrideDefines == null || posingSystem.overrideDefines?.Count == 0)
             {
-                EditorGUILayout.LabelField("設定なし", new GUIStyle() { fontSize = 16, });
+                EditorGUILayout.HelpBox("設定なし", MessageType.None);
                 EditorGUILayout.LabelField("既にアバターに固有の姿勢モーションがある場合はアバターから自動インポートできます", descriptionStyle);
             }
             int removeIndex = -1;
@@ -598,7 +600,7 @@ namespace jp.unisakistudio.posingsystemeditor
             // definesセクション全体をBeginVerticalで囲んでObjectFieldのGUI順序を安定化
             EditorGUILayout.Space(10);
             EditorGUILayout.BeginVertical(GUI.skin.box);
-            EditorGUILayout.LabelField("姿勢アニメーション設定", new GUIStyle() { fontStyle = FontStyle.Bold, fontSize = 16, });
+            EditorGUILayout.LabelField("姿勢アニメーション設定", header2Label);
 
             // プリセット選択と適用
             EditorGUILayout.LabelField("プリセット選択", EditorStyles.boldLabel);
