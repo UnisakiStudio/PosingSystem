@@ -118,6 +118,8 @@ namespace jp.unisakistudio.posingsystemeditor
             _availablePresetDefines.Clear();
             _presetDefineNames.Clear();
 
+            _presetDefineNames.Add("プリセットを選択");
+
             // プロジェクト内のすべてのPosingSystemPresetDefinesを検索
             var guids = AssetDatabase.FindAssets("t:PosingSystemPresetDefines");
             foreach (var guid in guids)
