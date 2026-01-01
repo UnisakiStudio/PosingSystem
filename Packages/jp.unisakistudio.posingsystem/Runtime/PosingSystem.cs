@@ -17,6 +17,7 @@ namespace jp.unisakistudio.posingsystem
         public bool developmentMode = false;
         public string settingName;
         public bool isIconDisabled = false;
+        public bool isIconSmall = false;
         public const int PreviewMask = 21;
 
         [HideInInspector]

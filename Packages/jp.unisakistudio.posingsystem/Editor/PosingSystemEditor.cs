@@ -412,6 +412,14 @@ namespace jp.unisakistudio.posingsystemeditor
                     posingSystem.isIconDisabled = isIconDisabled;
                     EditorUtility.SetDirty(posingSystem);
                 }
+
+                var isIconSmall = EditorGUILayout.ToggleLeft("姿勢アイコン小さいモード(256→64)", posingSystem.isIconSmall);
+                if (isIconSmall != posingSystem.isIconSmall)
+                {
+                    Undo.RecordObject(posingSystem, "Small icon");
+                    posingSystem.isIconSmall = isIconSmall;
+                    EditorUtility.SetDirty(posingSystem);
+                }
             }
             
             EditorGUILayout.Space(5);

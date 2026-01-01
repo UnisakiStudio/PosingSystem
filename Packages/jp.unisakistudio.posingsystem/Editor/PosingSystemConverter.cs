@@ -82,6 +82,8 @@ namespace jp.unisakistudio.posingsystemeditor
         [System.Serializable]
         private class DefineSerializeRootDTO
         {
+            public bool isIconDisabled;
+            public bool isIconSmall;
             public System.Collections.Generic.List<LayerDefineDTO> list;
             public System.Collections.Generic.List<OverrideAnimationDefineDTO> overrides;
             public string version;
@@ -525,6 +527,8 @@ namespace jp.unisakistudio.posingsystemeditor
             // Map to DTOs that do NOT have previewImage fields
             var dto = new DefineSerializeRootDTO
             {
+                isIconDisabled = posingSystem.isIconDisabled,
+                isIconSmall = posingSystem.isIconSmall,
                 list = new System.Collections.Generic.List<LayerDefineDTO>(),
                 overrides = new System.Collections.Generic.List<OverrideAnimationDefineDTO>(),
                 version = VersionName,
@@ -1784,6 +1788,44 @@ namespace jp.unisakistudio.posingsystemeditor
         }
 
         /// <summary>
+        /// テクスチャフォーマットが圧縮フォーマットかどうかをチェック
+        /// 圧縮フォーマットのテクスチャにはReadPixelsで書き込めない
+        /// </summary>
+        private static bool IsCompressedFormat(TextureFormat format)
+        {
+            switch (format)
+            {
+                case TextureFormat.DXT1:
+                case TextureFormat.DXT1Crunched:
+                case TextureFormat.DXT5:
+                case TextureFormat.DXT5Crunched:
+                case TextureFormat.BC4:
+                case TextureFormat.BC5:
+                case TextureFormat.BC6H:
+                case TextureFormat.BC7:
+                case TextureFormat.PVRTC_RGB2:
+                case TextureFormat.PVRTC_RGBA2:
+                case TextureFormat.PVRTC_RGB4:
+                case TextureFormat.PVRTC_RGBA4:
+                case TextureFormat.ETC_RGB4:
+                case TextureFormat.ETC2_RGB:
+                case TextureFormat.ETC2_RGBA1:
+                case TextureFormat.ETC2_RGBA8:
+                case TextureFormat.ETC_RGB4Crunched:
+                case TextureFormat.ETC2_RGBA8Crunched:
+                case TextureFormat.ASTC_4x4:
+                case TextureFormat.ASTC_5x5:
+                case TextureFormat.ASTC_6x6:
+                case TextureFormat.ASTC_8x8:
+                case TextureFormat.ASTC_10x10:
+                case TextureFormat.ASTC_12x12:
+                    return true;
+                default:
+                    return false;
+            }
+        }
+
+        /// <summary>
         /// AnimatorControllerから古いPosingSystem関連のSubAssetを削除
         /// </summary>
         private static void RemoveOldSubAssets(AnimatorController animatorController)
@@ -2332,14 +2374,27 @@ namespace jp.unisakistudio.posingsystemeditor
                 workingAvatar.SetActive(false);
                 workingAvatar.SetActive(true);
 
-                camera.targetTexture = new RenderTexture(300, 300, 24);
+                var iconSize = posingSystem.isIconSmall ? 64 : 256;
+
+                var renderTexture = new RenderTexture(iconSize, iconSize, 24, RenderTextureFormat.ARGB32);
+                camera.targetTexture = renderTexture;
                 camera.Render();
 
-                if (animation.previewImage == null)
+                // previewImageがnull、サイズが異なる、または圧縮フォーマットの場合は新規作成
+                // （圧縮済みテクスチャにはReadPixelsで書き込めないため）
+                bool needsNewTexture = animation.previewImage == null ||
+                    animation.previewImage.width != iconSize ||
+                    animation.previewImage.height != iconSize ||
+                    IsCompressedFormat(animation.previewImage.format);
+
+                if (needsNewTexture)
                 {
-                    animation.previewImage = new Texture2D(300, 300, TextureFormat.ARGB32, false);
+                    animation.previewImage = new Texture2D(iconSize, iconSize, TextureFormat.ARGB32, false);
                 }
-                RenderTexture.active = camera.targetTexture;
+
+                RenderTexture.active = renderTexture;
+
+                // 名前を設定
                 if (animation as PosingSystem.AnimationDefine != null)
                 {
                     animation.previewImage.name = (animation as PosingSystem.AnimationDefine).displayName;
@@ -2348,8 +2403,16 @@ namespace jp.unisakistudio.posingsystemeditor
                 {
                     animation.previewImage.name = (animation as PosingSystem.OverrideAnimationDefine).stateType.ToString();
                 }
-                animation.previewImage.ReadPixels(new Rect(0, 0, 300, 300), 0, 0);
+
+                animation.previewImage.ReadPixels(new Rect(0, 0, iconSize, iconSize), 0, 0);
                 animation.previewImage.Apply();
+                animation.previewImage.Compress(true);
+
+                // RenderTextureを解放（順序重要：activeをnull→targetTextureをnull→Release→Destroy）
+                RenderTexture.active = null;
+                camera.targetTexture = null;
+                renderTexture.Release();
+                Object.DestroyImmediate(renderTexture);
             }
             catch (System.Exception e)
             {
