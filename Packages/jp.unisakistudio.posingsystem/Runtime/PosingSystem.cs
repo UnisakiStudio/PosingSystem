@@ -20,6 +20,14 @@ namespace jp.unisakistudio.posingsystem
         public bool isIconSmall = false;
         public const int PreviewMask = 21;
 
+        // トラッキング機能統合オプション
+        [HideInInspector]
+        public bool mergeTrackingControl = true;
+        
+        // アバターの姿勢設定自動インポートオプション
+        [HideInInspector]
+        public bool autoImportAvatarAnimations = true;
+
         [HideInInspector]
         public GameObject previewAvatarObject;
 

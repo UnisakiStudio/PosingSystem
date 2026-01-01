@@ -425,6 +425,25 @@ namespace jp.unisakistudio.posingsystemeditor
             }
             
             EditorGUILayout.Space(5);
+            EditorGUILayout.LabelField("ビルド時オプション", EditorStyles.boldLabel);
+            
+            var mergeTrackingControl = EditorGUILayout.ToggleLeft("トラッキング機能をビルド時に統合する", posingSystem.mergeTrackingControl);
+            if (mergeTrackingControl != posingSystem.mergeTrackingControl)
+            {
+                Undo.RecordObject(posingSystem, "Merge Tracking Control");
+                posingSystem.mergeTrackingControl = mergeTrackingControl;
+                EditorUtility.SetDirty(posingSystem);
+            }
+            
+            var autoImportAvatarAnimations = EditorGUILayout.ToggleLeft("アバターの姿勢設定をビルド時に自動でインポート", posingSystem.autoImportAvatarAnimations);
+            if (autoImportAvatarAnimations != posingSystem.autoImportAvatarAnimations)
+            {
+                Undo.RecordObject(posingSystem, "Auto Import Avatar Animations");
+                posingSystem.autoImportAvatarAnimations = autoImportAvatarAnimations;
+                EditorUtility.SetDirty(posingSystem);
+            }
+            
+            EditorGUILayout.Space(5);
             EditorGUILayout.LabelField("トラブルシューティング", EditorStyles.boldLabel);
             if (GUILayout.Button("アバターの姿勢をリセット（Tポーズに戻す）"))
             {
@@ -533,6 +552,13 @@ namespace jp.unisakistudio.posingsystemeditor
             EditorGUILayout.Space(10);
             EditorGUILayout.BeginVertical(GUI.skin.box);
             EditorGUILayout.LabelField("モーション置き換え機能", header2Label);
+            
+            // autoImportAvatarAnimationsがオンの場合はHelpBoxを表示
+            if (posingSystem.autoImportAvatarAnimations)
+            {
+                EditorGUILayout.HelpBox("アバターの固有モーションをビルド時に自動でインポートする設定がオンになっています", MessageType.Info);
+            }
+            
             if (GUILayout.Button("アバターから自動インポート") || posingSystem.overrideDefines == null)
             {
                 Undo.RecordObject(posingSystem, "Auto detect override settings");
