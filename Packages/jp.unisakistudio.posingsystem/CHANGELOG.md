@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.0.2] - 2026-01-02
+- Unityのダークテーマに対応
+- アニメーション調整で回転を行うと姿勢がおかしくなる不具合を修正
+- 生成されるメニューアイコンのサイズを変更し圧縮を有効化、さらに小さいサイズのアイコンにする設定を追加
+- 3.0.0で一度削除されたトラッキング統合機能とアバターのモーション自動インポート機能を再度追加
+
+## [3.0.1] - 2025-12-29
+- デフォルトモーション設定機能の不具合を修正
+- アバターの姿勢が勝手におかしくなる不具合を修正
+
 ## [3.0.0] - 2025-12-28
 - プレビルド機能を追加
 - アニメーション調整機能を追加
