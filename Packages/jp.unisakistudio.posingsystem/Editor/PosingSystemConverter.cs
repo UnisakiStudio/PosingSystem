@@ -1131,6 +1131,10 @@ namespace jp.unisakistudio.posingsystemeditor
             {
                 Debug.LogError($"[PosingSystem] アバターの高さ計算中にエラーが発生しました: {e.Message}\n{e.StackTrace}");
                 if (isTemporaryClone) Object.DestroyImmediate(workingAvatar);
+                else if (workingAvatar)
+                {
+                    workingAvatar.SetActive(false);
+                }
                 return;
             }
             finally
@@ -1166,13 +1170,13 @@ namespace jp.unisakistudio.posingsystemeditor
                                 Debug.LogWarning($"[PosingSystem] アニメーションクリップがnullです: {animationDefine.displayName}");
                                 continue;
                             }
-                            
+
                             Vector3 headPosision = Vector3.zero;
                             GameObject eyeObject = null;
                             var rootTxList = new List<float>();
                             var rootTyList = new List<float>();
                             var rootTzList = new List<float>();
-                            
+
                             // RootQの各プロパティのカーブを個別に処理（AnimationMode外で取得可能）
                             var tempClipForCurves = Object.Instantiate(animationClip);
                             var srcClipSetting = AnimationUtility.GetAnimationClipSettings(tempClipForCurves);
@@ -1185,7 +1189,7 @@ namespace jp.unisakistudio.posingsystemeditor
                             var rootQyCurve = AnimationUtility.GetEditorCurve(tempClipForCurves, EditorCurveBinding.FloatCurve(string.Empty, typeof(Animator), "RootQ.y"));
                             var rootQzCurve = AnimationUtility.GetEditorCurve(tempClipForCurves, EditorCurveBinding.FloatCurve(string.Empty, typeof(Animator), "RootQ.z"));
                             var rootQwCurve = AnimationUtility.GetEditorCurve(tempClipForCurves, EditorCurveBinding.FloatCurve(string.Empty, typeof(Animator), "RootQ.w"));
-                            
+
                             try
                             {
                                 AnimationMode.StartAnimationMode();
@@ -1197,7 +1201,7 @@ namespace jp.unisakistudio.posingsystemeditor
                                 workingAvatar.transform.LookAt(new Vector3(0, 0, 1));
                                 AnimationMode.EndSampling();
                                 headPosision = eyeObject.transform.position;
-                                
+
                                 foreach (var binding in AnimationUtility.GetCurveBindings(tempClipForCurves))
                                 {
                                     if (!binding.propertyName.StartsWith("RootT."))
@@ -1206,7 +1210,7 @@ namespace jp.unisakistudio.posingsystemeditor
                                     }
                                     var curve = AnimationUtility.GetEditorCurve(tempClipForCurves, binding);
                                     if (curve == null) continue;
-                                    
+
                                     for (int i = 0; i < curve.keys.Length; i++)
                                     {
                                         AnimationMode.BeginSampling();
@@ -1248,469 +1252,480 @@ namespace jp.unisakistudio.posingsystemeditor
                             }
 
                             var newAnimationClip = Object.Instantiate(tempClipForCurves);
-                        if (animationDefine.adjustmentClip != null)
-                        {
-                            var adjustmentClip = animationDefine.adjustmentClip;
-                            foreach (var binding in AnimationUtility.GetCurveBindings(adjustmentClip))
+                            if (animationDefine.adjustmentClip != null)
                             {
-                                var adjustmentCurve = AnimationUtility.GetEditorCurve(adjustmentClip, binding);
-                                var baseCurve = AnimationUtility.GetEditorCurve(newAnimationClip, binding);
-                                if (baseCurve == null)
+                                var adjustmentClip = animationDefine.adjustmentClip;
+
+                                // RootQカーブはQuaternion乗算で合成（元の回転 × 調整の回転）
+                                AdditiveCurveUtility.MultiplyRootQCurves(tempClipForCurves, adjustmentClip, newAnimationClip);
+
+                                // RootQ以外のカーブは従来通り加算
+                                foreach (var binding in AnimationUtility.GetCurveBindings(adjustmentClip))
                                 {
-                                    baseCurve = new AnimationCurve();
-                                }
-                                baseCurve = AdditiveCurveUtility.AddCurve(baseCurve, adjustmentCurve);
-                                AnimationUtility.SetEditorCurve(newAnimationClip, binding, baseCurve);
-                            }
-                        }
-                        foreach (var binding in AnimationUtility.GetCurveBindings(newAnimationClip))
-                        {
-                            void setCurve(string propertyName, ValueChanger changer)
-                            {
-                                if (binding.propertyName == propertyName)
-                                {
-                                    var curve = AnimationUtility.GetEditorCurve(newAnimationClip, binding);
-                                    for (int i = 0; i < curve.keys.Length; i++)
+                                    // RootQカーブは既にMultiplyRootQCurvesで処理済みなのでスキップ
+                                    if (AdditiveCurveUtility.IsRootQBinding(binding))
                                     {
-                                        var key = curve.keys[i];
-                                        key.value = changer(key, i);
-                                        curve.MoveKey(i, key);
+                                        continue;
                                     }
-                                    AnimationUtility.SetEditorCurve(newAnimationClip, binding, curve);
+
+                                    var adjustmentCurve = AnimationUtility.GetEditorCurve(adjustmentClip, binding);
+                                    var baseCurve = AnimationUtility.GetEditorCurve(newAnimationClip, binding);
+                                    if (baseCurve == null)
+                                    {
+                                        baseCurve = new AnimationCurve();
+                                    }
+                                    baseCurve = AdditiveCurveUtility.AddCurve(baseCurve, adjustmentCurve);
+                                    AnimationUtility.SetEditorCurve(newAnimationClip, binding, baseCurve);
                                 }
                             }
-                            ;
-
-                            setCurve("RootT.x", (keyframe, i) => i < rootTxList.Count ? rootTxList[i] : keyframe.value);
-                            setCurve("RootT.z", (keyframe, i) => i < rootTzList.Count ? rootTzList[i] : keyframe.value);
-
-                            // RootQカーブが存在する場合のみ処理（調整アニメーション対応）
-                            if (rootQxCurve != null)
-                                setCurve("RootQ.x", (keyframe, i) => keyframe.value);
-                            if (rootQyCurve != null)
-                                setCurve("RootQ.y", (keyframe, i) => keyframe.value);
-                            if (rootQzCurve != null)
-                                setCurve("RootQ.z", (keyframe, i) => keyframe.value);
-                            if (rootQwCurve != null)
-                                setCurve("RootQ.w", (keyframe, i) => keyframe.value);
-                        }
-                        if (animationDefine.isRotate)
-                        {
-                            var clipSetting = AnimationUtility.GetAnimationClipSettings(newAnimationClip);
-                            clipSetting.orientationOffsetY += animationDefine.rotate;
-                            AnimationUtility.SetAnimationClipSettings(newAnimationClip, clipSetting);
-                        }
-
-                        // 生成したアニメーションクリップをAnimatorControllerのサブアセットとして永続化
-                        newAnimationClip.name = "_USSPS_" + (animationDefine.animationClip != null ? animationDefine.animationClip.name : "Animation") + "_Processed";
-                        if (!IsObjectAlreadyInAssetDatabase(newAnimationClip))
-                        {
-                            AssetDatabase.AddObjectToAsset(newAnimationClip, animatorController);
-                        }
-                        EditorUtility.SetDirty(animatorController);
-                        motion = newAnimationClip;
-                    }
-                    else if (animationDefine.animationClip.GetType() == typeof(BlendTree))
-                    {
-                        motion = animationDefine.animationClip;
-                    }
-
-                    // 同期するパラメータを計算
-                    var parameters = SplitSyncParameters(animationDefine.syncdParameterValue, maxSyncedParamValue);
-
-                    var animationName = animationDefine.animationClip != null ? animationDefine.animationClip.name : "Animation";
-
-                    // デスクトップ用
-                    {
-                        // 同じ条件の遷移を取得する
-                        var entryTransitionContidions = GetEntryTransitionConditions(parameters, false);
-                        var existTransition = stateMachine.entryTransitions.FirstOrDefault(t =>
-                        {
-                            return CompareTransitionConditions(t.conditions, entryTransitionContidions);
-                        });
-
-                        AnimatorState state = null;
-
-                        // もしまだないならStateから作る
-                        if (!existTransition)
-                        {
-                            state = stateMachine.AddState(animationName + "_Desktop", new Vector3(500, (animationDefine.syncdParameterValue - 1) * 120));
-                            state.writeDefaultValues = false;
-                            state.mirrorParameterActive = true;
-                            state.mirrorParameter = "USSPS_Mirror";
-
-                            var poseSpace = state.AddStateMachineBehaviour<VRC.SDK3.Avatars.Components.VRCAnimatorTemporaryPoseSpace>();
-                            if (poseSpace == null)
+                            foreach (var binding in AnimationUtility.GetCurveBindings(newAnimationClip))
                             {
-                                Debug.LogError("[PosingSystem]AddStateMachineBehaviourに失敗しました");
-                                throw new System.Exception("AddStateMachineBehaviourに失敗しました");
+                                void setCurve(string propertyName, ValueChanger changer)
+                                {
+                                    if (binding.propertyName == propertyName)
+                                    {
+                                        var curve = AnimationUtility.GetEditorCurve(newAnimationClip, binding);
+                                        for (int i = 0; i < curve.keys.Length; i++)
+                                        {
+                                            var key = curve.keys[i];
+                                            key.value = changer(key, i);
+                                            curve.MoveKey(i, key);
+                                        }
+                                        AnimationUtility.SetEditorCurve(newAnimationClip, binding, curve);
+                                    }
+                                }
+                                ;
+
+                                setCurve("RootT.x", (keyframe, i) => i < rootTxList.Count ? rootTxList[i] : keyframe.value);
+                                setCurve("RootT.z", (keyframe, i) => i < rootTzList.Count ? rootTzList[i] : keyframe.value);
+
+                                // RootQカーブが存在する場合のみ処理（調整アニメーション対応）
+                                if (rootQxCurve != null)
+                                    setCurve("RootQ.x", (keyframe, i) => keyframe.value);
+                                if (rootQyCurve != null)
+                                    setCurve("RootQ.y", (keyframe, i) => keyframe.value);
+                                if (rootQzCurve != null)
+                                    setCurve("RootQ.z", (keyframe, i) => keyframe.value);
+                                if (rootQwCurve != null)
+                                    setCurve("RootQ.w", (keyframe, i) => keyframe.value);
                             }
-                            poseSpace.enterPoseSpace = true;
-                            poseSpace.fixedDelay = false;
-                            poseSpace.delayTime = 0.0f;
-
-                            // EntryのTransitionを作成
-                            var transition = stateMachine.AddEntryTransition(state);
-                            transition.conditions = GetEntryTransitionConditions(parameters, false);
-
-                            // ExitのTransitionを作成
-                            CreateExitTransitions(parameters, state, false);
-                        }
-                        else
-                        {
-                            state = existTransition.destinationState;
-                            var states = stateMachine.states;
-                            states[states.ToList().FindIndex(s => s.state == state)].position = new Vector3(500, (animationDefine.syncdParameterValue - 1) * 120);
-                            stateMachine.states = states;
-                        }
-
-                        if (animationDefine.isMotionTime)
-                        {
-                            state.timeParameterActive = true;
-                            state.timeParameter = animationDefine.motionTimeParamName;
-                        }
-
-                        state.motion = motion;
-                    }
-
-                    // ３点トラッキング用
-                    {
-                        // 同じ条件の遷移を取得する
-                        var entryTransitionContidions = GetEntryTransitionConditions(parameters, true);
-                        var existTransition = stateMachine.entryTransitions.FirstOrDefault(t =>
-                        {
-                            return CompareTransitionConditions(t.conditions, entryTransitionContidions);
-                        });
-
-                        AnimatorState state = null;
-
-                        // もしまだないならStateから作る
-                        if (!existTransition)
-                        {
-                            state = stateMachine.AddState(animationName, new Vector3(500, (animationDefine.syncdParameterValue - 1) * 120 + 60));
-
-                            state.writeDefaultValues = false;
-                            state.mirrorParameterActive = true;
-                            state.mirrorParameter = "USSPS_Mirror";
-
-                            // EntryのTransitionを作成
-                            var transition = stateMachine.AddEntryTransition(state);
-                            transition.conditions = GetEntryTransitionConditions(parameters, true);
-
-                            // ExitのTransitionを作成
-                            CreateExitTransitions(parameters, state, true);
-                        }
-                        else
-                        {
-                            state = existTransition.destinationState;
-                            var states = stateMachine.states;
-                            states[states.ToList().FindIndex(s => s.state == state)].position = new Vector3(500, (animationDefine.syncdParameterValue - 1) * 120 + 60);
-                            stateMachine.states = states;
-                        }
-
-                        if (animationDefine.isMotionTime)
-                        {
-                            state.timeParameterActive = true;
-                            state.timeParameter = animationDefine.motionTimeParamName;
-                        }
-
-                        state.motion = motion;
-                    }
-
-                    // 姿勢決めConditionsを作成
-                    var typeEntryConditions = new AnimatorCondition[]
-                    {
-                        new AnimatorCondition{ mode = AnimatorConditionMode.Equals, threshold = animationDefine.typeParameterValue, parameter = define.paramName, },
-                        new AnimatorCondition{ mode = AnimatorConditionMode.Equals, threshold = define.locomotionTypeValue, parameter = "LocomotionType", },
-                    };
-                    var existTypeTransition = typeLayer.stateMachine.entryTransitions.FirstOrDefault(t =>
-                    {
-                        return CompareTransitionConditions(t.conditions, typeEntryConditions);
-                    });
-
-                    AnimatorState typeState = null;
-                    if (!existTypeTransition)
-                    {
-                        // 姿勢を決めるLocomotionTypeレイヤーに置くStateを作成
-                        typeState = typeLayer.stateMachine.AddState(animationName, new Vector3(500, (animationDefine.syncdParameterValue - 1) * 60));
-                        typeState.writeDefaultValues = false;
-                        typeState.motion = waitAnimation;
-
-                        // 姿勢決定のEntryTransitionを作成
-                        var typeEnterTransition = typeLayer.stateMachine.AddEntryTransition(typeState);
-                        typeEnterTransition.conditions = typeEntryConditions;
-
-                        // 姿勢が変わった時のExitTransitionを作成（指定してる姿勢が変わった場合）
-                        var typeExitTransition = typeState.AddExitTransition(false);
-                        typeExitTransition.AddCondition(AnimatorConditionMode.NotEqual, animationDefine.typeParameterValue, define.paramName);
-                        typeExitTransition.duration = 0.5f;
-                        typeExitTransition.interruptionSource = TransitionInterruptionSource.Destination;
-
-                        // 姿勢が変わった時のExitTransitionを作成（姿勢グループが変わった場合）
-                        var typeExitTransition1 = typeState.AddExitTransition(false);
-                        typeExitTransition1.AddCondition(AnimatorConditionMode.NotEqual, define.locomotionTypeValue, "LocomotionType");
-                        typeExitTransition1.duration = 0.5f;
-                        typeExitTransition1.interruptionSource = TransitionInterruptionSource.Destination;
-                    }
-                    else
-                    {
-                        typeState = existTypeTransition.destinationState;
-                        foreach (var behaviour in typeState.behaviours)
-                        {
-                            //                            Object.DestroyImmediate(behaviour);
-                        }
-                        var states = typeLayer.stateMachine.states;
-                        states[states.ToList().FindIndex(s => s.state == typeState)].position = new Vector3(500, (animationDefine.syncdParameterValue - 1) * 60);
-                        typeLayer.stateMachine.states = states;
-                    }
-
-                    // 再生する姿勢を同期するためのParameterDriverを作成
-                    var typeParameterDriver = typeState.AddStateMachineBehaviour<VRC.SDK3.Avatars.Components.VRCAvatarParameterDriver>();
-                    if (typeParameterDriver == null)
-                    {
-                        Debug.LogError("[PosingSystem]AddStateMachineBehaviourに失敗しました");
-                        throw new System.Exception("AddStateMachineBehaviourに失敗しました");
-                    }
-                    typeParameterDriver.isLocalPlayer = true;
-                    foreach (var parameter in parameters)
-                    {
-                        var drivingParam = new VRC.SDKBase.VRC_AvatarParameterDriver.Parameter
-                        {
-                            name = parameter.name,
-                            type = VRC.SDKBase.VRC_AvatarParameterDriver.ChangeType.Set,
-                            value = parameter.value,
-                        };
-                        typeParameterDriver.parameters.Add(drivingParam);
-                    }
-                }
-            }
-
-            AssetDatabase.SaveAssets();
-
-            // FootHeight用のBlendTreeを作る
-            var skipBlendTree = new List<BlendTree>();
-            void addFootHeightBlendtree(AnimatorStateMachine stateMachine)
-            {
-                foreach (var childStateMachine in stateMachine.stateMachines)
-                {
-                    addFootHeightBlendtree(childStateMachine.stateMachine);
-                }
-
-                BlendTree getFootHeightBlendtree(BlendTree blendtree, float level)
-                {
-                    if (blendtree == null)
-                    {
-                        return null;
-                    }
-
-                    var blendTreeChildren = new List<ChildMotion>();
-                    foreach (var childMotion in blendtree.children)
-                    {
-                        if (childMotion.motion == null)
-                        {
-                            continue;
-                        }
-                        Motion newMotion;
-                        if (childMotion.motion.GetType() == typeof(BlendTree))
-                        {
-                            newMotion = getFootHeightBlendtree((BlendTree)childMotion.motion, level);
-                            // 再帰的生成でnullが返された場合のtype mismatch回避
-                            if (newMotion == null)
+                            if (animationDefine.isRotate)
                             {
-                                Debug.LogWarning($"[PosingSystem]FootHeight BlendTree再帰生成でnull: {childMotion.motion.name}, level={level}");
-                                continue; // この子はスキップ
+                                var clipSetting = AnimationUtility.GetAnimationClipSettings(newAnimationClip);
+                                clipSetting.orientationOffsetY += animationDefine.rotate;
+                                AnimationUtility.SetAnimationClipSettings(newAnimationClip, clipSetting);
                             }
-                        }
-                        else
-                        {
-                            if (childMotion.motion.name.IndexOf("proxy_") == 0)
+
+                            // 生成したアニメーションクリップをAnimatorControllerのサブアセットとして永続化
+                            newAnimationClip.name = "_USSPS_" + (animationDefine.animationClip != null ? animationDefine.animationClip.name : "Animation") + "_Processed";
+                            if (!IsObjectAlreadyInAssetDatabase(newAnimationClip))
                             {
-                                newMotion = childMotion.motion;
+                                AssetDatabase.AddObjectToAsset(newAnimationClip, animatorController);
+                            }
+                            EditorUtility.SetDirty(animatorController);
+                            motion = newAnimationClip;
+                        }
+                        else if (animationDefine.animationClip.GetType() == typeof(BlendTree))
+                        {
+                            motion = animationDefine.animationClip;
+                        }
+
+                        // 同期するパラメータを計算
+                        var parameters = SplitSyncParameters(animationDefine.syncdParameterValue, maxSyncedParamValue);
+
+                        var animationName = animationDefine.animationClip != null ? animationDefine.animationClip.name : "Animation";
+
+                        // デスクトップ用
+                        {
+                            // 同じ条件の遷移を取得する
+                            var entryTransitionContidions = GetEntryTransitionConditions(parameters, false);
+                            var existTransition = stateMachine.entryTransitions.FirstOrDefault(t =>
+                            {
+                                return CompareTransitionConditions(t.conditions, entryTransitionContidions);
+                            });
+
+                            AnimatorState state = null;
+
+                            // もしまだないならStateから作る
+                            if (!existTransition)
+                            {
+                                state = stateMachine.AddState(animationName + "_Desktop", new Vector3(500, (animationDefine.syncdParameterValue - 1) * 120));
+                                state.writeDefaultValues = false;
+                                state.mirrorParameterActive = true;
+                                state.mirrorParameter = "USSPS_Mirror";
+
+                                var poseSpace = state.AddStateMachineBehaviour<VRC.SDK3.Avatars.Components.VRCAnimatorTemporaryPoseSpace>();
+                                if (poseSpace == null)
+                                {
+                                    Debug.LogError("[PosingSystem]AddStateMachineBehaviourに失敗しました");
+                                    throw new System.Exception("AddStateMachineBehaviourに失敗しました");
+                                }
+                                poseSpace.enterPoseSpace = true;
+                                poseSpace.fixedDelay = false;
+                                poseSpace.delayTime = 0.0f;
+
+                                // EntryのTransitionを作成
+                                var transition = stateMachine.AddEntryTransition(state);
+                                transition.conditions = GetEntryTransitionConditions(parameters, false);
+
+                                // ExitのTransitionを作成
+                                CreateExitTransitions(parameters, state, false);
                             }
                             else
                             {
-                                var animationClip = (AnimationClip)childMotion.motion;
-                                var newAnimationClip = Object.Instantiate(animationClip);
-                                var clipSetting = AnimationUtility.GetAnimationClipSettings(newAnimationClip);
-                                clipSetting.level += level;
-                                AnimationUtility.SetAnimationClipSettings(newAnimationClip, clipSetting);
-
-                                // SubAsset用に名前にUSSPS接頭辞を追加
-                                newAnimationClip.name = "_USSPS_" + animationClip.name + "_level" + level;
-
-                                newMotion = newAnimationClip;
+                                state = existTransition.destinationState;
+                                var states = stateMachine.states;
+                                states[states.ToList().FindIndex(s => s.state == state)].position = new Vector3(500, (animationDefine.syncdParameterValue - 1) * 120);
+                                stateMachine.states = states;
                             }
+
+                            if (animationDefine.isMotionTime)
+                            {
+                                state.timeParameterActive = true;
+                                state.timeParameter = animationDefine.motionTimeParamName;
+                            }
+
+                            state.motion = motion;
                         }
-                        var newChild = new ChildMotion
+
+                        // ３点トラッキング用
                         {
-                            motion = newMotion,
-                            threshold = childMotion.threshold,
-                            position = childMotion.position,
-                            timeScale = childMotion.timeScale,
-                            cycleOffset = childMotion.cycleOffset,
-                            directBlendParameter = childMotion.directBlendParameter,
-                            mirror = childMotion.mirror
+                            // 同じ条件の遷移を取得する
+                            var entryTransitionContidions = GetEntryTransitionConditions(parameters, true);
+                            var existTransition = stateMachine.entryTransitions.FirstOrDefault(t =>
+                            {
+                                return CompareTransitionConditions(t.conditions, entryTransitionContidions);
+                            });
+
+                            AnimatorState state = null;
+
+                            // もしまだないならStateから作る
+                            if (!existTransition)
+                            {
+                                state = stateMachine.AddState(animationName, new Vector3(500, (animationDefine.syncdParameterValue - 1) * 120 + 60));
+
+                                state.writeDefaultValues = false;
+                                state.mirrorParameterActive = true;
+                                state.mirrorParameter = "USSPS_Mirror";
+
+                                // EntryのTransitionを作成
+                                var transition = stateMachine.AddEntryTransition(state);
+                                transition.conditions = GetEntryTransitionConditions(parameters, true);
+
+                                // ExitのTransitionを作成
+                                CreateExitTransitions(parameters, state, true);
+                            }
+                            else
+                            {
+                                state = existTransition.destinationState;
+                                var states = stateMachine.states;
+                                states[states.ToList().FindIndex(s => s.state == state)].position = new Vector3(500, (animationDefine.syncdParameterValue - 1) * 120 + 60);
+                                stateMachine.states = states;
+                            }
+
+                            if (animationDefine.isMotionTime)
+                            {
+                                state.timeParameterActive = true;
+                                state.timeParameter = animationDefine.motionTimeParamName;
+                            }
+
+                            state.motion = motion;
+                        }
+
+                        // 姿勢決めConditionsを作成
+                        var typeEntryConditions = new AnimatorCondition[]
+                        {
+                        new AnimatorCondition{ mode = AnimatorConditionMode.Equals, threshold = animationDefine.typeParameterValue, parameter = define.paramName, },
+                        new AnimatorCondition{ mode = AnimatorConditionMode.Equals, threshold = define.locomotionTypeValue, parameter = "LocomotionType", },
                         };
-                        blendTreeChildren.Add(newChild);
-                    }
-
-                    // 子が一つもない場合はnullを返す（type mismatch回避）
-                    if (blendTreeChildren.Count == 0)
-                    {
-                        Debug.LogWarning($"[PosingSystem]FootHeight BlendTree生成で子が0個: {blendtree.name}, level={level}");
-                        return null;
-                    }
-
-                    var newBlendtree = new BlendTree
-                    {
-                        blendType = blendtree.blendType,
-                        blendParameter = blendtree.blendParameter,
-                        blendParameterY = blendtree.blendParameterY,
-                        name = "_USSPS_" + blendtree.name + "_" + level.ToString(),
-                        children = blendTreeChildren.ToArray(),
-                        useAutomaticThresholds = blendtree.useAutomaticThresholds
-                    };
-                    if (blendtree.useAutomaticThresholds)
-                    {
-                        newBlendtree.minThreshold = blendtree.minThreshold;
-                        newBlendtree.maxThreshold = blendtree.maxThreshold;
-                    }
-                    else
-                    {
-                        // 手動thresholdの場合、子のthreshold値が既に適切に設定されていることを確認
-                        // （上記のChildMotion作成で元のthresholdをコピー済み）
-                    }
-
-                    // 生成したBlendTreeをAnimatorControllerのサブアセットとして永続化
-                    if (!IsObjectAlreadyInAssetDatabase(newBlendtree))
-                    {
-                        AssetDatabase.AddObjectToAsset(newBlendtree, animatorController);
-                    }
-                    // 子のAnimationClipも永続化
-                    foreach (var child in newBlendtree.children)
-                    {
-                        if (child.motion != null && child.motion.GetType() == typeof(AnimationClip) &&
-                            child.motion.name.IndexOf("proxy_") != 0 &&
-                            !IsObjectAlreadyInAssetDatabase(child.motion))
+                        var existTypeTransition = typeLayer.stateMachine.entryTransitions.FirstOrDefault(t =>
                         {
-                            AssetDatabase.AddObjectToAsset(child.motion, animatorController);
+                            return CompareTransitionConditions(t.conditions, typeEntryConditions);
+                        });
+
+                        AnimatorState typeState = null;
+                        if (!existTypeTransition)
+                        {
+                            // 姿勢を決めるLocomotionTypeレイヤーに置くStateを作成
+                            typeState = typeLayer.stateMachine.AddState(animationName, new Vector3(500, (animationDefine.syncdParameterValue - 1) * 60));
+                            typeState.writeDefaultValues = false;
+                            typeState.motion = waitAnimation;
+
+                            // 姿勢決定のEntryTransitionを作成
+                            var typeEnterTransition = typeLayer.stateMachine.AddEntryTransition(typeState);
+                            typeEnterTransition.conditions = typeEntryConditions;
+
+                            // 姿勢が変わった時のExitTransitionを作成（指定してる姿勢が変わった場合）
+                            var typeExitTransition = typeState.AddExitTransition(false);
+                            typeExitTransition.AddCondition(AnimatorConditionMode.NotEqual, animationDefine.typeParameterValue, define.paramName);
+                            typeExitTransition.duration = 0.5f;
+                            typeExitTransition.interruptionSource = TransitionInterruptionSource.Destination;
+
+                            // 姿勢が変わった時のExitTransitionを作成（姿勢グループが変わった場合）
+                            var typeExitTransition1 = typeState.AddExitTransition(false);
+                            typeExitTransition1.AddCondition(AnimatorConditionMode.NotEqual, define.locomotionTypeValue, "LocomotionType");
+                            typeExitTransition1.duration = 0.5f;
+                            typeExitTransition1.interruptionSource = TransitionInterruptionSource.Destination;
+                        }
+                        else
+                        {
+                            typeState = existTypeTransition.destinationState;
+                            foreach (var behaviour in typeState.behaviours)
+                            {
+                                //                            Object.DestroyImmediate(behaviour);
+                            }
+                            var states = typeLayer.stateMachine.states;
+                            states[states.ToList().FindIndex(s => s.state == typeState)].position = new Vector3(500, (animationDefine.syncdParameterValue - 1) * 60);
+                            typeLayer.stateMachine.states = states;
+                        }
+
+                        // 再生する姿勢を同期するためのParameterDriverを作成
+                        var typeParameterDriver = typeState.AddStateMachineBehaviour<VRC.SDK3.Avatars.Components.VRCAvatarParameterDriver>();
+                        if (typeParameterDriver == null)
+                        {
+                            Debug.LogError("[PosingSystem]AddStateMachineBehaviourに失敗しました");
+                            throw new System.Exception("AddStateMachineBehaviourに失敗しました");
+                        }
+                        typeParameterDriver.isLocalPlayer = true;
+                        foreach (var parameter in parameters)
+                        {
+                            var drivingParam = new VRC.SDKBase.VRC_AvatarParameterDriver.Parameter
+                            {
+                                name = parameter.name,
+                                type = VRC.SDKBase.VRC_AvatarParameterDriver.ChangeType.Set,
+                                value = parameter.value,
+                            };
+                            typeParameterDriver.parameters.Add(drivingParam);
                         }
                     }
-                    EditorUtility.SetDirty(animatorController);
-
-                    return newBlendtree;
                 }
 
-                foreach (var state in stateMachine.states)
+                AssetDatabase.SaveAssets();
+
+                // FootHeight用のBlendTreeを作る
+                var skipBlendTree = new List<BlendTree>();
+                void addFootHeightBlendtree(AnimatorStateMachine stateMachine)
                 {
-                    if (state.state.motion == null)
+                    foreach (var childStateMachine in stateMachine.stateMachines)
                     {
-                        continue;
+                        addFootHeightBlendtree(childStateMachine.stateMachine);
                     }
-                    // 既にFootHeight用のBlendTreeがある場合はスキップ
-                    if (state.state.motion.name.IndexOf("_USSPS_") == 0 && state.state.motion.name.IndexOf("_footheight") != -1)
+
+                    BlendTree getFootHeightBlendtree(BlendTree blendtree, float level)
                     {
-                        continue;
-                    }
-                    if (state.state.motion.GetType() == typeof(AnimationClip))
-                    {
-                        if (state.state.motion.name.IndexOf("proxy_") != 0)
+                        if (blendtree == null)
                         {
-                            var animationClip = (AnimationClip)state.state.motion;
-                            var newAnimationClip = Object.Instantiate(animationClip);
-                            var clipSetting = AnimationUtility.GetAnimationClipSettings(newAnimationClip);
-                            clipSetting.level += 2;
-                            AnimationUtility.SetAnimationClipSettings(newAnimationClip, clipSetting);
-                            newAnimationClip.name = "_USSPS_" + animationClip.name + "_up";
+                            return null;
+                        }
 
-                            // FootHeight用アニメーション
-                            var heightAnimationClipZero = Object.Instantiate(newAnimationClip);
-                            clipSetting.level -= 2;
-                            AnimationUtility.SetAnimationClipSettings(heightAnimationClipZero, clipSetting);
-                            heightAnimationClipZero.name = "_USSPS_" + animationClip.name + "_zero";
+                        var blendTreeChildren = new List<ChildMotion>();
+                        foreach (var childMotion in blendtree.children)
+                        {
+                            if (childMotion.motion == null)
+                            {
+                                continue;
+                            }
+                            Motion newMotion;
+                            if (childMotion.motion.GetType() == typeof(BlendTree))
+                            {
+                                newMotion = getFootHeightBlendtree((BlendTree)childMotion.motion, level);
+                                // 再帰的生成でnullが返された場合のtype mismatch回避
+                                if (newMotion == null)
+                                {
+                                    Debug.LogWarning($"[PosingSystem]FootHeight BlendTree再帰生成でnull: {childMotion.motion.name}, level={level}");
+                                    continue; // この子はスキップ
+                                }
+                            }
+                            else
+                            {
+                                if (childMotion.motion.name.IndexOf("proxy_") == 0)
+                                {
+                                    newMotion = childMotion.motion;
+                                }
+                                else
+                                {
+                                    var animationClip = (AnimationClip)childMotion.motion;
+                                    var newAnimationClip = Object.Instantiate(animationClip);
+                                    var clipSetting = AnimationUtility.GetAnimationClipSettings(newAnimationClip);
+                                    clipSetting.level += level;
+                                    AnimationUtility.SetAnimationClipSettings(newAnimationClip, clipSetting);
 
-                            // FootHeight用アニメーション
-                            var heightAnimationClip = Object.Instantiate(newAnimationClip);
-                            clipSetting.level -= 2;
-                            AnimationUtility.SetAnimationClipSettings(heightAnimationClip, clipSetting);
-                            heightAnimationClip.name = "_USSPS_" + animationClip.name + "_down";
+                                    // SubAsset用に名前にUSSPS接頭辞を追加
+                                    newAnimationClip.name = "_USSPS_" + animationClip.name + "_level" + level;
 
-                            // FootHeight用BlendTree作成
+                                    newMotion = newAnimationClip;
+                                }
+                            }
+                            var newChild = new ChildMotion
+                            {
+                                motion = newMotion,
+                                threshold = childMotion.threshold,
+                                position = childMotion.position,
+                                timeScale = childMotion.timeScale,
+                                cycleOffset = childMotion.cycleOffset,
+                                directBlendParameter = childMotion.directBlendParameter,
+                                mirror = childMotion.mirror
+                            };
+                            blendTreeChildren.Add(newChild);
+                        }
+
+                        // 子が一つもない場合はnullを返す（type mismatch回避）
+                        if (blendTreeChildren.Count == 0)
+                        {
+                            Debug.LogWarning($"[PosingSystem]FootHeight BlendTree生成で子が0個: {blendtree.name}, level={level}");
+                            return null;
+                        }
+
+                        var newBlendtree = new BlendTree
+                        {
+                            blendType = blendtree.blendType,
+                            blendParameter = blendtree.blendParameter,
+                            blendParameterY = blendtree.blendParameterY,
+                            name = "_USSPS_" + blendtree.name + "_" + level.ToString(),
+                            children = blendTreeChildren.ToArray(),
+                            useAutomaticThresholds = blendtree.useAutomaticThresholds
+                        };
+                        if (blendtree.useAutomaticThresholds)
+                        {
+                            newBlendtree.minThreshold = blendtree.minThreshold;
+                            newBlendtree.maxThreshold = blendtree.maxThreshold;
+                        }
+                        else
+                        {
+                            // 手動thresholdの場合、子のthreshold値が既に適切に設定されていることを確認
+                            // （上記のChildMotion作成で元のthresholdをコピー済み）
+                        }
+
+                        // 生成したBlendTreeをAnimatorControllerのサブアセットとして永続化
+                        if (!IsObjectAlreadyInAssetDatabase(newBlendtree))
+                        {
+                            AssetDatabase.AddObjectToAsset(newBlendtree, animatorController);
+                        }
+                        // 子のAnimationClipも永続化
+                        foreach (var child in newBlendtree.children)
+                        {
+                            if (child.motion != null && child.motion.GetType() == typeof(AnimationClip) &&
+                                child.motion.name.IndexOf("proxy_") != 0 &&
+                                !IsObjectAlreadyInAssetDatabase(child.motion))
+                            {
+                                AssetDatabase.AddObjectToAsset(child.motion, animatorController);
+                            }
+                        }
+                        EditorUtility.SetDirty(animatorController);
+
+                        return newBlendtree;
+                    }
+
+                    foreach (var state in stateMachine.states)
+                    {
+                        if (state.state.motion == null)
+                        {
+                            continue;
+                        }
+                        // 既にFootHeight用のBlendTreeがある場合はスキップ
+                        if (state.state.motion.name.IndexOf("_USSPS_") == 0 && state.state.motion.name.IndexOf("_footheight") != -1)
+                        {
+                            continue;
+                        }
+                        if (state.state.motion.GetType() == typeof(AnimationClip))
+                        {
+                            if (state.state.motion.name.IndexOf("proxy_") != 0)
+                            {
+                                var animationClip = (AnimationClip)state.state.motion;
+                                var newAnimationClip = Object.Instantiate(animationClip);
+                                var clipSetting = AnimationUtility.GetAnimationClipSettings(newAnimationClip);
+                                clipSetting.level += 2;
+                                AnimationUtility.SetAnimationClipSettings(newAnimationClip, clipSetting);
+                                newAnimationClip.name = "_USSPS_" + animationClip.name + "_up";
+
+                                // FootHeight用アニメーション
+                                var heightAnimationClipZero = Object.Instantiate(newAnimationClip);
+                                clipSetting.level -= 2;
+                                AnimationUtility.SetAnimationClipSettings(heightAnimationClipZero, clipSetting);
+                                heightAnimationClipZero.name = "_USSPS_" + animationClip.name + "_zero";
+
+                                // FootHeight用アニメーション
+                                var heightAnimationClip = Object.Instantiate(newAnimationClip);
+                                clipSetting.level -= 2;
+                                AnimationUtility.SetAnimationClipSettings(heightAnimationClip, clipSetting);
+                                heightAnimationClip.name = "_USSPS_" + animationClip.name + "_down";
+
+                                // FootHeight用BlendTree作成
+                                var footHeightBlendTree = new BlendTree();
+                                footHeightBlendTree.name = "_USSPS_" + animationClip.name + "_footheight";
+                                footHeightBlendTree.blendParameter = "FootHeight";
+                                footHeightBlendTree.useAutomaticThresholds = false;
+
+                                // サムネイル撮影のための意図的なthreshold順序設定
+                                footHeightBlendTree.AddChild(heightAnimationClipZero, 0.5f);  // threshold 0.5: 中央（撮影用）
+                                footHeightBlendTree.AddChild(newAnimationClip, 0);            // threshold 0: 元モーション
+                                footHeightBlendTree.AddChild(heightAnimationClip, 1);         // threshold 1: 上
+
+                                // FootHeight用BlendTreeをAnimatorControllerのサブアセットとして永続化
+                                if (!IsObjectAlreadyInAssetDatabase(footHeightBlendTree))
+                                {
+                                    AssetDatabase.AddObjectToAsset(footHeightBlendTree, animatorController);
+                                }
+                                if (!IsObjectAlreadyInAssetDatabase(heightAnimationClipZero))
+                                {
+                                    AssetDatabase.AddObjectToAsset(heightAnimationClipZero, animatorController);
+                                }
+                                if (!IsObjectAlreadyInAssetDatabase(heightAnimationClip))
+                                {
+                                    AssetDatabase.AddObjectToAsset(heightAnimationClip, animatorController);
+                                }
+                                if (!IsObjectAlreadyInAssetDatabase(newAnimationClip))
+                                {
+                                    AssetDatabase.AddObjectToAsset(newAnimationClip, animatorController);
+                                }
+                                EditorUtility.SetDirty(animatorController);
+
+                                state.state.motion = footHeightBlendTree;
+                            }
+                        }
+                        else
+                        {
+                            var blendTree = (BlendTree)state.state.motion;
+
+                            var footHeightBlendtreeDown = getFootHeightBlendtree(blendTree, 2);
+                            var footHeightBlendtreeZero = getFootHeightBlendtree(blendTree, 0);
+                            var footHeightBlendtreeUp = getFootHeightBlendtree(blendTree, -2);
+
+                            // null チェック（type mismatch回避）
+                            if (footHeightBlendtreeDown == null || footHeightBlendtreeZero == null || footHeightBlendtreeUp == null)
+                            {
+                                Debug.LogWarning($"[PosingSystem]FootHeight BlendTree生成でnullが発生: {blendTree.name}");
+                                continue; // このstateはスキップ
+                            }
+
                             var footHeightBlendTree = new BlendTree();
-                            footHeightBlendTree.name = "_USSPS_" + animationClip.name + "_footheight";
+                            footHeightBlendTree.name = "_USSPS_" + blendTree.name + "_footheight";
                             footHeightBlendTree.blendParameter = "FootHeight";
                             footHeightBlendTree.useAutomaticThresholds = false;
-
                             // サムネイル撮影のための意図的なthreshold順序設定
-                            footHeightBlendTree.AddChild(heightAnimationClipZero, 0.5f);  // threshold 0.5: 中央（撮影用）
-                            footHeightBlendTree.AddChild(newAnimationClip, 0);            // threshold 0: 元モーション
-                            footHeightBlendTree.AddChild(heightAnimationClip, 1);         // threshold 1: 上
+                            footHeightBlendTree.AddChild(footHeightBlendtreeZero, 0.5f);  // threshold 0.5: 中央（撮影用）
+                            footHeightBlendTree.AddChild(footHeightBlendtreeDown, 0);     // threshold 0: 下 (level +2)
+                            footHeightBlendTree.AddChild(footHeightBlendtreeUp, 1);       // threshold 1: 上 (level -2)
 
                             // FootHeight用BlendTreeをAnimatorControllerのサブアセットとして永続化
                             if (!IsObjectAlreadyInAssetDatabase(footHeightBlendTree))
                             {
                                 AssetDatabase.AddObjectToAsset(footHeightBlendTree, animatorController);
                             }
-                            if (!IsObjectAlreadyInAssetDatabase(heightAnimationClipZero))
-                            {
-                                AssetDatabase.AddObjectToAsset(heightAnimationClipZero, animatorController);
-                            }
-                            if (!IsObjectAlreadyInAssetDatabase(heightAnimationClip))
-                            {
-                                AssetDatabase.AddObjectToAsset(heightAnimationClip, animatorController);
-                            }
-                            if (!IsObjectAlreadyInAssetDatabase(newAnimationClip))
-                            {
-                                AssetDatabase.AddObjectToAsset(newAnimationClip, animatorController);
-                            }
+                            // 子BlendTreeも永続化
+                            AddBlendTreeToAsset(footHeightBlendtreeZero, animatorController);
+                            AddBlendTreeToAsset(footHeightBlendtreeDown, animatorController);
+                            AddBlendTreeToAsset(footHeightBlendtreeUp, animatorController);
                             EditorUtility.SetDirty(animatorController);
 
                             state.state.motion = footHeightBlendTree;
                         }
                     }
-                    else
-                    {
-                        var blendTree = (BlendTree)state.state.motion;
-
-                        var footHeightBlendtreeDown = getFootHeightBlendtree(blendTree, 2);
-                        var footHeightBlendtreeZero = getFootHeightBlendtree(blendTree, 0);
-                        var footHeightBlendtreeUp = getFootHeightBlendtree(blendTree, -2);
-
-                        // null チェック（type mismatch回避）
-                        if (footHeightBlendtreeDown == null || footHeightBlendtreeZero == null || footHeightBlendtreeUp == null)
-                        {
-                            Debug.LogWarning($"[PosingSystem]FootHeight BlendTree生成でnullが発生: {blendTree.name}");
-                            continue; // このstateはスキップ
-                        }
-
-                        var footHeightBlendTree = new BlendTree();
-                        footHeightBlendTree.name = "_USSPS_" + blendTree.name + "_footheight";
-                        footHeightBlendTree.blendParameter = "FootHeight";
-                        footHeightBlendTree.useAutomaticThresholds = false;
-                        // サムネイル撮影のための意図的なthreshold順序設定
-                        footHeightBlendTree.AddChild(footHeightBlendtreeZero, 0.5f);  // threshold 0.5: 中央（撮影用）
-                        footHeightBlendTree.AddChild(footHeightBlendtreeDown, 0);     // threshold 0: 下 (level +2)
-                        footHeightBlendTree.AddChild(footHeightBlendtreeUp, 1);       // threshold 1: 上 (level -2)
-
-                        // FootHeight用BlendTreeをAnimatorControllerのサブアセットとして永続化
-                        if (!IsObjectAlreadyInAssetDatabase(footHeightBlendTree))
-                        {
-                            AssetDatabase.AddObjectToAsset(footHeightBlendTree, animatorController);
-                        }
-                        // 子BlendTreeも永続化
-                        AddBlendTreeToAsset(footHeightBlendtreeZero, animatorController);
-                        AddBlendTreeToAsset(footHeightBlendtreeDown, animatorController);
-                        AddBlendTreeToAsset(footHeightBlendtreeUp, animatorController);
-                        EditorUtility.SetDirty(animatorController);
-
-                        state.state.motion = footHeightBlendTree;
-                    }
                 }
-            }
-            addFootHeightBlendtree(layer.stateMachine);
+                addFootHeightBlendtree(layer.stateMachine);
 
-            // 古いSubAssetを削除（AnimatorController肥大化防止）
-            RemoveOldSubAssets(animatorController);
+                // 古いSubAssetを削除（AnimatorController肥大化防止）
+                RemoveOldSubAssets(animatorController);
             }
             finally
             {
@@ -1718,6 +1733,10 @@ namespace jp.unisakistudio.posingsystemeditor
                 if (isTemporaryClone && workingAvatar != null)
                 {
                     Object.DestroyImmediate(workingAvatar);
+                }
+                else if (workingAvatar)
+                {
+                    workingAvatar.SetActive(false);
                 }
             }
         }
@@ -2005,7 +2024,7 @@ namespace jp.unisakistudio.posingsystemeditor
                             continue;
                         }
 
-                        TakeIconScreenshot(animation, posingSystem, camera, force);
+                        TakeIconScreenshot(animation, posingSystem, camera, clone, force);
                         if (!AssetDatabase.IsSubAsset(animation.previewImage))
                         {
                             if (posingSystem.thumbnailPackObject != null)
@@ -2024,7 +2043,7 @@ namespace jp.unisakistudio.posingsystemeditor
                         continue;
                     }
 
-                    TakeIconScreenshot(animation, posingSystem, camera, force);
+                    TakeIconScreenshot(animation, posingSystem, camera, clone, force);
                     if (!AssetDatabase.IsSubAsset(animation.previewImage))
                     {
                         if (posingSystem.thumbnailPackObject != null)
@@ -2136,7 +2155,7 @@ namespace jp.unisakistudio.posingsystemeditor
             }
         }
 
-        public static void TakeIconScreenshot(PosingSystem.BaseAnimationDefine animation, PosingSystem posingSystem, Camera camera, bool force)
+        public static void TakeIconScreenshot(PosingSystem.BaseAnimationDefine animation, PosingSystem posingSystem, Camera camera, GameObject previewAvatarObject, bool force)
         {
             var animationDefine = animation as PosingSystem.AnimationDefine;
             if (force == false && animation.previewImage != null)
@@ -2160,9 +2179,9 @@ namespace jp.unisakistudio.posingsystemeditor
             GameObject workingAvatar = null;
             bool isTemporaryClone = false;
             
-            if (posingSystem.previewAvatarObject != null)
+            if (previewAvatarObject != null)
             {
-                workingAvatar = posingSystem.previewAvatarObject;
+                workingAvatar = previewAvatarObject;
             }
             else
             {
@@ -2181,6 +2200,10 @@ namespace jp.unisakistudio.posingsystemeditor
                 if (isTemporaryClone)
                 {
                     Object.DestroyImmediate(workingAvatar);
+                }
+                else if (workingAvatar)
+                {
+                    workingAvatar.SetActive(false);
                 }
                 return;
             }
@@ -2233,8 +2256,19 @@ namespace jp.unisakistudio.posingsystemeditor
                         {
                             clipToSample = Object.Instantiate(firstAnimationClip);
                             var adjustmentClip = animationDefine.adjustmentClip;
+
+                            // RootQカーブはQuaternion乗算で合成（元の回転 × 調整の回転）
+                            AdditiveCurveUtility.MultiplyRootQCurves(firstAnimationClip, adjustmentClip, clipToSample);
+
+                            // RootQ以外のカーブは従来通り加算
                             foreach (var binding in AnimationUtility.GetCurveBindings(adjustmentClip))
                             {
+                                // RootQカーブは既にMultiplyRootQCurvesで処理済みなのでスキップ
+                                if (AdditiveCurveUtility.IsRootQBinding(binding))
+                                {
+                                    continue;
+                                }
+
                                 var adjustmentCurve = AnimationUtility.GetEditorCurve(adjustmentClip, binding);
                                 var baseCurve = AnimationUtility.GetEditorCurve(clipToSample, binding);
                                 if (baseCurve == null)
@@ -2274,7 +2308,7 @@ namespace jp.unisakistudio.posingsystemeditor
                     var headBone = avatarAnimator.GetBoneTransform(HumanBodyBones.Head);
                     var leftFootBone = avatarAnimator.GetBoneTransform(HumanBodyBones.LeftFoot);
                     var hipsBone = avatarAnimator.GetBoneTransform(HumanBodyBones.Hips);
-                    
+
                     if (headBone != null && leftFootBone != null && hipsBone != null)
                     {
                         var cameraHeight = headBone.position.y;
@@ -2324,11 +2358,15 @@ namespace jp.unisakistudio.posingsystemeditor
             finally
             {
                 AnimationMode.StopAnimationMode();
-                
+
                 // 一時クローンの場合は削除
                 if (isTemporaryClone && workingAvatar != null)
                 {
                     Object.DestroyImmediate(workingAvatar);
+                }
+                else if (workingAvatar)
+                {
+                    workingAvatar.SetActive(false);
                 }
             }
         }
