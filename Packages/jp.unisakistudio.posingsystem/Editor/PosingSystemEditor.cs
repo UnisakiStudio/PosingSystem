@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using UnityEditorInternal;
@@ -147,13 +147,15 @@ namespace jp.unisakistudio.posingsystemeditor
 
         private void ApplySelectedPreset()
         {
-            if (_availablePresetDefines.Count == 0 || _selectedPresetDefineIndex < 0 || _selectedPresetDefineIndex >= _availablePresetDefines.Count)
+            // Popupは先頭にプレースホルダーを入れているため、実データはインデックス0ではなく1から始まる
+            if (_availablePresetDefines.Count == 0 || _selectedPresetDefineIndex <= 0 || _selectedPresetDefineIndex > _availablePresetDefines.Count)
             {
                 EditorUtility.DisplayDialog("エラー", "選択されたプリセットが無効です。", "OK");
                 return;
             }
 
-            var selectedPresetDefine = _availablePresetDefines[_selectedPresetDefineIndex];
+            // プレースホルダー分だけインデックスを補正
+            var selectedPresetDefine = _availablePresetDefines[_selectedPresetDefineIndex - 1];
             var posingSystem = target as PosingSystem;
 
             // 適用可能なプリセットを検索
@@ -646,9 +648,12 @@ namespace jp.unisakistudio.posingsystemeditor
                 {
                     _selectedPresetDefineIndex = EditorGUILayout.Popup(_selectedPresetDefineIndex, _presetDefineNames.ToArray());
 
-                    if (GUILayout.Button("プリセットを適用"))
+                    using (new EditorGUI.DisabledScope(_selectedPresetDefineIndex <= 0))
                     {
-                        ApplySelectedPreset();
+                        if (GUILayout.Button("プリセットを適用"))
+                        {
+                            ApplySelectedPreset();
+                        }
                     }
                 }
                 else
