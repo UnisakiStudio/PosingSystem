@@ -34,6 +34,9 @@ namespace jp.unisakistudio.posingsystemeditor
         private List<string> _presetDefineNames = new List<string>();
         private int _selectedPresetDefineIndex = 0;
 
+        private bool foldoutOverride = false;
+        private bool foldoutAnimationDefine = false;
+
         public delegate List<string> CheckFunction();
         protected static List<CheckFunction> checkFunctions = new List<CheckFunction>();
 
@@ -486,6 +489,14 @@ namespace jp.unisakistudio.posingsystemeditor
                 margin = new RectOffset(0, 0, 1, 1) // 行間を狭く
             };
 
+            var foldoutStyle = new GUIStyle(GUI.skin.button)
+            {
+                fontSize = 16,
+                fontStyle = FontStyle.Normal,
+                fixedHeight = 40,
+                padding = new RectOffset(10, 10, 10, 10)
+            };
+
             // 更新ボタンとその説明
             EditorGUILayout.BeginHorizontal();
             {
@@ -555,86 +566,101 @@ namespace jp.unisakistudio.posingsystemeditor
             EditorGUILayout.Space(10);
             EditorGUILayout.BeginVertical(GUI.skin.box);
             EditorGUILayout.LabelField("モーション置き換え機能", header2Label);
-            
-            // autoImportAvatarAnimationsがオンの場合はHelpBoxを表示
-            if (posingSystem.autoImportAvatarAnimations)
+
+            // ボタンでたたむ
+            if (foldoutOverride)
             {
-                EditorGUILayout.HelpBox("アバターの固有モーションをビルド時に自動でインポートする設定がオンになっています", MessageType.Info);
-            }
-            
-            if (GUILayout.Button("アバターから自動インポート") || posingSystem.overrideDefines == null)
-            {
-                Undo.RecordObject(posingSystem, "Auto detect override settings");
-                AutoDetectOverrideSettings();
-                serializedObject.Update();
-                EditorUtility.SetDirty(posingSystem);
-                AssetDatabase.SaveAssets();
-            }
-            var definesProperty = serializedObject.FindProperty("overrideDefines");
-            //            EditorGUILayout.PropertyField(definesProperty);
-            // 無かったら「設定なし」と表示して、アバターから自動インポートする説明を表示する
-            if (posingSystem.overrideDefines == null || posingSystem.overrideDefines?.Count == 0)
-            {
-                EditorGUILayout.HelpBox("設定なし", MessageType.None);
-                EditorGUILayout.LabelField("既にアバターに固有の姿勢モーションがある場合はアバターから自動インポートできます", descriptionStyle);
-            }
-            int removeIndex = -1;
-            for (int i = 0; i < posingSystem.overrideDefines.Count; i++)
-            {
-                var overrideDefine = posingSystem.overrideDefines[i];
-                var defineProperty = serializedObject.FindProperty("overrideDefines").GetArrayElementAtIndex(i);
-                EditorGUILayout.BeginHorizontal();
+                if (GUILayout.Button("▲▲▲モーション置き換え機能を非表示▲▲▲", foldoutStyle))
                 {
-                    EditorGUILayout.PropertyField(defineProperty);
-                    // ボタンサイズは横幅30で縦は高さ20
-                    if (GUILayout.Button("x", new GUIStyle(GUI.skin.button)
-                    {
-                        fontStyle = FontStyle.Normal,
-                        fixedWidth = 30,
-                        padding = new RectOffset(10, 10, 10, 10)
-                    }))
-                    {
-                        removeIndex = i;
-                    }
+                    foldoutOverride = false;
                 }
+            }
+            else
+            {
+                if (GUILayout.Button("▼▼▼モーション置き換え機能を表示▼▼▼", foldoutStyle))
+                {
+                    foldoutOverride = true;
+                }
+            }
+            if (foldoutOverride)
+            {
+                // autoImportAvatarAnimationsがオンの場合はHelpBoxを表示
+                if (posingSystem.autoImportAvatarAnimations)
+                {
+                    EditorGUILayout.HelpBox("アバターの固有モーションをビルド時に自動でインポートする設定がオンになっています", MessageType.Info);
+                }
+
+                if (GUILayout.Button("アバターから自動インポート") || posingSystem.overrideDefines == null)
+                {
+                    Undo.RecordObject(posingSystem, "Auto detect override settings");
+                    AutoDetectOverrideSettings();
+                    serializedObject.Update();
+                    EditorUtility.SetDirty(posingSystem);
+                    AssetDatabase.SaveAssets();
+                }
+                var definesProperty = serializedObject.FindProperty("overrideDefines");
+                //            EditorGUILayout.PropertyField(definesProperty);
+                // 無かったら「設定なし」と表示して、アバターから自動インポートする説明を表示する
+                if (posingSystem.overrideDefines == null || posingSystem.overrideDefines?.Count == 0)
+                {
+                    EditorGUILayout.HelpBox("設定なし", MessageType.None);
+                    EditorGUILayout.LabelField("既にアバターに固有の姿勢モーションがある場合はアバターから自動インポートできます", descriptionStyle);
+                }
+                int removeIndex = -1;
+                for (int i = 0; i < posingSystem.overrideDefines.Count; i++)
+                {
+                    var overrideDefine = posingSystem.overrideDefines[i];
+                    var defineProperty = serializedObject.FindProperty("overrideDefines").GetArrayElementAtIndex(i);
+                    EditorGUILayout.BeginHorizontal();
+                    {
+                        EditorGUILayout.PropertyField(defineProperty);
+                        // ボタンサイズは横幅30で縦は高さ20
+                        if (GUILayout.Button("x", new GUIStyle(GUI.skin.button)
+                        {
+                            fontStyle = FontStyle.Normal,
+                            fixedWidth = 30,
+                            padding = new RectOffset(10, 10, 10, 10)
+                        }))
+                        {
+                            removeIndex = i;
+                        }
+                    }
+                    EditorGUILayout.EndHorizontal();
+                }
+
+                if (removeIndex != -1)
+                {
+                    Undo.RecordObject(posingSystem, "Remove override define");
+                    posingSystem.overrideDefines.RemoveAt(removeIndex);
+                    EditorUtility.SetDirty(posingSystem);
+                    AssetDatabase.SaveAssets();
+                }
+
+                EditorGUILayout.BeginHorizontal();
+                // 追加ボタン
+                if (GUILayout.Button("追加"))
+                {
+                    Undo.RecordObject(posingSystem, "Add override define");
+                    posingSystem.overrideDefines.Add(new PosingSystem.OverrideAnimationDefine());
+                    EditorUtility.SetDirty(posingSystem);
+                    AssetDatabase.SaveAssets();
+                }
+                // 一つ以上あったらクリアボタンを有効
+                GUI.enabled = posingSystem.overrideDefines.Count > 0;
+                if (GUILayout.Button("全クリア"))
+                {
+                    Undo.RecordObject(posingSystem, "Clear all override defines");
+                    posingSystem.overrideDefines.Clear();
+                    EditorUtility.SetDirty(posingSystem);
+                    AssetDatabase.SaveAssets();
+                }
+                GUI.enabled = true;
                 EditorGUILayout.EndHorizontal();
             }
 
-            if (removeIndex != -1)
-            {
-                Undo.RecordObject(posingSystem, "Remove override define");
-                posingSystem.overrideDefines.RemoveAt(removeIndex);
-                EditorUtility.SetDirty(posingSystem);
-                AssetDatabase.SaveAssets();
-            }
-
-            EditorGUILayout.BeginHorizontal();
-            // 追加ボタン
-            if (GUILayout.Button("追加"))
-            {
-                Undo.RecordObject(posingSystem, "Add override define");
-                posingSystem.overrideDefines.Add(new PosingSystem.OverrideAnimationDefine());
-                EditorUtility.SetDirty(posingSystem);
-                AssetDatabase.SaveAssets();
-            }
-            // 一つ以上あったらクリアボタンを有効
-            GUI.enabled = posingSystem.overrideDefines.Count > 0;
-            if (GUILayout.Button("全クリア"))
-            {
-                Undo.RecordObject(posingSystem, "Clear all override defines");
-                posingSystem.overrideDefines.Clear();
-                EditorUtility.SetDirty(posingSystem);
-                AssetDatabase.SaveAssets();
-            }
-            GUI.enabled = true;
-            EditorGUILayout.EndHorizontal();
             EditorGUILayout.EndVertical();
 
-            if (!IsAndroidBuildTarget() && !Application.isPlaying)
-            {
-                CheckAndDeleteThumbnailPack(posingSystem);
-                PosingSystemConverter.TakeScreenshot(posingSystem, false, true);
-            }
+
 
             // definesセクション全体をBeginVerticalで囲んでObjectFieldのGUI順序を安定化
             EditorGUILayout.Space(10);
@@ -699,106 +725,137 @@ namespace jp.unisakistudio.posingsystemeditor
             }
             EditorGUILayout.EndHorizontal();
 
-            for (int i = 0; i < posingSystem.defines.Count; i++)
+            // ボタンでたたむ
+            if (foldoutAnimationDefine)
             {
-                var define = posingSystem.defines[i];
-                EditorGUILayout.BeginVertical();
-
-                var animationsProperty = serializedObject.FindProperty("defines").GetArrayElementAtIndex(i).FindPropertyRelative("animations");
-                ReorderableList reorderableList = null;
-                if (reorderableLists.Count <= i)
+                if (GUILayout.Button("▲▲▲姿勢アニメーション設定を非表示▲▲▲", foldoutStyle))
                 {
-                    reorderableList = new ReorderableList(base.serializedObject, animationsProperty);
-                    reorderableList.drawElementCallback += (Rect rect, int index, bool selected, bool focused) =>
+                    foldoutAnimationDefine = false;
+                }
+            }
+            else
+            {
+                if (GUILayout.Button("▼▼▼姿勢アニメーション設定を表示▼▼▼", foldoutStyle))
+                {
+                    foldoutAnimationDefine = true;
+                }
+            }
+            if (foldoutAnimationDefine)
+            {
+                if (!IsAndroidBuildTarget() && !Application.isPlaying)
+                {
+                    CheckAndDeleteThumbnailPack(posingSystem);
+                    PosingSystemConverter.TakeScreenshot(posingSystem, false, true);
+                }
+
+                for (int i = 0; i < posingSystem.defines.Count; i++)
+                {
+                    var define = posingSystem.defines[i];
+                    EditorGUILayout.BeginVertical();
+
+                    var animationsProperty = serializedObject.FindProperty("defines").GetArrayElementAtIndex(i).FindPropertyRelative("animations");
+                    ReorderableList reorderableList = null;
+                    if (reorderableLists.Count <= i)
                     {
-                        SerializedProperty property = reorderableList.serializedProperty.GetArrayElementAtIndex(index);
-                        EditorGUI.PropertyField(rect, property, GUIContent.none);
-                    };
-                    reorderableList.drawHeaderCallback += rect =>
-                    {
-                        if (define.icon)
+                        reorderableList = new ReorderableList(base.serializedObject, animationsProperty);
+                        reorderableList.drawElementCallback += (Rect rect, int index, bool selected, bool focused) =>
                         {
-                            GUI.Box(new Rect(rect.x - 6, rect.y, rect.width + 12, rect.height + 1), new GUIContent());
-                            GUI.DrawTexture(new Rect(rect.x - 3, rect.y + 1, 36, 36), exMenuBackground, ScaleMode.ScaleToFit);
-                            GUI.DrawTexture(new Rect(rect.x - 1, rect.y + 1, 32, 32), define.icon, ScaleMode.ScaleToFit);
-                            EditorGUI.LabelField(new Rect(rect.x + 40, rect.y, rect.width - rect.x - 40, 20), define.menuName + define.description);
+                            SerializedProperty property = reorderableList.serializedProperty.GetArrayElementAtIndex(index);
+                            EditorGUI.PropertyField(rect, property, GUIContent.none);
+                        };
+                        reorderableList.drawHeaderCallback += rect =>
+                        {
+                            if (define.icon)
+                            {
+                                GUI.Box(new Rect(rect.x - 6, rect.y, rect.width + 12, rect.height + 1), new GUIContent());
+                                GUI.DrawTexture(new Rect(rect.x - 3, rect.y + 1, 36, 36), exMenuBackground, ScaleMode.ScaleToFit);
+                                GUI.DrawTexture(new Rect(rect.x - 1, rect.y + 1, 32, 32), define.icon, ScaleMode.ScaleToFit);
+                                EditorGUI.LabelField(new Rect(rect.x + 40, rect.y, rect.width - rect.x - 40, 20), define.menuName + define.description);
+                            }
+                            else
+                            {
+                                EditorGUI.LabelField(rect, define.menuName + define.description);
+                            }
+                        };
+                        reorderableList.onSelectCallback += (ReorderableList list) =>
+                        {
+                            foreach (var otherList in reorderableLists)
+                            {
+                                if (reorderableList == otherList)
+                                {
+                                    continue;
+                                }
+                                otherList.index = -1;
+                            }
+                        };
+                        if (define.icon != null)
+                        {
+                            reorderableList.headerHeight = 40;
                         }
                         else
                         {
-                            EditorGUI.LabelField(rect, define.menuName + define.description);
+                            reorderableList.headerHeight = EditorGUIUtility.singleLineHeight;
                         }
-                    };
-                    reorderableList.onSelectCallback += (ReorderableList list) =>
-                    {
-                        foreach (var otherList in reorderableLists)
-                        {
-                            if (reorderableList == otherList)
-                            {
-                                continue;
-                            }
-                            otherList.index = -1;
-                        }
-                    };
-                    if (define.icon != null)
-                    {
-                        reorderableList.headerHeight = 40;
+                        reorderableList.elementHeight = EditorGUIUtility.singleLineHeight * 6 + 5;
+                        reorderableLists.Add(reorderableList);
                     }
                     else
                     {
-                        reorderableList.headerHeight = EditorGUIUtility.singleLineHeight;
+                        reorderableList = reorderableLists[i];
                     }
-                    reorderableList.elementHeight = EditorGUIUtility.singleLineHeight * 6 + 5;
-                    reorderableLists.Add(reorderableList);
-                }
-                else
-                {
-                    reorderableList = reorderableLists[i];
-                }
 
-                reorderableList.DoLayoutList();
-                serializedObject.ApplyModifiedProperties();
+                    reorderableList.DoLayoutList();
+                    serializedObject.ApplyModifiedProperties();
 
-                PosingSystem.AnimationDefine changedAnimation = null;
-                foreach (var animation in define.animations)
-                {
-                    if (animation.initial != animation.initialSet)
+                    PosingSystem.AnimationDefine changedAnimation = null;
+                    foreach (var animation in define.animations)
                     {
-                        changedAnimation = animation;
-                    }
-                }
-                if (changedAnimation != null)
-                {
-                    foreach (var avatarPosingSystem in avatar.GetComponentsInChildren<PosingSystem>())
-                    {
-                        foreach (var posingDefine in avatarPosingSystem.defines)
+                        if (animation.initial != animation.initialSet)
                         {
-                            if (posingDefine.paramName != define.paramName)
+                            changedAnimation = animation;
+                        }
+                    }
+                    if (changedAnimation != null)
+                    {
+                        foreach (var avatarPosingSystem in avatar.GetComponentsInChildren<PosingSystem>())
+                        {
+                            foreach (var posingDefine in avatarPosingSystem.defines)
                             {
-                                continue;
-                            }
-                            foreach (var animation in posingDefine.animations)
-                            {
-                                if (animation.initial && changedAnimation != animation)
+                                if (posingDefine.paramName != define.paramName)
                                 {
-                                    animation.initial = false;
-                                    animation.initialSet = false;
-                                    animation.previewImage = null;
-                                    posingSystem.previousErrorCheckTime = DateTime.MinValue;
-                                    EditorUtility.SetDirty(avatarPosingSystem);
+                                    continue;
                                 }
-                                else if (changedAnimation == animation)
+                                foreach (var animation in posingDefine.animations)
                                 {
-                                    animation.initial = animation.initialSet;
-                                    animation.previewImage = null;
-                                    posingSystem.previousErrorCheckTime = DateTime.MinValue;
-                                    EditorUtility.SetDirty(avatarPosingSystem);
+                                    if (animation.initial && changedAnimation != animation)
+                                    {
+                                        animation.initial = false;
+                                        animation.initialSet = false;
+                                        animation.previewImage = null;
+                                        posingSystem.previousErrorCheckTime = DateTime.MinValue;
+                                        EditorUtility.SetDirty(avatarPosingSystem);
+                                    }
+                                    else if (changedAnimation == animation)
+                                    {
+                                        animation.initial = animation.initialSet;
+                                        animation.previewImage = null;
+                                        posingSystem.previousErrorCheckTime = DateTime.MinValue;
+                                        EditorUtility.SetDirty(avatarPosingSystem);
+                                    }
                                 }
                             }
                         }
                     }
-                }
 
-                EditorGUILayout.EndVertical();
+                    EditorGUILayout.EndVertical();
+                }
+            }
+            if (foldoutAnimationDefine)
+            {
+                if (GUILayout.Button("姿勢アニメーション設定を非表示", foldoutStyle))
+                {
+                    foldoutAnimationDefine = false;
+                }
             }
             EditorGUILayout.EndVertical(); // definesセクション全体の終了
 
