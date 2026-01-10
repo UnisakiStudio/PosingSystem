@@ -460,7 +460,7 @@ namespace jp.unisakistudio.posingsystemeditor
             // 警告表示を元の位置に戻し、常にHelpBoxを表示してGUI要素数を安定化
             if (posingSystem.data == null || posingSystem.data.Length == 0)
             {
-                EditorGUILayout.HelpBox("プレビルドが実行されていません。プレビルドを行ってください", MessageType.Warning);
+                EditorGUILayout.HelpBox("プレビルドが実行されていません。プレビルドを行うことをお勧めします", MessageType.Warning);
             }
             else if (PosingSystemConverter.IsPosingSystemDataUpdated(posingSystem))
             {

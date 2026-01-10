@@ -250,10 +250,16 @@ namespace jp.unisakistudio.posingsystemeditor
         public static bool HasWarning(PosingSystem posingSystem)
         {
             var avatar = posingSystem.GetAvatar();
-            if (IsPosingSystemDataUpdated(posingSystem))
+
+            // プレビルドしていなければ、内容変更では警告は出さない
+            if (posingSystem.data != null && posingSystem.data.Length != 0)
             {
-                return true;
+                if (IsPosingSystemDataUpdated(posingSystem))
+                {
+                    return true;
+                }
             }
+
             if (avatar.autoFootsteps)
             {
                 return true;
