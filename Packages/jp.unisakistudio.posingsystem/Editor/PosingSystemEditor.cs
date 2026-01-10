@@ -140,6 +140,11 @@ namespace jp.unisakistudio.posingsystemeditor
                             _availablePresetDefines.Add(presetDefine);
                             _presetDefineNames.Add(presetDefine.avatarName);
                         }
+                        else if (presetDefine.prefabs.Select(p => p.name).Contains(prefabs.name))
+                        {
+                            _availablePresetDefines.Add(presetDefine);
+                            _presetDefineNames.Add(presetDefine.avatarName);
+                        }
                     }
                 }
             }

@@ -295,7 +295,7 @@ namespace jp.unisakistudio.posingsystemeditor
 
         public static bool IsPosingSystemDataUpdated(PosingSystem posingSystem)
         {
-            return posingSystem.data != GetDefineSerializeJson(posingSystem);
+            return posingSystem.data != GetDefineSerializeJson(posingSystem, true);
         }
 
         public static bool IsContainExistProduct(PosingSystem posingSystem)
@@ -424,7 +424,7 @@ namespace jp.unisakistudio.posingsystemeditor
 
         }
 
-        public static ModularAvatarMergeAnimator GetCommonMergeAnimator(PosingSystem posingSystem)
+        public static ModularAvatarMergeAnimator GetCommonMergeAnimator(PosingSystem posingSystem, bool doRecover = false)
         {
             var avatar = posingSystem.GetAvatar();
             if (avatar == null)
@@ -447,8 +447,27 @@ namespace jp.unisakistudio.posingsystemeditor
             }
             if (!maMergeAnimator.animator)
             {
-                Debug.LogError("[PosingSystem]ポージングシステム用の共通ポージングMAMergeAnimatorにAnimatorが設定されていません");
-                throw new System.Exception("ポージングシステム用の共通ポージングMAMergeAnimatorにAnimatorが設定されていません");
+                if (doRecover)
+                {
+                    // PosingSystemLocomotion.controllerを探してセットしちゃう
+                    var locomotionController = AssetDatabase.FindAssets("l:USSPS_Locomotion")
+                        .Select(AssetDatabase.GUIDToAssetPath)
+                        .Select(AssetDatabase.LoadAssetAtPath<AnimatorController>)
+                        .FirstOrDefault();
+                    if (locomotionController)
+                    {
+                        maMergeAnimator.animator = locomotionController;
+                    }
+                    else {
+                        Debug.LogError("[PosingSystem]PosingSystemLocomotion.controllerが見つかりません");
+                        throw new System.Exception("PosingSystemLocomotion.controllerが見つかりません");
+                    }
+                }
+                else
+                {
+                    Debug.LogError("[PosingSystem]ポージングシステム用の共通ポージングMAMergeAnimatorにAnimatorが設定されていません");
+                    throw new System.Exception("ポージングシステム用の共通ポージングMAMergeAnimatorにAnimatorが設定されていません");
+                }
             }
 
             return maMergeAnimator;
@@ -953,7 +972,7 @@ namespace jp.unisakistudio.posingsystemeditor
         public static void CreateOriginalAnimatorController(PosingSystem posingSystem)
         {
             // 共通ポージングAnimatorを探す
-            var maMergeAnimator = GetCommonMergeAnimator(posingSystem);
+            var maMergeAnimator = GetCommonMergeAnimator(posingSystem, true);
             
             if (maMergeAnimator == null || maMergeAnimator.animator == null)
             {
