@@ -1229,7 +1229,6 @@ namespace jp.unisakistudio.posingsystemeditor
                             }
 
                             Vector3 headPosision = Vector3.zero;
-                            GameObject eyeObject = null;
                             var rootTxList = new List<float>();
                             var rootTyList = new List<float>();
                             var rootTzList = new List<float>();
@@ -1251,13 +1250,10 @@ namespace jp.unisakistudio.posingsystemeditor
                             {
                                 AnimationMode.StartAnimationMode();
                                 AnimationMode.BeginSampling();
-                                eyeObject = new GameObject("_PosingSystem_TempEyeObject");
-                                eyeObject.transform.parent = headBone;
-                                eyeObject.transform.localPosition = new Vector3(0, 0, 0);
                                 AnimationMode.SampleAnimationClip(workingAvatar, animationClip, 0);
                                 workingAvatar.transform.LookAt(new Vector3(0, 0, 1));
                                 AnimationMode.EndSampling();
-                                headPosision = eyeObject.transform.position;
+                                headPosision = workingAnimator.GetBoneTransform(HumanBodyBones.Head).transform.position;
 
                                 foreach (var binding in AnimationUtility.GetCurveBindings(tempClipForCurves))
                                 {
@@ -1282,7 +1278,7 @@ namespace jp.unisakistudio.posingsystemeditor
                                         rootBinding.propertyName = "RootT.z";
                                         AnimationUtility.GetFloatValue(workingAvatar, rootBinding, out rootT.z);
 
-                                        rootT -= headPosision / avatarHeightUnit;
+                                        rootT -= new Vector3(headPosision.x, 0, headPosision.z);
                                         if (binding.propertyName == "RootT.x")
                                             rootTxList.Add(rootT.x);
                                         if (binding.propertyName == "RootT.y")
@@ -1299,10 +1295,6 @@ namespace jp.unisakistudio.posingsystemeditor
                             }
                             finally
                             {
-                                if (eyeObject != null)
-                                {
-                                    GameObject.DestroyImmediate(eyeObject);
-                                }
                                 AnimationMode.StopAnimationMode();
                                 workingAvatar.SetActive(false);
                                 workingAvatar.SetActive(true);
