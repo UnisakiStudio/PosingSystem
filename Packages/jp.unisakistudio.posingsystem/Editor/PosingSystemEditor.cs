@@ -493,6 +493,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 if (GUILayout.Button("プレビルド実行", bigButtonStyle))
                 {
                     Prebuild(posingSystem);
+                    RenewAvatar(posingSystem);
                 }
                 EditorGUILayout.EndVertical();
 
@@ -511,7 +512,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 EditorGUILayout.BeginHorizontal();
                 {
                     EditorGUILayout.BeginVertical(GUILayout.Width(120));
-                    if (GUILayout.Button("アバター更新", bigButtonStyle))
+                    if (GUILayout.Button("アイコンのみ更新", bigButtonStyle))
                     {
                         RenewAvatar(posingSystem);
                     }
