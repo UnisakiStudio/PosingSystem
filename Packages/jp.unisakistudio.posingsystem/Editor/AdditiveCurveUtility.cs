@@ -224,6 +224,435 @@ namespace jp.unisakistudio.posingsystemeditor
                    binding.propertyName == "RootQ.z" ||
                    binding.propertyName == "RootQ.w";
         }
+
+        /// <summary>
+        /// 指定のバインディングがRootTカーブかどうかを判定する
+        /// </summary>
+        public static bool IsRootTBinding(EditorCurveBinding binding)
+        {
+            return binding.propertyName == "RootT.x" ||
+                   binding.propertyName == "RootT.y" ||
+                   binding.propertyName == "RootT.z";
+        }
+
+        /// <summary>
+        /// マッスル名からマッスルインデックスを取得する辞書を作成する
+        /// </summary>
+        private static Dictionary<string, int> _muscleNameToIndex;
+        public static Dictionary<string, int> GetMuscleNameToIndexMap()
+        {
+            if (_muscleNameToIndex == null)
+            {
+                _muscleNameToIndex = new Dictionary<string, int>();
+                for (int i = 0; i < HumanTrait.MuscleCount; i++)
+                {
+                    _muscleNameToIndex[HumanTrait.MuscleName[i]] = i;
+                }
+            }
+            return _muscleNameToIndex;
+        }
+
+        /// <summary>
+        /// バインディングのプロパティ名からマッスルインデックスを取得する
+        /// バインディングのpropertyNameは以下の形式がある：
+        /// - FBXインポート形式: "RightHand.Thumb.1 Stretched", "LeftHand.Index.Spread"
+        /// - HumanTrait形式: "Right Thumb 1 Stretched", "Left Index Spread"
+        /// </summary>
+        public static int GetMuscleIndexFromBinding(EditorCurveBinding binding)
+        {
+            var propertyName = binding.propertyName;
+            
+            // Animatorタイプでない場合は-1を返す
+            if (binding.type != typeof(Animator))
+            {
+                return -1;
+            }
+            
+            var map = GetMuscleNameToIndexMap();
+            
+            // まずそのまま検索（HumanTrait形式の場合）
+            if (map.TryGetValue(propertyName, out int index))
+            {
+                return index;
+            }
+            
+            // FBXインポート形式をHumanTrait形式に変換して検索
+            var convertedName = ConvertFbxMuscleNameToHumanTrait(propertyName);
+            if (convertedName != propertyName && map.TryGetValue(convertedName, out int convertedIndex))
+            {
+                return convertedIndex;
+            }
+            
+            // 正規化して検索（最後の手段）
+            var normalizedInput = NormalizeMuscleName(propertyName);
+            for (int i = 0; i < HumanTrait.MuscleCount; i++)
+            {
+                var standardName = HumanTrait.MuscleName[i];
+                if (NormalizeMuscleName(standardName) == normalizedInput)
+                {
+                    return i;
+                }
+            }
+            
+            return -1;
+        }
+
+        /// <summary>
+        /// FBXインポート形式のマッスル名をHumanTrait形式に変換する
+        /// 例: "RightHand.Thumb.1 Stretched" → "Right Thumb 1 Stretched"
+        ///     "LeftHand.Index.Spread" → "Left Index Spread"
+        /// </summary>
+        private static string ConvertFbxMuscleNameToHumanTrait(string fbxName)
+        {
+            if (string.IsNullOrEmpty(fbxName))
+                return fbxName;
+            
+            var result = fbxName;
+            
+            // "LeftHand." → "Left "
+            if (result.StartsWith("LeftHand."))
+            {
+                result = "Left " + result.Substring("LeftHand.".Length);
+            }
+            // "RightHand." → "Right "
+            else if (result.StartsWith("RightHand."))
+            {
+                result = "Right " + result.Substring("RightHand.".Length);
+            }
+            // "LeftFoot." → "Left Toe "
+            else if (result.StartsWith("LeftFoot."))
+            {
+                result = "Left Toe " + result.Substring("LeftFoot.".Length);
+            }
+            // "RightFoot." → "Right Toe "
+            else if (result.StartsWith("RightFoot."))
+            {
+                result = "Right Toe " + result.Substring("RightFoot.".Length);
+            }
+            
+            // 残りのピリオドをスペースに変換
+            result = result.Replace(".", " ");
+            
+            return result;
+        }
+
+        /// <summary>
+        /// マッスル名を正規化する（スペース、ピリオド、Hand/Footを除去して小文字化）
+        /// </summary>
+        private static string NormalizeMuscleName(string name)
+        {
+            return name
+                .Replace("Hand", "")
+                .Replace("Foot", "Toe")
+                .Replace(" ", "")
+                .Replace(".", "")
+                .ToLower();
+        }
+
+        /// <summary>
+        /// 調整クリップからマッスル調整があるインデックスのセットを取得する
+        /// </summary>
+        public static HashSet<int> GetAdjustedMuscleIndices(AnimationClip adjustmentClip)
+        {
+            var result = new HashSet<int>();
+            if (adjustmentClip == null)
+            {
+                return result;
+            }
+
+            var allBindings = AnimationUtility.GetCurveBindings(adjustmentClip);
+
+            foreach (var binding in allBindings)
+            {
+                // RootQ, RootTはスキップ
+                if (IsRootQBinding(binding) || IsRootTBinding(binding))
+                {
+                    continue;
+                }
+                
+                int muscleIndex = GetMuscleIndexFromBinding(binding);
+                
+                if (muscleIndex >= 0)
+                {
+                    var curve = AnimationUtility.GetEditorCurve(adjustmentClip, binding);
+                    if (curve != null && curve.length > 0)
+                    {
+                        // 調整値が非ゼロのカーブのみを含める
+                        bool hasNonZeroValue = false;
+                        foreach (var key in curve.keys)
+                        {
+                            if (Mathf.Abs(key.value) > 0.0001f)
+                            {
+                                hasNonZeroValue = true;
+                                break;
+                            }
+                        }
+                        if (hasNonZeroValue)
+                        {
+                            result.Add(muscleIndex);
+                        }
+                    }
+                }
+            }
+            
+            return result;
+        }
+
+        /// <summary>
+        /// 元のアニメーションクリップからマッスルカーブがあるインデックスのセットを取得する
+        /// </summary>
+        public static HashSet<int> GetOriginalMuscleIndices(AnimationClip originalClip)
+        {
+            var result = new HashSet<int>();
+            if (originalClip == null) return result;
+
+            foreach (var binding in AnimationUtility.GetCurveBindings(originalClip))
+            {
+                // RootQ, RootTはスキップ
+                if (IsRootQBinding(binding) || IsRootTBinding(binding)) continue;
+                
+                int muscleIndex = GetMuscleIndexFromBinding(binding);
+                if (muscleIndex >= 0)
+                {
+                    result.Add(muscleIndex);
+                }
+            }
+            
+            return result;
+        }
+
+        /// <summary>
+        /// 調整クリップの各時刻でのマッスル調整値を取得する
+        /// </summary>
+        public static Dictionary<int, float> GetMuscleAdjustmentsAtTime(AnimationClip adjustmentClip, float time)
+        {
+            var result = new Dictionary<int, float>();
+            if (adjustmentClip == null) return result;
+
+            foreach (var binding in AnimationUtility.GetCurveBindings(adjustmentClip))
+            {
+                // RootQ, RootTはスキップ
+                if (IsRootQBinding(binding) || IsRootTBinding(binding)) continue;
+                
+                int muscleIndex = GetMuscleIndexFromBinding(binding);
+                if (muscleIndex >= 0)
+                {
+                    var curve = AnimationUtility.GetEditorCurve(adjustmentClip, binding);
+                    if (curve != null)
+                    {
+                        float adjustValue = curve.Evaluate(time);
+                        result[muscleIndex] = adjustValue;
+                    }
+                }
+            }
+            
+            return result;
+        }
+
+        /// <summary>
+        /// バインディングが指定されたマッスルインデックスのセットに対応する可能性があるかどうかを判断する
+        /// GetMuscleIndexFromBindingがマッチしない場合でも、バインディング名のキーワードから推測する
+        /// これにより、非標準形式のバインディング（例：「RightHand.Thumb.1 Spread」）も正しく判定できる
+        /// </summary>
+        public static bool CouldBeForTargetMuscles(EditorCurveBinding binding, HashSet<int> targetMuscleIndices)
+        {
+            // まず通常のマッチングを試みる
+            int muscleIndex = GetMuscleIndexFromBinding(binding);
+            if (muscleIndex >= 0)
+            {
+                return targetMuscleIndices.Contains(muscleIndex);
+            }
+            
+            // マッチしない場合、バインディング名からキーワードを抽出して対応するマッスルを推測
+            var propertyName = binding.propertyName.ToLower();
+            
+            // 指のキーワードをチェック
+            string[] fingerKeywords = { "thumb", "index", "middle", "ring", "little", "pinky" };
+            string[] sideKeywords = { "left", "right" };
+            
+            string detectedSide = null;
+            string detectedFinger = null;
+            
+            foreach (var side in sideKeywords)
+            {
+                if (propertyName.Contains(side))
+                {
+                    detectedSide = side;
+                    break;
+                }
+            }
+            
+            foreach (var finger in fingerKeywords)
+            {
+                if (propertyName.Contains(finger))
+                {
+                    detectedFinger = finger;
+                    break;
+                }
+            }
+            
+            // 指関連のカーブの場合、対応するマッスルがtargetMuscleIndicesに含まれているかチェック
+            if (detectedSide != null && detectedFinger != null)
+            {
+                // HumanTrait.MuscleNameから対応するマッスルを検索
+                for (int i = 0; i < HumanTrait.MuscleCount; i++)
+                {
+                    var muscleName = HumanTrait.MuscleName[i].ToLower();
+                    if (muscleName.Contains(detectedSide) && muscleName.Contains(detectedFinger))
+                    {
+                        if (targetMuscleIndices.Contains(i))
+                        {
+                            return true;
+                        }
+                    }
+                }
+            }
+            
+            // その他のボディマッスルのキーワードをチェック
+            string[] bodyKeywords = { "spine", "chest", "neck", "head", "shoulder", "arm", "forearm", "hand", 
+                                      "upper", "lower", "leg", "foot", "toe", "jaw", "eye" };
+            string[] actionKeywords = { "down", "up", "front", "back", "in", "out", "twist", "stretch", "spread" };
+            
+            foreach (var bodyPart in bodyKeywords)
+            {
+                if (propertyName.Contains(bodyPart))
+                {
+                    // このボディパーツに関連するマッスルを検索
+                    for (int i = 0; i < HumanTrait.MuscleCount; i++)
+                    {
+                        var muscleName = HumanTrait.MuscleName[i].ToLower();
+                        if (muscleName.Contains(bodyPart))
+                        {
+                            if (targetMuscleIndices.Contains(i))
+                            {
+                                // さらにアクションキーワードでの一致もチェック
+                                foreach (var action in actionKeywords)
+                                {
+                                    if (propertyName.Contains(action) && muscleName.Contains(action))
+                                    {
+                                        return true;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            
+            return false;
+        }
+
+        /// <summary>
+        /// バインディングのキーワードから、targetMuscleIndicesの中で最も可能性の高いマッスルインデックスを推測する
+        /// マッチしない場合は-1を返す
+        /// </summary>
+        public static int GuessMuslceIndexFromBindingKeywords(EditorCurveBinding binding, HashSet<int> targetMuscleIndices)
+        {
+            var propertyName = binding.propertyName.ToLower();
+            
+            // 指のキーワードをチェック
+            string[] fingerKeywords = { "thumb", "index", "middle", "ring", "little", "pinky" };
+            string[] sideKeywords = { "left", "right" };
+            string[] jointKeywords = { "1", "2", "3" }; // 関節番号
+            string[] actionKeywords = { "stretched", "spread" };
+            
+            string detectedSide = null;
+            string detectedFinger = null;
+            string detectedJoint = null;
+            string detectedAction = null;
+            
+            foreach (var side in sideKeywords)
+            {
+                if (propertyName.Contains(side))
+                {
+                    detectedSide = side;
+                    break;
+                }
+            }
+            
+            foreach (var finger in fingerKeywords)
+            {
+                if (propertyName.Contains(finger))
+                {
+                    // pinkyはlittleに変換
+                    detectedFinger = finger == "pinky" ? "little" : finger;
+                    break;
+                }
+            }
+            
+            foreach (var joint in jointKeywords)
+            {
+                if (propertyName.Contains(joint))
+                {
+                    detectedJoint = joint;
+                    break;
+                }
+            }
+            
+            foreach (var action in actionKeywords)
+            {
+                if (propertyName.Contains(action))
+                {
+                    detectedAction = action;
+                    break;
+                }
+            }
+            
+            // 指関連のカーブの場合、対応するマッスルを検索
+            if (detectedSide != null && detectedFinger != null)
+            {
+                int bestMatch = -1;
+                int bestScore = 0;
+                
+                for (int i = 0; i < HumanTrait.MuscleCount; i++)
+                {
+                    if (!targetMuscleIndices.Contains(i))
+                        continue;
+                    
+                    var muscleName = HumanTrait.MuscleName[i].ToLower();
+                    if (!muscleName.Contains(detectedSide) || !muscleName.Contains(detectedFinger))
+                        continue;
+                    
+                    int score = 2; // side + finger でベーススコア
+                    
+                    // 関節番号の一致
+                    if (detectedJoint != null && muscleName.Contains(detectedJoint))
+                    {
+                        score += 2;
+                    }
+                    
+                    // アクションの一致
+                    if (detectedAction != null && muscleName.Contains(detectedAction))
+                    {
+                        score += 1;
+                    }
+                    
+                    if (score > bestScore)
+                    {
+                        bestScore = score;
+                        bestMatch = i;
+                    }
+                }
+                
+                return bestMatch;
+            }
+            
+            return -1;
+        }
+
+        /// <summary>
+        /// バインディングがマッスルカーブかどうかを判断する（RootT/RootQ以外のAnimatorタイプ）
+        /// </summary>
+        public static bool IsMuscleBinding(EditorCurveBinding binding)
+        {
+            if (binding.type != typeof(Animator))
+                return false;
+            
+            if (IsRootQBinding(binding) || IsRootTBinding(binding))
+                return false;
+            
+            return true;
+        }
     }
 }
 

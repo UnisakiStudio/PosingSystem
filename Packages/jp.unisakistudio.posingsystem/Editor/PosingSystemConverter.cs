@@ -1310,23 +1310,34 @@ namespace jp.unisakistudio.posingsystemeditor
                                 // RootQカーブはQuaternion乗算で合成（元の回転 × 調整の回転）
                                 AdditiveCurveUtility.MultiplyRootQCurves(tempClipForCurves, adjustmentClip, newAnimationClip);
 
-                                // RootQ以外のカーブは従来通り加算
+                                // RootTカーブは従来通り加算
                                 foreach (var binding in AnimationUtility.GetCurveBindings(adjustmentClip))
                                 {
-                                    // RootQカーブは既にMultiplyRootQCurvesで処理済みなのでスキップ
-                                    if (AdditiveCurveUtility.IsRootQBinding(binding))
+                                    if (AdditiveCurveUtility.IsRootTBinding(binding))
                                     {
-                                        continue;
+                                        var adjustmentCurve = AnimationUtility.GetEditorCurve(adjustmentClip, binding);
+                                        var baseCurve = AnimationUtility.GetEditorCurve(newAnimationClip, binding);
+                                        if (baseCurve == null)
+                                        {
+                                            baseCurve = new AnimationCurve();
+                                        }
+                                        baseCurve = AdditiveCurveUtility.AddCurve(baseCurve, adjustmentCurve);
+                                        AnimationUtility.SetEditorCurve(newAnimationClip, binding, baseCurve);
                                     }
+                                }
 
-                                    var adjustmentCurve = AnimationUtility.GetEditorCurve(adjustmentClip, binding);
-                                    var baseCurve = AnimationUtility.GetEditorCurve(newAnimationClip, binding);
-                                    if (baseCurve == null)
-                                    {
-                                        baseCurve = new AnimationCurve();
-                                    }
-                                    baseCurve = AdditiveCurveUtility.AddCurve(baseCurve, adjustmentCurve);
-                                    AnimationUtility.SetEditorCurve(newAnimationClip, binding, baseCurve);
+                                // マッスルカーブはHumanPoseHandlerを使って再ベイク
+                                // これにより、元のアニメーションと調整アニメーションのバインディングパスの違いを吸収する
+                                var adjustedMuscleIndices = AdditiveCurveUtility.GetAdjustedMuscleIndices(adjustmentClip);
+                                if (adjustedMuscleIndices.Count > 0)
+                                {
+                                    ApplyMuscleAdjustmentsWithRebake(
+                                        workingAvatar,
+                                        tempClipForCurves,
+                                        adjustmentClip,
+                                        newAnimationClip,
+                                        adjustedMuscleIndices
+                                    );
                                 }
                             }
                             foreach (var binding in AnimationUtility.GetCurveBindings(newAnimationClip))
@@ -1374,6 +1385,7 @@ namespace jp.unisakistudio.posingsystemeditor
                                 AssetDatabase.AddObjectToAsset(newAnimationClip, animatorController);
                             }
                             EditorUtility.SetDirty(animatorController);
+                            EditorUtility.SetDirty(newAnimationClip);
                             motion = newAnimationClip;
                         }
                         else if (animationDefine.animationClip.GetType() == typeof(BlendTree))
@@ -2477,6 +2489,232 @@ namespace jp.unisakistudio.posingsystemeditor
                 else if (workingAvatar)
                 {
                     workingAvatar.SetActive(false);
+                }
+            }
+        }
+
+        /// <summary>
+        /// HumanPoseHandlerを使用して、マッスル調整を適用しアニメーションカーブを再ベイクする。
+        /// 元のアニメーションと調整アニメーションのバインディングパスの違いを吸収し、
+        /// 「元のカーブがあったマッスル + 調整があるマッスル」のみをオプション3形式で保存する。
+        /// </summary>
+        /// <param name="workingAvatar">作業用アバター（サンプリングに使用）</param>
+        /// <param name="baseClip">元のアニメーションクリップ</param>
+        /// <param name="adjustmentClip">調整アニメーションクリップ</param>
+        /// <param name="resultClip">結果を設定するクリップ（既にbaseClipからコピー済み）</param>
+        /// <param name="adjustedMuscleIndices">調整があるマッスルインデックスのセット</param>
+        private static void ApplyMuscleAdjustmentsWithRebake(
+            GameObject workingAvatar,
+            AnimationClip baseClip,
+            AnimationClip adjustmentClip,
+            AnimationClip resultClip,
+            HashSet<int> adjustedMuscleIndices)
+        {
+            if (workingAvatar == null || baseClip == null || adjustmentClip == null || resultClip == null)
+            {
+                Debug.LogWarning("[PosingSystem] ApplyMuscleAdjustmentsWithRebake: 必要なパラメータがnullです");
+                return;
+            }
+
+            var animator = workingAvatar.GetComponent<Animator>();
+            if (animator == null || animator.avatar == null)
+            {
+                Debug.LogWarning("[PosingSystem] ApplyMuscleAdjustmentsWithRebake: Animatorまたはアバターがnullです");
+                return;
+            }
+
+            // 元のアニメーションでマッスルカーブを持つインデックスのセットを取得
+            var originalMuscleIndices = AdditiveCurveUtility.GetOriginalMuscleIndices(baseClip);
+            
+            // 保存対象のインデックスセット = 元のカーブがあるインデックス ∪ 調整があるインデックス
+            var targetMuscleIndices = new HashSet<int>(originalMuscleIndices);
+            targetMuscleIndices.UnionWith(adjustedMuscleIndices);
+
+            if (targetMuscleIndices.Count == 0)
+            {
+                return;
+            }
+
+            // キーフレーム時刻を収集（元のアニメーションのマッスルカーブから）
+            var allKeyTimes = new HashSet<float>();
+            foreach (var binding in AnimationUtility.GetCurveBindings(baseClip))
+            {
+                // RootQ, RootTはスキップ
+                if (AdditiveCurveUtility.IsRootQBinding(binding) || AdditiveCurveUtility.IsRootTBinding(binding))
+                    continue;
+                
+                var curve = AnimationUtility.GetEditorCurve(baseClip, binding);
+                if (curve != null)
+                {
+                    foreach (var key in curve.keys)
+                    {
+                        allKeyTimes.Add(key.time);
+                    }
+                }
+            }
+
+            // 調整クリップからもキーフレーム時刻を収集
+            foreach (var binding in AnimationUtility.GetCurveBindings(adjustmentClip))
+            {
+                if (AdditiveCurveUtility.IsRootQBinding(binding) || AdditiveCurveUtility.IsRootTBinding(binding))
+                    continue;
+                
+                var curve = AnimationUtility.GetEditorCurve(adjustmentClip, binding);
+                if (curve != null)
+                {
+                    foreach (var key in curve.keys)
+                    {
+                        allKeyTimes.Add(key.time);
+                    }
+                }
+            }
+
+            if (allKeyTimes.Count == 0)
+            {
+                allKeyTimes.Add(0f); // 最低限time=0を追加
+            }
+
+            var sortedKeyTimes = allKeyTimes.OrderBy(t => t).ToList();
+
+            // 各対象マッスルのカーブを作成
+            var muscleCurves = new Dictionary<int, AnimationCurve>();
+            foreach (var muscleIndex in targetMuscleIndices)
+            {
+                muscleCurves[muscleIndex] = new AnimationCurve();
+            }
+
+            // HumanPoseHandlerを作成
+            var humanPoseHandler = new HumanPoseHandler(animator.avatar, animator.transform);
+            var humanPose = new HumanPose();
+
+            try
+            {
+                AnimationMode.StartAnimationMode();
+
+                foreach (var time in sortedKeyTimes)
+                {
+                    // 元のアニメーションをサンプリング
+                    AnimationMode.BeginSampling();
+                    AnimationMode.SampleAnimationClip(workingAvatar, baseClip, time);
+                    AnimationMode.EndSampling();
+
+                    // HumanPoseを取得
+                    humanPoseHandler.GetHumanPose(ref humanPose);
+
+                    // 調整値を取得して加算
+                    var adjustments = AdditiveCurveUtility.GetMuscleAdjustmentsAtTime(adjustmentClip, time);
+                    foreach (var kvp in adjustments)
+                    {
+                        int muscleIndex = kvp.Key;
+                        float adjustValue = kvp.Value;
+                        if (muscleIndex >= 0 && muscleIndex < humanPose.muscles.Length)
+                        {
+                            humanPose.muscles[muscleIndex] += adjustValue;
+                        }
+                    }
+
+                    // 対象マッスルの値をカーブに追加
+                    foreach (var muscleIndex in targetMuscleIndices)
+                    {
+                        if (muscleIndex >= 0 && muscleIndex < humanPose.muscles.Length)
+                        {
+                            float muscleValue = humanPose.muscles[muscleIndex];
+                            muscleCurves[muscleIndex].AddKey(new Keyframe(time, muscleValue));
+                        }
+                    }
+                }
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogError($"[PosingSystem] マッスル調整の再ベイク中にエラーが発生しました: {e.Message}\n{e.StackTrace}");
+                return;
+            }
+            finally
+            {
+                AnimationMode.StopAnimationMode();
+                if (workingAvatar != null)
+                {
+                    workingAvatar.SetActive(false);
+                    workingAvatar.SetActive(true);
+                }
+                humanPoseHandler?.Dispose();
+            }
+
+            // 既存のマッスルカーブを削除（対象マッスルに対応するバインディングのみ）
+            // CouldBeForTargetMusclesを使用して、非標準形式のバインディング名も認識する
+            // 元のバインディング形式を記録しておく（再生時の互換性のため）
+            var bindingsToRemove = new List<EditorCurveBinding>();
+            var originalBindingNames = new Dictionary<int, string>(); // muscleIndex -> 元のpropertyName
+            
+            foreach (var binding in AnimationUtility.GetCurveBindings(resultClip))
+            {
+                // RootQ, RootTはスキップ
+                if (AdditiveCurveUtility.IsRootQBinding(binding) || AdditiveCurveUtility.IsRootTBinding(binding))
+                    continue;
+                
+                // マッスルカーブでなければスキップ
+                if (!AdditiveCurveUtility.IsMuscleBinding(binding))
+                    continue;
+                
+                // まず通常のマッチングを試みる
+                int muscleIndex = AdditiveCurveUtility.GetMuscleIndexFromBinding(binding);
+                if (muscleIndex >= 0)
+                {
+                    if (targetMuscleIndices.Contains(muscleIndex))
+                    {
+                        bindingsToRemove.Add(binding);
+                        // 元のバインディング形式を記録（最初に見つかったものを優先）
+                        if (!originalBindingNames.ContainsKey(muscleIndex))
+                        {
+                            originalBindingNames[muscleIndex] = binding.propertyName;
+                        }
+                    }
+                }
+                else
+                {
+                    // マッチしない場合、CouldBeForTargetMusclesで推測
+                    // これにより非標準形式のバインディング（例：「RightHand.Thumb.1 Spread」）も削除対象となる
+                    if (AdditiveCurveUtility.CouldBeForTargetMuscles(binding, targetMuscleIndices))
+                    {
+                        bindingsToRemove.Add(binding);
+                        // この場合もマッスルインデックスを推測して記録を試みる
+                        int guessedIndex = AdditiveCurveUtility.GuessMuslceIndexFromBindingKeywords(binding, targetMuscleIndices);
+                        if (guessedIndex >= 0 && !originalBindingNames.ContainsKey(guessedIndex))
+                        {
+                            originalBindingNames[guessedIndex] = binding.propertyName;
+                        }
+                    }
+                }
+            }
+
+            foreach (var binding in bindingsToRemove)
+            {
+                AnimationUtility.SetEditorCurve(resultClip, binding, null);
+            }
+
+            // 新しいマッスルカーブを設定（元のバインディング形式を保持、なければHumanTrait.MuscleName形式で）
+            int setCount = 0;
+            foreach (var kvp in muscleCurves)
+            {
+                int muscleIndex = kvp.Key;
+                var curve = kvp.Value;
+                
+                if (curve.length > 0)
+                {
+                    // 元のバインディング形式があればそれを使用、なければHumanTrait.MuscleName
+                    string propertyName;
+                    if (originalBindingNames.TryGetValue(muscleIndex, out var originalName))
+                    {
+                        propertyName = originalName;
+                    }
+                    else
+                    {
+                        propertyName = HumanTrait.MuscleName[muscleIndex];
+                    }
+                    
+                    var binding = EditorCurveBinding.FloatCurve(string.Empty, typeof(Animator), propertyName);
+                    AnimationUtility.SetEditorCurve(resultClip, binding, curve);
+                    setCount++;
                 }
             }
         }
