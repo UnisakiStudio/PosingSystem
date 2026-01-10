@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.0.4] - 2026-01-11
+- アバターをPrefabsに入れた時の挙動を一部改善
+- ライセンスの削除機能を追加
+- 首がおかしくなる姿勢が多かった不具合を修正
+- インスペクター開くのが重いのを若干解消
+- プレビルドの際にアイコンの作成も行うよう変更。アバター更新ボタンのテキストを変更
+- プレビルドを一度も実行していない場合は警告は非表示するよう変更（プレビルドしない人が多そうなので）
+- 不要なリソースの削除
+- 指が調整できない不具合を修正
+
 ## [3.0.3] - 2026-01-04
 - 選んだプリセットと違うプリセットが適用される不具合を修正（あずきさんありがとうございます）
 
