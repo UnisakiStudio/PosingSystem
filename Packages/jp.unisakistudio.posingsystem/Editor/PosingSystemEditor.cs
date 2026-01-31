@@ -1228,10 +1228,16 @@ namespace jp.unisakistudio.posingsystemeditor
                 {
                     productMenuGuids.AddRange(AssetDatabase.FindAssets(menuName));
                 }
-                // 再起で商品のメニューを使用しているか調べる
+
+                // 再帰で商品のメニューを使用しているか調べる（循環防止のため訪問済みセットを利用）
+                var visitedMenus = new HashSet<VRC.SDK3.Avatars.ScriptableObjects.VRCExpressionsMenu>();
                 bool isKawaiiSittingMenu(VRC.SDK3.Avatars.ScriptableObjects.VRCExpressionsMenu menu)
                 {
                     if (menu == null)
+                    {
+                        return false;
+                    }
+                    if (!visitedMenus.Add(menu))
                     {
                         return false;
                     }
@@ -1315,10 +1321,15 @@ namespace jp.unisakistudio.posingsystemeditor
                 }
             }
 
-            // 再起で商品のメニューを使用しているか調べる
+            // 再起で商品のメニューを使用しているか調べる（循環防止のため訪問済みセットを利用）
+            var visitedMenus = new HashSet<VRC.SDK3.Avatars.ScriptableObjects.VRCExpressionsMenu>();
             void removeKawaiiSittingMenu(VRC.SDK3.Avatars.ScriptableObjects.VRCExpressionsMenu menu)
             {
                 if (menu == null)
+                {
+                    return;
+                }
+                if (!visitedMenus.Add(menu))
                 {
                     return;
                 }
