@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.0.5] - 2026-01-31
+- ExpressionMenusによってはUnityがクラッシュしてしまう不具合を修正
+- ごろ寝EX連携プレハブ使用時にアバターに不具合が発生するのを修正（あずきさんありがとうございます）
+- 調整アニメーション合成時に回転がおかしくなる不具合を修正
+
 ## [3.0.4] - 2026-01-11
 - アバターをPrefabsに入れた時の挙動を一部改善
 - ライセンスの削除機能を追加
