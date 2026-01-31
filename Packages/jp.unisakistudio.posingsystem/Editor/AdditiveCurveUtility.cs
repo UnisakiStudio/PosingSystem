@@ -198,8 +198,10 @@ namespace jp.unisakistudio.posingsystemeditor
                     adjQw?.Evaluate(time) ?? 1f
                 );
 
-                // Quaternion乗算で回転を合成（元の回転 × 調整の回転）
-                var resultQ = baseQ * adjQ;
+                // Quaternion乗算で回転を合成（調整の回転 × 元の回転）
+                // Unityでは A * B = 「まずBを適用、その後Aを適用」なので、
+                // adjQ * baseQ = 「まず元の回転を適用、その後調整を適用」となる
+                var resultQ = adjQ * baseQ;
 
                 resultQx.AddKey(new Keyframe(time, resultQ.x));
                 resultQy.AddKey(new Keyframe(time, resultQ.y));

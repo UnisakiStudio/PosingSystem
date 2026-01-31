@@ -1129,6 +1129,12 @@ namespace jp.unisakistudio.posingsystemeditor
             var adjustmentBindings = AnimationUtility.GetCurveBindings(adjustmentClip);
             foreach (var binding in adjustmentBindings)
             {
+                // RootQカーブはQuaternion乗算で処理するためスキップ
+                if (AdditiveCurveUtility.IsRootQBinding(binding))
+                {
+                    continue;
+                }
+
                 var adjustmentCurve = AnimationUtility.GetEditorCurve(adjustmentClip, binding);
                 if (adjustmentCurve == null) continue;
 
@@ -1158,6 +1164,9 @@ namespace jp.unisakistudio.posingsystemeditor
                     AnimationUtility.SetEditorCurve(combinedClip, binding, adjustmentCurve);
                 }
             }
+            
+            // RootQカーブはQuaternion乗算で合成（元の回転 × 調整の回転）
+            AdditiveCurveUtility.MultiplyRootQCurves(entry.Animation.animationClip as AnimationClip, adjustmentClip, combinedClip);
             
             // 新しいアニメーションとして保存
             AssetDatabase.CreateAsset(combinedClip, newPath);
@@ -2374,6 +2383,10 @@ namespace jp.unisakistudio.posingsystemeditor
                 AnimationMode.SampleAnimationClip(_previewAvatar.gameObject, baseClip, 0f);
                 AnimationMode.EndSampling();
 
+                // 元のアニメーションのRootQを取得（サンプリング後のアバターの回転）
+                var baseRotation = _previewAvatar.transform.rotation;
+                var basePosition = _previewAvatar.transform.position;
+
                 poseHandler = new HumanPoseHandler(_previewAvatar.avatar, _previewAvatar.transform);
                 var pose = new HumanPose();
                 poseHandler.GetHumanPose(ref pose);
@@ -2399,9 +2412,11 @@ namespace jp.unisakistudio.posingsystemeditor
 
                 poseHandler.SetHumanPose(ref pose);
             
-                // プレビューアバターの位置を元のアバターの位置に設定し、RootTYとRootQの調整値を適用
-                _previewAvatar.transform.position = _initialAvatarPosition + new Vector3(0, _adjustments.rootTYAdjustment, 0);
-                _previewAvatar.transform.rotation = _initialAvatarRotation * Quaternion.Euler(_adjustments.rootQAdjustments);
+                // プレビューアバターの位置と回転を設定
+                // 元のアニメーションのRootTに調整を加算
+                _previewAvatar.transform.position = basePosition + new Vector3(0, _adjustments.rootTYAdjustment, 0);
+                // 元のアニメーションのRootQに調整を乗算（調整 × 元の回転）
+                _previewAvatar.transform.rotation = Quaternion.Euler(_adjustments.rootQAdjustments) * baseRotation;
 
                 SceneView.RepaintAll();
             }
