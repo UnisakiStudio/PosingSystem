@@ -1,4 +1,4 @@
-﻿#region
+#region
 
 using System.Collections.Generic;
 using System.Linq;
@@ -1408,6 +1408,8 @@ namespace jp.unisakistudio.posingsystemeditor
                         else if (animationDefine.animationClip.GetType() == typeof(BlendTree))
                         {
                             motion = animationDefine.animationClip;
+                            // モーション置き換えで使用されるBlendTree内のパラメータをLocomotion用AnimatorControllerに追加
+                            AddBlendTreeParametersToAnimator(animatorController, (BlendTree)motion);
                         }
 
                         // 同期するパラメータを計算
@@ -1847,6 +1849,38 @@ namespace jp.unisakistudio.posingsystemeditor
                          !IsObjectAlreadyInAssetDatabase(child.motion))
                 {
                     AssetDatabase.AddObjectToAsset(child.motion, animatorController);
+                }
+            }
+        }
+
+        /// <summary>
+        /// BlendTreeおよびその子BlendTreeで使用しているパラメータをAnimatorControllerに追加する
+        /// （元アバターのモーション置き換え時に、LocomotionController側に存在しないパラメータが原因でエラーになるのを防ぐ）
+        /// </summary>
+        /// <param name="animatorController">パラメータを追加するAnimatorController</param>
+        /// <param name="blendTree">参照元のBlendTree</param>
+        private static void AddBlendTreeParametersToAnimator(AnimatorController animatorController, BlendTree blendTree)
+        {
+            if (animatorController == null || blendTree == null) return;
+
+            void AddParameterIfNeeded(string paramName)
+            {
+                if (string.IsNullOrEmpty(paramName)) return;
+                if (animatorController.parameters.Any(p => p.name == paramName)) return;
+
+                animatorController.AddParameter(paramName, AnimatorControllerParameterType.Float);
+            }
+
+            // このBlendTree自体が使用しているパラメータを追加
+            AddParameterIfNeeded(blendTree.blendParameter);
+            AddParameterIfNeeded(blendTree.blendParameterY);
+
+            // 子に含まれるBlendTreeも再帰的に処理
+            foreach (var child in blendTree.children)
+            {
+                if (child.motion is BlendTree childBlendTree)
+                {
+                    AddBlendTreeParametersToAnimator(animatorController, childBlendTree);
                 }
             }
         }
@@ -2810,6 +2844,12 @@ namespace jp.unisakistudio.posingsystemeditor
                                 blendTree.RemoveChild(blendTreeIndex);
                             }
                             blendTree.AddChild(define.animationClip, new Vector2(overrideSetting.posX, overrideSetting.posY));
+
+                            // override用に指定されたモーションがBlendTreeの場合、そのパラメータもAnimatorControllerに追加する
+                            if (define.animationClip is BlendTree overrideBlendTree)
+                            {
+                                AddBlendTreeParametersToAnimator(animatorController, overrideBlendTree);
+                            }
                         }
                         else
                         {
@@ -2819,6 +2859,12 @@ namespace jp.unisakistudio.posingsystemeditor
                     else
                     {
                         animatorState.motion = define.animationClip;
+
+                        // 単純置き換えでも、元クリップがBlendTreeの場合はパラメータを追加
+                        if (define.animationClip is BlendTree overrideBlendTree)
+                        {
+                            AddBlendTreeParametersToAnimator(animatorController, overrideBlendTree);
+                        }
                     }
                 }
             }
