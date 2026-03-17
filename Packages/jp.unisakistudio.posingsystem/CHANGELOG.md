@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.0.6] - 2026-03-17
+- 元からアバター独自の姿勢制御のある一部のアバターで姿勢がめちゃくちゃになる不具合を修正
+
 ## [3.0.5] - 2026-01-31
 - ExpressionMenusによってはUnityがクラッシュしてしまう不具合を修正
 - ごろ寝EX連携プレハブ使用時にアバターに不具合が発生するのを修正（あずきさんありがとうございます）
