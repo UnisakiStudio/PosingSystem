@@ -21,7 +21,6 @@ namespace jp.unisakistudio.posingsystemeditor
 
         private PosingSystem _posingSystem;
         private readonly List<AnimationEntry> _animationEntries = new();
-        private string[] _animationLabels = Array.Empty<string>();
         private int _selectedAnimationIndex = -1;
         public class Adjustments : ScriptableObject
         {
@@ -110,6 +109,11 @@ namespace jp.unisakistudio.posingsystemeditor
         public bool IsOpen
         {
             get { return _isOpen && _posingSystem != null; }
+        }
+
+        private void UpdateHasUnsavedChanges()
+        {
+            hasUnsavedChanges = HasAnyChangesInAllAnimations();
         }
 
         private string GetAnimationKey(AnimationEntry entry)
@@ -527,10 +531,10 @@ namespace jp.unisakistudio.posingsystemeditor
                 // ウィンドウが最初は小さすぎるので初期値を設定する
                 window.minSize = new Vector2(400, 300);
             }
-            window.titleContent = new GUIContent("アニメーション調整");
+            window.titleContent = new GUIContent(PosingAnimationAdjustmentWindowText.Title);
+            window.saveChangesMessage = PosingAnimationAdjustmentWindowText.SaveChangesMessage;
             window.Initialize(posingSystem);
             window.ShowUtility();
-
         }
 
         private void Initialize(PosingSystem posingSystem)
@@ -553,7 +557,43 @@ namespace jp.unisakistudio.posingsystemeditor
                 _selectedAnimationIndex = -1;
                 _adjustments = null;
             }
+            UpdateHasUnsavedChanges();
             Repaint();
+        }
+
+        public override void SaveChanges()
+        {
+            if (!HasAnyChangesInAllAnimations())
+            {
+                hasUnsavedChanges = false;
+                return;
+            }
+
+            SaveAllAdjustmentClips();
+            hasUnsavedChanges = false;
+        }
+
+        public override void DiscardChanges()
+        {
+            if (!IsOpen)
+            {
+                hasUnsavedChanges = false;
+                return;
+            }
+
+            PreloadAllAdjustmentData();
+            if (_animationEntries.Count > 0)
+            {
+                _selectedAnimationIndex = Mathf.Clamp(_selectedAnimationIndex, 0, _animationEntries.Count - 1);
+                LoadAdjustmentValues();
+            }
+            else
+            {
+                _selectedAnimationIndex = -1;
+                _adjustments = null;
+            }
+
+            hasUnsavedChanges = false;
         }
 
         public void Close()
@@ -562,7 +602,6 @@ namespace jp.unisakistudio.posingsystemeditor
             CleanupPreview();
             _posingSystem = null;
             _animationEntries.Clear();
-            _animationLabels = Array.Empty<string>();
             _selectedAnimationIndex = -1;
             _adjustments = null;
             Repaint();
@@ -593,6 +632,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 _selectedAnimationIndex = -1;
                 _adjustments = null;
             }
+            UpdateHasUnsavedChanges();
             Repaint();
         }
 
@@ -696,7 +736,8 @@ namespace jp.unisakistudio.posingsystemeditor
         {
             if (!IsOpen)
             {
-                EditorGUILayout.HelpBox("アニメーションの調整は現在停止中です", MessageType.Warning);
+                hasUnsavedChanges = false;
+                EditorGUILayout.HelpBox(PosingAnimationAdjustmentWindowText.AdjustmentStopped, MessageType.Warning);
 
                 return;
             }
@@ -706,11 +747,12 @@ namespace jp.unisakistudio.posingsystemeditor
 
             if (_posingSystem == null)
             {
-                EditorGUILayout.HelpBox("PosingSystem が見つかりません。対象のコンポーネントを選択した状態で再度開いてください。", MessageType.Warning);
-                if (GUILayout.Button("閉じる"))
+                EditorGUILayout.HelpBox(PosingAnimationAdjustmentWindowText.PosingSystemNotFound, MessageType.Warning);
+                if (GUILayout.Button(PosingAnimationAdjustmentWindowText.Close))
                 {
                     Close();
                 }
+                UpdateHasUnsavedChanges();
                 return;
             }
 
@@ -732,16 +774,18 @@ namespace jp.unisakistudio.posingsystemeditor
                     DrawRightPanel();
                 }
             }
+
+            UpdateHasUnsavedChanges();
         }
 
         private void DrawLeftPanel()
         {
-            EditorGUILayout.LabelField("アニメーション調整", EditorStyles.boldLabel);
+            EditorGUILayout.LabelField(PosingAnimationAdjustmentWindowText.Title, EditorStyles.boldLabel);
 
             // グローバルボタン
             using (new EditorGUILayout.VerticalScope(GUI.skin.box))
             {
-                EditorGUILayout.LabelField("一括操作", EditorStyles.boldLabel);
+                EditorGUILayout.LabelField(PosingAnimationAdjustmentWindowText.BatchOperations, EditorStyles.boldLabel);
 
                 var hasAnyChangesGlobal = HasAnyChangesInAllAnimations();
                 var hasAnyAdjustmentsGlobal = HasAnyAdjustmentsInAllAnimations();
@@ -749,7 +793,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 // 全姿勢初期化（調整値がある時のみ有効）
                 using (new EditorGUI.DisabledScope(!hasAnyAdjustmentsGlobal))
                 {
-                    if (GUILayout.Button(new GUIContent("全姿勢初期化", "全ての調整値を0にリセットします。")))
+                    if (GUILayout.Button(new GUIContent(PosingAnimationAdjustmentWindowText.AllReset, PosingAnimationAdjustmentWindowText.AllResetTooltip)))
                     {
                         ResetAllAnimationsAdjustments();
                     }
@@ -758,7 +802,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 // 全姿勢再読み込み（変更がある時のみ有効）
                 using (new EditorGUI.DisabledScope(!hasAnyChangesGlobal))
                 {
-                    if (GUILayout.Button(new GUIContent("全姿勢再読込", "全ての調整池をファイルに保存されている値に戻します。")))
+                    if (GUILayout.Button(new GUIContent(PosingAnimationAdjustmentWindowText.AllReload, PosingAnimationAdjustmentWindowText.AllReloadTooltip)))
                     {
                         ReloadAllAnimationsAdjustments();
                     }
@@ -767,7 +811,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 // 全差分保存（変更がある時のみ有効）
                 using (new EditorGUI.DisabledScope(!hasAnyChangesGlobal))
                 {
-                    if (GUILayout.Button(new GUIContent("全差分保存", "変更のあるアニメーションの調整値を保存します。")))
+                    if (GUILayout.Button(new GUIContent(PosingAnimationAdjustmentWindowText.AllSaveDiff, PosingAnimationAdjustmentWindowText.AllSaveDiffTooltip)))
                     {
                         SaveAllAdjustmentClips();
                     }
@@ -776,20 +820,20 @@ namespace jp.unisakistudio.posingsystemeditor
                 // 全調整データ複製保存（変更がある時のみ有効）
                 using (new EditorGUI.DisabledScope(!hasAnyChangesGlobal))
                 {
-                    if (GUILayout.Button(new GUIContent("全調整データ複製保存", "変更のあるアニメーションの調整値を複製して保存します。元々設定されていたファイルは変更されません")))
+                    if (GUILayout.Button(new GUIContent(PosingAnimationAdjustmentWindowText.AllDuplicateSave, PosingAnimationAdjustmentWindowText.AllDuplicateSaveTooltip)))
                     {
                         DuplicateAndSaveAllAdjustmentClips();
                     }
                 }
             }
 
-            EditorGUILayout.LabelField("アニメーション");
+            EditorGUILayout.LabelField(PosingAnimationAdjustmentWindowText.Animation);
             using (var scrollView = new EditorGUILayout.ScrollViewScope(_animationListScroll, GUILayout.ExpandHeight(true)))
             {
                 _animationListScroll = scrollView.scrollPosition;
                 if (_animationEntries.Count == 0)
                 {
-                    EditorGUILayout.HelpBox("調整可能なアニメーションが見つかりません。PosingSystem の設定を確認してください。", MessageType.Info);
+                    EditorGUILayout.HelpBox(PosingAnimationAdjustmentWindowText.NoAdjustableAnimation, MessageType.Info);
                 }
                 else
                 {
@@ -809,21 +853,21 @@ namespace jp.unisakistudio.posingsystemeditor
             var selectedEntry = GetSelectedEntry();
             if (selectedEntry == null)
             {
-                EditorGUILayout.HelpBox("アニメーションを選択してください。", MessageType.Info);
+                EditorGUILayout.HelpBox(PosingAnimationAdjustmentWindowText.SelectAnimation, MessageType.Info);
                 return;
             }
 
             var motion = selectedEntry.Animation.animationClip;
             if (motion == null)
             {
-                EditorGUILayout.HelpBox("アニメーションが割り当てられていません。", MessageType.Warning);
+                EditorGUILayout.HelpBox(PosingAnimationAdjustmentWindowText.AnimationNotAssigned, MessageType.Warning);
                 DrawAdjustmentControls(enabled: false);
                 return;
             }
 
             if (motion is not AnimationClip baseClip)
             {
-                EditorGUILayout.HelpBox("現在のモーションは AnimationClip ではありません。差分調整は AnimationClip のみ対応しています。", MessageType.Warning);
+                EditorGUILayout.HelpBox(PosingAnimationAdjustmentWindowText.MotionNotAnimationClip, MessageType.Warning);
                 DrawAdjustmentControls(enabled: false);
                 return;
             }
@@ -836,22 +880,22 @@ namespace jp.unisakistudio.posingsystemeditor
 
         private void DrawAnimationInfoSection(AnimationEntry entry)
         {
-            EditorGUILayout.LabelField("アニメーション情報", EditorStyles.boldLabel);
+            EditorGUILayout.LabelField(PosingAnimationAdjustmentWindowText.AnimationInfo, EditorStyles.boldLabel);
             using (new EditorGUILayout.VerticalScope(GUI.skin.box))
             {
                 // アニメーション名表示
-                EditorGUILayout.LabelField("名前", entry.Animation.displayName);
+                EditorGUILayout.LabelField(PosingAnimationAdjustmentWindowText.Name, entry.Animation.displayName);
 
                 // 調整アニメーションのanimationClipProperty表示・編集
                 using (new EditorGUILayout.HorizontalScope())
                 {
                     using (new EditorGUI.DisabledScope(true))
                     {
-                        EditorGUILayout.ObjectField("現在のアニメーション", entry.Animation.animationClip, typeof(AnimationClip), false);
+                        EditorGUILayout.ObjectField(PosingAnimationAdjustmentWindowText.CurrentAnimation, entry.Animation.animationClip, typeof(AnimationClip), false);
                     }
                     using (new EditorGUI.DisabledScope(entry.Animation.adjustmentClip == null))
                     {
-                        if (GUILayout.Button(new GUIContent("合成", "現在のアニメーションに調整アニメーションを合成したものを新しいアニメーションクリップとして保存します。"), GUILayout.Width(50)))
+                        if (GUILayout.Button(new GUIContent(PosingAnimationAdjustmentWindowText.Combine, PosingAnimationAdjustmentWindowText.CombineTooltip), GUILayout.Width(50)))
                         {
                             CombineAndSaveAdjustmentClip(entry);
                         }
@@ -862,11 +906,11 @@ namespace jp.unisakistudio.posingsystemeditor
                 EditorGUI.BeginChangeCheck();
                 using (new EditorGUILayout.HorizontalScope())
                 {
-                    entry.Animation.adjustmentClip = EditorGUILayout.ObjectField("調整アニメーション", entry.Animation.adjustmentClip, typeof(AnimationClip), false) as AnimationClip;
+                    entry.Animation.adjustmentClip = EditorGUILayout.ObjectField(PosingAnimationAdjustmentWindowText.AdjustmentAnimation, entry.Animation.adjustmentClip, typeof(AnimationClip), false) as AnimationClip;
                     if (entry.Animation.adjustmentClip != null)
                     {
                         // 複製ボタン
-                        if (GUILayout.Button(new GUIContent("複製", "調整アニメーションを複製します。"), GUILayout.Width(50)))
+                        if (GUILayout.Button(new GUIContent(PosingAnimationAdjustmentWindowText.Duplicate, PosingAnimationAdjustmentWindowText.DuplicateTooltip), GUILayout.Width(50)))
                         {
                             DuplicateAdjustmentClip(entry);
                         }
@@ -921,7 +965,7 @@ namespace jp.unisakistudio.posingsystemeditor
         {
             if (entry.Animation.adjustmentClip == null)
             {
-                EditorUtility.DisplayDialog("エラー", "合成する調整アニメーションが存在しません。", "OK");
+                EditorUtility.DisplayDialog(PosingAnimationAdjustmentWindowText.ErrorTitle, PosingAnimationAdjustmentWindowText.CombineMissingAdjustment, PosingAnimationAdjustmentWindowText.Ok);
                 return;
             }
 
@@ -1025,14 +1069,14 @@ namespace jp.unisakistudio.posingsystemeditor
             ApplyPreviewPose();
             Repaint();
 
-            EditorUtility.DisplayDialog("完了", $"アニメーションを合成して保存しました。\n新しいファイル: {newPath}", "OK");
+            EditorUtility.DisplayDialog(PosingAnimationAdjustmentWindowText.CompleteTitle, string.Format(PosingAnimationAdjustmentWindowText.CombineSavedFormat, newPath), PosingAnimationAdjustmentWindowText.Ok);
         }
 
         private void DuplicateAdjustmentClip(AnimationEntry entry)
         {
             if (entry.Animation.adjustmentClip == null)
             {
-                EditorUtility.DisplayDialog("エラー", "複製する調整アニメーションが存在しません。", "OK");
+                EditorUtility.DisplayDialog(PosingAnimationAdjustmentWindowText.ErrorTitle, PosingAnimationAdjustmentWindowText.DuplicateMissingAdjustment, PosingAnimationAdjustmentWindowText.Ok);
                 return;
             }
 
@@ -1098,12 +1142,12 @@ namespace jp.unisakistudio.posingsystemeditor
             // 元データを更新（変更検知をリセット）
             UpdateOriginalDataAfterClipChange();
 
-            EditorUtility.DisplayDialog("完了", $"調整アニメーションを複製して保存しました。\n新しいファイル: {newPath}", "OK");
+            EditorUtility.DisplayDialog(PosingAnimationAdjustmentWindowText.CompleteTitle, string.Format(PosingAnimationAdjustmentWindowText.DuplicateSavedFormat, newPath), PosingAnimationAdjustmentWindowText.Ok);
         }
 
         private void DuplicateAndSaveAllAdjustmentClips()
         {
-            if (!EditorUtility.DisplayDialog("確認", "全ての調整データを複製保存しますか？\n変更のあるアニメーションの調整アニメーションが複製され、変更が保存されます。", "はい", "いいえ"))
+            if (!EditorUtility.DisplayDialog(PosingAnimationAdjustmentWindowText.ConfirmTitle, PosingAnimationAdjustmentWindowText.DuplicateAllConfirm, PosingAnimationAdjustmentWindowText.Yes, PosingAnimationAdjustmentWindowText.No))
             {
                 return;
             }
@@ -1160,11 +1204,11 @@ namespace jp.unisakistudio.posingsystemeditor
                 PreloadAllAdjustmentData();
                 LoadAdjustmentValues();
 
-                EditorUtility.DisplayDialog("完了", $"{processedCount}個の調整アニメーションを複製保存しました。", "OK");
+                EditorUtility.DisplayDialog(PosingAnimationAdjustmentWindowText.CompleteTitle, string.Format(PosingAnimationAdjustmentWindowText.DuplicateAllCompleteFormat, processedCount), PosingAnimationAdjustmentWindowText.Ok);
             }
             else
             {
-                EditorUtility.DisplayDialog("情報", "複製保存する変更はありませんでした。", "OK");
+                EditorUtility.DisplayDialog(PosingAnimationAdjustmentWindowText.InfoTitle, PosingAnimationAdjustmentWindowText.NoChangesToDuplicate, PosingAnimationAdjustmentWindowText.Ok);
             }
         }
 
@@ -1182,7 +1226,7 @@ namespace jp.unisakistudio.posingsystemeditor
                     // 初期化（調整値がある時のみ有効）
                     using (new EditorGUI.DisabledScope(!hasAnyAdjustments))
                     {
-                        if (GUILayout.Button(new GUIContent("初期化", "調整値をすべて0にリセットします。")))
+                        if (GUILayout.Button(new GUIContent(PosingAnimationAdjustmentWindowText.CurrentReset, PosingAnimationAdjustmentWindowText.CurrentResetTooltip)))
                         {
                             ResetAllAdjustments();
                         }
@@ -1191,7 +1235,7 @@ namespace jp.unisakistudio.posingsystemeditor
                     // 再読み込み（adjustmentClipがあるか、変更がある時のみ有効）
                     using (new EditorGUI.DisabledScope(!hasAdjustmentClip || !hasChanges))
                     {
-                        if (GUILayout.Button(new GUIContent("再読込", "ファイルに保存されている値に戻します。")))
+                        if (GUILayout.Button(new GUIContent(PosingAnimationAdjustmentWindowText.CurrentReload, PosingAnimationAdjustmentWindowText.CurrentReloadTooltip)))
                         {
                             ReloadCurrentAdjustmentFromFile();
                         }
@@ -1200,7 +1244,7 @@ namespace jp.unisakistudio.posingsystemeditor
                     // 保存（変更がある時のみ有効）
                     using (new EditorGUI.DisabledScope(!hasChanges))
                     {
-                        if (GUILayout.Button(new GUIContent("保存", "調整値をファイルに保存します。")))
+                        if (GUILayout.Button(new GUIContent(PosingAnimationAdjustmentWindowText.Save, PosingAnimationAdjustmentWindowText.SaveTooltip)))
                         {
                             SaveAdjustmentClip();
                         }
@@ -1209,7 +1253,7 @@ namespace jp.unisakistudio.posingsystemeditor
                     // 複製して保存（変更がある時のみ有効）
                     using (new EditorGUI.DisabledScope(!hasChanges))
                     {
-                        if (GUILayout.Button(new GUIContent("複製して保存", "調整アニメーションを複製して保存します。元々設定されていたファイルは変更されません")))
+                        if (GUILayout.Button(new GUIContent(PosingAnimationAdjustmentWindowText.DuplicateAndSave, PosingAnimationAdjustmentWindowText.DuplicateAndSaveTooltip)))
                         {
                             DuplicateAndSaveAdjustmentClip();
                         }
@@ -1272,7 +1316,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 _foldoutStates["Root Height"] = true;
             }
 
-            rootTYExpanded = EditorGUILayout.Foldout(rootTYExpanded, "高さ", true);
+            rootTYExpanded = EditorGUILayout.Foldout(rootTYExpanded, PosingAnimationAdjustmentWindowText.Height, true);
             _foldoutStates["Root Height"] = rootTYExpanded;
 
             if (rootTYExpanded)
@@ -1294,7 +1338,7 @@ namespace jp.unisakistudio.posingsystemeditor
                     }
 
                     EditorGUI.BeginChangeCheck();
-                    var newValue = EditorGUILayout.Slider("高さ", currentValue, min, max);
+                    var newValue = EditorGUILayout.Slider(PosingAnimationAdjustmentWindowText.Height, currentValue, min, max);
 
                     if (EditorGUI.EndChangeCheck())
                     {
@@ -1306,7 +1350,7 @@ namespace jp.unisakistudio.posingsystemeditor
 
                     // 限界突破トグル
                     EditorGUI.BeginChangeCheck();
-                    var newLimitBreak = EditorGUILayout.ToggleLeft(new GUIContent("限界突破", "限界突破をオンにするとパラメータの設定幅が５倍になります"), isLimitBreak, GUILayout.Width(80));
+                    var newLimitBreak = EditorGUILayout.ToggleLeft(new GUIContent(PosingAnimationAdjustmentWindowText.LimitBreak, PosingAnimationAdjustmentWindowText.LimitBreakTooltip), isLimitBreak, GUILayout.Width(80));
                     if (EditorGUI.EndChangeCheck())
                     {
                         SetRootTYLimitBreakState(newLimitBreak);
@@ -1325,13 +1369,13 @@ namespace jp.unisakistudio.posingsystemeditor
                     }
 
                     // Uボタン（再読込）
-                    if (GUILayout.Button(new GUIContent("U", "変更を破棄して保存されていた値に戻します"), GUILayout.Width(20)))
+                    if (GUILayout.Button(new GUIContent(PosingAnimationAdjustmentWindowText.ReloadButton, PosingAnimationAdjustmentWindowText.ReloadTooltip), GUILayout.Width(20)))
                     {
                         ReloadRootTYParameter();
                     }
 
                     // ×ボタン（0リセット）
-                    if (GUILayout.Button(new GUIContent("×", "0にリセットします"), GUILayout.Width(20)))
+                    if (GUILayout.Button(new GUIContent(PosingAnimationAdjustmentWindowText.ResetButton, PosingAnimationAdjustmentWindowText.ResetTooltip), GUILayout.Width(20)))
                     {
                         Undo.RecordObject(_adjustments, "Reset RootTY adjustment");
                         _adjustments.rootTYAdjustment = 0f;
@@ -1354,7 +1398,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 _foldoutStates["Root Rotation"] = true;
             }
 
-            rootExpanded = EditorGUILayout.Foldout(rootExpanded, "回転", true);
+            rootExpanded = EditorGUILayout.Foldout(rootExpanded, PosingAnimationAdjustmentWindowText.Rotation, true);
             _foldoutStates["Root Rotation"] = rootExpanded;
 
             if (rootExpanded)
@@ -1362,13 +1406,13 @@ namespace jp.unisakistudio.posingsystemeditor
                 EditorGUI.indentLevel++;
 
                 // Y軸（回転）
-                DrawRootQSlider("Y", "回転", 1, ref _adjustments.rootQAdjustments);
+                DrawRootQSlider(PosingAnimationAdjustmentWindowText.RootAxisY, PosingAnimationAdjustmentWindowText.RootAxisYaw, 1, ref _adjustments.rootQAdjustments);
 
                 // X軸（前後傾き）
-                DrawRootQSlider("X", "前後傾き", 0, ref _adjustments.rootQAdjustments);
+                DrawRootQSlider(PosingAnimationAdjustmentWindowText.RootAxisX, PosingAnimationAdjustmentWindowText.RootAxisPitch, 0, ref _adjustments.rootQAdjustments);
 
                 // Z軸（左右傾き）
-                DrawRootQSlider("Z", "左右傾き", 2, ref _adjustments.rootQAdjustments);
+                DrawRootQSlider(PosingAnimationAdjustmentWindowText.RootAxisZ, PosingAnimationAdjustmentWindowText.RootAxisRoll, 2, ref _adjustments.rootQAdjustments);
 
                 EditorGUI.indentLevel--;
                 EditorGUILayout.Space(5);
@@ -1406,7 +1450,7 @@ namespace jp.unisakistudio.posingsystemeditor
 
                 // 限界突破トグル
                 EditorGUI.BeginChangeCheck();
-                var newLimitBreak = EditorGUILayout.ToggleLeft(new GUIContent("限界突破", "限界突破をオンにするとパラメータの設定幅が５倍になります"), isLimitBreak, GUILayout.Width(80));
+                var newLimitBreak = EditorGUILayout.ToggleLeft(new GUIContent(PosingAnimationAdjustmentWindowText.LimitBreak, PosingAnimationAdjustmentWindowText.LimitBreakTooltip), isLimitBreak, GUILayout.Width(80));
                 if (EditorGUI.EndChangeCheck())
                 {
                     SetRootQLimitBreakState(axisIndex, newLimitBreak);
@@ -1427,13 +1471,13 @@ namespace jp.unisakistudio.posingsystemeditor
                 }
 
                 // Uボタン（再読込）
-                if (GUILayout.Button(new GUIContent("U", "変更を破棄して保存されていた値に戻します"), GUILayout.Width(20)))
+                if (GUILayout.Button(new GUIContent(PosingAnimationAdjustmentWindowText.ReloadButton, PosingAnimationAdjustmentWindowText.ReloadTooltip), GUILayout.Width(20)))
                 {
                     ReloadRootQParameter(axisIndex);
                 }
 
                 // ×ボタン（0リセット）
-                if (GUILayout.Button(new GUIContent("×", "0にリセットします"), GUILayout.Width(20)))
+                if (GUILayout.Button(new GUIContent(PosingAnimationAdjustmentWindowText.ResetButton, PosingAnimationAdjustmentWindowText.ResetTooltip), GUILayout.Width(20)))
                 {
                     Undo.RecordObject(_adjustments, $"Reset RootQ {displayName} adjustment");
                     var newRootQ = rootQAdjustments;
@@ -1464,7 +1508,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 rect.x += EditorGUIUtility.labelWidth;
                 rect.width = controlRectWidth - EditorGUIUtility.labelWidth - buttonWidth - 3;
 
-                var content = new GUIContent(string.Format("{0}からコピー", group.OppositeDisplayName), "左右反対側の部位の調整値をこの部位へ適用します");
+                var content = new GUIContent(string.Format(PosingAnimationAdjustmentWindowText.CopyFromOppositeFormat, group.OppositeDisplayName), PosingAnimationAdjustmentWindowText.CopyFromOppositeTooltip);
                 var pressed = GUI.Button(rect, content);
                 if (pressed)
                 {
@@ -1477,7 +1521,7 @@ namespace jp.unisakistudio.posingsystemeditor
 
             rect.x = controlRectDefaultX + controlRectWidth - buttonWidth;
             rect.width = buttonWidth;
-            if (GUI.Button(rect, new GUIContent("×", "0にリセットします")))
+            if (GUI.Button(rect, new GUIContent(PosingAnimationAdjustmentWindowText.ResetButton, PosingAnimationAdjustmentWindowText.ResetTooltip)))
             {
                 ClearGroupState(group);
                 SaveCurrentAdjustmentData();
@@ -1536,7 +1580,7 @@ namespace jp.unisakistudio.posingsystemeditor
 
                 // 限界突破チェックボックス
                 EditorGUI.BeginChangeCheck();
-                var newLimitBreak = EditorGUILayout.ToggleLeft("限界突破", isLimitBreak, GUILayout.Width(80));
+                var newLimitBreak = EditorGUILayout.ToggleLeft(PosingAnimationAdjustmentWindowText.LimitBreak, isLimitBreak, GUILayout.Width(80));
                 if (EditorGUI.EndChangeCheck())
                 {
                     SetLimitBreakState(muscleIndex, newLimitBreak);
@@ -1556,13 +1600,13 @@ namespace jp.unisakistudio.posingsystemeditor
                 }
 
                 // Uボタン（再読込）
-                if (GUILayout.Button(new GUIContent("U", "変更を破棄して保存されていた値に戻します"), GUILayout.Width(20), GUILayout.Height(EditorGUIUtility.singleLineHeight)))
+                if (GUILayout.Button(new GUIContent(PosingAnimationAdjustmentWindowText.ReloadButton, PosingAnimationAdjustmentWindowText.ReloadTooltip), GUILayout.Width(20), GUILayout.Height(EditorGUIUtility.singleLineHeight)))
                 {
                     ReloadMuscleParameter(muscleIndex);
                 }
 
                 // リセットボタン
-                if (GUILayout.Button(new GUIContent("×", "0にリセットします"), GUILayout.Width(20), GUILayout.Height(EditorGUIUtility.singleLineHeight)))
+                if (GUILayout.Button(new GUIContent(PosingAnimationAdjustmentWindowText.ResetButton, PosingAnimationAdjustmentWindowText.ResetTooltip), GUILayout.Width(20), GUILayout.Height(EditorGUIUtility.singleLineHeight)))
                 {
                     // 値を0にリセット
                     Undo.RecordObject(_adjustments, "Reset muscle adjustment");
@@ -1691,7 +1735,6 @@ namespace jp.unisakistudio.posingsystemeditor
         private void RebuildAnimationEntries()
         {
             _animationEntries.Clear();
-            _animationLabels = Array.Empty<string>();
             if (_posingSystem == null || _posingSystem.defines == null)
             {
                 return;
@@ -1718,7 +1761,6 @@ namespace jp.unisakistudio.posingsystemeditor
                     _animationEntries.Add(entry);
                 }
             }
-            _animationLabels = _animationEntries.Select(e => e.Label).ToArray();
         }
 
         private void LoadAdjustmentValues()
@@ -1926,7 +1968,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 }
             }
 
-            EditorUtility.DisplayDialog("完了", "全ての変更された差分を保存しました。", "OK");
+            EditorUtility.DisplayDialog(PosingAnimationAdjustmentWindowText.CompleteTitle, PosingAnimationAdjustmentWindowText.SaveAllComplete, PosingAnimationAdjustmentWindowText.Ok);
             PosingSystemConverter.TakeScreenshot(_posingSystem, false, true);
             CleanupPreview();
             ApplyPreviewPose();
@@ -1935,7 +1977,7 @@ namespace jp.unisakistudio.posingsystemeditor
 
         private void ResetAllAnimationsAdjustments()
         {
-            if (EditorUtility.DisplayDialog("確認", "全ての姿勢の調整値をリセットしますか？", "はい", "いいえ"))
+            if (EditorUtility.DisplayDialog(PosingAnimationAdjustmentWindowText.ConfirmTitle, PosingAnimationAdjustmentWindowText.ResetAllConfirm, PosingAnimationAdjustmentWindowText.Yes, PosingAnimationAdjustmentWindowText.No))
             {
                 // 存在する全ての調整値を0に変更する
                 foreach (var kvp in _allAdjustmentData)
@@ -1977,7 +2019,7 @@ namespace jp.unisakistudio.posingsystemeditor
 
         private void ReloadAllAnimationsAdjustments()
         {
-            if (EditorUtility.DisplayDialog("確認", "全ての姿勢の調整値を再読み込みしますか？未保存の変更は失われます。", "はい", "いいえ"))
+            if (EditorUtility.DisplayDialog(PosingAnimationAdjustmentWindowText.ConfirmTitle, PosingAnimationAdjustmentWindowText.ReloadAllConfirm, PosingAnimationAdjustmentWindowText.Yes, PosingAnimationAdjustmentWindowText.No))
             {
                 // 全ての姿勢の調整値を再読み込み
                 PreloadAllAdjustmentData();
@@ -2241,7 +2283,7 @@ namespace jp.unisakistudio.posingsystemeditor
             }
             if (_previewAvatar == null)
             {
-                EditorUtility.DisplayDialog("情報", "Animator を持つアバターが見つかりません。", "OK");
+                EditorUtility.DisplayDialog(PosingAnimationAdjustmentWindowText.InfoTitle, PosingAnimationAdjustmentWindowText.AvatarAnimatorNotFound, PosingAnimationAdjustmentWindowText.Ok);
                 CleanupPreview();
                 return;
             }
