@@ -6,6 +6,17 @@ using UnityEngine;
 namespace jp.unisakistudio.posingsystemeditor
 {
     /// <summary>
+    /// AnimatorControllerのディープコピー中にAddStateMachineBehaviourまたはCopySerializedが失敗した場合にスローされる。
+    /// 多くの場合、原因は別のツールなどにエラーが発生していることです。
+    /// </summary>
+    public class AddStateMachineBehaviourCloneFailedException : System.Exception
+    {
+        public AddStateMachineBehaviourCloneFailedException() { }
+        public AddStateMachineBehaviourCloneFailedException(string message) : base(message) { }
+        public AddStateMachineBehaviourCloneFailedException(string message, System.Exception inner) : base(message, inner) { }
+    }
+
+    /// <summary>
     /// AnimatorControllerの完全なディープコピーを行うユーティリティクラス
     /// </summary>
     public static class AnimatorControllerDeepCopy
@@ -118,17 +129,34 @@ namespace jp.unisakistudio.posingsystemeditor
                 newState.tag = childState.state.tag;
                 newState.timeParameter = childState.state.timeParameter;
                 newState.timeParameterActive = childState.state.timeParameterActive;
-                
-                // Behavioursをコピー
-                foreach (var behaviour in childState.state.behaviours)
+
+                // Behavioursをコピー（失敗時は「可愛いポーズツールが原因ではない」旨を表示するため例外をスロー）
+                if (childState.state.behaviours != null)
                 {
-                    if (behaviour != null)
+                    foreach (var behaviour in childState.state.behaviours)
                     {
-                        var newBehaviour = newState.AddStateMachineBehaviour(behaviour.GetType());
-                        EditorUtility.CopySerialized(behaviour, newBehaviour);
+                        if (behaviour == null) continue;
+                        var behaviourType = behaviour.GetType();
+                        if (behaviourType == null) continue;
+                        var newBehaviour = newState.AddStateMachineBehaviour(behaviourType);
+                        if (newBehaviour == null)
+                        {
+                            throw new AddStateMachineBehaviourCloneFailedException(
+                                $"AddStateMachineBehaviour returned null for type '{behaviourType.Name}' in state '{childState.state.name}'.");
+                        }
+                        try
+                        {
+                            EditorUtility.CopySerialized(behaviour, newBehaviour);
+                        }
+                        catch (System.Exception ex)
+                        {
+                            throw new AddStateMachineBehaviourCloneFailedException(
+                                $"CopySerialized failed for behaviour '{behaviourType.Name}' in state '{childState.state.name}'.",
+                                ex);
+                        }
                     }
                 }
-                
+
                 globalStateMap[childState.state] = newState;
                 clone.AddState(newState, childState.position);
             }

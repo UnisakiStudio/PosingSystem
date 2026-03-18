@@ -163,7 +163,14 @@ namespace jp.unisakistudio.posingsystemeditor
 
                         if (posingSystem.data == null || posingSystem.data.Length == 0 || posingSystem.data != GetDefineSerializeJson(posingSystem, true))
                         {
-                            ConvertToModularAvatarComponents(posingSystem);
+                            try
+                            {
+                                ConvertToModularAvatarComponents(posingSystem);
+                            }
+                            catch (AddStateMachineBehaviourCloneFailedException)
+                            {
+                                ErrorReport.ReportError(errorLocalizer, ErrorSeverity.Error, "AddStateMachineBehaviourに失敗しました");
+                            }
                         }
                     }
                 });
