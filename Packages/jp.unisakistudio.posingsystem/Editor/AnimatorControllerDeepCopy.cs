@@ -34,7 +34,17 @@ namespace jp.unisakistudio.posingsystemeditor
                 Debug.LogError("Source AnimatorController is null");
                 return null;
             }
-            
+            if (string.IsNullOrEmpty(newPath))
+            {
+                Debug.LogError("CloneAnimatorController: newPath is null or empty. AssetDatabase.CreateAsset requires a valid path (e.g. 'Assets/...').");
+                return null;
+            }
+            if (!newPath.StartsWith("Assets/") && !newPath.StartsWith("Packages/"))
+            {
+                Debug.LogError($"CloneAnimatorController: newPath must be under Assets/ or Packages/. Got: '{newPath}'");
+                return null;
+            }
+
             // 新しい空のAnimatorControllerを作成
             var clone = new AnimatorController();
             clone.name = System.IO.Path.GetFileNameWithoutExtension(newPath);
@@ -61,10 +71,17 @@ namespace jp.unisakistudio.posingsystemeditor
                 newLayer.syncedLayerIndex = sourceLayer.syncedLayerIndex;
                 newLayer.iKPass = sourceLayer.iKPass;
                 newLayer.avatarMask = sourceLayer.avatarMask;
-                
+
                 // StateMachineをディープコピー
-                newLayer.stateMachine = CloneStateMachine(sourceLayer.stateMachine);
-                
+                if (sourceLayer.stateMachine != null)
+                {
+                    newLayer.stateMachine = CloneStateMachine(sourceLayer.stateMachine);
+                }
+                if (newLayer.stateMachine == null)
+                {
+                    newLayer.stateMachine = new AnimatorStateMachine { name = sourceLayer.name + " (empty)" };
+                }
+
                 layers[i] = newLayer;
             }
             clone.layers = layers;
@@ -86,6 +103,11 @@ namespace jp.unisakistudio.posingsystemeditor
 
         private static AnimatorStateMachine CloneStateMachine(AnimatorStateMachine source)
         {
+            if (source == null)
+            {
+                Debug.LogError("CloneStateMachine: source StateMachine is null.");
+                return null;
+            }
             var globalStateMap = new Dictionary<AnimatorState, AnimatorState>();
             var globalStateMachineMap = new Dictionary<AnimatorStateMachine, AnimatorStateMachine>();
             return CloneStateMachineRecursive(source, globalStateMap, globalStateMachineMap);
@@ -96,6 +118,12 @@ namespace jp.unisakistudio.posingsystemeditor
             Dictionary<AnimatorState, AnimatorState> globalStateMap,
             Dictionary<AnimatorStateMachine, AnimatorStateMachine> globalStateMachineMap)
         {
+            if (source == null)
+            {
+                Debug.LogError("CloneStateMachineRecursive: source StateMachine is null.");
+                return null;
+            }
+
             // SubAssetは直接Instantiateできないので、新規作成してコピー
             var clone = new AnimatorStateMachine();
             clone.name = source.name;
@@ -110,9 +138,15 @@ namespace jp.unisakistudio.posingsystemeditor
             // Stateをコピー（グローバルマップに登録）
             foreach (var childState in source.states)
             {
+                if (childState.state == null)
+                {
+                    Debug.LogWarning($"CloneStateMachineRecursive: Skipping state with null state reference in '{source.name}'.");
+                    continue;
+                }
+
                 var newState = new AnimatorState();
                 newState.name = childState.state.name;
-                
+
                 // Stateのプロパティを個別にコピー（Transitionは後で手動で追加）
                 newState.motion = childState.state.motion;
                 newState.speed = childState.state.speed;
@@ -164,15 +198,22 @@ namespace jp.unisakistudio.posingsystemeditor
             // 子StateMachineを再帰的にコピー（グローバルマップを共有）
             foreach (var childStateMachine in source.stateMachines)
             {
+                if (childStateMachine.stateMachine == null)
+                {
+                    Debug.LogWarning($"CloneStateMachineRecursive: Skipping child state machine with null reference in '{source.name}'.");
+                    continue;
+                }
                 var newStateMachine = CloneStateMachineRecursive(childStateMachine.stateMachine, globalStateMap, globalStateMachineMap);
+                if (newStateMachine == null) continue;
                 clone.AddStateMachine(newStateMachine, childStateMachine.position);
             }
             
             // Transitionをコピー（状態参照を更新）- グローバルマップを使用
             foreach (var childState in source.states)
             {
+                if (childState.state == null) continue;
                 var sourceState = childState.state;
-                var destState = globalStateMap[sourceState];
+                if (!globalStateMap.TryGetValue(sourceState, out var destState)) continue;
                 
                 foreach (var transition in sourceState.transitions)
                 {
@@ -418,7 +459,8 @@ namespace jp.unisakistudio.posingsystemeditor
             // 子StateMachineも再帰的に追加
             foreach (var child in stateMachine.stateMachines)
             {
-                AddStateMachineAsSubAsset(child.stateMachine, parent);
+                if (child.stateMachine != null)
+                    AddStateMachineAsSubAsset(child.stateMachine, parent);
             }
         }
     }

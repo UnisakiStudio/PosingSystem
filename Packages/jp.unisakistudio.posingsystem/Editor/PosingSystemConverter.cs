@@ -1030,13 +1030,29 @@ namespace jp.unisakistudio.posingsystemeditor
                 return;
             }
             var avatar = posingSystem.GetAvatar();
+            if (avatar == null)
+            {
+                Debug.LogError("[PosingSystem] CreateOriginalAnimatorController: Avatar is null. Cannot determine save path.");
+                return;
+            }
 
             var templeteAnimatorControllerPath = AssetDatabase.GetAssetPath(animatorController);
 
             // AnimatorControllerの保存先を決める
             var directoryPath = PosingSystemEditor.GetGeneratedFolderPath();
-            var newAnimatorControllerPath = directoryPath + "/" + avatar.name + ".controller";
+            if (string.IsNullOrEmpty(directoryPath))
+            {
+                directoryPath = "Assets/UnisakiStudio/GeneratedResources";
+                Debug.LogWarning("[PosingSystem] GetGeneratedFolderPath returned empty; using fallback: " + directoryPath);
+            }
+            var fileName = string.IsNullOrEmpty(avatar.name) ? "AnimatorController" : avatar.name;
+            var newAnimatorControllerPath = directoryPath + "/" + fileName + ".controller";
             newAnimatorControllerPath = AssetDatabase.GenerateUniqueAssetPath(newAnimatorControllerPath);
+            if (string.IsNullOrEmpty(newAnimatorControllerPath))
+            {
+                Debug.LogError("[PosingSystem] CreateOriginalAnimatorController: GenerateUniqueAssetPath returned empty.");
+                return;
+            }
 
             // 複製を実行
             /*
