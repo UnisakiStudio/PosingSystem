@@ -349,8 +349,14 @@ namespace jp.unisakistudio.posingsystemeditor
             var generatedFolderPath = PosingSystemEditor.GetGeneratedFolderPath();
 
             // フォルダ作成 (名前重複回避)
-            string targetFolderPath = Path.Combine(generatedFolderPath, avatarName).Replace("\\", "/");
+            var folderName = PosingSystemEditor.SanitizeAssetFileName(avatarName, "PosingSystem");
+            string targetFolderPath = Path.Combine(generatedFolderPath, folderName).Replace("\\", "/");
             targetFolderPath = AssetDatabase.GenerateUniqueAssetPath(targetFolderPath);
+            if (string.IsNullOrEmpty(targetFolderPath))
+            {
+                EditorUtility.DisplayDialog("エラー", $"保存先フォルダのパスを生成できませんでした。フォルダ「{generatedFolderPath}」がプロジェクトに認識されているか確認してください。", "OK");
+                return;
+            }
             Directory.CreateDirectory(targetFolderPath);
 
             try

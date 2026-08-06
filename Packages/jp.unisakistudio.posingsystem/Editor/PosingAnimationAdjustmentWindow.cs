@@ -2177,18 +2177,19 @@ namespace jp.unisakistudio.posingsystemeditor
         private string GetAdjustmentFolderPath()
         {
             var label = "PosingSystemResourceFolder";
+            // ラベル付きフォルダが削除・移動されていると古いパスが返るため、実在するフォルダのみ採用する
             var folder = AssetDatabase.FindAssets($"l:{label}")
                 .Select(AssetDatabase.GUIDToAssetPath)
-                .FirstOrDefault();
+                .FirstOrDefault(path => AssetDatabase.IsValidFolder(path));
             if (string.IsNullOrEmpty(folder))
             {
                 folder = DefaultAdjustmentFolderRoot;
-                if (!Directory.Exists(folder))
-                {
-                    Directory.CreateDirectory(folder);
-                }
+                EnsureFolderRecursive(folder);
                 var folderObject = AssetDatabase.LoadMainAssetAtPath(folder);
-                AssetDatabase.SetLabels(folderObject, new string[] { label });
+                if (folderObject != null)
+                {
+                    AssetDatabase.SetLabels(folderObject, new string[] { label });
+                }
             }
             var avatarName = _posingSystem.GetAvatar().gameObject.name;
             avatarName = SanitizeFileName(avatarName);

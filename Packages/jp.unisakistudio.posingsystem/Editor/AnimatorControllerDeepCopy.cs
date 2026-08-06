@@ -23,6 +23,13 @@ namespace jp.unisakistudio.posingsystemeditor
                 Debug.LogError("Source AnimatorController is null");
                 return null;
             }
+
+            if (string.IsNullOrEmpty(newPath))
+            {
+                // 保存先パスが空のままAssetDatabase.CreateAssetを呼ぶと「Creating asset at path  failed.」例外になる
+                Debug.LogError("可愛いポーズツール: AnimatorControllerの保存先パスが空のため複製できませんでした。生成フォルダがプロジェクトに認識されているか確認してください。");
+                return null;
+            }
             
             // 新しい空のAnimatorControllerを作成
             var clone = new AnimatorController();

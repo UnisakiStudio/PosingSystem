@@ -1023,8 +1023,15 @@ namespace jp.unisakistudio.posingsystemeditor
 
             // AnimatorControllerの保存先を決める
             var directoryPath = PosingSystemEditor.GetGeneratedFolderPath();
-            var newAnimatorControllerPath = directoryPath + "/" + avatar.name + ".controller";
+            var avatarFileName = PosingSystemEditor.SanitizeAssetFileName(avatar.name, "PosingSystem");
+            var newAnimatorControllerPath = directoryPath + "/" + avatarFileName + ".controller";
             newAnimatorControllerPath = AssetDatabase.GenerateUniqueAssetPath(newAnimatorControllerPath);
+            if (string.IsNullOrEmpty(newAnimatorControllerPath))
+            {
+                // GenerateUniqueAssetPathは保存先フォルダがAssetDatabaseに認識されていない場合などに空文字を返す
+                Debug.LogError($"可愛いポーズツール: AnimatorControllerの保存先パスを生成できませんでした。フォルダ「{directoryPath}」がプロジェクトに認識されているか確認してください。");
+                return;
+            }
 
             // 複製を実行
             /*
@@ -1218,6 +1225,20 @@ namespace jp.unisakistudio.posingsystemeditor
                 AnimationMode.StopAnimationMode();
                 workingAvatar.SetActive(false);
                 workingAvatar.SetActive(true);
+            }
+
+            // Hipsボーンが足元付近にあるリグやボーンスケール改変アバターでは、humanScale(Hips接地高)と
+            // 実測の体格が大きく乖離し、RootTがhumanScale単位で解釈されるため姿勢の高さ・位置がズレる。
+            // 乖離を検出した場合はユーザーに警告して高さ調整ツールでの調整を案内する。
+            var humanScale = workingAnimator.humanScale;
+            if (humanScale > 0 && avatarHeightUnit > 0)
+            {
+                // 標準的なリグではavatarHeightUnit(頭位置/2)とhumanScaleはおおよそ一致する(比率0.9前後)
+                var heightRatio = avatarHeightUnit / humanScale;
+                if (heightRatio < 0.6f || heightRatio > 1.5f)
+                {
+                    Debug.LogWarning($"[PosingSystem] このアバターはHipsボーンの位置またはスケールが標準的なリグと大きく異なります(体格比率: {heightRatio:F2})。姿勢の高さ・位置がズレる場合は、可愛いポーズツールのアニメーション調整機能で高さを一度調整してください。");
+                }
             }
 
             try
@@ -2881,22 +2902,39 @@ namespace jp.unisakistudio.posingsystemeditor
             var animatorController = avatar.baseAnimationLayers[(int)VRC.SDK3.Avatars.Components.VRCAvatarDescriptor.AnimLayerType.Base];
             if (animatorController.animatorController == null) return;
 
-            var detectSettings = new List<(PosingSystem.OverrideAnimationDefine.AnimationStateType type, string stateName, string defaultMotionName)>()
+            var detectSettings = new List<(PosingSystem.OverrideAnimationDefine.AnimationStateType type, string stateName)>()
             {
-                (PosingSystem.OverrideAnimationDefine.AnimationStateType.StandWalkRun, "stand", "vrc_StandingLocomotion"),
-                (PosingSystem.OverrideAnimationDefine.AnimationStateType.Crouch, "crouch", "vrc_CrouchingLocomotion"),
-                (PosingSystem.OverrideAnimationDefine.AnimationStateType.Prone, "prone", "vrc_ProneLocomotion"),
-                (PosingSystem.OverrideAnimationDefine.AnimationStateType.Jump, "jump", "proxy_fall_short"),
-                (PosingSystem.OverrideAnimationDefine.AnimationStateType.ShortFall, "shortfall", "proxy_fall_short"),
-                (PosingSystem.OverrideAnimationDefine.AnimationStateType.ShortFall, "softfall", "proxy_fall_short"),
-                (PosingSystem.OverrideAnimationDefine.AnimationStateType.ShortFall, "quickfall", "proxy_fall_short"),
-                (PosingSystem.OverrideAnimationDefine.AnimationStateType.ShortLanding, "shortland", "proxy_land_quick"),
-                (PosingSystem.OverrideAnimationDefine.AnimationStateType.ShortLanding, "softland", "proxy_land_quick"),
-                (PosingSystem.OverrideAnimationDefine.AnimationStateType.ShortLanding, "quickland", "proxy_land_quick"),
-                (PosingSystem.OverrideAnimationDefine.AnimationStateType.LongFall, "longfall", "proxy_fall_long"),
-                (PosingSystem.OverrideAnimationDefine.AnimationStateType.LongFall, "hardfall", "proxy_fall_long"),
-                (PosingSystem.OverrideAnimationDefine.AnimationStateType.LongLanding, "longland", "proxy_landing"),
-                (PosingSystem.OverrideAnimationDefine.AnimationStateType.LongLanding, "hardland", "proxy_landing"),
+                (PosingSystem.OverrideAnimationDefine.AnimationStateType.StandWalkRun, "stand"),
+                (PosingSystem.OverrideAnimationDefine.AnimationStateType.Crouch, "crouch"),
+                (PosingSystem.OverrideAnimationDefine.AnimationStateType.Prone, "prone"),
+                (PosingSystem.OverrideAnimationDefine.AnimationStateType.Jump, "jump"),
+                (PosingSystem.OverrideAnimationDefine.AnimationStateType.ShortFall, "shortfall"),
+                (PosingSystem.OverrideAnimationDefine.AnimationStateType.ShortFall, "softfall"),
+                (PosingSystem.OverrideAnimationDefine.AnimationStateType.ShortFall, "quickfall"),
+                (PosingSystem.OverrideAnimationDefine.AnimationStateType.ShortLanding, "shortland"),
+                (PosingSystem.OverrideAnimationDefine.AnimationStateType.ShortLanding, "softland"),
+                (PosingSystem.OverrideAnimationDefine.AnimationStateType.ShortLanding, "quickland"),
+                (PosingSystem.OverrideAnimationDefine.AnimationStateType.LongFall, "longfall"),
+                (PosingSystem.OverrideAnimationDefine.AnimationStateType.LongFall, "hardfall"),
+                (PosingSystem.OverrideAnimationDefine.AnimationStateType.LongLanding, "longland"),
+                (PosingSystem.OverrideAnimationDefine.AnimationStateType.LongLanding, "hardland"),
+            };
+
+            // 標準名で検出できなかった場合に使う別名(非標準ステート名を持つアバター向けフォールバック)
+            var fallbackDetectSettings = new List<(PosingSystem.OverrideAnimationDefine.AnimationStateType type, string stateName)>()
+            {
+                (PosingSystem.OverrideAnimationDefine.AnimationStateType.StandWalkRun, "locomotion"),
+                (PosingSystem.OverrideAnimationDefine.AnimationStateType.StandWalkRun, "walkrun"),
+                (PosingSystem.OverrideAnimationDefine.AnimationStateType.StandWalkRun, "walk"),
+                (PosingSystem.OverrideAnimationDefine.AnimationStateType.StandWalkRun, "run"),
+                (PosingSystem.OverrideAnimationDefine.AnimationStateType.StandWalkRun, "move"),
+                (PosingSystem.OverrideAnimationDefine.AnimationStateType.StandWalkRun, "movement"),
+                (PosingSystem.OverrideAnimationDefine.AnimationStateType.StandWalkRun, "idle"),
+                (PosingSystem.OverrideAnimationDefine.AnimationStateType.StandWalkRun, "fly"),
+                (PosingSystem.OverrideAnimationDefine.AnimationStateType.StandWalkRun, "float"),
+                (PosingSystem.OverrideAnimationDefine.AnimationStateType.StandWalkRun, "hover"),
+                (PosingSystem.OverrideAnimationDefine.AnimationStateType.ShortFall, "fall"),
+                (PosingSystem.OverrideAnimationDefine.AnimationStateType.ShortLanding, "land"),
             };
 
             // 既存のoverrideDefinesで設定済みの種類を取得
@@ -2913,56 +2951,115 @@ namespace jp.unisakistudio.posingsystemeditor
                 posingSystem.overrideDefines = new List<PosingSystem.OverrideAnimationDefine>();
             }
 
-            void searchOverrideFromStateMachine(AnimatorStateMachine stateMachine)
+            string normalizeStateName(string name)
+            {
+                return name.Replace("ing", "").Replace(" ", "").Replace("_", "").ToLower();
+            }
+
+            // 全レイヤーからステートを収集(サブステートマシン含む)
+            var allStates = new List<AnimatorState>();
+            void collectStates(AnimatorStateMachine stateMachine)
             {
                 foreach (var subStateMachine in stateMachine.stateMachines)
                 {
-                    searchOverrideFromStateMachine(subStateMachine.stateMachine);
+                    collectStates(subStateMachine.stateMachine);
                 }
                 foreach (var state in stateMachine.states)
                 {
-                    var searchName = state.state.name;
-                    searchName = searchName.Replace("ing", "").Replace(" ", "").Replace("_", "").ToLower();
-                    var detectSettingIndex = detectSettings.FindIndex(setting => setting.stateName == searchName);
+                    allStates.Add(state.state);
+                }
+            }
+            foreach (var layer in ((AnimatorController)animatorController.animatorController).layers)
+            {
+                collectStates(layer.stateMachine);
+            }
+
+            var importedStates = new HashSet<AnimatorState>();
+            void searchOverride(List<(PosingSystem.OverrideAnimationDefine.AnimationStateType type, string stateName)> settings)
+            {
+                foreach (var state in allStates)
+                {
+                    if (importedStates.Contains(state))
+                    {
+                        continue;
+                    }
+                    var searchName = normalizeStateName(state.name);
+                    var detectSettingIndex = settings.FindIndex(setting => setting.stateName == searchName);
                     if (detectSettingIndex == -1)
                     {
                         continue;
                     }
-                    var detectSetting = detectSettings[detectSettingIndex];
-                    
+                    var detectSetting = settings[detectSettingIndex];
+
                     // 既に設定されている種類はスキップ
                     if (existingTypes.Contains(detectSetting.type))
                     {
                         continue;
                     }
 
-                    if (state.state.motion == null)
+                    if (state.motion == null)
                     {
                         continue;
                     }
-                    if (state.state.motion.name == detectSetting.defaultMotionName)
+                    // VRChat SDK同梱の標準モーション(proxy等)はアバター固有モーションではないのでスキップ
+                    // ※名前ではなくアセットの場所で判定することで、標準proxy名のままカスタムされたモーションも取り込めるようにする
+                    if (IsVRChatBundledMotion(state.motion))
                     {
                         continue;
                     }
-                    if (!IsContainHumanoidAnimation(state.state.motion))
+                    if (!IsContainHumanoidAnimation(state.motion))
                     {
                         continue;
                     }
 
                     var define = new PosingSystem.OverrideAnimationDefine();
                     define.stateType = detectSetting.type;
-                    define.animationClip = state.state.motion;
+                    define.animationClip = state.motion;
                     posingSystem.overrideDefines.Add(define);
                     existingTypes.Add(detectSetting.type);
-                    
-                    Debug.Log($"[PosingSystem] アバターから自動インポート: {detectSetting.type} ({state.state.motion.name})");
+                    importedStates.Add(state);
+
+                    Debug.Log($"[PosingSystem] アバターから自動インポート: {detectSetting.type} ({state.motion.name})");
                 }
             }
 
-            foreach (var layer in ((AnimatorController)animatorController.animatorController).layers)
+            // 1回目: 標準ステート名で検出、2回目: 別名でフォールバック検出
+            searchOverride(detectSettings);
+            searchOverride(fallbackDetectSettings);
+
+            // アバター固有のモーションを持つのに名前から検出できなかったステートを警告する
+            // (名前は既知だが上書き設定済みのためスキップしたステートは対象外)
+            var knownStateNames = new HashSet<string>(detectSettings.Concat(fallbackDetectSettings).Select(setting => setting.stateName));
+            var undetectedStates = allStates
+                .Where(state => !importedStates.Contains(state))
+                .Where(state => !knownStateNames.Contains(normalizeStateName(state.name)))
+                .Where(state => state.motion != null)
+                .Where(state => !IsVRChatBundledMotion(state.motion))
+                .Where(state => IsContainHumanoidAnimation(state.motion))
+                .ToList();
+            if (undetectedStates.Count > 0)
             {
-                searchOverrideFromStateMachine(layer.stateMachine);
+                var stateList = string.Join(", ", undetectedStates.Select(state => $"「{state.name}」({state.motion.name})"));
+                Debug.LogWarning($"[PosingSystem] アバター専用モーションの可能性があるステートを自動検出できませんでした: {stateList}\n専用の歩行・ジャンプモーション等が失われる場合は、可愛いポーズツールの「元のアニメーションの上書き設定」で手動で割り当ててください。");
             }
+        }
+
+        /// <summary>
+        /// モーションがVRChat SDKに同梱されている標準モーション(proxyアニメーション等)かチェック
+        /// </summary>
+        private static bool IsVRChatBundledMotion(Motion motion)
+        {
+            if (motion == null)
+            {
+                return false;
+            }
+            var path = AssetDatabase.GetAssetPath(motion);
+            if (string.IsNullOrEmpty(path))
+            {
+                return false;
+            }
+            // VPM導入(Packages/com.vrchat.～)と旧unitypackage導入(Assets/VRCSDK/～)の両方を対象にする
+            return path.StartsWith("Packages/com.vrchat.") || path.Contains("/VRCSDK/");
         }
 
         /// <summary>
