@@ -251,6 +251,11 @@ namespace jp.unisakistudio.posingsystemeditor
         {
             var avatar = posingSystem.GetAvatar();
 
+            if (avatar == null)
+            {
+                return false;
+            }
+
             // プレビルドしていなければ、内容変更では警告は出さない
             if (posingSystem.data != null && posingSystem.data.Length != 0)
             {
