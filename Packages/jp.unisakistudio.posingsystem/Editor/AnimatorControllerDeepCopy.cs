@@ -36,7 +36,8 @@ namespace jp.unisakistudio.posingsystemeditor
             }
             if (string.IsNullOrEmpty(newPath))
             {
-                Debug.LogError("CloneAnimatorController: newPath is null or empty. AssetDatabase.CreateAsset requires a valid path (e.g. 'Assets/...').");
+                // 保存先パスが空のままAssetDatabase.CreateAssetを呼ぶと「Creating asset at path  failed.」例外になる
+                Debug.LogError("可愛いポーズツール: AnimatorControllerの保存先パスが空のため複製できませんでした。生成フォルダがプロジェクトに認識されているか確認してください。");
                 return null;
             }
             if (!newPath.StartsWith("Assets/") && !newPath.StartsWith("Packages/"))
@@ -465,4 +466,3 @@ namespace jp.unisakistudio.posingsystemeditor
         }
     }
 }
-

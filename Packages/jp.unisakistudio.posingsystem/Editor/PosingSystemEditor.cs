@@ -1539,8 +1539,15 @@ namespace jp.unisakistudio.posingsystemeditor
             // 新規作成
             posingSystem.thumbnailPackObject = ScriptableObject.CreateInstance<jp.unisakistudio.posingsystem.PosingSystemThumbnailPack>();
             var generatedFolderPath = GetGeneratedFolderPath();
-            var filePath = $"{generatedFolderPath}/{posingSystem.GetAvatar().name}.asset";
+            var avatarFileName = SanitizeAssetFileName(posingSystem.GetAvatar().name, "PosingSystem");
+            var filePath = $"{generatedFolderPath}/{avatarFileName}.asset";
             filePath = AssetDatabase.GenerateUniqueAssetPath(filePath);
+            if (string.IsNullOrEmpty(filePath))
+            {
+                posingSystem.thumbnailPackObject = null;
+                Debug.LogError($"可愛いポーズツール: サムネイル保存先のパスを生成できませんでした。フォルダ「{generatedFolderPath}」がプロジェクトに認識されているか確認してください。");
+                return;
+            }
 //            posingSystem.savedInstanceId = UnityEditor.GlobalObjectId.GetGlobalObjectIdSlow(posingSystem).ToString();
             EditorUtility.SetDirty(posingSystem);
             AssetDatabase.CreateAsset(posingSystem.thumbnailPackObject, filePath);
@@ -1581,20 +1588,62 @@ namespace jp.unisakistudio.posingsystemeditor
         public static string GetGeneratedFolderPath()
         {
             var label = "PosingSystemResourceFolder";
+            // ラベル付きフォルダがエクスプローラ等で削除・移動されていると古いパスが返るため、実在するフォルダのみ採用する
             var folder = AssetDatabase.FindAssets($"l:{label}")
                 .Select(AssetDatabase.GUIDToAssetPath)
-                .FirstOrDefault();
+                .FirstOrDefault(path => AssetDatabase.IsValidFolder(path));
             if (string.IsNullOrEmpty(folder))
             {
                 folder = DefaultAdjustmentFolderRoot;
-                if (!Directory.Exists(folder))
-                {
-                    Directory.CreateDirectory(folder);
-                }
+                EnsureAssetFolderExists(folder);
                 var folderObject = AssetDatabase.LoadMainAssetAtPath(folder);
-                AssetDatabase.SetLabels(folderObject, new string[] { label });
+                if (folderObject != null)
+                {
+                    AssetDatabase.SetLabels(folderObject, new string[] { label });
+                }
             }
             return folder;
+        }
+
+        // AssetDatabase.CreateFolderで作成することで、AssetDatabaseに未認識のフォルダに対して
+        // GenerateUniqueAssetPathが空文字を返す問題を防ぐ
+        public static void EnsureAssetFolderExists(string folderPath)
+        {
+            if (AssetDatabase.IsValidFolder(folderPath))
+            {
+                return;
+            }
+
+            var separatorIndex = folderPath.LastIndexOf('/');
+            if (separatorIndex < 0)
+            {
+                return;
+            }
+
+            var parent = folderPath.Substring(0, separatorIndex);
+            var child = folderPath.Substring(separatorIndex + 1);
+            if (!AssetDatabase.IsValidFolder(parent))
+            {
+                EnsureAssetFolderExists(parent);
+            }
+            AssetDatabase.CreateFolder(parent, child);
+        }
+
+        // アセットパスに使用できない文字を含む名前(アバター名等)をファイル名として安全な形に変換する
+        public static string SanitizeAssetFileName(string value, string fallback)
+        {
+            if (string.IsNullOrEmpty(value))
+            {
+                return fallback;
+            }
+
+            var invalidChars = Path.GetInvalidFileNameChars();
+            var sanitized = new string(value.Select(c => invalidChars.Contains(c) || c == '/' || c == '\\' ? '_' : c).ToArray()).Trim();
+            if (string.IsNullOrEmpty(sanitized) || sanitized.All(c => c == '.'))
+            {
+                return fallback;
+            }
+            return sanitized;
         }
     }
 
