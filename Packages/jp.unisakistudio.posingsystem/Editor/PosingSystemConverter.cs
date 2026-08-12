@@ -173,6 +173,25 @@ namespace jp.unisakistudio.posingsystemeditor
                             }
                         }
                     }
+
+                    // FloorAdjuster等、Transformingフェーズでアバターの高さ構造を変更するツールとの
+                    // 整合をとるため、変換基準時点の高さ情報を記録する（Transforming末尾の再校正パスで使用）
+                    if (ctx.AvatarRootObject.GetComponentsInChildren<PosingSystem>().Any(ps => ps.tag != "EditorOnly"))
+                    {
+                        var calibration = ctx.GetState<HeightCalibrationState>();
+                        MeasureAvatarHeight(ctx.AvatarRootObject, out calibration.baseHumanScale, out calibration.baseHeadHeight);
+                        calibration.measured = calibration.baseHumanScale > 0 && calibration.baseHeadHeight > 0;
+                    }
+                });
+
+            // アバターの高さ構造（humanScale・Armatureスケール）をTransformingフェーズで変更するツール
+            // （FloorAdjuster等）の適用後に、ベイク済みの姿勢RootT.yカーブを最終アバター基準へ補正する
+            InPhase(BuildPhase.Transforming)
+                .AfterPlugin("nadena.dev.modular-avatar")
+                .AfterPlugin("net.narazaka.vrchat.floor_adjuster")
+                .Run("Recalibrate pose height", ctx =>
+                {
+                    RecalibratePoseHeight(ctx);
                 });
 
             // トラッキング機能の統合（プレビルドでは実行しない、NDMFビルド時のみ、MAの前）
@@ -252,6 +271,257 @@ namespace jp.unisakistudio.posingsystemeditor
                         _isExecutingNdMfPass = false;
                     }
                 });
+        }
+
+        // 変換基準時点（Resolvingフェーズ）のアバター高さ情報。Transformingフェーズの再校正パスと共有する
+        private class HeightCalibrationState
+        {
+            public bool measured;
+            public float baseHumanScale;
+            public float baseHeadHeight;
+        }
+
+        // RootT.y=1のクリップをサンプリングして、humanScaleと頭ボーンの高さ（アバタールート基準）を計測する
+        private static void MeasureAvatarHeight(GameObject avatarRoot, out float humanScale, out float headHeight)
+        {
+            humanScale = -1;
+            headHeight = -1;
+            var animator = avatarRoot.GetComponent<Animator>();
+            if (animator == null || !animator.isHuman)
+            {
+                return;
+            }
+            var headBone = animator.GetBoneTransform(HumanBodyBones.Head);
+            if (headBone == null)
+            {
+                return;
+            }
+            humanScale = animator.humanScale;
+
+            var baseAnimationClip = new AnimationClip();
+            var rootTyBinding = new EditorCurveBinding
+            {
+                path = "",
+                type = typeof(Animator),
+                propertyName = "RootT.y"
+            };
+            AnimationCurve rootTyCurve = new();
+            rootTyCurve.AddKey(0, 1);
+            AnimationUtility.SetEditorCurve(baseAnimationClip, rootTyBinding, rootTyCurve);
+            var clipInfo = new AnimationClipSettings
+            {
+                keepOriginalOrientation = true,
+                keepOriginalPositionXZ = true,
+                keepOriginalPositionY = true
+            };
+            AnimationUtility.SetAnimationClipSettings(baseAnimationClip, clipInfo);
+
+            var originalPosition = avatarRoot.transform.position;
+            var originalRotation = avatarRoot.transform.rotation;
+            var originalActive = avatarRoot.activeSelf;
+            try
+            {
+                avatarRoot.SetActive(true);
+                AnimationMode.StartAnimationMode();
+                AnimationMode.BeginSampling();
+                AnimationMode.SampleAnimationClip(avatarRoot, baseAnimationClip, 0);
+                avatarRoot.transform.position = Vector3.zero;
+                avatarRoot.transform.rotation = Quaternion.identity;
+                AnimationMode.EndSampling();
+                headHeight = headBone.position.y;
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogError($"[PosingSystem] アバターの高さ計測中にエラーが発生しました: {e.Message}\n{e.StackTrace}");
+                headHeight = -1;
+            }
+            finally
+            {
+                AnimationMode.StopAnimationMode();
+                avatarRoot.transform.position = originalPosition;
+                avatarRoot.transform.rotation = originalRotation;
+                avatarRoot.SetActive(false);
+                avatarRoot.SetActive(originalActive);
+            }
+        }
+
+        // Resolvingフェーズで記録した高さと最終アバターの高さを比較し、差があればベイク済みRootT.yカーブを補正する。
+        // FloorAdjusterのようにTransformingフェーズでhumanScale・Armatureスケール・ViewPositionを変更するツールは、
+        // 変換時にベイクした姿勢の基準を無効にしてしまう（視点ズレ・寝姿勢での膝の異常屈曲）。
+        // どちらの方式でも「立ち姿勢(RootT.y=1)がheightDiffだけ持ち上がる」ため、実行時単位はbaseUnit+heightDiffになる。
+        // 全姿勢を一律heightDiffだけ持ち上げるよう、 y' = (y * baseUnit + heightDiff) / (baseUnit + heightDiff) で変換する
+        private void RecalibratePoseHeight(BuildContext ctx)
+        {
+            if (ctx == null || ctx.AvatarRootObject == null)
+            {
+                return;
+            }
+            // PosingSystemコンポーネントはOptimizingフェーズで破棄されるため、この時点では存在する
+            if (!ctx.AvatarRootObject.GetComponentsInChildren<PosingSystem>().Any(ps => ps.tag != "EditorOnly"))
+            {
+                return;
+            }
+
+            var calibration = ctx.GetState<HeightCalibrationState>();
+            if (!calibration.measured)
+            {
+                return;
+            }
+
+            MeasureAvatarHeight(ctx.AvatarRootObject, out _, out var finalHeadHeight);
+            if (finalHeadHeight <= 0)
+            {
+                return;
+            }
+
+            var heightDiff = finalHeadHeight - calibration.baseHeadHeight;
+            // 高さ構造の変更がなければ何もしない（通常のビルドはここで終わる）
+            if (Mathf.Abs(heightDiff) < 0.0005f)
+            {
+                return;
+            }
+
+            var baseUnit = calibration.baseHumanScale;
+            var finalUnit = baseUnit + heightDiff;
+            if (baseUnit <= 0 || finalUnit <= 0)
+            {
+                return;
+            }
+
+            var descriptor = ctx.AvatarDescriptor;
+            var fixedMotions = new Dictionary<Motion, Motion>();
+            var processedControllers = new HashSet<AnimatorController>();
+            foreach (var customLayer in descriptor.baseAnimationLayers.Concat(descriptor.specialAnimationLayers))
+            {
+                if (customLayer.animatorController is not AnimatorController animatorController || !processedControllers.Add(animatorController))
+                {
+                    continue;
+                }
+                foreach (var layer in animatorController.layers)
+                {
+                    if (layer.stateMachine == null)
+                    {
+                        continue;
+                    }
+                    RecalibrateStateMachine(ctx, layer.stateMachine, fixedMotions, baseUnit, heightDiff, finalUnit);
+                }
+            }
+
+            Debug.Log($"[PosingSystem] アバターの高さ調整({heightDiff:+0.###;-0.###}m)をビルド中に検出したため、姿勢の高さ基準を補正しました。");
+        }
+
+        private void RecalibrateStateMachine(BuildContext ctx, AnimatorStateMachine stateMachine, Dictionary<Motion, Motion> fixedMotions, float baseUnit, float heightDiff, float finalUnit)
+        {
+            foreach (var childStateMachine in stateMachine.stateMachines)
+            {
+                if (childStateMachine.stateMachine != null)
+                {
+                    RecalibrateStateMachine(ctx, childStateMachine.stateMachine, fixedMotions, baseUnit, heightDiff, finalUnit);
+                }
+            }
+            foreach (var state in stateMachine.states)
+            {
+                var motion = state.state.motion;
+                // 本ツールが生成した姿勢モーション（FootHeight BlendTree配下）のみを対象にする
+                if (motion == null || motion.name.IndexOf("_USSPS_") != 0 || motion.name.IndexOf("_footheight") == -1)
+                {
+                    continue;
+                }
+                state.state.motion = RecalibrateMotion(ctx, motion, fixedMotions, baseUnit, heightDiff, finalUnit);
+            }
+        }
+
+        private Motion RecalibrateMotion(BuildContext ctx, Motion motion, Dictionary<Motion, Motion> fixedMotions, float baseUnit, float heightDiff, float finalUnit)
+        {
+            if (motion == null)
+            {
+                return null;
+            }
+            if (fixedMotions.TryGetValue(motion, out var cached))
+            {
+                return cached;
+            }
+
+            if (motion is AnimationClip animationClip)
+            {
+                // VRChatのproxyアニメーションは触らない
+                if (animationClip.name.IndexOf("proxy_") == 0)
+                {
+                    fixedMotions[motion] = animationClip;
+                    return animationClip;
+                }
+                var rootTyBinding = EditorCurveBinding.FloatCurve(string.Empty, typeof(Animator), "RootT.y");
+                var curve = AnimationUtility.GetEditorCurve(animationClip, rootTyBinding);
+                if (curve == null)
+                {
+                    fixedMotions[motion] = animationClip;
+                    return animationClip;
+                }
+
+                var targetClip = animationClip;
+                // プレビルド済みアセット等の永続アセットは直接書き換えず、複製してから補正する
+                if (EditorUtility.IsPersistent(animationClip))
+                {
+                    targetClip = Object.Instantiate(animationClip);
+                    targetClip.name = animationClip.name;
+                    AssetDatabase.AddObjectToAsset(targetClip, ctx.AssetContainer);
+                }
+
+                var unitScale = baseUnit / finalUnit;
+                var keys = curve.keys;
+                for (int i = 0; i < keys.Length; i++)
+                {
+                    keys[i].value = (keys[i].value * baseUnit + heightDiff) / finalUnit;
+                    keys[i].inTangent *= unitScale;
+                    keys[i].outTangent *= unitScale;
+                }
+                AnimationUtility.SetEditorCurve(targetClip, rootTyBinding, new AnimationCurve(keys));
+
+                // FootHeight用のlevelオフセット（正規化単位）も実寸を保つよう縮尺を合わせる
+                var clipSetting = AnimationUtility.GetAnimationClipSettings(targetClip);
+                if (!Mathf.Approximately(clipSetting.level, 0))
+                {
+                    clipSetting.level *= unitScale;
+                    AnimationUtility.SetAnimationClipSettings(targetClip, clipSetting);
+                }
+
+                fixedMotions[motion] = targetClip;
+                return targetClip;
+            }
+
+            if (motion is BlendTree blendTree)
+            {
+                var children = blendTree.children;
+                var changed = false;
+                for (int i = 0; i < children.Length; i++)
+                {
+                    var fixedChild = RecalibrateMotion(ctx, children[i].motion, fixedMotions, baseUnit, heightDiff, finalUnit);
+                    if (fixedChild != children[i].motion)
+                    {
+                        children[i].motion = fixedChild;
+                        changed = true;
+                    }
+                }
+                if (!changed)
+                {
+                    fixedMotions[motion] = blendTree;
+                    return blendTree;
+                }
+
+                var targetTree = blendTree;
+                if (EditorUtility.IsPersistent(blendTree))
+                {
+                    targetTree = Object.Instantiate(blendTree);
+                    targetTree.name = blendTree.name;
+                    AssetDatabase.AddObjectToAsset(targetTree, ctx.AssetContainer);
+                }
+                targetTree.children = children;
+                fixedMotions[motion] = targetTree;
+                return targetTree;
+            }
+
+            fixedMotions[motion] = motion;
+            return motion;
         }
 
         public static bool HasWarning(PosingSystem posingSystem)
