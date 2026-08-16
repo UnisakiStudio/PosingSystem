@@ -887,6 +887,9 @@ namespace jp.unisakistudio.posingsystemeditor
 
         public static void Prebuild(PosingSystem posingSystem)
         {
+            // ビルド時のクローンでもプレビルド済みデータを同一と判定できるよう、
+            // 元のPosingSystemを示す安定したIDをデータ生成より先に保存する。
+            posingSystem.savedInstanceId = UnityEditor.GlobalObjectId.GetGlobalObjectIdSlow(posingSystem).ToString();
             PosingSystemConverter.ConvertToModularAvatarComponents(posingSystem);
             posingSystem.previousErrorCheckTime = DateTime.MinValue;
             EditorUtility.SetDirty(posingSystem);
