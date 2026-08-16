@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.0.7] - 2026-08-12
+- FloorAdjuster等の高さ調整ツールとの併用時に、視点位置がズレる・仰向けで膝が異常に曲がる不具合を修正
+- PosingSystemがアバター外にある場合にエラーが発生する不具合を修正（PancakeTorto1seさんありがとうございます）
+- アバターのアップロード失敗時に処理を継続してエラーになる不具合を修正
+- プレビルド直後でも設定が更新されたと誤判定される場合がある不具合を修正
+- 移動モーションの自動インポート機能を改善
+- 一部の特殊なリグを使用しているアバターに警告を表示するよう変更
+- アニメーション調整ウィンドウに変更確認ダイアログと調整値のミラー機能を追加（kraihdさんありがとうございます）
+- 別のツールでエラーが発生している場合の案内と、エラーが発生しやすい箇所のチェックを追加
+
 ## [3.0.6] - 2026-03-17
 - 元からアバター独自の姿勢制御のある一部のアバターで姿勢がめちゃくちゃになる不具合を修正
 
