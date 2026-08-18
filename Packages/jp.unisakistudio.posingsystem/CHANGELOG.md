@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.0.8] - 2026-08-18
+- FloorAdjuster等による高さ再補正時、プレビルド済みの姿勢モーションでUnity Assertionが発生し、姿勢データが不正になる可能性がある不具合を修正
+- 高さ計測が元アバターや他ツールのAnimationMode状態へ干渉しないよう安全性を改善
+
 ## [3.0.7] - 2026-08-12
 - FloorAdjuster等の高さ調整ツールとの併用時に、視点位置がズレる・仰向けで膝が異常に曲がる不具合を修正
 - PosingSystemがアバター外にある場合にエラーが発生する不具合を修正（PancakeTorto1seさんありがとうございます）

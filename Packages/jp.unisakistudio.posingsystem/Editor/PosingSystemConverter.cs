@@ -286,62 +286,101 @@ namespace jp.unisakistudio.posingsystemeditor
         {
             humanScale = -1;
             headHeight = -1;
+            if (avatarRoot == null)
+            {
+                return;
+            }
             var animator = avatarRoot.GetComponent<Animator>();
             if (animator == null || !animator.isHuman)
             {
                 return;
             }
-            var headBone = animator.GetBoneTransform(HumanBodyBones.Head);
-            if (headBone == null)
+            if (animator.GetBoneTransform(HumanBodyBones.Head) == null)
             {
                 return;
             }
-            humanScale = animator.humanScale;
 
-            var baseAnimationClip = new AnimationClip();
-            var rootTyBinding = new EditorCurveBinding
-            {
-                path = "",
-                type = typeof(Animator),
-                propertyName = "RootT.y"
-            };
-            AnimationCurve rootTyCurve = new();
-            rootTyCurve.AddKey(0, 1);
-            AnimationUtility.SetEditorCurve(baseAnimationClip, rootTyBinding, rootTyCurve);
-            var clipInfo = new AnimationClipSettings
-            {
-                keepOriginalOrientation = true,
-                keepOriginalPositionXZ = true,
-                keepOriginalPositionY = true
-            };
-            AnimationUtility.SetAnimationClipSettings(baseAnimationClip, clipInfo);
-
-            var originalPosition = avatarRoot.transform.position;
-            var originalRotation = avatarRoot.transform.rotation;
-            var originalActive = avatarRoot.activeSelf;
+            GameObject workingAvatar = null;
+            AnimationClip baseAnimationClip = null;
+            var startedAnimationMode = false;
+            var sampling = false;
             try
             {
-                avatarRoot.SetActive(true);
-                AnimationMode.StartAnimationMode();
+                // Merge Armature前のビルド対象を直接サンプリングすると、呼び出し元のAnimationModeや
+                // コンポーネントのライフサイクルへ干渉するため、計測は破棄可能なクローン上で行う。
+                workingAvatar = Object.Instantiate(avatarRoot);
+                workingAvatar.name = "_PosingSystem_TempMeasureAvatar";
+                workingAvatar.hideFlags = HideFlags.HideAndDontSave;
+                workingAvatar.SetActive(true);
+
+                var workingAnimator = workingAvatar.GetComponent<Animator>();
+                var headBone = workingAnimator != null && workingAnimator.isHuman
+                    ? workingAnimator.GetBoneTransform(HumanBodyBones.Head)
+                    : null;
+                if (headBone == null)
+                {
+                    return;
+                }
+                humanScale = workingAnimator.humanScale;
+
+                baseAnimationClip = new AnimationClip
+                {
+                    name = "_PosingSystem_TempHeightClip",
+                    hideFlags = HideFlags.HideAndDontSave
+                };
+                var rootTyBinding = new EditorCurveBinding
+                {
+                    path = "",
+                    type = typeof(Animator),
+                    propertyName = "RootT.y"
+                };
+                AnimationUtility.SetEditorCurve(baseAnimationClip, rootTyBinding,
+                    new AnimationCurve(new Keyframe(0, 1)));
+                AnimationUtility.SetAnimationClipSettings(baseAnimationClip, new AnimationClipSettings
+                {
+                    keepOriginalOrientation = true,
+                    keepOriginalPositionXZ = true,
+                    keepOriginalPositionY = true
+                });
+
+                if (!AnimationMode.InAnimationMode())
+                {
+                    AnimationMode.StartAnimationMode();
+                    startedAnimationMode = true;
+                }
                 AnimationMode.BeginSampling();
-                AnimationMode.SampleAnimationClip(avatarRoot, baseAnimationClip, 0);
-                avatarRoot.transform.position = Vector3.zero;
-                avatarRoot.transform.rotation = Quaternion.identity;
+                sampling = true;
+                AnimationMode.SampleAnimationClip(workingAvatar, baseAnimationClip, 0);
+                workingAvatar.transform.position = Vector3.zero;
+                workingAvatar.transform.rotation = Quaternion.identity;
                 AnimationMode.EndSampling();
+                sampling = false;
                 headHeight = headBone.position.y;
             }
             catch (System.Exception e)
             {
                 Debug.LogError($"[PosingSystem] アバターの高さ計測中にエラーが発生しました: {e.Message}\n{e.StackTrace}");
+                humanScale = -1;
                 headHeight = -1;
             }
             finally
             {
-                AnimationMode.StopAnimationMode();
-                avatarRoot.transform.position = originalPosition;
-                avatarRoot.transform.rotation = originalRotation;
-                avatarRoot.SetActive(false);
-                avatarRoot.SetActive(originalActive);
+                if (sampling)
+                {
+                    AnimationMode.EndSampling();
+                }
+                if (startedAnimationMode && AnimationMode.InAnimationMode())
+                {
+                    AnimationMode.StopAnimationMode();
+                }
+                if (baseAnimationClip != null)
+                {
+                    Object.DestroyImmediate(baseAnimationClip);
+                }
+                if (workingAvatar != null)
+                {
+                    Object.DestroyImmediate(workingAvatar);
+                }
             }
         }
 
@@ -459,10 +498,14 @@ namespace jp.unisakistudio.posingsystemeditor
                 }
 
                 var targetClip = animationClip;
-                // プレビルド済みアセット等の永続アセットは直接書き換えず、複製してから補正する
-                if (EditorUtility.IsPersistent(animationClip))
+                // 外部の永続アセットは直接書き換えない。一方、MA/NDMF がこのビルド用に生成した
+                // 一時アセットは既に安全なコピーなので、その場で補正する。
+                // 一時AssetContainer内の入れ子Motionを Object.Instantiate すると、Unityが
+                // kStrongPPtrMask のAssertionを発生させ、参照グラフを壊すことがある。
+                if (EditorUtility.IsPersistent(animationClip) && !ctx.IsTemporaryAsset(animationClip))
                 {
-                    targetClip = Object.Instantiate(animationClip);
+                    targetClip = new AnimationClip();
+                    EditorUtility.CopySerialized(animationClip, targetClip);
                     targetClip.name = animationClip.name;
                     AssetDatabase.AddObjectToAsset(targetClip, ctx.AssetContainer);
                 }
@@ -509,9 +552,10 @@ namespace jp.unisakistudio.posingsystemeditor
                 }
 
                 var targetTree = blendTree;
-                if (EditorUtility.IsPersistent(blendTree))
+                if (EditorUtility.IsPersistent(blendTree) && !ctx.IsTemporaryAsset(blendTree))
                 {
-                    targetTree = Object.Instantiate(blendTree);
+                    targetTree = new BlendTree();
+                    EditorUtility.CopySerialized(blendTree, targetTree);
                     targetTree.name = blendTree.name;
                     AssetDatabase.AddObjectToAsset(targetTree, ctx.AssetContainer);
                 }
