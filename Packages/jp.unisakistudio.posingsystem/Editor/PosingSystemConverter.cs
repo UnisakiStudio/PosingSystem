@@ -837,6 +837,24 @@ namespace jp.unisakistudio.posingsystemeditor
 
         public static void ConvertToModularAvatarComponents(PosingSystem posingSystem)
         {
+            if (posingSystem == null)
+            {
+                Debug.LogError("[PosingSystem] 変換対象のPosingSystemがnullです。");
+                return;
+            }
+
+            // Prefab Mode、誤配置、ビルド中の外部ツールによる階層変更などで
+            // Descriptorを取得できない場合、後続処理がavatarを前提としているため安全に中止する。
+            var avatar = posingSystem.GetAvatar();
+            if (avatar == null)
+            {
+                Debug.LogError(
+                    $"[PosingSystem]「{posingSystem.name}」からVRCAvatarDescriptorを取得できないため変換できません。" +
+                    "配置が正しい場合は、このメッセージを含むビルドログを添えてお問い合わせください。",
+                    posingSystem);
+                return;
+            }
+
             // 自動生成するメニュー項目を一度削除する
             DeletePosingMenuObjects(posingSystem);
 
@@ -1297,6 +1315,24 @@ namespace jp.unisakistudio.posingsystemeditor
 
         public static void CreateOriginalAnimatorController(PosingSystem posingSystem)
         {
+            if (posingSystem == null)
+            {
+                Debug.LogError("[PosingSystem] CreateOriginalAnimatorController: PosingSystem is null.");
+                return;
+            }
+
+            // このメソッド内で何度も親階層を探索せず、最初に取得したアバターを使い続ける。
+            // ビルド中の階層変更やアバター外からの直接呼び出しでもNullReferenceExceptionにしない。
+            var avatar = posingSystem.GetAvatar();
+            if (avatar == null)
+            {
+                Debug.LogError(
+                    $"[PosingSystem]「{posingSystem.name}」からVRCAvatarDescriptorを取得できないため" +
+                    "AnimatorControllerを生成できません。配置が正しい場合はビルドログを添えてお問い合わせください。",
+                    posingSystem);
+                return;
+            }
+
             // 共通ポージングAnimatorを探す
             var maMergeAnimator = GetCommonMergeAnimator(posingSystem, true);
             
@@ -1318,7 +1354,7 @@ namespace jp.unisakistudio.posingsystemeditor
             if (!isDefault)
             {
                 // 他のPosingSystemの共通ポージングAnimatorにも同じものを設定する
-                var otherPosingSystems = posingSystem.GetAvatar().GetComponentsInChildren<PosingSystem>();
+                var otherPosingSystems = avatar.GetComponentsInChildren<PosingSystem>();
                 foreach (var otherPosingSystem in otherPosingSystems)
                 {
                     var otherMaMergeAnimator = GetCommonMergeAnimator(otherPosingSystem);
@@ -1343,13 +1379,6 @@ namespace jp.unisakistudio.posingsystemeditor
                 EditorUtility.SetDirty(maMergeAnimator);
                 return;
             }
-            var avatar = posingSystem.GetAvatar();
-            if (avatar == null)
-            {
-                Debug.LogError("[PosingSystem] CreateOriginalAnimatorController: Avatar is null. Cannot determine save path.");
-                return;
-            }
-
             var templeteAnimatorControllerPath = AssetDatabase.GetAssetPath(animatorController);
 
             // AnimatorControllerの保存先を決める
@@ -1482,36 +1511,28 @@ namespace jp.unisakistudio.posingsystemeditor
                 return;
             }
 
-            // 作業用アバターを準備（元アバターを直接操作しない）
-            GameObject workingAvatar = null;
-            bool isTemporaryClone = false;
-            
-            if (posingSystem.previewAvatarObject != null)
-            {
-                workingAvatar = posingSystem.previewAvatarObject;
-            }
-            else
-            {
-                // 一時的なクローンを作成
-                workingAvatar = GameObject.Instantiate(avatar.gameObject, PosingSystemEditor.GetPreviewAvatarRoot());
-                workingAvatar.name = "_PosingSystem_TempConvertAvatar";
-                workingAvatar.hideFlags = HideFlags.HideAndDontSave;
-                isTemporaryClone = true;
-            }
+            // 変換は必ず、その時点の処理対象アバターから作った一時クローンで行う。
+            // previewAvatarObjectはVRC/NDMFの前処理結果を表示するためのEditorキャッシュであり、
+            // NDMFが所有する一時Avatar等を参照することがある。そのキャッシュをビルド入力にすると、
+            // 一時アセットの削除後にAnimator.avatarだけMissingになった古いクローンを再利用してしまう。
+            // ビルド処理とプレビューのライフサイクルを分離し、プレビューの状態に変換結果を依存させない。
+            var workingAvatar = GameObject.Instantiate(avatar.gameObject, PosingSystemEditor.GetPreviewAvatarRoot());
+            workingAvatar.name = "_PosingSystem_TempConvertAvatar";
+            workingAvatar.hideFlags = HideFlags.HideAndDontSave;
 
             // 作業用アバターのAnimatorとボーンのnullチェック
             var workingAnimator = workingAvatar.GetComponent<Animator>();
-            if (workingAnimator == null)
+            if (workingAnimator == null || workingAnimator.avatar == null || !workingAnimator.isHuman)
             {
-                Debug.LogError("[PosingSystem] アバターにAnimatorコンポーネントがありません。");
-                if (isTemporaryClone) Object.DestroyImmediate(workingAvatar);
+                Debug.LogError("[PosingSystem] 変換用アバターに有効なHumanoid Animatorがありません。");
+                Object.DestroyImmediate(workingAvatar);
                 return;
             }
             var headBone = workingAnimator.GetBoneTransform(HumanBodyBones.Head);
             if (headBone == null)
             {
                 Debug.LogError("[PosingSystem] アバターのHeadボーンが見つかりません。Humanoidリグが正しく設定されているか確認してください。");
-                if (isTemporaryClone) Object.DestroyImmediate(workingAvatar);
+                Object.DestroyImmediate(workingAvatar);
                 return;
             }
 
@@ -1549,18 +1570,17 @@ namespace jp.unisakistudio.posingsystemeditor
             catch (System.Exception e)
             {
                 Debug.LogError($"[PosingSystem] アバターの高さ計算中にエラーが発生しました: {e.Message}\n{e.StackTrace}");
-                if (isTemporaryClone) Object.DestroyImmediate(workingAvatar);
-                else if (workingAvatar)
-                {
-                    workingAvatar.SetActive(false);
-                }
+                Object.DestroyImmediate(workingAvatar);
                 return;
             }
             finally
             {
                 AnimationMode.StopAnimationMode();
-                workingAvatar.SetActive(false);
-                workingAvatar.SetActive(true);
+                if (workingAvatar != null)
+                {
+                    workingAvatar.SetActive(false);
+                    workingAvatar.SetActive(true);
+                }
             }
 
             // Hipsボーンが足元付近にあるリグやボーンスケール改変アバターでは、humanScale(Hips接地高)と
@@ -2168,16 +2188,39 @@ namespace jp.unisakistudio.posingsystemeditor
             }
             finally
             {
-                // 一時クローンの場合は削除
-                if (isTemporaryClone && workingAvatar != null)
+                if (workingAvatar != null)
                 {
                     Object.DestroyImmediate(workingAvatar);
                 }
-                else if (workingAvatar)
-                {
-                    workingAvatar.SetActive(false);
-                }
             }
+        }
+
+        private static bool HasValidHumanoidAnimator(GameObject avatarObject)
+        {
+            if (avatarObject == null)
+            {
+                return false;
+            }
+
+            var animator = avatarObject.GetComponent<Animator>();
+            return animator != null
+                && animator.avatar != null
+                && animator.avatar.isValid
+                && animator.isHuman;
+        }
+
+        private static GameObject CreatePreviewAvatarClone(GameObject sourceAvatar, PosingSystem posingSystem, string purpose)
+        {
+            var clone = GameObject.Instantiate(sourceAvatar, PosingSystemEditor.GetPreviewAvatarRoot());
+            // NDMFはアバター名から一時アセット保存先を決め、同名の保存先を次の処理時に削除する。
+            // 同じアバター内に複数のPosingSystemがあっても保存先が衝突しない名前にする。
+            clone.name = $"_PosingSystem_{purpose}_{sourceAvatar.GetInstanceID()}_{posingSystem.GetInstanceID()}";
+            foreach (var clonePosingSystem in clone.GetComponentsInChildren<PosingSystem>(true))
+            {
+                clonePosingSystem.gameObject.tag = "EditorOnly";
+            }
+            PosingSystemEditor.SetPreviewAvatarVisibility(clone, false);
+            return clone;
         }
 
         /// <summary>
@@ -2484,30 +2527,51 @@ namespace jp.unisakistudio.posingsystemeditor
                 return;
             }
             GameObject clone;
-            if (posingSystem.previewAvatarObject)
+            var usingEditorPreview = drypreview && HasValidHumanoidAnimator(posingSystem.previewAvatarObject);
+            if (usingEditorPreview)
             {
                 clone = posingSystem.previewAvatarObject;
             }
             else
             {
-                clone = GameObject.Instantiate(srcAvatar.gameObject, PosingSystemEditor.GetPreviewAvatarRoot());
+                // フル前処理ではキャッシュを再利用しない。NDMF所有の一時アセットを参照する
+                // 前処理済みクローンは、このTakeScreenshot呼び出しの外へ持ち出さない。
+                if (posingSystem.previewAvatarObject != null)
+                {
+                    Object.DestroyImmediate(posingSystem.previewAvatarObject);
+                }
+                posingSystem.previewAvatarObject = null;
+                clone = CreatePreviewAvatarClone(srcAvatar.gameObject, posingSystem,
+                    drypreview ? "DryPreview" : "ProcessedPreview");
                 if (!drypreview)
                 {
-                    if (posingSystem.previewAvatarObject)
+                    try
                     {
-                        Object.DestroyImmediate(posingSystem.previewAvatarObject);
+                        clone.SetActive(true);
+                        VRC.SDKBase.Editor.BuildPipeline.VRCBuildPipelineCallbacks.OnPreprocessAvatar(clone);
+                        Object.DestroyImmediate(clone.GetComponent<VRC.SDK3.Avatars.Components.VRCAvatarDescriptor>());
+
+                        if (!HasValidHumanoidAnimator(clone))
+                        {
+                            Debug.LogError("[PosingSystem] プレビュー生成後のアバターに有効なHumanoid Avatarがありません。");
+                            Object.DestroyImmediate(clone);
+                            return;
+                        }
                     }
-                    posingSystem.previewAvatarObject = clone;
-                    foreach (var clonePosingSystem in clone.GetComponentsInChildren<PosingSystem>())
+                    catch
                     {
-                        clonePosingSystem.gameObject.tag = "EditorOnly";
+                        if (clone != null)
+                        {
+                            Object.DestroyImmediate(clone);
+                        }
+                        posingSystem.previewAvatarObject = null;
+                        throw;
                     }
-                    VRC.SDKBase.Editor.BuildPipeline.VRCBuildPipelineCallbacks.OnPreprocessAvatar(clone);
-                    Object.DestroyImmediate(clone.GetComponent<VRC.SDK3.Avatars.Components.VRCAvatarDescriptor>());
                 }
             }
 
             var camera = PosingSystemConverter.CreateIconCamera();
+            var screenshotCompleted = false;
 
             clone.SetActive(true);
             clone.layer = PosingSystem.PreviewMask;
@@ -2534,7 +2598,7 @@ namespace jp.unisakistudio.posingsystemeditor
                         }
 
                         TakeIconScreenshot(animation, posingSystem, camera, clone, force);
-                        if (!AssetDatabase.IsSubAsset(animation.previewImage))
+                        if (animation.previewImage != null && !AssetDatabase.IsSubAsset(animation.previewImage))
                         {
                             if (posingSystem.thumbnailPackObject != null)
                             {
@@ -2553,7 +2617,7 @@ namespace jp.unisakistudio.posingsystemeditor
                     }
 
                     TakeIconScreenshot(animation, posingSystem, camera, clone, force);
-                    if (!AssetDatabase.IsSubAsset(animation.previewImage))
+                    if (animation.previewImage != null && !AssetDatabase.IsSubAsset(animation.previewImage))
                     {
                         if (posingSystem.thumbnailPackObject != null)
                         {
@@ -2562,23 +2626,41 @@ namespace jp.unisakistudio.posingsystemeditor
                     }
                 }
                 AssetDatabase.SaveAssets();
+                screenshotCompleted = true;
             }
             finally
             {
                 RenderTexture.active = null;
                 Object.DestroyImmediate(camera.gameObject);
 
-                clone.layer = 0;
-                clone.hideFlags = HideFlags.HideInHierarchy;
-                clone.tag = "EditorOnly";
-                foreach (var child in clone.GetComponentsInChildren<Transform>())
+                if (clone != null && usingEditorPreview)
                 {
-                    child.gameObject.layer = clone.layer;
+                    clone.layer = 0;
+                    clone.tag = "EditorOnly";
+                    foreach (var child in clone.GetComponentsInChildren<Transform>())
+                    {
+                        child.gameObject.layer = clone.layer;
+                    }
+                    PosingSystemEditor.SetPreviewAvatarVisibility(clone, false);
                 }
-                clone.SetActive(false);
-                if (posingSystem.previewAvatarObject == null)
+                else if (clone != null)
                 {
-                    Object.DestroyImmediate(clone.gameObject);
+                    Object.DestroyImmediate(clone);
+                }
+
+                // フル前処理の結果は撮影だけに使い、調整ウィンドウ等が必要とするEditorプレビューは
+                // NDMFの一時アセットを一切参照しない元アバターのクローンとして別に作る。
+                if (!drypreview && screenshotCompleted && posingSystem != null && posingSystem.previewAvatarObject == null)
+                {
+                    var editorPreview = CreatePreviewAvatarClone(srcAvatar.gameObject, posingSystem, "EditorPreview");
+                    if (HasValidHumanoidAnimator(editorPreview))
+                    {
+                        posingSystem.previewAvatarObject = editorPreview;
+                    }
+                    else
+                    {
+                        Object.DestroyImmediate(editorPreview);
+                    }
                 }
             }
         }
@@ -2688,7 +2770,7 @@ namespace jp.unisakistudio.posingsystemeditor
             GameObject workingAvatar = null;
             bool isTemporaryClone = false;
             
-            if (previewAvatarObject != null)
+            if (HasValidHumanoidAnimator(previewAvatarObject))
             {
                 workingAvatar = previewAvatarObject;
             }
@@ -2697,22 +2779,22 @@ namespace jp.unisakistudio.posingsystemeditor
                 // 一時的なクローンを作成
                 workingAvatar = GameObject.Instantiate(srcAvatar.gameObject, PosingSystemEditor.GetPreviewAvatarRoot());
                 workingAvatar.name = "_PosingSystem_TempIconAvatar";
-                workingAvatar.hideFlags = HideFlags.HideAndDontSave;
+                PosingSystemEditor.SetPreviewAvatarVisibility(workingAvatar, false);
                 isTemporaryClone = true;
             }
 
-            // Animatorのnullチェック
+            // AnimatorとHumanoid Avatarの有効性チェック
             var avatarAnimator = workingAvatar.GetComponent<Animator>();
-            if (avatarAnimator == null)
+            if (!HasValidHumanoidAnimator(workingAvatar))
             {
-                Debug.LogWarning("[PosingSystem] スクリーンショット撮影: アバターにAnimatorコンポーネントがありません。");
+                Debug.LogWarning("[PosingSystem] スクリーンショット撮影: 有効なHumanoid Animatorがありません。");
                 if (isTemporaryClone)
                 {
                     Object.DestroyImmediate(workingAvatar);
                 }
                 else if (workingAvatar)
                 {
-                    workingAvatar.SetActive(false);
+                    PosingSystemEditor.SetPreviewAvatarVisibility(workingAvatar, false);
                 }
                 return;
             }
@@ -2896,7 +2978,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 }
                 else if (workingAvatar)
                 {
-                    workingAvatar.SetActive(false);
+                    PosingSystemEditor.SetPreviewAvatarVisibility(workingAvatar, false);
                 }
             }
         }

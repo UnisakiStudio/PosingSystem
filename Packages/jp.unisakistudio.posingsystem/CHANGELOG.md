@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.0.9] - 2026-08-26
+- 変換中にPosingSystemからVRCAvatarDescriptorを取得できない場合、NullReferenceExceptionを防止し、調査に必要なビルドログを案内するよう改善
+- NDMFが生成・削除する一時Avatarを参照したプレビューを、後続のプレビルド・ビルド処理が再利用して`Avatar is null`で失敗する不具合を修正。変換処理をプレビューキャッシュから分離し、複数プレビュー間のNDMF一時アセット名衝突も防止
+- 可愛いポーズPrefabのプレビュー参照がシーンに保存されず、非表示のプレビューアバターだけが増え続ける不具合を修正。プレビューをシーン保存対象外にし、シーン読込・Play移行・スクリプト再読込時に旧プレビューも回収するよう改善
+
 ## [3.0.8] - 2026-08-18
 - FloorAdjuster等による高さ再補正時、プレビルド済みの姿勢モーションでUnity Assertionが発生し、姿勢データが不正になる可能性がある不具合を修正
 - 高さ計測が元アバターや他ツールのAnimationMode状態へ干渉しないよう安全性を改善

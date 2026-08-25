@@ -28,7 +28,9 @@ namespace jp.unisakistudio.posingsystem
         [HideInInspector]
         public bool autoImportAvatarAnimations = true;
 
-        [HideInInspector]
+        // エディタ内だけで使う一時プレビュー。Prefab overrideやシーンへ保存すると、
+        // 参照だけ失われて非表示のアバターがシーンに残るためシリアライズしない。
+        [NonSerialized, HideInInspector]
         public GameObject previewAvatarObject;
 
         [System.Serializable]

@@ -7,6 +7,8 @@ using System.Linq;
 using jp.unisakistudio.posingsystem;
 using System;
 using System.IO;
+using UnityEditor.SceneManagement;
+using UnityEngine.SceneManagement;
 #if UNITY_EDITOR_WIN
 using Microsoft.Win32;
 
@@ -20,6 +22,7 @@ using nadena.dev.modular_avatar.core;
 namespace jp.unisakistudio.posingsystemeditor
 {
 
+    [InitializeOnLoad]
     [CustomEditor(typeof(PosingSystem))]
     public class PosingSystemEditor : Editor
     {
@@ -43,6 +46,31 @@ namespace jp.unisakistudio.posingsystemeditor
         const string REGKEY = @"SOFTWARE\UnisakiStudio";
         const string APPKEY = "posingsystem";
         private bool isPosingSystemLicensed = false;
+        private static Transform previewAvatarRoot;
+
+        static PosingSystemEditor()
+        {
+            AssemblyReloadEvents.beforeAssemblyReload += CleanupAllPreviewAvatars;
+            EditorSceneManager.sceneOpened += OnSceneOpened;
+            EditorApplication.playModeStateChanged += OnPlayModeStateChanged;
+
+            // アップデート前のバージョンがシーンへ保存したPreviewAvatarRootも、
+            // スクリプト再読込後に確実に回収する。
+            EditorApplication.delayCall += CleanupAllPreviewAvatars;
+        }
+
+        private static void OnSceneOpened(Scene scene, OpenSceneMode mode)
+        {
+            CleanupAllPreviewAvatars();
+        }
+
+        private static void OnPlayModeStateChanged(PlayModeStateChange state)
+        {
+            if (state == PlayModeStateChange.ExitingEditMode || state == PlayModeStateChange.EnteredEditMode)
+            {
+                CleanupAllPreviewAvatars();
+            }
+        }
 
         // Mac/Linux用の設定ファイルパス取得
         private static string GetLicenseFilePath()
@@ -77,10 +105,19 @@ namespace jp.unisakistudio.posingsystemeditor
 
         private void DeleteUnusedPreviewAvatar()
         {
-            // シーンのすべてのPosingSystemのPreviewAvatarとPreviewAvatarRootの中身を比較して、使っていないものがあれば削除する
-            var usingPreviewAvatars = GameObject.FindObjectsOfType<PosingSystem>().Select(posingSystem => posingSystem.previewAvatarObject).ToList();
+            // 非アクティブなPosingSystemも含め、参照されていない一時プレビューを回収する。
+            var usingPreviewAvatars = Resources.FindObjectsOfTypeAll<PosingSystem>()
+                .Where(posingSystem => posingSystem != null && posingSystem.gameObject.scene.IsValid())
+                .Select(posingSystem => posingSystem.previewAvatarObject)
+                .Where(preview => preview != null)
+                .ToHashSet();
             var deletePreviewAvatars = new List<GameObject>();
-            foreach (Transform previewAvatarTransform in GetPreviewAvatarRoot())
+            var root = FindPreviewAvatarRoot();
+            if (root == null)
+            {
+                return;
+            }
+            foreach (Transform previewAvatarTransform in root)
             {
                 if (!usingPreviewAvatars.Contains(previewAvatarTransform.gameObject))
                 {
@@ -93,20 +130,69 @@ namespace jp.unisakistudio.posingsystemeditor
                 deletePreviewAvatars.Remove(deletePreviewAvatar);
                 GameObject.DestroyImmediate(deletePreviewAvatar);
             }
-            AssetDatabase.SaveAssets();
         }
 
         public static Transform GetPreviewAvatarRoot()
         {
-            // シーンのHierarchyの一番上の階層にある「PreviewAvatarRoot」を取得する
-            var previewAvatarRoot = GameObject.Find("PreviewAvatarRoot");
             if (previewAvatarRoot == null)
             {
-                previewAvatarRoot = new GameObject("PreviewAvatarRoot");
-                previewAvatarRoot.hideFlags = HideFlags.HideInHierarchy;
-                EditorUtility.SetDirty(previewAvatarRoot);
+                previewAvatarRoot = FindPreviewAvatarRoot();
             }
-            return previewAvatarRoot.transform;
+            if (previewAvatarRoot == null)
+            {
+                var rootObject = new GameObject("PreviewAvatarRoot");
+                rootObject.hideFlags = HideFlags.HideAndDontSave;
+                previewAvatarRoot = rootObject.transform;
+            }
+            return previewAvatarRoot;
+        }
+
+        private static Transform FindPreviewAvatarRoot()
+        {
+            return Resources.FindObjectsOfTypeAll<GameObject>()
+                .Where(gameObject => gameObject != null && gameObject.scene.IsValid())
+                .Where(gameObject => gameObject.name == "PreviewAvatarRoot")
+                .Select(gameObject => gameObject.transform)
+                .FirstOrDefault();
+        }
+
+        public static void SetPreviewAvatarVisibility(GameObject previewAvatar, bool visible)
+        {
+            if (previewAvatar == null)
+            {
+                return;
+            }
+
+            var flags = visible ? HideFlags.DontSave : HideFlags.HideAndDontSave;
+            foreach (var child in previewAvatar.GetComponentsInChildren<Transform>(true))
+            {
+                child.gameObject.hideFlags = flags;
+            }
+            previewAvatar.SetActive(visible);
+        }
+
+        public static void CleanupAllPreviewAvatars()
+        {
+            foreach (var posingSystem in Resources.FindObjectsOfTypeAll<PosingSystem>()
+                         .Where(posingSystem => posingSystem != null && posingSystem.gameObject.scene.IsValid()))
+            {
+                posingSystem.previewAvatarObject = null;
+            }
+
+            var roots = Resources.FindObjectsOfTypeAll<GameObject>()
+                .Where(gameObject => gameObject != null && gameObject.scene.IsValid())
+                .Where(gameObject => gameObject.name == "PreviewAvatarRoot")
+                .ToArray();
+            foreach (var root in roots)
+            {
+                // 旧バージョンのPreviewAvatarRootはシーン保存対象だったため、削除をシーン変更として記録する。
+                if ((root.hideFlags & HideFlags.DontSaveInEditor) == 0 && root.scene.IsValid())
+                {
+                    EditorSceneManager.MarkSceneDirty(root.scene);
+                }
+                UnityEngine.Object.DestroyImmediate(root);
+            }
+            previewAvatarRoot = null;
         }
 
         private static bool IsAndroidBuildTarget()
@@ -273,9 +359,7 @@ namespace jp.unisakistudio.posingsystemeditor
                     var previewAvatarToggle = EditorGUILayout.ToggleLeft("プレビューアバター表示", posingSystem.previewAvatarObject.activeSelf);
                     if (previewAvatarToggle != posingSystem.previewAvatarObject.activeSelf)
                     {
-                        posingSystem.previewAvatarObject.SetActive(previewAvatarToggle);
-                        posingSystem.previewAvatarObject.hideFlags = previewAvatarToggle ? HideFlags.None : HideFlags.HideInHierarchy;
-                        EditorUtility.SetDirty(posingSystem);
+                        SetPreviewAvatarVisibility(posingSystem.previewAvatarObject, previewAvatarToggle);
                     }
                 }
 

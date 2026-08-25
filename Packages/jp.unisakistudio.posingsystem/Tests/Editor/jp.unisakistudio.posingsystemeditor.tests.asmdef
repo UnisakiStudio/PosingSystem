@@ -2,6 +2,7 @@
     "name": "jp.unisakistudio.posingsystemeditor.tests",
     "rootNamespace": "",
     "references": [
+        "jp.unisakistudio.posingsystem",
         "jp.unisakistudio.posingsystemeditor",
         "nadena.dev.ndmf"
     ],
