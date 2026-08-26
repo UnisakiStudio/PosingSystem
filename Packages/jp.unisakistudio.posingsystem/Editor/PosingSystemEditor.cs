@@ -36,8 +36,10 @@ namespace jp.unisakistudio.posingsystemeditor
         private List<PosingSystemPresetDefines.PresetDefine> _availablePresetDefines = new List<PosingSystemPresetDefines.PresetDefine>();
         private List<string> _presetDefineNames = new List<string>();
         private int _selectedPresetDefineIndex = 0;
+        private bool _presetDefinesLoaded = false;
 
         private bool foldoutOverride = false;
+        private bool foldoutPresetSelection = false;
         private bool foldoutAnimationDefine = false;
 
         public delegate List<string> CheckFunction();
@@ -96,8 +98,9 @@ namespace jp.unisakistudio.posingsystemeditor
             PosingSystem posingSystem = target as PosingSystem;
             posingSystem.previousErrorCheckTime = DateTime.MinValue;
 
-            // プリセット一覧を読み込み
-            LoadAvailablePresetDefines();
+            // 選択時は GUID 目録だけを更新する。重いアセット本体はプリセット UI を開くまで読み込まない。
+            ResetAvailablePresetDefines();
+            PosingSystemPresetDefinesCache.RefreshCatalog();
 
             // 使われていないプレビュー用アバターを削除
             DeleteUnusedPreviewAvatar();
@@ -200,43 +203,45 @@ namespace jp.unisakistudio.posingsystemeditor
             return UnityEditor.EditorUserBuildSettings.activeBuildTarget == UnityEditor.BuildTarget.Android;
         }
 
-        private void LoadAvailablePresetDefines()
+        private void ResetAvailablePresetDefines()
+        {
+            _availablePresetDefines.Clear();
+            _presetDefineNames.Clear();
+            _presetDefineNames.Add("プリセットを選択");
+            _selectedPresetDefineIndex = 0;
+            _presetDefinesLoaded = false;
+        }
+
+        private void LoadAvailablePresetDefines(bool forceReload = false)
         {
             var posingSystem = target as PosingSystem;
 
             _availablePresetDefines.Clear();
             _presetDefineNames.Clear();
-
             _presetDefineNames.Add("プリセットを選択");
 
-            // プロジェクト内のすべてのPosingSystemPresetDefinesを検索
-            var guids = AssetDatabase.FindAssets("t:PosingSystemPresetDefines");
-            foreach (var guid in guids)
+            var sourcePrefab = PrefabUtility.GetCorrespondingObjectFromSource<GameObject>(posingSystem.gameObject);
+            var sourcePrefabName = sourcePrefab != null ? sourcePrefab.name : posingSystem.gameObject.name;
+
+            // GUID 目録が同じ間は、全 Inspector でロード済みデータを共有する。
+            foreach (var presetDefine in PosingSystemPresetDefinesCache.GetPresetDefines(forceReload))
             {
-                var path = AssetDatabase.GUIDToAssetPath(guid);
-                var presetDefines = AssetDatabase.LoadAssetAtPath<PosingSystemPresetDefines>(path);
-                if (presetDefines != null)
+                if (presetDefine.prefabs == null)
                 {
-                    foreach (var presetDefine in presetDefines.presetDefines)
-                    {
-                        // PosingSystemがどのPrefabsを使っているか調べる
-                        var prefabs = PrefabUtility.GetCorrespondingObjectFromSource<GameObject>(posingSystem.gameObject);
-                        if (presetDefine.prefabs.Contains(prefabs))
-                        {
-                            _availablePresetDefines.Add(presetDefine);
-                            _presetDefineNames.Add(presetDefine.avatarName);
-                        }
-                        else if (presetDefine.prefabs.Select(p => p.name).Contains(prefabs.name))
-                        {
-                            _availablePresetDefines.Add(presetDefine);
-                            _presetDefineNames.Add(presetDefine.avatarName);
-                        }
-                    }
+                    continue;
+                }
+
+                var matchesPrefab = sourcePrefab != null && presetDefine.prefabs.Contains(sourcePrefab);
+                var matchesName = presetDefine.prefabs.Any(prefab => prefab != null && prefab.name == sourcePrefabName);
+                if (matchesPrefab || matchesName)
+                {
+                    _availablePresetDefines.Add(presetDefine);
+                    _presetDefineNames.Add(presetDefine.avatarName);
                 }
             }
 
-            // デフォルト選択をリセット
             _selectedPresetDefineIndex = 0;
+            _presetDefinesLoaded = true;
         }
 
         private void ApplySelectedPreset()
@@ -756,10 +761,22 @@ namespace jp.unisakistudio.posingsystemeditor
             EditorGUILayout.BeginVertical(GUI.skin.box);
             EditorGUILayout.LabelField("姿勢アニメーション設定", header2Label);
 
-            // プリセット選択と適用
-            EditorGUILayout.LabelField("プリセット選択", EditorStyles.boldLabel);
-            EditorGUILayout.BeginHorizontal();
+            // プリセットアセットは、この UI をユーザーが開いた時に初めて読み込む。
+            if (GUILayout.Button(foldoutPresetSelection
+                    ? "▲▲▲プリセット選択を非表示▲▲▲"
+                    : "▼▼▼プリセット選択を表示▼▼▼", foldoutStyle))
             {
+                foldoutPresetSelection = !foldoutPresetSelection;
+                if (foldoutPresetSelection && !_presetDefinesLoaded)
+                {
+                    LoadAvailablePresetDefines();
+                }
+            }
+
+            if (foldoutPresetSelection)
+            {
+                EditorGUILayout.LabelField("プリセット選択", EditorStyles.boldLabel);
+                EditorGUILayout.BeginHorizontal();
                 if (_availablePresetDefines.Count > 0)
                 {
                     _selectedPresetDefineIndex = EditorGUILayout.Popup(_selectedPresetDefineIndex, _presetDefineNames.ToArray());
@@ -771,17 +788,22 @@ namespace jp.unisakistudio.posingsystemeditor
                             ApplySelectedPreset();
                         }
                     }
+
+                    if (GUILayout.Button("再読込"))
+                    {
+                        LoadAvailablePresetDefines(true);
+                    }
                 }
                 else
                 {
                     EditorGUILayout.LabelField("プリセットが見つかりません", EditorStyles.helpBox);
                     if (GUILayout.Button("再読込"))
                     {
-                        LoadAvailablePresetDefines();
+                        LoadAvailablePresetDefines(true);
                     }
                 }
+                EditorGUILayout.EndHorizontal();
             }
-            EditorGUILayout.EndHorizontal();
 
             EditorGUILayout.BeginHorizontal();
             {
