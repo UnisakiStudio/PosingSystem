@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.0.10] - 2026-08-29
+- プリセット定義の実アセットをプリセット選択UIを開くまで遅延読込し、GUID目録が変わっていない場合はキャッシュを再利用するよう改善
+- Hierarchyの警告・エラーアイコン判定を変更時のみ再評価するようにし、商品メニューのアセット検索を共有キャッシュ化。ポーズツールを多数配置したシーンで数秒ごとにEditorがフリーズする問題を改善
+- 同一アバター内に複数のポーズツールを配置した状態でプレビルドすると、重複したパラメータ値の登録時に`ArgumentException`が発生する不具合を修正
+
 ## [3.0.9] - 2026-08-26
 - 変換中にPosingSystemからVRCAvatarDescriptorを取得できない場合、NullReferenceExceptionを防止し、調査に必要なビルドログを案内するよう改善
 - NDMFが生成・削除する一時Avatarを参照したプレビューを、後続のプレビルド・ビルド処理が再利用して`Avatar is null`で失敗する不具合を修正。変換処理をプレビューキャッシュから分離し、複数プレビュー間のNDMF一時アセット名衝突も防止
