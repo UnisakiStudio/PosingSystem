@@ -1035,8 +1035,11 @@ namespace jp.unisakistudio.posingsystemeditor
 
         public static void ResetTypeAndSyncedParameter(PosingSystem posingSystem)
         {
-            var typeParamHash = new Dictionary<string, Dictionary<int, PosingSystem.AnimationDefine>>();
-            var syncedParamHash = new Dictionary<int, PosingSystem.AnimationDefine>();
+            // 他のPosingSystemですでに使われている値だけを記録する。
+            // 複製直後などは複数オブジェクトが同じ割当値を持つため、一意キーのDictionaryへ
+            // AnimationDefineをAddすると例外になる。重複を許容する集合として扱う。
+            var usedTypeParamValues = new Dictionary<string, HashSet<int>>();
+            var usedSyncedParamValues = new HashSet<int>();
 
             // 親からアバターを探す
             var avatar = posingSystem.GetAvatar();
@@ -1070,16 +1073,16 @@ namespace jp.unisakistudio.posingsystemeditor
                         // アニメーションのメニューの値（保存される値）を記録
                         if (animationDefine.typeParameterValue > 0)
                         {
-                            if (!typeParamHash.ContainsKey(define.paramName))
+                            if (!usedTypeParamValues.ContainsKey(define.paramName))
                             {
-                                typeParamHash.Add(define.paramName, new());
+                                usedTypeParamValues.Add(define.paramName, new HashSet<int>());
                             }
-                            typeParamHash[define.paramName].Add(animationDefine.typeParameterValue, animationDefine);
+                            usedTypeParamValues[define.paramName].Add(animationDefine.typeParameterValue);
                         }
                         // アニメーションの再生される値（同期される値）を記録
                         if (animationDefine.syncdParameterValue > 0)
                         {
-                            syncedParamHash.Add(animationDefine.syncdParameterValue, animationDefine);
+                            usedSyncedParamValues.Add(animationDefine.syncdParameterValue);
                         }
                     }
                 }
@@ -1095,9 +1098,9 @@ namespace jp.unisakistudio.posingsystemeditor
                 {
                     typeParamValues.Add(define.paramName, 2);
                 }
-                if (!typeParamHash.ContainsKey(define.paramName))
+                if (!usedTypeParamValues.ContainsKey(define.paramName))
                 {
-                    typeParamHash.Add(define.paramName, new());
+                    usedTypeParamValues.Add(define.paramName, new HashSet<int>());
                 }
 
                 foreach (var animationDefine in define.animations)
@@ -1107,11 +1110,11 @@ namespace jp.unisakistudio.posingsystemeditor
                         continue;
                     }
 
-                    while (typeParamHash[define.paramName].ContainsKey(typeParamValues[define.paramName]))
+                    while (usedTypeParamValues[define.paramName].Contains(typeParamValues[define.paramName]))
                     {
                         typeParamValues[define.paramName] = typeParamValues[define.paramName] + 1;
                     }
-                    while (syncedParamHash.ContainsKey(syncedParamValue))
+                    while (usedSyncedParamValues.Contains(syncedParamValue))
                     {
                         syncedParamValue++;
                     }
