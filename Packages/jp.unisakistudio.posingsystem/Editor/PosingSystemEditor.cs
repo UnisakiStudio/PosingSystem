@@ -1332,10 +1332,10 @@ namespace jp.unisakistudio.posingsystemeditor
                     }
                 }
 
-                var productMenuGuids = new List<string>();
+                var productMenuGuids = new HashSet<string>();
                 foreach (var menuName in productDefine.expressionsMenuNames)
                 {
-                    productMenuGuids.AddRange(AssetDatabase.FindAssets(menuName));
+                    productMenuGuids.UnionWith(PosingSystemProductMenuCatalog.GetMatchingGuids(menuName));
                 }
 
                 // 再帰で商品のメニューを使用しているか調べる（循環防止のため訪問済みセットを利用）
@@ -1350,13 +1350,10 @@ namespace jp.unisakistudio.posingsystemeditor
                     {
                         return false;
                     }
-                    foreach (var menuName in productDefine.expressionsMenuNames)
+                    var menuGuid = AssetDatabase.AssetPathToGUID(AssetDatabase.GetAssetPath(menu));
+                    if (productMenuGuids.Contains(menuGuid))
                     {
-                        if (productMenuGuids.IndexOf(AssetDatabase.AssetPathToGUID(AssetDatabase.GetAssetPath(menu))) != -1)
-                        {
-                            return true;
-                        }
-
+                        return true;
                     }
                     foreach (var control in menu.controls)
                     {
