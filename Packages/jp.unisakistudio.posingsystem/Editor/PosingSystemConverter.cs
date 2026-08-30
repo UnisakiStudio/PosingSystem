@@ -2226,6 +2226,42 @@ namespace jp.unisakistudio.posingsystemeditor
             return clone;
         }
 
+        private static GameObject CreateBuildPipelineAvatarClone(GameObject sourceAvatar, PosingSystem posingSystem)
+        {
+            // NDMF 1.14.7以降はErrorReport生成時のSceneを保持し、報告画面を開く際にそのSceneを検索する。
+            // HideAndDontSave配下のオブジェクトはscene.IsValid() == falseになるため、NDMFへ渡す一時クローンを
+            // Editorプレビュー用ルートの下へ置いてはいけない。
+            var clone = GameObject.Instantiate(sourceAvatar);
+            clone.transform.SetParent(null, true);
+            clone.name =
+                $"_PosingSystem_ProcessedPreview_{sourceAvatar.GetInstanceID()}_{posingSystem.GetInstanceID()}";
+
+            foreach (var clonePosingSystem in clone.GetComponentsInChildren<PosingSystem>(true))
+            {
+                clonePosingSystem.gameObject.tag = "EditorOnly";
+            }
+
+            // DontSaveは有効なSceneを維持する。HideAndDontSaveはSceneから切り離すため使用しない。
+            PosingSystemEditor.SetPreviewAvatarVisibility(clone, true);
+            // ルートにHideInHierarchyとDontSaveを同時指定すると、再び無効Sceneへ移動してしまう。
+            // 同期処理のfinallyで必ず破棄するため、ルートはHideInHierarchyだけで一時的に隠す。
+            clone.hideFlags = HideFlags.HideInHierarchy;
+            var sourceScene = sourceAvatar.scene;
+            if (sourceScene.IsValid() && sourceScene.isLoaded && clone.scene != sourceScene)
+            {
+                UnityEngine.SceneManagement.SceneManager.MoveGameObjectToScene(clone, sourceScene);
+            }
+
+            if (!clone.scene.IsValid())
+            {
+                Object.DestroyImmediate(clone);
+                throw new System.InvalidOperationException(
+                    "[PosingSystem] NDMFプレビュー用アバターを有効なSceneに作成できませんでした。");
+            }
+
+            return clone;
+        }
+
         /// <summary>
         /// BlendTreeとその子要素を再帰的にAnimatorControllerのサブアセットとして永続化
         /// </summary>
@@ -2544,13 +2580,13 @@ namespace jp.unisakistudio.posingsystemeditor
                     Object.DestroyImmediate(posingSystem.previewAvatarObject);
                 }
                 posingSystem.previewAvatarObject = null;
-                clone = CreatePreviewAvatarClone(srcAvatar.gameObject, posingSystem,
-                    drypreview ? "DryPreview" : "ProcessedPreview");
+                clone = drypreview
+                    ? CreatePreviewAvatarClone(srcAvatar.gameObject, posingSystem, "DryPreview")
+                    : CreateBuildPipelineAvatarClone(srcAvatar.gameObject, posingSystem);
                 if (!drypreview)
                 {
                     try
                     {
-                        clone.SetActive(true);
                         VRC.SDKBase.Editor.BuildPipeline.VRCBuildPipelineCallbacks.OnPreprocessAvatar(clone);
                         Object.DestroyImmediate(clone.GetComponent<VRC.SDK3.Avatars.Components.VRCAvatarDescriptor>());
 

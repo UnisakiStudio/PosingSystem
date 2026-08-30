@@ -153,7 +153,7 @@ namespace jp.unisakistudio.posingsystemeditor
         private static Transform FindPreviewAvatarRoot()
         {
             return Resources.FindObjectsOfTypeAll<GameObject>()
-                .Where(gameObject => gameObject != null && gameObject.scene.IsValid())
+                .Where(gameObject => gameObject != null && !EditorUtility.IsPersistent(gameObject))
                 .Where(gameObject => gameObject.name == "PreviewAvatarRoot")
                 .Select(gameObject => gameObject.transform)
                 .FirstOrDefault();
@@ -183,7 +183,7 @@ namespace jp.unisakistudio.posingsystemeditor
             }
 
             var roots = Resources.FindObjectsOfTypeAll<GameObject>()
-                .Where(gameObject => gameObject != null && gameObject.scene.IsValid())
+                .Where(gameObject => gameObject != null && !EditorUtility.IsPersistent(gameObject))
                 .Where(gameObject => gameObject.name == "PreviewAvatarRoot")
                 .ToArray();
             foreach (var root in roots)
