@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.0.11] - 2026-08-31
+- NDMF 1.14.7以降でプレビルド用アバターのSceneが無効になり、処理に失敗する不具合を修正
+- NDMFのエラー画面が破棄済みのLocalizationAssetを参照し、`MissingReferenceException`が発生する不具合を修正
+
 ## [3.0.10] - 2026-08-29
 - プリセット定義の実アセットをプリセット選択UIを開くまで遅延読込し、GUID目録が変わっていない場合はキャッシュを再利用するよう改善
 - Hierarchyの警告・エラーアイコン判定を変更時のみ再評価するようにし、商品メニューのアセット検索を共有キャッシュ化。ポーズツールを多数配置したシーンで数秒ごとにEditorがフリーズする問題を改善
