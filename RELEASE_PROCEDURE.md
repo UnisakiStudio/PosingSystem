@@ -62,15 +62,27 @@ PosingSystemの修正をKawaiiPosingとVPM一覧へ反映するための手順�
    - `CHANGELOG.md`
 3. 対象ファイルだけをstageし、`Ver x.y.z PosingSystem x.y.zに更新`でcommit・pushする。
 4. `Build Release`を監視し、Release assetとHTTP 200を確認する。
-5. KawaiiPosingのVPM一覧workflowは`source.json`変更時以外は自動起動しないため、Release成功後に手動実行する。
+5. KawaiiPosingのVPM一覧workflowは`source.json`変更時以外は自動起動しないため、Release成功後に`C:\Users\gaoth\OneDrive\ドキュメント\UnityProjects\VPM\releaseKawaiiPosing.sh`を実行する。このスクリプトが次の必須2リポジトリを両方更新する。片方だけで完了としない。
+
+   ```bash
+   gh workflow run "Build Repo Listing" -R unisaki-studio/KawaiiPosing --ref main
+   gh workflow run "Build Repo Listing" -R UnisakiStudio/KawaiiPosing --ref main
+   ```
+
+6. 両方のworkflowを個別に監視し、GitHub PagesへのDeploy成功を確認する。
 
    ```powershell
-   gh workflow run build-listing.yml -R UnisakiStudio/KawaiiPosing --ref main
+   gh run list -R unisaki-studio/KawaiiPosing --workflow "Build Repo Listing" --limit 3
+   gh run watch <run-id> -R unisaki-studio/KawaiiPosing --exit-status
    gh run list -R UnisakiStudio/KawaiiPosing --workflow build-listing.yml --limit 3
    gh run watch <run-id> -R UnisakiStudio/KawaiiPosing --exit-status
    ```
 
-6. `https://UnisakiStudio.github.io/KawaiiPosing/index.json`を取得し、次を確認する。
+7. 次の両方の`index.json`を取得する。どちらもHTTP 200で、同じ新バージョンを配信していることを確認する。
+   - `https://unisaki-studio.github.io/KawaiiPosing/index.json`
+   - `https://UnisakiStudio.github.io/KawaiiPosing/index.json`
+
+   両indexで次を確認する。
    - PosingSystemの新バージョンが存在する。
    - KawaiiPosingの新バージョンが存在する。
    - KawaiiPosingの依存先が新しいPosingSystem版になっている。
@@ -81,9 +93,9 @@ PosingSystemの修正をKawaiiPosingとVPM一覧へ反映するための手順�
 
 - Unityのバージョン、テスト総数・成功数・失敗数、実施した手動チェック
 - 両リポジトリのcommit SHA
-- GitHub Actionsのrun URLと成否
+- Release workflow、および新旧両KawaiiPosingリポジトリの一覧workflowのrun URLと成否
 - 両Release URLとasset名
-- VPM indexの反映バージョンと依存関係
+- 新旧両URLのVPM indexに反映されたバージョンと依存関係
 - 触らず維持したstash・未追跡ファイル
 
 VirtualLoveなど他製品は`vpmDependencies`の範囲で新しいPosingSystemを取得できる場合、製品固有変更がなければ不要な追随リリースを増やさない。厳密依存の更新や製品側の修正が必要なときだけ、同じ検証手順で別途リリースする。
