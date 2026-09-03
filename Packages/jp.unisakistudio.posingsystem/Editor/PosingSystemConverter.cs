@@ -167,7 +167,7 @@ namespace jp.unisakistudio.posingsystemeditor
                         {
                             try
                             {
-                                ConvertToModularAvatarComponents(posingSystem);
+                                ConvertToModularAvatarComponents(posingSystem, ctx.AssetSaver);
                             }
                             catch (AddStateMachineBehaviourCloneFailedException)
                             {
@@ -837,7 +837,7 @@ namespace jp.unisakistudio.posingsystemeditor
             return maMergeAnimator;
         }
 
-        public static void ConvertToModularAvatarComponents(PosingSystem posingSystem)
+        public static void ConvertToModularAvatarComponents(PosingSystem posingSystem, IAssetSaver assetSaver = null)
         {
             if (posingSystem == null)
             {
@@ -882,7 +882,7 @@ namespace jp.unisakistudio.posingsystemeditor
             ResetAnimatorControllerParameters(posingSystem);
 
             // AnimatorControllerを変更する
-            ConvertAnimatorController(posingSystem);
+            ConvertAnimatorController(posingSystem, assetSaver);
 
             // アニメーションをOverrideする
             ConvertOverrideAnimations(posingSystem);
@@ -1468,7 +1468,7 @@ namespace jp.unisakistudio.posingsystemeditor
             EditorUtility.SetDirty(animatorController);
         }
 
-        public static void ConvertAnimatorController(PosingSystem posingSystem)
+        public static void ConvertAnimatorController(PosingSystem posingSystem, IAssetSaver assetSaver = null)
         {
             var avatar = posingSystem.GetAvatar();
             if (avatar == null)
@@ -1779,10 +1779,7 @@ namespace jp.unisakistudio.posingsystemeditor
 
                             // 生成したアニメーションクリップをAnimatorControllerのサブアセットとして永続化
                             newAnimationClip.name = "_USSPS_" + (animationDefine.animationClip != null ? animationDefine.animationClip.name : "Animation") + "_Processed";
-                            if (!IsObjectAlreadyInAssetDatabase(newAnimationClip))
-                            {
-                                AssetDatabase.AddObjectToAsset(newAnimationClip, animatorController);
-                            }
+                            SaveGeneratedAsset(newAnimationClip, animatorController, assetSaver);
                             EditorUtility.SetDirty(animatorController);
                             EditorUtility.SetDirty(newAnimationClip);
                             motion = newAnimationClip;
@@ -2061,10 +2058,7 @@ namespace jp.unisakistudio.posingsystemeditor
                         }
 
                         // 生成したBlendTreeをAnimatorControllerのサブアセットとして永続化
-                        if (!IsObjectAlreadyInAssetDatabase(newBlendtree))
-                        {
-                            AssetDatabase.AddObjectToAsset(newBlendtree, animatorController);
-                        }
+                        SaveGeneratedAsset(newBlendtree, animatorController, assetSaver);
                         // 子のAnimationClipも永続化
                         foreach (var child in newBlendtree.children)
                         {
@@ -2072,7 +2066,7 @@ namespace jp.unisakistudio.posingsystemeditor
                                 child.motion.name.IndexOf("proxy_") != 0 &&
                                 !IsObjectAlreadyInAssetDatabase(child.motion))
                             {
-                                AssetDatabase.AddObjectToAsset(child.motion, animatorController);
+                                SaveGeneratedAsset(child.motion, animatorController, assetSaver);
                             }
                         }
                         EditorUtility.SetDirty(animatorController);
@@ -2126,22 +2120,10 @@ namespace jp.unisakistudio.posingsystemeditor
                                 footHeightBlendTree.AddChild(heightAnimationClip, 1);         // threshold 1: 上
 
                                 // FootHeight用BlendTreeをAnimatorControllerのサブアセットとして永続化
-                                if (!IsObjectAlreadyInAssetDatabase(footHeightBlendTree))
-                                {
-                                    AssetDatabase.AddObjectToAsset(footHeightBlendTree, animatorController);
-                                }
-                                if (!IsObjectAlreadyInAssetDatabase(heightAnimationClipZero))
-                                {
-                                    AssetDatabase.AddObjectToAsset(heightAnimationClipZero, animatorController);
-                                }
-                                if (!IsObjectAlreadyInAssetDatabase(heightAnimationClip))
-                                {
-                                    AssetDatabase.AddObjectToAsset(heightAnimationClip, animatorController);
-                                }
-                                if (!IsObjectAlreadyInAssetDatabase(newAnimationClip))
-                                {
-                                    AssetDatabase.AddObjectToAsset(newAnimationClip, animatorController);
-                                }
+                                SaveGeneratedAsset(footHeightBlendTree, animatorController, assetSaver);
+                                SaveGeneratedAsset(heightAnimationClipZero, animatorController, assetSaver);
+                                SaveGeneratedAsset(heightAnimationClip, animatorController, assetSaver);
+                                SaveGeneratedAsset(newAnimationClip, animatorController, assetSaver);
                                 EditorUtility.SetDirty(animatorController);
 
                                 state.state.motion = footHeightBlendTree;
@@ -2172,14 +2154,11 @@ namespace jp.unisakistudio.posingsystemeditor
                             footHeightBlendTree.AddChild(footHeightBlendtreeUp, 1);       // threshold 1: 上 (level -2)
 
                             // FootHeight用BlendTreeをAnimatorControllerのサブアセットとして永続化
-                            if (!IsObjectAlreadyInAssetDatabase(footHeightBlendTree))
-                            {
-                                AssetDatabase.AddObjectToAsset(footHeightBlendTree, animatorController);
-                            }
+                            SaveGeneratedAsset(footHeightBlendTree, animatorController, assetSaver);
                             // 子BlendTreeも永続化
-                            AddBlendTreeToAsset(footHeightBlendtreeZero, animatorController);
-                            AddBlendTreeToAsset(footHeightBlendtreeDown, animatorController);
-                            AddBlendTreeToAsset(footHeightBlendtreeUp, animatorController);
+                            AddBlendTreeToAsset(footHeightBlendtreeZero, animatorController, assetSaver);
+                            AddBlendTreeToAsset(footHeightBlendtreeDown, animatorController, assetSaver);
+                            AddBlendTreeToAsset(footHeightBlendtreeUp, animatorController, assetSaver);
                             EditorUtility.SetDirty(animatorController);
 
                             state.state.motion = footHeightBlendTree;
@@ -2189,7 +2168,10 @@ namespace jp.unisakistudio.posingsystemeditor
                 addFootHeightBlendtree(layer.stateMachine);
 
                 // 古いSubAssetを削除（AnimatorController肥大化防止）
-                RemoveOldSubAssets(animatorController);
+                if (EditorUtility.IsPersistent(animatorController))
+                {
+                    RemoveOldSubAssets(animatorController);
+                }
             }
             finally
             {
@@ -2267,15 +2249,12 @@ namespace jp.unisakistudio.posingsystemeditor
         /// <summary>
         /// BlendTreeとその子要素を再帰的にAnimatorControllerのサブアセットとして永続化
         /// </summary>
-        private static void AddBlendTreeToAsset(BlendTree blendTree, AnimatorController animatorController)
+        private static void AddBlendTreeToAsset(BlendTree blendTree, AnimatorController animatorController, IAssetSaver assetSaver)
         {
             if (blendTree == null) return;
 
             // 既にアセットファイルに追加されていない場合のみ追加
-            if (!IsObjectAlreadyInAssetDatabase(blendTree))
-            {
-                AssetDatabase.AddObjectToAsset(blendTree, animatorController);
-            }
+            SaveGeneratedAsset(blendTree, animatorController, assetSaver);
 
             foreach (var child in blendTree.children)
             {
@@ -2283,15 +2262,44 @@ namespace jp.unisakistudio.posingsystemeditor
 
                 if (child.motion.GetType() == typeof(BlendTree))
                 {
-                    AddBlendTreeToAsset((BlendTree)child.motion, animatorController);
+                    AddBlendTreeToAsset((BlendTree)child.motion, animatorController, assetSaver);
                 }
                 else if (child.motion.GetType() == typeof(AnimationClip) &&
                          child.motion.name.IndexOf("proxy_") != 0 &&
                          !IsObjectAlreadyInAssetDatabase(child.motion))
                 {
-                    AssetDatabase.AddObjectToAsset(child.motion, animatorController);
+                    SaveGeneratedAsset(child.motion, animatorController, assetSaver);
                 }
             }
+        }
+
+        /// <summary>
+        /// 生成したMotionを保存する。NDMFビルド中はAnimatorController自体が一時オブジェクトに
+        /// なり得るため、AssetDatabaseへ直接追加せずNDMFのAssetSaverへ委譲する。
+        /// </summary>
+        private static void SaveGeneratedAsset(
+            UnityEngine.Object asset,
+            AnimatorController animatorController,
+            IAssetSaver assetSaver)
+        {
+            if (asset == null || IsObjectAlreadyInAssetDatabase(asset))
+            {
+                return;
+            }
+
+            if (assetSaver != null)
+            {
+                assetSaver.SaveAsset(asset);
+                return;
+            }
+
+            if (animatorController == null || !EditorUtility.IsPersistent(animatorController))
+            {
+                throw new System.InvalidOperationException(
+                    "[PosingSystem] 生成Motionの保存先AnimatorControllerが永続アセットではありません。");
+            }
+
+            AssetDatabase.AddObjectToAsset(asset, animatorController);
         }
 
         /// <summary>
