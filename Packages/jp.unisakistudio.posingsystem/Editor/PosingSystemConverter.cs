@@ -156,7 +156,9 @@ namespace jp.unisakistudio.posingsystemeditor
                         {
                             continue;
                         }
-                        if (posingSystem.data != null && posingSystem.data != GetDefineSerializeJson(posingSystem, true))
+                        // 未プレビルド（null / 空文字）は直後に自動変換するため、
+                        // 「設定変更済み」としてNDMFエラーを報告しない。
+                        if (!string.IsNullOrEmpty(posingSystem.data) && posingSystem.data != GetDefineSerializeJson(posingSystem, true))
                         {
                             ErrorReport.ReportError(errorLocalizer, ErrorSeverity.NonFatal, "オブジェクトの設定が更新されています。再度プレビルドを行ってください", posingSystem.name);
                         }
