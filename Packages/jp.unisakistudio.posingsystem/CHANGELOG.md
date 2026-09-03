@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.0.12] - 2026-09-04
+- 未プレビルドのポーズツールをNDMFでビルドした際、設定変更済みと誤判定される不具合を修正
+- NDMFビルド中の一時AnimatorControllerへ生成アセットを追加して、`AddAssetToSameFile`エラーで処理に失敗する不具合を修正
+
 ## [3.0.11] - 2026-08-31
 - NDMF 1.14.7以降でプレビルド用アバターのSceneが無効になり、処理に失敗する不具合を修正
 - NDMFのエラー画面が破棄済みのLocalizationAssetを参照し、`MissingReferenceException`が発生する不具合を修正
