@@ -4,7 +4,8 @@
     "references": [
         "jp.unisakistudio.posingsystem",
         "jp.unisakistudio.posingsystemeditor",
-        "nadena.dev.ndmf"
+        "nadena.dev.ndmf",
+        "nadena.dev.modular-avatar.core"
     ],
     "includePlatforms": [
         "Editor"

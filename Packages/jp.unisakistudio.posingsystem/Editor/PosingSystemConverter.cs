@@ -709,26 +709,26 @@ namespace jp.unisakistudio.posingsystemeditor
                     var exitTransition = state.AddExitTransition(false);
                     exitTransition.AddCondition(parameter.value != 0 ? AnimatorConditionMode.IfNot : AnimatorConditionMode.If, parameter.value, parameter.name);
                     exitTransition.duration = vrmode ? 0.5f : 0.0f;
-                    exitTransition.interruptionSource = TransitionInterruptionSource.Destination;
+                    exitTransition.interruptionSource = TransitionInterruptionSource.SourceThenDestination;
                 }
                 else if (parameter.type == ParameterSyncType.Int)
                 {
                     var exitTransition = state.AddExitTransition(false);
                     exitTransition.AddCondition(AnimatorConditionMode.NotEqual, parameter.value, parameter.name);
                     exitTransition.duration = vrmode ? 0.5f : 0.0f;
-                    exitTransition.interruptionSource = TransitionInterruptionSource.Destination;
+                    exitTransition.interruptionSource = TransitionInterruptionSource.SourceThenDestination;
                 }
                 else
                 {
                     var exitTransition1 = state.AddExitTransition(false);
                     exitTransition1.AddCondition(AnimatorConditionMode.Less, parameter.value - 0.01f, parameter.name);
                     exitTransition1.duration = vrmode ? 0.5f : 0.0f;
-                    exitTransition1.interruptionSource = TransitionInterruptionSource.Destination;
+                    exitTransition1.interruptionSource = TransitionInterruptionSource.SourceThenDestination;
 
                     var exitTransition2 = state.AddExitTransition(false);
                     exitTransition2.AddCondition(AnimatorConditionMode.Greater, parameter.value + 0.01f, parameter.name);
                     exitTransition2.duration = vrmode ? 0.5f : 0.0f;
-                    exitTransition2.interruptionSource = TransitionInterruptionSource.Destination;
+                    exitTransition2.interruptionSource = TransitionInterruptionSource.SourceThenDestination;
                 }
             }
         }
@@ -1920,13 +1920,13 @@ namespace jp.unisakistudio.posingsystemeditor
                             var typeExitTransition = typeState.AddExitTransition(false);
                             typeExitTransition.AddCondition(AnimatorConditionMode.NotEqual, animationDefine.typeParameterValue, define.paramName);
                             typeExitTransition.duration = 0.5f;
-                            typeExitTransition.interruptionSource = TransitionInterruptionSource.Destination;
+                            typeExitTransition.interruptionSource = TransitionInterruptionSource.SourceThenDestination;
 
                             // 姿勢が変わった時のExitTransitionを作成（姿勢グループが変わった場合）
                             var typeExitTransition1 = typeState.AddExitTransition(false);
                             typeExitTransition1.AddCondition(AnimatorConditionMode.NotEqual, define.locomotionTypeValue, "LocomotionType");
                             typeExitTransition1.duration = 0.5f;
-                            typeExitTransition1.interruptionSource = TransitionInterruptionSource.Destination;
+                            typeExitTransition1.interruptionSource = TransitionInterruptionSource.SourceThenDestination;
                         }
                         else
                         {
