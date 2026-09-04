@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.0.13] - 2026-09-04
+- VRモードでしゃがみ始めた直後に立ちへ戻すと、立ち姿勢への自己遷移が発生して姿勢復帰が不安定になる不具合を修正
+
 ## [3.0.12] - 2026-09-04
 - 未プレビルドのポーズツールをNDMFでビルドした際、設定変更済みと誤判定される不具合を修正
 - NDMFビルド中の一時AnimatorControllerへ生成アセットを追加して、`AddAssetToSameFile`エラーで処理に失敗する不具合を修正
