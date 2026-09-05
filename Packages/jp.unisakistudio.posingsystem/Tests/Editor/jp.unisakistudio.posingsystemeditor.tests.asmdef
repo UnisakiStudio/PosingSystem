@@ -12,8 +12,11 @@
     ],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
-    "overrideReferences": false,
-    "precompiledReferences": [],
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "VRCSDK3A.dll",
+        "VRCSDKBase.dll"
+    ],
     "autoReferenced": true,
     "defineConstraints": [
         "UNITY_INCLUDE_TESTS"
