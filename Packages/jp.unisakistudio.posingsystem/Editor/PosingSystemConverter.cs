@@ -3311,8 +3311,22 @@ namespace jp.unisakistudio.posingsystemeditor
                 throw new System.Exception("「" + posingSystem.name + "」の共通ポージングAnimatorに設定されているAnimatorControllerが不正です。AnimatorOverrideController等は使用できません");
             }
 
+            if (posingSystem.overrideDefines == null)
+            {
+                return;
+            }
+
             foreach (var define in posingSystem.overrideDefines)
             {
+                if (define == null || !define.enabled || !IsValidOverrideMotion(define.stateType, define.animationClip))
+                {
+                    if (define != null && define.enabled && define.animationClip != null)
+                    {
+                        Debug.LogWarning($"[PosingSystem] 「{define.stateType}」には移動を含むBlendTreeが必要なため、単発AnimationClipによる上書きを適用しません: {define.animationClip.name}");
+                    }
+                    continue;
+                }
+
                 foreach (var overrideSetting in OverrideSettings.Where(setting => setting.stateType == define.stateType))
                 {
                     var layerIndex = animatorController.layers.ToList().FindIndex(l => l.name == overrideSetting.layerName);
@@ -3341,7 +3355,7 @@ namespace jp.unisakistudio.posingsystemeditor
 
                     if (overrideSetting.isBlendTree)
                     {
-                        if (animatorState.motion.GetType() == typeof(BlendTree) || animatorState.motion.GetType().IsSubclassOf(typeof(BlendTree)))
+                        if (animatorState.motion is BlendTree)
                         {
                             BlendTree blendTree = (BlendTree)animatorState.motion;
                             var blendTreeIndex = blendTree.children.ToList().FindIndex(child => Mathf.Approximately(child.position.x, overrideSetting.posX) && Mathf.Approximately(child.position.y, overrideSetting.posY));
@@ -3373,6 +3387,25 @@ namespace jp.unisakistudio.posingsystemeditor
                         }
                     }
                 }
+            }
+        }
+
+        internal static bool IsValidOverrideMotion(PosingSystem.OverrideAnimationDefine.AnimationStateType stateType, Motion motion)
+        {
+            if (motion == null)
+            {
+                return false;
+            }
+
+            switch (stateType)
+            {
+                case PosingSystem.OverrideAnimationDefine.AnimationStateType.StandWalkRun:
+                case PosingSystem.OverrideAnimationDefine.AnimationStateType.Crouch:
+                case PosingSystem.OverrideAnimationDefine.AnimationStateType.Prone:
+                    // これらはステート全体を置き換えるため、単発Clipでは歩行・旋回が失われる。
+                    return motion is BlendTree;
+                default:
+                    return true;
             }
         }
 
@@ -3483,6 +3516,10 @@ namespace jp.unisakistudio.posingsystemeditor
                     }
 
                     if (state.motion == null)
+                    {
+                        continue;
+                    }
+                    if (!IsValidOverrideMotion(detectSetting.type, state.motion))
                     {
                         continue;
                     }
