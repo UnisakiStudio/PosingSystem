@@ -1133,11 +1133,29 @@ namespace jp.unisakistudio.posingsystemeditor
             EditorUtility.SetDirty(posingSystem);
         }
 
+        public static int GetMaxSyncedParameterValue(VRCAvatarDescriptor avatar)
+        {
+            if (avatar == null)
+            {
+                return 0;
+            }
+
+            return avatar.GetComponentsInChildren<PosingSystem>(true)
+                .Where(system => system != null && system.defines != null)
+                .SelectMany(system => system.defines)
+                .Where(define => define != null && define.animations != null)
+                .SelectMany(define => define.animations)
+                .Where(animation => animation != null && animation.enabled)
+                .Select(animation => animation.syncdParameterValue)
+                .DefaultIfEmpty(0)
+                .Max();
+        }
+
         public static void ResetParametersWithSyncedParameter(PosingSystem posingSystem)
         {
             // アバターのPosingSystemの一番大きなSyncedParameterValueを探す
             var avatar = posingSystem.GetAvatar();
-            int maxSyncedParamValue = avatar.GetComponentsInChildren<PosingSystem>().DefaultIfEmpty().Max(p => p.defines.DefaultIfEmpty().Max(d => d.animations.DefaultIfEmpty().Max(a => a.syncdParameterValue)));
+            int maxSyncedParamValue = GetMaxSyncedParameterValue(avatar);
 
             // MAパラメータオブジェクト探す            
             var maParameter = posingSystem.GetComponent<ModularAvatarParameters>();
@@ -1455,7 +1473,7 @@ namespace jp.unisakistudio.posingsystemeditor
 
             // アバターのPosingSystemの一番大きなSyncedParameterValueを探す
             var avatar = posingSystem.GetAvatar();
-            int maxSyncedParamValue = avatar.GetComponentsInChildren<PosingSystem>().DefaultIfEmpty().Max(p => p.defines.DefaultIfEmpty().Max(d => d.animations.DefaultIfEmpty().Max(a => a.syncdParameterValue)));
+            int maxSyncedParamValue = GetMaxSyncedParameterValue(avatar);
 
             // 必要なパラメータを列挙
             var parameters = SplitSyncParameters(0, maxSyncedParamValue);
@@ -1501,7 +1519,7 @@ namespace jp.unisakistudio.posingsystemeditor
             }
 
             // アバターのPosingSystemの一番大きなSyncedParameterValueを探す
-            int maxSyncedParamValue = avatar.GetComponentsInChildren<PosingSystem>().DefaultIfEmpty().Max(p => p.defines.DefaultIfEmpty().Max(d => d.animations.DefaultIfEmpty().Max(a => a.syncdParameterValue)));
+            int maxSyncedParamValue = GetMaxSyncedParameterValue(avatar);
 
             // LocomotionレイヤーとLocomotionTypeレイヤーを取得
             var layer = animatorController.layers.FirstOrDefault(l => l.name == "USSPS_Locomotion");
