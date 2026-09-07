@@ -1696,7 +1696,10 @@ namespace jp.unisakistudio.posingsystemeditor
                                         rootBinding.propertyName = "RootT.z";
                                         AnimationUtility.GetFloatValue(workingAvatar, rootBinding, out rootT.z);
 
-                                        rootT -= new Vector3(headPosision.x, 0, headPosision.z);
+                                        rootT -= GetHorizontalOffsetInRootUnits(
+                                            workingAvatar.transform,
+                                            headPosision,
+                                            workingAnimator.humanScale);
                                         if (binding.propertyName == "RootT.x")
                                             rootTxList.Add(rootT.x);
                                         if (binding.propertyName == "RootT.y")
@@ -2197,6 +2200,18 @@ namespace jp.unisakistudio.posingsystemeditor
                     Object.DestroyImmediate(workingAvatar);
                 }
             }
+        }
+
+        private static Vector3 GetHorizontalOffsetInRootUnits(
+            Transform avatarRoot,
+            Vector3 worldPosition,
+            float humanScale)
+        {
+            // RootT uses humanScale units. Rotate the world offset into avatar axes while
+            // preserving its meter magnitude, then normalize it by the humanoid scale.
+            var worldOffset = worldPosition - avatarRoot.position;
+            var avatarSpaceOffset = Quaternion.Inverse(avatarRoot.rotation) * worldOffset;
+            return new Vector3(avatarSpaceOffset.x, 0f, avatarSpaceOffset.z) / humanScale;
         }
 
         private static bool HasValidHumanoidAnimator(GameObject avatarObject)
