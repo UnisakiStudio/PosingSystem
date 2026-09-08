@@ -188,11 +188,12 @@ namespace jp.unisakistudio.posingsystemeditor
                     }
                 });
 
-            // アバターの高さ構造（humanScale・Armatureスケール）をTransformingフェーズで変更するツール
-            // （FloorAdjuster等）の適用後に、ベイク済みの姿勢RootT.yカーブを最終アバター基準へ補正する
+            // Narazaka FloorAdjusterの適用後に、ベイク済みの姿勢RootT.yカーブを補正する。
+            // MA Floor Adjusterは自身でHumanoidを再構築するため、そのlate処理より前に固定して正常系を変えない。
             InPhase(BuildPhase.Transforming)
                 .AfterPlugin("nadena.dev.modular-avatar")
                 .AfterPlugin("net.narazaka.vrchat.floor_adjuster")
+                .BeforePlugin("nadena.dev.modular-avatar.late-transform-stages")
                 .Run("Recalibrate pose height", ctx =>
                 {
                     RecalibratePoseHeight(ctx);
