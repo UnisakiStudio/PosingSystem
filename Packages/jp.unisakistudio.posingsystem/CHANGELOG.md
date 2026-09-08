@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.0.14] - 2026-09-09
+- 同一アバターに複数のポーズツールを導入した際、2つ目以降の「ジェスチャー無効」メニュー項目が消える不具合を修正
+- SleepDownなどの姿勢を指定しても、USSPS_LocomotionレイヤーがStandingへ戻る場合がある不具合を修正
+- FloorAdjusterとの併用時に、ポーズの高さやX/Z位置がずれる不具合を修正し、MA版とAAO版の処理順に対応
+- Generated内のプレビルド済みAnimatorControllerが削除された場合、標準のPosingSystem_Locomotionへ自動復旧するよう改善
+- 立ちポーズをすべて削除した構成でビルドエラーになる不具合を修正
+- プリセット一覧をアバター名順に表示するよう改善
+
 ## [3.0.13] - 2026-09-04
 - VRモードでしゃがみ始めた直後に立ちへ戻すと、立ち姿勢への自己遷移が発生して姿勢復帰が不安定になる不具合を修正
 
