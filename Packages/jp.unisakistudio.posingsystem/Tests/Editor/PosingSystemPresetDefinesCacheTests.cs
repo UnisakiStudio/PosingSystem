@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using NUnit.Framework;
 
@@ -46,6 +48,29 @@ namespace jp.unisakistudio.posingsystemeditor.tests
             Assert.AreSame(first, second);
             Assert.Greater(firstLoadCount, 0);
             Assert.AreEqual(firstLoadCount, GetProperty<int>("AssetLoadRequestCount"));
+        }
+
+        [Test]
+        public void SortPresetDefinesByAvatarName_SortsNamesAndKeepsUnnamedLast()
+        {
+            var alpha = new PosingSystemPresetDefines.PresetDefine { avatarName = "alpha" };
+            var bravo = new PosingSystemPresetDefines.PresetDefine { avatarName = "Bravo" };
+            var charlie = new PosingSystemPresetDefines.PresetDefine { avatarName = "charlie" };
+            var unnamed = new PosingSystemPresetDefines.PresetDefine { avatarName = null };
+            var whitespace = new PosingSystemPresetDefines.PresetDefine { avatarName = " " };
+            var presetDefines = new[] { charlie, unnamed, bravo, whitespace, alpha };
+            var method = typeof(PosingSystemEditor).GetMethod(
+                "SortPresetDefinesByAvatarName",
+                BindingFlags.Static | BindingFlags.NonPublic);
+
+            Assert.IsNotNull(method);
+            var sorted = (List<PosingSystemPresetDefines.PresetDefine>)method.Invoke(
+                null,
+                new object[] { presetDefines });
+
+            CollectionAssert.AreEqual(
+                new[] { alpha, bravo, charlie, unnamed, whitespace },
+                sorted);
         }
 
         private object Invoke(string methodName, params object[] arguments)

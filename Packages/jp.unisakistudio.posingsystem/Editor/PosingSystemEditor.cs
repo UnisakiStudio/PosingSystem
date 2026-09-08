@@ -236,12 +236,23 @@ namespace jp.unisakistudio.posingsystemeditor
                 if (matchesPrefab || matchesName)
                 {
                     _availablePresetDefines.Add(presetDefine);
-                    _presetDefineNames.Add(presetDefine.avatarName);
                 }
             }
 
+            _availablePresetDefines = SortPresetDefinesByAvatarName(_availablePresetDefines);
+            _presetDefineNames.AddRange(_availablePresetDefines.Select(presetDefine => presetDefine.avatarName));
+
             _selectedPresetDefineIndex = 0;
             _presetDefinesLoaded = true;
+        }
+
+        private static List<PosingSystemPresetDefines.PresetDefine> SortPresetDefinesByAvatarName(
+            IEnumerable<PosingSystemPresetDefines.PresetDefine> presetDefines)
+        {
+            return presetDefines
+                .OrderBy(presetDefine => string.IsNullOrWhiteSpace(presetDefine.avatarName))
+                .ThenBy(presetDefine => presetDefine.avatarName, StringComparer.CurrentCultureIgnoreCase)
+                .ToList();
         }
 
         private void ApplySelectedPreset()
