@@ -388,9 +388,9 @@ namespace jp.unisakistudio.posingsystemeditor
 
         // Resolvingフェーズで記録した高さと最終アバターの高さを比較し、差があればベイク済みRootT.yカーブを補正する。
         // FloorAdjusterのようにTransformingフェーズでhumanScale・Armatureスケール・ViewPositionを変更するツールは、
-        // 変換時にベイクした姿勢の基準を無効にしてしまう（視点ズレ・寝姿勢での膝の異常屈曲）。
-        // どちらの方式でも「立ち姿勢(RootT.y=1)がheightDiffだけ持ち上がる」ため、実行時単位はbaseUnit+heightDiffになる。
-        // 全姿勢を一律heightDiffだけ持ち上げるよう、 y' = (y * baseUnit + heightDiff) / (baseUnit + heightDiff) で変換する
+        // 変換時にベイクした姿勢の正規化単位を無効にしてしまう（視点ズレ・寝姿勢での膝の異常屈曲）。
+        // RootT.yは正規化単位なので、実寸のオフセットを保つよう y' = y * baseUnit / finalUnit で単位換算する。
+        // 高さ差そのものを加算するとRootT.y=0の床接地ポーズまで持ち上がるため、オフセットは加えない。
         private void RecalibratePoseHeight(BuildContext ctx)
         {
             if (ctx == null || ctx.AvatarRootObject == null)
@@ -444,20 +444,20 @@ namespace jp.unisakistudio.posingsystemeditor
                     {
                         continue;
                     }
-                    RecalibrateStateMachine(ctx, layer.stateMachine, fixedMotions, baseUnit, heightDiff, finalUnit);
+                    RecalibrateStateMachine(ctx, layer.stateMachine, fixedMotions, baseUnit, finalUnit);
                 }
             }
 
             Debug.Log($"[PosingSystem] アバターの高さ調整({heightDiff:+0.###;-0.###}m)をビルド中に検出したため、姿勢の高さ基準を補正しました。");
         }
 
-        private void RecalibrateStateMachine(BuildContext ctx, AnimatorStateMachine stateMachine, Dictionary<Motion, Motion> fixedMotions, float baseUnit, float heightDiff, float finalUnit)
+        private void RecalibrateStateMachine(BuildContext ctx, AnimatorStateMachine stateMachine, Dictionary<Motion, Motion> fixedMotions, float baseUnit, float finalUnit)
         {
             foreach (var childStateMachine in stateMachine.stateMachines)
             {
                 if (childStateMachine.stateMachine != null)
                 {
-                    RecalibrateStateMachine(ctx, childStateMachine.stateMachine, fixedMotions, baseUnit, heightDiff, finalUnit);
+                    RecalibrateStateMachine(ctx, childStateMachine.stateMachine, fixedMotions, baseUnit, finalUnit);
                 }
             }
             foreach (var state in stateMachine.states)
@@ -468,11 +468,11 @@ namespace jp.unisakistudio.posingsystemeditor
                 {
                     continue;
                 }
-                state.state.motion = RecalibrateMotion(ctx, motion, fixedMotions, baseUnit, heightDiff, finalUnit);
+                state.state.motion = RecalibrateMotion(ctx, motion, fixedMotions, baseUnit, finalUnit);
             }
         }
 
-        private Motion RecalibrateMotion(BuildContext ctx, Motion motion, Dictionary<Motion, Motion> fixedMotions, float baseUnit, float heightDiff, float finalUnit)
+        private Motion RecalibrateMotion(BuildContext ctx, Motion motion, Dictionary<Motion, Motion> fixedMotions, float baseUnit, float finalUnit)
         {
             if (motion == null)
             {
@@ -516,7 +516,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 var keys = curve.keys;
                 for (int i = 0; i < keys.Length; i++)
                 {
-                    keys[i].value = (keys[i].value * baseUnit + heightDiff) / finalUnit;
+                    keys[i].value *= unitScale;
                     keys[i].inTangent *= unitScale;
                     keys[i].outTangent *= unitScale;
                 }
@@ -540,7 +540,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 var changed = false;
                 for (int i = 0; i < children.Length; i++)
                 {
-                    var fixedChild = RecalibrateMotion(ctx, children[i].motion, fixedMotions, baseUnit, heightDiff, finalUnit);
+                    var fixedChild = RecalibrateMotion(ctx, children[i].motion, fixedMotions, baseUnit, finalUnit);
                     if (fixedChild != children[i].motion)
                     {
                         children[i].motion = fixedChild;

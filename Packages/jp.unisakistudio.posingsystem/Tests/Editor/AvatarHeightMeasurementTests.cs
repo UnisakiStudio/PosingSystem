@@ -166,7 +166,7 @@ namespace jp.unisakistudio.posingsystemeditor.tests
                 var clip = new AnimationClip { name = "_USSPS_Test_footheight_clip" };
                 var binding = EditorCurveBinding.FloatCurve(string.Empty, typeof(Animator), "RootT.y");
                 AnimationUtility.SetEditorCurve(clip, binding,
-                    new AnimationCurve(new Keyframe(0f, 0.5f)));
+                    new AnimationCurve(new Keyframe(0f, 0f), new Keyframe(1f, 0.5f)));
 
                 var tree = new BlendTree { name = "_USSPS_Test_footheight" };
                 tree.children = new[]
@@ -189,12 +189,15 @@ namespace jp.unisakistudio.posingsystemeditor.tests
                 var fixedMotions = new Dictionary<Motion, Motion>();
 
                 var result = (Motion)method.Invoke(converter,
-                    new object[] { context, tree, fixedMotions, 1f, 0.25f, 1.25f });
+                    new object[] { context, tree, fixedMotions, 1f, 1.25f });
 
                 Assert.AreSame(tree, result, "NDMF一時BlendTreeを再複製しないこと");
                 Assert.AreSame(clip, tree.children[0].motion, "NDMF一時AnimationClipを再複製しないこと");
                 var recalibratedCurve = AnimationUtility.GetEditorCurve(clip, binding);
-                Assert.AreEqual(0.6f, recalibratedCurve.keys[0].value, 0.00001f);
+                Assert.AreEqual(0f, recalibratedCurve.keys[0].value, 0.00001f,
+                    "床接地ポーズを高さ差だけ持ち上げないこと");
+                Assert.AreEqual(0.4f, recalibratedCurve.keys[1].value, 0.00001f,
+                    "RootT.yの実寸オフセットを維持すること");
             }
             finally
             {
@@ -251,7 +254,6 @@ namespace jp.unisakistudio.posingsystemeditor.tests
                     sourceTree,
                     new Dictionary<Motion, Motion>(),
                     1f,
-                    0.25f,
                     1.25f
                 });
                 var resultClip = (AnimationClip)resultTree.children[0].motion;
@@ -262,7 +264,7 @@ namespace jp.unisakistudio.posingsystemeditor.tests
                 Assert.AreEqual(AssetDatabase.GetAssetPath(context.AssetContainer), AssetDatabase.GetAssetPath(resultClip));
                 Assert.AreEqual(0.5f, AnimationUtility.GetEditorCurve(sourceClip, binding).keys[0].value, 0.00001f,
                     "元AnimationClipのカーブを保持すること");
-                Assert.AreEqual(0.6f, AnimationUtility.GetEditorCurve(resultClip, binding).keys[0].value, 0.00001f,
+                Assert.AreEqual(0.4f, AnimationUtility.GetEditorCurve(resultClip, binding).keys[0].value, 0.00001f,
                     "複製したAnimationClipだけを補正すること");
             }
             finally
