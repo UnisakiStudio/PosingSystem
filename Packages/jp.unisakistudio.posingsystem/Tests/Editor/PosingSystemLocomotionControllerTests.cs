@@ -1,8 +1,11 @@
 using System.Linq;
+using jp.unisakistudio.posingsystem;
+using nadena.dev.modular_avatar.core;
 using NUnit.Framework;
 using UnityEditor;
 using UnityEditor.Animations;
 using UnityEngine;
+using VRC.SDK3.Avatars.Components;
 
 namespace jp.unisakistudio.posingsystemeditor.tests
 {
@@ -111,6 +114,51 @@ namespace jp.unisakistudio.posingsystemeditor.tests
                     Object.DestroyImmediate(transition);
                 }
                 Object.DestroyImmediate(state);
+            }
+        }
+
+        [Test]
+        public void GetPrebuiltMergeAnimator_RestoresMissingCandidateAndUsesValidCustomController()
+        {
+            var avatarObject = new GameObject("MissingLocomotionControllerAvatar");
+            var customController = new AnimatorController();
+
+            try
+            {
+                avatarObject.AddComponent<VRCAvatarDescriptor>();
+                var posingSystemObject = new GameObject("PosingSystem");
+                posingSystemObject.transform.SetParent(avatarObject.transform, false);
+                var posingSystem = posingSystemObject.AddComponent<PosingSystem>();
+
+                var missingObject = new GameObject("MissingCommonAnimator");
+                missingObject.transform.SetParent(posingSystemObject.transform, false);
+                missingObject.AddComponent<DuplicateEraser>().ID =
+                    "jp.unisakistudio.posingsystem_locomotion";
+                var missingMergeAnimator = missingObject.AddComponent<ModularAvatarMergeAnimator>();
+                missingMergeAnimator.animator = null;
+
+                var customObject = new GameObject("ValidCustomAnimator");
+                customObject.transform.SetParent(posingSystemObject.transform, false);
+                customObject.AddComponent<DuplicateEraser>().ID =
+                    "jp.unisakistudio.posingsystem_locomotion";
+                var customMergeAnimator = customObject.AddComponent<ModularAvatarMergeAnimator>();
+                customMergeAnimator.animator = customController;
+
+                var result = PosingSystemConverter.GetPrebuiltMergeAnimator(posingSystem);
+                var defaultController = AssetDatabase.LoadAssetAtPath<AnimatorController>(ControllerPath);
+
+                Assert.That(defaultController, Is.Not.Null);
+                Assert.That(missingMergeAnimator.animator, Is.SameAs(defaultController),
+                    "MissingになったControllerを標準Locomotionへ復旧すること");
+                Assert.That(result, Is.SameAs(customMergeAnimator),
+                    "復旧した標準Controllerではなく、有効なカスタムControllerを再利用すること");
+                Assert.That(customMergeAnimator.animator, Is.SameAs(customController),
+                    "有効なカスタムControllerを上書きしないこと");
+            }
+            finally
+            {
+                Object.DestroyImmediate(avatarObject);
+                Object.DestroyImmediate(customController);
             }
         }
 

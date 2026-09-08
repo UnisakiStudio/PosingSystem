@@ -752,6 +752,29 @@ namespace jp.unisakistudio.posingsystemeditor
 
         }
 
+        private static AnimatorController FindDefaultLocomotionController()
+        {
+            return AssetDatabase.FindAssets("l:USSPS_Locomotion")
+                .Select(AssetDatabase.GUIDToAssetPath)
+                .Select(AssetDatabase.LoadAssetAtPath<AnimatorController>)
+                .FirstOrDefault();
+        }
+
+        private static AnimatorController RestoreMissingLocomotionController(ModularAvatarMergeAnimator maMergeAnimator)
+        {
+            if (!maMergeAnimator || maMergeAnimator.animator)
+            {
+                return maMergeAnimator != null ? maMergeAnimator.animator as AnimatorController : null;
+            }
+
+            var locomotionController = FindDefaultLocomotionController();
+            if (locomotionController)
+            {
+                maMergeAnimator.animator = locomotionController;
+                EditorUtility.SetDirty(maMergeAnimator);
+            }
+            return locomotionController;
+        }
         public static ModularAvatarMergeAnimator GetCommonMergeAnimator(PosingSystem posingSystem, bool doRecover = false)
         {
             var avatar = posingSystem.GetAvatar();
@@ -777,11 +800,8 @@ namespace jp.unisakistudio.posingsystemeditor
             {
                 if (doRecover)
                 {
-                    // PosingSystemLocomotion.controllerを探してセットしちゃう
-                    var locomotionController = AssetDatabase.FindAssets("l:USSPS_Locomotion")
-                        .Select(AssetDatabase.GUIDToAssetPath)
-                        .Select(AssetDatabase.LoadAssetAtPath<AnimatorController>)
-                        .FirstOrDefault();
+                    // PosingSystemLocomotion.controllerを探して復旧する
+                    var locomotionController = RestoreMissingLocomotionController(maMergeAnimator);
                     if (locomotionController)
                     {
                         maMergeAnimator.animator = locomotionController;
@@ -809,32 +829,34 @@ namespace jp.unisakistudio.posingsystemeditor
                 return null;
             }
             // まずはプレビルド済みAnimatorを探す
-            var animatorDuplicateErase = avatar.GetComponentsInChildren<DuplicateEraser>()
-                .Where(d => d.gameObject.tag != "EditorOnly")
-                .Where(d => d.ID == "jp.unisakistudio.posingsystem_locomotion")
-                .Select(d => d.GetComponent<ModularAvatarMergeAnimator>())
-                .Where(m => m != null && !((m.animator as AnimatorController).layers.Any(l => l.name == "USSPS_IsDefault")))
-                .Select(m => m.GetComponent<DuplicateEraser>())
-                .FirstOrDefault();
-
-            if (!animatorDuplicateErase)
+            foreach (var animatorDuplicateErase in avatar.GetComponentsInChildren<DuplicateEraser>()
+                         .Where(d => d.gameObject.tag != "EditorOnly")
+                         .Where(d => d.ID == "jp.unisakistudio.posingsystem_locomotion"))
             {
-                return null;
+                var maMergeAnimator = animatorDuplicateErase.GetComponent<ModularAvatarMergeAnimator>();
+                if (!maMergeAnimator)
+                {
+                    continue;
+                }
+
+                // Generated内のControllerが削除されてMissingになった場合は、標準Controllerへ戻す。
+                // 標準ControllerはUSSPS_IsDefaultレイヤーを持つため、プレビルド済み候補からは除外される。
+                var animatorController = maMergeAnimator.animator as AnimatorController;
+                if (animatorController == null && !maMergeAnimator.animator)
+                {
+                    animatorController = RestoreMissingLocomotionController(maMergeAnimator);
+                }
+                if (animatorController == null)
+                {
+                    continue;
+                }
+                if (!animatorController.layers.Any(l => l.name == "USSPS_IsDefault"))
+                {
+                    return maMergeAnimator;
+                }
             }
 
-            var maMergeAnimator = animatorDuplicateErase.GetComponent<ModularAvatarMergeAnimator>();
-            if (!maMergeAnimator)
-            {
-                Debug.LogError("[PosingSystem]ポージングシステム用の共通ポージングMAMergeAnimatorが見つかりません");
-                throw new System.Exception("ポージングシステム用の共通ポージングMAMergeAnimatorが見つかりません");
-            }
-            if (!maMergeAnimator.animator)
-            {
-                Debug.LogError("[PosingSystem]ポージングシステム用の共通ポージングMAMergeAnimatorにAnimatorが設定されていません");
-                throw new System.Exception("ポージングシステム用の共通ポージングMAMergeAnimatorにAnimatorが設定されていません");
-            }
-
-            return maMergeAnimator;
+            return null;
         }
 
         public static void ConvertToModularAvatarComponents(PosingSystem posingSystem, IAssetSaver assetSaver = null)
