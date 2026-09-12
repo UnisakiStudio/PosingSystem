@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.0.15] - 2026-09-13
+- Hipsのスケール変更とFloorAdjusterを併用したアバターで、仰向け姿勢の首固定を切り替えると身体位置や膝の曲がり方が大きく変わる不具合を修正
+
 ## [3.0.14] - 2026-09-09
 - 同一アバターに複数のポーズツールを導入した際、2つ目以降の「ジェスチャー無効」メニュー項目が消える不具合を修正
 - SleepDownなどの姿勢を指定しても、USSPS_LocomotionレイヤーがStandingへ戻る場合がある不具合を修正
