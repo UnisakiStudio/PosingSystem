@@ -178,25 +178,25 @@ namespace jp.unisakistudio.posingsystemeditor
                         }
                     }
 
-                    // FloorAdjuster等、Transformingフェーズでアバターの高さ構造を変更するツールとの
-                    // 整合をとるため、変換基準時点の高さ情報を記録する（Transforming末尾の再校正パスで使用）
+                    // FloorAdjuster等、TransformingフェーズでHumanoidのRootT基準を変更するツールとの
+                    // 整合をとるため、変換基準時点のRootT 1単位の実寸を記録する。
                     if (ctx.AvatarRootObject.GetComponentsInChildren<PosingSystem>().Any(ps => ps.tag != "EditorOnly"))
                     {
-                        var calibration = ctx.GetState<HeightCalibrationState>();
-                        MeasureAvatarHeight(ctx.AvatarRootObject, out calibration.baseHumanScale, out calibration.baseHeadHeight);
-                        calibration.measured = calibration.baseHumanScale > 0 && calibration.baseHeadHeight > 0;
+                        var calibration = ctx.GetState<RootTranslationCalibrationState>();
+                        MeasureRootTranslationUnits(ctx.AvatarRootObject, out calibration.baseUnits);
+                        calibration.measured = HasValidRootTranslationUnits(calibration.baseUnits);
                     }
                 });
 
-            // Narazaka FloorAdjusterの適用後に、ベイク済みの姿勢RootT.yカーブを補正する。
+            // Narazaka FloorAdjusterの適用後に、ベイク済みの姿勢RootTカーブを補正する。
             // MA Floor Adjusterは自身でHumanoidを再構築するため、そのlate処理より前に固定して正常系を変えない。
             InPhase(BuildPhase.Transforming)
                 .AfterPlugin("nadena.dev.modular-avatar")
                 .AfterPlugin("net.narazaka.vrchat.floor_adjuster")
                 .BeforePlugin("nadena.dev.modular-avatar.late-transform-stages")
-                .Run("Recalibrate pose height", ctx =>
+                .Run("Recalibrate pose root translation", ctx =>
                 {
-                    RecalibratePoseHeight(ctx);
+                    RecalibratePoseRootTranslation(ctx);
                 });
 
             // トラッキング機能の統合（プレビルドでは実行しない、NDMFビルド時のみ、MAの前）
@@ -275,123 +275,117 @@ namespace jp.unisakistudio.posingsystemeditor
                 });
         }
 
-        // 変換基準時点（Resolvingフェーズ）のアバター高さ情報。Transformingフェーズの再校正パスと共有する
-        private class HeightCalibrationState
+        // 変換基準時点（Resolvingフェーズ）のRootT実寸。Transformingフェーズの再校正パスと共有する
+        private class RootTranslationCalibrationState
         {
             public bool measured;
-            public float baseHumanScale;
-            public float baseHeadHeight;
+            public Vector3 baseUnits;
         }
 
-        // RootT.y=1のクリップをサンプリングして、humanScaleと頭ボーンの高さ（アバタールート基準）を計測する
-        private static void MeasureAvatarHeight(GameObject avatarRoot, out float humanScale, out float headHeight)
+        // RootT=0と各軸=1のクリップをサンプリングし、各RootT軸の1単位が実寸で何mかを計測する。
+        // humanScaleや頭の高さから推定せず、FloorAdjuster適用前後の実際のHumanoid変換をそのまま比較する。
+        private static void MeasureRootTranslationUnits(GameObject avatarRoot, out Vector3 units)
         {
-            humanScale = -1;
-            headHeight = -1;
+            units = Vector3.zero;
             if (avatarRoot == null)
             {
                 return;
             }
             var animator = avatarRoot.GetComponent<Animator>();
-            if (animator == null || !animator.isHuman)
-            {
-                return;
-            }
-            if (animator.GetBoneTransform(HumanBodyBones.Head) == null)
+            if (animator == null || !animator.isHuman
+                || animator.GetBoneTransform(HumanBodyBones.Head) == null)
             {
                 return;
             }
 
-            GameObject workingAvatar = null;
-            AnimationClip baseAnimationClip = null;
-            var startedAnimationMode = false;
-            var sampling = false;
+            var workingAvatars = new GameObject[4];
+            var clips = new AnimationClip[4];
             try
             {
-                // Merge Armature前のビルド対象を直接サンプリングすると、呼び出し元のAnimationModeや
-                // コンポーネントのライフサイクルへ干渉するため、計測は破棄可能なクローン上で行う。
-                workingAvatar = Object.Instantiate(avatarRoot);
-                workingAvatar.name = "_PosingSystem_TempMeasureAvatar";
-                workingAvatar.hideFlags = HideFlags.HideAndDontSave;
-                workingAvatar.SetActive(true);
-
-                var workingAnimator = workingAvatar.GetComponent<Animator>();
-                var headBone = workingAnimator != null && workingAnimator.isHuman
-                    ? workingAnimator.GetBoneTransform(HumanBodyBones.Head)
-                    : null;
-                if (headBone == null)
+                var headPositions = new Vector3[4];
+                var unitAxes = new[] { -1, 0, 1, 2 };
+                for (int sampleIndex = 0; sampleIndex < unitAxes.Length; sampleIndex++)
                 {
-                    return;
+                    var workingAvatar = Object.Instantiate(avatarRoot);
+                    workingAvatars[sampleIndex] = workingAvatar;
+                    workingAvatar.name = "_PosingSystem_TempMeasureAvatar";
+                    workingAvatar.hideFlags = HideFlags.HideAndDontSave;
+                    workingAvatar.SetActive(true);
+
+                    var workingAnimator = workingAvatar.GetComponent<Animator>();
+                    var headBone = workingAnimator != null && workingAnimator.isHuman
+                        ? workingAnimator.GetBoneTransform(HumanBodyBones.Head)
+                        : null;
+                    if (headBone == null)
+                    {
+                        return;
+                    }
+
+                    var clip = new AnimationClip
+                    {
+                        name = "_PosingSystem_TempRootTranslationClip",
+                        hideFlags = HideFlags.HideAndDontSave
+                    };
+                    clips[sampleIndex] = clip;
+                    var propertyNames = new[] { "RootT.x", "RootT.y", "RootT.z" };
+                    for (int axis = 0; axis < propertyNames.Length; axis++)
+                    {
+                        var binding = EditorCurveBinding.FloatCurve(
+                            string.Empty, typeof(Animator), propertyNames[axis]);
+                        var value = unitAxes[sampleIndex] == axis ? 1f : 0f;
+                        AnimationUtility.SetEditorCurve(
+                            clip, binding, new AnimationCurve(new Keyframe(0f, value)));
+                    }
+                    AnimationUtility.SetAnimationClipSettings(clip, new AnimationClipSettings
+                    {
+                        keepOriginalOrientation = true,
+                        keepOriginalPositionXZ = true,
+                        keepOriginalPositionY = true
+                    });
+
+                    clip.SampleAnimation(workingAvatar, 0f);
+                    workingAvatar.transform.SetPositionAndRotation(Vector3.zero, Quaternion.identity);
+                    headPositions[sampleIndex] = headBone.position;
                 }
-                humanScale = workingAnimator.humanScale;
 
-                baseAnimationClip = new AnimationClip
-                {
-                    name = "_PosingSystem_TempHeightClip",
-                    hideFlags = HideFlags.HideAndDontSave
-                };
-                var rootTyBinding = new EditorCurveBinding
-                {
-                    path = "",
-                    type = typeof(Animator),
-                    propertyName = "RootT.y"
-                };
-                AnimationUtility.SetEditorCurve(baseAnimationClip, rootTyBinding,
-                    new AnimationCurve(new Keyframe(0, 1)));
-                AnimationUtility.SetAnimationClipSettings(baseAnimationClip, new AnimationClipSettings
-                {
-                    keepOriginalOrientation = true,
-                    keepOriginalPositionXZ = true,
-                    keepOriginalPositionY = true
-                });
-
-                if (!AnimationMode.InAnimationMode())
-                {
-                    AnimationMode.StartAnimationMode();
-                    startedAnimationMode = true;
-                }
-                AnimationMode.BeginSampling();
-                sampling = true;
-                AnimationMode.SampleAnimationClip(workingAvatar, baseAnimationClip, 0);
-                workingAvatar.transform.position = Vector3.zero;
-                workingAvatar.transform.rotation = Quaternion.identity;
-                AnimationMode.EndSampling();
-                sampling = false;
-                headHeight = headBone.position.y;
+                units = new Vector3(
+                    Vector3.Distance(headPositions[0], headPositions[1]),
+                    Vector3.Distance(headPositions[0], headPositions[2]),
+                    Vector3.Distance(headPositions[0], headPositions[3]));
             }
             catch (System.Exception e)
             {
-                Debug.LogError($"[PosingSystem] アバターの高さ計測中にエラーが発生しました: {e.Message}\n{e.StackTrace}");
-                humanScale = -1;
-                headHeight = -1;
+                Debug.LogError($"[PosingSystem] RootT基準の計測中にエラーが発生しました: {e.Message}\n{e.StackTrace}");
+                units = Vector3.zero;
             }
             finally
             {
-                if (sampling)
+                foreach (var clip in clips)
                 {
-                    AnimationMode.EndSampling();
+                    if (clip != null)
+                    {
+                        Object.DestroyImmediate(clip);
+                    }
                 }
-                if (startedAnimationMode && AnimationMode.InAnimationMode())
+                foreach (var workingAvatar in workingAvatars)
                 {
-                    AnimationMode.StopAnimationMode();
-                }
-                if (baseAnimationClip != null)
-                {
-                    Object.DestroyImmediate(baseAnimationClip);
-                }
-                if (workingAvatar != null)
-                {
-                    Object.DestroyImmediate(workingAvatar);
+                    if (workingAvatar != null)
+                    {
+                        Object.DestroyImmediate(workingAvatar);
+                    }
                 }
             }
         }
 
-        // Resolvingフェーズで記録した高さと最終アバターの高さを比較し、差があればベイク済みRootT.yカーブを補正する。
-        // FloorAdjusterのようにTransformingフェーズでhumanScale・Armatureスケール・ViewPositionを変更するツールは、
-        // 変換時にベイクした姿勢の正規化単位を無効にしてしまう（視点ズレ・寝姿勢での膝の異常屈曲）。
-        // RootT.yは正規化単位なので、実寸のオフセットを保つよう y' = y * baseUnit / finalUnit で単位換算する。
-        // 高さ差そのものを加算するとRootT.y=0の床接地ポーズまで持ち上がるため、オフセットは加えない。
-        private void RecalibratePoseHeight(BuildContext ctx)
+        private static bool HasValidRootTranslationUnits(Vector3 units)
+        {
+            return units.x > 0.0001f && units.y > 0.0001f && units.z > 0.0001f;
+        }
+
+        // Resolvingフェーズで記録したRootT各軸の実寸と、Transforming後の実寸を比較して
+        // ベイク済みRootTカーブを補正する。FloorAdjusterの方式や実装に依存せず、
+        // 変換前後で同じワールド距離になるよう各軸を baseUnit / finalUnit で換算する。
+        private void RecalibratePoseRootTranslation(BuildContext ctx)
         {
             if (ctx == null || ctx.AvatarRootObject == null)
             {
@@ -403,28 +397,25 @@ namespace jp.unisakistudio.posingsystemeditor
                 return;
             }
 
-            var calibration = ctx.GetState<HeightCalibrationState>();
+            var calibration = ctx.GetState<RootTranslationCalibrationState>();
             if (!calibration.measured)
             {
                 return;
             }
 
-            MeasureAvatarHeight(ctx.AvatarRootObject, out _, out var finalHeadHeight);
-            if (finalHeadHeight <= 0)
+            MeasureRootTranslationUnits(ctx.AvatarRootObject, out var finalUnits);
+            if (!HasValidRootTranslationUnits(finalUnits))
             {
                 return;
             }
 
-            var heightDiff = finalHeadHeight - calibration.baseHeadHeight;
-            // 高さ構造の変更がなければ何もしない（通常のビルドはここで終わる）
-            if (Mathf.Abs(heightDiff) < 0.0005f)
-            {
-                return;
-            }
-
-            var baseUnit = calibration.baseHumanScale;
-            var finalUnit = baseUnit + heightDiff;
-            if (baseUnit <= 0 || finalUnit <= 0)
+            var unitScale = new Vector3(
+                calibration.baseUnits.x / finalUnits.x,
+                calibration.baseUnits.y / finalUnits.y,
+                calibration.baseUnits.z / finalUnits.z);
+            if (Mathf.Abs(unitScale.x - 1f) < 0.0005f
+                && Mathf.Abs(unitScale.y - 1f) < 0.0005f
+                && Mathf.Abs(unitScale.z - 1f) < 0.0005f)
             {
                 return;
             }
@@ -432,32 +423,58 @@ namespace jp.unisakistudio.posingsystemeditor
             var descriptor = ctx.AvatarDescriptor;
             var fixedMotions = new Dictionary<Motion, Motion>();
             var processedControllers = new HashSet<AnimatorController>();
-            foreach (var customLayer in descriptor.baseAnimationLayers.Concat(descriptor.specialAnimationLayers))
+            GameObject workingAvatar = null;
+            try
             {
-                if (customLayer.animatorController is not AnimatorController animatorController || !processedControllers.Add(animatorController))
+                // 全ポーズで共有する計測用クローン。ポーズごとにアバター全体を複製しない。
+                workingAvatar = Object.Instantiate(ctx.AvatarRootObject);
+                workingAvatar.name = "_PosingSystem_TempRecenterAvatar";
+                workingAvatar.hideFlags = HideFlags.HideAndDontSave;
+                workingAvatar.SetActive(true);
+
+                foreach (var customLayer in descriptor.baseAnimationLayers.Concat(descriptor.specialAnimationLayers))
                 {
-                    continue;
-                }
-                foreach (var layer in animatorController.layers)
-                {
-                    if (layer.stateMachine == null)
+                    if (customLayer.animatorController is not AnimatorController animatorController
+                        || !processedControllers.Add(animatorController))
                     {
                         continue;
                     }
-                    RecalibrateStateMachine(ctx, layer.stateMachine, fixedMotions, baseUnit, finalUnit);
+                    foreach (var layer in animatorController.layers)
+                    {
+                        if (layer.stateMachine == null)
+                        {
+                            continue;
+                        }
+                        RecalibrateStateMachine(
+                            ctx, layer.stateMachine, fixedMotions, unitScale, finalUnits, workingAvatar);
+                    }
+                }
+            }
+            finally
+            {
+                if (workingAvatar != null)
+                {
+                    Object.DestroyImmediate(workingAvatar);
                 }
             }
 
-            Debug.Log($"[PosingSystem] アバターの高さ調整({heightDiff:+0.###;-0.###}m)をビルド中に検出したため、姿勢の高さ基準を補正しました。");
+            Debug.Log(
+                $"[PosingSystem] RootT基準の変化をビルド中に検出したため、姿勢を補正しました。" +
+                $" X:{calibration.baseUnits.x:0.###}→{finalUnits.x:0.###}m" +
+                $" Y:{calibration.baseUnits.y:0.###}→{finalUnits.y:0.###}m" +
+                $" Z:{calibration.baseUnits.z:0.###}→{finalUnits.z:0.###}m");
         }
 
-        private void RecalibrateStateMachine(BuildContext ctx, AnimatorStateMachine stateMachine, Dictionary<Motion, Motion> fixedMotions, float baseUnit, float finalUnit)
+        private void RecalibrateStateMachine(
+            BuildContext ctx, AnimatorStateMachine stateMachine,
+            Dictionary<Motion, Motion> fixedMotions, Vector3 unitScale,
+            Vector3 finalUnits, GameObject workingAvatar)
         {
             foreach (var childStateMachine in stateMachine.stateMachines)
             {
                 if (childStateMachine.stateMachine != null)
                 {
-                    RecalibrateStateMachine(ctx, childStateMachine.stateMachine, fixedMotions, baseUnit, finalUnit);
+                    RecalibrateStateMachine(ctx, childStateMachine.stateMachine, fixedMotions, unitScale, finalUnits, workingAvatar);
                 }
             }
             foreach (var state in stateMachine.states)
@@ -468,11 +485,13 @@ namespace jp.unisakistudio.posingsystemeditor
                 {
                     continue;
                 }
-                state.state.motion = RecalibrateMotion(ctx, motion, fixedMotions, baseUnit, finalUnit);
+                state.state.motion = RecalibrateMotion(ctx, motion, fixedMotions, unitScale, finalUnits, workingAvatar);
             }
         }
 
-        private Motion RecalibrateMotion(BuildContext ctx, Motion motion, Dictionary<Motion, Motion> fixedMotions, float baseUnit, float finalUnit)
+        private Motion RecalibrateMotion(
+            BuildContext ctx, Motion motion, Dictionary<Motion, Motion> fixedMotions,
+            Vector3 unitScale, Vector3 finalUnits, GameObject workingAvatar)
         {
             if (motion == null)
             {
@@ -491,9 +510,12 @@ namespace jp.unisakistudio.posingsystemeditor
                     fixedMotions[motion] = animationClip;
                     return animationClip;
                 }
-                var rootTyBinding = EditorCurveBinding.FloatCurve(string.Empty, typeof(Animator), "RootT.y");
-                var curve = AnimationUtility.GetEditorCurve(animationClip, rootTyBinding);
-                if (curve == null)
+                var rootTranslationBindings = new[] { "RootT.x", "RootT.y", "RootT.z" }
+                    .Select(propertyName => EditorCurveBinding.FloatCurve(
+                        string.Empty, typeof(Animator), propertyName))
+                    .ToArray();
+                if (!rootTranslationBindings.Any(binding =>
+                        AnimationUtility.GetEditorCurve(animationClip, binding) != null))
                 {
                     fixedMotions[motion] = animationClip;
                     return animationClip;
@@ -512,23 +534,35 @@ namespace jp.unisakistudio.posingsystemeditor
                     AssetDatabase.AddObjectToAsset(targetClip, ctx.AssetContainer);
                 }
 
-                var unitScale = baseUnit / finalUnit;
-                var keys = curve.keys;
-                for (int i = 0; i < keys.Length; i++)
+                for (int bindingIndex = 0; bindingIndex < rootTranslationBindings.Length; bindingIndex++)
                 {
-                    keys[i].value *= unitScale;
-                    keys[i].inTangent *= unitScale;
-                    keys[i].outTangent *= unitScale;
+                    var binding = rootTranslationBindings[bindingIndex];
+                    var axisScale = bindingIndex == 0 ? unitScale.x : bindingIndex == 1 ? unitScale.y : unitScale.z;
+                    var curve = AnimationUtility.GetEditorCurve(targetClip, binding);
+                    if (curve == null)
+                    {
+                        continue;
+                    }
+
+                    var keys = curve.keys;
+                    for (int i = 0; i < keys.Length; i++)
+                    {
+                        keys[i].value *= axisScale;
+                        keys[i].inTangent *= axisScale;
+                        keys[i].outTangent *= axisScale;
+                    }
+                    AnimationUtility.SetEditorCurve(targetClip, binding, new AnimationCurve(keys));
                 }
-                AnimationUtility.SetEditorCurve(targetClip, rootTyBinding, new AnimationCurve(keys));
 
                 // FootHeight用のlevelオフセット（正規化単位）も実寸を保つよう縮尺を合わせる
                 var clipSetting = AnimationUtility.GetAnimationClipSettings(targetClip);
                 if (!Mathf.Approximately(clipSetting.level, 0))
                 {
-                    clipSetting.level *= unitScale;
+                    clipSetting.level *= unitScale.y;
                     AnimationUtility.SetAnimationClipSettings(targetClip, clipSetting);
                 }
+
+                RecenterHorizontalRootTranslation(workingAvatar, targetClip, finalUnits);
 
                 fixedMotions[motion] = targetClip;
                 return targetClip;
@@ -540,7 +574,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 var changed = false;
                 for (int i = 0; i < children.Length; i++)
                 {
-                    var fixedChild = RecalibrateMotion(ctx, children[i].motion, fixedMotions, baseUnit, finalUnit);
+                    var fixedChild = RecalibrateMotion(ctx, children[i].motion, fixedMotions, unitScale, finalUnits, workingAvatar);
                     if (fixedChild != children[i].motion)
                     {
                         children[i].motion = fixedChild;
@@ -568,6 +602,64 @@ namespace jp.unisakistudio.posingsystemeditor
 
             fixedMotions[motion] = motion;
             return motion;
+        }
+
+        // FloorAdjuster適用後の最終Humanoid上でポーズをサンプリングし、
+        // 変換前にHead基準で作ったXZ中心を再確定する。元の生成処理と同じく時刻0の
+        // Headオフセットを全キーへ一定量だけ反映するため、カーブの動き自体は変えない。
+        private static void RecenterHorizontalRootTranslation(
+            GameObject workingAvatar, AnimationClip clip, Vector3 finalUnits)
+        {
+            if (workingAvatar == null || clip == null || !HasValidRootTranslationUnits(finalUnits))
+            {
+                return;
+            }
+
+            try
+            {
+                var animator = workingAvatar.GetComponent<Animator>();
+                var headBone = animator != null && animator.isHuman
+                    ? animator.GetBoneTransform(HumanBodyBones.Head)
+                    : null;
+                if (headBone == null)
+                {
+                    return;
+                }
+
+                clip.SampleAnimation(workingAvatar, 0f);
+                workingAvatar.transform.SetPositionAndRotation(Vector3.zero, Quaternion.identity);
+                var worldOffset = headBone.position - workingAvatar.transform.position;
+                var avatarSpaceOffset =
+                    Quaternion.Inverse(workingAvatar.transform.rotation) * worldOffset;
+                var offsets = new[]
+                {
+                    avatarSpaceOffset.x / finalUnits.x,
+                    avatarSpaceOffset.z / finalUnits.z
+                };
+                var propertyNames = new[] { "RootT.x", "RootT.z" };
+                for (int axis = 0; axis < propertyNames.Length; axis++)
+                {
+                    var binding = EditorCurveBinding.FloatCurve(
+                        string.Empty, typeof(Animator), propertyNames[axis]);
+                    var curve = AnimationUtility.GetEditorCurve(clip, binding);
+                    if (curve == null)
+                    {
+                        continue;
+                    }
+
+                    var keys = curve.keys;
+                    for (int i = 0; i < keys.Length; i++)
+                    {
+                        keys[i].value -= offsets[axis];
+                    }
+                    AnimationUtility.SetEditorCurve(clip, binding, new AnimationCurve(keys));
+                }
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogError(
+                    $"[PosingSystem] 姿勢のHead基準XZ再計算中にエラーが発生しました: {e.Message}\n{e.StackTrace}");
+            }
         }
 
         public static bool HasWarning(PosingSystem posingSystem)
