@@ -38,9 +38,21 @@ namespace jp.unisakistudio.posingsystemeditor
         private int _selectedPresetDefineIndex = 0;
         private bool _presetDefinesLoaded = false;
 
-        private bool foldoutOverride = false;
-        private bool foldoutPresetSelection = false;
-        private bool foldoutAnimationDefine = false;
+        private enum InspectorTab
+        {
+            Settings,
+            AvatarSpecific,
+            PoseAnimations,
+        }
+
+        private static readonly string[] InspectorTabLabels =
+        {
+            "設定",
+            "アバター固有設定",
+            "姿勢セット",
+        };
+
+        private InspectorTab _selectedTab = InspectorTab.Settings;
 
         public delegate List<string> CheckFunction();
         protected static List<CheckFunction> checkFunctions = new List<CheckFunction>();
@@ -419,24 +431,50 @@ namespace jp.unisakistudio.posingsystemeditor
                 }
             }
 
-            if (exMenuBackground == null)
-            {
-                exMenuBackground = AssetDatabase.LoadAssetAtPath<Texture2D>(AssetDatabase.GUIDToAssetPath(AssetDatabase.FindAssets("ExMenuBackground t:Texture")[0]));
-            }
 
+            serializedObject.Update();
+
+            var bigButtonStyle = new GUIStyle(GUI.skin.button)
+            {
+                fontSize = 16,
+                fontStyle = FontStyle.Normal,
+                fixedHeight = 40,
+                padding = new RectOffset(10, 10, 10, 10)
+            };
+
+            var descriptionStyle = new GUIStyle(GUI.skin.label)
+            {
+                fontSize = 11,
+                wordWrap = true,
+                margin = new RectOffset(0, 0, 1, 1)
+            };
+
+            EditorGUILayout.Space(6);
+            _selectedTab = (InspectorTab)GUILayout.Toolbar(
+                (int)_selectedTab,
+                InspectorTabLabels);
+            EditorGUILayout.Space(6);
+            if (_selectedTab == InspectorTab.Settings)
+            {
             EditorGUILayout.LabelField(posingSystem.settingName, header1Label, GUILayout.Height(30));
 
             if (posingSystem.previewAvatarObject == null)
             {
                 EditorGUILayout.HelpBox("ModularAvatarで服を着せているとポーズサムネイルの洋服が外れて見えますが、アバターアップロード時に再撮影されて正しい画像がメニューに設定されるのでご安心ください", MessageType.Info);
             }
+            }
 
             var avatar = posingSystem.GetAvatar();
             if (avatar == null)
             {
+                if (_selectedTab == InspectorTab.Settings)
+                {
                 EditorGUILayout.HelpBox("オブジェクトがVRC用のアバターオブジェクトの中に入っていません。このオブジェクトはVRCAvatarDescriptorコンポーネントの付いたオブジェクトの中に配置してください", MessageType.Error);
+                }
                 return;
             }
+            if (_selectedTab == InspectorTab.Settings)
+            {
             if (existProducts == null)
             {
                 if (avatar != null)
@@ -490,25 +528,38 @@ namespace jp.unisakistudio.posingsystemeditor
                 }
             }
 
+            }
             var avatarAnimator = avatar.GetComponent<Animator>();
             if (avatarAnimator == null)
             {
+                if (_selectedTab == InspectorTab.Settings)
+                {
                 EditorGUILayout.HelpBox("アバターにAnimatorが設定されていません。このアバターではこのツールは使えません", MessageType.Error);
+                }
                 return;
             }
 
             if (avatarAnimator.avatar == null)
             {
+                if (_selectedTab == InspectorTab.Settings)
+                {
                 EditorGUILayout.HelpBox("アバターのAnimatorにAvatarが設定されていません。このアバターではこのツールは使えません", MessageType.Error);
+                }
                 return;
             }
 
             if (!avatarAnimator.isHuman)
             {
+                if (_selectedTab == InspectorTab.Settings)
+                {
                 EditorGUILayout.HelpBox("このアバターは人型ではありません。アバターのAnimatorにHumanoid型のAvatarが設定されていない場合はこのツールは使えません。", MessageType.Error);
+                }
                 return;
             }
 
+
+            if (_selectedTab == InspectorTab.Settings)
+            {
             EditorGUILayout.BeginVertical(GUI.skin.box);
             EditorGUILayout.LabelField("設定", header2Label);
             if (IsAndroidBuildTarget())
@@ -533,6 +584,12 @@ namespace jp.unisakistudio.posingsystemeditor
                     EditorUtility.SetDirty(posingSystem);
                 }
             }
+            EditorGUILayout.EndVertical();
+            }
+
+            if (_selectedTab == InspectorTab.AvatarSpecific)
+            {
+            EditorGUILayout.BeginVertical(GUI.skin.box);
             
             EditorGUILayout.Space(5);
             EditorGUILayout.LabelField("ビルド時オプション", EditorStyles.boldLabel);
@@ -545,15 +602,13 @@ namespace jp.unisakistudio.posingsystemeditor
                 EditorUtility.SetDirty(posingSystem);
             }
             
-            var autoImportAvatarAnimations = EditorGUILayout.ToggleLeft("アバターの姿勢設定をビルド時に自動でインポート", posingSystem.autoImportAvatarAnimations);
-            if (autoImportAvatarAnimations != posingSystem.autoImportAvatarAnimations)
-            {
-                Undo.RecordObject(posingSystem, "Auto Import Avatar Animations");
-                posingSystem.autoImportAvatarAnimations = autoImportAvatarAnimations;
-                EditorUtility.SetDirty(posingSystem);
+            EditorGUILayout.EndVertical();
             }
-            
-            EditorGUILayout.Space(5);
+
+            if (_selectedTab == InspectorTab.Settings)
+            {
+            EditorGUILayout.Space(10);
+            EditorGUILayout.BeginVertical(GUI.skin.box);
             EditorGUILayout.LabelField("トラブルシューティング", EditorStyles.boldLabel);
             if (GUILayout.Button("アバターの姿勢をリセット（Tポーズに戻す）"))
             {
@@ -561,7 +616,67 @@ namespace jp.unisakistudio.posingsystemeditor
             }
             EditorGUILayout.HelpBox("エディタ上でアバターの姿勢がおかしくなった場合、このボタンで元のFBXの姿勢に戻せます", MessageType.None);
             EditorGUILayout.EndVertical();
+            }
 
+            if (_selectedTab == InspectorTab.AvatarSpecific)
+            {
+            EditorGUILayout.Space(10);
+            EditorGUILayout.BeginVertical(GUI.skin.box);
+            EditorGUILayout.LabelField("プリセット設定", header2Label);
+
+            if (!_presetDefinesLoaded)
+            {
+                LoadAvailablePresetDefines();
+            }
+
+            EditorGUILayout.LabelField("プリセット選択", EditorStyles.boldLabel);
+            EditorGUILayout.BeginHorizontal();
+            if (_availablePresetDefines.Count > 0)
+            {
+                _selectedPresetDefineIndex = EditorGUILayout.Popup(
+                    _selectedPresetDefineIndex,
+                    _presetDefineNames.ToArray());
+
+                using (new EditorGUI.DisabledScope(_selectedPresetDefineIndex <= 0))
+                {
+                    if (GUILayout.Button("プリセットを適用"))
+                    {
+                        ApplySelectedPreset();
+                    }
+                }
+
+                if (GUILayout.Button("再読込"))
+                {
+                    LoadAvailablePresetDefines(true);
+                }
+            }
+            else
+            {
+                EditorGUILayout.LabelField("プリセットが見つかりません", EditorStyles.helpBox);
+                if (GUILayout.Button("再読込"))
+                {
+                    LoadAvailablePresetDefines(true);
+                }
+            }
+            EditorGUILayout.EndHorizontal();
+
+            EditorGUILayout.BeginHorizontal();
+            {
+                EditorGUILayout.BeginVertical(GUILayout.Width(160));
+                if (GUILayout.Button("プリセットを作成", bigButtonStyle))
+                {
+                    PosingPresetCreatorWindow.ShowWindow(posingSystem);
+                }
+                EditorGUILayout.EndVertical();
+                EditorGUILayout.BeginVertical();
+                EditorGUILayout.LabelField("あらかじめアバターに合わせてアニメーション調整したデータをまとめたプリセットを適用すると、アバターに合わせた姿勢を簡単に設定できます", descriptionStyle);
+                EditorGUILayout.EndVertical();
+            }
+            EditorGUILayout.EndHorizontal();
+            EditorGUILayout.EndVertical();
+            }
+            if (_selectedTab == InspectorTab.Settings)
+            {
             EditorGUILayout.Space(10);
             EditorGUILayout.BeginVertical(GUI.skin.box);
             EditorGUILayout.LabelField("プレビルド関係", header2Label);
@@ -578,29 +693,6 @@ namespace jp.unisakistudio.posingsystemeditor
             {
                 EditorGUILayout.HelpBox("設定は最新の状態です", MessageType.None);
             }
-            // 大きなボタンスタイルを定義
-            var bigButtonStyle = new GUIStyle(GUI.skin.button)
-            {
-                fontSize = 16,
-                fontStyle = FontStyle.Normal,
-                fixedHeight = 40,
-                padding = new RectOffset(10, 10, 10, 10)
-            };
-
-            var descriptionStyle = new GUIStyle(GUI.skin.label)
-            {
-                fontSize = 11,
-                wordWrap = true,
-                margin = new RectOffset(0, 0, 1, 1) // 行間を狭く
-            };
-
-            var foldoutStyle = new GUIStyle(GUI.skin.button)
-            {
-                fontSize = 16,
-                fontStyle = FontStyle.Normal,
-                fixedHeight = 40,
-                padding = new RectOffset(10, 10, 10, 10)
-            };
 
             // 更新ボタンとその説明
             EditorGUILayout.BeginHorizontal();
@@ -666,29 +758,24 @@ namespace jp.unisakistudio.posingsystemeditor
             }
             EditorGUILayout.EndVertical();
 
-            serializedObject.Update();
 
+            }
+            else if (_selectedTab == InspectorTab.AvatarSpecific)
+            {
             EditorGUILayout.Space(10);
             EditorGUILayout.BeginVertical(GUI.skin.box);
             EditorGUILayout.LabelField("モーション置き換え機能", header2Label);
+            var autoImportAvatarAnimations = EditorGUILayout.ToggleLeft(
+                "アバター姿勢設定をビルド時に自動でインポート",
+                posingSystem.autoImportAvatarAnimations);
+            if (autoImportAvatarAnimations != posingSystem.autoImportAvatarAnimations)
+            {
+                Undo.RecordObject(posingSystem, "Auto Import Avatar Animations");
+                posingSystem.autoImportAvatarAnimations = autoImportAvatarAnimations;
+                EditorUtility.SetDirty(posingSystem);
+            }
 
-            // ボタンでたたむ
-            if (foldoutOverride)
-            {
-                if (GUILayout.Button("▲▲▲モーション置き換え機能を非表示▲▲▲", foldoutStyle))
-                {
-                    foldoutOverride = false;
-                }
-            }
-            else
-            {
-                if (GUILayout.Button("▼▼▼モーション置き換え機能を表示▼▼▼", foldoutStyle))
-                {
-                    foldoutOverride = true;
-                }
-            }
-            if (foldoutOverride)
-            {
+
                 // autoImportAvatarAnimationsがオンの場合はHelpBoxを表示
                 if (posingSystem.autoImportAvatarAnimations)
                 {
@@ -761,74 +848,23 @@ namespace jp.unisakistudio.posingsystemeditor
                 }
                 GUI.enabled = true;
                 EditorGUILayout.EndHorizontal();
-            }
 
             EditorGUILayout.EndVertical();
 
 
+            }
+            else if (_selectedTab == InspectorTab.PoseAnimations)
+            {
 
+            if (exMenuBackground == null)
+            {
+                exMenuBackground = AssetDatabase.LoadAssetAtPath<Texture2D>(AssetDatabase.GUIDToAssetPath(AssetDatabase.FindAssets("ExMenuBackground t:Texture")[0]));
+            }
             // definesセクション全体をBeginVerticalで囲んでObjectFieldのGUI順序を安定化
             EditorGUILayout.Space(10);
             EditorGUILayout.BeginVertical(GUI.skin.box);
-            EditorGUILayout.LabelField("姿勢アニメーション設定", header2Label);
+            EditorGUILayout.LabelField("姿勢セット", header2Label);
 
-            // プリセットアセットは、この UI をユーザーが開いた時に初めて読み込む。
-            if (GUILayout.Button(foldoutPresetSelection
-                    ? "▲▲▲プリセット選択を非表示▲▲▲"
-                    : "▼▼▼プリセット選択を表示▼▼▼", foldoutStyle))
-            {
-                foldoutPresetSelection = !foldoutPresetSelection;
-                if (foldoutPresetSelection && !_presetDefinesLoaded)
-                {
-                    LoadAvailablePresetDefines();
-                }
-            }
-
-            if (foldoutPresetSelection)
-            {
-                EditorGUILayout.LabelField("プリセット選択", EditorStyles.boldLabel);
-                EditorGUILayout.BeginHorizontal();
-                if (_availablePresetDefines.Count > 0)
-                {
-                    _selectedPresetDefineIndex = EditorGUILayout.Popup(_selectedPresetDefineIndex, _presetDefineNames.ToArray());
-
-                    using (new EditorGUI.DisabledScope(_selectedPresetDefineIndex <= 0))
-                    {
-                        if (GUILayout.Button("プリセットを適用"))
-                        {
-                            ApplySelectedPreset();
-                        }
-                    }
-
-                    if (GUILayout.Button("再読込"))
-                    {
-                        LoadAvailablePresetDefines(true);
-                    }
-                }
-                else
-                {
-                    EditorGUILayout.LabelField("プリセットが見つかりません", EditorStyles.helpBox);
-                    if (GUILayout.Button("再読込"))
-                    {
-                        LoadAvailablePresetDefines(true);
-                    }
-                }
-                EditorGUILayout.EndHorizontal();
-            }
-
-            EditorGUILayout.BeginHorizontal();
-            {
-                EditorGUILayout.BeginVertical(GUILayout.Width(160));
-                if (GUILayout.Button("プリセットを作成", bigButtonStyle))
-                {
-                    PosingPresetCreatorWindow.ShowWindow(posingSystem);
-                }
-                EditorGUILayout.EndVertical();
-                EditorGUILayout.BeginVertical();
-                EditorGUILayout.LabelField("あらかじめアバターに合わせてアニメーション調整したデータをまとめたプリセットを適用すると、アバターに合わせた姿勢を簡単に設定できます", descriptionStyle);
-                EditorGUILayout.EndVertical();
-            }
-            EditorGUILayout.EndHorizontal();
 
             // アニメーション調整ウィンドウを開くボタン
             EditorGUILayout.BeginHorizontal();
@@ -847,23 +883,6 @@ namespace jp.unisakistudio.posingsystemeditor
             }
             EditorGUILayout.EndHorizontal();
 
-            // ボタンでたたむ
-            if (foldoutAnimationDefine)
-            {
-                if (GUILayout.Button("▲▲▲姿勢アニメーション設定を非表示▲▲▲", foldoutStyle))
-                {
-                    foldoutAnimationDefine = false;
-                }
-            }
-            else
-            {
-                if (GUILayout.Button("▼▼▼姿勢アニメーション設定を表示▼▼▼", foldoutStyle))
-                {
-                    foldoutAnimationDefine = true;
-                }
-            }
-            if (foldoutAnimationDefine)
-            {
                 if (!IsAndroidBuildTarget() && !Application.isPlaying)
                 {
                     CheckAndDeleteThumbnailPack(posingSystem);
@@ -971,18 +990,9 @@ namespace jp.unisakistudio.posingsystemeditor
 
                     EditorGUILayout.EndVertical();
                 }
-            }
-            if (foldoutAnimationDefine)
-            {
-                if (GUILayout.Button("姿勢アニメーション設定を非表示", foldoutStyle))
-                {
-                    foldoutAnimationDefine = false;
-                }
-            }
             EditorGUILayout.EndVertical(); // definesセクション全体の終了
 
 
-            serializedObject.ApplyModifiedProperties();
 
             if (!IsAndroidBuildTarget())
             {
@@ -994,6 +1004,9 @@ namespace jp.unisakistudio.posingsystemeditor
                 }
             }
 
+            }
+
+            serializedObject.ApplyModifiedProperties();
             if (posingSystem.developmentMode != EditorGUILayout.ToggleLeft("開発モード", posingSystem.developmentMode))
             {
                 Undo.RecordObject(posingSystem, "Toggle development mode");

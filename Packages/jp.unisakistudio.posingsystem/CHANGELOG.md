@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+- インスペクターを設定・アバター固有設定・姿勢セットのタブへ整理
+
 ## [3.0.16] - 2026-09-14
 - `VirtualAnimatorController.SetParameter` APIを使用しているため、NDMFの最低依存バージョンを1.14.0へ更新
 
