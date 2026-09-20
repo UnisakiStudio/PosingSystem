@@ -20,6 +20,7 @@ namespace jp.unisakistudio.posingsystemeditor
         private readonly Dictionary<PosingAnimationAdjustmentMuscleGroupName, bool> _muscleFoldoutStates = new();
 
         private PosingSystem _posingSystem;
+        private bool _debugPreviewAvatarSpecificAdjustment = true;
         private readonly List<AnimationEntry> _animationEntries = new();
         private int _selectedAnimationIndex = -1;
         public class Adjustments : ScriptableObject
@@ -542,6 +543,7 @@ namespace jp.unisakistudio.posingsystemeditor
             _isOpen = true;
 
             _posingSystem = posingSystem;
+            _debugPreviewAvatarSpecificAdjustment = posingSystem.enableAvatarSpecificAdjustment;
             RebuildAnimationEntries();
 
             // 全ての姿勢の調整値を事前に読み込み
@@ -781,6 +783,30 @@ namespace jp.unisakistudio.posingsystemeditor
         private void DrawLeftPanel()
         {
             EditorGUILayout.LabelField(PosingAnimationAdjustmentWindowText.Title, EditorStyles.boldLabel);
+
+            if (_posingSystem.avatarSpecificAdjustmentClip != null)
+            {
+                using (new EditorGUILayout.VerticalScope(GUI.skin.box))
+                {
+                    EditorGUILayout.LabelField("自動アバター補正", EditorStyles.boldLabel);
+                    using (new EditorGUI.DisabledScope(true))
+                    {
+                        EditorGUILayout.ObjectField(_posingSystem.avatarSpecificAdjustmentClip, typeof(AnimationClip), false);
+                    }
+                    EditorGUI.BeginChangeCheck();
+                    _debugPreviewAvatarSpecificAdjustment = EditorGUILayout.ToggleLeft(
+                        "デバッグ: アバター固有補正をプレビュー",
+                        _debugPreviewAvatarSpecificAdjustment);
+                    if (EditorGUI.EndChangeCheck())
+                    {
+                        ApplyPreviewPose();
+                        Repaint();
+                    }
+                    EditorGUILayout.LabelField(
+                        "この切り替えは調整ウィンドウのプレビュー専用です。保存・サムネイル・最終出力には影響しません。膝クランプは引き続き有効です。",
+                        EditorStyles.wordWrappedMiniLabel);
+                }
+            }
 
             // グローバルボタン
             using (new EditorGUILayout.VerticalScope(GUI.skin.box))
@@ -2340,6 +2366,13 @@ namespace jp.unisakistudio.posingsystemeditor
                     var muscleValue = pose.muscles[i] + addMuscleValue;
                     pose.muscles[i] = muscleValue;
                 }
+
+                // 基準アバター差分と膝の安全クランプは、手動調整を加えた最後に適用する。
+                PosingSystemAvatarAdjustmentUtility.ApplyToPose(
+                    _posingSystem,
+                    ref pose,
+                    0f,
+                    _debugPreviewAvatarSpecificAdjustment);
 
                 poseHandler.SetHumanPose(ref pose);
 

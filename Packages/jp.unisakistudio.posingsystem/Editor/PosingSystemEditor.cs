@@ -90,11 +90,13 @@ namespace jp.unisakistudio.posingsystemeditor
             // アップデート前のバージョンがシーンへ保存したPreviewAvatarRootも、
             // スクリプト再読込後に確実に回収する。
             EditorApplication.delayCall += CleanupAllPreviewAvatars;
+            EditorApplication.delayCall += PosingSystemAvatarAdjustmentInspector.ScheduleAllInOpenScenes;
         }
 
         private static void OnSceneOpened(Scene scene, OpenSceneMode mode)
         {
             CleanupAllPreviewAvatars();
+            EditorApplication.delayCall += PosingSystemAvatarAdjustmentInspector.ScheduleAllInOpenScenes;
         }
 
         private static void OnPlayModeStateChanged(PlayModeStateChange state)
@@ -128,6 +130,7 @@ namespace jp.unisakistudio.posingsystemeditor
 
             PosingSystem posingSystem = target as PosingSystem;
             posingSystem.previousErrorCheckTime = DateTime.MinValue;
+            PosingSystemAvatarAdjustmentInspector.ScheduleAutomaticGeneration(posingSystem);
 
             // 選択時は GUID 目録だけを更新する。重いアセット本体はプリセット UI を開くまで読み込まない。
             ResetAvailablePresetDefines();
@@ -305,6 +308,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 // プリセットのdefinesプロパティのみを適用
                 Undo.RecordObject(posingSystem, "Apply Preset Defines");
                 selectedPresetDefine.preset.ApplyTo(posingSystem, new string[] { "defines", "overrideDefines", });
+                PosingSystemAvatarAdjustmentInspector.ConfigurePresetApplied(posingSystem);
                 EditorUtility.SetDirty(posingSystem);
 
                 Debug.Log($"[PosingSystem]プリセット '{selectedPresetDefine.avatarName}' の設定を適用しました。");
@@ -609,6 +613,8 @@ namespace jp.unisakistudio.posingsystemeditor
             if (_selectedTab == InspectorTab.AvatarSpecific)
             {
             EditorGUILayout.BeginVertical(GUI.skin.box);
+            EditorGUILayout.LabelField("アバター固有補正・逆関節機能", header2Label);
+            PosingSystemAvatarAdjustmentInspector.Draw(posingSystem);
             
             EditorGUILayout.Space(5);
             EditorGUILayout.LabelField("ビルド時オプション", EditorStyles.boldLabel);

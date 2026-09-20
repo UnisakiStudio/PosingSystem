@@ -2097,42 +2097,45 @@ namespace jp.unisakistudio.posingsystemeditor
                             }
 
                             var newAnimationClip = Object.Instantiate(tempClipForCurves);
-                            if (animationDefine.adjustmentClip != null)
+                            var adjustmentClip = animationDefine.adjustmentClip;
+                            if (adjustmentClip != null)
                             {
-                                var adjustmentClip = animationDefine.adjustmentClip;
-
-                                // RootQカーブはQuaternion乗算で合成（元の回転 × 調整の回転）
+                                // Rootの手動調整は従来通り。自動補正はHumanoid Muscleのみを持つ。
                                 AdditiveCurveUtility.MultiplyRootQCurves(tempClipForCurves, adjustmentClip, newAnimationClip);
-
-                                // RootTカーブは従来通り加算
                                 foreach (var binding in AnimationUtility.GetCurveBindings(adjustmentClip))
                                 {
-                                    if (AdditiveCurveUtility.IsRootTBinding(binding))
-                                    {
-                                        var adjustmentCurve = AnimationUtility.GetEditorCurve(adjustmentClip, binding);
-                                        var baseCurve = AnimationUtility.GetEditorCurve(newAnimationClip, binding);
-                                        if (baseCurve == null)
-                                        {
-                                            baseCurve = new AnimationCurve();
-                                        }
-                                        baseCurve = AdditiveCurveUtility.AddCurve(baseCurve, adjustmentCurve);
-                                        AnimationUtility.SetEditorCurve(newAnimationClip, binding, baseCurve);
-                                    }
+                                    if (!AdditiveCurveUtility.IsRootTBinding(binding)) continue;
+                                    var adjustmentCurve = AnimationUtility.GetEditorCurve(adjustmentClip, binding);
+                                    var baseCurve = AnimationUtility.GetEditorCurve(newAnimationClip, binding) ?? new AnimationCurve();
+                                    AnimationUtility.SetEditorCurve(newAnimationClip, binding,
+                                        AdditiveCurveUtility.AddCurve(baseCurve, adjustmentCurve));
                                 }
+                            }
 
-                                // マッスルカーブはHumanPoseHandlerを使って再ベイク
-                                // これにより、元のアニメーションと調整アニメーションのバインディングパスの違いを吸収する
-                                var adjustedMuscleIndices = AdditiveCurveUtility.GetAdjustedMuscleIndices(adjustmentClip);
+                            // 手動調整 + アバター固有補正を一度だけ再ベイクし、最後に膝を安全クランプする。
+                            var combinedMuscleAdjustment =
+                                PosingSystemAvatarAdjustmentUtility.CreateCombinedMuscleAdjustmentClip(
+                                    posingSystem, adjustmentClip);
+                            try
+                            {
+                                var adjustedMuscleIndices =
+                                    AdditiveCurveUtility.GetAdjustedMuscleIndices(combinedMuscleAdjustment);
+                                adjustedMuscleIndices.UnionWith(
+                                    PosingSystemAvatarAdjustmentUtility.GetAffectedMuscleIndices(posingSystem));
                                 if (adjustedMuscleIndices.Count > 0)
                                 {
                                     ApplyMuscleAdjustmentsWithRebake(
                                         workingAvatar,
                                         tempClipForCurves,
-                                        adjustmentClip,
+                                        combinedMuscleAdjustment,
                                         newAnimationClip,
-                                        adjustedMuscleIndices
-                                    );
+                                        adjustedMuscleIndices,
+                                        posingSystem);
                                 }
+                            }
+                            finally
+                            {
+                                Object.DestroyImmediate(combinedMuscleAdjustment);
                             }
                             foreach (var binding in AnimationUtility.GetCurveBindings(newAnimationClip))
                             {
@@ -3825,6 +3828,10 @@ namespace jp.unisakistudio.posingsystemeditor
                         AnimationMode.SampleAnimationClip(workingAvatar, clipToSample, 0);
                         AnimationMode.EndSampling();
 
+                        // サムネイルにも自動補正と安全クランプを反映する。
+                        PosingSystemAvatarAdjustmentUtility.ApplyToAnimator(
+                            posingSystem, avatarAnimator, 0f);
+
                         // 一時的に作成したクリップを削除
                         if (clipToSample != firstAnimationClip)
                         {
@@ -3946,7 +3953,8 @@ namespace jp.unisakistudio.posingsystemeditor
             AnimationClip baseClip,
             AnimationClip adjustmentClip,
             AnimationClip resultClip,
-            HashSet<int> adjustedMuscleIndices)
+            HashSet<int> adjustedMuscleIndices,
+            PosingSystem posingSystem)
         {
             if (workingAvatar == null || baseClip == null || adjustmentClip == null || resultClip == null)
             {
@@ -4050,6 +4058,9 @@ namespace jp.unisakistudio.posingsystemeditor
                             humanPose.muscles[muscleIndex] += adjustValue;
                         }
                     }
+
+                    // 全補正の合成後にのみ安全クランプする。
+                    PosingSystemAvatarAdjustmentUtility.ClampKnees(posingSystem, ref humanPose);
 
                     // 対象マッスルの値をカーブに追加
                     foreach (var muscleIndex in targetMuscleIndices)

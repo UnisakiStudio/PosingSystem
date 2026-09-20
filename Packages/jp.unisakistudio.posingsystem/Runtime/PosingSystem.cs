@@ -33,6 +33,17 @@ namespace jp.unisakistudio.posingsystem
         [NonSerialized, HideInInspector]
         public GameObject previewAvatarObject;
 
+        [Header("アバター固有姿勢補正")]
+        public bool enableAvatarSpecificAdjustment = true;
+        [HideInInspector] public bool avatarSpecificAdjustmentUsageInitialized;
+        public bool enableReverseKneeSafetyClamp = true;
+        [Range(0f, 5f)] public float reverseKneeSafetyAngle = 0.5f;
+        [HideInInspector] public AnimationClip avatarSpecificAdjustmentClip;
+        [HideInInspector] public string avatarSpecificAdjustmentSignature;
+        [HideInInspector] public float avatarSpecificLeftKneeBendDegrees;
+        [HideInInspector] public float avatarSpecificRightKneeBendDegrees;
+        public virtual string AvatarReferenceProfileResourceName => string.Empty;
+
         public enum LocomotionTypeGroup
         {
             [InspectorName("立ち")]

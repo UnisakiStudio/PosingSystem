@@ -1201,6 +1201,14 @@ MonoBehaviour:
   isIconSmall: 0
   mergeTrackingControl: 1
   autoImportAvatarAnimations: 1
+  enableAvatarSpecificAdjustment: 1
+  avatarSpecificAdjustmentUsageInitialized: 0
+  enableReverseKneeSafetyClamp: 1
+  reverseKneeSafetyAngle: 0.5
+  avatarSpecificAdjustmentClip: {fileID: 0}
+  avatarSpecificAdjustmentSignature: 
+  avatarSpecificLeftKneeBendDegrees: 0
+  avatarSpecificRightKneeBendDegrees: 0
   additiveBreathing:
     enabled: 1
     standingLevel: 0

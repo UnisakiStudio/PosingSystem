@@ -63,6 +63,8 @@ namespace jp.unisakistudio.posingsystemeditor
                 var instance = PrefabUtility.InstantiatePrefab(prefabs, avatar.transform);
                 Undo.RegisterCreatedObjectUndo(instance, "Add Prefab");
                 UnityEditor.EditorUtility.SetDirty(instance);
+                var installedPosingSystem = (instance as GameObject).GetComponent<PosingSystem>();
+                PosingSystemAvatarAdjustmentInspector.ConfigureNewInstallation(installedPosingSystem);
 
                 // アバターのオブジェクトを取得
                 var avatarObject = avatar.gameObject;
@@ -124,7 +126,8 @@ namespace jp.unisakistudio.posingsystemeditor
                     if (EditorUtility.DisplayDialog("情報", "このアバターのために作成された「" + presetDefine.avatarName + "」向けのプリセットが見つかりました。\nこのプリセットを適用するとアバターごとの体型の違いに対応した調整データが自動で設定されます。\n\nプリセットを適用しますか？", "適用する", "スキップ"))
                     {
                         Debug.Log("[PosingSystem]" + presetDefine.avatarName + "を適用します");
-                        presetDefine.preset.ApplyTo((instance as GameObject).GetComponent<PosingSystem>(), new string[] { "defines", "overrideDefines", });
+                        presetDefine.preset.ApplyTo(installedPosingSystem, new string[] { "defines", "overrideDefines", });
+                        PosingSystemAvatarAdjustmentInspector.ConfigurePresetApplied(installedPosingSystem);
                     }
                 }
 
@@ -132,9 +135,8 @@ namespace jp.unisakistudio.posingsystemeditor
                 if (EditorUtility.DisplayDialog("プレビルド", "プレビルドをしますか？\nプレビルドを行うとアバターのビルドとアップロードが速くなります。", "はい", "いいえ"))
                 {
                     // プレビルドをする
-                    PosingSystem posingSystem = (instance as GameObject).GetComponent<PosingSystem>();
-                    PosingSystemEditor.Prebuild(posingSystem);
-                    PosingSystemEditor.RenewAvatar(posingSystem);
+                    PosingSystemEditor.Prebuild(installedPosingSystem);
+                    PosingSystemEditor.RenewAvatar(installedPosingSystem);
 
                     EditorUtility.DisplayDialog("プレビルド", "プレビルドが完了しました", "OK");
                 }

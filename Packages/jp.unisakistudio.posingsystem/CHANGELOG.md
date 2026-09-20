@@ -5,6 +5,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+- アバター固有の姿勢補正と逆関節防止を追加し、プレビュー・サムネイル・ビルドへ反映
 - 姿勢ごとに強さを選べる呼吸機能を追加
 - 立ち姿勢には60秒で10回の小さな首の動きを含む標準呼吸クリップ、座り・寝姿勢には5秒周期の標準呼吸クリップを追加
 - Additive呼吸設定に、GUIDから標準クリップを復元する「デフォルトを設定」ボタンを追加。姿勢名は各ツールのdefinesから取得
