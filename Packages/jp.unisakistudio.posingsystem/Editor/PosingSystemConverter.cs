@@ -28,6 +28,16 @@ namespace jp.unisakistudio.posingsystemeditor
 {
     public class PosingSystemConverter : Plugin<PosingSystemConverter>
     {
+        public const string AdditiveBreathingDuplicateEraserId =
+            "jp.unisakistudio.posingsystem_additive_breathing";
+        public const string DefaultAdditiveBreathingControllerGuid =
+            "8e775531e66ee35469b6c4d6a6b741fd";
+        public const string BreathingStrongClipGuid = "ef90febf8e7934b45a1030ad138e96e5";
+        public const string BreathingMediumClipGuid = "a497bb916b6f9e9459b224ad7c50a228";
+        public const string BreathingWeakClipGuid = "dd189cb98905b73498257854e1ad50c5";
+        public const string DefaultEmptyAnimationGuid =
+            "52aff6f8eb70ac94ca2d631a92b39a80";
+
         // NDMFの自パス実行中かの簡易フラグ（OnPreprocessAvatarの再帰呼び出しを避けるため）
         private static bool _isExecutingNdMfPass = false;
         [System.Serializable]
@@ -72,6 +82,30 @@ namespace jp.unisakistudio.posingsystemeditor
         }
 
         [System.Serializable]
+        private class AdditiveBreathingSettingsDTO
+        {
+            public bool enabled;
+            public PosingSystem.BreathingLevel standingLevel;
+            public PosingSystem.BreathingLevel sitShallowLevel;
+            public PosingSystem.BreathingLevel sitDeepLevel;
+            public PosingSystem.BreathingLevel sitSleepLevel;
+            public PosingSystem.BreathingLevel virtualLoveLevel;
+            public PosingSystem.BreathingLevel typeFixLevel;
+            public string standingGuid;
+            public string standingHash;
+            public string sitShallowGuid;
+            public string sitShallowHash;
+            public string sitDeepGuid;
+            public string sitDeepHash;
+            public string sitSleepGuid;
+            public string sitSleepHash;
+            public string virtualLoveGuid;
+            public string virtualLoveHash;
+            public string typeFixGuid;
+            public string typeFixHash;
+        }
+
+        [System.Serializable]
         private class LayerDefineDTO
         {
             public string menuName;
@@ -88,8 +122,10 @@ namespace jp.unisakistudio.posingsystemeditor
         {
             public bool isIconDisabled;
             public bool isIconSmall;
+            public int additiveBreathingLogicVersion;
             public System.Collections.Generic.List<LayerDefineDTO> list;
             public System.Collections.Generic.List<OverrideAnimationDefineDTO> overrides;
+            public AdditiveBreathingSettingsDTO additiveBreathing;
             public string version;
             public string savedInstanceId;
         }
@@ -140,6 +176,23 @@ namespace jp.unisakistudio.posingsystemeditor
         protected override void Configure()
         {
             errorLocalizer = LocalizationAsset.ErrorLocalization();
+
+            // MAが同期パラメーターやメニューを処理する前に、8bit商品版から呼吸機能を除外する。
+            InPhase(BuildPhase.Generating)
+                .BeforePlugin("nadena.dev.modular-avatar")
+                .Run("Disable additive breathing for 8bit posing systems", ctx =>
+                {
+                    if (ctx == null || ctx.AvatarRootObject == null)
+                    {
+                        return;
+                    }
+
+                    foreach (var posingSystem in ctx.AvatarRootObject
+                                 .GetComponentsInChildren<PosingSystem>(true))
+                    {
+                        DisableAdditiveBreathingForEightBit(posingSystem);
+                    }
+                });
 
             // AnimatorControllerのレイヤーを編集
             InPhase(BuildPhase.Resolving)
@@ -274,6 +327,7 @@ namespace jp.unisakistudio.posingsystemeditor
                     }
                 });
         }
+
 
         // 変換基準時点（Resolvingフェーズ）のRootT実寸。Transformingフェーズの再校正パスと共有する
         private class RootTranslationCalibrationState
@@ -951,6 +1005,98 @@ namespace jp.unisakistudio.posingsystemeditor
             return null;
         }
 
+        private static AnimatorController FindDefaultAdditiveBreathingController()
+        {
+            var assetPath = AssetDatabase.GUIDToAssetPath(DefaultAdditiveBreathingControllerGuid);
+            return string.IsNullOrEmpty(assetPath)
+                ? null
+                : AssetDatabase.LoadAssetAtPath<AnimatorController>(assetPath);
+        }
+
+        public static ModularAvatarMergeAnimator GetAdditiveBreathingMergeAnimator(
+            PosingSystem posingSystem,
+            bool doRecover = false)
+        {
+            if (posingSystem == null || posingSystem.GetAvatar() == null)
+            {
+                return null;
+            }
+
+            if (doRecover && posingSystem.isEightBitVersion)
+            {
+                return null;
+            }
+
+            var duplicateEraser = posingSystem.GetComponentsInChildren<DuplicateEraser>(true)
+                .FirstOrDefault(component =>
+                    component.gameObject.tag != "EditorOnly" &&
+                    component.ID == AdditiveBreathingDuplicateEraserId);
+            ModularAvatarMergeAnimator mergeAnimator = null;
+            if (duplicateEraser != null)
+            {
+                mergeAnimator = duplicateEraser.GetComponent<ModularAvatarMergeAnimator>();
+            }
+            else if (doRecover)
+            {
+                var mergeObject = new GameObject("Additive呼吸Animator");
+                mergeObject.transform.SetParent(posingSystem.transform, false);
+                duplicateEraser = mergeObject.AddComponent<DuplicateEraser>();
+                duplicateEraser.ID = AdditiveBreathingDuplicateEraserId;
+                mergeAnimator = mergeObject.AddComponent<ModularAvatarMergeAnimator>();
+            }
+
+            if (mergeAnimator == null)
+            {
+                return null;
+            }
+
+            if (!mergeAnimator.animator && doRecover)
+            {
+                mergeAnimator.animator = FindDefaultAdditiveBreathingController();
+            }
+
+            mergeAnimator.layerType = VRCAvatarDescriptor.AnimLayerType.Additive;
+            mergeAnimator.mergeAnimatorMode = MergeAnimatorMode.Append;
+            mergeAnimator.pathMode = MergeAnimatorPathMode.Absolute;
+            mergeAnimator.matchAvatarWriteDefaults = true;
+            mergeAnimator.deleteAttachedAnimator = false;
+            EditorUtility.SetDirty(mergeAnimator);
+            return mergeAnimator;
+        }
+
+        public static ModularAvatarMergeAnimator GetPrebuiltAdditiveBreathingMergeAnimator(
+            PosingSystem posingSystem)
+        {
+            var avatar = posingSystem != null ? posingSystem.GetAvatar() : null;
+            if (avatar == null)
+            {
+                return null;
+            }
+
+            foreach (var duplicateEraser in avatar.GetComponentsInChildren<DuplicateEraser>(true)
+                         .Where(component =>
+                             component.gameObject.tag != "EditorOnly" &&
+                             component.ID == AdditiveBreathingDuplicateEraserId))
+            {
+                var mergeAnimator = duplicateEraser.GetComponent<ModularAvatarMergeAnimator>();
+                var animatorController = mergeAnimator != null
+                    ? mergeAnimator.animator as AnimatorController
+                    : null;
+                if (animatorController == null)
+                {
+                    continue;
+                }
+
+                var guid = AssetDatabase.AssetPathToGUID(AssetDatabase.GetAssetPath(animatorController));
+                if (guid != DefaultAdditiveBreathingControllerGuid)
+                {
+                    return mergeAnimator;
+                }
+            }
+
+            return null;
+        }
+
         public static void ConvertToModularAvatarComponents(PosingSystem posingSystem, IAssetSaver assetSaver = null)
         {
             if (posingSystem == null)
@@ -970,6 +1116,8 @@ namespace jp.unisakistudio.posingsystemeditor
                     posingSystem);
                 return;
             }
+
+            DisableAdditiveBreathingForEightBit(posingSystem);
 
             // 自動生成するメニュー項目を一度削除する
             DeletePosingMenuObjects(posingSystem);
@@ -992,11 +1140,17 @@ namespace jp.unisakistudio.posingsystemeditor
             // MergeAnimatorのAnimatorControllerがオリジナルじゃなかったらベースを複製して設定する
             CreateOriginalAnimatorController(posingSystem);
 
+            // Additive呼吸専用MergeAnimatorのControllerも、アバターごとの編集用に複製する
+            CreateOriginalAdditiveBreathingAnimatorController(posingSystem);
+
             // MergeAnimatorのAnimatorControllerのParametersをセットする
             ResetAnimatorControllerParameters(posingSystem);
 
             // AnimatorControllerを変更する
             ConvertAnimatorController(posingSystem, assetSaver);
+
+            // 姿勢ごとの呼吸アニメーションを設定する
+            ConvertAdditiveBreathingAnimations(posingSystem);
 
             // アニメーションをOverrideする
             ConvertOverrideAnimations(posingSystem);
@@ -1056,13 +1210,57 @@ namespace jp.unisakistudio.posingsystemeditor
 
         public static string GetDefineSerializeJson(PosingSystem posingSystem, bool ignoreInstanceId = false)
         {
+            var breathing = posingSystem.additiveBreathing;
+            var standingBreathing = ResolveAdditiveBreathingClip(
+                breathing, PosingSystem.LocomotionTypeGroup.Standing);
+            var sitShallowBreathing = ResolveAdditiveBreathingClip(
+                breathing, PosingSystem.LocomotionTypeGroup.SitShallow);
+            var sitDeepBreathing = ResolveAdditiveBreathingClip(
+                breathing, PosingSystem.LocomotionTypeGroup.SitDeep);
+            var sitSleepBreathing = ResolveAdditiveBreathingClip(
+                breathing, PosingSystem.LocomotionTypeGroup.SitSleep);
+            var virtualLoveBreathing = ResolveAdditiveBreathingClip(
+                breathing, PosingSystem.LocomotionTypeGroup.VirtualLove);
+            var typeFixBreathing = ResolveAdditiveBreathingClip(
+                breathing, PosingSystem.LocomotionTypeGroup.TypeFix);
+
+
             // Map to DTOs that do NOT have previewImage fields
             var dto = new DefineSerializeRootDTO
             {
                 isIconDisabled = posingSystem.isIconDisabled,
                 isIconSmall = posingSystem.isIconSmall,
+                additiveBreathingLogicVersion = 2,
                 list = new System.Collections.Generic.List<LayerDefineDTO>(),
                 overrides = new System.Collections.Generic.List<OverrideAnimationDefineDTO>(),
+                additiveBreathing = new AdditiveBreathingSettingsDTO
+                {
+                    enabled = breathing != null && breathing.enabled,
+                    standingLevel = breathing?.GetLevel(PosingSystem.LocomotionTypeGroup.Standing)
+                        ?? PosingSystem.BreathingLevel.Medium,
+                    sitShallowLevel = breathing?.GetLevel(PosingSystem.LocomotionTypeGroup.SitShallow)
+                        ?? PosingSystem.BreathingLevel.Medium,
+                    sitDeepLevel = breathing?.GetLevel(PosingSystem.LocomotionTypeGroup.SitDeep)
+                        ?? PosingSystem.BreathingLevel.Medium,
+                    sitSleepLevel = breathing?.GetLevel(PosingSystem.LocomotionTypeGroup.SitSleep)
+                        ?? PosingSystem.BreathingLevel.Medium,
+                    virtualLoveLevel = breathing?.GetLevel(PosingSystem.LocomotionTypeGroup.VirtualLove)
+                        ?? PosingSystem.BreathingLevel.Medium,
+                    typeFixLevel = breathing?.GetLevel(PosingSystem.LocomotionTypeGroup.TypeFix)
+                        ?? PosingSystem.BreathingLevel.Medium,
+                    standingGuid = GetStableObjectIdentifier(standingBreathing),
+                    standingHash = GetAssetContentHash(standingBreathing),
+                    sitShallowGuid = GetStableObjectIdentifier(sitShallowBreathing),
+                    sitShallowHash = GetAssetContentHash(sitShallowBreathing),
+                    sitDeepGuid = GetStableObjectIdentifier(sitDeepBreathing),
+                    sitDeepHash = GetAssetContentHash(sitDeepBreathing),
+                    sitSleepGuid = GetStableObjectIdentifier(sitSleepBreathing),
+                    sitSleepHash = GetAssetContentHash(sitSleepBreathing),
+                    virtualLoveGuid = GetStableObjectIdentifier(virtualLoveBreathing),
+                    virtualLoveHash = GetAssetContentHash(virtualLoveBreathing),
+                    typeFixGuid = GetStableObjectIdentifier(typeFixBreathing),
+                    typeFixHash = GetAssetContentHash(typeFixBreathing),
+                },
                 version = VersionName,
                 savedInstanceId = ignoreInstanceId ? posingSystem.savedInstanceId : UnityEditor.GlobalObjectId.GetGlobalObjectIdSlow(posingSystem).ToString(),
             };
@@ -1566,6 +1764,68 @@ namespace jp.unisakistudio.posingsystemeditor
             // 変更を記録
             Undo.RecordObject(maMergeAnimator, "set animator controller");
             EditorUtility.SetDirty(maMergeAnimator);
+        }
+
+        public static void CreateOriginalAdditiveBreathingAnimatorController(PosingSystem posingSystem)
+        {
+            if (posingSystem == null || posingSystem.isEightBitVersion)
+            {
+                return;
+            }
+
+            var avatar = posingSystem.GetAvatar();
+            var mergeAnimator = GetAdditiveBreathingMergeAnimator(posingSystem, true);
+            var animatorController = mergeAnimator != null
+                ? mergeAnimator.animator as AnimatorController
+                : null;
+            if (avatar == null || animatorController == null)
+            {
+                Debug.LogError(
+                    "[PosingSystem] Additive呼吸用のMAMergeAnimatorまたはAnimatorControllerが見つかりません。",
+                    posingSystem);
+                return;
+            }
+
+            var controllerGuid = AssetDatabase.AssetPathToGUID(AssetDatabase.GetAssetPath(animatorController));
+            if (controllerGuid != DefaultAdditiveBreathingControllerGuid)
+            {
+                return;
+            }
+
+            var prebuiltMergeAnimator = GetPrebuiltAdditiveBreathingMergeAnimator(posingSystem);
+            if (prebuiltMergeAnimator != null)
+            {
+                mergeAnimator.animator = prebuiltMergeAnimator.animator;
+                EditorUtility.SetDirty(mergeAnimator);
+                return;
+            }
+
+            var directoryPath = PosingSystemEditor.GetGeneratedFolderPath();
+            if (string.IsNullOrEmpty(directoryPath))
+            {
+                directoryPath = "Assets/UnisakiStudio/GeneratedResources";
+            }
+
+            var avatarFileName = PosingSystemEditor.SanitizeAssetFileName(avatar.name, "PosingSystem");
+            var newControllerPath = AssetDatabase.GenerateUniqueAssetPath(
+                directoryPath + "/" + avatarFileName + "_AdditiveBreathing.controller");
+            if (string.IsNullOrEmpty(newControllerPath))
+            {
+                Debug.LogError("[PosingSystem] Additive呼吸用AnimatorControllerの保存先を生成できません。", posingSystem);
+                return;
+            }
+
+            var newController = AnimatorControllerDeepCopy.CloneAnimatorController(
+                animatorController,
+                newControllerPath);
+            if (newController == null)
+            {
+                return;
+            }
+
+            mergeAnimator.animator = newController;
+            EditorUtility.SetDirty(mergeAnimator);
+            AssetDatabase.SaveAssets();
         }
 
         public static void ResetAnimatorControllerParameters(PosingSystem posingSystem)
@@ -2315,6 +2575,498 @@ namespace jp.unisakistudio.posingsystemeditor
                     Object.DestroyImmediate(workingAvatar);
                 }
             }
+        }
+
+        public const string AdditiveBreathingLayerName = "USSPS_AdditiveBreathing";
+        public const string AdditiveBreathingEnabledParameterName = "USSPS_Breathing";
+        public const string AdditiveBreathingPoseParameterName = "USSPS_Pose";
+        public const string AdditiveBreathingDisabledStateName = "BreathingOff";
+        public const string AdditiveBreathingResetClipName = "_USSPS_AdditiveBreathingReset";
+
+        /// <summary>
+        /// 8bit商品版から呼吸用の同期Bool、メニュー、Additive統合をまとめて取り除く。
+        /// </summary>
+        public static void DisableAdditiveBreathingForEightBit(PosingSystem posingSystem)
+        {
+            if (posingSystem == null || !posingSystem.isEightBitVersion)
+            {
+                return;
+            }
+
+            if (posingSystem.additiveBreathing != null)
+            {
+                posingSystem.additiveBreathing.enabled = false;
+            }
+
+            foreach (var parameters in posingSystem.GetComponentsInChildren<ModularAvatarParameters>(true))
+            {
+                parameters.parameters.RemoveAll(parameter =>
+                    parameter.nameOrPrefix == AdditiveBreathingEnabledParameterName);
+                EditorUtility.SetDirty(parameters);
+            }
+
+            foreach (var menuItem in posingSystem.GetComponentsInChildren<ModularAvatarMenuItem>(true)
+                         .Where(item =>
+                             item.Control != null &&
+                             item.Control.parameter != null &&
+                             item.Control.parameter.name == AdditiveBreathingEnabledParameterName)
+                         .ToArray())
+            {
+                Object.DestroyImmediate(menuItem.gameObject);
+            }
+
+            foreach (var duplicateEraser in posingSystem.GetComponentsInChildren<DuplicateEraser>(true)
+                         .Where(component => component.ID == AdditiveBreathingDuplicateEraserId)
+                         .ToArray())
+            {
+                Object.DestroyImmediate(duplicateEraser.gameObject);
+            }
+
+            EditorUtility.SetDirty(posingSystem);
+        }
+
+        /// <summary>
+        /// 同期済みの姿勢番号からLocomotionTypeGroupを復元して切り替わるAdditive呼吸レイヤーを構築する。
+        /// 未設定のグループには空クリップを割り当て、前のグループの呼吸が残らないようにする。
+        /// </summary>
+        public static AnimationClip ResolveAdditiveBreathingClip(
+            PosingSystem.AdditiveBreathingSettings settings,
+            PosingSystem.LocomotionTypeGroup group)
+        {
+            if (settings == null)
+            {
+                return null;
+            }
+
+            string clipGuid;
+            switch (settings.GetLevel(group))
+            {
+                case PosingSystem.BreathingLevel.None:
+                    return null;
+                case PosingSystem.BreathingLevel.Weak:
+                    clipGuid = BreathingWeakClipGuid;
+                    break;
+                case PosingSystem.BreathingLevel.Strong:
+                    clipGuid = BreathingStrongClipGuid;
+                    break;
+                case PosingSystem.BreathingLevel.Custom:
+                    return settings.GetCustomClip(group);
+                case PosingSystem.BreathingLevel.Medium:
+                default:
+                    clipGuid = BreathingMediumClipGuid;
+                    break;
+            }
+
+            var clipPath = AssetDatabase.GUIDToAssetPath(clipGuid);
+            return string.IsNullOrEmpty(clipPath)
+                ? null
+                : AssetDatabase.LoadAssetAtPath<AnimationClip>(clipPath);
+        }
+
+        public static void ConvertAdditiveBreathingAnimations(PosingSystem posingSystem)
+        {
+            if (posingSystem == null)
+            {
+                return;
+            }
+
+            // 旧版でLocomotion用Controllerへ追加していた呼吸レイヤーは移行時に取り除く。
+            var locomotionMergeAnimator = GetPrebuiltMergeAnimator(posingSystem);
+            if (locomotionMergeAnimator == null)
+            {
+                locomotionMergeAnimator = GetCommonMergeAnimator(posingSystem);
+            }
+            var locomotionController = locomotionMergeAnimator != null
+                ? locomotionMergeAnimator.animator as AnimatorController
+                : null;
+            if (locomotionController != null)
+            {
+                var locomotionLayers = locomotionController.layers.ToList();
+                var legacyLayerIndex = locomotionLayers.FindIndex(
+                    candidate => candidate.name == AdditiveBreathingLayerName);
+                if (legacyLayerIndex >= 0)
+                {
+                    locomotionLayers.RemoveAt(legacyLayerIndex);
+                    locomotionController.layers = locomotionLayers.ToArray();
+                    EditorUtility.SetDirty(locomotionController);
+                }
+            }
+
+            if (posingSystem.isEightBitVersion)
+            {
+                DisableAdditiveBreathingForEightBit(posingSystem);
+                return;
+            }
+
+            var maMergeAnimator = GetAdditiveBreathingMergeAnimator(posingSystem, true);
+            var animatorController = maMergeAnimator != null
+                ? maMergeAnimator.animator as AnimatorController
+                : null;
+            if (animatorController == null)
+            {
+                return;
+            }
+
+            var layers = animatorController.layers.ToList();
+            var layerIndex = layers.FindIndex(candidate => candidate.name == AdditiveBreathingLayerName);
+            var settings = posingSystem.additiveBreathing;
+            var hasClip = settings != null && System.Enum
+                .GetValues(typeof(PosingSystem.LocomotionTypeGroup))
+                .Cast<PosingSystem.LocomotionTypeGroup>()
+                .Any(group => ResolveAdditiveBreathingClip(settings, group) != null);
+
+            // 以前生成したレイヤーがある場合、無効化設定も生成済みControllerへ反映する。
+            if (settings == null || !settings.enabled || !hasClip)
+            {
+                if (layerIndex >= 0)
+                {
+                    var disabledLayer = layers[layerIndex];
+                    disabledLayer.defaultWeight = 0f;
+                    animatorController.layers = new[] { disabledLayer };
+                    EditorUtility.SetDirty(animatorController);
+                }
+                return;
+            }
+
+            var resetClip = GetOrCreateAdditiveBreathingResetClip(animatorController, settings);
+
+            // Additive Playable Layerでも他クライアントと同じ呼吸になるよう、
+            // 非同期のLocomotionType/LocomotionTypeGroupには依存しない。
+            var obsoleteParameterNames = new HashSet<string>
+            {
+                "LocomotionTypeGroup",
+                "LocomotionType",
+                "USSPS_TypeFix",
+            };
+            for (var parameterIndex = animatorController.parameters.Length - 1;
+                 parameterIndex >= 0;
+                 parameterIndex--)
+            {
+                if (obsoleteParameterNames.Contains(animatorController.parameters[parameterIndex].name))
+                {
+                    animatorController.RemoveParameter(parameterIndex);
+                }
+            }
+
+            var maxSyncedParameterValue = GetMaxSyncedParameterValue(posingSystem.GetAvatar());
+            var synchronizedPoseParameters = SplitSyncParameters(0, maxSyncedParameterValue);
+            foreach (var synchronizedPoseParameter in synchronizedPoseParameters)
+            {
+                if (!animatorController.parameters.Any(parameter =>
+                        parameter.name == synchronizedPoseParameter.name))
+                {
+                    animatorController.AddParameter(
+                        synchronizedPoseParameter.name,
+                        synchronizedPoseParameter.aType);
+                }
+            }
+
+            if (!animatorController.parameters.Any(parameter =>
+                    parameter.name == AdditiveBreathingEnabledParameterName))
+            {
+                animatorController.AddParameter(
+                    AdditiveBreathingEnabledParameterName,
+                    AnimatorControllerParameterType.Bool);
+            }
+
+
+            // ゲーム内設定の呼吸トグルは初期状態をONにする。
+            var controllerParameters = animatorController.parameters;
+            var breathingEnabledParameter = controllerParameters.First(parameter =>
+                parameter.name == AdditiveBreathingEnabledParameterName);
+            breathingEnabledParameter.defaultBool = true;
+            animatorController.parameters = controllerParameters;
+
+            AnimatorControllerLayer breathingLayer;
+            if (layerIndex < 0)
+            {
+                var stateMachine = new AnimatorStateMachine
+                {
+                    name = AdditiveBreathingLayerName,
+                };
+                if (EditorUtility.IsPersistent(animatorController))
+                {
+                    AssetDatabase.AddObjectToAsset(stateMachine, animatorController);
+                }
+
+                breathingLayer = new AnimatorControllerLayer
+                {
+                    name = AdditiveBreathingLayerName,
+                    stateMachine = stateMachine,
+                };
+                animatorController.AddLayer(breathingLayer);
+                layers = animatorController.layers.ToList();
+                layerIndex = layers.FindIndex(candidate => candidate.name == AdditiveBreathingLayerName);
+                breathingLayer = layers[layerIndex];
+            }
+            else
+            {
+                breathingLayer = layers[layerIndex];
+            }
+
+            breathingLayer.blendingMode = AnimatorLayerBlendingMode.Additive;
+            breathingLayer.defaultWeight = 1f;
+            breathingLayer.iKPass = false;
+
+            var stateMachineToConfigure = breathingLayer.stateMachine;
+            foreach (var transition in stateMachineToConfigure.anyStateTransitions.ToArray())
+            {
+                stateMachineToConfigure.RemoveAnyStateTransition(transition);
+                if (EditorUtility.IsPersistent(transition))
+                {
+                    Object.DestroyImmediate(transition, true);
+                }
+            }
+
+            var breathingDisabledState = stateMachineToConfigure.states
+                .Select(childState => childState.state)
+                .FirstOrDefault(candidate => candidate.name == AdditiveBreathingDisabledStateName);
+            if (breathingDisabledState == null)
+            {
+                breathingDisabledState = stateMachineToConfigure.AddState(
+                    AdditiveBreathingDisabledStateName,
+                    new Vector3(800f, 0f));
+                AddAnimatorSubAssetIfNeeded(breathingDisabledState, animatorController);
+            }
+
+            foreach (var oldTransition in breathingDisabledState.transitions.ToArray())
+            {
+                breathingDisabledState.RemoveTransition(oldTransition);
+                if (EditorUtility.IsPersistent(oldTransition))
+                {
+                    Object.DestroyImmediate(oldTransition, true);
+                }
+            }
+
+            breathingDisabledState.writeDefaultValues = false;
+            breathingDisabledState.motion = resetClip;
+
+            var breathingDisabledTransition =
+                stateMachineToConfigure.AddAnyStateTransition(breathingDisabledState);
+            AddAnimatorSubAssetIfNeeded(breathingDisabledTransition, animatorController);
+            breathingDisabledTransition.hasExitTime = false;
+            breathingDisabledTransition.duration = 0.35f;
+            breathingDisabledTransition.canTransitionToSelf = false;
+            breathingDisabledTransition.interruptionSource =
+                TransitionInterruptionSource.SourceThenDestination;
+            breathingDisabledTransition.AddCondition(
+                AnimatorConditionMode.IfNot,
+                0f,
+                AdditiveBreathingEnabledParameterName);
+
+            var groups = System.Enum.GetValues(typeof(PosingSystem.LocomotionTypeGroup))
+                .Cast<PosingSystem.LocomotionTypeGroup>()
+                .ToArray();
+            AnimatorState standingState = null;
+            var statesByGroup = new Dictionary<PosingSystem.LocomotionTypeGroup, AnimatorState>();
+            for (var index = 0; index < groups.Length; index++)
+            {
+                var group = groups[index];
+                var stateName = group.ToString();
+                var state = stateMachineToConfigure.states
+                    .Select(childState => childState.state)
+                    .FirstOrDefault(candidate => candidate.name == stateName);
+                if (state == null)
+                {
+                    state = stateMachineToConfigure.AddState(stateName, new Vector3(500f, index * 70f));
+                    AddAnimatorSubAssetIfNeeded(state, animatorController);
+                }
+
+                foreach (var oldTransition in state.transitions.ToArray())
+                {
+                    state.RemoveTransition(oldTransition);
+                    if (EditorUtility.IsPersistent(oldTransition))
+                    {
+                        Object.DestroyImmediate(oldTransition, true);
+                    }
+                }
+
+                state.writeDefaultValues = false;
+                state.motion = ResolveAdditiveBreathingClip(settings, group) ?? resetClip;
+                statesByGroup[group] = state;
+
+                if (group == PosingSystem.LocomotionTypeGroup.Standing)
+                {
+                    standingState = state;
+                }
+            }
+
+            // USSPS_Poseの0～3は標準姿勢用の予約値。頭の高さ無視中に個別ポーズを
+            // 選択していない場合も1（中腰）/2（伏せ）が同期されるため、呼吸側でも扱う。
+            // 3は寝姿勢用の予約値として先に確保し、今後Locomotion側が出力しても正しく動かす。
+            var defaultPoseGroups = new[]
+            {
+                new KeyValuePair<int, PosingSystem.LocomotionTypeGroup>(
+                    0, PosingSystem.LocomotionTypeGroup.Standing),
+                new KeyValuePair<int, PosingSystem.LocomotionTypeGroup>(
+                    1, PosingSystem.LocomotionTypeGroup.SitShallow),
+                new KeyValuePair<int, PosingSystem.LocomotionTypeGroup>(
+                    2, PosingSystem.LocomotionTypeGroup.SitDeep),
+                new KeyValuePair<int, PosingSystem.LocomotionTypeGroup>(
+                    3, PosingSystem.LocomotionTypeGroup.SitSleep),
+            };
+            foreach (var defaultPoseGroup in defaultPoseGroups)
+            {
+                AddSynchronizedPoseBreathingTransition(
+                    stateMachineToConfigure,
+                    statesByGroup[defaultPoseGroup.Value],
+                    defaultPoseGroup.Key,
+                    maxSyncedParameterValue,
+                    animatorController);
+            }
+
+            var configuredPoseValues = new HashSet<int>(defaultPoseGroups.Select(pair => pair.Key));
+            if (posingSystem.defines != null)
+            {
+                foreach (var define in posingSystem.defines)
+                {
+                    if (define == null || define.animations == null)
+                    {
+                        continue;
+                    }
+
+                    var groupValue = define.locomotionTypeValue / 10;
+                    if (!System.Enum.IsDefined(typeof(PosingSystem.LocomotionTypeGroup), groupValue))
+                    {
+                        continue;
+                    }
+
+                    var group = (PosingSystem.LocomotionTypeGroup)groupValue;
+                    AnimatorState groupState;
+                    if (!statesByGroup.TryGetValue(group, out groupState))
+                    {
+                        continue;
+                    }
+
+                    foreach (var animation in define.animations)
+                    {
+                        if (animation == null || !animation.enabled ||
+                            animation.syncdParameterValue <= 0 ||
+                            !configuredPoseValues.Add(animation.syncdParameterValue))
+                        {
+                            continue;
+                        }
+
+                        AddSynchronizedPoseBreathingTransition(
+                            stateMachineToConfigure,
+                            groupState,
+                            animation.syncdParameterValue,
+                            maxSyncedParameterValue,
+                            animatorController);
+                    }
+                }
+            }
+
+            stateMachineToConfigure.defaultState = standingState;
+            animatorController.layers = new[] { breathingLayer };
+            EditorUtility.SetDirty(stateMachineToConfigure);
+            EditorUtility.SetDirty(animatorController);
+            if (EditorUtility.IsPersistent(animatorController))
+            {
+                AssetDatabase.SaveAssets();
+            }
+        }
+
+        private static void AddSynchronizedPoseBreathingTransition(
+            AnimatorStateMachine stateMachine,
+            AnimatorState destinationState,
+            int syncedPoseValue,
+            int maxSyncedParameterValue,
+            AnimatorController animatorController)
+        {
+            var transition = stateMachine.AddAnyStateTransition(destinationState);
+            AddAnimatorSubAssetIfNeeded(transition, animatorController);
+            transition.hasExitTime = false;
+            transition.duration = 0.35f;
+            transition.canTransitionToSelf = false;
+            transition.interruptionSource = TransitionInterruptionSource.SourceThenDestination;
+            transition.AddCondition(
+                AnimatorConditionMode.If,
+                0f,
+                AdditiveBreathingEnabledParameterName);
+
+            foreach (var parameter in SplitSyncParameters(syncedPoseValue, maxSyncedParameterValue))
+            {
+                transition.AddCondition(
+                    parameter.type == ParameterSyncType.Bool
+                        ? (parameter.value != 0
+                            ? AnimatorConditionMode.If
+                            : AnimatorConditionMode.IfNot)
+                        : AnimatorConditionMode.Equals,
+                    parameter.value,
+                    parameter.name);
+            }
+        }
+
+        private static void AddAnimatorSubAssetIfNeeded(
+            Object subAsset,
+            AnimatorController animatorController)
+        {
+            if (subAsset != null &&
+                EditorUtility.IsPersistent(animatorController) &&
+                string.IsNullOrEmpty(AssetDatabase.GetAssetPath(subAsset)))
+            {
+                AssetDatabase.AddObjectToAsset(subAsset, animatorController);
+            }
+        }
+
+        private static AnimationClip GetOrCreateAdditiveBreathingResetClip(
+            AnimatorController animatorController,
+            PosingSystem.AdditiveBreathingSettings settings)
+        {
+            AnimationClip resetClip = null;
+            var controllerPath = AssetDatabase.GetAssetPath(animatorController);
+            if (!string.IsNullOrEmpty(controllerPath))
+            {
+                resetClip = AssetDatabase.LoadAllAssetsAtPath(controllerPath)
+                    .OfType<AnimationClip>()
+                    .FirstOrDefault(clip => clip.name == AdditiveBreathingResetClipName);
+            }
+
+            if (resetClip == null)
+            {
+                resetClip = animatorController.layers
+                    .SelectMany(layer => layer.stateMachine.states)
+                    .Select(child => child.state.motion as AnimationClip)
+                    .FirstOrDefault(clip =>
+                        clip != null && clip.name == AdditiveBreathingResetClipName);
+            }
+
+            if (resetClip == null)
+            {
+                resetClip = new AnimationClip
+                {
+                    name = AdditiveBreathingResetClipName,
+                    frameRate = 60f,
+                };
+                AddAnimatorSubAssetIfNeeded(resetClip, animatorController);
+            }
+
+            foreach (var oldBinding in AnimationUtility.GetCurveBindings(resetClip))
+            {
+                AnimationUtility.SetEditorCurve(resetClip, oldBinding, null);
+            }
+
+            var groups = System.Enum.GetValues(typeof(PosingSystem.LocomotionTypeGroup))
+                .Cast<PosingSystem.LocomotionTypeGroup>();
+            var bindings = groups
+                .Select(group => ResolveAdditiveBreathingClip(settings, group))
+                .Where(clip => clip != null)
+                .SelectMany(AnimationUtility.GetCurveBindings)
+                .Distinct();
+            foreach (var binding in bindings)
+            {
+                AnimationUtility.SetEditorCurve(
+                    resetClip,
+                    binding,
+                    AnimationCurve.Constant(0f, 1f, 0f));
+            }
+
+            var clipSettings = AnimationUtility.GetAnimationClipSettings(resetClip);
+            clipSettings.loopTime = true;
+            AnimationUtility.SetAnimationClipSettings(resetClip, clipSettings);
+            EditorUtility.SetDirty(resetClip);
+            return resetClip;
         }
 
         private static Vector3 GetHorizontalOffsetInRootUnits(

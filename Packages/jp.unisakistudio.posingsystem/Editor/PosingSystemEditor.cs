@@ -27,6 +27,23 @@ namespace jp.unisakistudio.posingsystemeditor
     public class PosingSystemEditor : Editor
     {
         private const string DefaultAdjustmentFolderRoot = "Assets/UnisakiStudio/GeneratedResources";
+        private static readonly string[] BreathingLevelLabels =
+        {
+            "なし",
+            "弱",
+            "中",
+            "強",
+            "カスタム",
+        };
+
+        private static readonly PosingSystem.BreathingLevel[] BreathingLevels =
+        {
+            PosingSystem.BreathingLevel.None,
+            PosingSystem.BreathingLevel.Weak,
+            PosingSystem.BreathingLevel.Medium,
+            PosingSystem.BreathingLevel.Strong,
+            PosingSystem.BreathingLevel.Custom,
+        };
         private List<ReorderableList> reorderableLists = new List<ReorderableList>();
         List<string> existProducts;
         List<string> existFolders;
@@ -43,6 +60,7 @@ namespace jp.unisakistudio.posingsystemeditor
             Settings,
             AvatarSpecific,
             PoseAnimations,
+            AdditiveBreathing,
         }
 
         private static readonly string[] InspectorTabLabels =
@@ -50,6 +68,7 @@ namespace jp.unisakistudio.posingsystemeditor
             "設定",
             "アバター固有設定",
             "姿勢セット",
+            "オプション",
         };
 
         private InspectorTab _selectedTab = InspectorTab.Settings;
@@ -758,6 +777,39 @@ namespace jp.unisakistudio.posingsystemeditor
             }
             EditorGUILayout.EndVertical();
 
+            }
+            else if (_selectedTab == InspectorTab.AdditiveBreathing)
+            {
+            EditorGUILayout.Space(10);
+            EditorGUILayout.BeginVertical(GUI.skin.box);
+            EditorGUILayout.LabelField("呼吸機能", header2Label);
+            if (posingSystem.isEightBitVersion)
+            {
+                EditorGUILayout.HelpBox(
+                    "この8bit版では、アバターのデータ容量を節約するため呼吸機能は使用できません。",
+                    MessageType.Info);
+            }
+            else
+            {
+                var breathingProperty = serializedObject.FindProperty("additiveBreathing");
+                if (breathingProperty != null)
+                {
+                    EditorGUILayout.HelpBox(
+                        "姿勢ごとに呼吸の動きの大きさを選べます。「なし」は動かず、「弱・中・強」は付属の呼吸モーションを使います。自分で用意したアニメーションを使いたい場合だけ「カスタム」を選んでください。",
+                        MessageType.Info);
+                    var enabledProperty = breathingProperty.FindPropertyRelative("enabled");
+                    EditorGUILayout.PropertyField(enabledProperty, new GUIContent("有効"));
+                    using (new EditorGUI.DisabledScope(!enabledProperty.boolValue))
+                    {
+                        var displayNames = GetAdditiveBreathingDisplayNames(posingSystem);
+                        foreach (var displayName in displayNames)
+                        {
+                            DrawAdditiveBreathingLevel(breathingProperty, displayName);
+                        }
+                    }
+                }
+            }
+            EditorGUILayout.EndVertical();
 
             }
             else if (_selectedTab == InspectorTab.AvatarSpecific)
@@ -1090,6 +1142,145 @@ namespace jp.unisakistudio.posingsystemeditor
             catch (System.Exception e)
             {
                 Debug.LogError($"[PosingSystem] 姿勢リセット中にエラーが発生しました: {e.Message}\n{e.StackTrace}");
+            }
+        }
+
+        private static void DrawAdditiveBreathingLevel(
+            SerializedProperty breathingProperty,
+            KeyValuePair<PosingSystem.LocomotionTypeGroup, string> displayName)
+        {
+            var levelPropertyName = GetAdditiveBreathingLevelPropertyName(displayName.Key);
+            var levelProperty = breathingProperty.FindPropertyRelative(levelPropertyName);
+            if (levelProperty == null)
+            {
+                return;
+            }
+
+            var currentLevel = (PosingSystem.BreathingLevel)levelProperty.intValue;
+            var selectedIndex = Array.IndexOf(BreathingLevels, currentLevel);
+            if (selectedIndex < 0)
+            {
+                selectedIndex = Array.IndexOf(
+                    BreathingLevels,
+                    PosingSystem.BreathingLevel.Medium);
+            }
+
+            selectedIndex = EditorGUILayout.Popup(
+                new GUIContent(displayName.Value),
+                selectedIndex,
+                BreathingLevelLabels);
+            levelProperty.intValue = (int)BreathingLevels[selectedIndex];
+
+            if (BreathingLevels[selectedIndex] != PosingSystem.BreathingLevel.Custom)
+            {
+                return;
+            }
+
+            var clipPropertyName = GetAdditiveBreathingPropertyName(displayName.Key);
+            var clipProperty = breathingProperty.FindPropertyRelative(clipPropertyName);
+            if (clipProperty == null)
+            {
+                return;
+            }
+
+            using (new EditorGUI.IndentLevelScope())
+            {
+                EditorGUILayout.PropertyField(
+                    clipProperty,
+                    new GUIContent("カスタムアニメーション"));
+            }
+        }
+
+        public static List<KeyValuePair<PosingSystem.LocomotionTypeGroup, string>>
+            GetAdditiveBreathingDisplayNames(PosingSystem posingSystem)
+        {
+            var result = new List<KeyValuePair<PosingSystem.LocomotionTypeGroup, string>>();
+            if (posingSystem?.defines == null)
+            {
+                return result;
+            }
+
+            var namesByGroup = new Dictionary<PosingSystem.LocomotionTypeGroup, List<string>>();
+            foreach (var define in posingSystem.defines)
+            {
+                if (define == null ||
+                    define.locomotionTypeValue < 0 ||
+                    string.IsNullOrWhiteSpace(define.menuName))
+                {
+                    continue;
+                }
+
+                var groupValue = define.locomotionTypeValue / 10;
+                if (!Enum.IsDefined(typeof(PosingSystem.LocomotionTypeGroup), groupValue))
+                {
+                    continue;
+                }
+
+                var group = (PosingSystem.LocomotionTypeGroup)groupValue;
+                if (!namesByGroup.TryGetValue(group, out var names))
+                {
+                    names = new List<string>();
+                    namesByGroup.Add(group, names);
+                    result.Add(new KeyValuePair<PosingSystem.LocomotionTypeGroup, string>(group, null));
+                }
+
+                if (!names.Contains(define.menuName))
+                {
+                    names.Add(define.menuName);
+                }
+            }
+
+            for (var index = 0; index < result.Count; index++)
+            {
+                var group = result[index].Key;
+                var names = namesByGroup[group];
+                var label = string.Join("／", names);
+                result[index] = new KeyValuePair<PosingSystem.LocomotionTypeGroup, string>(group, label);
+            }
+
+            return result;
+        }
+
+        private static string GetAdditiveBreathingLevelPropertyName(
+            PosingSystem.LocomotionTypeGroup group)
+        {
+            switch (group)
+            {
+                case PosingSystem.LocomotionTypeGroup.Standing:
+                    return "standingLevel";
+                case PosingSystem.LocomotionTypeGroup.SitShallow:
+                    return "sitShallowLevel";
+                case PosingSystem.LocomotionTypeGroup.SitDeep:
+                    return "sitDeepLevel";
+                case PosingSystem.LocomotionTypeGroup.SitSleep:
+                    return "sitSleepLevel";
+                case PosingSystem.LocomotionTypeGroup.VirtualLove:
+                    return "virtualLoveLevel";
+                case PosingSystem.LocomotionTypeGroup.TypeFix:
+                    return "typeFixLevel";
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(group), group, null);
+            }
+        }
+
+        private static string GetAdditiveBreathingPropertyName(PosingSystem.LocomotionTypeGroup group)
+        {
+            switch (group)
+            {
+                case PosingSystem.LocomotionTypeGroup.Standing:
+                    return "standing";
+                case PosingSystem.LocomotionTypeGroup.SitShallow:
+                    return "sitShallow";
+                case PosingSystem.LocomotionTypeGroup.SitDeep:
+                    return "sitDeep";
+                case PosingSystem.LocomotionTypeGroup.SitSleep:
+                    return "sitSleep";
+                case PosingSystem.LocomotionTypeGroup.VirtualLove:
+                    return "virtualLove";
+                case PosingSystem.LocomotionTypeGroup.TypeFix:
+                    return "typeFix";
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(group), group, null);
             }
         }
 

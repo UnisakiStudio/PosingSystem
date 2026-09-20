@@ -33,6 +33,106 @@ namespace jp.unisakistudio.posingsystem
         [NonSerialized, HideInInspector]
         public GameObject previewAvatarObject;
 
+        public enum LocomotionTypeGroup
+        {
+            [InspectorName("立ち")]
+            Standing = 0,
+            [InspectorName("浅座り")]
+            SitShallow = 1,
+            [InspectorName("深座り")]
+            SitDeep = 2,
+            [InspectorName("寝姿勢")]
+            SitSleep = 3,
+            [InspectorName("VirtualLove")]
+            VirtualLove = 4,
+            [InspectorName("姿勢補正中")]
+            TypeFix = 5,
+        }
+
+        public enum BreathingLevel
+        {
+            Medium = 0,
+            None = 1,
+            Weak = 2,
+            Strong = 3,
+            Custom = 4,
+        }
+
+        [System.Serializable]
+        public class AdditiveBreathingSettings
+        {
+            public bool enabled = true;
+            public BreathingLevel standingLevel = BreathingLevel.Medium;
+            public BreathingLevel sitShallowLevel = BreathingLevel.Medium;
+            public BreathingLevel sitDeepLevel = BreathingLevel.Medium;
+            public BreathingLevel sitSleepLevel = BreathingLevel.Medium;
+            public BreathingLevel virtualLoveLevel = BreathingLevel.Medium;
+            public BreathingLevel typeFixLevel = BreathingLevel.Medium;
+
+            [InspectorName("立ち")]
+            public AnimationClip standing;
+            [InspectorName("浅座り")]
+            public AnimationClip sitShallow;
+            [InspectorName("深座り")]
+            public AnimationClip sitDeep;
+            [InspectorName("寝姿勢")]
+            public AnimationClip sitSleep;
+            [InspectorName("VirtualLove")]
+            public AnimationClip virtualLove;
+            [InspectorName("姿勢補正中")]
+            public AnimationClip typeFix;
+
+            public BreathingLevel GetLevel(LocomotionTypeGroup group)
+            {
+                switch (group)
+                {
+                    case LocomotionTypeGroup.Standing:
+                        return standingLevel;
+                    case LocomotionTypeGroup.SitShallow:
+                        return sitShallowLevel;
+                    case LocomotionTypeGroup.SitDeep:
+                        return sitDeepLevel;
+                    case LocomotionTypeGroup.SitSleep:
+                        return sitSleepLevel;
+                    case LocomotionTypeGroup.VirtualLove:
+                        return virtualLoveLevel;
+                    case LocomotionTypeGroup.TypeFix:
+                        return typeFixLevel;
+                    default:
+                        return BreathingLevel.Medium;
+                }
+            }
+
+            public AnimationClip GetCustomClip(LocomotionTypeGroup group)
+            {
+                switch (group)
+                {
+                    case LocomotionTypeGroup.Standing:
+                        return standing;
+                    case LocomotionTypeGroup.SitShallow:
+                        return sitShallow;
+                    case LocomotionTypeGroup.SitDeep:
+                        return sitDeep;
+                    case LocomotionTypeGroup.SitSleep:
+                        return sitSleep;
+                    case LocomotionTypeGroup.VirtualLove:
+                        return virtualLove;
+                    case LocomotionTypeGroup.TypeFix:
+                        return typeFix;
+                    default:
+                        return null;
+                }
+            }
+        }
+
+        [Header("呼吸機能")]
+        public AdditiveBreathingSettings additiveBreathing = new();
+
+        // 同期パラメーターを8bit以内に収める商品版では、呼吸用Boolも含めて完全に除外する。
+        // 商品Prefab側に明示的に記録し、名前やアセットパスには依存しない。
+        [HideInInspector]
+        public bool isEightBitVersion = false;
+
         [System.Serializable]
         public class BaseAnimationDefine
         {

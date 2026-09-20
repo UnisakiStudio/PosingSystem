@@ -5,6 +5,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+- 姿勢ごとに強さを選べる呼吸機能を追加
+- 立ち姿勢には60秒で10回の小さな首の動きを含む標準呼吸クリップ、座り・寝姿勢には5秒周期の標準呼吸クリップを追加
+- Additive呼吸設定に、GUIDから標準クリップを復元する「デフォルトを設定」ボタンを追加。姿勢名は各ツールのdefinesから取得
+- 呼吸レイヤーをLocomotion Controllerから分離し、Additive Playable LayerへAppendする専用MAMergeAnimator構成へ変更
+- 標準呼吸クリップの胸・肩の動きを従来の3倍に調整
+- 非同期のLocomotionTypeGroupへ依存せず、同期済み姿勢番号から再生中の姿勢タイプを復元。頭高さ無視中も対応する呼吸を継続し、ゲーム内設定へ呼吸ON/OFFトグルを追加
+- 呼吸OFF時に胸・肩・首のAdditive値を0へ戻すよう修正。ゲーム内表示を「呼吸」へ短縮し、8bit版では同期パラメーター・メニュー・Animator統合を含めて呼吸機能を無効化
+- 頭の高さ無視中に標準の中腰・伏せ姿勢へ切り替わった際、呼吸だけが直前の姿勢タイプに残る不具合を修正
 - インスペクターを設定・アバター固有設定・姿勢セットのタブへ整理
 
 ## [3.0.16] - 2026-09-14
