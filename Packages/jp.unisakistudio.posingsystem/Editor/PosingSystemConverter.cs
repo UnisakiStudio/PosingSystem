@@ -123,6 +123,8 @@ namespace jp.unisakistudio.posingsystemeditor
             public bool isIconDisabled;
             public bool isIconSmall;
             public int additiveBreathingLogicVersion;
+            public string autoPoseCatalogGuid;
+            public string autoPoseCatalogHash;
             public System.Collections.Generic.List<LayerDefineDTO> list;
             public System.Collections.Generic.List<OverrideAnimationDefineDTO> overrides;
             public AdditiveBreathingSettingsDTO additiveBreathing;
@@ -1263,6 +1265,8 @@ namespace jp.unisakistudio.posingsystemeditor
                 },
                 version = VersionName,
                 savedInstanceId = ignoreInstanceId ? posingSystem.savedInstanceId : UnityEditor.GlobalObjectId.GetGlobalObjectIdSlow(posingSystem).ToString(),
+                autoPoseCatalogGuid = GetStableObjectIdentifier(posingSystem.autoPoseCatalog),
+                autoPoseCatalogHash = GetAssetContentHash(posingSystem.autoPoseCatalog),
             };
 
             if (posingSystem.defines != null)
@@ -1291,9 +1295,13 @@ namespace jp.unisakistudio.posingsystemeditor
                                 isMotionTime = a.isMotionTime,
                                 motionTimeParamName = a.motionTimeParamName,
                                 animationClipGuid = GetStableObjectIdentifier(a.animationClip),
-                                adjustmentClipGuid = GetStableObjectIdentifier(a.adjustmentClip),
+                                adjustmentClipGuid = posingSystem.UsesAutoPoseCatalog
+                                    ? string.Empty
+                                    : GetStableObjectIdentifier(a.adjustmentClip),
                                 animationClipHash = GetAssetContentHash(a.animationClip),
-                                adjustmentClipHash = GetAssetContentHash(a.adjustmentClip),
+                                adjustmentClipHash = posingSystem.UsesAutoPoseCatalog
+                                    ? string.Empty
+                                    : GetAssetContentHash(a.adjustmentClip),
                                 displayName = a.displayName,
                                 initial = a.initial,
                                 initialSet = a.initialSet,
@@ -1321,9 +1329,13 @@ namespace jp.unisakistudio.posingsystemeditor
                         isMotionTime = ov.isMotionTime,
                         motionTimeParamName = ov.motionTimeParamName,
                         animationClipGuid = GetStableObjectIdentifier(ov.animationClip),
-                        adjustmentClipGuid = GetStableObjectIdentifier(ov.adjustmentClip),
+                        adjustmentClipGuid = posingSystem.UsesAutoPoseCatalog
+                            ? string.Empty
+                            : GetStableObjectIdentifier(ov.adjustmentClip),
                         animationClipHash = GetAssetContentHash(ov.animationClip),
-                        adjustmentClipHash = GetAssetContentHash(ov.adjustmentClip),
+                        adjustmentClipHash = posingSystem.UsesAutoPoseCatalog
+                            ? string.Empty
+                            : GetAssetContentHash(ov.adjustmentClip),
                         stateType = ov.stateType
                     };
                     dto.overrides.Add(ovDTO);
@@ -2097,7 +2109,21 @@ namespace jp.unisakistudio.posingsystemeditor
                             }
 
                             var newAnimationClip = Object.Instantiate(tempClipForCurves);
-                            var adjustmentClip = animationDefine.adjustmentClip;
+                            AnimationClip automaticAdjustmentClip = null;
+                            var adjustmentClip = posingSystem.UsesAutoPoseCatalog
+                                ? null
+                                : animationDefine.adjustmentClip;
+                            if (posingSystem.UsesAutoPoseCatalog)
+                            {
+                                automaticAdjustmentClip = CreateAutomaticPoseAdjustmentClip(
+                                    posingSystem,
+                                    workingAnimator,
+                                    tempClipForCurves,
+                                    PosingSystemAutoPoseCatalog.BuildPoseKey(
+                                        define.menuName,
+                                        animationDefine.displayName));
+                                adjustmentClip = automaticAdjustmentClip;
+                            }
                             if (adjustmentClip != null)
                             {
                                 // Rootの手動調整は従来通り。自動補正はHumanoid Muscleのみを持つ。
@@ -2136,6 +2162,10 @@ namespace jp.unisakistudio.posingsystemeditor
                             finally
                             {
                                 Object.DestroyImmediate(combinedMuscleAdjustment);
+                                if (automaticAdjustmentClip != null)
+                                {
+                                    Object.DestroyImmediate(automaticAdjustmentClip);
+                                }
                             }
                             foreach (var binding in AnimationUtility.GetCurveBindings(newAnimationClip))
                             {
@@ -3697,6 +3727,65 @@ namespace jp.unisakistudio.posingsystemeditor
             }
         }
 
+        private static AnimationClip CreateAutomaticPoseAdjustmentClip(
+            PosingSystem posingSystem,
+            Animator animator,
+            AnimationClip baseClip,
+            string poseKey)
+        {
+            if (posingSystem == null || !posingSystem.UsesAutoPoseCatalog)
+            {
+                return null;
+            }
+
+            var definition = PosingSystemAutoPoseAdjustmentUtility.FindDefinition(
+                posingSystem,
+                poseKey,
+                baseClip);
+            if (definition == null)
+            {
+                Debug.LogWarning(
+                    $"[PosingSystem] '{poseKey}' のIK自動調整データがありません。従来の調整Animationは使用せず、元の姿勢を出力します。",
+                    posingSystem);
+                return null;
+            }
+
+            if (PosingSystemAutoPoseAdjustmentUtility.TryCreateAdjustmentClip(
+                    animator,
+                    baseClip,
+                    definition,
+                    out var adjustmentClip,
+                    out _,
+                    out var message))
+            {
+                return adjustmentClip;
+            }
+
+            Debug.LogWarning(
+                $"[PosingSystem] '{poseKey}' のIK自動調整に失敗しました。従来の調整Animationは使用しません: {message}",
+                posingSystem);
+            return null;
+        }
+
+        private static string FindPoseKey(
+            PosingSystem posingSystem,
+            PosingSystem.AnimationDefine animation)
+        {
+            if (posingSystem?.defines != null && animation != null)
+            {
+                foreach (var layer in posingSystem.defines)
+                {
+                    if (layer?.animations != null && layer.animations.Any(item => ReferenceEquals(item, animation)))
+                    {
+                        return PosingSystemAutoPoseCatalog.BuildPoseKey(
+                            layer.menuName,
+                            animation.displayName);
+                    }
+                }
+            }
+            return animation?.displayName ?? string.Empty;
+        }
+
         public static void TakeIconScreenshot(PosingSystem.BaseAnimationDefine animation, PosingSystem posingSystem, Camera camera, GameObject previewAvatarObject, bool force)
         {
             var animationDefine = animation as PosingSystem.AnimationDefine;
@@ -3794,10 +3883,23 @@ namespace jp.unisakistudio.posingsystemeditor
                     {
                         // 調整アニメーションを適用したクリップを作成
                         var clipToSample = firstAnimationClip;
-                        if (animationDefine != null && animationDefine.adjustmentClip != null)
+                        AnimationClip automaticAdjustmentClip = null;
+                        var selectedAdjustmentClip = posingSystem.UsesAutoPoseCatalog
+                            ? null
+                            : animationDefine?.adjustmentClip;
+                        if (posingSystem.UsesAutoPoseCatalog && animationDefine != null)
+                        {
+                            automaticAdjustmentClip = CreateAutomaticPoseAdjustmentClip(
+                                posingSystem,
+                                avatarAnimator,
+                                firstAnimationClip,
+                                FindPoseKey(posingSystem, animationDefine));
+                            selectedAdjustmentClip = automaticAdjustmentClip;
+                        }
+                        if (selectedAdjustmentClip != null)
                         {
                             clipToSample = Object.Instantiate(firstAnimationClip);
-                            var adjustmentClip = animationDefine.adjustmentClip;
+                            var adjustmentClip = selectedAdjustmentClip;
 
                             // RootQカーブはQuaternion乗算で合成（元の回転 × 調整の回転）
                             AdditiveCurveUtility.MultiplyRootQCurves(firstAnimationClip, adjustmentClip, clipToSample);
@@ -3836,6 +3938,10 @@ namespace jp.unisakistudio.posingsystemeditor
                         if (clipToSample != firstAnimationClip)
                         {
                             Object.DestroyImmediate(clipToSample);
+                        }
+                        if (automaticAdjustmentClip != null)
+                        {
+                            Object.DestroyImmediate(automaticAdjustmentClip);
                         }
 
                         if (animation.isRotate)

@@ -25,6 +25,7 @@ namespace jp.unisakistudio.posingsystemeditor
         {
             EnsureUsageDefault(posingSystem);
             if (posingSystem == null || Application.isPlaying ||
+                posingSystem.UsesAutoPoseCatalog ||
                 !posingSystem.enableAvatarSpecificAdjustment ||
                 !PosingSystemAvatarAdjustmentUtility.HasReferenceProfile(posingSystem))
             {
@@ -94,6 +95,14 @@ namespace jp.unisakistudio.posingsystemeditor
 
         public static void Draw(PosingSystem posingSystem)
         {
+            if (posingSystem != null && posingSystem.UsesAutoPoseCatalog)
+            {
+                EditorGUILayout.HelpBox(
+                    "姿勢別IK自動調整が有効です。従来のアバター固有補正と調整Animationは使用しません。",
+                    MessageType.Info);
+                return;
+            }
+
             if (!PosingSystemAvatarAdjustmentUtility.HasReferenceProfile(posingSystem))
             {
                 return;

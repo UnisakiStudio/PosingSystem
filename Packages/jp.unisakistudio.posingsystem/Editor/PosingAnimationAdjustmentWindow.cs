@@ -10,7 +10,7 @@ using System.IO;
 namespace jp.unisakistudio.posingsystemeditor
 {
     using static PosingAnimationAdjustmentMuscle;
-    public class PosingAnimationAdjustmentWindow : EditorWindow
+    public partial class PosingAnimationAdjustmentWindow : EditorWindow
     {
         private bool _isOpen = false;
         private const string DefaultAdjustmentFolderRoot = "Assets/UnisakiStudio/GeneratedResources";
@@ -560,6 +560,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 _adjustments = null;
             }
             UpdateHasUnsavedChanges();
+            RegisterAutoPoseSceneGui();
             Repaint();
         }
 
@@ -611,14 +612,17 @@ namespace jp.unisakistudio.posingsystemeditor
 
         private void OnEnable()
         {
+            RegisterAutoPoseSceneGui();
+            // GetWindow直後はInitialize前なのでIsOpenがfalseになる。ここで先に登録しないと、
+            // 初回表示したウィンドウだけUndo/Redo通知を受け取れない。
+            Undo.undoRedoPerformed -= OnUndoRedoPerformed;
+            Undo.undoRedoPerformed += OnUndoRedoPerformed;
+            Selection.selectionChanged -= OnSelectionChanged;
+            Selection.selectionChanged += OnSelectionChanged;
             if (!IsOpen)
             {
                 return;
             }
-            // Undoイベントを購読
-            Undo.undoRedoPerformed += OnUndoRedoPerformed;
-            // 選択変更イベントを購読
-            Selection.selectionChanged += OnSelectionChanged;
             RebuildAnimationEntries();
 
             // 全ての姿勢の調整値を事前に読み込み
@@ -640,6 +644,7 @@ namespace jp.unisakistudio.posingsystemeditor
 
         private void OnDisable()
         {
+            UnregisterAutoPoseSceneGui();
             // Undoイベントの購読解除
             Undo.undoRedoPerformed -= OnUndoRedoPerformed;
             // 選択変更イベントの購読解除
@@ -653,13 +658,17 @@ namespace jp.unisakistudio.posingsystemeditor
             {
                 return;
             }
-            // Undo/Redo操作が実行されたときに姿勢を更新
+            // Undo対象の一時ScriptableObjectと姿勢別キャッシュを同期してから、
+            // IKカタログを含む現在の状態で必ずプレビューを作り直す。
             if (_adjustments != null)
             {
-                ApplyPreviewPose();
+                SaveCurrentAdjustmentData();
                 UpdatePreviousAdjustmentValues();
-                Repaint();
             }
+            ApplyPreviewPose();
+            UpdateHasUnsavedChanges();
+            SceneView.RepaintAll();
+            Repaint();
         }
 
         private void OnSelectionChanged()
@@ -784,6 +793,8 @@ namespace jp.unisakistudio.posingsystemeditor
         {
             EditorGUILayout.LabelField(PosingAnimationAdjustmentWindowText.Title, EditorStyles.boldLabel);
 
+            DrawAutoPoseCatalogPanel();
+
             if (_posingSystem.avatarSpecificAdjustmentClip != null)
             {
                 using (new EditorGUILayout.VerticalScope(GUI.skin.box))
@@ -876,32 +887,39 @@ namespace jp.unisakistudio.posingsystemeditor
 
         private void DrawRightPanel()
         {
-            var selectedEntry = GetSelectedEntry();
-            if (selectedEntry == null)
+            // アニメーション情報、姿勢別IK設定、従来の筋肉調整を1本のスクロールにまとめる。
+            using (var scroll = new EditorGUILayout.ScrollViewScope(
+                       _muscleScroll,
+                       GUILayout.ExpandHeight(true)))
             {
-                EditorGUILayout.HelpBox(PosingAnimationAdjustmentWindowText.SelectAnimation, MessageType.Info);
-                return;
+                _muscleScroll = scroll.scrollPosition;
+                var selectedEntry = GetSelectedEntry();
+                if (selectedEntry == null)
+                {
+                    EditorGUILayout.HelpBox(PosingAnimationAdjustmentWindowText.SelectAnimation, MessageType.Info);
+                    return;
+                }
+
+                var motion = selectedEntry.Animation.animationClip;
+                if (motion == null)
+                {
+                    EditorGUILayout.HelpBox(PosingAnimationAdjustmentWindowText.AnimationNotAssigned, MessageType.Warning);
+                    DrawAdjustmentControls(enabled: false);
+                    return;
+                }
+
+                if (motion is not AnimationClip)
+                {
+                    EditorGUILayout.HelpBox(PosingAnimationAdjustmentWindowText.MotionNotAnimationClip, MessageType.Warning);
+                    DrawAdjustmentControls(enabled: false);
+                    return;
+                }
+
+                // アニメーション情報セクション
+                DrawAnimationInfoSection(selectedEntry);
+
+                DrawAdjustmentControls(enabled: !_posingSystem.UsesAutoPoseCatalog);
             }
-
-            var motion = selectedEntry.Animation.animationClip;
-            if (motion == null)
-            {
-                EditorGUILayout.HelpBox(PosingAnimationAdjustmentWindowText.AnimationNotAssigned, MessageType.Warning);
-                DrawAdjustmentControls(enabled: false);
-                return;
-            }
-
-            if (motion is not AnimationClip baseClip)
-            {
-                EditorGUILayout.HelpBox(PosingAnimationAdjustmentWindowText.MotionNotAnimationClip, MessageType.Warning);
-                DrawAdjustmentControls(enabled: false);
-                return;
-            }
-
-            // アニメーション情報セクション
-            DrawAnimationInfoSection(selectedEntry);
-
-            DrawAdjustmentControls(enabled: true);
         }
 
         private void DrawAnimationInfoSection(AnimationEntry entry)
@@ -929,11 +947,18 @@ namespace jp.unisakistudio.posingsystemeditor
                 }
 
                 // 現在の調整アニメーション表示
+                var oldAdjustmentClip = entry.Animation.adjustmentClip;
+                AnimationClip newAdjustmentClip;
                 EditorGUI.BeginChangeCheck();
+                using (new EditorGUI.DisabledScope(_posingSystem.UsesAutoPoseCatalog))
                 using (new EditorGUILayout.HorizontalScope())
                 {
-                    entry.Animation.adjustmentClip = EditorGUILayout.ObjectField(PosingAnimationAdjustmentWindowText.AdjustmentAnimation, entry.Animation.adjustmentClip, typeof(AnimationClip), false) as AnimationClip;
-                    if (entry.Animation.adjustmentClip != null)
+                    newAdjustmentClip = EditorGUILayout.ObjectField(
+                        PosingAnimationAdjustmentWindowText.AdjustmentAnimation,
+                        oldAdjustmentClip,
+                        typeof(AnimationClip),
+                        false) as AnimationClip;
+                    if (oldAdjustmentClip != null)
                     {
                         // 複製ボタン
                         if (GUILayout.Button(new GUIContent(PosingAnimationAdjustmentWindowText.Duplicate, PosingAnimationAdjustmentWindowText.DuplicateTooltip), GUILayout.Width(50)))
@@ -945,15 +970,26 @@ namespace jp.unisakistudio.posingsystemeditor
                 if (EditorGUI.EndChangeCheck())
                 {
                     Undo.RecordObject(_posingSystem, "Change Adjustment Clip");
+                    entry.Animation.adjustmentClip = newAdjustmentClip;
                     EditorUtility.SetDirty(_posingSystem);
 
                     // 調整アニメーションが変更されたので、データを再読込して元データも更新
-                    ReloadCurrentAdjustmentFromFile();
+                    // ObjectFieldの変更と同じUndoグループへ余分な一時データUndoを積まない。
+                    ReloadCurrentAdjustmentFromFile(recordUndo: false);
 
                     // 元データを現在のデータで更新（変更検知をリセット）
                     UpdateOriginalDataAfterClipChange();
                 }
+
+                if (_posingSystem.UsesAutoPoseCatalog)
+                {
+                    EditorGUILayout.HelpBox(
+                        "公開用IK設定が有効なため、この調整Animationは最終出力では使用されません。",
+                        MessageType.Info);
+                }
             }
+
+            DrawAutoPoseAuthoringPanel(entry);
 
             EditorGUILayout.Space();
         }
@@ -1288,47 +1324,42 @@ namespace jp.unisakistudio.posingsystemeditor
 
                 EditorGUILayout.Space(5);
 
-                using (var scroll = new EditorGUILayout.ScrollViewScope(_muscleScroll))
+                // Root Transform Position Y (RootTY) セクション
+                DrawRootTYSection();
+
+                EditorGUILayout.Space(10);
+
+                // Root Transform Rotation (RootQ) セクション
+                DrawRootTransformSection();
+
+                var muscleGroups = MuscleGroups;
+                foreach (var group in muscleGroups)
                 {
-                    _muscleScroll = scroll.scrollPosition;
-
-                    // Root Transform Position Y (RootTY) セクション
-                    DrawRootTYSection();
-
-                    EditorGUILayout.Space(10);
-
-                    // Root Transform Rotation (RootQ) セクション
-                    DrawRootTransformSection();
-
-                    var muscleGroups = MuscleGroups;
-                    foreach (var group in muscleGroups)
+                    if (group == null)
                     {
-                        if (group == null)
-                        {
-                            continue;
-                        }
-
-                        if (!_muscleFoldoutStates.TryGetValue(group.Name, out var expanded))
-                        {
-                            expanded = true;
-                            _muscleFoldoutStates[group.Name] = true;
-                        }
-
-                        DrawMuscleGroupFoldout(group, ref expanded);
-                        _muscleFoldoutStates[group.Name] = expanded;
-                        if (!expanded)
-                        {
-                            continue;
-                        }
-
-                        EditorGUI.indentLevel++;
-                        foreach (var muscleIndex in group.MuscleIndices)
-                        {
-                            DrawMuscleSlider(muscleIndex);
-                        }
-                        EditorGUI.indentLevel--;
-                        EditorGUILayout.Space(4f);
+                        continue;
                     }
+
+                    if (!_muscleFoldoutStates.TryGetValue(group.Name, out var expanded))
+                    {
+                        expanded = true;
+                        _muscleFoldoutStates[group.Name] = true;
+                    }
+
+                    DrawMuscleGroupFoldout(group, ref expanded);
+                    _muscleFoldoutStates[group.Name] = expanded;
+                    if (!expanded)
+                    {
+                        continue;
+                    }
+
+                    EditorGUI.indentLevel++;
+                    foreach (var muscleIndex in group.MuscleIndices)
+                    {
+                        DrawMuscleSlider(muscleIndex);
+                    }
+                    EditorGUI.indentLevel--;
+                    EditorGUILayout.Space(4f);
                 }
             }
         }
@@ -1832,7 +1863,7 @@ namespace jp.unisakistudio.posingsystemeditor
             Repaint();
         }
 
-        private void ReloadCurrentAdjustmentFromFile()
+        private void ReloadCurrentAdjustmentFromFile(bool recordUndo = true)
         {
             var entry = GetSelectedEntry();
             if (entry == null) return;
@@ -1922,7 +1953,10 @@ namespace jp.unisakistudio.posingsystemeditor
             // 現在の調整値を更新
             if (_adjustments != null)
             {
-                Undo.RecordObject(_adjustments, "Reload adjustment from file");
+                if (recordUndo)
+                {
+                    Undo.RecordObject(_adjustments, "Reload adjustment from file");
+                }
                 Array.Copy(fileData, _adjustments.adjustments, HumanTrait.MuscleCount);
                 _adjustments.rootQAdjustments = fileRootQ;
                 _adjustments.rootTYAdjustment = fileRootTY;
@@ -2344,6 +2378,14 @@ namespace jp.unisakistudio.posingsystemeditor
                 var baseRotation = _previewAvatar.transform.rotation;
                 var basePosition = _previewAvatar.transform.position;
 
+                if (TryApplySelectedAutoPosePreview())
+                {
+                    _previewAvatar.transform.position = basePosition;
+                    _previewAvatar.transform.rotation = baseRotation;
+                    SceneView.RepaintAll();
+                    return;
+                }
+
                 poseHandler = new HumanPoseHandler(_previewAvatar.avatar, _previewAvatar.transform);
                 var pose = new HumanPose();
                 poseHandler.GetHumanPose(ref pose);
@@ -2570,6 +2612,3 @@ namespace jp.unisakistudio.posingsystemeditor
         }
     }
 }
-
-
-

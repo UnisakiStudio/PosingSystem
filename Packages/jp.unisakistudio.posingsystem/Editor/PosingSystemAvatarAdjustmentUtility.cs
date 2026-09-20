@@ -131,7 +131,8 @@ namespace jp.unisakistudio.posingsystemeditor
                 return result;
             }
 
-            if (posingSystem.enableAvatarSpecificAdjustment && posingSystem.avatarSpecificAdjustmentClip != null)
+            if (!posingSystem.UsesAutoPoseCatalog &&
+                posingSystem.enableAvatarSpecificAdjustment && posingSystem.avatarSpecificAdjustmentClip != null)
             {
                 result.UnionWith(AdditiveCurveUtility.GetAdjustedMuscleIndices(
                     posingSystem.avatarSpecificAdjustmentClip));
@@ -155,7 +156,8 @@ namespace jp.unisakistudio.posingsystemeditor
             {
                 clips.Add(manualAdjustmentClip);
             }
-            if (posingSystem != null && posingSystem.enableAvatarSpecificAdjustment &&
+            if (posingSystem != null && !posingSystem.UsesAutoPoseCatalog &&
+                posingSystem.enableAvatarSpecificAdjustment &&
                 posingSystem.avatarSpecificAdjustmentClip != null)
             {
                 clips.Add(posingSystem.avatarSpecificAdjustmentClip);
@@ -233,7 +235,8 @@ namespace jp.unisakistudio.posingsystemeditor
                 return;
             }
 
-            var applyAvatarSpecificAdjustment =                                 (avatarSpecificAdjustmentOverride ??
+            var applyAvatarSpecificAdjustment = !posingSystem.UsesAutoPoseCatalog &&
+                                                (avatarSpecificAdjustmentOverride ??
                                                  posingSystem.enableAvatarSpecificAdjustment);
             if (applyAvatarSpecificAdjustment && posingSystem.avatarSpecificAdjustmentClip != null)
             {

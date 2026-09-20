@@ -44,6 +44,12 @@ namespace jp.unisakistudio.posingsystem
         [HideInInspector] public float avatarSpecificRightKneeBendDegrees;
         public virtual string AvatarReferenceProfileResourceName => string.Empty;
 
+        [Header("自動調整アニメーション制作")]
+        [Tooltip("商品開発時に作成した姿勢別IK設定です。設定されている場合、従来の姿勢別 adjustmentClip は使用しません。")]
+        public PosingSystemAutoPoseCatalog autoPoseCatalog;
+
+        public bool UsesAutoPoseCatalog => autoPoseCatalog != null && autoPoseCatalog.productionReady;
+
         public enum LocomotionTypeGroup
         {
             [InspectorName("立ち")]

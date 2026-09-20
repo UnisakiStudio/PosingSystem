@@ -1209,6 +1209,7 @@ MonoBehaviour:
   avatarSpecificAdjustmentSignature: 
   avatarSpecificLeftKneeBendDegrees: 0
   avatarSpecificRightKneeBendDegrees: 0
+  autoPoseCatalog: {fileID: 0}
   additiveBreathing:
     enabled: 1
     standingLevel: 0
