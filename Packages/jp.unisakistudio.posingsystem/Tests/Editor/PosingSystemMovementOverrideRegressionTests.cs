@@ -33,7 +33,7 @@ namespace jp.unisakistudio.posingsystemeditor.tests
                 BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic);
             Assert.That(method, Is.Not.Null);
 
-            var idle = Track(new AnimationClip { name = "Stand" });
+            var idle = Track(new AnimationClip { name = "Stand_still" });
             var locomotion = Track(new BlendTree { name = "Locomotion" });
             var standWalkRun =
                 PosingSystem.OverrideAnimationDefine.AnimationStateType.StandWalkRun;

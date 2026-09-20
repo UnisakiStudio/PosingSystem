@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.0.16] - 2026-09-14
+- `VirtualAnimatorController.SetParameter` APIを使用しているため、NDMFの最低依存バージョンを1.14.0へ更新
+
 ## [3.0.15] - 2026-09-13
 - Hipsのスケール変更とFloorAdjusterを併用したアバターで、仰向け姿勢の首固定を切り替えると身体位置や膝の曲がり方が大きく変わる不具合を修正
 

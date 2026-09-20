@@ -1583,6 +1583,13 @@ namespace jp.unisakistudio.posingsystemeditor
                     {
                         continue;
                     }
+                    if (!PosingSystemConverter.IsValidOverrideMotion(
+                            detectSetting.type,
+                            state.state.motion))
+                    {
+                        continue;
+                    }
+
                     if (!isContainHumanoidAnimation(state.state.motion))
                     {
                         continue;
