@@ -63,3 +63,6 @@ crashlytics-build.properties
 Assets/PackageMakerWindowData.asset*
 .idea
 .vscode
+
+# Unity metadata for the ignored generated resources folder
+/Packages/jp.unisakistudio.posingsystem/Resources/Generated.meta
