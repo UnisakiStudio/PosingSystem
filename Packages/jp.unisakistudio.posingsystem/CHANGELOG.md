@@ -4,10 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
-- Inspectorに警告ごとの無視設定と「この警告を今後無視する」ボタンを追加。自動足踏み・未プレビルド・設定変更の通知を個別または一括で非表示にでき、Hierarchyとビルド時の通知にも反映
-- アバターのルートを均等に拡大・縮小した際、生成ポーズの水平位置がずれる不具合を修正
-- 修正前のプレビルドを更新対象として検出し、ビルド時にアニメーションを再生成するよう変更
+## [3.0.17] - 2026-09-22
+- アバター全体を均等に拡大・縮小した際、生成ポーズの水平位置がずれる不具合を修正
+- 修正前のプレビルド済みデータも、ビルド時に修正後のアニメーションへ再生成されるよう対応
+- Inspectorに警告を個別・一括で無視する設定を追加。自動足踏み・プレビルド未実行・設定変更の警告に対応し、各警告の「この警告を今後無視する」ボタンからも設定可能
+- アバターのモーションを手動インポートする際、移動用として不適切な単発アニメーションが取り込まれる問題を修正
 
 ## [3.0.16] - 2026-09-14
 - `VirtualAnimatorController.SetParameter` APIを使用しているため、NDMFの最低依存バージョンを1.14.0へ更新
