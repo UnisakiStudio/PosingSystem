@@ -28,6 +28,25 @@ namespace jp.unisakistudio.posingsystem
         [HideInInspector]
         public bool autoImportAvatarAnimations = true;
 
+        [Flags]
+        public enum WarningType
+        {
+            None = 0,
+            AutoFootsteps = 1 << 0,
+            PrebuildNotRun = 1 << 1,
+            PrebuildOutOfDate = 1 << 2,
+            All = AutoFootsteps | PrebuildNotRun | PrebuildOutOfDate,
+        }
+
+        // Display preferences belong to each component, not to the generated animation data.
+        [HideInInspector]
+        public WarningType ignoredWarnings = WarningType.None;
+
+        public bool IsWarningIgnored(WarningType warning)
+        {
+            return warning != WarningType.None && (ignoredWarnings & warning) == warning;
+        }
+
         // エディタ内だけで使う一時プレビュー。Prefab overrideやシーンへ保存すると、
         // 参照だけ失われて非表示のアバターがシーンに残るためシリアライズしない。
         [NonSerialized, HideInInspector]

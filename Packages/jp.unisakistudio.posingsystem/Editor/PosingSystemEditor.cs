@@ -478,16 +478,21 @@ namespace jp.unisakistudio.posingsystemeditor
                 }
             }
 
-            if (avatar.autoFootsteps)
+            var visibleWarnings = PosingSystemConverter.GetVisibleWarnings(posingSystem);
+            if ((visibleWarnings & PosingSystem.WarningType.AutoFootsteps) != 0)
             {
                 EditorGUILayout.HelpBox("アバター設定の「Use Auto-Footsteps for 3 and 4 point tracking」がオンになっています。この設定がオンだと、アバターがゲーム内で自動的に足踏みをしてしまい、姿勢が崩れる可能性があるため、オフにすることが推奨されます", MessageType.Warning);
-                if (GUILayout.Button("「Use Auto-Footsteps for 3 and 4 point tracking」をオフにする"))
+                EditorGUILayout.BeginHorizontal();
+                var warningButtonStyle = new GUIStyle(GUI.skin.button) { wordWrap = true };
+                if (GUILayout.Button("「Use Auto-Footsteps for 3 and 4 point tracking」をオフにする", warningButtonStyle))
                 {
                     Undo.RecordObject(avatar, "Disable auto footsteps");
                     avatar.autoFootsteps = false;
                     EditorUtility.SetDirty(avatar);
                     posingSystem.previousErrorCheckTime = DateTime.MinValue;
                 }
+                DrawIgnoreWarningButton(posingSystem, PosingSystem.WarningType.AutoFootsteps);
+                EditorGUILayout.EndHorizontal();
             }
 
             var avatarAnimator = avatar.GetComponent<Animator>();
@@ -554,6 +559,9 @@ namespace jp.unisakistudio.posingsystemeditor
             }
             
             EditorGUILayout.Space(5);
+            DrawWarningSettings(posingSystem);
+
+            EditorGUILayout.Space(5);
             EditorGUILayout.LabelField("トラブルシューティング", EditorStyles.boldLabel);
             if (GUILayout.Button("アバターの姿勢をリセット（Tポーズに戻す）"))
             {
@@ -565,17 +573,21 @@ namespace jp.unisakistudio.posingsystemeditor
             EditorGUILayout.Space(10);
             EditorGUILayout.BeginVertical(GUI.skin.box);
             EditorGUILayout.LabelField("プレビルド関係", header2Label);
-            // 警告表示を元の位置に戻し、常にHelpBoxを表示してGUI要素数を安定化
-            if (posingSystem.data == null || posingSystem.data.Length == 0)
+            var prebuildWarning = visibleWarnings &
+                (PosingSystem.WarningType.PrebuildNotRun | PosingSystem.WarningType.PrebuildOutOfDate);
+            if (prebuildWarning == PosingSystem.WarningType.PrebuildNotRun)
             {
                 EditorGUILayout.HelpBox("プレビルドが実行されていません。プレビルドを行うことをお勧めします", MessageType.Warning);
             }
-            else if (PosingSystemConverter.IsPosingSystemDataUpdated(posingSystem))
+            else if (prebuildWarning == PosingSystem.WarningType.PrebuildOutOfDate)
             {
                 EditorGUILayout.HelpBox("オブジェクトの設定が更新されています。再度プレビルドを行ってください", MessageType.Warning);
             }
-            else
+            else if (!string.IsNullOrEmpty(posingSystem.data)
+                && !posingSystem.IsWarningIgnored(PosingSystem.WarningType.PrebuildOutOfDate))
             {
+                // GetVisibleWarnings already checked freshness. A hidden warning must not
+                // be presented as "up to date", and no second settings hash is needed here.
                 EditorGUILayout.HelpBox("設定は最新の状態です", MessageType.None);
             }
             // 大きなボタンスタイルを定義
@@ -613,12 +625,15 @@ namespace jp.unisakistudio.posingsystemeditor
                 }
                 EditorGUILayout.EndVertical();
 
-                EditorGUILayout.BeginVertical();
-                EditorGUILayout.LabelField("ModularAvatarコンポーネントを生成・更新します", descriptionStyle);
-                EditorGUILayout.LabelField("姿勢設定を変更した場合はこのボタンを押すとアバターのビルドが早くなります", descriptionStyle);
-                EditorGUILayout.EndVertical();
+                if (prebuildWarning != PosingSystem.WarningType.None)
+                {
+                    DrawIgnoreWarningButton(posingSystem, prebuildWarning);
+                }
+
             }
             EditorGUILayout.EndHorizontal();
+            EditorGUILayout.LabelField("ModularAvatarコンポーネントを生成・更新します", descriptionStyle);
+            EditorGUILayout.LabelField("姿勢設定を変更した場合はこのボタンを押すとアバターのビルドが早くなります", descriptionStyle);
 
             // アイコン更新ボタンとその説明（Android以外）
             if (!IsAndroidBuildTarget())
@@ -1000,6 +1015,52 @@ namespace jp.unisakistudio.posingsystemeditor
                 reorderableLists.Clear();
                 posingSystem.developmentMode = !posingSystem.developmentMode;
             }
+        }
+
+        private static void DrawWarningSettings(PosingSystem posingSystem)
+        {
+            EditorGUILayout.LabelField("警告の表示", EditorStyles.boldLabel);
+            DrawWarningToggle(posingSystem, PosingSystem.WarningType.All, "すべての警告を無視する");
+            DrawWarningToggle(posingSystem, PosingSystem.WarningType.AutoFootsteps,
+                "警告「Use Auto-Footsteps がオン」を無視する");
+            DrawWarningToggle(posingSystem, PosingSystem.WarningType.PrebuildNotRun,
+                "警告「プレビルドが未実行」を無視する");
+            DrawWarningToggle(posingSystem, PosingSystem.WarningType.PrebuildOutOfDate,
+                "警告「プレビルド後に設定が変更された」を無視する");
+        }
+
+        private static void DrawWarningToggle(PosingSystem posingSystem, PosingSystem.WarningType warning, string label)
+        {
+            var ignored = posingSystem.IsWarningIgnored(warning);
+            var newValue = EditorGUILayout.ToggleLeft(label, ignored);
+            if (newValue != ignored)
+            {
+                SetWarningIgnored(posingSystem, warning, newValue);
+            }
+        }
+
+        private static void DrawIgnoreWarningButton(PosingSystem posingSystem, PosingSystem.WarningType warning)
+        {
+            var style = new GUIStyle(GUI.skin.button) { wordWrap = true };
+            if (GUILayout.Button("この警告を今後無視する", style, GUILayout.MaxWidth(170)))
+            {
+                SetWarningIgnored(posingSystem, warning, true);
+            }
+        }
+
+        internal static void SetWarningIgnored(PosingSystem posingSystem, PosingSystem.WarningType warning, bool ignored)
+        {
+            var newValue = ignored
+                ? posingSystem.ignoredWarnings | warning
+                : posingSystem.ignoredWarnings & ~warning;
+            if (newValue == posingSystem.ignoredWarnings) return;
+
+            Undo.RecordObject(posingSystem, "Change ignored posing warnings");
+            posingSystem.ignoredWarnings = newValue;
+            EditorUtility.SetDirty(posingSystem);
+            PrefabUtility.RecordPrefabInstancePropertyModifications(posingSystem);
+            posingSystem.previousErrorCheckTime = DateTime.MinValue;
+            EditorApplication.RepaintHierarchyWindow();
         }
 
         public static void Prebuild(PosingSystem posingSystem)

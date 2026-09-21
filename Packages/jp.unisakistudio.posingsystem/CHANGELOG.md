@@ -5,6 +5,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+- Inspectorに警告ごとの無視設定と「この警告を今後無視する」ボタンを追加。自動足踏み・未プレビルド・設定変更の通知を個別または一括で非表示にでき、Hierarchyとビルド時の通知にも反映
 - アバターのルートを均等に拡大・縮小した際、生成ポーズの水平位置がずれる不具合を修正
 - 修正前のプレビルドを更新対象として検出し、ビルド時にアニメーションを再生成するよう変更
 

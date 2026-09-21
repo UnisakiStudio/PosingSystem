@@ -161,7 +161,7 @@ namespace jp.unisakistudio.posingsystemeditor
                         }
                         // 未プレビルド（null / 空文字）は直後に自動変換するため、
                         // 「設定変更済み」としてNDMFエラーを報告しない。
-                        if (!string.IsNullOrEmpty(posingSystem.data) && posingSystem.data != GetDefineSerializeJson(posingSystem, true))
+                        if (ShouldReportPrebuildUpdateWarning(posingSystem))
                         {
                             ErrorReport.ReportError(errorLocalizer, ErrorSeverity.NonFatal, "オブジェクトの設定が更新されています。再度プレビルドを行ってください", posingSystem.name);
                         }
@@ -665,27 +665,42 @@ namespace jp.unisakistudio.posingsystemeditor
 
         public static bool HasWarning(PosingSystem posingSystem)
         {
+            // As before, an unbuilt object alone does not add a hierarchy warning badge.
+            return (GetVisibleWarnings(posingSystem) & ~PosingSystem.WarningType.PrebuildNotRun)
+                != PosingSystem.WarningType.None;
+        }
+
+        public static bool ShouldReportPrebuildUpdateWarning(PosingSystem posingSystem)
+        {
+            return !posingSystem.IsWarningIgnored(PosingSystem.WarningType.PrebuildOutOfDate)
+                && !string.IsNullOrEmpty(posingSystem.data)
+                && IsPosingSystemDataUpdated(posingSystem);
+        }
+
+        public static PosingSystem.WarningType GetVisibleWarnings(PosingSystem posingSystem)
+        {
             var avatar = posingSystem.GetAvatar();
 
             if (avatar == null)
             {
-                return false;
+                return PosingSystem.WarningType.None;
             }
 
-            // プレビルドしていなければ、内容変更では警告は出さない
-            if (posingSystem.data != null && posingSystem.data.Length != 0)
+            var warnings = PosingSystem.WarningType.None;
+            if (string.IsNullOrEmpty(posingSystem.data))
             {
-                if (IsPosingSystemDataUpdated(posingSystem))
-                {
-                    return true;
-                }
+                warnings |= PosingSystem.WarningType.PrebuildNotRun;
+            }
+            else if (ShouldReportPrebuildUpdateWarning(posingSystem))
+            {
+                warnings |= PosingSystem.WarningType.PrebuildOutOfDate;
             }
 
             if (avatar.autoFootsteps)
             {
-                return true;
+                warnings |= PosingSystem.WarningType.AutoFootsteps;
             }
-            return false;
+            return warnings & ~posingSystem.ignoredWarnings;
         }
 
         public static bool HasError(PosingSystem posingSystem)
