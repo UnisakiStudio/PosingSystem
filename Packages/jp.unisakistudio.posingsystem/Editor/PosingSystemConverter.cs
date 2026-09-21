@@ -88,6 +88,7 @@ namespace jp.unisakistudio.posingsystemeditor
         {
             public bool isIconDisabled;
             public bool isIconSmall;
+            public int horizontalRootTranslationVersion;
             public System.Collections.Generic.List<LayerDefineDTO> list;
             public System.Collections.Generic.List<OverrideAnimationDefineDTO> overrides;
             public string version;
@@ -1061,6 +1062,8 @@ namespace jp.unisakistudio.posingsystemeditor
             {
                 isIconDisabled = posingSystem.isIconDisabled,
                 isIconSmall = posingSystem.isIconSmall,
+                // Invalidate prebuilds made before uniform root scale was included in RootT conversion.
+                horizontalRootTranslationVersion = 1,
                 list = new System.Collections.Generic.List<LayerDefineDTO>(),
                 overrides = new System.Collections.Generic.List<OverrideAnimationDefineDTO>(),
                 version = VersionName,
@@ -2322,11 +2325,22 @@ namespace jp.unisakistudio.posingsystemeditor
             Vector3 worldPosition,
             float humanScale)
         {
-            // RootT uses humanScale units. Rotate the world offset into avatar axes while
-            // preserving its meter magnitude, then normalize it by the humanoid scale.
+            // humanScale excludes the root Transform scale. With positive uniform scaling,
+            // one RootT unit moves humanScale * rootScale world meters.
             var worldOffset = worldPosition - avatarRoot.position;
             var avatarSpaceOffset = Quaternion.Inverse(avatarRoot.rotation) * worldOffset;
-            return new Vector3(avatarSpaceOffset.x, 0f, avatarSpaceOffset.z) / humanScale;
+            var offset = new Vector3(avatarSpaceOffset.x, 0f, avatarSpaceOffset.z) / humanScale;
+            var scale = avatarRoot.lossyScale;
+            // Keep existing behavior for nonuniform, reflected or degenerate transforms.
+            // Relative tolerance avoids treating tiny nonuniform scales as uniform.
+            if (scale.x > 0.000001f && scale.y > 0.000001f && scale.z > 0.000001f
+                && !float.IsInfinity(scale.x)
+                && Mathf.Abs(scale.x - scale.y) <= scale.x * 0.00001f
+                && Mathf.Abs(scale.x - scale.z) <= scale.x * 0.00001f)
+            {
+                offset /= scale.x;
+            }
+            return offset;
         }
 
         private static bool HasValidHumanoidAnimator(GameObject avatarObject)

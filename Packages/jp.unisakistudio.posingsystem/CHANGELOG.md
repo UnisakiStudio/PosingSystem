@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+- アバターのルートを均等に拡大・縮小した際、生成ポーズの水平位置がずれる不具合を修正
+- 修正前のプレビルドを更新対象として検出し、ビルド時にアニメーションを再生成するよう変更
+
 ## [3.0.16] - 2026-09-14
 - `VirtualAnimatorController.SetParameter` APIを使用しているため、NDMFの最低依存バージョンを1.14.0へ更新
 
