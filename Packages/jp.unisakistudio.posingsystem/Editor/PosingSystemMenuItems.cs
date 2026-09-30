@@ -66,59 +66,14 @@ namespace jp.unisakistudio.posingsystemeditor
                 var installedPosingSystem = (instance as GameObject).GetComponent<PosingSystem>();
                 PosingSystemAvatarAdjustmentInspector.ConfigureNewInstallation(installedPosingSystem);
 
-                // アバターのオブジェクトを取得
-                var avatarObject = avatar.gameObject;
-
-                // PrefabVariantのVariantParentを遡ってすべてのPrefabsのGUIDと名前を取得する
-                var variantParents = new List<GameObject>() { avatarObject };
-                var variantParent = PrefabUtility.GetCorrespondingObjectFromSource(avatarObject);
-                while (variantParent != null)
-                {
-                    variantParents.Add(variantParent);
-                    variantParent = PrefabUtility.GetCorrespondingObjectFromSource(variantParent);
-                }
-                var variantParentNames = variantParents
-                    .Select(parent => parent.name)
-                    .ToList();
-                var variantParentGUIDHashes = variantParents
-                    .Select((parent) =>
-                    {
-                        var guid = AssetDatabase.AssetPathToGUID(AssetDatabase.GetAssetPath(parent));
-                        return GetPosingSystemGUIDHash(guid);
-                    })
-                    .ToList();
-
-                // PresetDefineを探す
-                var presetDefines = AssetDatabase.FindAssets("t:PosingSystemPresetDefines")
-                    .Select(AssetDatabase.GUIDToAssetPath)
-                    .Select(path => AssetDatabase.LoadAssetAtPath<PosingSystemPresetDefines>(path))
-                    .SelectMany(defines => defines.presetDefines);
-
-                Debug.Log("[PosingSystem]" + presetDefines.Count() + "個のPresetDefineが見つかりました");
-                Debug.Log("[PosingSystem]" + variantParentGUIDHashes.Count() + "個のGUIDが見つかりました:" + variantParentGUIDHashes.Aggregate((a, b) => a + ", " + b));
-                Debug.Log("[PosingSystem]" + variantParentNames.Count() + "個の名前が見つかりました:" + variantParentNames.Aggregate((a, b) => a + ", " + b));
-
-                // 配置するPrefabsに対応しているものだけにしぼる
-                presetDefines = presetDefines.Where(presetDefine => presetDefine.prefabs.Contains(prefabs)).ToList();
-
-                Debug.Log("[PosingSystem]" + presetDefines.Count() + "個のPresetDefineがPrefabsに適合しました");
-
-                // 配置するPrefabsに対応しているPresetDefineを探す
-                var presetDefine = presetDefines.FirstOrDefault(presetDefine => presetDefine.prefabsHashes.FindAll(variantParentGUIDHashes.Contains).Count() > 0);
-                if (presetDefine == null)
-                {
-                    Debug.Log("[PosingSystem]PrefabsのGUIDに合ったPresetDefineはありませんでした");
-                    Debug.Log("[PosingSystem]名前で探します");
-                    presetDefine = presetDefines.FirstOrDefault(presetDefine => presetDefine.prefabsNames.FindAll(variantParentNames.Contains).Count() > 0);
-                    if (presetDefine == null)
-                    {
-                        Debug.Log("[PosingSystem]名前に合ったPresetDefineはありませんでした");
-                    }
-                }
-                else
-                {
-                    Debug.Log("[PosingSystem]PrefabsのGUIDでPresetDefineが見つかりました");
-                }
+                // Share the persisted lightweight catalog with every Inspector.
+                var presetCatalog = PosingSystemPresetDefinesCache.GetCatalog(installedPosingSystem);
+                var toolGuid = AssetDatabase.AssetPathToGUID(AssetDatabase.GetAssetPath(prefabs));
+                var presetDefines = PosingSystemPresetDefinesCache.GetMatchingEntries(presetCatalog, prefabs, prefabs.name)
+                    .Where(entry => entry.toolGuids.Contains(toolGuid)).ToList();
+                // Inspectorの「アバターに適合」と同じ判定を使用する。
+                var presetDefine = PosingSystemPresetDefinesCache.GetAvatarMatchingEntries(presetDefines, avatar.gameObject)
+                    .FirstOrDefault();
 
                 // PresetDefineを適用する
                 if (presetDefine != null)
@@ -126,8 +81,11 @@ namespace jp.unisakistudio.posingsystemeditor
                     if (EditorUtility.DisplayDialog("情報", "このアバターのために作成された「" + presetDefine.avatarName + "」向けのプリセットが見つかりました。\nこのプリセットを適用するとアバターごとの体型の違いに対応した調整データが自動で設定されます。\n\nプリセットを適用しますか？", "適用する", "スキップ"))
                     {
                         Debug.Log("[PosingSystem]" + presetDefine.avatarName + "を適用します");
-                        presetDefine.preset.ApplyTo(installedPosingSystem, new string[] { "defines", "overrideDefines", });
-                        PosingSystemAvatarAdjustmentInspector.ConfigurePresetApplied(installedPosingSystem);
+                        if (!PosingSystemPresetDefinesCache.ApplyPreset(installedPosingSystem, presetDefine))
+                        {
+                            EditorUtility.DisplayDialog("プリセットを読み込めません",
+                                "プリセットが削除されたか、このツールに適用できません。Inspectorの「再読込」で一覧を更新してください。", "閉じる");
+                        }
                     }
                 }
 

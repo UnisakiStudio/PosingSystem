@@ -269,6 +269,10 @@ namespace jp.unisakistudio.posingsystem
         public string savedInstanceId = "";
         public UnityEngine.Object thumbnailPackObject = null;
 
+        // Project-wide editor catalog; all avatars reference the same persisted metadata.
+        [HideInInspector]
+        public UnityEngine.Object presetCatalogObject;
+
         [NonSerialized]
         public bool isWarning = false;
         [NonSerialized]

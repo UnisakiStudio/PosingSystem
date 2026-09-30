@@ -368,6 +368,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 // プロパティ初期化
                 tempPs.developmentMode = false;
                 tempPs.previewAvatarObject = null; // プレビューアバターは保存しない
+                tempPs.presetCatalogObject = null; // プロジェクト共有キャッシュはプリセットに含めない
                 tempPs.isWarning = false;
                 tempPs.isError = false;
 
@@ -417,7 +418,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 Selection.activeObject = folderObj;
                 EditorGUIUtility.PingObject(folderObj);
 
-                EditorUtility.DisplayDialog("完了", "プリセットを作成しました。", "OK");
+                EditorUtility.DisplayDialog("完了", "プリセットを作成しました。プリセット選択の「再読込」で一覧に反映できます。", "OK");
                 Close();
             }
             catch (System.Exception e)
