@@ -1615,14 +1615,18 @@ namespace jp.unisakistudio.posingsystemeditor
                 return;
             }
 
-            void addOverrideFromStateMachine(AnimatorStateMachine stateMachine)
+            void addOverrideFromStateMachine(AnimatorStateMachine stateMachine, bool blendTreesOnly)
             {
                 foreach (var subStateMachine in stateMachine.stateMachines)
                 {
-                    addOverrideFromStateMachine(subStateMachine.stateMachine);
+                    addOverrideFromStateMachine(subStateMachine.stateMachine, blendTreesOnly);
                 }
                 foreach (var state in stateMachine.states)
                 {
+                    if ((state.state.motion is UnityEditor.Animations.BlendTree) != blendTreesOnly)
+                    {
+                        continue;
+                    }
                     var searchName = state.state.name;
                     searchName = searchName.Replace("ing", "").Replace(" ", "").Replace("_", "").ToLower();
                     var detectSettingIndex = detectSettings.FindIndex(setting => setting.stateName == searchName);
@@ -1663,9 +1667,13 @@ namespace jp.unisakistudio.posingsystemeditor
                 }
             }
 
-            foreach (var layer in ((UnityEditor.Animations.AnimatorController)animatorController.animatorController).layers)
+            // 全レイヤーのBlendTreeを先に探し、なければ単発Clipを取り込む。
+            foreach (var blendTreesOnly in new[] { true, false })
             {
-                addOverrideFromStateMachine(layer.stateMachine);
+                foreach (var layer in ((UnityEditor.Animations.AnimatorController)animatorController.animatorController).layers)
+                {
+                    addOverrideFromStateMachine(layer.stateMachine, blendTreesOnly);
+                }
             }
         }
 

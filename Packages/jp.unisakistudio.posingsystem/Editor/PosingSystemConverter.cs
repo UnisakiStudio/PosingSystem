@@ -89,6 +89,7 @@ namespace jp.unisakistudio.posingsystemeditor
             public bool isIconDisabled;
             public bool isIconSmall;
             public int horizontalRootTranslationVersion;
+            public int postureOverrideVersion;
             public System.Collections.Generic.List<LayerDefineDTO> list;
             public System.Collections.Generic.List<OverrideAnimationDefineDTO> overrides;
             public string version;
@@ -1075,6 +1076,8 @@ namespace jp.unisakistudio.posingsystemeditor
                 isIconSmall = posingSystem.isIconSmall,
                 // Invalidate prebuilds made before uniform root scale was included in RootT conversion.
                 horizontalRootTranslationVersion = 1,
+                // Regenerate prebuilds which rejected single-clip crouch/prone overrides.
+                postureOverrideVersion = 1,
                 list = new System.Collections.Generic.List<LayerDefineDTO>(),
                 overrides = new System.Collections.Generic.List<OverrideAnimationDefineDTO>(),
                 version = VersionName,
@@ -3593,9 +3596,8 @@ namespace jp.unisakistudio.posingsystemeditor
             switch (stateType)
             {
                 case PosingSystem.OverrideAnimationDefine.AnimationStateType.StandWalkRun:
-                case PosingSystem.OverrideAnimationDefine.AnimationStateType.Crouch:
-                case PosingSystem.OverrideAnimationDefine.AnimationStateType.Prone:
-                    // これらはステート全体を置き換えるため、単発Clipでは歩行・旋回が失われる。
+                    // 立ち・歩き・走り全体を単発Clipにすると移動が失われる。
+                    // しゃがみ・伏せは元から単発Clipで構成するアバターもあるため許可する。
                     return motion is BlendTree;
                 default:
                     return true;
@@ -3688,7 +3690,8 @@ namespace jp.unisakistudio.posingsystemeditor
             var importedStates = new HashSet<AnimatorState>();
             void searchOverride(List<(PosingSystem.OverrideAnimationDefine.AnimationStateType type, string stateName)> settings)
             {
-                foreach (var state in allStates)
+                // 同じ種類の候補が複数あれば、移動も含められるBlendTreeを優先する。
+                foreach (var state in allStates.OrderByDescending(state => state.motion is BlendTree))
                 {
                     if (importedStates.Contains(state))
                     {
