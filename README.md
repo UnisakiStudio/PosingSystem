@@ -4,6 +4,12 @@
 
 このリポジトリのソースコード、リソースはオープンソースではありません。
 
+# ドキュメント
+
+- [導入・更新方法とモーション設定](Packages/jp.unisakistudio.posingsystem/README.md)
+- [変更履歴](Packages/jp.unisakistudio.posingsystem/CHANGELOG.md)
+- [リリース手順（開発者向け）](RELEASE_PROCEDURE.md)
+
 # 利用規約
 このリポジトリのソースコード、リソースを使用するためには以下の利用規約に同意の元、BOOTHにて商品を購入する必要があります。
 

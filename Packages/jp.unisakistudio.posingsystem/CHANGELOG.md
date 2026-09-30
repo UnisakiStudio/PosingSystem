@@ -5,7 +5,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [3.0.18] - 2026-09-30
 - Inspectorで姿勢アニメーション名を入力するたびにサムネイルを再生成して重くなる不具合を修正。名前はEnterまたはフォーカス移動で確定し、名前だけの変更では既存のサムネイルを保持
+- 編集中に生成した仮のポーズアイコンが、アップロード後のメニューにも使われる不具合を修正。ビルド時に処理後のアバターで再生成し、設定済みのカスタムアイコンは保持
 - しゃがみ・伏せのモーション置き換えで、単発AnimationClipが自動取り込み・手動指定のどちらでも適用されない不具合を修正
 - モーションの自動取り込みでは同じ種類のBlendTreeを優先し、しゃがみ・伏せは有効なBlendTreeがなければ単発AnimationClipを使用。設定済みのモーションは保持
 - 修正前のプレビルド済みデータも再生成されるよう対応
