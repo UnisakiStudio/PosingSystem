@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+- Inspectorで姿勢アニメーション名を入力するたびにサムネイルを再生成して重くなる不具合を修正。名前はEnterまたはフォーカス移動で確定し、名前だけの変更では既存のサムネイルを保持
+
 ## [3.0.17] - 2026-09-22
 - アバター全体を均等に拡大・縮小した際、生成ポーズの水平位置がずれる不具合を修正
 - 修正前のプレビルド済みデータも、ビルド時に修正後のアニメーションへ再生成されるよう対応

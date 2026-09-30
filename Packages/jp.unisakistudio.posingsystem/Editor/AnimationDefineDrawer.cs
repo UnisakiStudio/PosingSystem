@@ -36,10 +36,6 @@ namespace jp.unisakistudio.posingsystemeditor
             var isRotateProperty = property.FindPropertyRelative("isRotate");
             var rotateProperty = property.FindPropertyRelative("rotate");
 
-            // --- 変更検出 ---
-            // このブロック内のUIが変更された場合、プレビュー画像をリセットする
-            EditorGUI.BeginChangeCheck();
-
             // --- レイアウト ---
             // 1行目: 有効トグル、表示名、デフォルトボタン
             var lineRect = new Rect(position.x, position.y, position.width, EditorGUIUtility.singleLineHeight);
@@ -48,8 +44,13 @@ namespace jp.unisakistudio.posingsystemeditor
             var buttonRect = new Rect(lineRect.xMax - DefaultButtonWidth, lineRect.y, DefaultButtonWidth, lineRect.height);
             var nameRect = new Rect(enabledRect.xMax, lineRect.y, buttonRect.x - enabledRect.xMax - FieldIndentSpacing, lineRect.height);
 
+            // 表示名は確定時のみ反映する。名前だけでは画像が変わらないため、
+            // サムネイルの無効化対象から外し、キー入力ごとのアバター再撮影を防ぐ。
+            EditorGUI.DelayedTextField(nameRect, displayNameProperty, GUIContent.none);
+
+            // 表示名以外の設定変更では従来どおりプレビュー画像を更新する。
+            EditorGUI.BeginChangeCheck();
             enabledProperty.boolValue = EditorGUI.Toggle(enabledRect, enabledProperty.boolValue);
-            displayNameProperty.stringValue = EditorGUI.TextField(nameRect, displayNameProperty.stringValue);
 
             using (new EditorGUI.DisabledScope(initialSetProperty.boolValue))
             {
