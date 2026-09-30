@@ -62,6 +62,9 @@ namespace jp.unisakistudio.posingsystem
             public string motionTimeParamName = "";
             public Motion animationClip;
             public Texture2D previewImage;
+            // Dry Inspector previews can omit unmerged clothing. Legacy images are unverified.
+            [HideInInspector]
+            public bool previewImageIsFinal;
             public AnimationClip adjustmentClip;
         }
 

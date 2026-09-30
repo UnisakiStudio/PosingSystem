@@ -258,11 +258,7 @@ namespace jp.unisakistudio.posingsystemeditor
 
                         foreach (var posingSystem in ctx.AvatarRootObject.GetComponentsInChildren<PosingSystem>())
                         {
-                            if (posingSystem.thumbnailPackObject == null)
-                            {
-                                TakeScreenshot(posingSystem, true, true);
-                                SetMenuIcon(posingSystem);
-                            }
+                            CreateBuildMenuIcons(posingSystem, ctx.AssetSaver);
                         }
                         foreach (var posingSystem in ctx.AvatarRootObject.GetComponentsInChildren<PosingSystem>())
                         {
@@ -2699,6 +2695,25 @@ namespace jp.unisakistudio.posingsystemeditor
 
         public static void TakeScreenshot(PosingSystem posingSystem, bool force = false, bool drypreview = true)
         {
+            TakeScreenshot(posingSystem, force, drypreview, false, null);
+        }
+
+        private static void CreateBuildMenuIcons(PosingSystem posingSystem, IAssetSaver assetSaver)
+        {
+            // Manual final captures preprocess an EditorOnly clone. Avoid recursive captures.
+            if (posingSystem.CompareTag("EditorOnly")) return;
+            TakeScreenshot(posingSystem, false, true, true, assetSaver);
+            SetMenuIcon(posingSystem);
+        }
+
+        private static bool NeedsThumbnailCapture(PosingSystem.BaseAnimationDefine animation, bool force, bool requireFinalImage)
+        {
+            if (animation is PosingSystem.AnimationDefine pose && pose.isCustomIcon) return false;
+            return force || animation.previewImage == null || (requireFinalImage && !animation.previewImageIsFinal);
+        }
+
+        private static void TakeScreenshot(PosingSystem posingSystem, bool force, bool drypreview, bool forBuild, IAssetSaver assetSaver)
+        {
             // NDMFのビルドパス内では OnPreprocessAvatar を起動しないため、preprocessを回避するドライプレビューのみ許可
             if (_isExecutingNdMfPass)
             {
@@ -2718,11 +2733,7 @@ namespace jp.unisakistudio.posingsystemeditor
             {
                 for (int j = 0; j < posingSystem.defines[i].animations.Count; j++)
                 {
-                    if (force == false && posingSystem.defines[i].animations[j].previewImage != null)
-                    {
-                        continue;
-                    }
-                    if (force == false && posingSystem.defines[i].animations[j].isCustomIcon)
+                    if (!NeedsThumbnailCapture(posingSystem.defines[i].animations[j], force, forBuild))
                     {
                         continue;
                     }
@@ -2733,7 +2744,7 @@ namespace jp.unisakistudio.posingsystemeditor
             {
                 for (int j = 0; j < posingSystem.overrideDefines.Count; j++)
                 {
-                    if (force == false && posingSystem.overrideDefines[j].previewImage != null)
+                    if (!NeedsThumbnailCapture(posingSystem.overrideDefines[j], force, forBuild))
                     {
                         continue;
                     }
@@ -2752,7 +2763,8 @@ namespace jp.unisakistudio.posingsystemeditor
                 return;
             }
             GameObject clone;
-            var usingEditorPreview = drypreview && HasValidHumanoidAnimator(posingSystem.previewAvatarObject);
+            // Uploaded icons must use the processed build avatar, not a cached editor clone.
+            var usingEditorPreview = !forBuild && drypreview && HasValidHumanoidAnimator(posingSystem.previewAvatarObject);
             if (usingEditorPreview)
             {
                 clone = posingSystem.previewAvatarObject;
@@ -2761,11 +2773,11 @@ namespace jp.unisakistudio.posingsystemeditor
             {
                 // フル前処理ではキャッシュを再利用しない。NDMF所有の一時アセットを参照する
                 // 前処理済みクローンは、このTakeScreenshot呼び出しの外へ持ち出さない。
-                if (posingSystem.previewAvatarObject != null)
+                if (!forBuild && posingSystem.previewAvatarObject != null)
                 {
                     Object.DestroyImmediate(posingSystem.previewAvatarObject);
                 }
-                posingSystem.previewAvatarObject = null;
+                if (!forBuild) posingSystem.previewAvatarObject = null;
                 clone = drypreview
                     ? CreatePreviewAvatarClone(srcAvatar.gameObject, posingSystem, "DryPreview")
                     : CreateBuildPipelineAvatarClone(srcAvatar.gameObject, posingSystem);
@@ -2813,44 +2825,59 @@ namespace jp.unisakistudio.posingsystemeditor
                     {
                         var animation = posingSystem.defines[i].animations[j];
 
-                        if (force == false && animation.previewImage != null)
-                        {
-                            continue;
-                        }
-                        if (force == false && animation.isCustomIcon)
+                        if (!NeedsThumbnailCapture(animation, force, forBuild))
                         {
                             continue;
                         }
 
-                        TakeIconScreenshot(animation, posingSystem, camera, clone, force);
+                        // Build output must not modify textures or subassets in the source pack.
+                        if (forBuild) animation.previewImage = null;
+                        animation.previewImageIsFinal = false;
+                        if (!CaptureIconScreenshot(animation, posingSystem, camera, clone, force)) continue;
+                        animation.previewImageIsFinal = forBuild || !drypreview;
                         if (animation.previewImage != null && !AssetDatabase.IsSubAsset(animation.previewImage))
                         {
-                            if (posingSystem.thumbnailPackObject != null)
+                            if (forBuild)
+                            {
+                                assetSaver?.SaveAsset(animation.previewImage);
+                            }
+                            else if (posingSystem.thumbnailPackObject != null)
                             {
                                 AssetDatabase.AddObjectToAsset(animation.previewImage, posingSystem.thumbnailPackObject);
                             }
                         }
                     }
                 }
-                for (int j = 0; j < posingSystem.overrideDefines.Count; j++)
+                for (int j = 0; j < (posingSystem.overrideDefines?.Count ?? 0); j++)
                 {
                     var animation = posingSystem.overrideDefines[j];
 
-                    if (force == false && animation.previewImage != null)
+                    if (!NeedsThumbnailCapture(animation, force, forBuild))
                     {
                         continue;
                     }
 
-                    TakeIconScreenshot(animation, posingSystem, camera, clone, force);
+                    if (forBuild) animation.previewImage = null;
+                    animation.previewImageIsFinal = false;
+                    if (!CaptureIconScreenshot(animation, posingSystem, camera, clone, force)) continue;
+                    animation.previewImageIsFinal = forBuild || !drypreview;
                     if (animation.previewImage != null && !AssetDatabase.IsSubAsset(animation.previewImage))
                     {
-                        if (posingSystem.thumbnailPackObject != null)
+                        if (forBuild)
+                        {
+                            assetSaver?.SaveAsset(animation.previewImage);
+                        }
+                        else if (posingSystem.thumbnailPackObject != null)
                         {
                             AssetDatabase.AddObjectToAsset(animation.previewImage, posingSystem.thumbnailPackObject);
                         }
                     }
                 }
-                AssetDatabase.SaveAssets();
+                if (!forBuild)
+                {
+                    EditorUtility.SetDirty(posingSystem);
+                    AssetDatabase.SaveAssets();
+                }
                 screenshotCompleted = true;
             }
             finally
@@ -2875,7 +2902,7 @@ namespace jp.unisakistudio.posingsystemeditor
 
                 // フル前処理の結果は撮影だけに使い、調整ウィンドウ等が必要とするEditorプレビューは
                 // NDMFの一時アセットを一切参照しない元アバターのクローンとして別に作る。
-                if (!drypreview && screenshotCompleted && posingSystem != null && posingSystem.previewAvatarObject == null)
+                if (!forBuild && !drypreview && screenshotCompleted && posingSystem != null && posingSystem.previewAvatarObject == null)
                 {
                     var editorPreview = CreatePreviewAvatarClone(srcAvatar.gameObject, posingSystem, "EditorPreview");
                     if (HasValidHumanoidAnimator(editorPreview))
@@ -2965,7 +2992,8 @@ namespace jp.unisakistudio.posingsystemeditor
                     var animation = posingSystem.defines[i].animations[j];
                     if (controlHash.ContainsKey((posingSystem.defines[i].paramName, animation.typeParameterValue)))
                     {
-                        controlHash[(posingSystem.defines[i].paramName, animation.typeParameterValue)].icon = animation.previewImage;
+                        controlHash[(posingSystem.defines[i].paramName, animation.typeParameterValue)].icon =
+                            animation.isCustomIcon ? animation.icon : animation.previewImage;
                     }
                 }
             }
@@ -2973,14 +3001,19 @@ namespace jp.unisakistudio.posingsystemeditor
 
         public static void TakeIconScreenshot(PosingSystem.BaseAnimationDefine animation, PosingSystem posingSystem, Camera camera, GameObject previewAvatarObject, bool force)
         {
+            CaptureIconScreenshot(animation, posingSystem, camera, previewAvatarObject, force);
+        }
+
+        private static bool CaptureIconScreenshot(PosingSystem.BaseAnimationDefine animation, PosingSystem posingSystem, Camera camera, GameObject previewAvatarObject, bool force)
+        {
             var animationDefine = animation as PosingSystem.AnimationDefine;
             if (force == false && animation.previewImage != null)
             {
-                return;
+                return false;
             }
-            if (force == false && animationDefine != null && animationDefine.isCustomIcon)
+            if (animationDefine != null && animationDefine.isCustomIcon)
             {
-                return;
+                return false;
             }
 
             // 元のアバターを取得
@@ -2988,7 +3021,7 @@ namespace jp.unisakistudio.posingsystemeditor
             if (srcAvatar == null)
             {
                 Debug.LogWarning("[PosingSystem] スクリーンショット撮影: アバターが見つかりません。");
-                return;
+                return false;
             }
 
             // previewAvatarObjectがあればそれを使用、なければクローンを作成
@@ -3021,7 +3054,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 {
                     PosingSystemEditor.SetPreviewAvatarVisibility(workingAvatar, false);
                 }
-                return;
+                return false;
             }
 
             try
@@ -3187,10 +3220,12 @@ namespace jp.unisakistudio.posingsystemeditor
                 camera.targetTexture = null;
                 renderTexture.Release();
                 Object.DestroyImmediate(renderTexture);
+                return true;
             }
             catch (System.Exception e)
             {
                 Debug.LogError($"[PosingSystem] スクリーンショット撮影中にエラーが発生しました: {e.Message}\n{e.StackTrace}");
+                return false;
             }
             finally
             {
