@@ -48,6 +48,7 @@ namespace jp.unisakistudio.posingsystemeditor
         List<string> existProducts;
         List<string> existFolders;
         Texture2D exMenuBackground = null;
+        private readonly PosingSystemInspectorHeader inspectorHeader = new PosingSystemInspectorHeader();
 
         private readonly PosingSystemPresetBrowser presetBrowser = new PosingSystemPresetBrowser();
 
@@ -240,6 +241,7 @@ namespace jp.unisakistudio.posingsystemeditor
         public override void OnInspectorGUI()
         {
             PosingSystem posingSystem = target as PosingSystem;
+            inspectorHeader.Draw(posingSystem);
 
             var header1Label = new GUIStyle(EditorStyles.label) { fontStyle = FontStyle.Bold, fontSize = 20, };
             var header2Label = new GUIStyle(EditorStyles.label) { fontStyle = FontStyle.Bold, fontSize = 16, };
@@ -392,8 +394,6 @@ namespace jp.unisakistudio.posingsystemeditor
             EditorGUILayout.Space(6);
             if (_selectedTab == InspectorTab.Settings)
             {
-            EditorGUILayout.LabelField(posingSystem.settingName, header1Label, GUILayout.Height(30));
-
             if (posingSystem.previewAvatarObject == null)
             {
                 EditorGUILayout.HelpBox("ModularAvatarで服を着せているとポーズサムネイルの洋服が外れて見えますが、アバターアップロード時に再撮影されて正しい画像がメニューに設定されるのでご安心ください", MessageType.Info);
