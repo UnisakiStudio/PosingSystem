@@ -68,6 +68,7 @@ namespace jp.unisakistudio.posingsystemeditor
             }
         }
         private Adjustments _adjustments;
+        private readonly Dictionary<string, Adjustments> _adjustmentStates = new();
         private LimitBreakStates _limitBreakStates;
         private Vector2 _animationListScroll;
         private Vector2 _muscleScroll;
@@ -133,6 +134,8 @@ namespace jp.unisakistudio.posingsystemeditor
 
             var key = GetAnimationKey(entry);
             if (string.IsNullOrEmpty(key)) return;
+
+            _adjustmentStates[key] = _adjustments;
 
             if (!_allAdjustmentData.ContainsKey(key))
             {
@@ -445,9 +448,9 @@ namespace jp.unisakistudio.posingsystemeditor
             return false;
         }
 
-        private string[] GetDynamicAnimationLabels()
+        private GUIContent[] GetDynamicAnimationLabels()
         {
-            var labels = new string[_animationEntries.Count];
+            var labels = new GUIContent[_animationEntries.Count];
             for (int i = 0; i < _animationEntries.Count; i++)
             {
                 var entry = _animationEntries[i];
@@ -456,12 +459,13 @@ namespace jp.unisakistudio.posingsystemeditor
 
                 if (hasChanges)
                 {
-                    labels[i] = $"{entry.Label} ※";
+                    labels[i] = new GUIContent($"{entry.Label} ※");
                 }
                 else
                 {
-                    labels[i] = entry.Label;
+                    labels[i] = new GUIContent(entry.Label);
                 }
+                AdditionalAnimationListItem?.Invoke(this, key, entry.Animation.animationClip as AnimationClip, labels[i]);
             }
             return labels;
         }
@@ -514,6 +518,7 @@ namespace jp.unisakistudio.posingsystemeditor
 
         public static void ShowWindow(PosingSystem posingSystem)
         {
+            PosingSystemQuickPreview.Stop();
             if (posingSystem == null)
             {
                 return;
@@ -540,6 +545,7 @@ namespace jp.unisakistudio.posingsystemeditor
 
         private void Initialize(PosingSystem posingSystem)
         {
+            if (_posingSystem != posingSystem) ClearAdjustmentStates();
             _isOpen = true;
 
             _posingSystem = posingSystem;
@@ -601,6 +607,7 @@ namespace jp.unisakistudio.posingsystemeditor
 
         public void Close()
         {
+            ClearAdjustmentStates();
             _isOpen = false;
             CleanupPreview();
             _posingSystem = null;
@@ -644,6 +651,7 @@ namespace jp.unisakistudio.posingsystemeditor
 
         private void OnDisable()
         {
+            ClearAdjustmentStates();
             UnregisterAutoPoseSceneGui();
             // Undoイベントの購読解除
             Undo.undoRedoPerformed -= OnUndoRedoPerformed;
@@ -658,13 +666,15 @@ namespace jp.unisakistudio.posingsystemeditor
             {
                 return;
             }
-            // Undo対象の一時ScriptableObjectと姿勢別キャッシュを同期してから、
-            // IKカタログを含む現在の状態で必ずプレビューを作り直す。
-            if (_adjustments != null)
-            {
-                SaveCurrentAdjustmentData();
-                UpdatePreviousAdjustmentValues();
-            }
+            // Undo can target a different pose or replace nested serialized definitions.
+            PosingSystemEditorChangeUtility.EndTextEditing();
+            RebuildAnimationEntries();
+            // A save can also be undone: compare drafts with the restored clip, not the last save cache.
+            PreloadAllAdjustmentData(preserveDrafts: true);
+            SynchronizeAdjustmentStates();
+            var entry = GetSelectedEntry();
+            _adjustments = entry == null ? null : GetAdjustmentState(GetAnimationKey(entry));
+            UpdatePreviousAdjustmentValues();
             ApplyPreviewPose();
             UpdateHasUnsavedChanges();
             SceneView.RepaintAll();
@@ -877,6 +887,7 @@ namespace jp.unisakistudio.posingsystemeditor
                     EditorGUI.BeginChangeCheck();
                     var dynamicLabels = GetDynamicAnimationLabels();
                     _selectedAnimationIndex = GUILayout.SelectionGrid(_selectedAnimationIndex, dynamicLabels, 1, GUILayout.ExpandHeight(true));
+                    ScrollToSelectedAnimation(GUILayoutUtility.GetLastRect());
                     if (EditorGUI.EndChangeCheck())
                     {
                         LoadAdjustmentValues();
@@ -918,7 +929,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 // アニメーション情報セクション
                 DrawAnimationInfoSection(selectedEntry);
 
-                DrawAdjustmentControls(enabled: !_posingSystem.UsesAutoPoseCatalog);
+                DrawAdjustmentControls(enabled: !UsesIkInPreview());
             }
         }
 
@@ -950,7 +961,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 var oldAdjustmentClip = entry.Animation.adjustmentClip;
                 AnimationClip newAdjustmentClip;
                 EditorGUI.BeginChangeCheck();
-                using (new EditorGUI.DisabledScope(_posingSystem.UsesAutoPoseCatalog))
+                using (new EditorGUI.DisabledScope(UsesIkInPreview()))
                 using (new EditorGUILayout.HorizontalScope())
                 {
                     newAdjustmentClip = EditorGUILayout.ObjectField(
@@ -971,7 +982,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 {
                     Undo.RecordObject(_posingSystem, "Change Adjustment Clip");
                     entry.Animation.adjustmentClip = newAdjustmentClip;
-                    EditorUtility.SetDirty(_posingSystem);
+                    PosingSystemEditorChangeUtility.MarkChanged(_posingSystem);
 
                     // 調整アニメーションが変更されたので、データを再読込して元データも更新
                     // ObjectFieldの変更と同じUndoグループへ余分な一時データUndoを積まない。
@@ -981,14 +992,15 @@ namespace jp.unisakistudio.posingsystemeditor
                     UpdateOriginalDataAfterClipChange();
                 }
 
-                if (_posingSystem.UsesAutoPoseCatalog)
+                if (UsesIkInPreview())
                 {
                     EditorGUILayout.HelpBox(
-                        "公開用IK設定が有効なため、この調整Animationは最終出力では使用されません。",
+                        "IKで手足の位置を自動調整しています。手動で調整するには、下の「IKを調整に反映」を押してください。",
                         MessageType.Info);
                 }
             }
 
+            DrawUserPoseIkPanel(entry);
             DrawAutoPoseAuthoringPanel(entry);
 
             EditorGUILayout.Space();
@@ -1094,7 +1106,7 @@ namespace jp.unisakistudio.posingsystemeditor
             Undo.RecordObject(_posingSystem, "Combine and Save Animation");
             entry.Animation.animationClip = combinedClip;
             entry.Animation.adjustmentClip = null; // 調整アニメーションはクリア
-            EditorUtility.SetDirty(_posingSystem);
+            PosingSystemEditorChangeUtility.MarkChanged(_posingSystem);
 
             // データをリセット
             var key = GetAnimationKey(entry);
@@ -1156,7 +1168,7 @@ namespace jp.unisakistudio.posingsystemeditor
             // animationClipPropertyを新しいパスに更新
             Undo.RecordObject(_posingSystem, "Duplicate Adjustment Clip");
             entry.Animation.adjustmentClip = duplicatedClip;
-            EditorUtility.SetDirty(_posingSystem);
+            PosingSystemEditorChangeUtility.MarkChanged(_posingSystem);
         }
 
         private void DuplicateAndSaveAdjustmentClip()
@@ -1185,7 +1197,7 @@ namespace jp.unisakistudio.posingsystemeditor
             // 複製したクリップを現在の調整アニメーションとして設定
             Undo.RecordObject(_posingSystem, "Duplicate and Save Adjustment Clip");
             entry.Animation.adjustmentClip = duplicatedClip;
-            EditorUtility.SetDirty(_posingSystem);
+            PosingSystemEditorChangeUtility.MarkChanged(_posingSystem);
 
             // 複製したクリップに現在の調整値を保存
             var key = GetAnimationKey(entry);
@@ -1214,6 +1226,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 return;
             }
 
+            Undo.RegisterCompleteObjectUndo(_posingSystem, "Duplicate and Save All Adjustment Clips");
             int processedCount = 0;
             foreach (var entry in _animationEntries)
             {
@@ -1257,8 +1270,7 @@ namespace jp.unisakistudio.posingsystemeditor
 
             if (processedCount > 0)
             {
-                Undo.RecordObject(_posingSystem, "Duplicate and Save All Adjustment Clips");
-                EditorUtility.SetDirty(_posingSystem);
+                PosingSystemEditorChangeUtility.MarkChanged(_posingSystem);
                 AssetDatabase.SaveAssets();
                 AssetDatabase.Refresh();
 
@@ -1716,8 +1728,8 @@ namespace jp.unisakistudio.posingsystemeditor
             // 元の値を取得
             var originalValue = _originalRootTYAdjustmentData.TryGetValue(key, out var original) ? original : 0f;
 
-            _adjustments.rootTYAdjustment = originalValue;
             Undo.RecordObject(_adjustments, "Reload RootTY parameter");
+            _adjustments.rootTYAdjustment = originalValue;
 
             // 現在のデータも更新
             _allRootTYAdjustmentData[key] = originalValue;
@@ -1740,8 +1752,8 @@ namespace jp.unisakistudio.posingsystemeditor
 
             var newRootQ = _adjustments.rootQAdjustments;
             newRootQ[axisIndex] = originalRootQ[axisIndex];
-            _adjustments.rootQAdjustments = newRootQ;
             Undo.RecordObject(_adjustments, $"Reload RootQ parameter {axisIndex}");
+            _adjustments.rootQAdjustments = newRootQ;
 
             // 現在のデータも更新
             _allRootQAdjustmentData[key] = _adjustments.rootQAdjustments;
@@ -1766,8 +1778,8 @@ namespace jp.unisakistudio.posingsystemeditor
                 originalValue = originalData[muscleIndex];
             }
 
-            _adjustments.adjustments[muscleIndex] = originalValue;
             Undo.RecordObject(_adjustments, $"Reload muscle parameter {HumanTrait.MuscleName[muscleIndex]}");
+            _adjustments.adjustments[muscleIndex] = originalValue;
 
             // 現在のデータも更新
             if (_allAdjustmentData.TryGetValue(key, out var currentData) && muscleIndex < currentData.Length)
@@ -1822,11 +1834,6 @@ namespace jp.unisakistudio.posingsystemeditor
 
         private void LoadAdjustmentValues()
         {
-            _adjustments = CreateInstance<Adjustments>();
-            _adjustments.adjustments = new float[HumanTrait.MuscleCount];
-            _adjustments.rootQAdjustments = Vector3.zero;
-            _adjustments.rootTYAdjustment = 0f;
-
             if (_limitBreakStates == null)
             {
                 _limitBreakStates = CreateInstance<LimitBreakStates>();
@@ -1837,6 +1844,8 @@ namespace jp.unisakistudio.posingsystemeditor
 
             var key = GetAnimationKey(entry);
             if (string.IsNullOrEmpty(key)) return;
+
+            _adjustments = GetAdjustmentState(key);
 
             // 事前読み込みされたデータを使用
             if (_allAdjustmentData.TryGetValue(key, out var existingData))
@@ -1861,6 +1870,52 @@ namespace jp.unisakistudio.posingsystemeditor
 
             ApplyPreviewPose();
             Repaint();
+        }
+
+        private Adjustments GetAdjustmentState(string key)
+        {
+            if (_adjustmentStates.TryGetValue(key, out var state) && state != null) return state;
+            state = CreateInstance<Adjustments>();
+            state.hideFlags = HideFlags.HideAndDontSave;
+            state.adjustments = _allAdjustmentData.TryGetValue(key, out var muscles)
+                ? (float[])muscles.Clone() : new float[HumanTrait.MuscleCount];
+            state.rootQAdjustments = _allRootQAdjustmentData.TryGetValue(key, out var rootQ) ? rootQ : Vector3.zero;
+            state.rootTYAdjustment = _allRootTYAdjustmentData.TryGetValue(key, out var rootY) ? rootY : 0;
+            _adjustmentStates[key] = state;
+            return state;
+        }
+
+        private void SynchronizeAdjustmentStates()
+        {
+            foreach (var pair in _adjustmentStates)
+            {
+                var state = pair.Value;
+                if (state == null || !_allAdjustmentData.ContainsKey(pair.Key)) continue;
+                _allAdjustmentData[pair.Key] = (float[])state.adjustments.Clone();
+                _allRootQAdjustmentData[pair.Key] = state.rootQAdjustments;
+                _allRootTYAdjustmentData[pair.Key] = state.rootTYAdjustment;
+            }
+        }
+
+        private void ResetAllAdjustmentValues()
+        {
+            foreach (var key in _allAdjustmentData.Keys.ToArray()) GetAdjustmentState(key);
+            Undo.RecordObjects(_adjustmentStates.Values.ToArray(), "Reset all pose adjustments");
+            foreach (var state in _adjustmentStates.Values)
+            {
+                Array.Clear(state.adjustments, 0, state.adjustments.Length);
+                state.rootQAdjustments = Vector3.zero;
+                state.rootTYAdjustment = 0;
+            }
+            SynchronizeAdjustmentStates();
+        }
+
+        private void ClearAdjustmentStates()
+        {
+            foreach (var state in _adjustmentStates.Values)
+                if (state != null) { Undo.ClearUndo(state); DestroyImmediate(state); }
+            _adjustmentStates.Clear();
+            _adjustments = null;
         }
 
         private void ReloadCurrentAdjustmentFromFile(bool recordUndo = true)
@@ -2039,38 +2094,7 @@ namespace jp.unisakistudio.posingsystemeditor
         {
             if (EditorUtility.DisplayDialog(PosingAnimationAdjustmentWindowText.ConfirmTitle, PosingAnimationAdjustmentWindowText.ResetAllConfirm, PosingAnimationAdjustmentWindowText.Yes, PosingAnimationAdjustmentWindowText.No))
             {
-                // 存在する全ての調整値を0に変更する
-                foreach (var kvp in _allAdjustmentData)
-                {
-                    var key = kvp.Key;
-                    var adjustmentData = kvp.Value;
-                    for (int i = 0; i < HumanTrait.MuscleCount; i++)
-                    {
-                        adjustmentData[i] = 0f;
-                    }
-                }
-
-                // 存在する全てのRootQ調整値も0に変更する
-                foreach (var key in _allRootQAdjustmentData.Keys.ToList())
-                {
-                    _allRootQAdjustmentData[key] = Vector3.zero;
-                }
-
-                // 存在する全てのRootTY調整値も0に変更する
-                foreach (var key in _allRootTYAdjustmentData.Keys.ToList())
-                {
-                    _allRootTYAdjustmentData[key] = 0f;
-                }
-
-                Undo.RecordObject(_adjustments, "Reset all adjustments");
-                for (int i = 0; i < _adjustments.adjustments.Length; i++)
-                {
-                    _adjustments.adjustments[i] = 0f;
-                }
-                _adjustments.rootQAdjustments = Vector3.zero;
-                _adjustments.rootTYAdjustment = 0f;
-
-                SaveCurrentAdjustmentData();
+                ResetAllAdjustmentValues();
                 CleanupPreview();
                 ApplyPreviewPose();
                 Repaint();
@@ -2082,6 +2106,7 @@ namespace jp.unisakistudio.posingsystemeditor
             if (EditorUtility.DisplayDialog(PosingAnimationAdjustmentWindowText.ConfirmTitle, PosingAnimationAdjustmentWindowText.ReloadAllConfirm, PosingAnimationAdjustmentWindowText.Yes, PosingAnimationAdjustmentWindowText.No))
             {
                 // 全ての姿勢の調整値を再読み込み
+                Undo.RecordObjects(_adjustmentStates.Values.ToArray(), "Reload all pose adjustments");
                 PreloadAllAdjustmentData();
                 LoadAdjustmentValues();
             }
@@ -2203,7 +2228,7 @@ namespace jp.unisakistudio.posingsystemeditor
 
             entry.Animation.previewImage = null;
             EditorUtility.SetDirty(clip);
-            EditorUtility.SetDirty(_posingSystem);
+            PosingSystemEditorChangeUtility.MarkChanged(_posingSystem);
             AssetDatabase.SaveAssets();
 
             // 保存した値を新しい元データとして更新
@@ -2313,6 +2338,33 @@ namespace jp.unisakistudio.posingsystemeditor
                 .Select(c => InvalidFileNameChars.Contains(c) ? '_' : c)
                 .ToArray();
             return new string(sanitizedChars);
+        }
+
+        // Editor extensions can observe the preview without changing scene avatars or build inputs.
+        public static event System.Action<PosingSystem, AnimationClip, string, bool> PosePreviewChanged;
+        public static event System.Action PosePreviewStopped;
+
+        // Late subscribers (development comparison tools) must be able to read the pose
+        // already on screen without forcing a different pose selection.
+        public static bool TryGetActivePosePreview(out PosingSystem system, out AnimationClip clip, out string key, out bool applyIk)
+        {
+            var window = Resources.FindObjectsOfTypeAll<PosingAnimationAdjustmentWindow>()
+                .FirstOrDefault(w => w.IsOpen && w._previewActive && w.GetSelectedEntry()?.Animation?.animationClip is AnimationClip);
+            system = window != null ? window._posingSystem : null;
+            clip = window?.GetSelectedEntry()?.Animation?.animationClip as AnimationClip;
+            key = window != null ? window.GetAnimationKey(window.GetSelectedEntry()) : null;
+            applyIk = window != null && window.UsesIkInPreview();
+            return system != null && clip != null;
+        }
+
+        public static bool RefreshPosePreview(PosingSystem system)
+        {
+            var window = Resources.FindObjectsOfTypeAll<PosingAnimationAdjustmentWindow>()
+                .FirstOrDefault(w => w.IsOpen && w._posingSystem == system);
+            if (window == null) return false;
+            window.ApplyPreviewPose();
+            window.Repaint();
+            return true;
         }
 
         private void ApplyPreviewPose()
@@ -2433,11 +2485,14 @@ namespace jp.unisakistudio.posingsystemeditor
             finally
             {
                 poseHandler?.Dispose();
+                PosePreviewChanged?.Invoke(_posingSystem, baseClip, GetAnimationKey(entry),
+                    UsesIkInPreview());
             }
         }
 
         private void CleanupPreview()
         {
+            PosePreviewStopped?.Invoke();
             if (_previewActive)
             {
                 AnimationMode.StopAnimationMode();
@@ -2468,21 +2523,20 @@ namespace jp.unisakistudio.posingsystemeditor
             _initialTransformSaved = false;
         }
 
-        private void PreloadAllAdjustmentData()
+        private void PreloadAllAdjustmentData(bool preserveDrafts = false)
         {
-            // データをクリア
-            _allAdjustmentData.Clear();
-            _allRootQAdjustmentData.Clear();
-            _allRootTYAdjustmentData.Clear();
+            if (!preserveDrafts)
+            {
+                _allAdjustmentData.Clear();
+                _allRootQAdjustmentData.Clear();
+                _allRootTYAdjustmentData.Clear();
+                if (_limitBreakStates != null) _limitBreakStates.animationLimitBreaks.Clear();
+                _rootQLimitBreakStates.Clear();
+                _rootTYLimitBreakStates.Clear();
+            }
             _originalAdjustmentData.Clear();
             _originalRootQAdjustmentData.Clear();
             _originalRootTYAdjustmentData.Clear();
-            if (_limitBreakStates != null)
-            {
-                _limitBreakStates.animationLimitBreaks.Clear();
-            }
-            _rootQLimitBreakStates.Clear();
-            _rootTYLimitBreakStates.Clear();
 
             // 全ての姿勢の調整値を読み込み
             foreach (var entry in _animationEntries)
@@ -2580,7 +2634,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 _originalRootTYAdjustmentData[key] = originalRootTY;
 
                 // 限界突破状態を保存
-                if (_limitBreakStates != null && (limitBreaks.Count > 0 || rootQLimitBreaks.Count > 0 || rootTYLimitBreak))
+                if (!preserveDrafts && _limitBreakStates != null && (limitBreaks.Count > 0 || rootQLimitBreaks.Count > 0 || rootTYLimitBreak))
                 {
                     var animData = _limitBreakStates.GetOrCreateAnimationData(key);
 
@@ -2603,11 +2657,18 @@ namespace jp.unisakistudio.posingsystemeditor
                 }
 
                 // 変更データとして元データのコピーを保存
+                if (preserveDrafts && _allAdjustmentData.ContainsKey(key)) continue;
                 var adjustmentData = new float[HumanTrait.MuscleCount];
                 Array.Copy(originalData, adjustmentData, HumanTrait.MuscleCount);
                 _allAdjustmentData[key] = adjustmentData;
                 _allRootQAdjustmentData[key] = originalRootQ;
                 _allRootTYAdjustmentData[key] = originalRootTY;
+                if (_adjustmentStates.TryGetValue(key, out var state) && state != null)
+                {
+                    Array.Copy(adjustmentData, state.adjustments, HumanTrait.MuscleCount);
+                    state.rootQAdjustments = originalRootQ;
+                    state.rootTYAdjustment = originalRootTY;
+                }
             }
         }
     }

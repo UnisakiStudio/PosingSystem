@@ -22,6 +22,112 @@ namespace jp.unisakistudio.posingsystemeditor
         private const float CurveEpsilon = 0.00001f;
         private const string GeneratedRoot = "Assets/UnisakiStudio/GeneratedResources";
 
+        /// <summary>Transient knee limits. Comparison previews supply the target avatar's baseline,
+        /// rather than reusing the reference avatar's generated adjustment data.</summary>
+        public readonly struct KneeSafety
+        {
+            public bool Enabled { get; }
+            private readonly Vector2 baseline;
+            private readonly float minimumAngle;
+
+            internal KneeSafety(Vector2 baseline, float minimumAngle)
+            {
+                Enabled = true;
+                this.baseline = baseline;
+                this.minimumAngle = minimumAngle;
+            }
+
+            public bool Apply(ref HumanPose pose)
+            {
+                if (!Enabled || pose.muscles == null || pose.muscles.Length <= RightKneeMuscleIndex)
+                    return false;
+                var left = pose.muscles[LeftKneeMuscleIndex];
+                var right = pose.muscles[RightKneeMuscleIndex];
+                ClampKnee(pose.muscles, LeftKneeMuscleIndex, baseline.x, minimumAngle);
+                ClampKnee(pose.muscles, RightKneeMuscleIndex, baseline.y, minimumAngle);
+                return left != pose.muscles[LeftKneeMuscleIndex] || right != pose.muscles[RightKneeMuscleIndex];
+            }
+
+            public void ApplyToAnimator(Animator animator)
+            {
+                if (!Enabled || !IsValidHumanoid(animator)) return;
+                using var handler = new HumanPoseHandler(animator.avatar, animator.transform);
+                var pose = new HumanPose();
+                handler.GetHumanPose(ref pose);
+                var leftMuscle = pose.muscles[LeftKneeMuscleIndex];
+                var rightMuscle = pose.muscles[RightKneeMuscleIndex];
+                if (!Apply(ref pose)) return;
+
+                // Get/SetHumanPose is not an identity round trip for a translated/scaled avatar:
+                // writing its body position can move the hips by several metres. It also retargets
+                // unrelated bones. Use it only to calculate the corrected knee rotations, restoring
+                // the complete local pose before committing those rotations alone.
+                var leftKnee = animator.GetBoneTransform(HumanBodyBones.LeftLowerLeg);
+                var rightKnee = animator.GetBoneTransform(HumanBodyBones.RightLowerLeg);
+                var transforms = animator.GetComponentsInChildren<Transform>(true);
+                var original = new LocalTransformPose[transforms.Length];
+                for (var i = 0; i < transforms.Length; i++) original[i] = new LocalTransformPose(transforms[i]);
+                Quaternion leftRotation, rightRotation;
+                try
+                {
+                    handler.SetHumanPose(ref pose);
+                    leftRotation = leftKnee != null ? leftKnee.localRotation : Quaternion.identity;
+                    rightRotation = rightKnee != null ? rightKnee.localRotation : Quaternion.identity;
+                }
+                finally
+                {
+                    for (var i = 0; i < transforms.Length; i++) original[i].Restore(transforms[i]);
+                }
+                if (leftKnee != null && leftMuscle != pose.muscles[LeftKneeMuscleIndex]) leftKnee.localRotation = leftRotation;
+                if (rightKnee != null && rightMuscle != pose.muscles[RightKneeMuscleIndex]) rightKnee.localRotation = rightRotation;
+            }
+        }
+
+        private readonly struct LocalTransformPose
+        {
+            private readonly Vector3 position;
+            private readonly Quaternion rotation;
+            private readonly Vector3 scale;
+
+            public LocalTransformPose(Transform transform)
+            {
+                position = transform.localPosition;
+                rotation = transform.localRotation;
+                scale = transform.localScale;
+            }
+
+            public void Restore(Transform transform)
+            {
+                transform.localPosition = position;
+                transform.localRotation = rotation;
+                transform.localScale = scale;
+            }
+        }
+
+        public static KneeSafety GetKneeSafety(PosingSystem posingSystem, Vector2? targetBaseline = null)
+        {
+            if (posingSystem == null || !posingSystem.enableReverseKneeSafetyClamp ||
+                string.IsNullOrEmpty(posingSystem.AvatarReferenceProfileResourceName)) return default;
+            return new KneeSafety(targetBaseline ?? new Vector2(
+                posingSystem.avatarSpecificLeftKneeBendDegrees, posingSystem.avatarSpecificRightKneeBendDegrees),
+                posingSystem.reverseKneeSafetyAngle);
+        }
+
+        public static bool TryReadKneeBaseline(Animator animator, out Vector2 baseline, out string message)
+        {
+            baseline = default;
+            message = string.Empty;
+            if (!IsValidHumanoid(animator))
+            {
+                message = "膝の計測に必要なHumanoid Animatorがありません。";
+                return false;
+            }
+            if (!TryReadAvatarBaselineOnTemporaryClone(animator, out _, out var bends, out message,
+                    restoreImportedPose: true)) return false;
+            baseline = new Vector2(bends.leftKnee, bends.rightKnee);
+            return true;
+        }
+
         public static bool HasReferenceProfile(PosingSystem posingSystem)
         {
             return TryGetReferenceProfile(posingSystem, out _);
@@ -256,18 +362,7 @@ namespace jp.unisakistudio.posingsystemeditor
 
         public static void ClampKnees(PosingSystem posingSystem, ref HumanPose pose)
         {
-            if (posingSystem == null || !posingSystem.enableReverseKneeSafetyClamp || pose.muscles == null ||
-                string.IsNullOrEmpty(posingSystem.AvatarReferenceProfileResourceName))
-            {
-                return;
-            }
-
-            ClampKnee(pose.muscles, LeftKneeMuscleIndex,
-                posingSystem.avatarSpecificLeftKneeBendDegrees,
-                posingSystem.reverseKneeSafetyAngle);
-            ClampKnee(pose.muscles, RightKneeMuscleIndex,
-                posingSystem.avatarSpecificRightKneeBendDegrees,
-                posingSystem.reverseKneeSafetyAngle);
+            GetKneeSafety(posingSystem).Apply(ref pose);
         }
 
         public static void ApplyToAnimator(PosingSystem posingSystem, Animator animator, float time = 0f)
@@ -277,12 +372,27 @@ namespace jp.unisakistudio.posingsystemeditor
                 return;
             }
 
-            var handler = new HumanPoseHandler(animator.avatar, animator.transform);
-            var pose = new HumanPose();
-            handler.GetHumanPose(ref pose);
-            ApplyToPose(posingSystem, ref pose, time);
-            handler.SetHumanPose(ref pose);
-            handler.Dispose();
+            // GetHumanPose includes the scene placement in bodyPosition, whereas
+            // SetHumanPose applies it relative to the avatar root. Round-tripping at
+            // a nonzero placement therefore applies that placement a second time.
+            // Muscle adjustments do not depend on the scene frame: evaluate them
+            // at the origin, then restore the original placement even on failure.
+            var root = animator.transform;
+            var position = root.position;
+            var rotation = root.rotation;
+            try
+            {
+                root.SetPositionAndRotation(Vector3.zero, Quaternion.identity);
+                using var handler = new HumanPoseHandler(animator.avatar, root);
+                var pose = new HumanPose();
+                handler.GetHumanPose(ref pose);
+                var originalMuscles = (float[])pose.muscles.Clone();
+                ApplyToPose(posingSystem, ref pose, time);
+                // A no-op must not retarget unrelated bones through Mecanim.
+                if (!originalMuscles.SequenceEqual(pose.muscles))
+                    handler.SetHumanPose(ref pose);
+            }
+            finally { root.SetPositionAndRotation(position, rotation); }
         }
 
         public static bool CaptureReferenceProfile(
@@ -409,7 +519,8 @@ namespace jp.unisakistudio.posingsystemeditor
             Animator sourceAnimator,
             out float[] muscles,
             out LimbBends bends,
-            out string message)
+            out string message,
+            bool restoreImportedPose = false)
         {
             muscles = null;
             bends = default;
@@ -434,6 +545,26 @@ namespace jp.unisakistudio.posingsystemeditor
                 {
                     message = "計測用クローンに有効な Humanoid Animator がありません。";
                     return false;
+                }
+
+                cloneAnimator.runtimeAnimatorController = null;
+                foreach (var behaviour in clone.GetComponentsInChildren<Behaviour>(true))
+                    if (behaviour != null && behaviour != cloneAnimator) behaviour.enabled = false;
+                if (restoreImportedPose)
+                {
+                    // A scene avatar (or a preview clone without a prefab source) may already be posed.
+                    // Measure the imported skeleton on the disposable clone, never that current pose.
+                    var skeleton = cloneAnimator.avatar.humanDescription.skeleton;
+                    var transforms = clone.GetComponentsInChildren<Transform>(true)
+                        .Where(t => t != clone.transform).ToLookup(t => t.name);
+                    foreach (var bone in skeleton)
+                    {
+                        var matches = transforms[bone.name].ToArray();
+                        if (matches.Length != 1) continue;
+                        matches[0].localPosition = bone.position;
+                        matches[0].localRotation = bone.rotation;
+                        matches[0].localScale = bone.scale;
+                    }
                 }
 
                 return TryReadAvatarBaseline(cloneAnimator, out muscles, out bends, out message);

@@ -366,7 +366,6 @@ namespace jp.unisakistudio.posingsystemeditor
                 PosingSystem tempPs = tempObj.GetComponent<PosingSystem>();
 
                 // プロパティ初期化
-                tempPs.developmentMode = false;
                 tempPs.previewAvatarObject = null; // プレビューアバターは保存しない
                 tempPs.presetCatalogObject = null; // プロジェクト共有キャッシュはプリセットに含めない
                 tempPs.isWarning = false;
@@ -439,6 +438,9 @@ namespace jp.unisakistudio.posingsystemeditor
                 foreach (var animation in define.animations)
                 {
                     animation.previewImage = null;
+                    if (animation.rolloverSideAnimation != null)
+                        animation.rolloverSideAnimation = CopyAnimationClip(animation.rolloverSideAnimation, targetFolderPath,
+                            copiedClips, posingSystemObjectName, animation.displayName + "_RolloverSide");
                     if (animation.adjustmentClip != null)
                     {
                         string poseName = animation.displayName;

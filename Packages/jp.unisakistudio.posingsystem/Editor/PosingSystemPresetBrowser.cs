@@ -20,6 +20,7 @@ namespace jp.unisakistudio.posingsystemeditor
         private PresetTreeView list;
         private string search = "";
         private string error;
+        private bool showBrowser;
 
         internal void Draw(PosingSystem posingSystem)
         {
@@ -42,6 +43,9 @@ namespace jp.unisakistudio.posingsystemeditor
                 }
             }
 
+            if (PosingSystemInspectorGUI.Link(showBrowser ? "プリセット一覧を閉じる" : "ほかのプリセットを探す")) showBrowser = !showBrowser;
+            if (showBrowser)
+            {
             EditorGUILayout.BeginHorizontal();
             EditorGUILayout.LabelField("プリセット選択", EditorStyles.boldLabel);
             if (GUILayout.Button("再読込", GUILayout.Width(72)))
@@ -78,11 +82,13 @@ namespace jp.unisakistudio.posingsystemeditor
 
             if (list.MatchCount == 0)
                 EditorGUILayout.HelpBox("該当するプリセットがありません。", MessageType.Info);
+            }
+            if (selected != null) EditorGUILayout.LabelField(selected.avatarName, PosingSystemInspectorGUI.Text(12, true));
             if (!string.IsNullOrEmpty(error)) EditorGUILayout.HelpBox(error, MessageType.Warning);
 
             using (new EditorGUI.DisabledScope(selected == null))
             {
-                if (GUILayout.Button(selected == null ? "プリセットを選択してください" : selected.avatarName + " を適用"))
+                if (GUILayout.Button(selected == null ? "プリセットを選択してください" : "このプリセットに変更する"))
                 {
                     if (PosingSystemPresetDefinesCache.ApplyPreset(posingSystem, selected))
                     {
@@ -109,7 +115,8 @@ namespace jp.unisakistudio.posingsystemeditor
             var avatar = descriptor != null ? descriptor.gameObject : null;
             avatarMatchKey = PosingSystemPresetDefinesCache.GetAvatarMatchKey(avatar);
             list.SetEntries(entries, PosingSystemPresetDefinesCache.GetAvatarMatchingEntries(entries, avatar));
-            selected = null;
+            selected = PosingSystemPresetDefinesCache.GetAvatarMatchingEntries(entries, avatar)
+                .FirstOrDefault(entry => !catalog.hideBundledPresets || !entry.official);
             error = null;
         }
 

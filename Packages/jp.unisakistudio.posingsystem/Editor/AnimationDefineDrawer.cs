@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
@@ -32,6 +32,7 @@ namespace jp.unisakistudio.posingsystemeditor
             var isCustomIconProperty = property.FindPropertyRelative("isCustomIcon");
             var iconProperty = property.FindPropertyRelative("icon");
             var isMotionTimeProperty = property.FindPropertyRelative("isMotionTime");
+            var isRolloverProperty = property.FindPropertyRelative("isRollover");
             var motionTimeParamNameProperty = property.FindPropertyRelative("motionTimeParamName");
             var isRotateProperty = property.FindPropertyRelative("isRotate");
             var rotateProperty = property.FindPropertyRelative("rotate");
@@ -108,15 +109,27 @@ namespace jp.unisakistudio.posingsystemeditor
             animationClipProperty.objectReferenceValue = EditorGUI.ObjectField(animFieldRect, animationClipProperty.objectReferenceValue, typeof(Motion), false);
             contentRect.y += EditorGUIUtility.singleLineHeight;
 
-            // 3行目: MotionTime
+            EditorGUI.PropertyField(contentRect, isRolloverProperty, new GUIContent("寝返りを使う"));
+            contentRect.y += EditorGUIUtility.singleLineHeight;
+            if (isRolloverProperty.boolValue)
+            {
+                EditorGUI.PropertyField(contentRect, property.FindPropertyRelative("rolloverSideAnimation"), new GUIContent("寝返り時の横向き"));
+                contentRect.y += EditorGUIUtility.singleLineHeight;
+                EditorGUI.PropertyField(contentRect, property.FindPropertyRelative("rolloverContactStrength"), new GUIContent("接地補正の強さ"));
+                contentRect.y += EditorGUIUtility.singleLineHeight;
+                PosingSystemRolloverIcon.Draw(iconRect);
+            }
+
+            // MotionTime settings are retained, but rollover takes precedence while enabled.
             var motionTimeToggleRect = new Rect(contentRect.x + FieldIndentSpacing, contentRect.y, ToggleWidth, contentRect.height);
             var motionTimeLabelRect = new Rect(motionTimeToggleRect.xMax, contentRect.y, MotionTimeLabelWidth, contentRect.height);
             var motionTimeFieldRect = new Rect(motionTimeLabelRect.xMax, contentRect.y, contentRect.width - (motionTimeLabelRect.xMax - contentRect.x), contentRect.height);
-            isMotionTimeProperty.boolValue = EditorGUI.Toggle(motionTimeToggleRect, isMotionTimeProperty.boolValue);
-            EditorGUI.LabelField(motionTimeLabelRect, "motionTime");
-            if (isMotionTimeProperty.boolValue)
+            using (new EditorGUI.DisabledScope(isRolloverProperty.boolValue))
             {
-                motionTimeParamNameProperty.stringValue = EditorGUI.TextField(motionTimeFieldRect, motionTimeParamNameProperty.stringValue);
+                isMotionTimeProperty.boolValue = EditorGUI.Toggle(motionTimeToggleRect, isMotionTimeProperty.boolValue);
+                EditorGUI.LabelField(motionTimeLabelRect, "motionTime");
+                if (isMotionTimeProperty.boolValue)
+                    motionTimeParamNameProperty.stringValue = EditorGUI.TextField(motionTimeFieldRect, motionTimeParamNameProperty.stringValue);
             }
             contentRect.y += EditorGUIUtility.singleLineHeight;
 
@@ -160,7 +173,7 @@ namespace jp.unisakistudio.posingsystemeditor
         }
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
         {
-            return EditorGUIUtility.singleLineHeight * 6;
+            return EditorGUIUtility.singleLineHeight * (property.FindPropertyRelative("isRollover").boolValue ? 9 : 7);
         }
 
     }

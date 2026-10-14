@@ -13,12 +13,27 @@ namespace jp.unisakistudio.posingsystem
 {
     public class PosingSystem : MonoBehaviour, IEditorOnly
     {
-        [HideInInspector]
-        public bool developmentMode = false;
         public string settingName;
         public bool isIconDisabled = false;
         public bool isIconSmall = false;
         public const int PreviewMask = 21;
+
+        [Serializable]
+        public class FeatureMenuIcons
+        {
+            public Texture2D breathing, rollover, floorHeight;
+            public Texture2D photoMode, photoDistance, photoDirection, photoExit;
+
+            public Texture2D Get(string key) => key switch
+            {
+                "Breathing" => breathing, "Rollover" => rollover, "FloorHeight" => floorHeight,
+                "PhotoAssistance" => photoMode, "PhotoDistance" => photoDistance,
+                "PhotoDirection" => photoDirection, "PhotoExit" => photoExit, _ => null
+            };
+        }
+
+        // Product prefab references also cover menus that have not been enabled yet.
+        [HideInInspector] public FeatureMenuIcons featureMenuIcons = new();
 
         // トラッキング機能統合オプション
         [HideInInspector]
@@ -27,6 +42,28 @@ namespace jp.unisakistudio.posingsystem
         // アバターの姿勢設定自動インポートオプション
         [HideInInspector]
         public bool autoImportAvatarAnimations = true;
+
+        [Flags]
+        public enum WarningType
+        {
+            None = 0,
+            AutoFootsteps = 1 << 0,
+            PrebuildNotRun = 1 << 1,
+            PrebuildOutOfDate = 1 << 2,
+            Configuration = 1 << 3,
+            All = AutoFootsteps | PrebuildNotRun | PrebuildOutOfDate | Configuration,
+        }
+
+        public enum WarningDisplayPosition { InspectorTop, InspectorBottom }
+
+        // Keep the original field name/flag values so saved preferences from 3.0 are restored.
+        // Display preferences are deliberately excluded from the generated animation settings DTO.
+        [HideInInspector] public WarningType ignoredWarnings = WarningType.None;
+        [HideInInspector] public WarningDisplayPosition warningDisplayPosition;
+        [HideInInspector] public bool hideHierarchyWarnings;
+
+        public bool IsWarningIgnored(WarningType warning)
+            => warning != WarningType.None && (ignoredWarnings & warning) == warning;
 
         // エディタ内だけで使う一時プレビュー。Prefab overrideやシーンへ保存すると、
         // 参照だけ失われて非表示のアバターがシーンに残るためシリアライズしない。
@@ -48,7 +85,9 @@ namespace jp.unisakistudio.posingsystem
         [Tooltip("商品開発時に作成した姿勢別IK設定です。設定されている場合、従来の姿勢別 adjustmentClip は使用しません。")]
         public PosingSystemAutoPoseCatalog autoPoseCatalog;
 
-        public bool UsesAutoPoseCatalog => autoPoseCatalog != null && autoPoseCatalog.productionReady;
+        [HideInInspector] public bool enablePoseIk = true;
+        public bool UsesAutoPoseCatalog => enablePoseIk && autoPoseCatalog != null && autoPoseCatalog.productionReady;
+        public bool UsesAutoPoseFor(BaseAnimationDefine pose) => UsesAutoPoseCatalog && pose != null && !pose.disablePoseIk;
 
         public enum LocomotionTypeGroup
         {
@@ -73,12 +112,15 @@ namespace jp.unisakistudio.posingsystem
             Weak = 2,
             Strong = 3,
             Custom = 4,
+            Rapid = 5,
         }
 
         [System.Serializable]
         public class AdditiveBreathingSettings
         {
             public bool enabled = true;
+            // Independent of the optional breathing animation and its in-game parameter.
+            public bool disableDefaultIdle = false;
             public BreathingLevel standingLevel = BreathingLevel.Medium;
             public BreathingLevel sitShallowLevel = BreathingLevel.Medium;
             public BreathingLevel sitDeepLevel = BreathingLevel.Medium;
@@ -150,6 +192,9 @@ namespace jp.unisakistudio.posingsystem
         [HideInInspector]
         public bool isEightBitVersion = false;
 
+        [HideInInspector] public PosingSystemFeatureSettings features = new();
+        [HideInInspector] public bool featureSettingsMigrated;
+
         [System.Serializable]
         public class BaseAnimationDefine
         {
@@ -161,11 +206,17 @@ namespace jp.unisakistudio.posingsystem
             public Motion animationClip;
             public Texture2D previewImage;
             public AnimationClip adjustmentClip;
+            // Per-avatar override; never changes the shared product IK catalog.
+            public bool disablePoseIk;
         }
 
         [System.Serializable]
         public class AnimationDefine : BaseAnimationDefine
         {
+            // The normal animation is the center pose; the side clip is sampled at its first frame.
+            public bool isRollover = false;
+            public AnimationClip rolloverSideAnimation;
+            [Range(0, 1)] public float rolloverContactStrength = .25f;
             public string displayName;
             public bool initial = false;
             public bool initialSet = false;

@@ -39,6 +39,7 @@ namespace jp.unisakistudio.posingsystemeditor.tests
                 var prefab = LoadAssetByGuid<GameObject>(SettingsPrefabGuid);
                 var settingsObject = Object.Instantiate(prefab, avatarObject.transform);
                 var posingSystem = settingsObject.GetComponentInChildren<PosingSystem>(true);
+                posingSystem.additiveBreathing.standingLevel = PosingSystem.BreathingLevel.Rapid;
                 posingSystem.defines = new List<PosingSystem.LayerDefine>
                 {
                     CreateLayerDefineWithSyncedPose("立ち姿勢", 1, 4),
@@ -155,6 +156,8 @@ namespace jp.unisakistudio.posingsystemeditor.tests
                 {
                     var state = layer.stateMachine.states.Single(child =>
                         child.state.name == expected.Group.ToString()).state;
+                    Assert.That(state.motion, Is.SameAs(PosingSystemConverter.ResolveAdditiveBreathingClip(
+                        posingSystem.additiveBreathing, expected.Group)));
                     var transition = poseTransitions.Single(candidate =>
                         candidate.destinationState == state &&
                         HasSynchronizedPoseConditions(candidate, expected.PoseValue, 513));
@@ -266,7 +269,7 @@ namespace jp.unisakistudio.posingsystemeditor.tests
         }
 
         [Test]
-        public void BuiltInClips_HaveThreeStrengths_AndHeadMotionOnlyOnMediumAndStrong()
+        public void BuiltInClips_HaveThreeStrengths_AndFasterRapidPreset()
         {
             var strong = LoadClipByGuid(
                 PosingSystemConverter.BreathingStrongClipGuid,
@@ -281,32 +284,45 @@ namespace jp.unisakistudio.posingsystemeditor.tests
             Assert.That(strong.name, Is.EqualTo("USSPS_Breathing_Strong"));
             Assert.That(medium.name, Is.EqualTo("USSPS_Breathing_Medium"));
             Assert.That(weak.name, Is.EqualTo("USSPS_Breathing_Weak"));
-            Assert.That(strong.length, Is.EqualTo(60f).Within(0.01f));
-            Assert.That(medium.length, Is.EqualTo(60f).Within(0.01f));
+            Assert.That(strong.length, Is.EqualTo(5f).Within(0.01f));
+            Assert.That(medium.length, Is.EqualTo(5f).Within(0.01f));
             Assert.That(weak.length, Is.EqualTo(5f).Within(0.01f));
-
-            foreach (var propertyName in new[]
-                     {
-                         "Neck Nod Down-Up",
-                         "Neck Tilt Left-Right",
-                         "Neck Turn Left-Right",
-                     })
-            {
-                Assert.That(HasMuscleCurve(strong, propertyName), Is.True, propertyName);
-                Assert.That(HasMuscleCurve(medium, propertyName), Is.True, propertyName);
-                Assert.That(HasMuscleCurve(weak, propertyName), Is.False, propertyName);
-            }
+            var rapid = LoadClipByGuid(PosingSystemConverter.BreathingRapidClipGuid, "USSPS_Breathing_Rapid");
+            Assert.That(rapid.length, Is.EqualTo(1.8f).Within(0.01f));
+            Assert.That(GetMaximumAbsoluteValue(rapid, "UpperChest Front-Back"),
+                Is.EqualTo(.1134f).Within(.0001f));
 
             Assert.That(GetMaximumAbsoluteValue(strong, "UpperChest Front-Back"),
-                Is.EqualTo(0.084f).Within(0.0001f));
+                Is.EqualTo(0.1344f).Within(0.0001f));
             Assert.That(GetMaximumAbsoluteValue(medium, "UpperChest Front-Back"),
-                Is.EqualTo(0.063f).Within(0.0001f));
+                Is.EqualTo(0.0903f).Within(0.0001f));
             Assert.That(GetMaximumAbsoluteValue(weak, "UpperChest Front-Back"),
                 Is.EqualTo(0.0462f).Within(0.0001f));
+
+            foreach (var binding in AnimationUtility.GetCurveBindings(medium))
+            {
+                if (binding.propertyName.Contains("Leg") || binding.propertyName.Contains("Foot"))
+                {
+                    Assert.That(GetMaximumAbsoluteValue(strong, binding.propertyName),
+                        Is.EqualTo(GetMaximumAbsoluteValue(medium, binding.propertyName)).Within(.00001f),
+                        "Large breaths keep leg motion subtle: " + binding.propertyName);
+                    continue;
+                }
+                var weakCurve = AnimationUtility.GetEditorCurve(weak, binding);
+                var strongCurve = AnimationUtility.GetEditorCurve(strong, binding);
+                var mediumCurve = AnimationUtility.GetEditorCurve(medium, binding);
+                for (var sample = 0; sample <= 20; sample++)
+                {
+                    var time = medium.length * sample / 20f;
+                    Assert.That(mediumCurve.Evaluate(time),
+                        Is.EqualTo((weakCurve.Evaluate(time) + strongCurve.Evaluate(time)) * .5f).Within(.00001f),
+                        "Medium is halfway between weak and strong, including compensation: " + binding.propertyName);
+                }
+            }
         }
 
         [Test]
-        public void NewSettings_DefaultEveryPoseToMedium_AndResolveAllFiveChoices()
+        public void NewSettings_DefaultEveryPoseToMedium_AndResolveAllSixChoices()
         {
             var settings = new PosingSystem.AdditiveBreathingSettings();
             foreach (var group in System.Enum
@@ -336,6 +352,12 @@ namespace jp.unisakistudio.posingsystemeditor.tests
                     settings, PosingSystem.LocomotionTypeGroup.Standing),
                 PosingSystemConverter.BreathingStrongClipGuid);
 
+            settings.standingLevel = PosingSystem.BreathingLevel.Rapid;
+            AssertClipGuid(
+                PosingSystemConverter.ResolveAdditiveBreathingClip(
+                    settings, PosingSystem.LocomotionTypeGroup.Standing),
+                PosingSystemConverter.BreathingRapidClipGuid);
+
             var custom = new AnimationClip();
             try
             {
@@ -348,6 +370,75 @@ namespace jp.unisakistudio.posingsystemeditor.tests
             {
                 Object.DestroyImmediate(custom);
             }
+        }
+
+        [Test]
+        public void Presets_LoopSmoothly_AndOnlyAnimateCoordinatedBodyMuscles()
+        {
+            foreach (var level in new[] { PosingSystem.BreathingLevel.Weak, PosingSystem.BreathingLevel.Medium,
+                         PosingSystem.BreathingLevel.Strong, PosingSystem.BreathingLevel.Rapid })
+            {
+                var settings = new PosingSystem.AdditiveBreathingSettings { standingLevel = level };
+                var clip = PosingSystemConverter.ResolveAdditiveBreathingClip(settings, PosingSystem.LocomotionTypeGroup.Standing);
+                Assert.That(AnimationUtility.GetAnimationClipSettings(clip).loopTime, Is.True);
+                Assert.That(HasMuscleCurve(clip, "Neck Tilt Left-Right"), Is.False);
+                Assert.That(HasMuscleCurve(clip, "Neck Turn Left-Right"), Is.False);
+                foreach (var binding in AnimationUtility.GetCurveBindings(clip))
+                {
+                    Assert.That(binding.type, Is.EqualTo(typeof(Animator)));
+                    Assert.That(binding.path, Is.Empty);
+                    Assert.That(HumanTrait.MuscleName, Does.Contain(binding.propertyName), "No root/transform curves");
+                    Assert.That(binding.propertyName, Does.Not.Contain("Finger"));
+                    var curve = AnimationUtility.GetEditorCurve(clip, binding);
+                    Assert.That(curve.Evaluate(0), Is.Zero.Within(.00001f));
+                    Assert.That(curve.Evaluate(clip.length), Is.Zero.Within(.00001f));
+                    Assert.That(curve.keys.First().outTangent, Is.Zero);
+                    Assert.That(curve.keys.Last().inTangent, Is.Zero);
+                    for (var sample = 0; sample <= 40; sample++)
+                        Assert.That(Mathf.Abs(curve.Evaluate(clip.length * sample / 40f)), Is.LessThanOrEqualTo(.135f));
+                }
+                foreach (var side in new[] { "Left ", "Right " })
+                {
+                    Assert.That(GetMaximumAbsoluteValue(clip, side + "Upper Leg Front-Back"), Is.InRange(.0001f, .003f));
+                    Assert.That(GetMaximumAbsoluteValue(clip, side + "Lower Leg Stretch"), Is.InRange(.0001f, .003f));
+                    Assert.That(HasMuscleCurve(clip, side + "Arm Front-Back"), Is.True);
+                }
+                var chest = AnimationUtility.GetEditorCurve(clip, EditorCurveBinding.FloatCurve("", typeof(Animator), "Chest Front-Back"));
+                var neck = AnimationUtility.GetEditorCurve(clip, EditorCurveBinding.FloatCurve("", typeof(Animator), "Neck Nod Down-Up"));
+                for (var sample = 1; sample < 40; sample++)
+                    Assert.That(chest.Evaluate(clip.length * sample / 40f) * neck.Evaluate(clip.length * sample / 40f), Is.LessThan(0));
+            }
+        }
+
+        [Test]
+        public void RapidSelection_RoundTrips_WithoutReassigningExistingSerializedLevels()
+        {
+            Assert.That((int)PosingSystem.BreathingLevel.Medium, Is.EqualTo(0));
+            Assert.That((int)PosingSystem.BreathingLevel.None, Is.EqualTo(1));
+            Assert.That((int)PosingSystem.BreathingLevel.Weak, Is.EqualTo(2));
+            Assert.That((int)PosingSystem.BreathingLevel.Strong, Is.EqualTo(3));
+            Assert.That((int)PosingSystem.BreathingLevel.Custom, Is.EqualTo(4));
+            var settings = new PosingSystem.AdditiveBreathingSettings { standingLevel = PosingSystem.BreathingLevel.Rapid };
+            var restored = JsonUtility.FromJson<PosingSystem.AdditiveBreathingSettings>(JsonUtility.ToJson(settings));
+            Assert.That(restored.standingLevel, Is.EqualTo(PosingSystem.BreathingLevel.Rapid));
+        }
+
+        [Test]
+        public void RapidSelection_InvalidatesPrebuildWithoutIncreasingParameterCost()
+        {
+            var go = Object.Instantiate(LoadAssetByGuid<GameObject>(SettingsPrefabGuid));
+            try
+            {
+                var ps = go.GetComponentInChildren<PosingSystem>(true);
+                var original = PosingSystemConverter.GetDefineSerializeJson(ps);
+                var parameters = EditorJsonUtility.ToJson(go.GetComponent<ModularAvatarParameters>());
+                ps.additiveBreathing.standingLevel = PosingSystem.BreathingLevel.Rapid;
+                Assert.That(PosingSystemConverter.GetDefineSerializeJson(ps), Is.Not.EqualTo(original));
+                Assert.That(EditorJsonUtility.ToJson(go.GetComponent<ModularAvatarParameters>()), Is.EqualTo(parameters));
+                ps.additiveBreathing.standingLevel = PosingSystem.BreathingLevel.Medium;
+                Assert.That(PosingSystemConverter.GetDefineSerializeJson(ps), Is.EqualTo(original));
+            }
+            finally { Object.DestroyImmediate(go); }
         }
 
         [Test]

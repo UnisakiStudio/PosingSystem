@@ -107,6 +107,32 @@ namespace jp.unisakistudio.posingsystem
         Manual,
     }
 
+    public enum PosingSystemAutoPosePositionSpace
+    {
+        [InspectorName("ローカル（基準の向き）")]
+        ReferenceLocal = 0,
+        [InspectorName("ワールド（シーンの軸）")]
+        World = 1,
+    }
+
+    public enum PosingSystemAutoPoseLengthReference
+    {
+        [InspectorName("身長")]
+        AvatarHeight = 0,
+        [InspectorName("上腕の長さ")]
+        UpperArm = 1,
+        [InspectorName("前腕の長さ")]
+        Forearm = 2,
+        [InspectorName("胸の長さ")]
+        Chest = 3,
+        [InspectorName("太ももの長さ")]
+        Thigh = 4,
+        [InspectorName("すねの長さ")]
+        Shin = 5,
+        [InspectorName("脚全体の長さ（太もも＋すね）")]
+        Leg = 6,
+    }
+
     [Serializable]
     public sealed class PosingSystemAutoPoseLimbRule
     {
@@ -144,8 +170,30 @@ namespace jp.unisakistudio.posingsystem
         [Tooltip("「身体のボーンを基準」を選んだ場合に、手足の置き場所の基準となるHumanoidボーンです。")]
         public HumanBodyBones targetBone = HumanBodyBones.Hips;
 
-        [InspectorName("置き場所（身長に対する比率）")]
-        [Tooltip("基準から見た手または足の位置です。アバターの身長を1として保存するため、体格が変わっても追従します。調整ウィンドウの「現在の手足位置から取得」で自動入力できます。")]
+        // Separate from HumanBodyBones so existing serialized bone values remain unchanged.
+        [Tooltip("身体のボーンの代わりに、頭に追従するAvatar DescriptorのView Positionを基準にします。")]
+        public bool useViewPosition;
+
+        [InspectorName("位置の座標系")]
+        [Tooltip("ワールドでは基準位置からワールドX・Y・Z方向へ移動します。ボーンの向きに影響されません。手足の向きの指定は変わりません。")]
+        public PosingSystemAutoPosePositionSpace positionSpace;
+
+        [InspectorName("位置の長さの基準")]
+        [Tooltip("位置の比率で1とする長さです。腕・脚は動かす手足と同じ側を測ります。脚全体は太ももとすねの合計です。胸はChestからNeckまで（UpperChestがあれば経由）を測ります。")]
+        public PosingSystemAutoPoseLengthReference lengthReference;
+
+        [InspectorName("X方向を合わせる")]
+        public bool applyPositionX = true;
+        [InspectorName("Y方向を合わせる")]
+        public bool applyPositionY = true;
+        [InspectorName("Z方向を合わせる")]
+        public bool applyPositionZ = true;
+
+        public bool HasPositionAxis => applyPositionX || applyPositionY || applyPositionZ;
+        public bool HasAllPositionAxes => applyPositionX && applyPositionY && applyPositionZ;
+
+        [InspectorName("置き場所（選んだ長さに対する比率）")]
+        [Tooltip("基準から見た手または足の位置です。選んだ長さを1とした比率です。無効な軸は元のポーズの位置を残します。調整ウィンドウの「現在の手足位置から取得」で自動入力できます。")]
         public Vector3 normalizedTargetOffset;
 
         [InspectorName("手足の向き")]

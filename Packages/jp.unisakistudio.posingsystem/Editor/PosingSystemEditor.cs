@@ -24,7 +24,7 @@ namespace jp.unisakistudio.posingsystemeditor
 
     [InitializeOnLoad]
     [CustomEditor(typeof(PosingSystem))]
-    public class PosingSystemEditor : Editor
+    public partial class PosingSystemEditor : Editor
     {
         private const string DefaultAdjustmentFolderRoot = "Assets/UnisakiStudio/GeneratedResources";
         private static readonly string[] BreathingLevelLabels =
@@ -33,6 +33,7 @@ namespace jp.unisakistudio.posingsystemeditor
             "弱",
             "中",
             "強",
+            "急",
             "カスタム",
         };
 
@@ -42,6 +43,7 @@ namespace jp.unisakistudio.posingsystemeditor
             PosingSystem.BreathingLevel.Weak,
             PosingSystem.BreathingLevel.Medium,
             PosingSystem.BreathingLevel.Strong,
+            PosingSystem.BreathingLevel.Rapid,
             PosingSystem.BreathingLevel.Custom,
         };
         private List<ReorderableList> reorderableLists = new List<ReorderableList>();
@@ -49,23 +51,22 @@ namespace jp.unisakistudio.posingsystemeditor
         List<string> existFolders;
         Texture2D exMenuBackground = null;
         private readonly PosingSystemInspectorHeader inspectorHeader = new PosingSystemInspectorHeader();
+        private readonly PosingSystemPrebuildInspector prebuildInspector = new PosingSystemPrebuildInspector();
 
         private readonly PosingSystemPresetBrowser presetBrowser = new PosingSystemPresetBrowser();
 
         private enum InspectorTab
         {
             Settings,
-            AvatarSpecific,
             PoseAnimations,
-            AdditiveBreathing,
+            AvatarSpecific,
         }
 
         private static readonly string[] InspectorTabLabels =
         {
-            "設定",
-            "アバター固有設定",
-            "姿勢セット",
-            "オプション",
+            "機能",
+            "ポーズ一覧",
+            "アバター調整",
         };
 
         private InspectorTab _selectedTab = InspectorTab.Settings;
@@ -121,6 +122,7 @@ namespace jp.unisakistudio.posingsystemeditor
         }
         private void OnEnable()
         {
+            Undo.undoRedoPerformed += OnFeatureUndoRedo;
             existFolders = null;
             //            AnimationMode.StartAnimationMode();
             //            AnimationMode.BeginSampling();
@@ -227,15 +229,27 @@ namespace jp.unisakistudio.posingsystemeditor
             previewAvatarRoot = null;
         }
 
-        private static bool IsAndroidBuildTarget()
+        internal static bool IsAndroidBuildTarget()
         {
             return UnityEditor.EditorUserBuildSettings.activeBuildTarget == UnityEditor.BuildTarget.Android;
         }
 
         private void OnDisable()
         {
+            if (tabBackground != null) DestroyImmediate(tabBackground);
+            Undo.undoRedoPerformed -= OnFeatureUndoRedo;
             //            AnimationMode.EndSampling();
             //            AnimationMode.StopAnimationMode();
+        }
+
+        private void OnFeatureUndoRedo()
+        {
+            // Generated menu objects/parameters are recorded in the same Undo group as settings.
+            // Rebuilding here would mutate the just-restored hierarchy and can destroy Redo state.
+            PosingSystemEditorChangeUtility.EndTextEditing();
+            serializedObject.Update();
+            if (target is PosingSystem ps) ps.previousErrorCheckTime = DateTime.MinValue;
+            Repaint();
         }
 
         public override void OnInspectorGUI()
@@ -315,43 +329,6 @@ namespace jp.unisakistudio.posingsystemeditor
              * ライセンス処理ここまで
              */
 
-            if (posingSystem.developmentMode)
-            {
-                base.OnInspectorGUI();
-
-                // ここに、非表示にしてあるpreviewAvatar等を表示するトグルを追加する
-                if (posingSystem.previewAvatarObject != null)
-                {
-                    var previewAvatarToggle = EditorGUILayout.ToggleLeft("プレビューアバター表示", posingSystem.previewAvatarObject.activeSelf);
-                    if (previewAvatarToggle != posingSystem.previewAvatarObject.activeSelf)
-                    {
-                        SetPreviewAvatarVisibility(posingSystem.previewAvatarObject, previewAvatarToggle);
-                    }
-                }
-
-                // シーンのHierarchyの一番上の階層で非表示になっているオブジェクトをすべて表示するボタンを追加
-                if (GUILayout.Button("Hierarchyで非表示になっているオブジェクトをすべて表示"))
-                {
-                    foreach (var obj in posingSystem.gameObject.scene.GetRootGameObjects())
-                    {
-                        if (obj.hideFlags == HideFlags.HideInHierarchy)
-                        {
-                            obj.hideFlags = HideFlags.None;
-                            obj.SetActive(true);
-                        }
-                    }
-                }
-
-                if (posingSystem.developmentMode != EditorGUILayout.ToggleLeft("開発モード", posingSystem.developmentMode))
-                {
-                    Undo.RecordObject(posingSystem, "Toggle development mode");
-                    reorderableLists.Clear();
-                    posingSystem.developmentMode = !posingSystem.developmentMode;
-                }
-
-                return;
-            }
-
             // 調整ウィンドウが表示されている時は何もできないようにして、ウィンドウを閉じるボタンを用意する
             if (Resources.FindObjectsOfTypeAll<PosingAnimationAdjustmentWindow>().Where(window => window.IsOpen).Count() > 0)
             {
@@ -370,36 +347,11 @@ namespace jp.unisakistudio.posingsystemeditor
             }
 
 
-            serializedObject.Update();
+            DrawUserInspector(posingSystem);
+        }
 
-            var bigButtonStyle = new GUIStyle(GUI.skin.button)
-            {
-                fontSize = 16,
-                fontStyle = FontStyle.Normal,
-                fixedHeight = 40,
-                padding = new RectOffset(10, 10, 10, 10)
-            };
-
-            var descriptionStyle = new GUIStyle(GUI.skin.label)
-            {
-                fontSize = 11,
-                wordWrap = true,
-                margin = new RectOffset(0, 0, 1, 1)
-            };
-
-            EditorGUILayout.Space(6);
-            _selectedTab = (InspectorTab)GUILayout.Toolbar(
-                (int)_selectedTab,
-                InspectorTabLabels);
-            EditorGUILayout.Space(6);
-            if (_selectedTab == InspectorTab.Settings)
-            {
-            if (posingSystem.previewAvatarObject == null)
-            {
-                EditorGUILayout.HelpBox("ModularAvatarで服を着せているとポーズサムネイルの洋服が外れて見えますが、アバターアップロード時に再撮影されて正しい画像がメニューに設定されるのでご安心ください", MessageType.Info);
-            }
-            }
-
+        private bool ValidateAvatar(PosingSystem posingSystem)
+        {
             var avatar = posingSystem.GetAvatar();
             if (avatar == null)
             {
@@ -407,7 +359,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 {
                 EditorGUILayout.HelpBox("オブジェクトがVRC用のアバターオブジェクトの中に入っていません。このオブジェクトはVRCAvatarDescriptorコンポーネントの付いたオブジェクトの中に配置してください", MessageType.Error);
                 }
-                return;
+                return false;
             }
             if (_selectedTab == InspectorTab.Settings)
             {
@@ -423,8 +375,9 @@ namespace jp.unisakistudio.posingsystemeditor
             {
                 foreach (var existProduct in existProducts)
                 {
-                    EditorGUILayout.HelpBox(existProduct + "の設定がアバターに残っています！ 不具合が発生する可能性があるので、自動で設定を取り除く機能を使用してください。また、アバター購入時にBaseLayerに設定されていたLocomotion用のAnimatorControllerがある場合は、恐れ入りますが手動で復仇してお使いください。", MessageType.Error);
-                    if (GUILayout.Button(existProduct + "の設定を取り除く"))
+                    EditorGUILayout.HelpBox(existProduct + "の設定がアバターに残っています！ 不具合が発生する可能性があるので、自動で設定を取り除く機能を使用してください。また、アバター購入時にBaseLayerに設定されていたLocomotion用のAnimatorControllerがある場合は、恐れ入りますが手動で復元してお使いください。", MessageType.Error);
+                    if (GUILayout.Button(existProduct + "の設定を取り除く") &&
+                        EditorUtility.DisplayDialog("旧版のアバター設定を取り除きます", existProduct + "の旧設定を取り除きます。ツールを通常アンインストールするための操作ではありません。調整内容を確認できるよう、先にプロジェクトをバックアップしてください。", "バックアップ済み・取り除く", "キャンセル"))
                     {
                         RemoveExistProduct(avatar, existProduct);
                         existProducts = null;
@@ -442,8 +395,9 @@ namespace jp.unisakistudio.posingsystemeditor
             {
                 foreach (var existFolder in existFolders)
                 {
-                    EditorGUILayout.HelpBox("unitypackage版の「" + existFolder + "」フォルダがプロジェクトに残っています！ 不具合が発生する可能性があるので、自動で設定を取り除く機能を使用してください。", MessageType.Error);
-                    if (GUILayout.Button(existFolder + "のフォルダを取り除く"))
+                    EditorGUILayout.HelpBox("旧unitypackage版の「" + existFolder + "」フォルダがプロジェクトに残っています。新版と競合する可能性があります。削除する前に移行手順とバックアップを確認してください。", MessageType.Error);
+                    if (GUILayout.Button(existFolder + "のフォルダを取り除く") &&
+                        EditorUtility.DisplayDialog("旧版フォルダの削除を確認", "削除対象: " + existFolder + "\nこの中のPrefabやアニメーションも削除されます。自作・調整済みデータがある場合はキャンセルし、移行手順に従ってください。バックアップなしでは元に戻せません。", "バックアップ済み・削除する", "キャンセル"))
                     {
                         RemoveExistFolder(existFolder);
                         existFolders = null;
@@ -452,9 +406,9 @@ namespace jp.unisakistudio.posingsystemeditor
                 }
             }
 
-            if (avatar.autoFootsteps)
+            if (avatar.autoFootsteps && troubleshootingOpen && !posingSystem.IsWarningIgnored(PosingSystem.WarningType.AutoFootsteps))
             {
-                EditorGUILayout.HelpBox("アバター設定の「Use Auto-Footsteps for 3 and 4 point tracking」がオンになっています。この設定がオンだと、アバターがゲーム内で自動的に足踏みをしてしまい、姿勢が崩れる可能性があるため、オフにすることが推奨されます", MessageType.Warning);
+                EditorGUILayout.HelpBox("Auto-Footstepsはオンです。ポーズ中に意図せず足が動く場合は、下のボタンでオフにして比較できます。問題がなければ変更は不要です。", MessageType.Info);
                 if (GUILayout.Button("「Use Auto-Footsteps for 3 and 4 point tracking」をオフにする"))
                 {
                     Undo.RecordObject(avatar, "Disable auto footsteps");
@@ -470,18 +424,18 @@ namespace jp.unisakistudio.posingsystemeditor
             {
                 if (_selectedTab == InspectorTab.Settings)
                 {
-                EditorGUILayout.HelpBox("アバターにAnimatorが設定されていません。このアバターではこのツールは使えません", MessageType.Error);
+                EditorGUILayout.HelpBox("アバターのルートにAnimatorがありません。Inspectorの「設定の確認」の対処手順をご確認ください。", MessageType.Error);
                 }
-                return;
+                return false;
             }
 
             if (avatarAnimator.avatar == null)
             {
                 if (_selectedTab == InspectorTab.Settings)
                 {
-                EditorGUILayout.HelpBox("アバターのAnimatorにAvatarが設定されていません。このアバターではこのツールは使えません", MessageType.Error);
+                EditorGUILayout.HelpBox("AnimatorのAvatar欄が未設定です。Inspectorの「設定の確認」の対処手順をご確認ください。", MessageType.Error);
                 }
-                return;
+                return false;
             }
 
             if (!avatarAnimator.isHuman)
@@ -490,476 +444,64 @@ namespace jp.unisakistudio.posingsystemeditor
                 {
                 EditorGUILayout.HelpBox("このアバターは人型ではありません。アバターのAnimatorにHumanoid型のAvatarが設定されていない場合はこのツールは使えません。", MessageType.Error);
                 }
-                return;
+                return false;
             }
 
 
-            if (_selectedTab == InspectorTab.Settings)
-            {
-            EditorGUILayout.BeginVertical(GUI.skin.box);
-            EditorGUILayout.LabelField("設定", header2Label);
-            if (IsAndroidBuildTarget())
-            {
-                EditorGUILayout.HelpBox("Androidビルドターゲットでは姿勢アイコンは生成・設定されません（サイズ削減のため強制無効化）", MessageType.Info);
-            }
-            else
-            {
-                var isIconDisabled = EditorGUILayout.ToggleLeft("姿勢アイコン無しモード（Quest等）", posingSystem.isIconDisabled);
-                if (isIconDisabled != posingSystem.isIconDisabled)
-                {
-                    Undo.RecordObject(posingSystem, "Disable icon");
-                    posingSystem.isIconDisabled = isIconDisabled;
-                    EditorUtility.SetDirty(posingSystem);
-                }
-
-                var isIconSmall = EditorGUILayout.ToggleLeft("姿勢アイコン小さいモード(256→64)", posingSystem.isIconSmall);
-                if (isIconSmall != posingSystem.isIconSmall)
-                {
-                    Undo.RecordObject(posingSystem, "Small icon");
-                    posingSystem.isIconSmall = isIconSmall;
-                    EditorUtility.SetDirty(posingSystem);
-                }
-            }
-            EditorGUILayout.EndVertical();
-            }
-
-            if (_selectedTab == InspectorTab.AvatarSpecific)
-            {
-            EditorGUILayout.BeginVertical(GUI.skin.box);
-            EditorGUILayout.LabelField("アバター固有補正・逆関節機能", header2Label);
-            PosingSystemAvatarAdjustmentInspector.Draw(posingSystem);
-            
-            EditorGUILayout.Space(5);
-            EditorGUILayout.LabelField("ビルド時オプション", EditorStyles.boldLabel);
-            
-            var mergeTrackingControl = EditorGUILayout.ToggleLeft("トラッキング機能をビルド時に統合する", posingSystem.mergeTrackingControl);
-            if (mergeTrackingControl != posingSystem.mergeTrackingControl)
-            {
-                Undo.RecordObject(posingSystem, "Merge Tracking Control");
-                posingSystem.mergeTrackingControl = mergeTrackingControl;
-                EditorUtility.SetDirty(posingSystem);
-            }
-            
-            EditorGUILayout.EndVertical();
-            }
-
-            if (_selectedTab == InspectorTab.Settings)
-            {
-            EditorGUILayout.Space(10);
-            EditorGUILayout.BeginVertical(GUI.skin.box);
-            EditorGUILayout.LabelField("トラブルシューティング", EditorStyles.boldLabel);
-            if (GUILayout.Button("アバターの姿勢をリセット（Tポーズに戻す）"))
-            {
-                ResetAvatarPose(avatar);
-            }
-            EditorGUILayout.HelpBox("エディタ上でアバターの姿勢がおかしくなった場合、このボタンで元のFBXの姿勢に戻せます", MessageType.None);
-            EditorGUILayout.EndVertical();
-            }
-
-            if (_selectedTab == InspectorTab.AvatarSpecific)
-            {
-            EditorGUILayout.Space(10);
-            EditorGUILayout.BeginVertical(GUI.skin.box);
-            EditorGUILayout.LabelField("プリセット設定", header2Label);
-
-            presetBrowser.Draw(posingSystem);
-
-            EditorGUILayout.BeginHorizontal();
-            {
-                EditorGUILayout.BeginVertical(GUILayout.Width(160));
-                if (GUILayout.Button("プリセットを作成", bigButtonStyle))
-                {
-                    PosingPresetCreatorWindow.ShowWindow(posingSystem);
-                }
-                EditorGUILayout.EndVertical();
-                EditorGUILayout.BeginVertical();
-                EditorGUILayout.LabelField("あらかじめアバターに合わせてアニメーション調整したデータをまとめたプリセットを適用すると、アバターに合わせた姿勢を簡単に設定できます", descriptionStyle);
-                EditorGUILayout.EndVertical();
-            }
-            EditorGUILayout.EndHorizontal();
-            EditorGUILayout.EndVertical();
-            }
-            if (_selectedTab == InspectorTab.Settings)
-            {
-            EditorGUILayout.Space(10);
-            EditorGUILayout.BeginVertical(GUI.skin.box);
-            EditorGUILayout.LabelField("プレビルド関係", header2Label);
-            // 警告表示を元の位置に戻し、常にHelpBoxを表示してGUI要素数を安定化
-            if (posingSystem.data == null || posingSystem.data.Length == 0)
-            {
-                EditorGUILayout.HelpBox("プレビルドが実行されていません。プレビルドを行うことをお勧めします", MessageType.Warning);
-            }
-            else if (PosingSystemConverter.IsPosingSystemDataUpdated(posingSystem))
-            {
-                EditorGUILayout.HelpBox("オブジェクトの設定が更新されています。再度プレビルドを行ってください", MessageType.Warning);
-            }
-            else
-            {
-                EditorGUILayout.HelpBox("設定は最新の状態です", MessageType.None);
-            }
-
-            // 更新ボタンとその説明
-            EditorGUILayout.BeginHorizontal();
-            {
-                EditorGUILayout.BeginVertical(GUILayout.Width(120));
-                if (GUILayout.Button("プレビルド実行", bigButtonStyle))
-                {
-                    Prebuild(posingSystem);
-                    RenewAvatar(posingSystem);
-                }
-                EditorGUILayout.EndVertical();
-
-                EditorGUILayout.BeginVertical();
-                EditorGUILayout.LabelField("ModularAvatarコンポーネントを生成・更新します", descriptionStyle);
-                EditorGUILayout.LabelField("姿勢設定を変更した場合はこのボタンを押すとアバターのビルドが早くなります", descriptionStyle);
-                EditorGUILayout.EndVertical();
-            }
-            EditorGUILayout.EndHorizontal();
-
-            // アイコン更新ボタンとその説明（Android以外）
-            if (!IsAndroidBuildTarget())
-            {
-                GUI.enabled = posingSystem.data != null && posingSystem.data.Length > 0;
-
-                EditorGUILayout.BeginHorizontal();
-                {
-                    EditorGUILayout.BeginVertical(GUILayout.Width(120));
-                    if (GUILayout.Button("アイコンのみ更新", bigButtonStyle))
-                    {
-                        RenewAvatar(posingSystem);
-                    }
-                    EditorGUILayout.EndVertical();
-
-                    EditorGUILayout.BeginVertical();
-                    EditorGUILayout.LabelField("アイコン撮影用のアバターを更新してアイコンを撮影します", descriptionStyle);
-                    EditorGUILayout.LabelField("アバターの見た目を変えたときはこのボタンを押してください", descriptionStyle);
-                    EditorGUILayout.EndVertical();
-                }
-                EditorGUILayout.EndHorizontal();
-
-                GUI.enabled = true;
-
-                // ThumbnailPackObjectを選択
-                EditorGUILayout.BeginHorizontal();
-                var thumbnailPackProperty = serializedObject.FindProperty("thumbnailPackObject");
-                GUI.enabled = false;
-                EditorGUILayout.PropertyField(thumbnailPackProperty, new GUIContent("アイコン画像ファイル"));
-                GUI.enabled = posingSystem.thumbnailPackObject != null;
-                if (GUILayout.Button("削除", new GUIStyle(GUI.skin.button) { fixedWidth = 40, }))
-                {
-                    // ダイアログで確認する
-                    if (EditorUtility.DisplayDialog("確認", "アイコン画像ファイルを削除しますか？ この操作は元に戻せませんが、アバター更新で簡単に作り直せます。", "削除する", "キャンセル"))
-                    {
-                        Undo.RecordObject(posingSystem, "Delete thumbnail pack");
-                        AssetDatabase.DeleteAsset(AssetDatabase.GetAssetPath(posingSystem.thumbnailPackObject));
-                        posingSystem.thumbnailPackObject = null;
-                        EditorUtility.SetDirty(posingSystem);
-                        AssetDatabase.SaveAssets();
-                    }
-                }
-                GUI.enabled = true;
-                EditorGUILayout.EndHorizontal();
-            }
-            EditorGUILayout.EndVertical();
-
-            }
-            else if (_selectedTab == InspectorTab.AdditiveBreathing)
-            {
-            EditorGUILayout.Space(10);
-            EditorGUILayout.BeginVertical(GUI.skin.box);
-            EditorGUILayout.LabelField("呼吸機能", header2Label);
-            if (posingSystem.isEightBitVersion)
-            {
-                EditorGUILayout.HelpBox(
-                    "この8bit版では、アバターのデータ容量を節約するため呼吸機能は使用できません。",
-                    MessageType.Info);
-            }
-            else
-            {
-                var breathingProperty = serializedObject.FindProperty("additiveBreathing");
-                if (breathingProperty != null)
-                {
-                    EditorGUILayout.HelpBox(
-                        "姿勢ごとに呼吸の動きの大きさを選べます。「なし」は動かず、「弱・中・強」は付属の呼吸モーションを使います。自分で用意したアニメーションを使いたい場合だけ「カスタム」を選んでください。",
-                        MessageType.Info);
-                    var enabledProperty = breathingProperty.FindPropertyRelative("enabled");
-                    EditorGUILayout.PropertyField(enabledProperty, new GUIContent("有効"));
-                    using (new EditorGUI.DisabledScope(!enabledProperty.boolValue))
-                    {
-                        var displayNames = GetAdditiveBreathingDisplayNames(posingSystem);
-                        foreach (var displayName in displayNames)
-                        {
-                            DrawAdditiveBreathingLevel(breathingProperty, displayName);
-                        }
-                    }
-                }
-            }
-            EditorGUILayout.EndVertical();
-
-            }
-            else if (_selectedTab == InspectorTab.AvatarSpecific)
-            {
-            EditorGUILayout.Space(10);
-            EditorGUILayout.BeginVertical(GUI.skin.box);
-            EditorGUILayout.LabelField("モーション置き換え機能", header2Label);
-            var autoImportAvatarAnimations = EditorGUILayout.ToggleLeft(
-                "アバター姿勢設定をビルド時に自動でインポート",
-                posingSystem.autoImportAvatarAnimations);
-            if (autoImportAvatarAnimations != posingSystem.autoImportAvatarAnimations)
-            {
-                Undo.RecordObject(posingSystem, "Auto Import Avatar Animations");
-                posingSystem.autoImportAvatarAnimations = autoImportAvatarAnimations;
-                EditorUtility.SetDirty(posingSystem);
-            }
-
-
-                // autoImportAvatarAnimationsがオンの場合はHelpBoxを表示
-                if (posingSystem.autoImportAvatarAnimations)
-                {
-                    EditorGUILayout.HelpBox("アバターの固有モーションをビルド時に自動でインポートする設定がオンになっています", MessageType.Info);
-                }
-
-                if (GUILayout.Button("アバターから自動インポート") || posingSystem.overrideDefines == null)
-                {
-                    Undo.RecordObject(posingSystem, "Auto detect override settings");
-                    AutoDetectOverrideSettings();
-                    serializedObject.Update();
-                    EditorUtility.SetDirty(posingSystem);
-                    AssetDatabase.SaveAssets();
-                }
-                var definesProperty = serializedObject.FindProperty("overrideDefines");
-                //            EditorGUILayout.PropertyField(definesProperty);
-                // 無かったら「設定なし」と表示して、アバターから自動インポートする説明を表示する
-                if (posingSystem.overrideDefines == null || posingSystem.overrideDefines?.Count == 0)
-                {
-                    EditorGUILayout.HelpBox("設定なし", MessageType.None);
-                    EditorGUILayout.LabelField("既にアバターに固有の姿勢モーションがある場合はアバターから自動インポートできます", descriptionStyle);
-                }
-                int removeIndex = -1;
-                for (int i = 0; i < posingSystem.overrideDefines.Count; i++)
-                {
-                    var overrideDefine = posingSystem.overrideDefines[i];
-                    var defineProperty = serializedObject.FindProperty("overrideDefines").GetArrayElementAtIndex(i);
-                    EditorGUILayout.BeginHorizontal();
-                    {
-                        EditorGUILayout.PropertyField(defineProperty);
-                        // ボタンサイズは横幅30で縦は高さ20
-                        if (GUILayout.Button("x", new GUIStyle(GUI.skin.button)
-                        {
-                            fontStyle = FontStyle.Normal,
-                            fixedWidth = 30,
-                            padding = new RectOffset(10, 10, 10, 10)
-                        }))
-                        {
-                            removeIndex = i;
-                        }
-                    }
-                    EditorGUILayout.EndHorizontal();
-                }
-
-                if (removeIndex != -1)
-                {
-                    Undo.RecordObject(posingSystem, "Remove override define");
-                    posingSystem.overrideDefines.RemoveAt(removeIndex);
-                    EditorUtility.SetDirty(posingSystem);
-                    AssetDatabase.SaveAssets();
-                }
-
-                EditorGUILayout.BeginHorizontal();
-                // 追加ボタン
-                if (GUILayout.Button("追加"))
-                {
-                    Undo.RecordObject(posingSystem, "Add override define");
-                    posingSystem.overrideDefines.Add(new PosingSystem.OverrideAnimationDefine());
-                    EditorUtility.SetDirty(posingSystem);
-                    AssetDatabase.SaveAssets();
-                }
-                // 一つ以上あったらクリアボタンを有効
-                GUI.enabled = posingSystem.overrideDefines.Count > 0;
-                if (GUILayout.Button("全クリア"))
-                {
-                    Undo.RecordObject(posingSystem, "Clear all override defines");
-                    posingSystem.overrideDefines.Clear();
-                    EditorUtility.SetDirty(posingSystem);
-                    AssetDatabase.SaveAssets();
-                }
-                GUI.enabled = true;
-                EditorGUILayout.EndHorizontal();
-
-            EditorGUILayout.EndVertical();
-
-
-            }
-            else if (_selectedTab == InspectorTab.PoseAnimations)
-            {
-
-            if (exMenuBackground == null)
-            {
-                exMenuBackground = AssetDatabase.LoadAssetAtPath<Texture2D>(AssetDatabase.GUIDToAssetPath(AssetDatabase.FindAssets("ExMenuBackground t:Texture")[0]));
-            }
-            // definesセクション全体をBeginVerticalで囲んでObjectFieldのGUI順序を安定化
-            EditorGUILayout.Space(10);
-            EditorGUILayout.BeginVertical(GUI.skin.box);
-            EditorGUILayout.LabelField("姿勢セット", header2Label);
-
-
-            // アニメーション調整ウィンドウを開くボタン
-            EditorGUILayout.BeginHorizontal();
-            {
-                EditorGUILayout.BeginVertical(GUILayout.Width(160));
-                if (GUILayout.Button("アニメーションを調整", bigButtonStyle))
-                {
-                    PosingAnimationAdjustmentWindow.ShowWindow(posingSystem);
-                }
-                EditorGUILayout.EndVertical();
-
-                EditorGUILayout.BeginVertical();
-                EditorGUILayout.LabelField("アニメーションを微調整するためのウィンドウを開きます", descriptionStyle);
-                EditorGUILayout.LabelField("アバターの体型の違いにより姿勢に気になるところがある場合に使用します", descriptionStyle);
-                EditorGUILayout.EndVertical();
-            }
-            EditorGUILayout.EndHorizontal();
-
-                if (!IsAndroidBuildTarget() && !Application.isPlaying)
-                {
-                    CheckAndDeleteThumbnailPack(posingSystem);
-                    PosingSystemConverter.TakeScreenshot(posingSystem, false, true);
-                }
-
-                for (int i = 0; i < posingSystem.defines.Count; i++)
-                {
-                    var define = posingSystem.defines[i];
-                    EditorGUILayout.BeginVertical();
-
-                    var animationsProperty = serializedObject.FindProperty("defines").GetArrayElementAtIndex(i).FindPropertyRelative("animations");
-                    ReorderableList reorderableList = null;
-                    if (reorderableLists.Count <= i)
-                    {
-                        reorderableList = new ReorderableList(base.serializedObject, animationsProperty);
-                        reorderableList.drawElementCallback += (Rect rect, int index, bool selected, bool focused) =>
-                        {
-                            SerializedProperty property = reorderableList.serializedProperty.GetArrayElementAtIndex(index);
-                            EditorGUI.PropertyField(rect, property, GUIContent.none);
-                        };
-                        reorderableList.drawHeaderCallback += rect =>
-                        {
-                            if (define.icon)
-                            {
-                                GUI.Box(new Rect(rect.x - 6, rect.y, rect.width + 12, rect.height + 1), new GUIContent());
-                                GUI.DrawTexture(new Rect(rect.x - 3, rect.y + 1, 36, 36), exMenuBackground, ScaleMode.ScaleToFit);
-                                GUI.DrawTexture(new Rect(rect.x - 1, rect.y + 1, 32, 32), define.icon, ScaleMode.ScaleToFit);
-                                EditorGUI.LabelField(new Rect(rect.x + 40, rect.y, rect.width - rect.x - 40, 20), define.menuName + define.description);
-                            }
-                            else
-                            {
-                                EditorGUI.LabelField(rect, define.menuName + define.description);
-                            }
-                        };
-                        reorderableList.onSelectCallback += (ReorderableList list) =>
-                        {
-                            foreach (var otherList in reorderableLists)
-                            {
-                                if (reorderableList == otherList)
-                                {
-                                    continue;
-                                }
-                                otherList.index = -1;
-                            }
-                        };
-                        if (define.icon != null)
-                        {
-                            reorderableList.headerHeight = 40;
-                        }
-                        else
-                        {
-                            reorderableList.headerHeight = EditorGUIUtility.singleLineHeight;
-                        }
-                        reorderableList.elementHeight = EditorGUIUtility.singleLineHeight * 6 + 5;
-                        reorderableLists.Add(reorderableList);
-                    }
-                    else
-                    {
-                        reorderableList = reorderableLists[i];
-                    }
-
-                    reorderableList.DoLayoutList();
-                    serializedObject.ApplyModifiedProperties();
-
-                    PosingSystem.AnimationDefine changedAnimation = null;
-                    foreach (var animation in define.animations)
-                    {
-                        if (animation.initial != animation.initialSet)
-                        {
-                            changedAnimation = animation;
-                        }
-                    }
-                    if (changedAnimation != null)
-                    {
-                        foreach (var avatarPosingSystem in avatar.GetComponentsInChildren<PosingSystem>())
-                        {
-                            foreach (var posingDefine in avatarPosingSystem.defines)
-                            {
-                                if (posingDefine.paramName != define.paramName)
-                                {
-                                    continue;
-                                }
-                                foreach (var animation in posingDefine.animations)
-                                {
-                                    if (animation.initial && changedAnimation != animation)
-                                    {
-                                        animation.initial = false;
-                                        animation.initialSet = false;
-                                        animation.previewImage = null;
-                                        posingSystem.previousErrorCheckTime = DateTime.MinValue;
-                                        EditorUtility.SetDirty(avatarPosingSystem);
-                                    }
-                                    else if (changedAnimation == animation)
-                                    {
-                                        animation.initial = animation.initialSet;
-                                        animation.previewImage = null;
-                                        posingSystem.previousErrorCheckTime = DateTime.MinValue;
-                                        EditorUtility.SetDirty(avatarPosingSystem);
-                                    }
-                                }
-                            }
-                        }
-                    }
-
-                    EditorGUILayout.EndVertical();
-                }
-            EditorGUILayout.EndVertical(); // definesセクション全体の終了
-
-
-
-            if (!IsAndroidBuildTarget())
-            {
-                if (GUILayout.Button("サムネ更新"))
-                {
-                    ClearThumbnailPack(posingSystem);
-                    CreateThumbnailPack(posingSystem);
-                    PosingSystemConverter.TakeScreenshot(posingSystem, true, false);
-                }
-            }
-
-            }
-
-            serializedObject.ApplyModifiedProperties();
-            if (posingSystem.developmentMode != EditorGUILayout.ToggleLeft("開発モード", posingSystem.developmentMode))
-            {
-                Undo.RecordObject(posingSystem, "Toggle development mode");
-                reorderableLists.Clear();
-                posingSystem.developmentMode = !posingSystem.developmentMode;
-            }
+            return true;
         }
 
         public static void Prebuild(PosingSystem posingSystem)
         {
+            PosingSystemDiagnostics.ThrowIfInvalid(posingSystem);
             // ビルド時のクローンでもプレビルド済みデータを同一と判定できるよう、
             // 元のPosingSystemを示す安定したIDをデータ生成より先に保存する。
             posingSystem.savedInstanceId = UnityEditor.GlobalObjectId.GetGlobalObjectIdSlow(posingSystem).ToString();
             PosingSystemConverter.ConvertToModularAvatarComponents(posingSystem);
-            posingSystem.previousErrorCheckTime = DateTime.MinValue;
-            EditorUtility.SetDirty(posingSystem);
+            PosingSystemEditorChangeUtility.MarkChanged(posingSystem);
+        }
+
+        internal static void SetWarningIgnored(PosingSystem posingSystem, PosingSystem.WarningType warning, bool ignored)
+        {
+            var value = ignored ? posingSystem.ignoredWarnings | warning : posingSystem.ignoredWarnings & ~warning;
+            if (value == posingSystem.ignoredWarnings) return;
+            Undo.RecordObject(posingSystem, "警告の表示を変更");
+            posingSystem.ignoredWarnings = value;
+            PosingSystemEditorChangeUtility.MarkChanged(posingSystem);
+        }
+
+        // UI entry point: do not continue into image generation or display success after a failed conversion.
+        public static bool TryPrebuildAndRenew(PosingSystem posingSystem)
+            => TryBuildOrRenew(posingSystem, true);
+
+        public static bool TryRenewAvatar(PosingSystem posingSystem)
+            => TryBuildOrRenew(posingSystem, false);
+
+        private static bool TryBuildOrRenew(PosingSystem posingSystem, bool prebuild)
+        {
+            var stage = prebuild ? "プレビルド" : "アイコンの更新";
+            PosingSystemDiagnosticsInspector.SetFailure(posingSystem, null);
+            try
+            {
+                if (prebuild) Prebuild(posingSystem);
+                else PosingSystemDiagnostics.ThrowIfInvalid(posingSystem);
+                stage = "アイコンの更新";
+                RenewAvatar(posingSystem);
+                return true;
+            }
+            catch (ExitGUIException) { throw; }
+            catch (Exception ex)
+            {
+                var message = stage + "を中止しました。\n" + ex.Message;
+                if (!(ex is PosingSystemDiagnostics.DiagnosticException))
+                    message += "\n対処: Window > General > Consoleで、この操作中に最初に出た赤いエラーを確認してください。設定の確認で問題が解消しない場合は、このエラー番号・詳細とツールのバージョンをお問い合わせに添えてください。";
+                PosingSystemDiagnosticsInspector.SetFailure(posingSystem, message);
+                Debug.LogError("[PosingSystem] " + message, posingSystem);
+                Debug.LogException(ex, posingSystem);
+                if (EditorUtility.DisplayDialog(stage + "を完了できませんでした", message, "公式ヘルプを開く", "閉じる"))
+                    Application.OpenURL(PosingSystemPackageInfo.SupportUrl);
+                return false;
+            }
         }
 
         /// <summary>
@@ -1415,17 +957,19 @@ namespace jp.unisakistudio.posingsystemeditor
         public static List<string> CheckExistProduct(VRC.SDK3.Avatars.Components.VRCAvatarDescriptor avatar)
         {
             var existProducts = new List<string>();
+            if (avatar == null) return existProducts;
+            var baseController = avatar.baseAnimationLayers?.FirstOrDefault(layer =>
+                layer.type == VRC.SDK3.Avatars.Components.VRCAvatarDescriptor.AnimLayerType.Base).animatorController;
 
             foreach (var productDefine in productDefines)
             {
                 bool isExistProduct = false;
                 // AnimatorControllerが商品のか調べる
-                var animatorController = avatar.baseAnimationLayers[(int)VRC.SDK3.Avatars.Components.VRCAvatarDescriptor.AnimLayerType.Base];
-                if (animatorController.animatorController != null)
+                if (baseController != null)
                 {
                     foreach (var animatoControllerName in productDefine.animatorControllerNames)
                     {
-                        if (animatorController.animatorController.name.Contains(animatoControllerName))
+                        if (baseController.name.Contains(animatoControllerName))
                         {
                             isExistProduct = true;
                         }
@@ -1455,9 +999,10 @@ namespace jp.unisakistudio.posingsystemeditor
                     {
                         return true;
                     }
+                    if (menu.controls == null) return false;
                     foreach (var control in menu.controls)
                     {
-                        if (control.type != VRC.SDK3.Avatars.ScriptableObjects.VRCExpressionsMenu.Control.ControlType.SubMenu)
+                        if (control == null || control.type != VRC.SDK3.Avatars.ScriptableObjects.VRCExpressionsMenu.Control.ControlType.SubMenu)
                         {
                             continue;
                         }
@@ -1474,11 +1019,11 @@ namespace jp.unisakistudio.posingsystemeditor
                 }
 
                 // パラメータに商品のがあるか調べる
-                if (avatar.expressionParameters)
+                if (avatar.expressionParameters != null && avatar.expressionParameters.parameters != null)
                 {
                     foreach (var parameter in avatar.expressionParameters.parameters)
                     {
-                        if (productDefine.checkExpressionParametersNames.IndexOf(parameter.name) != -1)
+                        if (parameter != null && productDefine.checkExpressionParametersNames.IndexOf(parameter.name) != -1)
                         {
                             isExistProduct = true;
                         }

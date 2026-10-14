@@ -5,6 +5,7 @@ using System.Linq;
 using UnityEditor;
 using UnityEngine;
 using jp.unisakistudio.posingsystem;
+using VRC.SDK3.Avatars.Components;
 
 namespace jp.unisakistudio.posingsystemeditor
 {
@@ -20,6 +21,8 @@ namespace jp.unisakistudio.posingsystemeditor
         private const float CurveEpsilon = 0.00001f;
         private static readonly Dictionary<int, Dictionary<string, Quaternion>>
             RestRotationByAvatar = new();
+        private static readonly Dictionary<int, Dictionary<string, SkeletonBone>>
+            RestSkeletonByAvatar = new();
         private static readonly PosingSystemAutoPoseLimb[] LimbSelectionPriority =
         {
             PosingSystemAutoPoseLimb.LeftArm,
@@ -109,7 +112,8 @@ namespace jp.unisakistudio.posingsystemeditor
             PosingSystemAutoPoseDefinition definition,
             out AnimationClip adjustmentClip,
             out PosingSystemAutoPoseSolveReport report,
-            out string message)
+            out string message,
+            PosingSystemAvatarAdjustmentUtility.KneeSafety kneeSafety = default)
         {
             adjustmentClip = null;
             report = new PosingSystemAutoPoseSolveReport();
@@ -145,7 +149,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 handler.GetHumanPose(ref before);
                 var beforeMuscles = (float[])before.muscles.Clone();
 
-                if (!TryApplyDefinition(animator, definition, report))
+                if (!TryApplyDefinition(animator, definition, report, kneeSafety))
                 {
                     message = report.Warnings.Count > 0
                         ? string.Join("\n", report.Warnings)
@@ -189,12 +193,18 @@ namespace jp.unisakistudio.posingsystemeditor
         public static bool TryApplyDefinition(
             Animator animator,
             PosingSystemAutoPoseDefinition definition,
-            PosingSystemAutoPoseSolveReport report = null)
+            PosingSystemAutoPoseSolveReport report = null,
+            PosingSystemAvatarAdjustmentUtility.KneeSafety kneeSafety = default)
         {
-            if (!IsValidHumanoid(animator) || definition == null)
+            if (!IsValidHumanoid(animator))
             {
                 return false;
             }
+
+            // Correct the source before capturing its bend direction: otherwise SourcePose IK
+            // preserves an already reversed knee. Also applies to poses with no IK rules.
+            kneeSafety.ApplyToAnimator(animator);
+            if (definition == null) return false;
 
             report ??= new PosingSystemAutoPoseSolveReport();
             var rules = definition.limbRules
@@ -213,11 +223,13 @@ namespace jp.unisakistudio.posingsystemeditor
             // 切り替わる可能性があるため、全反復で同じ方向を使用する。
             var sourceBendDirections = new Dictionary<PosingSystemAutoPoseLimbRule, Vector3>();
             var sourceEndRotations = new Dictionary<PosingSystemAutoPoseLimbRule, Quaternion>();
+            var sourceEndPositions = new Dictionary<PosingSystemAutoPoseLimbRule, Vector3>();
             foreach (var rule in rules)
             {
                 if (TryGetLimbBones(animator, rule.limb, out _, out _, out var sourceTip))
                 {
                     sourceEndRotations[rule] = sourceTip.rotation;
+                    sourceEndPositions[rule] = sourceTip.position;
                 }
                 if (rule.bendDirectionMode == PosingSystemAutoPoseBendDirectionMode.SourcePose &&
                     TryGetCurrentBendDirection(animator, rule, out var bendDirection))
@@ -233,15 +245,19 @@ namespace jp.unisakistudio.posingsystemeditor
                 {
                     sourceBendDirections.TryGetValue(rule, out var sourceBendDirection);
                     sourceEndRotations.TryGetValue(rule, out var sourceEndRotation);
+                    sourceEndPositions.TryGetValue(rule, out var sourceEndPosition);
                     ApplyRule(
                         animator,
                         rule,
                         sourceBendDirection,
                         sourceEndRotation,
+                        sourceEndPosition,
                         report,
                         iteration == iterations - 1);
                 }
             }
+            // IK may fully extend a leg again. Use the same final limit as conversion/rebaking.
+            kneeSafety.ApplyToAnimator(animator);
             return report.AppliedRuleCount > 0;
         }
 
@@ -256,6 +272,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 animator,
                 rule,
                 null,
+                null,
                 out targetPosition,
                 out targetRotation,
                 out message);
@@ -265,6 +282,7 @@ namespace jp.unisakistudio.posingsystemeditor
             Animator animator,
             PosingSystemAutoPoseLimbRule rule,
             Quaternion? legacySourceRotation,
+            Vector3? sourceEndPosition,
             out Vector3 targetPosition,
             out Quaternion targetRotation,
             out string message)
@@ -278,7 +296,8 @@ namespace jp.unisakistudio.posingsystemeditor
                 return false;
             }
 
-            var avatarHeight = MeasureAvatarHeight(animator);
+            if (!TryMeasureReferenceLength(animator, rule.lengthReference, rule.limb, out var referenceLength, out message))
+                return false;
             if (!TryGetTargetFrame(
                     animator,
                     rule,
@@ -290,7 +309,13 @@ namespace jp.unisakistudio.posingsystemeditor
                 return false;
             }
 
-            targetPosition = frame.TransformPoint(rule.normalizedTargetOffset * avatarHeight);
+            var offset = rule.normalizedTargetOffset * referenceLength;
+            var positionFrame = GetPositionFrame(frame, rule.positionSpace);
+            var originalOffset = positionFrame.InverseTransformPoint(sourceEndPosition ?? tip.position);
+            if (!rule.applyPositionX) offset.x = originalOffset.x;
+            if (!rule.applyPositionY) offset.y = originalOffset.y;
+            if (!rule.applyPositionZ) offset.z = originalOffset.z;
+            targetPosition = positionFrame.TransformPoint(offset);
             if (rule.coordinateSpaceVersion < PosingSystemAutoPoseLimbRule.CurrentCoordinateSpaceVersion)
             {
                 // The former representation mixed raw bone axes from two avatars. It cannot be
@@ -330,8 +355,13 @@ namespace jp.unisakistudio.posingsystemeditor
                 return false;
             }
 
-            var avatarHeight = MeasureAvatarHeight(animator);
-            rule.normalizedTargetOffset = frame.InverseTransformPoint(targetPosition) / avatarHeight;
+            if (!TryMeasureReferenceLength(animator, rule.lengthReference, rule.limb, out var referenceLength, out message))
+                return false;
+            var offset = GetPositionFrame(frame, rule.positionSpace).InverseTransformPoint(targetPosition) / referenceLength;
+            // Dragging a scene handle must not erase the saved values of disabled axes.
+            if (rule.applyPositionX) rule.normalizedTargetOffset.x = offset.x;
+            if (rule.applyPositionY) rule.normalizedTargetOffset.y = offset.y;
+            if (rule.applyPositionZ) rule.normalizedTargetOffset.z = offset.z;
             var semanticTargetRotation = ToAvatarIndependentRotation(
                 targetRotation,
                 tipRestRotation);
@@ -390,14 +420,15 @@ namespace jp.unisakistudio.posingsystemeditor
                 return false;
             }
 
-            var avatarHeight = MeasureAvatarHeight(animator);
+            if (!TryMeasureReferenceLength(animator, rule.lengthReference, rule.limb, out var referenceLength, out message))
+                return false;
             if (!TryGetRestRotationInAvatarSpace(animator, tip, out var tipRestRotation))
             {
                 message = $"{tip.name} のHumanoid基準軸を取得できません。";
                 return false;
             }
 
-            rule.normalizedTargetOffset = frame.InverseTransformPoint(tip.position) / avatarHeight;
+            rule.normalizedTargetOffset = GetPositionFrame(frame, rule.positionSpace).InverseTransformPoint(tip.position) / referenceLength;
             var semanticTipRotation = ToAvatarIndependentRotation(tip.rotation, tipRestRotation);
             rule.targetRotationOffset = NormalizeQuaternion(
                 Quaternion.Inverse(frame.Rotation) * semanticTipRotation);
@@ -477,19 +508,119 @@ namespace jp.unisakistudio.posingsystemeditor
             var head = animator.GetBoneTransform(HumanBodyBones.Head);
             var leftFoot = animator.GetBoneTransform(HumanBodyBones.LeftFoot);
             var rightFoot = animator.GetBoneTransform(HumanBodyBones.RightFoot);
+            // humanScale excludes the GameObject/parent scale. Keep the legacy height
+            // definition, but make its flat-pose fallback and threshold scale consistently.
+            var rootScale = Mathf.Abs(animator.transform.lossyScale.y);
             if (head != null && (leftFoot != null || rightFoot != null))
             {
                 var footY = leftFoot != null && rightFoot != null
                     ? Mathf.Min(leftFoot.position.y, rightFoot.position.y)
                     : (leftFoot != null ? leftFoot.position.y : rightFoot.position.y);
                 var measured = Mathf.Abs(head.position.y - footY);
-                if (measured > 0.01f)
+                if (measured > 0.01f * rootScale)
                 {
                     return measured;
                 }
             }
 
-            return Mathf.Max(0.01f, animator.humanScale * 2f);
+            return Mathf.Max(0.01f, animator.humanScale * 2f) * rootScale;
+        }
+
+        public static bool TryMeasureReferenceLength(
+            Animator animator, PosingSystemAutoPoseLengthReference reference, PosingSystemAutoPoseLimb limb,
+            out float length, out string message)
+        {
+            length = 0;
+            message = string.Empty;
+            if (!IsValidHumanoid(animator))
+            {
+                message = "有効なHumanoid Animatorがありません。";
+                return false;
+            }
+            if (reference == PosingSystemAutoPoseLengthReference.AvatarHeight)
+            {
+                length = MeasureAvatarHeight(animator); // Preserve existing catalog behavior.
+                return true;
+            }
+            if (reference == PosingSystemAutoPoseLengthReference.Leg)
+            {
+                // Sum both segments so bending the knee never shortens the reference length.
+                if (!TryMeasureReferenceLength(animator, PosingSystemAutoPoseLengthReference.Thigh, limb, out var thigh, out message) ||
+                    !TryMeasureReferenceLength(animator, PosingSystemAutoPoseLengthReference.Shin, limb, out var shin, out message))
+                    return false;
+                length = thigh + shin;
+                return true;
+            }
+            var left = limb == PosingSystemAutoPoseLimb.LeftArm || limb == PosingSystemAutoPoseLimb.LeftLeg;
+            HumanBodyBones from, to;
+            switch (reference)
+            {
+                case PosingSystemAutoPoseLengthReference.UpperArm:
+                    from = left ? HumanBodyBones.LeftUpperArm : HumanBodyBones.RightUpperArm;
+                    to = left ? HumanBodyBones.LeftLowerArm : HumanBodyBones.RightLowerArm;
+                    break;
+                case PosingSystemAutoPoseLengthReference.Forearm:
+                    from = left ? HumanBodyBones.LeftLowerArm : HumanBodyBones.RightLowerArm;
+                    to = left ? HumanBodyBones.LeftHand : HumanBodyBones.RightHand;
+                    break;
+                case PosingSystemAutoPoseLengthReference.Chest:
+                    from = HumanBodyBones.Chest; to = HumanBodyBones.Neck;
+                    break;
+                case PosingSystemAutoPoseLengthReference.Thigh:
+                    from = left ? HumanBodyBones.LeftUpperLeg : HumanBodyBones.RightUpperLeg;
+                    to = left ? HumanBodyBones.LeftLowerLeg : HumanBodyBones.RightLowerLeg;
+                    break;
+                case PosingSystemAutoPoseLengthReference.Shin:
+                    from = left ? HumanBodyBones.LeftLowerLeg : HumanBodyBones.RightLowerLeg;
+                    to = left ? HumanBodyBones.LeftFoot : HumanBodyBones.RightFoot;
+                    break;
+                default:
+                    message = $"未対応の長さの基準です: {reference}";
+                    return false;
+            }
+            var start = animator.GetBoneTransform(from);
+            var end = animator.GetBoneTransform(to);
+            if (start == null || end == null)
+            {
+                message = $"長さの基準に必要なHumanoidボーン（{from}・{to}）がありません。";
+                return false;
+            }
+            var upperChest = reference == PosingSystemAutoPoseLengthReference.Chest
+                ? animator.GetBoneTransform(HumanBodyBones.UpperChest) : null;
+            length = upperChest != null
+                ? Vector3.Distance(start.position, upperChest.position) + Vector3.Distance(upperChest.position, end.position)
+                : Vector3.Distance(start.position, end.position);
+            if (float.IsNaN(length) || float.IsInfinity(length) || length <= .00001f)
+            {
+                message = $"{from}・{to}から有効な長さを測定できません。";
+                return false;
+            }
+            return true;
+        }
+
+        public static bool TryConvertLengthReference(
+            Animator animator, PosingSystemAutoPoseLimbRule rule, PosingSystemAutoPoseLengthReference reference,
+            out Vector3 convertedOffset, out string message)
+            => TryConvertPositionSettings(animator, rule, reference, rule.positionSpace, out convertedOffset, out message);
+
+        public static bool TryConvertPositionSettings(
+            Animator animator, PosingSystemAutoPoseLimbRule rule, PosingSystemAutoPoseLengthReference reference,
+            PosingSystemAutoPosePositionSpace space, out Vector3 convertedOffset, out string message)
+        {
+            convertedOffset = rule.normalizedTargetOffset;
+            if (!TryMeasureReferenceLength(animator, rule.lengthReference, rule.limb, out var before, out message) ||
+                !TryMeasureReferenceLength(animator, reference, rule.limb, out var after, out message)) return false;
+            convertedOffset *= before / after;
+            if (space != rule.positionSpace)
+            {
+                if (!TryGetTargetFrame(animator, rule,
+                    rule.coordinateSpaceVersion >= PosingSystemAutoPoseLimbRule.CurrentCoordinateSpaceVersion,
+                    out var frame, out message)) return false;
+                var oldFrame = GetPositionFrame(frame, rule.positionSpace);
+                var newFrame = GetPositionFrame(frame, space);
+                convertedOffset = Quaternion.Inverse(newFrame.Rotation) * oldFrame.Rotation * convertedOffset;
+            }
+            return true;
         }
 
         public static AnimationClip SaveClip(AnimationClip source, string assetPath)
@@ -534,6 +665,7 @@ namespace jp.unisakistudio.posingsystemeditor
             PosingSystemAutoPoseLimbRule rule,
             Vector3 sourceBendDirection,
             Quaternion sourceEndRotation,
+            Vector3 sourceEndPosition,
             PosingSystemAutoPoseSolveReport report,
             bool recordReport)
         {
@@ -553,6 +685,7 @@ namespace jp.unisakistudio.posingsystemeditor
                     animator,
                     rule,
                     legacySourceRotation,
+                    sourceEndPosition,
                     out var targetPosition,
                     out var targetRotation,
                     out var message))
@@ -574,14 +707,29 @@ namespace jp.unisakistudio.posingsystemeditor
                 poleDirection = joint.position - root.position;
             }
             var polePosition = root.position + poleDirection.normalized * Mathf.Max(0.01f, limbLength);
-            if (!PosingSystemTwoBoneIk.TryApply(
+            var requestedPosition = targetPosition;
+            var positionWeight = rule.positionWeight;
+            if (!rule.HasAllPositionAxes && rule.HasPositionAxis)
+            {
+                // Interpolating joint rotations moves even disabled coordinates. Instead blend
+                // the endpoint, then solve it at full weight in the selected target frame.
+                targetPosition = Vector3.Lerp(sourceEndPosition, targetPosition, Mathf.Clamp01(positionWeight));
+                TryGetTargetFrame(animator, rule,
+                    rule.coordinateSpaceVersion >= PosingSystemAutoPoseLimbRule.CurrentCoordinateSpaceVersion,
+                    out var frame, out _);
+                targetPosition = ClampMaskedTarget(root, joint, tip, targetPosition, sourceEndPosition,
+                    GetPositionFrame(frame, rule.positionSpace), rule);
+                positionWeight = 1;
+            }
+            var solution = default(PosingSystemTwoBoneIkSolution);
+            if (rule.HasPositionAxis && rule.positionWeight > 0 && !PosingSystemTwoBoneIk.TryApply(
                     root,
                     joint,
                     tip,
                     targetPosition,
                     polePosition,
-                    rule.positionWeight,
-                    out var solution))
+                    positionWeight,
+                    out solution))
             {
                 if (recordReport)
                 {
@@ -601,15 +749,46 @@ namespace jp.unisakistudio.posingsystemeditor
             if (recordReport)
             {
                 report.AppliedRuleCount++;
-                report.MaximumReachError = Mathf.Max(report.MaximumReachError, solution.ReachError);
-                if (solution.TargetClamped)
+                var reachError = solution.ReachError;
+                var maskedClampError = Vector3.Distance(targetPosition,
+                    Vector3.Lerp(sourceEndPosition, requestedPosition, Mathf.Clamp01(rule.positionWeight)));
+                if (!rule.HasAllPositionAxes && rule.HasPositionAxis && rule.positionWeight > 0)
+                    reachError = Mathf.Max(reachError, maskedClampError);
+                report.MaximumReachError = Mathf.Max(report.MaximumReachError, reachError);
+                if (reachError > .00001f)
                 {
                     report.Warnings.Add(
-                        $"{rule.label}: ターゲットへ届かないため {solution.ReachError:F4}m 手前で制限しました。");
+                        $"{rule.label}: ターゲットへ届かないため {reachError:F4}m 手前で制限しました。");
                 }
             }
             return true;
         }
+
+        private static Vector3 ClampMaskedTarget(Transform root, Transform joint, Transform tip,
+            Vector3 target, Vector3 source, TargetFrame frame, PosingSystemAutoPoseLimbRule rule)
+        {
+            var inverse = Quaternion.Inverse(frame.Rotation);
+            var relative = inverse * (target - root.position);
+            var mask = new Vector3(rule.applyPositionX ? 1 : 0, rule.applyPositionY ? 1 : 0, rule.applyPositionZ ? 1 : 0);
+            var free = Vector3.Scale(relative, mask);
+            var fixedPart = relative - free;
+            var upper = Vector3.Distance(root.position, joint.position);
+            var lower = Vector3.Distance(joint.position, tip.position);
+            var maximum = Mathf.Sqrt(Mathf.Max(0, (upper + lower) * (upper + lower) - fixedPart.sqrMagnitude));
+            var minimum = Mathf.Sqrt(Mathf.Max(0, (upper - lower) * (upper - lower) - fixedPart.sqrMagnitude));
+            var magnitude = Mathf.Clamp(free.magnitude, minimum, maximum);
+            if (free.sqrMagnitude < .0000000001f)
+                free = Vector3.Scale(inverse * (source - root.position), mask);
+            if (free.sqrMagnitude < .0000000001f)
+                free = rule.applyPositionX ? Vector3.right : rule.applyPositionY ? Vector3.up : Vector3.forward;
+            return root.position + frame.Rotation * (fixedPart + free.normalized * magnitude);
+        }
+
+        // Position axes can be world-aligned without changing the separately stored rotation frame.
+        private static TargetFrame GetPositionFrame(TargetFrame frame, PosingSystemAutoPosePositionSpace space)
+            => space == PosingSystemAutoPosePositionSpace.World
+                ? new TargetFrame(frame.Position, Quaternion.identity)
+                : frame;
 
         private static bool TryGetTargetFrame(
             Animator animator,
@@ -623,6 +802,8 @@ namespace jp.unisakistudio.posingsystemeditor
             switch (rule.targetSpace)
             {
                 case PosingSystemAutoPoseTargetSpace.BodyBone:
+                    if (rule.useViewPosition)
+                        return TryGetViewPositionFrame(animator, avatarIndependent, out frame, out message);
                     var targetBone = animator.GetBoneTransform(rule.targetBone);
                     if (targetBone == null)
                     {
@@ -662,6 +843,67 @@ namespace jp.unisakistudio.posingsystemeditor
         {
             return NormalizeQuaternion(
                 boneWorldRotation * Quaternion.Inverse(boneRestRotationInAvatarSpace));
+        }
+
+        private static bool TryGetViewPositionFrame(
+            Animator animator, bool avatarIndependent, out TargetFrame frame, out string message)
+        {
+            frame = default;
+            message = string.Empty;
+            var descriptor = animator.GetComponent<VRCAvatarDescriptor>();
+            var head = animator.GetBoneTransform(HumanBodyBones.Head);
+            if (descriptor == null || head == null)
+            {
+                message = "ViewPositionを基準にするには、同じアバターのAvatar DescriptorとHeadボーンが必要です。";
+                return false;
+            }
+
+            // VRChat/NDMF stores ViewPosition as a world-distance vector from the avatar root,
+            // not a Transform-local point. Remove root rotation/scale exactly once, then
+            // convert the reference-pose point to head-local space to follow the animated head.
+            // Never sample/reset the live Animator here: captures and solves may be in progress.
+            var avatarId = animator.avatar.GetInstanceID();
+            if (!RestSkeletonByAvatar.TryGetValue(avatarId, out var skeleton))
+            {
+                skeleton = animator.avatar.humanDescription.skeleton
+                    .GroupBy(bone => bone.name).ToDictionary(group => group.Key, group => group.First());
+                RestSkeletonByAvatar.Add(avatarId, skeleton);
+            }
+            var chain = new List<Transform>();
+            for (var bone = head; bone != null && bone != animator.transform; bone = bone.parent)
+                chain.Add(bone);
+            if (chain.Count == 0 || chain[chain.Count - 1].parent != animator.transform ||
+                !skeleton.ContainsKey(head.name))
+            {
+                message = "ViewPositionの基準となるHeadの参照姿勢を取得できません。";
+                return false;
+            }
+            var restHead = Matrix4x4.identity;
+            for (var i = chain.Count - 1; i >= 0; i--)
+            {
+                var bone = chain[i];
+                var known = skeleton.TryGetValue(bone.name, out var rest);
+                // Keep current scales, including Armature/Hips compensation and head resizing.
+                restHead *= Matrix4x4.TRS(known ? rest.position : bone.localPosition,
+                    known ? rest.rotation : bone.localRotation, bone.localScale);
+            }
+            if (restHead.determinant == 0 || !TryGetRestRotationInAvatarSpace(animator, head, out var restRotation))
+            {
+                message = "ViewPositionを計算できません。HeadまでのボーンのスケールとHumanoid設定を確認してください。";
+                return false;
+            }
+            var rootLocalView = animator.transform.InverseTransformVector(descriptor.ViewPosition);
+            var headLocalView = restHead.inverse.MultiplyPoint3x4(rootLocalView);
+            var position = head.TransformPoint(headLocalView);
+            if (float.IsNaN(position.x) || float.IsNaN(position.y) || float.IsNaN(position.z) ||
+                float.IsInfinity(position.x) || float.IsInfinity(position.y) || float.IsInfinity(position.z))
+            {
+                message = "ViewPositionまたはボーンの座標に無効な値があります。";
+                return false;
+            }
+            frame = new TargetFrame(position, avatarIndependent
+                ? ToAvatarIndependentRotation(head.rotation, restRotation) : head.rotation);
+            return true;
         }
 
         public static Quaternion FromAvatarIndependentRotation(

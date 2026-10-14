@@ -42,9 +42,19 @@ namespace jp.unisakistudio.posingsystemeditor
 
         static public void AddPrefab(string name)
         {
+            if (Selection.activeGameObject == null)
+            {
+                EditorUtility.DisplayDialog("追加先を選択してください [PS040]", "HierarchyでVRC Avatar Descriptorの付いたアバター、またはその子オブジェクトを選択してから追加してください。", "閉じる");
+                return;
+            }
             if (Selection.activeGameObject)
             {
-                var avatar = Selection.activeGameObject.GetComponent<VRCAvatarDescriptor>();
+                var avatar = Selection.activeGameObject.GetComponentInParent<VRCAvatarDescriptor>(true);
+                if (avatar == null || EditorUtility.IsPersistent(avatar) || UnityEditor.SceneManagement.PrefabStageUtility.GetPrefabStage(avatar.gameObject) != null)
+                {
+                    EditorUtility.DisplayDialog("追加先を確認してください [PS040]", "シーンのHierarchyに配置したVRC Avatar Descriptor付きアバターを選択してください。Project内のPrefabやPrefab編集画面には追加できません。", "閉じる");
+                    return;
+                }
 
                 // 導入するPosingSystemのPrefabsを探す
                 var guids = AssetDatabase.FindAssets("t:prefab " + name)
@@ -52,15 +62,28 @@ namespace jp.unisakistudio.posingsystemeditor
                     .Where(path => string.Equals(Path.GetFileNameWithoutExtension(path), name, System.StringComparison.CurrentCulture));
                 if (guids.Count() == 0)
                 {
-                    EditorUtility.DisplayDialog("エラー", "Prefabsが見つかりません。ツールを再度インポートしなおしてください", "閉じる");
+                    if (EditorUtility.DisplayDialog("ツール本体が見つかりません [PS041]", "探しているPrefab: " + name + "\nBOOTH同梱のライセンス用unitypackageだけでは、ツール本体の導入は完了しません。ALCOM / VCCでこのプロジェクトに商品本体と「ゆにさきポーズシステム」が追加されているか確認してください。\n導入済みの場合: " + PosingSystemDiagnostics.RestoreTool, "公式ヘルプを開く", "閉じる"))
+                        Application.OpenURL(PosingSystemPackageInfo.SupportUrl);
                     return;
                 }
 
                 // 導入するPosingSystemのPrefabsを読み込む
                 var prefabs = AssetDatabase.LoadAssetAtPath<GameObject>(guids.First());
 
+                if (prefabs == null || prefabs.GetComponent<PosingSystem>() == null)
+                {
+                    if (EditorUtility.DisplayDialog("Prefabを読み込めません [PS042]", "対象: " + name + "\nPrefabが破損しているか、Posing Systemコンポーネントがありません。ConsoleのMissing Script・コンパイルエラーを確認してください。\n" + PosingSystemDiagnostics.RestoreTool, "公式ヘルプを開く", "閉じる"))
+                        Application.OpenURL(PosingSystemPackageInfo.SupportUrl);
+                    return;
+                }
                 // 導入するPosingSystemのPrefabsをアバターに配置する
-                var instance = PrefabUtility.InstantiatePrefab(prefabs, avatar.transform);
+                var instance = PrefabUtility.InstantiatePrefab(prefabs, avatar.transform) as GameObject;
+                if (instance == null)
+                {
+                    if (EditorUtility.DisplayDialog("Prefabを配置できません [PS043]", "対象: " + name + "\nConsoleでMissing Prefabなどのインポートエラーを確認してください。配置先のシーンを開き直して再実行してください。", "公式ヘルプを開く", "閉じる"))
+                        Application.OpenURL(PosingSystemPackageInfo.SupportUrl);
+                    return;
+                }
                 Undo.RegisterCreatedObjectUndo(instance, "Add Prefab");
                 UnityEditor.EditorUtility.SetDirty(instance);
                 var installedPosingSystem = (instance as GameObject).GetComponent<PosingSystem>();
@@ -93,10 +116,8 @@ namespace jp.unisakistudio.posingsystemeditor
                 if (EditorUtility.DisplayDialog("プレビルド", "プレビルドをしますか？\nプレビルドを行うとアバターのビルドとアップロードが速くなります。", "はい", "いいえ"))
                 {
                     // プレビルドをする
-                    PosingSystemEditor.Prebuild(installedPosingSystem);
-                    PosingSystemEditor.RenewAvatar(installedPosingSystem);
-
-                    EditorUtility.DisplayDialog("プレビルド", "プレビルドが完了しました", "OK");
+                    if (PosingSystemEditor.TryPrebuildAndRenew(installedPosingSystem))
+                        EditorUtility.DisplayDialog("プレビルド", "プレビルドが完了しました", "OK");
                 }
             }
        }

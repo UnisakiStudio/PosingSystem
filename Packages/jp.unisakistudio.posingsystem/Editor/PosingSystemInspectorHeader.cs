@@ -7,13 +7,14 @@ namespace jp.unisakistudio.posingsystemeditor
     internal sealed class PosingSystemInspectorHeader
     {
         private bool showChangelog;
+        private bool showHelp;
         private int changelogTab;
         private Vector2 changelogScroll;
         private GUIStyle cardStyle;
         private GUIStyle titleStyle;
         private GUIStyle bodyStyle;
-        private GUIStyle versionStyle;
         private GUIStyle releaseStyle;
+        private bool stylesAreDark;
 
         internal void Draw(PosingSystem target)
         {
@@ -23,38 +24,33 @@ namespace jp.unisakistudio.posingsystemeditor
             var hasSeparateProduct = !string.IsNullOrEmpty(product.name) && product.name != system.name;
             var wasChanged = GUI.changed;
 
-            EditorGUILayout.Space(4);
+            EditorGUILayout.Space(2);
             using (new EditorGUILayout.VerticalScope(cardStyle))
             {
-                var accent = EditorGUIUtility.isProSkin
-                    ? new Color(0.55f, 0.72f, 0.95f) : new Color(0.22f, 0.42f, 0.70f);
-                var accentRect = GUILayoutUtility.GetRect(0, 3, GUILayout.ExpandWidth(true));
-                EditorGUI.DrawRect(accentRect, accent);
-                EditorGUILayout.Space(8);
-                EditorGUILayout.LabelField("ゆにさきスタジオ", EditorStyles.miniLabel);
-                EditorGUILayout.LabelField(string.IsNullOrEmpty(target.settingName) ? product.displayName : target.settingName, titleStyle);
-                EditorGUILayout.Space(4);
-                DrawVersion(hasSeparateProduct ? product.displayName : "ゆにさきポーズシステム", product.VersionLabel);
-                if (hasSeparateProduct) DrawVersion("共通システム", system.VersionLabel);
-
-                EditorGUILayout.Space(8);
+                var title = string.IsNullOrEmpty(target.settingName) ? product.displayName : target.settingName;
                 using (new EditorGUILayout.HorizontalScope())
                 {
-                    if (GUILayout.Button(new GUIContent("ヘルプ / 使い方", "公式オンラインマニュアルを開きます"), GUILayout.Height(28)))
-                        Application.OpenURL(product.ManualUrl);
-                    if (GUILayout.Button(new GUIContent("お問い合わせ", "ゆにさきスタジオのサポートページを開きます"), GUILayout.Height(28)))
-                        Application.OpenURL(PosingSystemPackageInfo.SupportUrl);
+                    EditorGUILayout.LabelField(new GUIContent(title, "パッケージID: " + product.name), titleStyle, GUILayout.Height(20));
+                    GUILayout.Label("バージョン " + (product.version ?? "不明"), bodyStyle, GUILayout.Width(116), GUILayout.Height(20));
                 }
-                EditorGUILayout.Space(6);
+                if (hasSeparateProduct) DrawVersion("ゆにさきポーズシステム", system);
+
+                if (PosingSystemInspectorGUI.Link(showHelp ? "ヘルプ・変更履歴を閉じる" : "ヘルプ・変更履歴")) showHelp = !showHelp;
+                if (showHelp)
+                    using (new EditorGUILayout.HorizontalScope())
+                    {
+                        if (PosingSystemInspectorGUI.Link("使い方")) Application.OpenURL(product.ManualUrl);
+                        if (PosingSystemInspectorGUI.Link("お問い合わせ")) Application.OpenURL(PosingSystemPackageInfo.SupportUrl);
+                        if (PosingSystemInspectorGUI.Link(showChangelog ? "変更履歴を閉じる" : "変更履歴を見る")) showChangelog = !showChangelog;
+                    }
 
                 // Foldouts, tabs and scroll positions are UI state, not avatar settings.
-                showChangelog = EditorGUILayout.Foldout(showChangelog, "変更履歴", true, EditorStyles.foldoutHeader);
-                if (showChangelog)
+                if (showHelp && showChangelog)
                 {
                     EditorGUILayout.Space(6);
                     if (hasSeparateProduct)
                     {
-                        var nextTab = GUILayout.Toolbar(changelogTab, new[] { "このツール", "共通システム" });
+                        var nextTab = GUILayout.Toolbar(changelogTab, new[] { product.displayName, "ゆにさきポーズシステム" }, GUILayout.Height(28));
                         if (nextTab != changelogTab) changelogScroll = Vector2.zero;
                         changelogTab = nextTab;
                     }
@@ -67,17 +63,14 @@ namespace jp.unisakistudio.posingsystemeditor
                     }
                 }
             }
-            EditorGUILayout.Space(8);
+            EditorGUILayout.Space(2);
             GUI.changed = wasChanged;
         }
 
-        private void DrawVersion(string name, string version)
+        private void DrawVersion(string name, PosingSystemPackageInfo.Info package)
         {
-            using (new EditorGUILayout.HorizontalScope())
-            {
-                EditorGUILayout.LabelField(name, bodyStyle);
-                GUILayout.Label(version, versionStyle, GUILayout.ExpandWidth(false));
-            }
+            EditorGUILayout.LabelField(new GUIContent(name + "  /  バージョン " + (package.version ?? "不明"),
+                "パッケージID: " + package.name), bodyStyle, GUILayout.Height(18));
         }
 
         private void DrawChangelog(string changelog)
@@ -90,6 +83,11 @@ namespace jp.unisakistudio.posingsystemeditor
                     EditorGUILayout.Space(8);
                     EditorGUILayout.LabelField(line.Substring(3).Replace("[", "").Replace("]", ""), releaseStyle);
                 }
+                else if (line.StartsWith("### "))
+                {
+                    EditorGUILayout.Space(4);
+                    EditorGUILayout.LabelField(line.Substring(4), releaseStyle);
+                }
                 else if (!string.IsNullOrWhiteSpace(line))
                 {
                     if (line.StartsWith("- ")) line = "• " + line.Substring(2);
@@ -100,17 +98,12 @@ namespace jp.unisakistudio.posingsystemeditor
 
         private void EnsureStyles()
         {
-            if (cardStyle != null) return;
-            cardStyle = new GUIStyle(EditorStyles.helpBox) { padding = new RectOffset(12, 12, 10, 10) };
-            titleStyle = new GUIStyle(EditorStyles.boldLabel) { fontSize = 19, wordWrap = true };
-            bodyStyle = new GUIStyle(EditorStyles.wordWrappedLabel) { richText = false };
-            versionStyle = new GUIStyle(EditorStyles.miniButton)
-            {
-                fontStyle = FontStyle.Bold,
-                padding = new RectOffset(8, 8, 3, 3),
-                alignment = TextAnchor.MiddleCenter,
-            };
-            releaseStyle = new GUIStyle(EditorStyles.boldLabel) { wordWrap = true };
+            if (cardStyle != null && stylesAreDark == EditorGUIUtility.isProSkin) return;
+            stylesAreDark = EditorGUIUtility.isProSkin;
+            cardStyle = new GUIStyle(EditorStyles.helpBox) { padding = new RectOffset(6, 6, 4, 4) };
+            titleStyle = new GUIStyle(EditorStyles.boldLabel) { font = EditorStyles.boldFont, fontSize = 14, wordWrap = false };
+            bodyStyle = new GUIStyle(EditorStyles.wordWrappedLabel) { font = EditorStyles.standardFont, fontSize = 11, richText = false };
+            releaseStyle = new GUIStyle(EditorStyles.boldLabel) { font = EditorStyles.boldFont, fontSize = 12, wordWrap = true };
         }
     }
 }

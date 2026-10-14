@@ -64,7 +64,7 @@ namespace jp.unisakistudio.posingsystemeditor
             // このフラグが存在しない旧バージョン導入済みオブジェクトは、既存の手動調整を尊重する。
             posingSystem.enableAvatarSpecificAdjustment = false;
             posingSystem.avatarSpecificAdjustmentUsageInitialized = true;
-            EditorUtility.SetDirty(posingSystem);
+            PosingSystemEditorChangeUtility.MarkChanged(posingSystem);
             return true;
         }
 
@@ -77,7 +77,7 @@ namespace jp.unisakistudio.posingsystemeditor
 
             posingSystem.enableAvatarSpecificAdjustment = true;
             posingSystem.avatarSpecificAdjustmentUsageInitialized = true;
-            EditorUtility.SetDirty(posingSystem);
+            PosingSystemEditorChangeUtility.MarkChanged(posingSystem);
             ScheduleAutomaticGeneration(posingSystem);
         }
 
@@ -90,7 +90,7 @@ namespace jp.unisakistudio.posingsystemeditor
 
             posingSystem.enableAvatarSpecificAdjustment = false;
             posingSystem.avatarSpecificAdjustmentUsageInitialized = true;
-            EditorUtility.SetDirty(posingSystem);
+            PosingSystemEditorChangeUtility.MarkChanged(posingSystem);
         }
 
         public static void Draw(PosingSystem posingSystem)
@@ -139,7 +139,7 @@ namespace jp.unisakistudio.posingsystemeditor
             if (kneeClamp)
             {
                 safetyAngle = EditorGUILayout.Slider(
-                    new GUIContent("最低膝曲げ角度", "膝がこの角度より伸びる前にクランプします。"),
+                    new GUIContent("最低膝曲げ角度（°）", "膝がこの角度より伸びる前にクランプします。"),
                     safetyAngle, 0f, 5f);
             }
             EditorGUILayout.EndHorizontal();
@@ -151,7 +151,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 posingSystem.avatarSpecificAdjustmentUsageInitialized = true;
                 posingSystem.enableReverseKneeSafetyClamp = kneeClamp;
                 posingSystem.reverseKneeSafetyAngle = safetyAngle;
-                EditorUtility.SetDirty(posingSystem);
+                PosingSystemEditorChangeUtility.MarkChanged(posingSystem);
                 if (enabled)
                 {
                     ScheduleAutomaticGeneration(posingSystem);

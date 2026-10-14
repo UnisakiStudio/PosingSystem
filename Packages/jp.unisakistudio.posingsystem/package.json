@@ -20,6 +20,7 @@
     "nadena.dev.ndmf": "1.14.0"
   },
   "vpmDependencies": {
+    "com.vrchat.avatars": ">=3.10.4",
     "nadena.dev.modular-avatar": "^1.15.1",
     "nadena.dev.ndmf": "^1.14.0"
   }

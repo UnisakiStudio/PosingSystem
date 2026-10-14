@@ -7,6 +7,61 @@ using jp.unisakistudio.posingsystemeditor;
 public class PosingSystemAvatarAdjustmentTests
 {
     [Test]
+    public void IkKneeSafetyChanges_InvalidatePrebuiltClips()
+    {
+        var obj = new GameObject("IK cache test");
+        var catalog = ScriptableObject.CreateInstance<PosingSystemAutoPoseCatalog>();
+        try
+        {
+            var system = obj.AddComponent<AvatarAdjustmentTestPosingSystem>();
+            system.autoPoseCatalog = catalog;
+            catalog.productionReady = true;
+            system.enableReverseKneeSafetyClamp = true;
+            var initial = PosingSystemConverter.GetDefineSerializeJson(system, true);
+            Assert.That(initial, Does.Contain("\"autoPoseLogicVersion\":2"));
+            system.reverseKneeSafetyAngle += 5;
+            var afterAngle = PosingSystemConverter.GetDefineSerializeJson(system, true);
+            Assert.That(afterAngle, Is.Not.EqualTo(initial));
+            system.avatarSpecificLeftKneeBendDegrees += 3;
+            var afterBaseline = PosingSystemConverter.GetDefineSerializeJson(system, true);
+            Assert.That(afterBaseline, Is.Not.EqualTo(afterAngle));
+            system.enableReverseKneeSafetyClamp = false;
+            Assert.That(PosingSystemConverter.GetDefineSerializeJson(system, true), Is.Not.EqualTo(afterBaseline));
+        }
+        finally { Object.DestroyImmediate(obj); Object.DestroyImmediate(catalog); }
+    }
+
+    [Test]
+    public void KneeSafety_TargetBaselineIsIndependentAndDisabledSafetyDoesNotChangePose()
+    {
+        var obj = new GameObject("Knee safety test");
+        try
+        {
+            var system = obj.AddComponent<AvatarAdjustmentTestPosingSystem>();
+            system.enableReverseKneeSafetyClamp = true;
+            system.reverseKneeSafetyAngle = 5;
+            system.avatarSpecificLeftKneeBendDegrees = 80;
+            system.avatarSpecificRightKneeBendDegrees = 80;
+            var settingsBefore = EditorJsonUtility.ToJson(system);
+            var pose = new HumanPose { muscles = new float[HumanTrait.MuscleCount] };
+            pose.muscles[24] = pose.muscles[32] = 1.5f;
+            pose.muscles[42] = .25f;
+            var safety = PosingSystemAvatarAdjustmentUtility.GetKneeSafety(system, new Vector2(-5, 2));
+            Assert.That(safety.Apply(ref pose), Is.True);
+            Assert.That(pose.muscles[24], Is.LessThan(pose.muscles[32]));
+            Assert.That(pose.muscles[24], Is.EqualTo(1 - 10f / HumanTrait.GetMuscleDefaultMax(24) - .0005f).Within(.00001f));
+            Assert.That(pose.muscles[42], Is.EqualTo(.25f));
+            Assert.That(safety.Apply(ref pose), Is.False, "Applying the same limit twice must not accumulate offsets");
+            Assert.That(EditorJsonUtility.ToJson(system), Is.EqualTo(settingsBefore));
+            system.enableReverseKneeSafetyClamp = false;
+            pose.muscles[24] = 1.5f;
+            Assert.That(PosingSystemAvatarAdjustmentUtility.GetKneeSafety(system).Apply(ref pose), Is.False);
+            Assert.That(pose.muscles[24], Is.EqualTo(1.5f));
+        }
+        finally { Object.DestroyImmediate(obj); }
+    }
+
+    [Test]
     public void CreateCombinedMuscleAdjustmentClip_AddsManualAndAvatarOffsets()
     {
         var gameObject = new GameObject("PosingSystemAvatarAdjustmentTests");

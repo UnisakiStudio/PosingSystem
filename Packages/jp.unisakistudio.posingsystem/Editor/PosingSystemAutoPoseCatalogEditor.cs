@@ -6,13 +6,55 @@ using jp.unisakistudio.posingsystem;
 
 namespace jp.unisakistudio.posingsystemeditor
 {
-    internal static class PosingSystemAutoPoseEditorGui
+    public static class PosingSystemAutoPoseEditorGui
     {
+        public static Vector3 PositionOffsetField(Vector3 offset, ref bool x, ref bool y, ref bool z,
+            PosingSystemAutoPosePositionSpace space = PosingSystemAutoPosePositionSpace.ReferenceLocal)
+        {
+            EditorGUILayout.LabelField("位置（選んだ長さを1とする比率）");
+            Axis("X", ref x, ref offset.x);
+            Axis("Y", ref y, ref offset.y);
+            Axis("Z", ref z, ref offset.z);
+            EditorGUILayout.LabelField(space == PosingSystemAutoPosePositionSpace.World
+                ? "ワールドの軸に沿って移動します。オフの軸は元の姿勢の位置を保ちます。"
+                : "基準の向きに沿って移動します。オフの軸は元の姿勢の位置を保ちます。", EditorStyles.wordWrappedMiniLabel);
+            EditorGUILayout.LabelField("スライダーは−1〜1。範囲外の値も数値欄に入力できます。", EditorStyles.wordWrappedMiniLabel);
+            return offset;
+
+            void Axis(string label, ref bool enabled, ref float value)
+            {
+                using (new EditorGUILayout.HorizontalScope())
+                {
+                    enabled = EditorGUILayout.ToggleLeft(label, enabled, GUILayout.Width(36));
+                    using (new EditorGUI.DisabledScope(!enabled))
+                    {
+                        // Only a slider interaction may clamp to its range. Repaints and edits
+                        // on another axis must preserve values entered outside [-1, 1].
+                        EditorGUI.BeginChangeCheck();
+                        var slid = GUILayout.HorizontalSlider(Mathf.Clamp(value, -1, 1), -1, 1, GUILayout.MinWidth(60));
+                        if (EditorGUI.EndChangeCheck()) value = slid;
+                        value = EditorGUILayout.FloatField(value, GUILayout.Width(72));
+                    }
+                }
+            }
+        }
+
         private static readonly HumanBodyBones[] TargetBones =
             PosingSystemAutoPoseAdjustmentUtility.SupportedTargetBones.ToArray();
         private static readonly GUIContent[] TargetBoneLabels = TargetBones
             .Select(bone => new GUIContent(GetJapaneseBoneName(bone)))
             .ToArray();
+        private static readonly GUIContent[] TargetAnchorLabels = TargetBoneLabels
+            .Concat(new[] { new GUIContent("ViewPosition（目の位置）") }).ToArray();
+
+        public static HumanBodyBones TargetBonePopup(GUIContent label, HumanBodyBones current, ref bool useViewPosition)
+        {
+            var index = useViewPosition ? TargetBones.Length : Array.IndexOf(TargetBones, current);
+            if (index < 0) index = Math.Max(0, Array.IndexOf(TargetBones, HumanBodyBones.Hips));
+            var selected = EditorGUILayout.Popup(label, index, TargetAnchorLabels);
+            useViewPosition = selected == TargetBones.Length;
+            return useViewPosition ? current : TargetBones[Mathf.Clamp(selected, 0, TargetBones.Length - 1)];
+        }
 
         public static HumanBodyBones TargetBonePopup(GUIContent label, HumanBodyBones current)
         {
@@ -151,7 +193,7 @@ namespace jp.unisakistudio.posingsystemeditor
                     pose.isExpanded = EditorGUILayout.Foldout(pose.isExpanded, title, true);
                     if (GUILayout.Button("削除", GUILayout.Width(48f)))
                     {
-                        _poses.DeleteArrayElementAtIndex(poseIndex);
+                        PosingSystemEditorChangeUtility.DeleteArrayElement(_poses, poseIndex);
                         GUIUtility.ExitGUI();
                     }
                 }
@@ -205,7 +247,7 @@ namespace jp.unisakistudio.posingsystemeditor
                     rule.isExpanded = EditorGUILayout.Foldout(rule.isExpanded, title, true);
                     if (GUILayout.Button("削除", GUILayout.Width(48f)))
                     {
-                        rules.DeleteArrayElementAtIndex(ruleIndex);
+                        PosingSystemEditorChangeUtility.DeleteArrayElement(rules, ruleIndex);
                         GUIUtility.ExitGUI();
                     }
                 }
@@ -228,21 +270,32 @@ namespace jp.unisakistudio.posingsystemeditor
                     PosingSystemAutoPoseTargetSpace.BodyBone)
                 {
                     var targetBone = rule.FindPropertyRelative("targetBone");
+                    var viewPosition = rule.FindPropertyRelative("useViewPosition");
+                    var useViewPosition = viewPosition.boolValue;
                     EditorGUI.BeginChangeCheck();
                     var selectedTargetBone = PosingSystemAutoPoseEditorGui.TargetBonePopup(
                         new GUIContent(
                             "基準にする身体ボーン",
-                            "頭、腰、膝など、手足の置き場所を測る基準です。指ボーンは選択肢に含みません。"),
-                        (HumanBodyBones)targetBone.intValue);
+                            "頭、腰、膝、ViewPosition（目の位置）など、手足の置き場所を測る基準です。ViewPositionは頭の動きに追従します。"),
+                        (HumanBodyBones)targetBone.intValue, ref useViewPosition);
                     if (EditorGUI.EndChangeCheck())
                     {
                         targetBone.intValue = (int)selectedTargetBone;
+                        viewPosition.boolValue = useViewPosition;
                     }
                 }
 
-                EditorGUILayout.PropertyField(rule.FindPropertyRelative("normalizedTargetOffset"), new GUIContent(
-                    "置き場所（身長に対する比率）",
-                    "基準から見た位置を、アバター身長を1とした比率で保存します。"));
+                var positionSpace = rule.FindPropertyRelative("positionSpace");
+                EditorGUILayout.PropertyField(positionSpace, new GUIContent("位置の座標系"));
+                EditorGUILayout.PropertyField(rule.FindPropertyRelative("lengthReference"), new GUIContent("位置の長さの基準"));
+                var positionX = rule.FindPropertyRelative("applyPositionX");
+                var positionY = rule.FindPropertyRelative("applyPositionY");
+                var positionZ = rule.FindPropertyRelative("applyPositionZ");
+                var x = positionX.boolValue; var y = positionY.boolValue; var z = positionZ.boolValue;
+                var offset = rule.FindPropertyRelative("normalizedTargetOffset");
+                offset.vector3Value = PosingSystemAutoPoseEditorGui.PositionOffsetField(offset.vector3Value, ref x, ref y, ref z,
+                    (PosingSystemAutoPosePositionSpace)positionSpace.enumValueIndex);
+                positionX.boolValue = x; positionY.boolValue = y; positionZ.boolValue = z;
 
                 var rotation = rule.FindPropertyRelative("targetRotationOffset");
                 var coordinateSpaceVersion = rule.FindPropertyRelative("coordinateSpaceVersion");
@@ -319,7 +372,13 @@ namespace jp.unisakistudio.posingsystemeditor
             rule.FindPropertyRelative("limb").enumValueIndex = 0;
             rule.FindPropertyRelative("targetSpace").enumValueIndex = 0;
             rule.FindPropertyRelative("targetBone").enumValueIndex = (int)HumanBodyBones.Hips;
+            rule.FindPropertyRelative("useViewPosition").boolValue = false;
             rule.FindPropertyRelative("normalizedTargetOffset").vector3Value = Vector3.zero;
+            rule.FindPropertyRelative("lengthReference").enumValueIndex = 0;
+            rule.FindPropertyRelative("positionSpace").enumValueIndex = 0;
+            rule.FindPropertyRelative("applyPositionX").boolValue = true;
+            rule.FindPropertyRelative("applyPositionY").boolValue = true;
+            rule.FindPropertyRelative("applyPositionZ").boolValue = true;
             rule.FindPropertyRelative("targetRotationOffset").quaternionValue = Quaternion.identity;
             rule.FindPropertyRelative("coordinateSpaceVersion").intValue =
                 PosingSystemAutoPoseLimbRule.CurrentCoordinateSpaceVersion;

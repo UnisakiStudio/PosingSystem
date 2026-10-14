@@ -49,8 +49,11 @@ namespace jp.unisakistudio.posingsystemeditor.tests
             Assert.AreEqual(expectedOffset.z, actualOffset.z, 0.00001f);
         }
 
-        [Test]
-        public void RecalibrateMotion_ScalesEachRootTranslationAxisAndFootHeight()
+        [TestCase(false)]
+        [TestCase(true)]
+        [TestCase(true, "_USSPS_movement_offset_Vertical_Test")]
+        [TestCase(false, "_USSPS_movement_offset_Forward_Test")]
+        public void RecalibrateMotion_ScalesEachRootTranslationAxisAndFootHeight(bool bodySpaceHeightOffset, string movementName = null)
         {
             var assetRoot = "Assets/__PosingSystemRootTranslationTests_"
                 + System.Guid.NewGuid().ToString("N");
@@ -60,12 +63,13 @@ namespace jp.unisakistudio.posingsystemeditor.tests
 
             try
             {
-                var clip = new AnimationClip { name = "_USSPS_Test_footheight_clip" };
+                var clip = new AnimationClip { name = movementName ?? (bodySpaceHeightOffset ? "_USSPS_footheight_offset_Test" : "_USSPS_Test_footheight_clip") };
+                var forward = movementName != null && movementName.Contains("Forward_");
                 var expectedValues = new Dictionary<string, float>
                 {
-                    { "RootT.x", 0.4f },
-                    { "RootT.y", 0.5f },
-                    { "RootT.z", 1.8f }
+                    { "RootT.x", bodySpaceHeightOffset ? 0.25f : forward ? 0.6f : 0.4f },
+                    { "RootT.y", forward ? 1.2f : 0.5f },
+                    { "RootT.z", bodySpaceHeightOffset ? 0.75f : 1.8f }
                 };
                 var sourceValues = new Dictionary<string, float>
                 {
