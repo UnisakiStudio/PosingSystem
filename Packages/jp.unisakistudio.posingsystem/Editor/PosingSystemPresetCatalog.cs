@@ -4,7 +4,8 @@ using UnityEngine;
 
 namespace jp.unisakistudio.posingsystemeditor
 {
-    // Store strings, not Preset/Prefab references: opening this asset must not load every pose.
+    // In-memory metadata only. Keep this serialized type so older generated assets remain readable.
+    // New catalogs use HideAndDontSave and are never written or assigned to an avatar.
     public sealed class PosingSystemPresetCatalog : ScriptableObject
     {
         public int schemaVersion;

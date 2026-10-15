@@ -10,6 +10,7 @@ using UnityEditor.Presets;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.TestTools;
 using Object = UnityEngine.Object;
 
 namespace jp.unisakistudio.posingsystemeditor.tests
@@ -19,6 +20,8 @@ namespace jp.unisakistudio.posingsystemeditor.tests
         private Type cacheType;
         private string folder;
         private string catalogPath;
+        private string preferenceKey;
+        private bool hadPreference, oldPreference;
         private Scene scene;
         private PosingSystem target;
         private GameObject prefab;
@@ -31,6 +34,10 @@ namespace jp.unisakistudio.posingsystemeditor.tests
             cacheType = typeof(PosingSystemEditor).Assembly.GetType(
                 "jp.unisakistudio.posingsystemeditor.PosingSystemPresetDefinesCache");
             Invoke("ResetForTests");
+            preferenceKey = (string)cacheType.GetProperty("VisibilityPreferenceKey", BindingFlags.Static | BindingFlags.NonPublic).GetValue(null);
+            hadPreference = EditorPrefs.HasKey(preferenceKey);
+            oldPreference = EditorPrefs.GetBool(preferenceKey);
+            EditorPrefs.SetBool(preferenceKey, false);
             folder = "Assets/__PosingPresetCacheTest_" + Guid.NewGuid().ToString("N");
             AssetDatabase.CreateFolder("Assets", folder.Substring("Assets/".Length));
             catalogPath = folder + "/Catalog.asset";
@@ -51,7 +58,7 @@ namespace jp.unisakistudio.posingsystemeditor.tests
             definitions.presetDefines.Add(new PosingSystemPresetDefines.PresetDefine
             {
                 avatarName = "Original avatar", preset = preset,
-                prefabs = new List<GameObject> { prefab },
+                prefabs = new List<LazyLoadReference<GameObject>> { prefab },
                 prefabsHashes = new List<string> { "avatar-hash" },
                 prefabsNames = new List<string> { "Avatar" }
             });
@@ -67,95 +74,174 @@ namespace jp.unisakistudio.posingsystemeditor.tests
             Invoke("ResetForTests");
             if (scene.IsValid()) EditorSceneManager.ClosePreviewScene(scene);
             if (!string.IsNullOrEmpty(folder)) AssetDatabase.DeleteAsset(folder);
+            if (hadPreference) EditorPrefs.SetBool(preferenceKey, oldPreference);
+            else EditorPrefs.DeleteKey(preferenceKey);
         }
 
         [Test]
-        public void ReopeningCatalog_UsesSavedMetadataWithoutSearchingOrLoadingDefinitions()
-        {
-            var first = Load();
-            Assert.That(first.entries, Has.Count.EqualTo(1));
-            Assert.That(first.entries[0].avatarName, Is.EqualTo("Original avatar"));
-            Assert.That(first.entries[0].prefabsHashes, Is.EquivalentTo(new[] { "avatar-hash" }));
-            Assert.That(Count("AssetLoadRequestCount"), Is.EqualTo(1));
-            var saved = File.ReadAllBytes(catalogPath);
-            Assert.That(Load(), Is.SameAs(first));
-            Assert.That(Count("AssetSearchRequestCount"), Is.EqualTo(1));
-
-            Invoke("ResetForTests");
-            Resources.UnloadAsset(first);
-            var reopened = Load();
-            Assert.That(reopened.entries[0].avatarName, Is.EqualTo("Original avatar"));
-            Assert.That(Count("AssetSearchRequestCount"), Is.Zero);
-            Assert.That(Count("AssetLoadRequestCount"), Is.Zero);
-            Assert.That(Count("PresetLoadRequestCount"), Is.Zero);
-            CollectionAssert.AreEqual(saved, File.ReadAllBytes(catalogPath));
-            Assert.That(AssetDatabase.GetDependencies(catalogPath), Does.Not.Contain(folder + "/Pose.preset"));
-            Assert.That(AssetDatabase.GetDependencies(catalogPath), Does.Not.Contain(folder + "/Tool.prefab"));
-        }
-
-        [Test]
-        public void EditingAndAddingDefinitions_OnlyChangesListAfterExplicitReload()
+        public void Catalog_IsCompleteImmediatelyAndKeptOnlyInMemory()
         {
             var catalog = Load();
-            definitions.presetDefines[0].avatarName = "Renamed avatar";
-            EditorUtility.SetDirty(definitions);
-            AssetDatabase.SaveAssetIfDirty(definitions);
-            var extra = ScriptableObject.CreateInstance<PosingSystemPresetDefines>();
-            extra.presetDefines.Add(new PosingSystemPresetDefines.PresetDefine { avatarName = "Added avatar" });
-            AssetDatabase.CreateAsset(extra, folder + "/Extra.asset");
+            Assert.That(catalog.entries, Has.Count.EqualTo(1));
+            Assert.That(catalog.entries[0].avatarName, Is.EqualTo("Original avatar"));
+            Assert.That(catalog.entries[0].prefabsHashes, Is.EquivalentTo(new[] { "avatar-hash" }));
+            Assert.That(EditorUtility.IsPersistent(catalog), Is.False);
+            Assert.That(catalog.hideFlags, Is.EqualTo(HideFlags.HideAndDontSave));
+            Assert.That(File.Exists(catalogPath), Is.False);
+            for (var i = 0; i < 100; i++) Assert.That(Load(), Is.SameAs(catalog));
+            Assert.That(Count("AssetSearchRequestCount"), Is.EqualTo(1));
+            Assert.That(Count("AssetLoadRequestCount"), Is.EqualTo(1));
+            Assert.That(Count("PresetLoadRequestCount"), Is.Zero);
             Invoke("ResetForTests");
+            Assert.That(Load().entries[0].avatarName, Is.EqualTo("Original avatar"));
+            Assert.That(Count("AssetSearchRequestCount"), Is.EqualTo(1));
+            Assert.That(File.Exists(catalogPath), Is.False);
+        }
 
-            Assert.That(Load().entries.Select(e => e.avatarName), Is.EquivalentTo(new[] { "Original avatar" }));
-            Assert.That(Count("AssetLoadRequestCount"), Is.Zero);
-            Assert.That(Load(force: true).entries.Select(e => e.avatarName),
-                Is.EquivalentTo(new[] { "Renamed avatar", "Added avatar" }));
-            Assert.That(catalog.revision, Is.EqualTo(2));
+        [Test]
+        public void DefinitionInspectorEdits_AutomaticallyRefreshMetadataAndUndo()
+        {
+            var catalog = Load();
+            var so = new SerializedObject(definitions);
+            so.FindProperty("presetDefines").GetArrayElementAtIndex(0).FindPropertyRelative("avatarName").stringValue = "Renamed avatar";
+            so.ApplyModifiedProperties();
+            Assert.That(Load().entries[0].avatarName, Is.EqualTo("Renamed avatar"));
+            Undo.FlushUndoRecordObjects();
+            Undo.PerformUndo();
+            Assert.That(Load().entries[0].avatarName, Is.EqualTo("Original avatar"));
+            Undo.PerformRedo();
+            Assert.That(Load().entries[0].avatarName, Is.EqualTo("Renamed avatar"));
+            Assert.That(catalog.revision, Is.EqualTo(4));
+        }
+
+        [Test]
+        public void AddedMovedDeletedDefinitions_RefreshWithoutManualReload()
+        {
+            Load();
+            var extra = ScriptableObject.CreateInstance<PosingSystemPresetDefines>();
+            extra.presetDefines.Add(new PosingSystemPresetDefines.PresetDefine { avatarName = "Extra" });
+            AssetDatabase.CreateAsset(extra, folder + "/Extra.asset");
+            Assert.That(Load().entries, Has.Count.EqualTo(2));
+            Assert.That(AssetDatabase.MoveAsset(folder + "/Extra.asset", folder + "/Moved.asset"), Is.Empty);
+            Assert.That(Load().entries.Any(e => e.sourcePath == folder + "/Moved.asset"), Is.True);
+            AssetDatabase.DeleteAsset(folder + "/Moved.asset");
+            Assert.That(Load().entries, Has.Count.EqualTo(1));
+        }
+
+        [Test]
+        public void UnrelatedAnimationImport_DoesNotRescanPresets()
+        {
+            Load();
+            AssetDatabase.CreateAsset(new AnimationClip(), folder + "/Unrelated.anim");
+            AssetDatabase.ImportAsset(folder + "/Unrelated.anim", ImportAssetOptions.ForceUpdate);
+            Load();
             Assert.That(Count("AssetSearchRequestCount"), Is.EqualTo(1));
         }
 
         [Test]
-        public void DeletedDefinition_RemainsCachedUntilExplicitReload()
+        public void LegacyCatalog_MigratesVisibilityWithoutChangingAvatarOrSavedFile()
+        {
+            var legacy = ScriptableObject.CreateInstance<PosingSystemPresetCatalog>();
+            legacy.hideBundledPresets = true;
+            legacy.entries.Add(new PosingSystemPresetCatalog.Entry { avatarName = "Outdated" });
+            AssetDatabase.CreateAsset(legacy, catalogPath);
+            AssetDatabase.SaveAssetIfDirty(legacy);
+            var bytes = File.ReadAllBytes(catalogPath);
+            target.presetCatalogObject = legacy;
+            var targetJson = EditorJsonUtility.ToJson(target);
+            EditorPrefs.DeleteKey(preferenceKey);
+            var current = (PosingSystemPresetCatalog)Invoke("GetCatalog", target, false);
+            Assert.That(current.hideBundledPresets, Is.True);
+            Assert.That(current, Is.Not.SameAs(legacy));
+            Assert.That(current.entries.Any(e => e.avatarName == "Outdated"), Is.False);
+            CollectionAssert.AreEqual(bytes, File.ReadAllBytes(catalogPath));
+            Assert.That(EditorJsonUtility.ToJson(target), Is.EqualTo(targetJson));
+            var other = NewTool("Other tool");
+            var dirty = EditorUtility.IsDirty(other);
+            Assert.That(Invoke("GetCatalog", other, false), Is.SameAs(current));
+            Assert.That(other.presetCatalogObject, Is.Null);
+            Assert.That(EditorUtility.IsDirty(other), Is.EqualTo(dirty));
+        }
+
+        [Test]
+        public void Visibility_SupportsUndoRedoAndSurvivesMemoryReset()
         {
             Load();
-            AssetDatabase.DeleteAsset(folder + "/Definitions.asset");
-            Assert.That(Load().entries, Has.Count.EqualTo(1));
-            Assert.That(Load(force: true).entries, Is.Empty);
+            Invoke("SetHideBundledPresets", true);
+            Undo.FlushUndoRecordObjects();
+            Assert.That(EditorPrefs.GetBool(preferenceKey), Is.True);
+            Undo.PerformUndo();
+            Assert.That(Load().hideBundledPresets, Is.False);
+            Assert.That(EditorPrefs.GetBool(preferenceKey), Is.False);
+            Undo.PerformRedo();
+            Assert.That(Load().hideBundledPresets, Is.True);
+            Invoke("ResetForTests");
+            Assert.That(Load().hideBundledPresets, Is.True);
         }
 
         [Test]
-        public void ChangedToolVersion_RebuildsOnceAndPersistsNewVersion()
+        public void LazyReferences_SaveReloadInOriginalObjectReferenceFormat()
         {
-            Load("1.0");
-            definitions.presetDefines[0].avatarName = "Updated avatar";
-            var updated = Load("2.0");
-            Assert.That(updated.entries[0].avatarName, Is.EqualTo("Updated avatar"));
-            Assert.That(updated.revision, Is.EqualTo(2));
-            Assert.That(updated.packageVersions, Is.EqualTo("2.0"));
-            Assert.That(Load("2.0"), Is.SameAs(updated));
-            Assert.That(Count("AssetSearchRequestCount"), Is.EqualTo(2));
-            Invoke("ResetForTests");
-            Assert.That(Load("2.0").revision, Is.EqualTo(2));
-            Assert.That(Count("AssetLoadRequestCount"), Is.Zero);
+            var yaml = File.ReadAllText(folder + "/Definitions.asset");
+            Assert.That(yaml, Does.Contain("preset: {fileID:"));
+            Assert.That(yaml, Does.Contain(AssetDatabase.AssetPathToGUID(folder + "/Pose.preset")));
+            Resources.UnloadAsset(definitions);
+            definitions = AssetDatabase.LoadAssetAtPath<PosingSystemPresetDefines>(folder + "/Definitions.asset");
+            var so = new SerializedObject(definitions);
+            var reference = so.FindProperty("presetDefines").GetArrayElementAtIndex(0).FindPropertyRelative("preset");
+            Assert.That(reference.propertyType, Is.EqualTo(SerializedPropertyType.ObjectReference));
+            Assert.That(reference.objectReferenceValue, Is.SameAs(preset));
+            Assert.That(definitions.presetDefines[0].prefabs[0].asset, Is.SameAs(prefab));
+            Assert.That(Invoke("ApplyPreset", target, Load().entries[0]), Is.True);
         }
 
         [Test]
-        public void DifferentAvatars_ShareCatalogEvenAfterMovingFileAndResettingMemory()
+        public void MetadataRead_DoesNotLoadReferencedPresetOrAnimation()
         {
-            var version = (string)Invoke("GetVersionSignature");
-            var catalog = Load(version);
-            target.presetCatalogObject = catalog;
-            var moved = folder + "/MovedCatalog.asset";
-            Assert.That(AssetDatabase.MoveAsset(catalogPath, moved), Is.Empty);
-            Invoke("ResetForTests");
-            var first = Invoke("GetCatalog", target, false);
-            var other = NewTool("Another avatar");
-            var second = Invoke("GetCatalog", other, false);
-            Assert.That(first, Is.SameAs(catalog));
-            Assert.That(second, Is.SameAs(catalog));
-            Assert.That(other.presetCatalogObject, Is.SameAs(target.presetCatalogObject));
-            Assert.That(Count("AssetSearchRequestCount"), Is.Zero);
-            Assert.That(Count("AssetLoadRequestCount"), Is.Zero);
-            Assert.That(AssetDatabase.GetAssetPath(other.presetCatalogObject), Is.EqualTo(moved));
+            var clip = new AnimationClip { name = "LazyPresetClip_" + Guid.NewGuid().ToString("N") };
+            var clipName = clip.name;
+            AssetDatabase.CreateAsset(clip, folder + "/" + clipName + ".anim");
+            var template = NewTool("Clip template");
+            template.defines.Add(new PosingSystem.LayerDefine("", "", "Pose", 0, "Clips",
+                new List<PosingSystem.AnimationDefine> { new PosingSystem.AnimationDefine { animationClip = clip } }));
+            var lazyPreset = new Preset(template);
+            AssetDatabase.CreateAsset(lazyPreset, folder + "/WithClip.preset");
+            definitions.presetDefines[0].preset = lazyPreset;
+            EditorUtility.SetDirty(definitions);
+            AssetDatabase.SaveAssetIfDirty(definitions);
+            Object.DestroyImmediate(template.gameObject);
+            Resources.UnloadAsset(definitions);
+            Resources.UnloadAsset(lazyPreset);
+            Resources.UnloadAsset(clip);
+            Assert.That(Resources.FindObjectsOfTypeAll<AnimationClip>().Any(c => c.name == clipName), Is.False);
+            var entry = Load().entries[0];
+            Assert.That(Resources.FindObjectsOfTypeAll<AnimationClip>().Any(c => c.name == clipName), Is.False);
+            Assert.That(Resources.FindObjectsOfTypeAll<Preset>().Any(p => AssetDatabase.GetAssetPath(p) == folder + "/WithClip.preset"), Is.False);
+            Assert.That(Invoke("ApplyPreset", target, entry), Is.True);
+            Assert.That(target.defines[0].animations[0].animationClip.name, Is.EqualTo(clipName));
+        }
+
+        [Test]
+        public void MovedPresetAndTool_AreResolvedByGuid()
+        {
+            var entry = Load().entries[0];
+            Assert.That(AssetDatabase.MoveAsset(folder + "/Pose.preset", folder + "/Moved.preset"), Is.Empty);
+            Assert.That(AssetDatabase.MoveAsset(folder + "/Tool.prefab", folder + "/RenamedTool.prefab"), Is.Empty);
+            Assert.That(Invoke("ApplyPreset", target, entry), Is.True);
+            var catalog = Load();
+            var matches = (List<PosingSystemPresetCatalog.Entry>)Invoke("GetMatchingEntries", catalog, prefab, "");
+            Assert.That(matches, Has.Count.EqualTo(1));
+            Assert.That(catalog.entries[0].toolNames, Does.Contain("RenamedTool"));
+        }
+
+        [Test]
+        public void MissingReferences_DoNotBreakMetadataList()
+        {
+            AssetDatabase.DeleteAsset(folder + "/Pose.preset");
+            AssetDatabase.DeleteAsset(folder + "/Tool.prefab");
+            var entries = Load().entries;
+            Assert.That(entries, Has.Count.EqualTo(1));
+            Assert.That(Invoke("ApplyPreset", target, entries[0]), Is.False);
         }
 
         [Test]
@@ -371,10 +457,15 @@ namespace jp.unisakistudio.posingsystemeditor.tests
             };
         }
 
-        private PosingSystemPresetCatalog Load(string version = "1.0", bool force = false)
+        private PosingSystemPresetCatalog Load(bool force = false)
         {
-            return (PosingSystemPresetCatalog)Invoke("LoadCatalog", catalogPath, version, force, new[] { folder }, false);
+            var result = (PosingSystemPresetCatalog)Invoke("RequestCatalog", new[] { folder }, force);
+            Assert.That(Error(), Is.Null.Or.Empty);
+            Assert.That(result, Is.Not.Null);
+            return result;
         }
+
+        private string Error() => (string)cacheType.GetProperty("LastError", BindingFlags.Static | BindingFlags.NonPublic).GetValue(null);
 
         private object Invoke(string methodName, params object[] arguments)
         {

@@ -44,6 +44,7 @@ namespace jp.unisakistudio.posingsystemeditor
                         Undo.RecordObject(target, "Clear PrefabsHashes");
                         presetDefine.prefabsHashes.Clear();
                         EditorUtility.SetDirty(target);
+                        PosingSystemPresetDefinesCache.Invalidate();
                     }
                 }
                 
@@ -54,6 +55,7 @@ namespace jp.unisakistudio.posingsystemeditor
                         Undo.RecordObject(target, "Clear PrefabsNames");
                         presetDefine.prefabsNames.Clear();
                         EditorUtility.SetDirty(target);
+                        PosingSystemPresetDefinesCache.Invalidate();
                     }
                 }
                 EditorGUILayout.EndHorizontal();
@@ -102,6 +104,7 @@ namespace jp.unisakistudio.posingsystemeditor
             }
             
             EditorUtility.SetDirty(target);
+            PosingSystemPresetDefinesCache.Invalidate();
             
             if (addedCount > 0)
             {

@@ -387,7 +387,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 var presetDefine = new PosingSystemPresetDefines.PresetDefine();
 
                 presetDefine.avatarName = avatarName;
-                presetDefine.prefabs = new List<GameObject>(applicablePrefabs.Where(x => x != null));
+                presetDefine.prefabs = applicablePrefabs.Where(x => x != null).Select(x => new LazyLoadReference<GameObject>(x)).ToList();
                 presetDefine.preset = preset;
                 presetDefine.prefabsNames = new List<string>(targetGameObjectNames.Where(x => !string.IsNullOrEmpty(x)));
 

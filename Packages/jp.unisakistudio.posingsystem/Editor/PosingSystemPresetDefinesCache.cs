@@ -6,130 +6,157 @@ using jp.unisakistudio.posingsystem;
 using UnityEditor;
 using UnityEditor.Presets;
 using UnityEngine;
-using PackageInfo = UnityEditor.PackageManager.PackageInfo;
 
 namespace jp.unisakistudio.posingsystemeditor
 {
     [InitializeOnLoad]
     internal static class PosingSystemPresetDefinesCache
     {
+        // Old assets are only read once to retain their display preference. No catalog is saved.
         internal const string DefaultCatalogPath = "Assets/UnisakiStudio/Editor/PosingSystemPresetCatalog.asset";
-        private const int SchemaVersion = 1;
         private static PosingSystemPresetCatalog catalog;
-        private static string versionSignature;
-
+        private static string sourceKey;
+        private static bool invalidated = true;
+        private static readonly HashSet<string> definitionPaths = new(StringComparer.Ordinal);
+        internal static string VisibilityPreferenceKey => "PosingSystem.Presets.HideBundled." + Hash128.Compute(Application.dataPath);
+        internal static string LastError { get; private set; }
         internal static int AssetSearchRequestCount { get; private set; }
         internal static int AssetLoadRequestCount { get; private set; }
         internal static int PresetLoadRequestCount { get; private set; }
 
         static PosingSystemPresetDefinesCache()
         {
-            // Recheck only package metadata. Adding/editing presets never invalidates the catalog.
-            EditorApplication.projectChanged += () => versionSignature = null;
+            PosingSystemPresetDefines.Changed += Invalidate;
+            Undo.undoRedoPerformed += OnUndoRedo;
+            AssemblyReloadEvents.beforeAssemblyReload += Release;
+            EditorApplication.quitting += Release;
+        }
+
+        internal static void Invalidate() => invalidated = true;
+
+        private static void OnUndoRedo()
+        {
+            if (catalog != null) EditorPrefs.SetBool(VisibilityPreferenceKey, catalog.hideBundledPresets);
+            Invalidate();
+        }
+
+        private static void Release()
+        {
+            if (catalog != null) UnityEngine.Object.DestroyImmediate(catalog);
+            catalog = null;
+            sourceKey = null;
+            definitionPaths.Clear();
+            invalidated = true;
+            LastError = null;
         }
 
         internal static PosingSystemPresetCatalog GetCatalog(PosingSystem posingSystem = null, bool forceReload = false)
         {
-            var path = DefaultCatalogPath;
-            if (catalog != null && EditorUtility.IsPersistent(catalog))
-                path = AssetDatabase.GetAssetPath(catalog);
-            else if (posingSystem != null && posingSystem.presetCatalogObject is PosingSystemPresetCatalog referenced
-                && EditorUtility.IsPersistent(referenced))
-                path = AssetDatabase.GetAssetPath(referenced);
-            else if (!File.Exists(path))
-            {
-                // Recover a moved catalog once, rather than making one for each avatar.
-                var existing = AssetDatabase.FindAssets("t:PosingSystemPresetCatalog", new[] { "Assets" });
-                if (existing.Length > 0) path = AssetDatabase.GUIDToAssetPath(existing.OrderBy(g => g).First());
-            }
-
-            var result = LoadCatalog(path, GetVersionSignature(), forceReload, null, true);
-            if (posingSystem != null && posingSystem.presetCatalogObject != result)
-            {
-                posingSystem.presetCatalogObject = result;
-                EditorUtility.SetDirty(posingSystem);
-                if (PrefabUtility.IsPartOfPrefabInstance(posingSystem))
-                    PrefabUtility.RecordPrefabInstancePropertyModifications(posingSystem);
-            }
-            return result;
+            EnsureVisibilityPreference(posingSystem);
+            return RequestCatalog(null, forceReload);
         }
 
-        // The path and version inputs also let tests exercise real persistence in an isolated folder.
-        internal static PosingSystemPresetCatalog LoadCatalog(
-            string path, string versions, bool forceReload, string[] searchFolders, bool showProgress)
+        // Only lightweight metadata is kept in memory, shared by all Inspectors for this domain.
+        internal static PosingSystemPresetCatalog RequestCatalog(string[] searchFolders, bool forceReload)
         {
-            if (catalog == null || AssetDatabase.GetAssetPath(catalog) != path)
-                catalog = AssetDatabase.LoadAssetAtPath<PosingSystemPresetCatalog>(path);
-
-            if (!forceReload && catalog != null && catalog.schemaVersion == SchemaVersion
-                && catalog.packageVersions == versions) return catalog;
-
-            var entries = ReadEntries(searchFolders, showProgress);
-            if (catalog == null)
-            {
-                if (AssetDatabase.LoadMainAssetAtPath(path) != null || File.Exists(path))
-                    throw new InvalidOperationException("プリセット一覧の保存先に別のファイルがあります: " + path);
-                PosingSystemEditor.EnsureAssetFolderExists(Path.GetDirectoryName(path).Replace('\\', '/'));
-                catalog = ScriptableObject.CreateInstance<PosingSystemPresetCatalog>();
-                AssetDatabase.CreateAsset(catalog, path);
-            }
-            // Commit the new catalog only after all definitions have been read successfully.
-            catalog.entries = entries;
-            catalog.packageVersions = versions;
-            catalog.schemaVersion = SchemaVersion;
-            catalog.revision++;
-            EditorUtility.SetDirty(catalog);
-            AssetDatabase.SaveAssetIfDirty(catalog);
-            return catalog;
-        }
-
-        private static List<PosingSystemPresetCatalog.Entry> ReadEntries(string[] searchFolders, bool showProgress)
-        {
-            AssetSearchRequestCount++;
-            var guids = searchFolders == null
-                ? AssetDatabase.FindAssets("t:PosingSystemPresetDefines")
-                : AssetDatabase.FindAssets("t:PosingSystemPresetDefines", searchFolders);
-            Array.Sort(guids, StringComparer.Ordinal);
-            var entries = new List<PosingSystemPresetCatalog.Entry>();
+            var key = searchFolders == null ? "*" : string.Join("\n", searchFolders);
+            if (!forceReload && !invalidated && sourceKey == key)
+                return string.IsNullOrEmpty(LastError) ? catalog : null;
             try
             {
-                for (var index = 0; index < guids.Length; index++)
+                AssetSearchRequestCount++;
+                var guids = searchFolders == null ? AssetDatabase.FindAssets("t:PosingSystemPresetDefines")
+                    : AssetDatabase.FindAssets("t:PosingSystemPresetDefines", searchFolders);
+                Array.Sort(guids, StringComparer.Ordinal);
+                var entries = new List<PosingSystemPresetCatalog.Entry>();
+                foreach (var guid in guids) ReadEntry(guid, entries);
+                if (catalog == null)
                 {
-                    var path = AssetDatabase.GUIDToAssetPath(guids[index]);
-                    if (showProgress)
-                        EditorUtility.DisplayProgressBar("プリセット一覧を更新", Path.GetFileNameWithoutExtension(path),
-                            (float)index / Math.Max(1, guids.Length));
-                    AssetLoadRequestCount++;
-                    var asset = AssetDatabase.LoadAssetAtPath<PosingSystemPresetDefines>(path);
-                    if (asset == null || asset.presetDefines == null) continue;
-                    for (var i = 0; i < asset.presetDefines.Count; i++)
-                    {
-                        var define = asset.presetDefines[i];
-                        if (define == null) continue;
-                        var entry = new PosingSystemPresetCatalog.Entry
-                        {
-                            sourceGuid = guids[index], sourceIndex = i, sourcePath = path,
-                            avatarName = define.avatarName, official = IsOfficialPath(path),
-                            prefabsHashes = new List<string>(define.prefabsHashes ?? new List<string>()),
-                            prefabsNames = new List<string>(define.prefabsNames ?? new List<string>())
-                        };
-                        if (define.preset != null)
-                            AssetDatabase.TryGetGUIDAndLocalFileIdentifier(define.preset, out entry.presetGuid, out entry.presetLocalId);
-                        foreach (var prefab in define.prefabs ?? new List<GameObject>())
-                        {
-                            if (prefab == null) continue;
-                            entry.toolGuids.Add(AssetDatabase.AssetPathToGUID(AssetDatabase.GetAssetPath(prefab)));
-                            entry.toolNames.Add(prefab.name);
-                        }
-                        entries.Add(entry);
-                    }
+                    catalog = ScriptableObject.CreateInstance<PosingSystemPresetCatalog>();
+                    catalog.hideFlags = HideFlags.HideAndDontSave;
+                    catalog.hideBundledPresets = EditorPrefs.GetBool(VisibilityPreferenceKey, false);
                 }
+                catalog.entries = entries;
+                catalog.revision++;
+                definitionPaths.Clear();
+                foreach (var guid in guids) definitionPaths.Add(AssetDatabase.GUIDToAssetPath(guid));
+                LastError = null;
             }
-            finally
+            catch (Exception ex)
             {
-                if (showProgress) EditorUtility.ClearProgressBar();
+                LastError = ex.Message;
             }
-            return entries;
+            sourceKey = key;
+            invalidated = false;
+            return string.IsNullOrEmpty(LastError) ? catalog : null;
+        }
+
+        private static void EnsureVisibilityPreference(PosingSystem posingSystem)
+        {
+            if (EditorPrefs.HasKey(VisibilityPreferenceKey)) return;
+            var legacy = posingSystem != null ? posingSystem.presetCatalogObject as PosingSystemPresetCatalog : null;
+            if (legacy == null) legacy = AssetDatabase.LoadAssetAtPath<PosingSystemPresetCatalog>(DefaultCatalogPath);
+            if (legacy == null)
+            {
+                // Existing users may have moved their old generated catalog.
+                var guid = AssetDatabase.FindAssets("t:PosingSystemPresetCatalog", new[] { "Assets" })
+                    .OrderBy(x => x, StringComparer.Ordinal).FirstOrDefault();
+                if (guid != null) legacy = AssetDatabase.LoadAssetAtPath<PosingSystemPresetCatalog>(AssetDatabase.GUIDToAssetPath(guid));
+            }
+            EditorPrefs.SetBool(VisibilityPreferenceKey, legacy != null && legacy.hideBundledPresets);
+            if (catalog != null) catalog.hideBundledPresets = EditorPrefs.GetBool(VisibilityPreferenceKey);
+        }
+
+        internal static void SetHideBundledPresets(bool value)
+        {
+            if (catalog != null && catalog.hideBundledPresets != value)
+            {
+                Undo.RecordObject(catalog, "Change Preset Visibility");
+                catalog.hideBundledPresets = value;
+            }
+            EditorPrefs.SetBool(VisibilityPreferenceKey, value);
+        }
+
+        internal static void NotifyAssetsChanged(string[] imported, string[] deleted, string[] moved, string[] movedFrom)
+        {
+            // Unrelated animation/texture imports do not cause another preset search.
+            if (deleted.Concat(movedFrom).Any(path => definitionPaths.Contains(path) || path.EndsWith(".prefab", StringComparison.OrdinalIgnoreCase))
+                || imported.Concat(moved).Any(path => path.EndsWith(".prefab", StringComparison.OrdinalIgnoreCase)
+                    || (path.EndsWith(".asset", StringComparison.OrdinalIgnoreCase)
+                        && AssetDatabase.GetMainAssetTypeAtPath(path) == typeof(PosingSystemPresetDefines))))
+                Invalidate();
+        }
+
+        private static void ReadEntry(string guid, List<PosingSystemPresetCatalog.Entry> entries)
+        {
+            var path = AssetDatabase.GUIDToAssetPath(guid);
+            AssetLoadRequestCount++;
+            var asset = AssetDatabase.LoadAssetAtPath<PosingSystemPresetDefines>(path);
+            if (asset == null || asset.presetDefines == null) return;
+            for (var i = 0; i < asset.presetDefines.Count; i++)
+            {
+                var define = asset.presetDefines[i];
+                if (define == null) continue;
+                var entry = new PosingSystemPresetCatalog.Entry
+                {
+                    sourceGuid = guid, sourceIndex = i, sourcePath = path,
+                    avatarName = define.avatarName, official = IsOfficialPath(path),
+                    prefabsHashes = new List<string>(define.prefabsHashes ?? new List<string>()),
+                    prefabsNames = new List<string>(define.prefabsNames ?? new List<string>())
+                };
+                if (define.preset.isSet)
+                    AssetDatabase.TryGetGUIDAndLocalFileIdentifier(define.preset.instanceID, out entry.presetGuid, out entry.presetLocalId);
+                foreach (var prefab in define.prefabs ?? new List<LazyLoadReference<GameObject>>())
+                {
+                    if (!prefab.isSet) continue;
+                    var prefabPath = AssetDatabase.GetAssetPath(prefab.instanceID);
+                    if (string.IsNullOrEmpty(prefabPath)) continue;
+                    entry.toolGuids.Add(AssetDatabase.AssetPathToGUID(prefabPath));
+                    // Unity prefab asset names follow their filename; do not dereference .asset/.name here.
+                    entry.toolNames.Add(Path.GetFileNameWithoutExtension(prefabPath));
+                }
+                entries.Add(entry);
+            }
         }
 
         internal static bool IsOfficialPath(string path)
@@ -213,36 +240,16 @@ namespace jp.unisakistudio.posingsystemeditor
             return applied;
         }
 
-        [Serializable]
-        private sealed class Manifest { public string version; }
-
-        private static string GetVersionSignature()
-        {
-            if (versionSignature != null) return versionSignature;
-            var versions = new List<string>();
-            foreach (var package in PackageInfo.GetAllRegisteredPackages()
-                .Where(p => p.name.StartsWith("jp.unisakistudio.", StringComparison.Ordinal)).OrderBy(p => p.name))
-            {
-                var version = package.version;
-                try
-                {
-                    var path = Path.Combine(package.resolvedPath, "package.json");
-                    if (File.Exists(path)) version = JsonUtility.FromJson<Manifest>(File.ReadAllText(path))?.version ?? version;
-                }
-                catch (Exception ex) when (ex is IOException || ex is UnauthorizedAccessException || ex is ArgumentException)
-                {
-                    // The registered version remains usable if the manifest is temporarily unavailable.
-                }
-                versions.Add(package.name + "@" + version);
-            }
-            return versionSignature = string.Join("\n", versions);
-        }
-
         internal static void ResetForTests()
         {
-            catalog = null;
-            versionSignature = null;
+            Release();
             AssetSearchRequestCount = AssetLoadRequestCount = PresetLoadRequestCount = 0;
         }
+    }
+
+    internal sealed class PosingSystemPresetAssetPostprocessor : AssetPostprocessor
+    {
+        private static void OnPostprocessAllAssets(string[] imported, string[] deleted, string[] moved, string[] movedFrom)
+            => PosingSystemPresetDefinesCache.NotifyAssetsChanged(imported, deleted, moved, movedFrom);
     }
 }

@@ -33,8 +33,10 @@ namespace jp.unisakistudio.posingsystemeditor
                     var current = PosingSystemPresetDefinesCache.GetCatalog(posingSystem);
                     var avatar = posingSystem.GetAvatar();
                     var matchKey = PosingSystemPresetDefinesCache.GetAvatarMatchKey(avatar != null ? avatar.gameObject : null);
-                    if (owner != posingSystem || catalog != current || revision != current.revision || avatarMatchKey != matchKey)
+                    if (owner != posingSystem || catalog != current || revision != (current != null ? current.revision : -1) || avatarMatchKey != matchKey)
                         SetCatalog(posingSystem, current);
+                    if (!string.IsNullOrEmpty(PosingSystemPresetDefinesCache.LastError))
+                        error = "プリセット一覧を読み込めませんでした。「再読込」で再試行できます: " + PosingSystemPresetDefinesCache.LastError;
                 }
                 catch (Exception ex)
                 {
@@ -61,7 +63,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 }
             }
             EditorGUILayout.EndHorizontal();
-            EditorGUILayout.LabelField("追加・変更したプリセットが見つからない場合は「再読込」を押してください。", EditorStyles.wordWrappedMiniLabel);
+            EditorGUILayout.LabelField("一覧は追加・変更時に更新されます。表示が変わらない場合は「再読込」を押してください。", EditorStyles.wordWrappedMiniLabel);
             if (catalog != null)
             {
                 EditorGUI.BeginChangeCheck();
@@ -70,17 +72,14 @@ namespace jp.unisakistudio.posingsystemeditor
                     catalog.hideBundledPresets);
                 if (EditorGUI.EndChangeCheck())
                 {
-                    Undo.RecordObject(catalog, "Change Preset Visibility");
-                    catalog.hideBundledPresets = hideBundled;
-                    EditorUtility.SetDirty(catalog);
-                    AssetDatabase.SaveAssetIfDirty(catalog);
+                    PosingSystemPresetDefinesCache.SetHideBundledPresets(hideBundled);
                 }
             }
             search = EditorGUILayout.TextField("名前で検索", search);
             list.SetFilter(search, catalog != null && catalog.hideBundledPresets);
             list.OnGUI(GUILayoutUtility.GetRect(0, 240, GUILayout.ExpandWidth(true)));
 
-            if (list.MatchCount == 0)
+            if (catalog != null && list.MatchCount == 0)
                 EditorGUILayout.HelpBox("該当するプリセットがありません。", MessageType.Info);
             }
             if (selected != null) EditorGUILayout.LabelField(selected.avatarName, PosingSystemInspectorGUI.Text(12, true));
@@ -108,15 +107,17 @@ namespace jp.unisakistudio.posingsystemeditor
             owner = posingSystem;
             loadFailed = false;
             catalog = current;
-            revision = current.revision;
+            revision = current != null ? current.revision : -1;
             var prefab = PrefabUtility.GetCorrespondingObjectFromSource(posingSystem.gameObject);
-            entries = PosingSystemPresetDefinesCache.GetMatchingEntries(current, prefab, posingSystem.gameObject.name);
+            entries = current != null
+                ? PosingSystemPresetDefinesCache.GetMatchingEntries(current, prefab, posingSystem.gameObject.name)
+                : new List<PosingSystemPresetCatalog.Entry>();
             var descriptor = posingSystem.GetAvatar();
             var avatar = descriptor != null ? descriptor.gameObject : null;
             avatarMatchKey = PosingSystemPresetDefinesCache.GetAvatarMatchKey(avatar);
             list.SetEntries(entries, PosingSystemPresetDefinesCache.GetAvatarMatchingEntries(entries, avatar));
             selected = PosingSystemPresetDefinesCache.GetAvatarMatchingEntries(entries, avatar)
-                .FirstOrDefault(entry => !catalog.hideBundledPresets || !entry.official);
+                .FirstOrDefault(entry => current != null && (!current.hideBundledPresets || !entry.official));
             error = null;
         }
 

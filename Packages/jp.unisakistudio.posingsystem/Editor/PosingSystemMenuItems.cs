@@ -88,9 +88,17 @@ namespace jp.unisakistudio.posingsystemeditor
                 UnityEditor.EditorUtility.SetDirty(instance);
                 var installedPosingSystem = (instance as GameObject).GetComponent<PosingSystem>();
                 PosingSystemAvatarAdjustmentInspector.ConfigureNewInstallation(installedPosingSystem);
+                Selection.activeGameObject = instance;
 
-                // Share the persisted lightweight catalog with every Inspector.
+                // Build only metadata; reference targets are loaded only after the user chooses a preset.
                 var presetCatalog = PosingSystemPresetDefinesCache.GetCatalog(installedPosingSystem);
+                if (presetCatalog == null)
+                {
+                    var message = "ツールを追加しました。プリセット一覧を読み込めませんでした。「アバター調整」の「再読込」で再試行できます。";
+                    SceneView.lastActiveSceneView?.ShowNotification(new GUIContent(message));
+                    Debug.Log("[PosingSystem] " + message, installedPosingSystem);
+                    return;
+                }
                 var toolGuid = AssetDatabase.AssetPathToGUID(AssetDatabase.GetAssetPath(prefabs));
                 var presetDefines = PosingSystemPresetDefinesCache.GetMatchingEntries(presetCatalog, prefabs, prefabs.name)
                     .Where(entry => entry.toolGuids.Contains(toolGuid)).ToList();

@@ -320,7 +320,7 @@ namespace jp.unisakistudio.posingsystem
         public string savedInstanceId = "";
         public UnityEngine.Object thumbnailPackObject = null;
 
-        // Project-wide editor catalog; all avatars reference the same persisted metadata.
+        // Legacy serialized reference retained for upgrades. New preset lists are editor memory only.
         [HideInInspector]
         public UnityEngine.Object presetCatalogObject;
 
