@@ -157,7 +157,7 @@ namespace jp.unisakistudio.posingsystemeditor
 
             PosingSystemInspectorGUI.Section("アバターとの組み合わせ");
             PosingSystemSettingsInspector.DrawCards(serializedObject, ps, new[] {
-                new PosingSystemSettingsInspector.Setting("autoImportAvatarAnimations", "アバターの元の立ち・しゃがみ・伏せ姿勢を使う", "アバターに設定されたアニメーションを自動で取り込んで使えます。"),
+                new PosingSystemSettingsInspector.Setting("autoImportAvatarAnimations", "アバターの元の立ち・しゃがみ・伏せ姿勢を使う", "生成時にアバターのBaseからモーションを検出します。取り込み設定の一覧には追加しません。手動設定がある種類は手動指定を優先します。"),
                 new PosingSystemSettingsInspector.Setting("mergeTrackingControl", "各固定機能の他ギミックとの統合", "ほかのギミックとの併用によって固定機能がうまく動かない場合はオンにしてください。") },
                 null, null, null, ref breathingOpen);
 

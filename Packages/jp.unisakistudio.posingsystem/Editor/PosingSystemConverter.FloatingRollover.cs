@@ -19,10 +19,7 @@ namespace jp.unisakistudio.posingsystemeditor
         {
             var parameter = pose.isRollover ? PosingSystemFeatureUtility.RollTime :
                 pose.isMotionTime ? pose.motionTimeParamName : "";
-            state.timeParameterActive = !string.IsNullOrWhiteSpace(parameter);
-            state.timeParameter = state.timeParameterActive ? parameter : "";
-            if (state.timeParameterActive)
-                FeatureParameter(controller, parameter, AnimatorControllerParameterType.Float, pose.isRollover ? .5f : 0);
+            ConfigureMotionTime(controller, state, parameter, pose.isRollover ? .5f : 0);
         }
 
         private static void BuildRolloverTime(AnimatorController controller, PosingSystemFeatureSettings settings, IAssetSaver saver)

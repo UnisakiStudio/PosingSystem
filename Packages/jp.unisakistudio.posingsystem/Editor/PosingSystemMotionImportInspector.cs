@@ -50,6 +50,14 @@ namespace jp.unisakistudio.posingsystemeditor
             PosingSystemPoseListUtility.MarkChanged(ps);
         }
 
+        public static void ClearManualChoice(PosingSystem ps, StateType type)
+        {
+            if (ps.overrideDefines == null || !ps.overrideDefines.Any(d => d != null && d.stateType == type)) return;
+            Undo.RegisterCompleteObjectUndo(ps, "手動の取り込み設定を解除");
+            ps.overrideDefines.RemoveAll(d => d != null && d.stateType == type);
+            PosingSystemPoseListUtility.MarkChanged(ps);
+        }
+
         private static void SelectCore(PosingSystem ps, int index, bool enabled)
         {
             var chosen = ps.overrideDefines[index];
@@ -77,6 +85,7 @@ namespace jp.unisakistudio.posingsystemeditor
 
         internal void Draw(SerializedObject serialized, PosingSystem ps)
         {
+            EditorGUILayout.HelpBox("自動取り込みの結果は生成時だけ使い、この一覧には追加しません。手動指定をOFFにした種類や、指定済みモーションを外した種類は自動で補完しません。自動取り込みに戻すには「手動指定を解除」を使います。", MessageType.Info);
             if (warning != null) EditorGUILayout.HelpBox(warning, MessageType.Warning);
             using (var viewport = new EditorGUILayout.ScrollViewScope(scroll, GUILayout.Height(340)))
             {
@@ -90,6 +99,12 @@ namespace jp.unisakistudio.posingsystemeditor
                         using (new EditorGUILayout.HorizontalScope())
                         {
                             GUILayout.Label(Labels[(int)type], PosingSystemInspectorGUI.Text(12, true));
+                            if (definition != null && GUILayout.Button(new GUIContent("手動指定を解除", "この種類の手動設定と調整を解除します。自動取り込みがONなら次回生成時に再検出します。Undoで戻せます。"), EditorStyles.miniButton, GUILayout.Width(96)))
+                            {
+                                PosingSystemEditorChangeUtility.Commit(serialized);
+                                PosingSystemMotionImportUtility.ClearManualChoice(ps, type);
+                                serialized.Update(); GUIUtility.ExitGUI();
+                            }
                             if (definition != null && PosingSystemInspectorGUI.Link(expanded == (int)type ? "▼ 設定を閉じる" : "▶ 設定を開く", GUILayout.Width(100)))
                             {
                                 PosingSystemEditorChangeUtility.Commit(serialized);

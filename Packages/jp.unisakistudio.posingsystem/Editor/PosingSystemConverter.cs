@@ -135,7 +135,10 @@ namespace jp.unisakistudio.posingsystemeditor
             public bool isIconSmall;
             public int additiveBreathingLogicVersion;
             public int autoPoseLogicVersion;
+            public int importedMotionLogicVersion;
             public int generatedAssetLogicVersion;
+            public bool autoImportAvatarAnimations;
+            public string importedMotionInputs;
             public int rolloverCenteringLogicVersion;
             public int rolloverGenerationLogicVersion;
             public bool autoPoseKneeSafetyEnabled;
@@ -1189,12 +1192,6 @@ namespace jp.unisakistudio.posingsystemeditor
             // メニューを再作成する
             CreatePosingMenuObjects(posingSystem);
 
-            // アバターの姿勢設定を自動インポート（オプションがオンの場合）
-            if (posingSystem.autoImportAvatarAnimations)
-            {
-                AutoImportAvatarAnimations(posingSystem);
-            }
-
             // MergeAnimatorのAnimatorControllerがオリジナルじゃなかったらベースを複製して設定する
             CreateOriginalAnimatorController(posingSystem);
 
@@ -1211,7 +1208,8 @@ namespace jp.unisakistudio.posingsystemeditor
             ConvertAdditiveBreathingAnimations(posingSystem);
 
             // アニメーションをOverrideする
-            ConvertOverrideAnimations(posingSystem);
+            ResetImportedMotionStates(posingSystem, assetSaver);
+            ConvertOverrideAnimations(posingSystem, assetSaver);
 
             ConvertOptionalFeatures(posingSystem, assetSaver);
 
@@ -1244,6 +1242,8 @@ namespace jp.unisakistudio.posingsystemeditor
                 string guid = AssetDatabase.AssetPathToGUID(assetPath);
                 if (!string.IsNullOrEmpty(guid))
                 {
+                    if (AssetDatabase.TryGetGUIDAndLocalFileIdentifier(obj, out string assetGuid, out long localId))
+                        return assetGuid + ":" + localId.ToString(System.Globalization.CultureInfo.InvariantCulture);
                     return guid;
                 }
             }
@@ -1295,8 +1295,11 @@ namespace jp.unisakistudio.posingsystemeditor
                 additiveBreathingLogicVersion = 3,
                 // Regenerate IK clips for ViewPosition anchors and the scaled flat-pose height fallback.
                 autoPoseLogicVersion = 3,
+                importedMotionLogicVersion = 2,
                 // Invalidate prebuilds generated before per-frame rollover head centering.
                 generatedAssetLogicVersion = 1,
+                autoImportAvatarAnimations = posingSystem.autoImportAvatarAnimations,
+                importedMotionInputs = ImportedMotionInputSignature(posingSystem),
                 rolloverCenteringLogicVersion = 1,
                 rolloverGenerationLogicVersion = 1,
                 autoPoseKneeSafetyEnabled = posingSystem.UsesAutoPoseCatalog &&
@@ -1407,6 +1410,7 @@ namespace jp.unisakistudio.posingsystemeditor
             {
                 foreach (var ov in posingSystem.overrideDefines)
                 {
+                    if (ov == null) continue;
                     var ovDTO = new OverrideAnimationDefineDTO
                     {
                         enabled = ov.enabled,
@@ -2030,48 +2034,14 @@ namespace jp.unisakistudio.posingsystemeditor
                                         animationDefine.displayName));
                                 adjustmentClip = automaticAdjustmentClip;
                             }
-                            if (adjustmentClip != null)
-                            {
-                                // Rootの手動調整は従来通り。自動補正はHumanoid Muscleのみを持つ。
-                                AdditiveCurveUtility.MultiplyRootQCurves(tempClipForCurves, adjustmentClip, newAnimationClip);
-                                foreach (var binding in AnimationUtility.GetCurveBindings(adjustmentClip))
-                                {
-                                    if (!AdditiveCurveUtility.IsRootTBinding(binding)) continue;
-                                    var adjustmentCurve = AnimationUtility.GetEditorCurve(adjustmentClip, binding);
-                                    var baseCurve = AnimationUtility.GetEditorCurve(newAnimationClip, binding) ?? new AnimationCurve();
-                                    AnimationUtility.SetEditorCurve(newAnimationClip, binding,
-                                        AdditiveCurveUtility.AddCurve(baseCurve, adjustmentCurve));
-                                }
-                            }
-
-                            // 手動調整 + アバター固有補正を一度だけ再ベイクし、最後に膝を安全クランプする。
-                            var combinedMuscleAdjustment =
-                                PosingSystemAvatarAdjustmentUtility.CreateCombinedMuscleAdjustmentClip(
-                                    posingSystem, adjustmentClip);
                             try
                             {
-                                var adjustedMuscleIndices =
-                                    AdditiveCurveUtility.GetAdjustedMuscleIndices(combinedMuscleAdjustment);
-                                adjustedMuscleIndices.UnionWith(
-                                    PosingSystemAvatarAdjustmentUtility.GetAffectedMuscleIndices(posingSystem));
-                                if (adjustedMuscleIndices.Count > 0)
-                                {
-                                    ApplyMuscleAdjustmentsWithRebake(
-                                        workingAvatar,
-                                        tempClipForCurves,
-                                        combinedMuscleAdjustment,
-                                        newAnimationClip,
-                                        adjustedMuscleIndices,
-                                        posingSystem);
-                                }
+                                ApplyClipAdjustments(posingSystem, workingAvatar, tempClipForCurves,
+                                    newAnimationClip, adjustmentClip, true);
                             }
                             finally
                             {
-                                Object.DestroyImmediate(combinedMuscleAdjustment);
-                                if (automaticAdjustmentClip != null)
-                                {
-                                    Object.DestroyImmediate(automaticAdjustmentClip);
-                                }
+                                if (automaticAdjustmentClip != null) Object.DestroyImmediate(automaticAdjustmentClip);
                             }
                             foreach (var binding in AnimationUtility.GetCurveBindings(newAnimationClip))
                             {
@@ -2104,12 +2074,7 @@ namespace jp.unisakistudio.posingsystemeditor
                                 if (rootQwCurve != null)
                                     setCurve("RootQ.w", (keyframe, i) => keyframe.value);
                             }
-                            if (animationDefine.isRotate)
-                            {
-                                var clipSetting = AnimationUtility.GetAnimationClipSettings(newAnimationClip);
-                                clipSetting.orientationOffsetY += animationDefine.rotate;
-                                AnimationUtility.SetAnimationClipSettings(newAnimationClip, clipSetting);
-                            }
+                            ApplyClipRotation(newAnimationClip, animationDefine);
 
                             // 生成したアニメーションクリップをAnimatorControllerのサブアセットとして永続化
                             newAnimationClip.name = "_USSPS_" + (animationDefine.animationClip != null ? animationDefine.animationClip.name : "Animation") + "_Processed";
@@ -4260,7 +4225,7 @@ namespace jp.unisakistudio.posingsystemeditor
             (PosingSystem.OverrideAnimationDefine.AnimationStateType.AvatarSelect, "USSPS_Locomotion", "", "AvatarSelecting", false, 0, 0),
         };
 
-        public static void ConvertOverrideAnimations(PosingSystem posingSystem)
+        public static void ConvertOverrideAnimations(PosingSystem posingSystem, IAssetSaver assetSaver = null)
         {
             // 共通ポージングAnimatorを探す
             var maMergeAnimator = GetPrebuiltMergeAnimator(posingSystem);
@@ -4277,12 +4242,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 throw new System.Exception("「" + posingSystem.name + "」の共通ポージングAnimatorに設定されているAnimatorControllerが不正です。AnimatorOverrideController等は使用できません");
             }
 
-            if (posingSystem.overrideDefines == null)
-            {
-                return;
-            }
-
-            foreach (var define in posingSystem.overrideDefines)
+            foreach (var define in ResolveImportedMotionDefinitions(posingSystem))
             {
                 if (define == null || !define.enabled || !IsValidOverrideMotion(define.stateType, define.animationClip))
                 {
@@ -4292,6 +4252,8 @@ namespace jp.unisakistudio.posingsystemeditor
                     }
                     continue;
                 }
+
+                var importedMotion = PrepareImportedMotion(posingSystem, define, animatorController, assetSaver);
 
                 foreach (var overrideSetting in OverrideSettings.Where(setting => setting.stateType == define.stateType))
                 {
@@ -4323,16 +4285,35 @@ namespace jp.unisakistudio.posingsystemeditor
                     {
                         if (animatorState.motion is BlendTree)
                         {
-                            BlendTree blendTree = (BlendTree)animatorState.motion;
+                            // The whole-motion import and controller copy can still reference the source asset.
+                            // Own the complete mutable tree before replacing an idle child.
+                            var copies = new Dictionary<BlendTree, BlendTree>();
+                            BlendTree CopyTree(BlendTree source)
+                            {
+                                if (copies.TryGetValue(source, out var existing)) return existing;
+                                var copy = new BlendTree();
+                                EditorUtility.CopySerialized(source, copy);
+                                copy.name = "_USSPS_Override_" + source.name;
+                                copies.Add(source, copy);
+                                var children = copy.children;
+                                for (var i = 0; i < children.Length; i++)
+                                    if (children[i].motion is BlendTree nested) children[i].motion = CopyTree(nested);
+                                copy.children = children;
+                                if (assetSaver != null || EditorUtility.IsPersistent(animatorController))
+                                    SaveGeneratedAsset(copy, animatorController, assetSaver);
+                                return copy;
+                            }
+                            BlendTree blendTree = CopyTree((BlendTree)animatorState.motion);
+                            animatorState.motion = blendTree;
                             var blendTreeIndex = blendTree.children.ToList().FindIndex(child => Mathf.Approximately(child.position.x, overrideSetting.posX) && Mathf.Approximately(child.position.y, overrideSetting.posY));
                             if (blendTreeIndex != -1)
                             {
                                 blendTree.RemoveChild(blendTreeIndex);
                             }
-                            blendTree.AddChild(define.animationClip, new Vector2(overrideSetting.posX, overrideSetting.posY));
+                            blendTree.AddChild(importedMotion, new Vector2(overrideSetting.posX, overrideSetting.posY));
 
                             // override用に指定されたモーションがBlendTreeの場合、そのパラメータもAnimatorControllerに追加する
-                            if (define.animationClip is BlendTree overrideBlendTree)
+                            if (importedMotion is BlendTree overrideBlendTree)
                             {
                                 AddBlendTreeParametersToAnimator(animatorController, overrideBlendTree);
                             }
@@ -4344,10 +4325,12 @@ namespace jp.unisakistudio.posingsystemeditor
                     }
                     else
                     {
-                        animatorState.motion = define.animationClip;
+                        animatorState.motion = importedMotion;
+                        ConfigureMotionTime(animatorController, animatorState,
+                            define.isMotionTime ? define.motionTimeParamName : "");
 
                         // 単純置き換えでも、元クリップがBlendTreeの場合はパラメータを追加
-                        if (define.animationClip is BlendTree overrideBlendTree)
+                        if (importedMotion is BlendTree overrideBlendTree)
                         {
                             AddBlendTreeParametersToAnimator(animatorController, overrideBlendTree);
                         }
@@ -4376,15 +4359,18 @@ namespace jp.unisakistudio.posingsystemeditor
         }
 
         /// <summary>
-        /// アバターのAnimatorControllerから固有のアニメーションを自動でインポートする
+        /// アバター固有のモーションを検出する。結果は生成用で、ユーザーの設定を書き換えない。
         /// </summary>
-        public static void AutoImportAvatarAnimations(PosingSystem posingSystem)
+        public static List<PosingSystem.OverrideAnimationDefine> AutoImportAvatarAnimations(PosingSystem posingSystem)
         {
-            var avatar = posingSystem.GetAvatar();
-            if (avatar == null) return;
-
-            var animatorController = avatar.baseAnimationLayers[(int)VRC.SDK3.Avatars.Components.VRCAvatarDescriptor.AnimLayerType.Base];
-            if (animatorController.animatorController == null) return;
+            var result = new List<PosingSystem.OverrideAnimationDefine>();
+            var sourceController = GetAutoImportSource(posingSystem);
+            if (sourceController == null) return result;
+            if (sourceController is not AnimatorController animatorController)
+            {
+                Debug.LogWarning("[PosingSystem] 元姿勢を取り込めません。アバターのBaseに通常のAnimatorControllerを設定してください。AnimatorOverrideControllerには対応していません。", posingSystem);
+                return result;
+            }
 
             var detectSettings = new List<(PosingSystem.OverrideAnimationDefine.AnimationStateType type, string stateName)>()
             {
@@ -4421,39 +4407,30 @@ namespace jp.unisakistudio.posingsystemeditor
                 (PosingSystem.OverrideAnimationDefine.AnimationStateType.ShortLanding, "land"),
             };
 
-            // 既存のoverrideDefinesで設定済みの種類を取得
+            // Duplicate detections are suppressed in this result only, never in serialized settings.
             var existingTypes = new HashSet<PosingSystem.OverrideAnimationDefine.AnimationStateType>();
-            if (posingSystem.overrideDefines != null)
-            {
-                foreach (var def in posingSystem.overrideDefines)
-                {
-                    existingTypes.Add(def.stateType);
-                }
-            }
-            else
-            {
-                posingSystem.overrideDefines = new List<PosingSystem.OverrideAnimationDefine>();
-            }
 
             string normalizeStateName(string name)
             {
-                return name.Replace("ing", "").Replace(" ", "").Replace("_", "").ToLower();
+                return name.ToLowerInvariant().Replace("ing", "").Replace(" ", "").Replace("_", "");
             }
 
             // 全レイヤーからステートを収集(サブステートマシン含む)
             var allStates = new List<AnimatorState>();
+            var visitedMachines = new HashSet<AnimatorStateMachine>();
             void collectStates(AnimatorStateMachine stateMachine)
             {
+                if (stateMachine == null || !visitedMachines.Add(stateMachine)) return;
                 foreach (var subStateMachine in stateMachine.stateMachines)
                 {
                     collectStates(subStateMachine.stateMachine);
                 }
                 foreach (var state in stateMachine.states)
                 {
-                    allStates.Add(state.state);
+                    if (state.state != null) allStates.Add(state.state);
                 }
             }
-            foreach (var layer in ((AnimatorController)animatorController.animatorController).layers)
+            foreach (var layer in animatorController.layers)
             {
                 collectStates(layer.stateMachine);
             }
@@ -4503,11 +4480,11 @@ namespace jp.unisakistudio.posingsystemeditor
                     var define = new PosingSystem.OverrideAnimationDefine();
                     define.stateType = detectSetting.type;
                     define.animationClip = state.motion;
-                    posingSystem.overrideDefines.Add(define);
+                    result.Add(define);
                     existingTypes.Add(detectSetting.type);
                     importedStates.Add(state);
 
-                    Debug.Log($"[PosingSystem] アバターから自動インポート: {detectSetting.type} ({state.motion.name})");
+                    Debug.Log($"[PosingSystem] アバターのモーションを検出: {detectSetting.type} ({state.motion.name})");
                 }
             }
 
@@ -4530,6 +4507,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 var stateList = string.Join(", ", undetectedStates.Select(state => $"「{state.name}」({state.motion.name})"));
                 Debug.LogWarning($"[PosingSystem] アバター専用モーションの可能性があるステートを自動検出できませんでした: {stateList}\n専用の歩行・ジャンプモーション等が失われる場合は、可愛いポーズツールの「元のアニメーションの上書き設定」で手動で割り当ててください。");
             }
+            return result;
         }
 
         /// <summary>
