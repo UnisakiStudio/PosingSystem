@@ -39,6 +39,11 @@ namespace jp.unisakistudio.posingsystemeditor.tests
                 var prefab = LoadAssetByGuid<GameObject>(SettingsPrefabGuid);
                 var settingsObject = Object.Instantiate(prefab, avatarObject.transform);
                 var posingSystem = settingsObject.GetComponentInChildren<PosingSystem>(true);
+                // This test specifically exercises the optional in-game breathing toggle.
+                posingSystem.features ??= new PosingSystemFeatureSettings();
+                posingSystem.features.breathing = true;
+                posingSystem.features.breathingControl = true;
+                posingSystem.additiveBreathing.enabled = true;
                 posingSystem.additiveBreathing.standingLevel = PosingSystem.BreathingLevel.Rapid;
                 posingSystem.defines = new List<PosingSystem.LayerDefine>
                 {
@@ -58,9 +63,17 @@ namespace jp.unisakistudio.posingsystemeditor.tests
                     .Single(component =>
                         component.ID == PosingSystemConverter.AdditiveBreathingDuplicateEraserId);
                 var additiveMergeAnimator = additiveDuplicateEraser.GetComponent<ModularAvatarMergeAnimator>();
+                // The settings prefab disables this optional child with EditorOnly. Activate the
+                // copied child before conversion so recovery cannot select the package template.
+                additiveDuplicateEraser.gameObject.tag = "Untagged";
+                additiveDuplicateEraser.gameObject.SetActive(true);
                 var additiveController =
                     AssetDatabase.LoadAssetAtPath<AnimatorController>(temporaryAdditiveControllerPath);
                 additiveMergeAnimator.animator = additiveController;
+
+                Assert.That(PosingSystemConverter.GetAdditiveBreathingMergeAnimator(posingSystem, true),
+                    Is.SameAs(additiveMergeAnimator));
+                Assert.That(PosingSystemFeatureUtility.AvatarUsesBreathingControl(posingSystem), Is.True);
 
                 PosingSystemConverter.ConvertAdditiveBreathingAnimations(posingSystem);
                 AssetDatabase.SaveAssets();

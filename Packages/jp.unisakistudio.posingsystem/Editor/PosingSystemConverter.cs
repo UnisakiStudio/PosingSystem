@@ -135,6 +135,7 @@ namespace jp.unisakistudio.posingsystemeditor
             public bool isIconSmall;
             public int additiveBreathingLogicVersion;
             public int autoPoseLogicVersion;
+            public int generatedAssetLogicVersion;
             public int rolloverCenteringLogicVersion;
             public int rolloverGenerationLogicVersion;
             public bool autoPoseKneeSafetyEnabled;
@@ -1162,6 +1163,13 @@ namespace jp.unisakistudio.posingsystemeditor
         public static void ConvertToModularAvatarComponents(PosingSystem posingSystem, IAssetSaver assetSaver = null)
         {
             PosingSystemDiagnostics.ThrowIfInvalid(posingSystem);
+            PosingSystemGeneratedControllers.Convert(posingSystem, assetSaver,
+                saver => ConvertToModularAvatarComponentsCore(posingSystem, saver));
+        }
+
+        private static void ConvertToModularAvatarComponentsCore(PosingSystem posingSystem, IAssetSaver assetSaver)
+        {
+            PosingSystemDiagnostics.ThrowIfInvalid(posingSystem);
             var avatar = posingSystem.GetAvatar();
             // A partially failed conversion must not retain a previous success marker.
             posingSystem.data = null;
@@ -1288,6 +1296,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 // Regenerate IK clips for ViewPosition anchors and the scaled flat-pose height fallback.
                 autoPoseLogicVersion = 3,
                 // Invalidate prebuilds generated before per-frame rollover head centering.
+                generatedAssetLogicVersion = 1,
                 rolloverCenteringLogicVersion = 1,
                 rolloverGenerationLogicVersion = 1,
                 autoPoseKneeSafetyEnabled = posingSystem.UsesAutoPoseCatalog &&
@@ -1741,183 +1750,10 @@ namespace jp.unisakistudio.posingsystemeditor
         }
 
         public static void CreateOriginalAnimatorController(PosingSystem posingSystem)
-        {
-            if (posingSystem == null)
-            {
-                Debug.LogError("[PosingSystem] CreateOriginalAnimatorController: PosingSystem is null.");
-                return;
-            }
-
-            // このメソッド内で何度も親階層を探索せず、最初に取得したアバターを使い続ける。
-            // ビルド中の階層変更やアバター外からの直接呼び出しでもNullReferenceExceptionにしない。
-            var avatar = posingSystem.GetAvatar();
-            if (avatar == null)
-            {
-                Debug.LogError(
-                    $"[PosingSystem]「{posingSystem.name}」からVRCAvatarDescriptorを取得できないため" +
-                    "AnimatorControllerを生成できません。配置が正しい場合はビルドログを添えてお問い合わせください。",
-                    posingSystem);
-                return;
-            }
-
-            // 共通ポージングAnimatorを探す
-            var maMergeAnimator = GetCommonMergeAnimator(posingSystem, true);
-            
-            if (maMergeAnimator == null || maMergeAnimator.animator == null)
-            {
-                throw PosingSystemDiagnostics.Failure("PS010", "共通ポージングAnimatorまたはControllerが見つかりません。",
-                    "ツール内部のオブジェクトが無効・EditorOnlyになっていないか確認してください。" + PosingSystemDiagnostics.RestoreTool, posingSystem);
-            }
-            
-            var animatorController = maMergeAnimator != null ? maMergeAnimator.animator as AnimatorController : null;
-            if (animatorController == null)
-            {
-                throw PosingSystemDiagnostics.Failure("PS013", "共通ポージングAnimatorのControllerの種類が不正です。",
-                    "Animator Override Controllerではなく、ツールの標準Animator Controllerを指定してください。", maMergeAnimator);
-            }
-
-            // 設定されているAnimatorControllerが標準のものかどうかをチェックし、標準じゃないなら処理はもうしなくていい
-            var isDefault = animatorController.layers.Any(l => l.name == "USSPS_IsDefault");
-            if (!isDefault)
-            {
-                // 他のPosingSystemの共通ポージングAnimatorにも同じものを設定する
-                var otherPosingSystems = avatar.GetComponentsInChildren<PosingSystem>();
-                foreach (var otherPosingSystem in otherPosingSystems)
-                {
-                    var otherMaMergeAnimator = GetCommonMergeAnimator(otherPosingSystem);
-                    if (otherMaMergeAnimator)
-                    {
-                        otherMaMergeAnimator.animator = maMergeAnimator.animator;
-                        Undo.RecordObject(otherMaMergeAnimator, "set animator controller");
-                        EditorUtility.SetDirty(otherMaMergeAnimator);
-                    }
-                }
-
-                // その先の処理は必要ない
-                return;
-            }
-
-            // 別の共通ポージングAnimatorに設定されているものがないか調べる
-            var prebuiltMergeAnimator = GetPrebuiltMergeAnimator(posingSystem);
-            if (prebuiltMergeAnimator)
-            {
-                maMergeAnimator.animator = prebuiltMergeAnimator.animator;
-                Undo.RecordObject(maMergeAnimator, "set animator controller");
-                EditorUtility.SetDirty(maMergeAnimator);
-                return;
-            }
-            var templeteAnimatorControllerPath = AssetDatabase.GetAssetPath(animatorController);
-
-            // AnimatorControllerの保存先を決める
-            var directoryPath = PosingSystemEditor.GetGeneratedFolderPath();
-            if (string.IsNullOrEmpty(directoryPath))
-            {
-                directoryPath = "Assets/UnisakiStudio/GeneratedResources";
-                Debug.LogWarning("[PosingSystem] GetGeneratedFolderPath returned empty; using fallback: " + directoryPath);
-            }
-            var avatarFileName = PosingSystemEditor.SanitizeAssetFileName(avatar.name, "PosingSystem");
-            var newAnimatorControllerPath = directoryPath + "/" + avatarFileName + ".controller";
-            newAnimatorControllerPath = AssetDatabase.GenerateUniqueAssetPath(newAnimatorControllerPath);
-            if (string.IsNullOrEmpty(newAnimatorControllerPath))
-            {
-                // GenerateUniqueAssetPathは保存先フォルダがAssetDatabaseに認識されていない場合などに空文字を返す
-                throw PosingSystemDiagnostics.Failure("PS032", $"AnimatorControllerの保存先を生成できませんでした。対象: {directoryPath}",
-                    "Projectウィンドウで生成先フォルダが存在するか、保存先への書き込みが許可されているか確認してください。", posingSystem);
-            }
-
-            // 複製を実行
-            /*
-            var newAnimatorController = new AnimatorController();
-            EditorUtility.CopySerialized(maMergeAnimator.animator, newAnimatorController);
-            AssetDatabase.CreateAsset(newAnimatorController, newAnimatorControllerPath);
-            */
-            var newAnimatorController = AnimatorControllerDeepCopy.CloneAnimatorController(animatorController, newAnimatorControllerPath);
-//            AssetDatabase.CopyAsset(templeteAnimatorControllerPath, newAnimatorControllerPath);
-
-            if (newAnimatorController == null)
-                throw PosingSystemDiagnostics.Failure("PS033", "AnimatorControllerの複製に失敗しました。",
-                    "Consoleの直前のエラーと、生成先フォルダの書き込み権限・空き容量を確認してください。", posingSystem);
-
-            // オブジェクトに割り当てる
-            maMergeAnimator.animator = newAnimatorController;
-
-            // 新しいAnimatorControllerの「USSPS_IsDefault」レイヤーを削除する
-            var isDefaultLayerIndex = newAnimatorController.layers.ToList().FindIndex(l => l.name == "USSPS_IsDefault");
-            if (isDefaultLayerIndex != -1)
-            {
-                var layers = newAnimatorController.layers.ToList();
-                layers.RemoveAt(isDefaultLayerIndex);
-                newAnimatorController.layers = layers.ToArray();
-                EditorUtility.SetDirty(newAnimatorController);
-            }
-            AssetDatabase.SaveAssets();
-
-            // 変更を記録
-            Undo.RecordObject(maMergeAnimator, "set animator controller");
-            EditorUtility.SetDirty(maMergeAnimator);
-        }
+            => PosingSystemGeneratedControllers.EnsureBase(posingSystem);
 
         public static void CreateOriginalAdditiveBreathingAnimatorController(PosingSystem posingSystem)
-        {
-            if (!PosingSystemFeatureUtility.UsesBreathing(posingSystem))
-            {
-                return;
-            }
-
-            var avatar = posingSystem.GetAvatar();
-            var mergeAnimator = GetAdditiveBreathingMergeAnimator(posingSystem, true);
-            var animatorController = mergeAnimator != null
-                ? mergeAnimator.animator as AnimatorController
-                : null;
-            if (avatar == null || animatorController == null)
-            {
-                Debug.LogError(
-                    "[PosingSystem] Additive呼吸用のMAMergeAnimatorまたはAnimatorControllerが見つかりません。",
-                    posingSystem);
-                return;
-            }
-
-            var controllerGuid = AssetDatabase.AssetPathToGUID(AssetDatabase.GetAssetPath(animatorController));
-            if (controllerGuid != DefaultAdditiveBreathingControllerGuid)
-            {
-                return;
-            }
-
-            var prebuiltMergeAnimator = GetPrebuiltAdditiveBreathingMergeAnimator(posingSystem);
-            if (prebuiltMergeAnimator != null)
-            {
-                mergeAnimator.animator = prebuiltMergeAnimator.animator;
-                EditorUtility.SetDirty(mergeAnimator);
-                return;
-            }
-
-            var directoryPath = PosingSystemEditor.GetGeneratedFolderPath();
-            if (string.IsNullOrEmpty(directoryPath))
-            {
-                directoryPath = "Assets/UnisakiStudio/GeneratedResources";
-            }
-
-            var avatarFileName = PosingSystemEditor.SanitizeAssetFileName(avatar.name, "PosingSystem");
-            var newControllerPath = AssetDatabase.GenerateUniqueAssetPath(
-                directoryPath + "/" + avatarFileName + "_AdditiveBreathing.controller");
-            if (string.IsNullOrEmpty(newControllerPath))
-            {
-                Debug.LogError("[PosingSystem] Additive呼吸用AnimatorControllerの保存先を生成できません。", posingSystem);
-                return;
-            }
-
-            var newController = AnimatorControllerDeepCopy.CloneAnimatorController(
-                animatorController,
-                newControllerPath);
-            if (newController == null)
-            {
-                return;
-            }
-
-            mergeAnimator.animator = newController;
-            EditorUtility.SetDirty(mergeAnimator);
-            AssetDatabase.SaveAssets();
-        }
+            => PosingSystemGeneratedControllers.EnsureBreathing(posingSystem);
 
         public static void ResetAnimatorControllerParameters(PosingSystem posingSystem)
         {
@@ -3440,7 +3276,8 @@ namespace jp.unisakistudio.posingsystemeditor
             // Only a standalone prebuilt controller owns all sub-assets in its file.
             // NDMF packs multiple controllers and their motions into shared containers;
             // pruning one controller's unused motions there can delete another one's clips.
-            if (animatorController == null || !AssetDatabase.IsMainAsset(animatorController)) return;
+            if (animatorController == null || !AssetDatabase.IsMainAsset(animatorController) ||
+                PosingSystemGeneratedControllers.Metadata(animatorController) != null) return;
 
             var allAssets = AssetDatabase.LoadAllAssetsAtPath(AssetDatabase.GetAssetPath(animatorController));
             var assetsToRemove = new List<UnityEngine.Object>();
