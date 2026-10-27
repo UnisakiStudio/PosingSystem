@@ -4,7 +4,7 @@
 
 ## 使い方・変更履歴
 
-- [v3.1.0-alpha.1のREADME：導入・更新・設定方法](Packages/jp.unisakistudio.posingsystem/README.md)
+- [v3.1.0-alpha.2のREADME：導入・更新・設定方法](Packages/jp.unisakistudio.posingsystem/README.md)
 - [変更履歴](Packages/jp.unisakistudio.posingsystem/CHANGELOG.md)
 - [BOOTH商品ページ](https://yunisaki.booth.pm/items/5479202)
 
