@@ -442,6 +442,243 @@ namespace jp.unisakistudio.posingsystemeditor.tests
             }
         }
 
+        [Test]
+        public void LegacyPreset_ReorderedPosesKeepRolloverAndApplyAdjustments_WithUndoRedo()
+        {
+            var center = CreateClip("Center");
+            var other = CreateClip("Other");
+            var side = CreateClip("Side");
+            var adjustment = CreateClip("Avatar adjustment");
+            target.defines = new List<PosingSystem.LayerDefine>
+            {
+                PoseLayer("Sleep", new PosingSystem.AnimationDefine(center, "Original name")
+                    { isRollover = true, rolloverSideAnimation = side, rolloverContactStrength = .6f },
+                    new PosingSystem.AnimationDefine(other, "Other"))
+            };
+            SavePosePreset(true, PoseLayer("Other category"), PoseLayer("Sleep",
+                new PosingSystem.AnimationDefine(other, "Other"),
+                new PosingSystem.AnimationDefine(center, "Renamed pose") { adjustmentClip = adjustment, enabled = false }));
+            var presetBytes = File.ReadAllBytes(folder + "/Pose.preset");
+            var before = EditorJsonUtility.ToJson(target);
+            Undo.IncrementCurrentGroup();
+            Assert.That(Invoke("ApplyPreset", target, Load().entries[0]), Is.True);
+            var pose = target.defines[1].animations[1];
+            Assert.That(pose.isRollover, Is.True);
+            Assert.That(pose.rolloverSideAnimation, Is.SameAs(side));
+            Assert.That(pose.rolloverContactStrength, Is.EqualTo(.6f));
+            Assert.That(pose.adjustmentClip, Is.SameAs(adjustment));
+            Assert.That(pose.enabled, Is.False);
+            Assert.That(pose.isMotionTime, Is.False);
+            Assert.That(target.defines[1].animations[0].isRollover, Is.False);
+            var after = EditorJsonUtility.ToJson(target);
+            Undo.FlushUndoRecordObjects();
+            Undo.PerformUndo();
+            Assert.That(EditorJsonUtility.ToJson(target), Is.EqualTo(before));
+            Undo.PerformRedo();
+            Assert.That(EditorJsonUtility.ToJson(target), Is.EqualTo(after));
+            CollectionAssert.AreEqual(presetBytes, File.ReadAllBytes(folder + "/Pose.preset"));
+        }
+
+        [TestCase(false)]
+        [TestCase(true)]
+        public void ModernPreset_ExplicitRolloverValuesRemainAuthoritative(bool enabled)
+        {
+            var center = CreateClip("Center");
+            var side = CreateClip("Side");
+            target.defines.Add(PoseLayer("Sleep", new PosingSystem.AnimationDefine(center, "Pose")
+                { isRollover = true, rolloverSideAnimation = side, rolloverContactStrength = .6f }));
+            SavePosePreset(false, PoseLayer("Sleep", new PosingSystem.AnimationDefine(center, "Pose")
+                { isRollover = enabled, rolloverSideAnimation = null, rolloverContactStrength = 0 }));
+            Assert.That(Invoke("ApplyPreset", target, Load().entries[0]), Is.True);
+            var pose = target.defines[0].animations[0];
+            Assert.That(pose.isRollover, Is.EqualTo(enabled));
+            Assert.That(pose.rolloverSideAnimation, Is.Null);
+            Assert.That(pose.rolloverContactStrength, Is.Zero);
+        }
+
+        [Test]
+        public void RolloverPreset_WithOnlyEnableField_DoesNotAcquireASideAnimation()
+        {
+            var center = CreateClip("Complete rollover animation");
+            var side = CreateClip("Side");
+            target.defines.Add(PoseLayer("Sleep", new PosingSystem.AnimationDefine(center, "Pose")
+                { isRollover = true, rolloverSideAnimation = side }));
+            SavePosePreset(false, PoseLayer("Sleep", new PosingSystem.AnimationDefine(center, "Pose") { isRollover = true }));
+            RemovePresetFields("rolloverSideAnimation|rolloverContactStrength");
+            Assert.That(Invoke("ApplyPreset", target, Load().entries[0]), Is.True);
+            Assert.That(target.defines[0].animations[0].isRollover, Is.True);
+            Assert.That(target.defines[0].animations[0].rolloverSideAnimation, Is.Null);
+        }
+
+        [Test]
+        public void LegacyPreset_MotionTimeRemainsAvailableInsteadOfEnablingRollover()
+        {
+            var center = CreateClip("Center");
+            var side = CreateClip("Side");
+            target.defines.Add(PoseLayer("Sleep", new PosingSystem.AnimationDefine(center, "Pose")
+                { isRollover = true, rolloverSideAnimation = side }));
+            SavePosePreset(true, PoseLayer("Sleep", new PosingSystem.AnimationDefine(center, "Pose")
+                { isMotionTime = true, motionTimeParamName = "CustomTime" }));
+            Assert.That(Invoke("ApplyPreset", target, Load().entries[0]), Is.True);
+            var pose = target.defines[0].animations[0];
+            Assert.That(pose.isRollover, Is.False);
+            Assert.That(pose.isMotionTime, Is.True);
+            Assert.That(pose.motionTimeParamName, Is.EqualTo("CustomTime"));
+        }
+
+        [TestCase(true)]
+        [TestCase(false)]
+        public void LegacyPreset_DifferentClipOrCategoryDoesNotInheritByIndexOrName(bool differentClip)
+        {
+            var center = CreateClip("Center");
+            var other = CreateClip("Other");
+            var side = CreateClip("Side");
+            target.defines.Add(PoseLayer("Sleep", new PosingSystem.AnimationDefine(center, "Same name")
+                { isRollover = true, rolloverSideAnimation = side }));
+            SavePosePreset(true, PoseLayer(differentClip ? "Sleep" : "Standing",
+                new PosingSystem.AnimationDefine(differentClip ? other : center, "Same name")));
+            Assert.That(Invoke("ApplyPreset", target, Load().entries[0]), Is.True);
+            Assert.That(target.defines[0].animations[0].isRollover, Is.False);
+            Assert.That(target.defines[0].animations[0].rolloverSideAnimation, Is.Null);
+        }
+
+        [TestCase(true)]
+        [TestCase(false)]
+        public void LegacyPreset_ReusedClipRequiresUnambiguousPoseMatch(bool namedMatch)
+        {
+            var center = CreateClip("Center");
+            var side = CreateClip("Side");
+            target.defines.Add(PoseLayer("Sleep",
+                new PosingSystem.AnimationDefine(center, "First") { isRollover = true, rolloverSideAnimation = side },
+                new PosingSystem.AnimationDefine(center, "Second")));
+            SavePosePreset(true, PoseLayer("Sleep", new PosingSystem.AnimationDefine(center, namedMatch ? "First" : "Unknown")));
+            Assert.That(Invoke("ApplyPreset", target, Load().entries[0]), Is.True);
+            Assert.That(target.defines[0].animations[0].isRollover, Is.EqualTo(namedMatch));
+        }
+
+        [Test]
+        public void LegacyPreset_PreservesExistingDisabledRolloverConfiguration()
+        {
+            var center = CreateClip("Center");
+            var side = CreateClip("Side");
+            target.defines.Add(PoseLayer("Sleep", new PosingSystem.AnimationDefine(center, "Pose")
+                { isRollover = false, rolloverSideAnimation = side, rolloverContactStrength = .75f }));
+            SavePosePreset(true, PoseLayer("Sleep", new PosingSystem.AnimationDefine(center, "Pose")));
+            Assert.That(Invoke("ApplyPreset", target, Load().entries[0]), Is.True);
+            var pose = target.defines[0].animations[0];
+            Assert.That(pose.isRollover, Is.False);
+            Assert.That(pose.rolloverSideAnimation, Is.SameAs(side));
+            Assert.That(pose.rolloverContactStrength, Is.EqualTo(.75f));
+        }
+
+        [Test]
+        public void LegacyPreset_PreservesExplicitOffAndPersistsOverrides()
+        {
+            var center = CreateClip("Center");
+            var side = CreateClip("Side");
+            var adjustment = CreateClip("Adjustment");
+            var template = NewTool("Rollover tool");
+            template.defines.Add(PoseLayer("Sleep", new PosingSystem.AnimationDefine(center, "Pose")
+                { isRollover = true, rolloverSideAnimation = side, rolloverContactStrength = .4f }));
+            var source = PrefabUtility.SaveAsPrefabAsset(template.gameObject, folder + "/Rollover.prefab");
+            Object.DestroyImmediate(template.gameObject);
+            var sourceBytes = File.ReadAllBytes(folder + "/Rollover.prefab");
+            Object.DestroyImmediate(target.gameObject);
+            target = ((GameObject)PrefabUtility.InstantiatePrefab(source, scene)).GetComponent<PosingSystem>();
+            SavePosePreset(true, PoseLayer("Sleep", new PosingSystem.AnimationDefine(center, "Pose") { adjustmentClip = adjustment }));
+            Assert.That(preset.ApplyTo(target, new[] { "defines", "overrideDefines" }), Is.True);
+            Assert.That(target.defines[0].animations[0].isRollover, Is.False, "Reproduce the old application path");
+            target.defines[0].animations[0].rolloverContactStrength = .73f;
+            Assert.That(Invoke("ApplyPreset", target, Load().entries[0]), Is.True);
+            Assert.That(target.defines[0].animations[0].isRollover, Is.False);
+            Assert.That(target.defines[0].animations[0].rolloverContactStrength, Is.EqualTo(.73f));
+            Assert.That(PrefabUtility.GetPropertyModifications(target).Any(p => p.propertyPath.EndsWith(".adjustmentClip")), Is.True);
+            var saved = PrefabUtility.SaveAsPrefabAsset(target.gameObject, folder + "/Configured.prefab");
+            Object.DestroyImmediate(target.gameObject);
+            var reopened = ((GameObject)PrefabUtility.InstantiatePrefab(saved, scene)).GetComponent<PosingSystem>();
+            var pose = reopened.defines[0].animations[0];
+            Assert.That(pose.isRollover, Is.False);
+            Assert.That(pose.rolloverSideAnimation, Is.Null);
+            Assert.That(pose.rolloverContactStrength, Is.EqualTo(.73f));
+            Assert.That(pose.adjustmentClip, Is.SameAs(adjustment));
+            CollectionAssert.AreEqual(sourceBytes, File.ReadAllBytes(folder + "/Rollover.prefab"));
+        }
+
+        [Test]
+        public void MixedPreset_OnlyPosesWithoutRolloverFieldsAreSupplemented()
+        {
+            var first = CreateClip("First");
+            var second = CreateClip("Second");
+            var side = CreateClip("Side");
+            target.defines.Add(PoseLayer("Sleep",
+                new PosingSystem.AnimationDefine(first, "First") { isRollover = true, rolloverSideAnimation = side },
+                new PosingSystem.AnimationDefine(second, "Second") { isRollover = true, rolloverSideAnimation = side }));
+            SavePosePreset(false, PoseLayer("Sleep", new PosingSystem.AnimationDefine(first, "First"),
+                new PosingSystem.AnimationDefine(second, "Second")));
+            RemovePresetFields("isRollover|rolloverSideAnimation|rolloverContactStrength", "defines.Array.data[0].animations.Array.data[0]");
+            Assert.That(Invoke("ApplyPreset", target, Load().entries[0]), Is.True);
+            Assert.That(target.defines[0].animations[0].isRollover, Is.True);
+            Assert.That(target.defines[0].animations[1].isRollover, Is.False);
+            Assert.That(target.defines[0].animations[1].rolloverSideAnimation, Is.Null);
+        }
+
+        [Test]
+        public void DirtyPreset_UnsavedExplicitOffOverridesLegacyFileContents()
+        {
+            var center = CreateClip("Center");
+            var side = CreateClip("Side");
+            target.defines.Add(PoseLayer("Sleep", new PosingSystem.AnimationDefine(center, "Pose")
+                { isRollover = true, rolloverSideAnimation = side }));
+            SavePosePreset(true, PoseLayer("Sleep", new PosingSystem.AnimationDefine(center, "Pose")));
+            var oldFile = File.ReadAllBytes(folder + "/Pose.preset");
+            var edited = NewTool("Edited preset source");
+            edited.defines.Add(PoseLayer("Sleep", new PosingSystem.AnimationDefine(center, "Pose")
+                { isRollover = false, rolloverContactStrength = .9f }));
+            Assert.That(preset.UpdateProperties(edited), Is.True);
+            EditorUtility.SetDirty(preset);
+            Assert.That(Invoke("ApplyPreset", target, Load().entries[0]), Is.True);
+            Assert.That(target.defines[0].animations[0].isRollover, Is.False);
+            Assert.That(target.defines[0].animations[0].rolloverContactStrength, Is.EqualTo(.9f));
+            CollectionAssert.AreEqual(oldFile, File.ReadAllBytes(folder + "/Pose.preset"));
+        }
+
+        private AnimationClip CreateClip(string name)
+        {
+            var clip = new AnimationClip { name = name };
+            AssetDatabase.CreateAsset(clip, folder + "/" + name + ".anim");
+            return clip;
+        }
+
+        private static PosingSystem.LayerDefine PoseLayer(string category, params PosingSystem.AnimationDefine[] poses)
+            => new PosingSystem.LayerDefine("", category, category, 32, category, poses.ToList());
+
+        private void SavePosePreset(bool legacy, params PosingSystem.LayerDefine[] layers)
+        {
+            var template = NewTool("Preset source");
+            template.defines = layers.ToList();
+            Assert.That(preset.UpdateProperties(template), Is.True);
+            EditorUtility.SetDirty(preset);
+            AssetDatabase.SaveAssetIfDirty(preset);
+            Object.DestroyImmediate(template.gameObject);
+            if (legacy) RemovePresetFields("isRollover|rolloverSideAnimation|rolloverContactStrength");
+        }
+
+        private void RemovePresetFields(string fields, string posePath = null)
+        {
+            var path = folder + "/Pose.preset";
+            var yaml = File.ReadAllText(path);
+            var prefix = posePath == null ? @"[^\r\n]*" : System.Text.RegularExpressions.Regex.Escape(posePath);
+            var pattern = @"  - target:[^\r\n]*\r?\n    propertyPath: " + prefix + @"\.(?:" + fields
+                + @")\r?\n    value:[^\r\n]*\r?\n    objectReference:[^\r\n]*\r?\n";
+            var legacy = System.Text.RegularExpressions.Regex.Replace(yaml, pattern, "");
+            Assert.That(legacy.Length, Is.LessThan(yaml.Length));
+            File.WriteAllText(path, legacy);
+            AssetDatabase.ImportAsset(path, ImportAssetOptions.ForceUpdate);
+            preset = AssetDatabase.LoadAssetAtPath<Preset>(path);
+            // Unity normalizes the loaded object with default values even though the file is old.
+            Assert.That(System.Text.RegularExpressions.Regex.IsMatch(File.ReadAllText(path), pattern), Is.False);
+        }
+
         private PosingSystem NewTool(string name)
         {
             var go = new GameObject(name);

@@ -227,10 +227,12 @@ namespace jp.unisakistudio.posingsystemeditor
         {
             var preset = LoadPreset(entry);
             if (preset == null || !preset.CanBeAppliedTo(posingSystem)) return false;
+            var rollover = new PosingSystemPresetRolloverCompatibility(posingSystem, preset);
             Undo.RecordObject(posingSystem, "Apply Pose Preset");
             var applied = preset.ApplyTo(posingSystem, new[] { "defines", "overrideDefines" });
             if (applied)
             {
+                rollover.RestoreMissingSettings(posingSystem);
                 PosingSystemAvatarAdjustmentInspector.ConfigurePresetApplied(posingSystem);
                 posingSystem.previousErrorCheckTime = DateTime.MinValue;
                 EditorUtility.SetDirty(posingSystem);
