@@ -18,6 +18,7 @@ namespace jp.unisakistudio.posingsystemeditor.tests
     {
         private readonly HashSet<string> persistedBuildSourcePaths = new();
         private bool? persistedCompilerOptimization;
+        private bool persistedCompilerOneFrame;
         private int persistedCompilerCreated;
 
         [TearDown]
@@ -29,6 +30,7 @@ namespace jp.unisakistudio.posingsystemeditor.tests
 
         private void PrebuildPersistedSettings(PosingSystem ps)
         {
+            using var oneFrame=persistedCompilerOneFrame?new PosingSystemControllerGeneration.Scope(root,true,true):null;
             PosingSystemEditor.Prebuild(ps);
             foreach (var merge in root.GetComponentsInChildren<nadena.dev.modular_avatar.core.ModularAvatarMergeAnimator>(true))
             {
@@ -106,7 +108,27 @@ namespace jp.unisakistudio.posingsystemeditor.tests
                 Assert.That(context.Successful, Is.True, "The persisted build must complete without NDMF errors");
                 var descriptor = context.AvatarRootObject.GetComponent<VRCAvatarDescriptor>();
                 var locomotion = (AnimatorController)descriptor.baseAnimationLayers.Single(l => l.type == VRCAvatarDescriptor.AnimLayerType.Base).animatorController;
-                if(persistedCompilerOptimization==true) Assert.That(locomotion.layers.Single(l=>l.name.EndsWith("USSPS_Locomotion"))
+                if(persistedCompilerOneFrame)
+                {
+                    Assert.That(locomotion.parameters.Any(p=>p.name.EndsWith(PosingSystemOneFrameSelection.Guard)),Is.True);
+                    Assert.That(descriptor.expressionParameters.parameters.Any(p=>p.name.EndsWith(PosingSystemOneFrameSelection.Guard)),Is.False,"Private guard must not consume synchronization bits");
+                    var layer=locomotion.layers.Single(l=>l.name.EndsWith("USSPS_Locomotion"));
+                    var shallow=layer.stateMachine.stateMachines.Single(m=>m.stateMachine.name.EndsWith("DirectSitShallow")).stateMachine;
+                    var entry=shallow.entryTransitions.Single(t=>t.conditions.Single().threshold>0);var input=entry.conditions.Single();
+                    var buildAnimator=context.AvatarRootObject.GetComponent<Animator>();
+                    using var handler=new HumanPoseHandler(buildAnimator.avatar,buildAnimator.transform);
+                    var pose=new HumanPose();var spine=Array.IndexOf(HumanTrait.MuscleName,"Spine Front-Back");
+                    using var rig=new ControllerCompilerRuntimeProbe(buildAnimator,locomotion,true,false);
+                    rig.Set(input.parameter,input.threshold);rig.Tick(180,90);
+                    handler.GetHumanPose(ref pose);
+                    Assert.That(Mathf.Abs(pose.muscles[spine]-.4f),Is.GreaterThan(.02f),"The selected pose must differ from the standing output before the input change");
+                    rig.Set("Upright",.6f);rig.Tick(1,90);
+                    Assert.That(rig.Playable.GetCurrentAnimatorStateInfo(rig.Layer(layer.name)).shortNameHash,Is.EqualTo(Animator.StringToHash(entry.destinationState.name)),"Persisted NDMF output must retain one-evaluation selection");
+                    handler.GetHumanPose(ref pose);
+                    TestContext.WriteLine($"NDMF oneFrame: prebuild={prebuild}, regenerate={regenerate}, spine={pose.muscles[spine]:R}");
+                    Assert.That(pose.muscles[spine],Is.EqualTo(.4f).Within(.002f),"The built avatar must output the selected Humanoid motion in that same evaluation");
+                }
+                else if(persistedCompilerOptimization==true) Assert.That(locomotion.layers.Single(l=>l.name.EndsWith("USSPS_Locomotion"))
                     .stateMachine.entryTransitions.Any(t=>t.conditions.Any(c=>c.parameter.EndsWith("LocomotionTypeGroup"))),Is.True);
                 Assert.That(locomotion.layers.Any(l => l.name.StartsWith("USSPS_FloatPoseSpace")), Is.True);
                 Assert.That(locomotion.layers.Any(l => l.name == PosingSystemConverter.FootHeightAdditiveLayer), Is.True);
@@ -126,6 +148,13 @@ namespace jp.unisakistudio.posingsystemeditor.tests
             clip.name = "PersistedBuildPose";
             ps.defines.Add(new PosingSystem.LayerDefine("Sleep", "Sleep", "SitSleepUp", 30, "Sleep",
                 new List<PosingSystem.AnimationDefine> { new() { enabled = true, displayName = "Sleep", animationClip = clip } }));
+            if(persistedCompilerOneFrame)
+            {
+                var shallow=Clip();shallow.name="OneFrameNdmfShallow";
+                AnimationUtility.SetEditorCurve(shallow,EditorCurveBinding.FloatCurve("",typeof(Animator),"Spine Front-Back"),AnimationCurve.Constant(0,1,.4f));
+                ps.defines.Add(new PosingSystem.LayerDefine("Shallow","Shallow","SitShallow",12,"Shallow",
+                    new List<PosingSystem.AnimationDefine>{new(){enabled=true,displayName="Shallow",animationClip=shallow}}));
+            }
             ps.features.photography = ps.features.floating = ps.features.footHeight = true;
             // Persisted scenes from the comparison period must also use the final implementation.
             ps.featureSettingsMigrated = true;
@@ -146,7 +175,7 @@ namespace jp.unisakistudio.posingsystemeditor.tests
             {
                 context = new BuildContext(build, folder, false);
                 using var compiler = persistedCompilerOptimization.HasValue ?
-                    new PosingSystemControllerGeneration.Scope(build, persistedCompilerOptimization.Value) : null;
+                    new PosingSystemControllerGeneration.Scope(build, persistedCompilerOptimization.Value,persistedCompilerOneFrame) : null;
                 verify(context);
                 persistedCompilerCreated = compiler?.Created ?? 0;
             }

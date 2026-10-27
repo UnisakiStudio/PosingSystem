@@ -25,13 +25,15 @@ namespace jp.unisakistudio.posingsystemeditor
         {
             private readonly GameObject avatar;
             internal readonly bool Optimize;
+            internal readonly bool OneFrame;
             internal readonly List<string> Decisions = new();
             internal int Created;
             internal readonly HashSet<ModularAvatarMergeAnimator> CompiledMerges = new();
-            internal Scope(GameObject root, bool optimize)
+            internal Scope(GameObject root, bool optimize, bool oneFrame = false)
             {
                 if (root == null || Scopes.ContainsKey(root)) throw new InvalidOperationException("Invalid or overlapping controller generation scope.");
-                avatar = root; Optimize = optimize; Scopes.Add(root, this);
+                if(oneFrame && !optimize)throw new ArgumentException("One-frame selection requires the optimized compiler scope");
+                avatar = root; Optimize = optimize; OneFrame = oneFrame; Scopes.Add(root, this);
             }
             public void Dispose() => Scopes.Remove(avatar);
         }
@@ -42,6 +44,8 @@ namespace jp.unisakistudio.posingsystemeditor
         }
         internal static bool ShouldOptimize(GameObject avatar, IEnumerable<ModularAvatarMergeAnimator> merges) =>
             Scopes.TryGetValue(avatar, out var scope) && scope.Optimize && merges.All(scope.CompiledMerges.Contains);
+        internal static bool ShouldUseOneFrame(GameObject avatar, IEnumerable<ModularAvatarMergeAnimator> merges) =>
+            Scopes.TryGetValue(avatar, out var scope) && scope.OneFrame && merges.All(scope.CompiledMerges.Contains);
 
         internal static PosingSystemControllerCompiler.Result TryCreate(GameObject avatar, AnimatorController source)
         {
@@ -91,23 +95,30 @@ namespace jp.unisakistudio.posingsystemeditor
 
         [MenuItem("Tools/ゆにさきスタジオ/実験/選択アバターの最適化比較コピーを作成")]
         private static void CreateSelectedComparison()
+            => CreateSelectedComparison(false);
+
+        [MenuItem("Tools/ゆにさきスタジオ/実験/選択アバターの1評価版比較コピーを作成")]
+        private static void CreateSelectedOneFrameComparison()
+            => CreateSelectedComparison(true);
+
+        private static void CreateSelectedComparison(bool oneFrame)
         {
             var source = Selection.activeGameObject?.GetComponentInParent<VRCAvatarDescriptor>(true);
             if (source == null) throw new InvalidOperationException("Hierarchyで比較するアバター、またはその子オブジェクトを選択してください。");
-            var copy = CreateComparisonCopy(source.gameObject);
+            var copy = CreateComparisonCopy(source.gameObject, oneFrame);
             Undo.RegisterCreatedObjectUndo(copy, "最適化Controllerの比較コピーを作成");
             Selection.activeGameObject = copy;
             Debug.Log("最適化版の比較コピーを作成しました。元アバターは変更していません。VRChatへのアップロードは行っていません。", copy);
         }
 
-        internal static GameObject CreateComparisonCopy(GameObject source)
+        internal static GameObject CreateComparisonCopy(GameObject source, bool oneFrame = false)
         {
             if (source == null || source.GetComponent<VRCAvatarDescriptor>() == null || EditorUtility.IsPersistent(source))
                 throw new ArgumentException("A scene avatar root is required.");
             var copy = Object.Instantiate(source, source.transform.parent);
             if (copy.scene != source.scene && copy.transform.parent == null)
                 UnityEngine.SceneManagement.SceneManager.MoveGameObjectToScene(copy, source.scene);
-            copy.name = source.name + "_ControllerCompiler_Comparison";
+            copy.name = source.name + (oneFrame ? "_OneFrame_Comparison" : "_ControllerCompiler_Comparison");
             try
             {
                 var pipeline = copy.GetComponent<VRC.Core.PipelineManager>();
@@ -128,7 +139,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 // avatar Base motions, imported motion adjustments and optional features remain inputs.
                 foreach (var merge in merges) merge.animator = template;
                 foreach (var ps in systems) ps.data = "";
-                using (new Scope(copy, true))
+                using (new Scope(copy, true, oneFrame))
                     foreach (var ps in systems) PosingSystemConverter.ConvertToModularAvatarComponents(ps);
                 return copy;
             }

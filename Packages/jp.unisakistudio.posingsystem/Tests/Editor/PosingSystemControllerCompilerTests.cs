@@ -269,9 +269,13 @@ namespace jp.unisakistudio.posingsystemeditor.tests
             if (!Application.isBatchMode) return;
             var path = SessionState.GetString(Key, "");
             if (!path.StartsWith("Assets/USSPS_CompilerBatch_", StringComparison.Ordinal) || !path.EndsWith(".unity", StringComparison.Ordinal)) return;
-            UnityEditor.SceneManagement.EditorSceneManager.NewScene(UnityEditor.SceneManagement.NewSceneSetup.EmptyScene,
-                UnityEditor.SceneManagement.NewSceneMode.Single);
-            AssetDatabase.DeleteAsset(path);
+            // Test Framework restores its saved setup after IPostBuildCleanup. Removing the
+            // isolated scene here makes that restoration fail. Delete it only on batch exit.
+            EditorApplication.quitting += () => {
+                UnityEditor.SceneManagement.EditorSceneManager.NewScene(UnityEditor.SceneManagement.NewSceneSetup.EmptyScene,
+                    UnityEditor.SceneManagement.NewSceneMode.Single);
+                AssetDatabase.DeleteAsset(path);
+            };
             SessionState.EraseString(Key);
         }
     }

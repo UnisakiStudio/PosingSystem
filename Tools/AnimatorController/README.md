@@ -31,6 +31,10 @@ Unity 2022.3.22f1とホストPythonの場所はスクリプト内のこのPC用�
 
 比較コピーのUnityメニューは `Tools > ゆにさきスタジオ > 実験 > 選択アバターの最適化比較コピーを作成`。元アバターとアップロードIDを保護し、比較コピーをコード生成した共通Controllerでプレビルドする。比較コピーを保存し、通常どおりビルドして使用する。設定を変えて再プレビルドすると、元の条件への復元と再最適化を行う。元アバターは従来方式の比較・復帰先として保持する。通常ビルドへの一括切替は行わない。
 
+1評価版は別メニュー `Tools > ゆにさきスタジオ > 実験 > 選択アバターの1評価版比較コピーを作成`。通常デスクトップの再生だけを直接選択し、公開Group/Type/同期の経路を維持する。`PosingSystemOneFrameSelection.cs` が復元と生成を担当し、前回3評価版の条件展開は重ねない。未知のUpright、閾値境界、VR、寝姿勢等は従来経路を使う。適用範囲と比較結果は `docs/animator-controller-one-frame-investigation.md` を参照。
+
+1評価版の専用テストは `-Filter 'Compiler_ONE|PosingSystemOneFramePrimitiveTests'`、全回帰は `-Filter 'PosingSystem|AvatarHeightMeasurementTests'`。専用テストは実Motion・SDK制御・同期・保存再生成・NDMF・容量/CPUを分けて検証する。実行中にPackagesを編集しない。
+
 ## 開発コピーと正本
 
 本開発プロジェクトの6商品Packagesは実体コピー。VPM正本へ自動同期しない。反映前に、差分対象の正本が他の作業で変わっていないかハッシュを照合する。

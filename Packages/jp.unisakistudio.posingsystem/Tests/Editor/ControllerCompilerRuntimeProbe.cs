@@ -40,6 +40,18 @@ namespace jp.unisakistudio.posingsystemeditor.tests
             Set("IsLocal", local ? 1 : 0); Set("VRMode", vr ? 1 : 0); Set("TrackingType", 3);
             Set("Grounded", 1); Set("Upright", 1);
             graph.Play();
+            // EditMode creates runtime SMB instances lazily on evaluation, without SDK Awake.
+            // Initialize before callers apply test inputs, then observe native SDK callbacks.
+            // This is setup, not a measured input frame; first-entry callbacks during setup are
+            // not reconstructed. Startup/VRChat IK timing is outside this manual-playable probe.
+            graph.Evaluate(0);
+            foreach(var behaviour in animator.GetBehaviours<StateMachineBehaviour>())Hook(behaviour);
+        }
+        void Hook(StateMachineBehaviour behaviour)
+        {
+            if(behaviour is VRC_AnimatorTrackingControl trackingControl)InitTracking(trackingControl);
+            if(behaviour is VRC_AnimatorLocomotionControl locomotionControl)InitLocomotion(locomotionControl);
+            if(behaviour is VRC_AnimatorTemporaryPoseSpace poseSpaceControl)InitSpace(poseSpaceControl);
         }
         internal void Set(string name, float value)
         {
@@ -73,14 +85,37 @@ namespace jp.unisakistudio.posingsystemeditor.tests
             if (target != animator || (driver.localOnly && !Playable.GetBool("IsLocal"))) return;
             foreach (var p in driver.parameters)
             {
-                if (p.type != VRC_AvatarParameterDriver.ChangeType.Set) throw new InvalidOperationException("Untested driver operation: " + p.type);
-                if (types.ContainsKey(p.name)) Set(p.name, p.value);
+                var value=p.value;
+                if(p.type==VRC_AvatarParameterDriver.ChangeType.Copy)
+                {
+                    if(p.convertRange)throw new InvalidOperationException("Range-converting Copy is not implemented by this test bridge");
+                    value=types[p.source] switch {
+                        AnimatorControllerParameterType.Float=>Playable.GetFloat(p.source),
+                        AnimatorControllerParameterType.Int=>Playable.GetInteger(p.source),
+                        AnimatorControllerParameterType.Bool=>Playable.GetBool(p.source)?1f:0f,
+                        _=>throw new InvalidOperationException("Unsupported source type")};
+                }
+                else if (p.type != VRC_AvatarParameterDriver.ChangeType.Set) throw new InvalidOperationException("Untested driver operation: " + p.type);
+                if (types.ContainsKey(p.name)) Set(p.name, value);
             }
             AppliedDrivers++;
         }
-        void InitTracking(VRC_AnimatorTrackingControl c) { if (trackingHooks.Add(c)) c.ApplySettings += ApplyTracking; }
-        void InitLocomotion(VRC_AnimatorLocomotionControl c) { if (locomotionHooks.Add(c)) c.ApplySettings += ApplyLocomotion; }
-        void InitSpace(VRC_AnimatorTemporaryPoseSpace c) { if (spaceHooks.Add(c)) c.ApplySettings += ApplySpace; }
+        void InitTracking(VRC_AnimatorTrackingControl c)
+        {
+            if(!trackingHooks.Add(c))return;
+            // Subscribe the concrete behaviour instance used by the playable.
+            c.ApplySettings+=ApplyTracking;
+        }
+        void InitLocomotion(VRC_AnimatorLocomotionControl c)
+        {
+            if(!locomotionHooks.Add(c))return;
+            c.ApplySettings+=ApplyLocomotion;
+        }
+        void InitSpace(VRC_AnimatorTemporaryPoseSpace c)
+        {
+            if(!spaceHooks.Add(c))return;
+            c.ApplySettings+=ApplySpace;
+        }
         void ApplyTracking(VRC_AnimatorTrackingControl c, Animator target)
         {
             if (target != animator) return;
@@ -100,9 +135,9 @@ namespace jp.unisakistudio.posingsystemeditor.tests
             VRC_AnimatorTrackingControl.Initialize -= InitTracking;
             VRC_AnimatorLocomotionControl.Initialize -= InitLocomotion;
             VRC_AnimatorTemporaryPoseSpace.Initialize -= InitSpace;
-            foreach (var c in trackingHooks) if (c != null) c.ApplySettings -= ApplyTracking;
-            foreach (var c in locomotionHooks) if (c != null) c.ApplySettings -= ApplyLocomotion;
-            foreach (var c in spaceHooks) if (c != null) c.ApplySettings -= ApplySpace;
+            foreach (var c in trackingHooks) if(c!=null)c.ApplySettings-=ApplyTracking;
+            foreach (var c in locomotionHooks) if(c!=null)c.ApplySettings-=ApplyLocomotion;
+            foreach (var c in spaceHooks) if(c!=null)c.ApplySettings-=ApplySpace;
         }
     }
 }

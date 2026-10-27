@@ -113,6 +113,7 @@ namespace jp.unisakistudio.posingsystemeditor
             PosingSystemGeneratedAsset existing;
             bool committed;
             bool optimizeDesktopSelection;
+            bool oneFrameSelection;
             internal Session(PosingSystem system, IAssetSaver saver)
             {
                 ps = system; destination = saver;
@@ -165,6 +166,8 @@ namespace jp.unisakistudio.posingsystemeditor
                 }
                 foreach (var source in sources) roots.Add((AnimatorController)copies[source]);
                 main = (AnimatorController)copies[mainSource];
+                oneFrameSelection = PosingSystemOneFrameSelection.Restore(main) ||
+                    PosingSystemControllerGeneration.ShouldUseOneFrame(avatar, mainMerges);
                 optimizeDesktopSelection = PosingSystemDesktopSelection.Restore(main) ||
                     PosingSystemControllerGeneration.ShouldOptimize(avatar, mainMerges);
                 foreach (var merge in mainMerges) merge.animator = main;
@@ -186,7 +189,8 @@ namespace jp.unisakistudio.posingsystemeditor
 
             internal void Commit()
             {
-                if (optimizeDesktopSelection) PosingSystemDesktopSelection.Apply(main, SaveAsset);
+                if (oneFrameSelection) PosingSystemOneFrameSelection.Apply(main, SaveAsset);
+                else if (optimizeDesktopSelection) PosingSystemDesktopSelection.Apply(main, SaveAsset);
                 var merges = avatar.GetComponentsInChildren<ModularAvatarMergeAnimator>(true)
                     .Where(m => BelongsTo(m, avatar) && m.animator is AnimatorController c && (temporary.Contains(c) || roots.Contains(c))).ToArray();
                 var controllers = merges.Select(m => (AnimatorController)m.animator).Distinct().ToArray();
