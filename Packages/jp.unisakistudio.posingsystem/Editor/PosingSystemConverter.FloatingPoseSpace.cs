@@ -53,7 +53,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 var state = states[i];
                 var clip = new AnimationClip { name = "_" + FloatingPoseSpacePrefix + "Info_" + i };
                 Set(clip, FloatPoseKey, i + 1);
-                Set(clip, FloatPoseSupported, WithoutFootHeight(state.motion) is AnimationClip pose && !pose.name.StartsWith("proxy_") ? 1 : 0);
+                Set(clip, FloatPoseSupported, SupportsPoseSpaceMovement(WithoutFootHeight(state.motion)) ? 1 : 0);
                 Set(clip, FloatPoseRestore, state.behaviours.OfType<VRC_AnimatorTemporaryPoseSpace>().LastOrDefault()?.enterPoseSpace == true ? 1 : 0);
                 SaveGeneratedAsset(clip, controller, saver);
                 info.SetOverrideMotion(state, clip);

@@ -23,7 +23,7 @@ namespace jp.unisakistudio.posingsystemeditor
             settings.ApplyFinalizedMovementSettings();
             settings.rolloverAnimation = null; // Use the asset GUID and content hash, never a transient instance ID.
             // Regenerate comparison-era prebuilds, including ones which already selected E.
-            return "movement-final-v3:" + JsonUtility.ToJson(settings);
+            return "movement-final-v4:" + JsonUtility.ToJson(settings);
         }
 
         public static void ConvertOptionalFeatures(PosingSystem ps, IAssetSaver saver = null)

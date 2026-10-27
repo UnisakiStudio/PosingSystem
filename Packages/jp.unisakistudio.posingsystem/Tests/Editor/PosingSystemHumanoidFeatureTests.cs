@@ -359,6 +359,8 @@ namespace jp.unisakistudio.posingsystemeditor.tests
             var ps = settings.GetComponent<PosingSystem>();
             ps.features = new PosingSystemFeatureSettings { mirror=enabled, footHeight=enabled, breathing=enabled, fingerGestureControl=enabled,
                 faceForward=enabled, photography=enabled, floating=enabled, rollover=enabled };
+            // The settings prefab defaults breathing to OFF; this test explicitly exercises every feature.
+            ps.additiveBreathing.enabled = enabled;
             ps.defines.Clear(); ps.overrideDefines = new List<PosingSystem.OverrideAnimationDefine>();
             ps.features.photographyBackend = ps.features.floatingBackend = backend;
             ps.features.floatingPoseSpace = floatingPoseSpace;

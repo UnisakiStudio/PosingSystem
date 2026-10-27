@@ -48,12 +48,54 @@ namespace jp.unisakistudio.posingsystemeditor
                 PersistFeatureStates(gate, controller, saver);
             }
 
-            // Translation layers must precede yaw: their inverse is computed from the original pose's RootQ.
+            // For locomotion trees, undo and restore the blended root rotation in separate layers.
+            // Conjugation commutes with quaternion blending; conjugating a displacement/yaw per leaf does not.
+            // Keep the original motions (including VRChat proxies) in Base, never bake over their locomotion.
+            var locomotionFrames = AllFeatureStates(main.stateMachine)
+                .Where(s => UsesLocomotionMovementFrame(WithoutFootHeight(s.motion))).ToArray();
+            if (locomotionFrames.Length > 0) AddLocomotionFrame(true);
+            // Translation layers must precede yaw.
             if (useFloat) AddCorrection("Vertical", MovementHeight, Vector3.up * 3 / Mathf.Max(.001f, Mathf.Abs(units.y)), false);
             if (usePhoto)
             {
                 AddCorrection("Forward", MovementDistance, Vector3.forward * 3 / Mathf.Max(.001f, Mathf.Abs(units.z)), false);
                 AddCorrection("Yaw", MovementYaw, Vector3.zero, true);
+            }
+            if (locomotionFrames.Length > 0) AddLocomotionFrame(false);
+
+            void AddLocomotionFrame(bool inverse)
+            {
+                var layer = FeatureLayer(controller, PoseSpaceMovementPrefix + (inverse ? "_Unrotate" : "_RestoreRotation"), AvatarMaskBodyPart.Root, true, saver);
+                layer.syncedLayerIndex = Array.FindIndex(controller.layers, l => l.name == main.name);
+                layer.syncedLayerAffectsTiming = false;
+                var cache = new Dictionary<Motion, Motion>();
+                foreach (var state in AllFeatureStates(main.stateMachine))
+                {
+                    layer.SetOverrideMotion(state, locomotionFrames.Contains(state) ? Project(WithoutFootHeight(state.motion)) : zero);
+                    layer.SetOverrideBehaviours(state, Array.Empty<StateMachineBehaviour>());
+                }
+                var layers = controller.layers; layers[layers.Length - 1] = layer; controller.layers = layers;
+
+                Motion Project(Motion source)
+                {
+                    if (source == null) return zero;
+                    if (cache.TryGetValue(source, out var cached)) return cached;
+                    if (source is BlendTree original)
+                    {
+                        var tree = new BlendTree();
+                        EditorUtility.CopySerialized(original, tree);
+                        tree.name = MovementOffsetPrefix + (inverse ? "Unrotate_" : "Restore_") + original.name;
+                        cache[source] = tree;
+                        var children = tree.children;
+                        for (var i = 0; i < children.Length; i++) children[i].motion = Project(children[i].motion);
+                        tree.children = children;
+                        SaveGeneratedAsset(tree, controller, saver);
+                        return tree;
+                    }
+                    if (source is not AnimationClip clip) return zero;
+                    var result = CreateLocomotionRotationClip(clip, inverse, zero);
+                    cache[source] = result; SaveGeneratedAsset(result, controller, saver); return result;
+                }
             }
 
             void AddCorrection(string kind, string parameter, Vector3 offset, bool rotation)
@@ -65,10 +107,11 @@ namespace jp.unisakistudio.posingsystemeditor
                 foreach (var state in AllFeatureStates(main.stateMachine))
                 {
                     Motion motion = zero;
-                    // Blending inverse rotations does not invert a blended rotation. Do not move proxy locomotion
-                    // or nested pose BlendTrees in this comparison backend, rather than produce a wrong direction.
-                    if (WithoutFootHeight(state.motion) is AnimationClip source && !source.name.StartsWith("proxy_"))
+                    var sourceMotion = WithoutFootHeight(state.motion);
+                    var inAvatarFrame = UsesLocomotionMovementFrame(sourceMotion);
+                    if (SupportsPoseSpaceMovement(sourceMotion))
                     {
+                        var source = inAvatarFrame ? zero : (AnimationClip)sourceMotion;
                         var input = rotation && state.mirrorParameterActive && state.mirrorParameter == "USSPS_Mirror" ? MovementMirroredYaw : parameter;
                         var reverse = rotation && !state.mirrorParameterActive && state.mirror;
                         var key = (source, input, reverse);
@@ -110,6 +153,61 @@ namespace jp.unisakistudio.posingsystemeditor
                 EditorCurveBinding.FloatCurve("", typeof(Animator), parameter), AnimationCurve.Constant(0, 1, value));
             BlendTree Tree(string name, string parameter) => new() { name = name, blendParameter = parameter,
                 blendType = BlendTreeType.Simple1D, useAutomaticThresholds = false };
+        }
+
+        private static bool UsesLocomotionMovementFrame(Motion motion)
+            => motion is BlendTree || motion is AnimationClip clip && clip.name.StartsWith("proxy_", StringComparison.Ordinal);
+
+        private static bool SupportsPoseSpaceMovement(Motion motion) => motion is AnimationClip || motion is BlendTree;
+
+        private static AnimationClip CreateLocomotionRotationClip(AnimationClip source, bool inverse, AnimationClip reference)
+        {
+            var result = RootOffsetClip(Vector3.zero, Quaternion.identity,
+                MovementOffsetPrefix + (inverse ? "Unrotate_" : "Restore_") + source.name);
+            var duration = Mathf.Max(source.length, 1f / 60);
+            var curves = "xyzw".Select(axis => AnimationUtility.GetEditorCurve(source,
+                EditorCurveBinding.FloatCurve("", typeof(Animator), "RootQ." + axis))).ToArray();
+            var times = new SortedSet<float> {0, duration};
+            // Proxy assets contain an editor reference pose. Their original runtime substitutions remain in Base.
+            // Imported animated motions need matching phase, cycle offset and speed, preserved in the projected tree.
+            if (curves.Any(c => c != null && c.keys.Any(k => !Mathf.Approximately(k.value, c.keys[0].value) ||
+                    Mathf.Abs(k.inTangent) > .000001f || Mathf.Abs(k.outTangent) > .000001f)))
+            {
+                var frames = Mathf.CeilToInt(duration * Mathf.Max(60, source.frameRate));
+                for (var frame = 1; frame < frames; frame++) times.Add(duration * frame / frames);
+                foreach (var curve in curves.Where(c => c != null))
+                    foreach (var key in curve.keys) if (key.time > 0 && key.time < duration) times.Add(key.time);
+            }
+            var sourceSettings = AnimationUtility.GetAnimationClipSettings(source);
+            var samples = times.Select(time =>
+            {
+                var q = new Quaternion(curves[0]?.Evaluate(time) ?? 0, curves[1]?.Evaluate(time) ?? 0,
+                    curves[2]?.Evaluate(time) ?? 0, curves[3]?.Evaluate(time) ?? 1).normalized;
+                q = Quaternion.Euler(0, -sourceSettings.orientationOffsetY, 0) * q;
+                if (sourceSettings.mirror) q = new Quaternion(q.x, -q.y, -q.z, q.w);
+                return inverse ? Quaternion.Inverse(q) : q;
+            }).ToArray();
+            var sampleTimes = times.ToArray();
+            for (var axis = 0; axis < 4; axis++)
+            {
+                var curve = new AnimationCurve(sampleTimes.Select((time, i) => new Keyframe(time, samples[i][axis])).ToArray());
+                for (var i = 0; i < curve.length; i++)
+                {
+                    AnimationUtility.SetKeyLeftTangentMode(curve, i, AnimationUtility.TangentMode.Linear);
+                    AnimationUtility.SetKeyRightTangentMode(curve, i, AnimationUtility.TangentMode.Linear);
+                }
+                AnimationUtility.SetEditorCurve(result, EditorCurveBinding.FloatCurve("", typeof(Animator), "RootQ." + "xyzw"[axis]), curve);
+            }
+            foreach (var axis in "xyz") AnimationUtility.SetEditorCurve(result,
+                EditorCurveBinding.FloatCurve("", typeof(Animator), "RootT." + axis), AnimationCurve.Constant(0, duration, 0));
+            AnimationUtility.SetEditorCurve(result, EditorCurveBinding.FloatCurve("", typeof(Animator), "Jaw Left-Right"), AnimationCurve.Constant(0, duration, 0));
+            result.frameRate = source.frameRate;
+            var settings = AnimationUtility.GetAnimationClipSettings(result);
+            settings.loopTime = sourceSettings.loopTime;
+            settings.hasAdditiveReferencePose = true; settings.additiveReferencePoseClip = reference; settings.additiveReferencePoseTime = 0;
+            AnimationUtility.SetAnimationClipSettings(result, settings);
+            AnimationUtility.SetAdditiveReferencePose(result, reference, 0);
+            return result;
         }
 
         private static void BuildPhotographyInputs(AnimatorController controller, IAssetSaver saver, bool mirrorPoses)
@@ -192,6 +290,7 @@ namespace jp.unisakistudio.posingsystemeditor
             {
                 var q = new Quaternion(curves[0]?.Evaluate(time) ?? 0, curves[1]?.Evaluate(time) ?? 0,
                     curves[2]?.Evaluate(time) ?? 0, curves[3]?.Evaluate(time) ?? 1).normalized;
+                q = Quaternion.Euler(0, -sourceSettings.orientationOffsetY, 0) * q;
                 if (sourceSettings.mirror) q = new Quaternion(q.x, -q.y, -q.z, q.w);
                 return (position: Quaternion.Inverse(q) * translation, rotation: Quaternion.Inverse(q) * rotation * q);
             }).ToArray();

@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using jp.unisakistudio.posingsystem;
 using nadena.dev.modular_avatar.core;
