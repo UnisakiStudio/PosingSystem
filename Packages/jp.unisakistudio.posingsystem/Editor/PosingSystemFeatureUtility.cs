@@ -423,7 +423,8 @@ namespace jp.unisakistudio.posingsystemeditor
             var item = ps.GetComponentsInChildren<ModularAvatarMenuItem>(true).FirstOrDefault(m =>
                 parameter != null ? UsesParameter(m, parameter) :
                 m.name == PhotoMenuName || m.name == LegacyPhotoMenuName || m.name == LegacyPhotoAssistanceMenuName);
-            if (item != null) return item.Control?.icon;
+            var existingIcon = item != null ? item.Control?.icon : null;
+            if (existingIcon != null) return existingIcon;
             // These menus are created on demand. Use exactly the same default as generation.
             var fallback = setting switch {
                 "features.breathingControl" => "Breathing", "features.rollover" => "Rollover",
@@ -432,9 +433,14 @@ namespace jp.unisakistudio.posingsystemeditor
             return fallback == null ? null : GetGeneratedMenuIcon(ps, fallback);
         }
 
-        private static Texture2D GetGeneratedMenuIcon(PosingSystem ps, string icon) =>
-            ps?.featureMenuIcons?.Get(icon) ?? AssetDatabase.LoadAssetAtPath<Texture2D>(
+        private static Texture2D GetGeneratedMenuIcon(PosingSystem ps, string icon)
+        {
+            var productIcon = ps != null ? ps.featureMenuIcons?.Get(icon) : null;
+            // Serialized empty/missing Unity objects can be non-null CLR wrappers.
+            // Use Unity's null check so those references still use the shared artwork.
+            return productIcon != null ? productIcon : AssetDatabase.LoadAssetAtPath<Texture2D>(
                 "Packages/jp.unisakistudio.posingsystem/ExpressionsMenuIcons/PosingSystem_" + icon + ".png");
+        }
 
         private static void SetGeneratedMenuIcon(ModularAvatarMenuItem item, string icon, bool undo)
         {

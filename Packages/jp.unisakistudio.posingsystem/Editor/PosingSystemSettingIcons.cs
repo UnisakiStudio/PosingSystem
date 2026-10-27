@@ -16,7 +16,18 @@ namespace jp.unisakistudio.posingsystemeditor
             if (ps != null && PosingSystemFeatureUtility.IsMenuFeatureSetting(setting))
             {
                 var menuIcon = PosingSystemFeatureUtility.GetFeatureMenuIcon(ps, setting);
-                if (menuIcon != null) GUI.DrawTexture(rect, menuIcon, ScaleMode.ScaleToFit, true);
+                if (menuIcon != null)
+                {
+                    // Menu icons need a contrasting surface in both editor themes.
+                    EditorGUI.DrawRect(rect, new Color(.20f, .24f, .29f, 1));
+                    var previousColor = GUI.color;
+                    try
+                    {
+                        GUI.color = Color.white;
+                        GUI.DrawTexture(rect, menuIcon, ScaleMode.ScaleToFit, true);
+                    }
+                    finally { GUI.color = previousColor; }
+                }
                 return;
             }
             if (!Textures.TryGetValue(setting, out var texture) || texture == null)
