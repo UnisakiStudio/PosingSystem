@@ -138,6 +138,7 @@ namespace jp.unisakistudio.posingsystemeditor
             public int autoPoseLogicVersion;
             public int importedMotionLogicVersion;
             public int generatedAssetLogicVersion;
+            public int controllerLogicVersion;
             public bool autoImportAvatarAnimations;
             public string importedMotionInputs;
             public int rolloverCenteringLogicVersion;
@@ -1105,6 +1106,11 @@ namespace jp.unisakistudio.posingsystemeditor
                 .FirstOrDefault(component =>
                     component.gameObject.tag != "EditorOnly" &&
                     component.ID == AdditiveBreathingDuplicateEraserId);
+            // Preparation happens before Synchronize re-enables excluded feature objects.
+            // Reuse that same component so its controller is cloned before it becomes active.
+            if (duplicateEraser == null && doRecover && PosingSystemFeatureUtility.UsesBreathing(posingSystem))
+                duplicateEraser = posingSystem.GetComponentsInChildren<DuplicateEraser>(true)
+                    .FirstOrDefault(component => component.ID == AdditiveBreathingDuplicateEraserId);
             ModularAvatarMergeAnimator mergeAnimator = null;
             if (duplicateEraser != null)
             {
@@ -1305,6 +1311,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 autoPoseLogicVersion = 4,
                 importedMotionLogicVersion = 2,
                 generatedAssetLogicVersion = 1,
+                controllerLogicVersion = 1, // Full standard-pose sync encoding and one local encoder per state.
                 autoImportAvatarAnimations = posingSystem.autoImportAvatarAnimations,
                 importedMotionInputs = ImportedMotionInputSignature(posingSystem),
                 // Invalidate prebuilds generated before per-frame rollover head centering.
@@ -1844,6 +1851,7 @@ namespace jp.unisakistudio.posingsystemeditor
             var typeLayer = animatorController.layers.FirstOrDefault(l => l.name == "USSPS_LocomotionType");
             if (typeLayer == null || typeLayer.stateMachine == null)
                 throw PosingSystemDiagnostics.Failure("PS014", "共通ControllerにUSSPS_LocomotionTypeレイヤーがありません。", PosingSystemDiagnostics.RestoreTool, maMergeAnimator);
+            NormalizeDefaultPoseEncoding(animatorController, assetSaver);
 
             // 変換は必ず、その時点の処理対象アバターから作った一時クローンで行う。
             // previewAvatarObjectはVRC/NDMFの前処理結果を表示するためのEditorキャッシュであり、
@@ -2260,13 +2268,21 @@ namespace jp.unisakistudio.posingsystemeditor
                         }
 
                         // 再生する姿勢を同期するためのParameterDriverを作成
-                        var typeParameterDriver = typeState.AddStateMachineBehaviour<VRC.SDK3.Avatars.Components.VRCAvatarParameterDriver>();
+                        // Rebuilds reuse selector states. Reuse our encoder too, instead of adding
+                        // another identical callback on every prebuild. Preserve other behaviours.
+                        var existingEncoders = typeState.behaviours.OfType<VRC.SDK3.Avatars.Components.VRCAvatarParameterDriver>()
+                            .Where(b => b.parameters.Count == parameters.Count && b.parameters.All(p =>
+                                p.type == VRC_AvatarParameterDriver.ChangeType.Set && parameters.Any(v => v.name == p.name))).ToArray();
+                        var typeParameterDriver = existingEncoders.FirstOrDefault() ?? typeState.AddStateMachineBehaviour<VRC.SDK3.Avatars.Components.VRCAvatarParameterDriver>();
+                        typeState.behaviours = typeState.behaviours.Where(b => b == typeParameterDriver || !existingEncoders.Contains(b)).ToArray();
                         if (typeParameterDriver == null)
                         {
                             Debug.LogError("[PosingSystem]AddStateMachineBehaviourに失敗しました");
                             throw new System.Exception("AddStateMachineBehaviourに失敗しました");
                         }
                         typeParameterDriver.isLocalPlayer = true;
+                        typeParameterDriver.localOnly = true;
+                        typeParameterDriver.parameters.Clear();
                         foreach (var parameter in parameters)
                         {
                             var drivingParam = new VRC.SDKBase.VRC_AvatarParameterDriver.Parameter

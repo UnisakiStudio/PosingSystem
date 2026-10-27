@@ -28,7 +28,7 @@ namespace jp.unisakistudio.posingsystemeditor.tests
             Assert.That(ps.features.faceForward, Is.False);
             Assert.That(ps.features.photography, Is.False);
             PosingSystemFeatureUtility.Synchronize(ps);
-            Assert.That(PosingSystemFeatureUtility.OptionalBits(ps), Is.EqualTo(11));
+            Assert.That(PosingSystemFeatureUtility.OptionalBits(ps), Is.Zero, "The common settings prefab starts with optional features off");
             Assert.That(ps.GetComponent<ModularAvatarParameters>().parameters.Single(p => p.nameOrPrefix == "HeadTrackingLock").localOnly, Is.True);
         }
 

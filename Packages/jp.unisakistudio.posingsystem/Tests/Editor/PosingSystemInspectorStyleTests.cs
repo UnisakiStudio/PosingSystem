@@ -10,6 +10,7 @@ namespace jp.unisakistudio.posingsystemeditor.tests
         [Test]
         public void PrefabOverrideFont_DoesNotChangeSettingsTypography()
         {
+            using var styles = new HeadlessEditorStyles();
             const BindingFlags flags = BindingFlags.Static | BindingFlags.NonPublic;
             var inspector = typeof(PosingSystemEditor).Assembly.GetType(
                 "jp.unisakistudio.posingsystemeditor.PosingSystemSettingsInspector", true);
@@ -35,6 +36,30 @@ namespace jp.unisakistudio.posingsystemeditor.tests
                 }
             }
             finally { setBold.Invoke(null, new object[] { previous }); }
+        }
+
+        // A batch runner has no Inspector OnGUI to initialize EditorStyles. Supply the same
+        // built-in styles (not substitutes) and restore the global cache after the assertion.
+        sealed class HeadlessEditorStyles : System.IDisposable
+        {
+            readonly FieldInfo current = typeof(EditorStyles).GetField("s_Current", BindingFlags.Static | BindingFlags.NonPublic);
+            readonly object previous;
+            public HeadlessEditorStyles()
+            {
+                previous = current.GetValue(null);
+                if (previous != null) return;
+                var skin = EditorGUIUtility.GetBuiltinSkin(EditorSkin.Inspector);
+                var styles = new EditorStyles();
+                foreach (var pair in new[] { ("m_BoldLabel", "BoldLabel"), ("m_WordWrappedMiniLabel", "WordWrappedMiniLabel"),
+                    ("m_MiniLabel", "MiniLabel"), ("m_Label", "ControlLabel") })
+                {
+                    var style = skin.FindStyle(pair.Item2);
+                    Assert.That(style, Is.Not.Null, pair.Item2);
+                    typeof(EditorStyles).GetField(pair.Item1, BindingFlags.Instance | BindingFlags.NonPublic).SetValue(styles, style);
+                }
+                current.SetValue(null, styles);
+            }
+            public void Dispose() => current.SetValue(null, previous);
         }
     }
 }

@@ -18,7 +18,7 @@ public class PosingSystemAvatarAdjustmentTests
             catalog.productionReady = true;
             system.enableReverseKneeSafetyClamp = true;
             var initial = PosingSystemConverter.GetDefineSerializeJson(system, true);
-            Assert.That(initial, Does.Contain("\"autoPoseLogicVersion\":2"));
+            Assert.That(initial, Does.Contain("\"autoPoseLogicVersion\":4"), "Current IK/placement corrections must invalidate the previous v2 cache");
             system.reverseKneeSafetyAngle += 5;
             var afterAngle = PosingSystemConverter.GetDefineSerializeJson(system, true);
             Assert.That(afterAngle, Is.Not.EqualTo(initial));

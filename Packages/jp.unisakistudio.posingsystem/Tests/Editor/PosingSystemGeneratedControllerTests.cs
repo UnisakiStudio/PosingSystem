@@ -324,6 +324,33 @@ namespace jp.unisakistudio.posingsystemeditor.tests
             Assert.That(controllers.All(c=>c!=null),Is.True);
         }
 
+        [TestCase(false)] [TestCase(true)]
+        public void ReenabledBreathing_ReusesExcludedComponentAndClonesSourceBeforeConversion(bool inactive)
+        {
+            ps.features.breathing = true;
+            avatar.AddComponent<ModularAvatarParameters>();
+            var source = AssetDatabase.LoadAssetAtPath<AnimatorController>(AssetDatabase.GUIDToAssetPath(
+                PosingSystemConverter.DefaultAdditiveBreathingControllerGuid));
+            var sourceBefore = EditorJsonUtility.ToJson(source);
+            var child = new GameObject("Disabled breathing"); child.transform.SetParent(avatar.transform, false);
+            child.AddComponent<DuplicateEraser>().ID = PosingSystemConverter.AdditiveBreathingDuplicateEraserId;
+            var breathing = child.AddComponent<ModularAvatarMergeAnimator>(); breathing.animator = source;
+            child.tag = "EditorOnly"; child.SetActive(!inactive);
+            PosingSystemGeneratedControllers.Convert(ps, null, saver =>
+            {
+                PosingSystemFeatureUtility.Synchronize(ps);
+                PosingSystemConverter.CreateOriginalAdditiveBreathingAnimatorController(ps);
+                var actual = PosingSystemConverter.GetAdditiveBreathingMergeAnimator(ps);
+                Assert.That(actual, Is.SameAs(breathing), "Reuse the tool's existing excluded component");
+                Assert.That(saver.IsTemporaryAsset(actual.animator), Is.True);
+                Assert.That(actual.animator, Is.Not.SameAs(source));
+            });
+            Assert.That(ps.GetComponentsInChildren<DuplicateEraser>(true).Count(e =>
+                e.ID == PosingSystemConverter.AdditiveBreathingDuplicateEraserId), Is.EqualTo(1));
+            Assert.That(EditorJsonUtility.ToJson(source), Is.EqualTo(sourceBefore));
+            Assert.That(AssetDatabase.GetAssetPath(breathing.animator), Is.EqualTo(AssetDatabase.GetAssetPath(merge.animator)));
+        }
+
         [Test]
         public void Clone_PreservesTransitionsSyncedOverridesAndSharedNestedTrees()
         {

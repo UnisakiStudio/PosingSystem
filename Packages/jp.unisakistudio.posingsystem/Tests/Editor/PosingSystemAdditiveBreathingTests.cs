@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using jp.unisakistudio.posingsystem;
 using nadena.dev.modular_avatar.core;
@@ -186,19 +186,27 @@ namespace jp.unisakistudio.posingsystemeditor.tests
         }
 
         [Test]
-        public void SettingsPrefab_HasSavedSyncedBreathingToggleEnabledByDefault()
+        public void EnabledBreathing_HasSavedSyncedToggleWithoutChangingCommonDefaults()
         {
             var prefab = LoadAssetByGuid<GameObject>(SettingsPrefabGuid);
             Assert.That(prefab, Is.Not.Null);
 
-            var parameter = prefab.GetComponent<ModularAvatarParameters>().parameters.Single(candidate =>
+            var sourceBefore = EditorJsonUtility.ToJson(prefab.GetComponent<PosingSystem>());
+            Assert.That(prefab.GetComponent<PosingSystem>().features.breathing, Is.False);
+            var instance = Object.Instantiate(prefab);
+            try
+            {
+                var ps = instance.GetComponent<PosingSystem>();
+                ps.features.breathing = ps.features.breathingControl = ps.additiveBreathing.enabled = true;
+                PosingSystemFeatureUtility.Synchronize(ps);
+            var parameter = instance.GetComponent<ModularAvatarParameters>().parameters.Single(candidate =>
                 candidate.nameOrPrefix == PosingSystemConverter.AdditiveBreathingEnabledParameterName);
             Assert.That(parameter.syncType, Is.EqualTo(ParameterSyncType.Bool));
             Assert.That(parameter.localOnly, Is.False);
             Assert.That(parameter.saved, Is.True);
             Assert.That(parameter.defaultValue, Is.EqualTo(1f));
 
-            var menuItem = prefab.GetComponentsInChildren<ModularAvatarMenuItem>(true).Single(candidate =>
+            var menuItem = instance.GetComponentsInChildren<ModularAvatarMenuItem>(true).Single(candidate =>
                 candidate.Control != null &&
                 candidate.Control.type == VRC.SDK3.Avatars.ScriptableObjects.VRCExpressionsMenu.Control.ControlType.Toggle &&
                 candidate.Control.parameter != null &&
@@ -207,6 +215,9 @@ namespace jp.unisakistudio.posingsystemeditor.tests
             Assert.That(menuItem.gameObject.name, Is.EqualTo("呼吸"));
             Assert.That(menuItem.Control.name, Is.EqualTo("呼吸"));
             Assert.That(menuItem.Control.value, Is.EqualTo(1f));
+                Assert.That(EditorJsonUtility.ToJson(prefab.GetComponent<PosingSystem>()), Is.EqualTo(sourceBefore));
+            }
+            finally { Object.DestroyImmediate(instance); }
         }
 
         [TestCase(KawaiiEightBitPrefabGuid)]

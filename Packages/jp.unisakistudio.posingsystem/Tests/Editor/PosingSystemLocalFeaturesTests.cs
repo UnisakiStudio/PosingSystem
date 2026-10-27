@@ -20,6 +20,7 @@ namespace jp.unisakistudio.posingsystemeditor.tests
             ps.features = new PosingSystemFeatureSettings { mirror = false, footHeight = false, fingerGestureControl = false,
                 breathing = true, breathingControl = false, photography = true, photographySynced = false };
             ps.featureSettingsMigrated = true;
+            ps.additiveBreathing.enabled = true;
         }
         [TearDown] public void TearDown() => Object.DestroyImmediate(root);
 

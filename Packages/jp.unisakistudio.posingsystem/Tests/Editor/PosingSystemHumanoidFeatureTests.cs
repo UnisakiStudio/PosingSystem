@@ -77,8 +77,12 @@ namespace jp.unisakistudio.posingsystemeditor.tests
         [TearDown]
         public void TearDown()
         {
+            if (root != null) foreach (var component in root.GetComponentsInChildren<Component>(true))
+                if (component != null) Undo.ClearUndo(component);
+            foreach (var asset in assets) if (asset != null) Undo.ClearUndo(asset);
             Object.DestroyImmediate(root);
-            foreach (var asset in assets) Object.DestroyImmediate(asset);
+            // Persisted test clips are deleted with their owned folder, not DestroyImmediate.
+            foreach (var asset in assets) if (asset != null && !EditorUtility.IsPersistent(asset)) Object.DestroyImmediate(asset);
             assets.Clear();
             if (!string.IsNullOrEmpty(testFolder)) AssetDatabase.DeleteAsset(testFolder);
             foreach (var path in AssetDatabase.FindAssets("FeatureTestHumanoid t:AnimatorController", new[] { "Assets" }).Select(AssetDatabase.GUIDToAssetPath))
