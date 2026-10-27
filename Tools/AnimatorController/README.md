@@ -17,11 +17,11 @@ python Tools/AnimatorController/export_specification.py
 python -m unittest discover -s Tools/AnimatorController -p 'test_*.py' -v
 ```
 
-生成内容を変更せず確認する場合は最初のコマンドに `--check` を付ける。自動生成定義への直接編集ではなく、最適化処理は `PosingSystemControllerOptimization.cs` へ記述する。
+生成内容を変更せず確認する場合は最初のコマンドに `--check` を付ける。自動生成定義への直接編集ではなく、固定Group判定は `PosingSystemControllerOptimization.cs`、ポーズ生成後のデスクトップ再生短縮は `PosingSystemDesktopSelection.cs` へ記述する。
 
 ## Unity試験
 
-この開発プロジェクト用の `run-tests.ps1` は、既にUnityが起動していれば停止し、出力の上書きも拒否する。実行前にTemp/Library内の危険なリンクを検査する。起動中のバッチUnityに対してC#・Assets・Packagesを編集しない。
+この開発プロジェクト用の `run-tests.ps1` は、既にUnityが起動していれば試験の起動を中止し、出力の上書きも拒否する。実行前にTemp/Library内の危険なリンクを検査する。起動中のバッチUnityに対してC#・Assets・Packagesを編集しない。
 
 ```powershell
 ./Tools/AnimatorController/run-tests.ps1 -Run unique-run-name -Filter 'PosingSystemControllerCompilerTests|PosingSystemControllerSelectionTests|Compiler_'
@@ -29,7 +29,7 @@ python -m unittest discover -s Tools/AnimatorController -p 'test_*.py' -v
 
 Unity 2022.3.22f1とホストPythonの場所はスクリプト内のこのPC用設定。別PCではその場所を明示的に変更する。`-Filter jp.unisakistudio.posingsystemeditor.tests` は既存の回帰試験も対象とし、専用試験より時間がかかる。XMLの完了結果を判定し、ログが進行しただけで成功にしない。
 
-比較コピーのUnityメニューは `Tools > ゆにさきスタジオ > 実験 > 選択アバターの最適化比較コピーを作成`。元アバターとアップロードIDを保護し、比較コピーをコード生成した共通Controllerでプレビルドする。通常ビルドへの一括切替は行わない。
+比較コピーのUnityメニューは `Tools > ゆにさきスタジオ > 実験 > 選択アバターの最適化比較コピーを作成`。元アバターとアップロードIDを保護し、比較コピーをコード生成した共通Controllerでプレビルドする。比較コピーを保存し、通常どおりビルドして使用する。設定を変えて再プレビルドすると、元の条件への復元と再最適化を行う。元アバターは従来方式の比較・復帰先として保持する。通常ビルドへの一括切替は行わない。
 
 ## 開発コピーと正本
 

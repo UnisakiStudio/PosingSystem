@@ -239,10 +239,14 @@ namespace jp.unisakistudio.posingsystemeditor.tests
             return source;
         }
 
+        private bool? defaultIdleCompilerOptimization;
+        private int defaultIdleCompilerCreated;
         private void BuildDefaultIdleAvatar(Action<VRCAvatarDescriptor, AnimatorController> verify, bool optimize = false)
         {
             var build = Object.Instantiate(root); build.name = root.name;
             var context = new BuildContext(build, null, false);
+            using var compiler = defaultIdleCompilerOptimization.HasValue ?
+                new PosingSystemControllerGeneration.Scope(build, defaultIdleCompilerOptimization.Value) : null;
             try
             {
                 foreach (var ps in build.GetComponentsInChildren<PosingSystem>())
@@ -256,6 +260,7 @@ namespace jp.unisakistudio.posingsystemeditor.tests
                 catch (TargetInvocationException exception) { throw exception.InnerException ?? exception; }
                 context.DeactivateAllExtensionContexts();
                 Verify();
+                defaultIdleCompilerCreated = compiler?.Created ?? 0;
                 // A later tool can reactivate animator services. Regression test LastCommit invalidation.
                 context.ActivateExtensionContextRecursive<AnimatorServicesContext>();
                 context.DeactivateAllExtensionContexts();

@@ -112,6 +112,7 @@ namespace jp.unisakistudio.posingsystemeditor
             AnimatorController mainSource, main;
             PosingSystemGeneratedAsset existing;
             bool committed;
+            bool optimizeDesktopSelection;
             internal Session(PosingSystem system, IAssetSaver saver)
             {
                 ps = system; destination = saver;
@@ -154,6 +155,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 { copies.Add(pair.Key, pair.Value); temporary.Add(pair.Value); }
                 if (compiled != null)
                 {
+                    PosingSystemControllerGeneration.MarkCompiled(avatar, mainMerges);
                     if (copies.ContainsKey(mainSource))
                         throw new InvalidOperationException("Another controller unexpectedly references the reference template graph.");
                     copies.Add(mainSource, compiled.Controller);
@@ -163,6 +165,8 @@ namespace jp.unisakistudio.posingsystemeditor
                 }
                 foreach (var source in sources) roots.Add((AnimatorController)copies[source]);
                 main = (AnimatorController)copies[mainSource];
+                optimizeDesktopSelection = PosingSystemDesktopSelection.Restore(main) ||
+                    PosingSystemControllerGeneration.ShouldOptimize(avatar, mainMerges);
                 foreach (var merge in mainMerges) merge.animator = main;
                 if (breathSource != null)
                     foreach (var merge in breathing) merge.animator = (AnimatorController)copies[breathSource];
@@ -182,6 +186,7 @@ namespace jp.unisakistudio.posingsystemeditor
 
             internal void Commit()
             {
+                if (optimizeDesktopSelection) PosingSystemDesktopSelection.Apply(main, SaveAsset);
                 var merges = avatar.GetComponentsInChildren<ModularAvatarMergeAnimator>(true)
                     .Where(m => BelongsTo(m, avatar) && m.animator is AnimatorController c && (temporary.Contains(c) || roots.Contains(c))).ToArray();
                 var controllers = merges.Select(m => (AnimatorController)m.animator).Distinct().ToArray();

@@ -17,6 +17,8 @@ namespace jp.unisakistudio.posingsystemeditor.tests
     public partial class PosingSystemHumanoidFeatureTests
     {
         private readonly HashSet<string> persistedBuildSourcePaths = new();
+        private bool? persistedCompilerOptimization;
+        private int persistedCompilerCreated;
 
         [TearDown]
         public void CleanupPersistedBuildSources()
@@ -104,6 +106,8 @@ namespace jp.unisakistudio.posingsystemeditor.tests
                 Assert.That(context.Successful, Is.True, "The persisted build must complete without NDMF errors");
                 var descriptor = context.AvatarRootObject.GetComponent<VRCAvatarDescriptor>();
                 var locomotion = (AnimatorController)descriptor.baseAnimationLayers.Single(l => l.type == VRCAvatarDescriptor.AnimLayerType.Base).animatorController;
+                if(persistedCompilerOptimization==true) Assert.That(locomotion.layers.Single(l=>l.name.EndsWith("USSPS_Locomotion"))
+                    .stateMachine.entryTransitions.Any(t=>t.conditions.Any(c=>c.parameter.EndsWith("LocomotionTypeGroup"))),Is.True);
                 Assert.That(locomotion.layers.Any(l => l.name.StartsWith("USSPS_FloatPoseSpace")), Is.True);
                 Assert.That(locomotion.layers.Any(l => l.name == PosingSystemConverter.FootHeightAdditiveLayer), Is.True);
                 Assert.That(locomotion.layers.Any(l => l.name.EndsWith("KeyDelta")), Is.False);
@@ -141,7 +145,10 @@ namespace jp.unisakistudio.posingsystemeditor.tests
             try
             {
                 context = new BuildContext(build, folder, false);
+                using var compiler = persistedCompilerOptimization.HasValue ?
+                    new PosingSystemControllerGeneration.Scope(build, persistedCompilerOptimization.Value) : null;
                 verify(context);
+                persistedCompilerCreated = compiler?.Created ?? 0;
             }
             finally
             {

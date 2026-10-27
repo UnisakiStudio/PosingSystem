@@ -128,6 +128,22 @@ namespace jp.unisakistudio.posingsystemeditor.tests
             }
         }
 
+        [TestCase("redetect")] [TestCase("adjustment-disable")] [TestCase("adjustment-remove")] [TestCase("shared")]
+        public void Compiler_IMP01_OptimizedPrebuildPreservesAutomaticAndAdjustedImports(string scenario)
+        {
+            using var scope=new PosingSystemControllerGeneration.Scope(root,true);
+            switch(scenario)
+            {
+                case "redetect":Prebuild_RedetectsChangedSourceAndRestoresDefaultWhenDisabled();break;
+                case "adjustment-disable":Prebuild_ManualDisableOrRemovalRestoresDefaultAndClearsMotionTime(false);break;
+                case "adjustment-remove":Prebuild_ManualDisableOrRemovalRestoresDefaultAndClearsMotionTime(true);break;
+                case "shared":RebuildingEitherProduct_PreservesSharedManualChoiceAndOneGeneratedFile();break;
+            }
+            Assert.That(scope.Created,Is.EqualTo(1),string.Join(";",scope.Decisions));
+            Assert.That(Output().layers.Single(l=>l.name=="USSPS_Locomotion").stateMachine.entryTransitions
+                .Any(t=>t.conditions.Any(c=>c.parameter=="LocomotionTypeGroup")),Is.True);
+        }
+
         [TestCase("null")] [TestCase("empty")] [TestCase("missing")] [TestCase("default")] [TestCase("reordered")]
         public void Detection_HandlesMissingDefaultAndReorderedLayers(string kind)
         {

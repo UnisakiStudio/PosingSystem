@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using jp.unisakistudio.posingsystem;
+using nadena.dev.modular_avatar.core;
 using UnityEditor;
 using UnityEditor.Animations;
 using UnityEngine;
@@ -26,6 +27,7 @@ namespace jp.unisakistudio.posingsystemeditor
             internal readonly bool Optimize;
             internal readonly List<string> Decisions = new();
             internal int Created;
+            internal readonly HashSet<ModularAvatarMergeAnimator> CompiledMerges = new();
             internal Scope(GameObject root, bool optimize)
             {
                 if (root == null || Scopes.ContainsKey(root)) throw new InvalidOperationException("Invalid or overlapping controller generation scope.");
@@ -33,6 +35,13 @@ namespace jp.unisakistudio.posingsystemeditor
             }
             public void Dispose() => Scopes.Remove(avatar);
         }
+
+        internal static void MarkCompiled(GameObject avatar, IEnumerable<ModularAvatarMergeAnimator> merges)
+        {
+            if (Scopes.TryGetValue(avatar, out var scope) && scope.Optimize) scope.CompiledMerges.UnionWith(merges);
+        }
+        internal static bool ShouldOptimize(GameObject avatar, IEnumerable<ModularAvatarMergeAnimator> merges) =>
+            Scopes.TryGetValue(avatar, out var scope) && scope.Optimize && merges.All(scope.CompiledMerges.Contains);
 
         internal static PosingSystemControllerCompiler.Result TryCreate(GameObject avatar, AnimatorController source)
         {
@@ -76,6 +85,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 foreach (var id in generated.Objects.Where(p => reachable.Contains(p.Value)).Select(p => p.Key).ToArray())
                     generated.Objects.Remove(id);
                 foreach (var merge in group) merge.animator = controller;
+                MarkCompiled(avatar, group);
             }
         }
 
