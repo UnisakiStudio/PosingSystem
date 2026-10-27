@@ -2,6 +2,7 @@
 using System.Linq;
 using jp.unisakistudio.posingsystem;
 using nadena.dev.ndmf;
+using nadena.dev.ndmf.vrchat;
 using UnityEditor;
 using UnityEditor.Animations;
 using UnityEngine;
@@ -56,7 +57,7 @@ namespace jp.unisakistudio.posingsystemeditor
             var head = ctx.AvatarRootObject.GetComponent<Animator>()?.GetBoneTransform(HumanBodyBones.Head);
             if (head == null)
                 throw new System.InvalidOperationException("撮影中の頭表示に必要なHeadボーンを取得できません。");
-            var descriptor = ctx.AvatarDescriptor;
+            var descriptor = ctx.VRChatAvatarDescriptor();
             var slots = descriptor.baseAnimationLayers;
             var fxIndex = System.Array.FindIndex(slots, l => l.type == VRCAvatarDescriptor.AnimLayerType.FX);
             if (fxIndex < 0 || slots[fxIndex].animatorController is not AnimatorController controller ||

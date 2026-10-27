@@ -6,6 +6,7 @@ using UnityEngine;
 using VRC.SDK3.Avatars.Components;
 #if NDMF && MODULAR_AVATAR
 using nadena.dev.ndmf;
+using nadena.dev.ndmf.vrchat;
 
 namespace jp.unisakistudio.posingsystemeditor
 {
@@ -23,7 +24,7 @@ namespace jp.unisakistudio.posingsystemeditor
         private static void SuppressDefaultIdle(BuildContext ctx)
         {
             if (!ctx.GetState<DefaultIdleSuppressionState>().enabled) return;
-            var descriptor = ctx.AvatarDescriptor;
+            var descriptor = ctx.VRChatAvatarDescriptor();
             if (descriptor == null) return;
             var standardIdle = AssetDatabase.LoadAssetAtPath<AnimationClip>(
                 AssetDatabase.GUIDToAssetPath(StandardIdleClipGuid));

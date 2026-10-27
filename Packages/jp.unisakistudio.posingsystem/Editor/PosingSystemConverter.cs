@@ -11,6 +11,7 @@ using VRC.SDKBase;
 using VRC.SDK3.Avatars.Components;
 #if NDMF
 using nadena.dev.ndmf;
+using nadena.dev.ndmf.vrchat;
 using nadena.dev.ndmf.animator;
 
 #endif
@@ -321,8 +322,8 @@ namespace jp.unisakistudio.posingsystemeditor
                         // NDMF標準の仮想Controllerだけを書き換える。
                         // 元アセットや共有Controllerを直接変更しない。
                         var controllerContext = ctx.Extension<AnimatorServicesContext>().ControllerContext;
-                        MergeTrackingControl(ctx.AvatarDescriptor, controllerContext);
-                        MergeLocomotionControl(ctx.AvatarDescriptor, controllerContext);
+                        MergeTrackingControl(ctx.VRChatAvatarDescriptor(), controllerContext);
+                        MergeLocomotionControl(ctx.VRChatAvatarDescriptor(), controllerContext);
                     }
                     catch (AddStateMachineBehaviourFailedException)
                     {
@@ -517,7 +518,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 return;
             }
 
-            var descriptor = ctx.AvatarDescriptor;
+            var descriptor = ctx.VRChatAvatarDescriptor();
             var fixedMotions = new Dictionary<Motion, Motion>();
             var processedControllers = new HashSet<AnimatorController>();
             GameObject workingAvatar = null;
