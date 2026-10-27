@@ -102,18 +102,19 @@ namespace jp.unisakistudio.posingsystemeditor.tests
                 Assert.That(state.motion,Is.SameAs(source));
                 foreach(var photo in new[]{false,true})foreach(var floating in new[]{false,true})
                 foreach(var yaw in photo?new[]{.25f,.5f,.75f}:new[]{.5f})
+                foreach(var height in floating?new[]{0f,.25f,.5f,.7f,1f}:new[]{.5f})
                 {
-                    var actual=Sample(photo,floating,yaw,.5f);
+                    var actual=Sample(photo,floating,yaw,.5f,height:height);
                     var rotation=Quaternion.Euler(0,photo?(yaw-.5f)*360+180:0,0);
                     for(var i=0;i<bones.Length;i++)
                     {
                         Assert.That(Vector3.Distance(actual[i]-actual[0],rotation*(original[i]-original[0])),Is.LessThan(.006f),"Pose and yaw: "+bones[i]);
-                        Assert.That(actual[i].y-original[i].y,Is.EqualTo(floating?1.2f:0).Within(.006f),"Vertical: "+bones[i]);
+                        Assert.That(actual[i].y-original[i].y,Is.EqualTo(floating?(height-.5f)*6:0).Within(.006f),"Vertical: "+bones[i]);
                     }
                     if(photo)
                     {
                         var yawAtOrigin=yaw<=.5f?yaw+.5f:yaw-.5f;
-                        var baseline=Sample(true,floating,yawAtOrigin,0);
+                        var baseline=Sample(true,floating,yawAtOrigin,0,height:height);
                         for(var i=0;i<bones.Length;i++)Assert.That(Vector3.Distance(actual[i]-baseline[i],Vector3.forward*1.5f),Is.LessThan(.006f),"Forward: "+bones[i]+" yaw="+yaw+" delta="+(actual[i]-baseline[i]).ToString("F5"));
                     }
                 }
@@ -129,7 +130,7 @@ namespace jp.unisakistudio.posingsystemeditor.tests
             }
             finally{context.DeactivateAllExtensionContexts();}
 
-            Vector3[] Sample(bool photo,bool floating,float yaw,float distance,bool switchOff=false)
+            Vector3[] Sample(bool photo,bool floating,float yaw,float distance,bool switchOff=false,float height=.7f)
             {
                 var graph=PlayableGraph.Create("DefaultMovementVerification");
                 try
@@ -142,7 +143,7 @@ namespace jp.unisakistudio.posingsystemeditor.tests
                     {
                         playable.SetBool(PosingSystemFeatureUtility.PhotoActive,photo);playable.SetBool(PosingSystemFeatureUtility.FloatActive,floating);
                         playable.SetFloat(PosingSystemFeatureUtility.PhotoDistance,distance);playable.SetFloat(PosingSystemFeatureUtility.PhotoYaw,yaw);
-                        playable.SetFloat(PosingSystemFeatureUtility.FloatHeight,.4f);
+                        playable.SetFloat(PosingSystemFeatureUtility.FloatHeight,height);
                     }
                     AnimationPlayableOutput.Create(graph,"Avatar",animator).SetSourcePlayable(playable);
                     graph.Play();for(var i=0;i<16;i++)graph.Evaluate(.02f);

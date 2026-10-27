@@ -83,6 +83,7 @@ namespace jp.unisakistudio.posingsystemeditor.tests
             PosingSystemConverter.GetCommonMergeAnimator(ps).animator = controller;
             var context = new BuildContext(root, null, false);
             var graph = PlayableGraph.Create("FloatingPoseSpaceLifecycle");
+            var activationGraph = PlayableGraph.Create("FloorHeightActivationLifecycle");
             var frameNumber = 0;
             try
             {
@@ -105,13 +106,22 @@ namespace jp.unisakistudio.posingsystemeditor.tests
                 graph.SetTimeUpdateMode(DirectorUpdateMode.Manual);
                 var playable = AnimatorControllerPlayable.Create(graph, controller);
                 playable.SetInteger("VRMode", vr ? 1 : 0);
-                playable.SetFloat(PosingSystemFeatureUtility.FloatHeight, .2f);
+                playable.SetFloat(PosingSystemFeatureUtility.FloatHeight, .5f);
+                var activationController = (AnimatorController)ps.GetComponentsInChildren<nadena.dev.modular_avatar.core.ModularAvatarMergeAnimator>()
+                    .Single(m => m.name == "USSPS_FloatActivation").animator;
+                activationGraph.SetTimeUpdateMode(DirectorUpdateMode.Manual);
+                var activation = AnimatorControllerPlayable.Create(activationGraph, activationController);
+                AnimationPlayableOutput.Create(activationGraph, "Activation", animator).SetSourcePlayable(activation);
+                activationGraph.Play();
+                var activationIndex = Array.FindIndex(activationController.layers, l => l.name == "床の高さの有効化");
+                var activationStates = activationController.layers[activationIndex].stateMachine.states.Select(s => s.state)
+                    .ToDictionary(s => Animator.StringToHash(s.name));
                 AnimationPlayableOutput.Create(graph, "Avatar", animator).SetSourcePlayable(playable);
                 graph.Play();
                 var previous = 0;
                 Tick(30);
                 Assert.That(poseSpaceCalls, Is.Empty);
-                playable.SetBool(PosingSystemFeatureUtility.FloatActive, true);
+                playable.SetFloat(PosingSystemFeatureUtility.FloatHeight, .2f);
                 Tick(30);
                 Assert.That(poseSpaceCalls, Is.Empty, "Remote avatars must not execute viewpoint requests");
                 playable.SetBool("IsLocal", true);
@@ -161,19 +171,19 @@ namespace jp.unisakistudio.posingsystemeditor.tests
                 Assert.That(CountEnter(), Is.EqualTo(++updates));
                 playable.SetBool(PosingSystemFeatureUtility.FloatHeightAdjusting, false);
                 Tick(30);
-                playable.SetBool(PosingSystemFeatureUtility.FloatActive, false);
+                playable.SetFloat(PosingSystemFeatureUtility.FloatHeight, .5f);
                 Tick(40);
                 Assert.That(enteredNames.Last(), Is.EqualTo("Idle"));
                 Assert.That(poseSpaceCalls.Count(c => c.name == "Release" && !c.enter), Is.EqualTo(1));
                 Assert.That(poseSpaceCalls.Count(c => c.name == "RestoreDesktop" && c.enter), Is.EqualTo(vr ? 0 : 1));
-                playable.SetBool(PosingSystemFeatureUtility.FloatActive, true);
+                playable.SetFloat(PosingSystemFeatureUtility.FloatHeight, .2f);
                 Tick(30);
                 Assert.That(CountEnter(), Is.EqualTo(updates + 1));
                 playable.SetInteger("PoseChoice", 2);
                 Tick(fps);
                 Assert.That(CountEnter(), Is.EqualTo(updates + 1), "Once started, menu-only floating must not resample or release due to walking");
                 Assert.That(poseSpaceCalls.Last().enter, Is.True);
-                playable.SetBool(PosingSystemFeatureUtility.FloatActive, false);
+                playable.SetFloat(PosingSystemFeatureUtility.FloatHeight, .5f);
                 Tick(fps);
                 Assert.That(poseSpaceCalls.Last().enter, Is.False, "Explicit disable must still release the view");
                 graph.Destroy();
@@ -197,6 +207,12 @@ namespace jp.unisakistudio.posingsystemeditor.tests
                     for (var frame = 0; frame < frames; frame++)
                     {
                         frameNumber++;
+                        activation.SetFloat(PosingSystemFeatureUtility.FloatHeight, playable.GetFloat(PosingSystemFeatureUtility.FloatHeight));
+                        activationGraph.Evaluate(1f / fps);
+                        var activationState = activationStates[activation.GetCurrentAnimatorStateInfo(activationIndex).shortNameHash];
+                        var activeValue = activationState.behaviours.OfType<VRCAvatarParameterDriver>().Single().parameters.Single().value;
+                        // Only the SDK driver effect is simulated; both Animator state machines are generated production code.
+                        playable.SetBool(PosingSystemFeatureUtility.FloatActive, activeValue != 0);
                         graph.Evaluate(1f / fps);
                         var hash = playable.GetCurrentAnimatorStateInfo(index).shortNameHash;
                         if (hash == previous || !stateByHash.TryGetValue(hash, out var current)) continue;
@@ -224,6 +240,7 @@ namespace jp.unisakistudio.posingsystemeditor.tests
             finally
             {
                 if (graph.IsValid()) graph.Destroy();
+                if (activationGraph.IsValid()) activationGraph.Destroy();
                 context.DeactivateAllExtensionContexts();
             }
         }

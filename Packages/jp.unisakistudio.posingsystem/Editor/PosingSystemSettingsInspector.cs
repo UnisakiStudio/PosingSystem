@@ -42,7 +42,7 @@ namespace jp.unisakistudio.posingsystemeditor
             new Setting("features.breathingControl", "呼吸", "VRChatのメニューで呼吸をつけたり止めたりできます。ON/OFFは他の人にも反映されます。", 1),
             new Setting("features.rollover", "寝返り", "頭の向きに合わせて寝返りできます。一部の寝姿勢のみ対応しています。", 10, sharedHead: true),
             new Setting("features.footHeight", "足の高さ", "頭の位置を保ち、足側の高さを変えられます。足が床に埋まる・浮くときに調整できます。", 8),
-            new Setting("features.floating", "床の高さ", "頭も含めた身体全体の高さを変えられます。VRChatの「床の高さ」で最大3mまで調整できます。", 8),
+            new Setting("features.floating", "床の高さ", "頭も含めた身体全体の高さを変えられます。VRChatの「床の高さ」で、50%を元の高さとして上下3mまで調整できます。", 8),
             new Setting("features.photography", "撮影モード", "メニューに撮影モードを追加します。前へ最大3m移動したり回転したりして、自分から見える位置を調整できます。")),
 
             new SettingGroup("便利機能",

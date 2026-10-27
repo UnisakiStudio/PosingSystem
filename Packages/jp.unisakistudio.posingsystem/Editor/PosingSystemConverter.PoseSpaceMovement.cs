@@ -39,7 +39,9 @@ namespace jp.unisakistudio.posingsystemeditor
                 gate.stateMachine.defaultState = off;
                 off.motion = HeightInput(0);
                 var blend = Tree("FloatInput", PosingSystemFeatureUtility.FloatHeight);
-                blend.AddChild(HeightInput(0), 0); blend.AddChild(HeightInput(1), 1);
+                blend.AddChild(HeightInput(-1), 0);
+                blend.AddChild(HeightInput(0), PosingSystemFeatureUtility.FloatHeightCenter);
+                blend.AddChild(HeightInput(1), 1);
                 SaveGeneratedAsset(blend, controller, saver);
                 on.motion = blend;
                 off.writeDefaultValues = on.writeDefaultValues = false;
@@ -118,7 +120,7 @@ namespace jp.unisakistudio.posingsystemeditor
                         if (!cache.TryGetValue(key, out motion))
                         {
                             var tree = Tree(MovementOffsetPrefix + kind + "_" + source.name, input);
-                            foreach (var value in rotation ? MovementYawSamples : new[] { 0f, 1f })
+                            foreach (var value in rotation ? MovementYawSamples : parameter == MovementHeight ? new[] { -1f, 0f, 1f } : new[] { 0f, 1f })
                             {
                                 if (rotation ? Mathf.Approximately(value, .5f) : value == 0) tree.AddChild(zero, value);
                                 else

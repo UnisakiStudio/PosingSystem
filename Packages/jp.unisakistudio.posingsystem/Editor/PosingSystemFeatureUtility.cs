@@ -23,7 +23,9 @@ namespace jp.unisakistudio.posingsystemeditor
         public const string FloatHeight = "USSPS_FloatHeight";
         public const string FloatHeightAdjusting = "USSPS_FloatHeightAdjusting";
         public const string FloorHeightMenuName = "床の高さ";
-        public const float FloatHeightThreshold = .000001f;
+        public const float FloatHeightCenter = .5f;
+        // Keep neutral stable after synced float quantization and small radial-input rounding.
+        public const float FloatHeightThreshold = .005f;
         public const string RollActive = "USSPS_Rollover";
         public const string RollSensor = "USSPS_RollSensor";
         public const string RollTime = "USSPS_RollTime";
@@ -130,7 +132,7 @@ namespace jp.unisakistudio.posingsystemeditor
             SetParameter(parameters, PhotoYaw, ParameterSyncType.Float, f.photography, !f.photographySynced, .5f, false);
             SetParameter(parameters, "USSPS_PhotoReset", ParameterSyncType.Bool, f.photography, true, 0, false);
             SetParameter(parameters, FloatActive, ParameterSyncType.Bool, f.floating, true, 0, false);
-            SetParameter(parameters, FloatHeight, ParameterSyncType.Float, f.floating, false, 0, false);
+            SetParameter(parameters, FloatHeight, ParameterSyncType.Float, f.floating, false, FloatHeightCenter, false);
             SetParameter(parameters, FloatHeightAdjusting, ParameterSyncType.Bool, f.floating, true, 0, false);
             SetParameter(parameters, RollActive, ParameterSyncType.Bool, f.rollover, false, 0, true);
             SetParameter(parameters, RollSensor, ParameterSyncType.Float, f.rollover, false, .5f, false);

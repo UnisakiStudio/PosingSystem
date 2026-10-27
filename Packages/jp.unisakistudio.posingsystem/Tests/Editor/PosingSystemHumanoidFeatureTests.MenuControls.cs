@@ -24,6 +24,10 @@ namespace jp.unisakistudio.posingsystemeditor.tests
             var layerIndex = System.Array.FindIndex(floating.layers, l => l.name == "床の高さの有効化");
             var layer = floating.layers[layerIndex];
             var states = layer.stateMachine.states.Select(s => s.state).ToArray();
+            Assert.That(floating.parameters.Single(p => p.name == PosingSystemFeatureUtility.FloatHeight).defaultFloat, Is.EqualTo(.5f));
+            var parameter = ps.GetComponent<ModularAvatarParameters>().parameters.Single(p => p.nameOrPrefix == PosingSystemFeatureUtility.FloatHeight);
+            Assert.That(parameter.defaultValue, Is.EqualTo(.5f));
+            Assert.That(parameter.saved || parameter.localOnly, Is.False);
             var graph = PlayableGraph.Create("FloorHeightActivationTest");
             try
             {
@@ -31,7 +35,7 @@ namespace jp.unisakistudio.posingsystemeditor.tests
                 var playable = AnimatorControllerPlayable.Create(graph, floating);
                 AnimationPlayableOutput.Create(graph, "Test", animator).SetSourcePlayable(playable);
                 graph.Play();
-                foreach (var height in new[] { 0f, 1f / 255, .5f, 1f, 0f, .25f, 0f })
+                foreach (var height in new[] { .5f, 0f, .25f, .496f, .75f, 1f, .504f, 0f, .5f, 1f, .5f })
                 {
                     playable.SetFloat(PosingSystemFeatureUtility.FloatHeight, height);
                     for (var i = 0; i < 4; i++) graph.Evaluate(1f / 60);
@@ -43,7 +47,7 @@ namespace jp.unisakistudio.posingsystemeditor.tests
                     Assert.That(change.type, Is.EqualTo(VRC_AvatarParameterDriver.ChangeType.Set));
                     // VRChat executes the parameter driver. Test its effect without requiring the client.
                     if (isLocal || !driver.localOnly) playable.SetBool(change.name, change.value != 0);
-                    Assert.That(playable.GetBool(PosingSystemFeatureUtility.FloatActive), Is.EqualTo(height > 0), "height=" + height);
+                    Assert.That(playable.GetBool(PosingSystemFeatureUtility.FloatActive), Is.EqualTo(Mathf.Abs(height - .5f) > .005f), "height=" + height);
                 }
             }
             finally { graph.Destroy(); }

@@ -103,6 +103,57 @@ namespace jp.unisakistudio.posingsystemeditor.tests
             Assert.That(menu.Control.icon, Is.SameAs(custom));
         }
 
+        [TestCase("Breathing", "breathing")]
+        [TestCase("Rollover", "rollover")]
+        [TestCase("FloorHeight", "floorHeight")]
+        [TestCase("PhotoAssistance", "photoMode")]
+        [TestCase("PhotoDistance", "photoDistance")]
+        [TestCase("PhotoDirection", "photoDirection")]
+        [TestCase("PhotoExit", "photoExit")]
+        public void UserControls_ProductIconDefaults_UnityNullUsesSharedIcon(string key, string field)
+        {
+            var ps = UserSettings(out _);
+            // Reproduce the Unity-null wrapper returned by a serialized empty reference.
+            var missing = new Texture2D(2, 2);
+            typeof(PosingSystem.FeatureMenuIcons).GetField(field).SetValue(ps.featureMenuIcons, missing);
+            Object.DestroyImmediate(missing);
+            Assert.That(missing == null, Is.True);
+            Assert.That(ReferenceEquals(missing, null), Is.False);
+            var expected = AssetDatabase.LoadAssetAtPath<Texture2D>(
+                "Packages/jp.unisakistudio.posingsystem/ExpressionsMenuIcons/PosingSystem_" + key + ".png");
+            Assert.That(expected != null, Is.True, "Shared artwork must be imported");
+            var obj = new GameObject("Generated menu"); obj.transform.SetParent(ps.transform, false);
+            var menu = obj.AddComponent<ModularAvatarMenuItem>();
+            var method = typeof(PosingSystemFeatureUtility).GetMethod("SetGeneratedMenuIcon", BindingFlags.NonPublic | BindingFlags.Static);
+            method.Invoke(null, new object[] { menu, key, false });
+            Assert.That(menu.Control.icon, Is.SameAs(expected));
+            method.Invoke(null, new object[] { menu, key, false });
+            Assert.That(menu.Control.icon, Is.SameAs(expected), "Repeated synchronization retains the icon");
+        }
+
+        [TestCase("features.breathingControl", "Breathing", "breathing", "USSPS_Breathing", false)]
+        [TestCase("features.rollover", "Rollover", "rollover", "USSPS_Rollover", false)]
+        [TestCase("features.floating", "FloorHeight", "floorHeight", "USSPS_FloatHeight", true)]
+        [TestCase("features.photography", "PhotoAssistance", "photoMode", "", false)]
+        public void UserControls_MenuIcon_EmptyExistingMenuUsesSharedOrProductIcon(
+            string setting, string key, string field, string parameter, bool radial)
+        {
+            var ps = UserSettings(out _);
+            var obj = new GameObject(setting == "features.photography" ? "撮影モード" : "Empty menu");
+            obj.transform.SetParent(ps.transform, false); obj.SetActive(false); obj.tag = "EditorOnly";
+            var menu = obj.AddComponent<ModularAvatarMenuItem>();
+            if (radial) menu.Control.subParameters = new[] { new VRCExpressionsMenu.Control.Parameter { name = parameter } };
+            else menu.Control.parameter = new VRCExpressionsMenu.Control.Parameter { name = parameter };
+            var expected = AssetDatabase.LoadAssetAtPath<Texture2D>(
+                "Packages/jp.unisakistudio.posingsystem/ExpressionsMenuIcons/PosingSystem_" + key + ".png");
+            Assert.That(expected != null, Is.True);
+            Assert.That(PosingSystemFeatureUtility.GetFeatureMenuIcon(ps, setting), Is.SameAs(expected));
+            var productIcon = new Texture2D(2, 2); assets.Add(productIcon);
+            typeof(PosingSystem.FeatureMenuIcons).GetField(field).SetValue(ps.featureMenuIcons, productIcon);
+            Assert.That(PosingSystemFeatureUtility.GetFeatureMenuIcon(ps, setting), Is.SameAs(productIcon));
+            Assert.That(menu.Control.icon == null, Is.True, "Inspector lookup must not modify the menu");
+        }
+
         private void AddMissingBehaviourFixture()
         {
             EnsureDefaultIdleTestFolder();

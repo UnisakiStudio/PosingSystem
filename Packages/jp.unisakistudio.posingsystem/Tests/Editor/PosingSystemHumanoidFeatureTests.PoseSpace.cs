@@ -111,14 +111,15 @@ namespace jp.unisakistudio.posingsystemeditor.tests
                 PosingSystemConverter.ConvertOptionalFeatures(ps, context.AssetSaver);
                 Assert.That(controller.layers[0].blendingMode, Is.EqualTo(AnimatorLayerBlendingMode.Override));
                 var movement = controller.layers.Where(l => l.name.StartsWith(PosingSystemConverter.PoseSpaceMovementPrefix) && l.syncedLayerIndex >= 0).ToArray();
-                Assert.That(movement.Length, Is.EqualTo(3));
+                Assert.That(movement.Length, Is.EqualTo(5));
                 Assert.That(movement.All(l => l.syncedLayerIndex == 0 && l.GetOverrideBehaviours(state).Length == 0), Is.True);
-                Assert.That(movement.All(l => l.GetOverrideMotion(proxy) is AnimationClip clip && clip.name.EndsWith("Zero")), Is.True);
+                Assert.That(movement.Where(l => l.name.EndsWith("_Forward") || l.name.EndsWith("_Yaw") || l.name.EndsWith("_Vertical")).All(l => l.GetOverrideMotion(proxy) is BlendTree), Is.True, "Default locomotion participates in movement");
                 var facing = Sample(true, false, 1, false, distance: 0);
                 foreach (var photo in new[] { false, true }) foreach (var floating in new[] { false, true })
+                foreach (var floorHeight in floating ? new[] { 0f, .25f, .5f, .7f, 1f } : new[] { .5f })
                 {
-                    var actual = Sample(photo, floating, .5f, false);
-                    var delta = new Vector3(0, floating ? 1.2f : 0, photo ? 1.5f : 0);
+                    var actual = Sample(photo, floating, .5f, false, floorHeight: floorHeight);
+                    var delta = new Vector3(0, floating ? (floorHeight - .5f) * 6 : 0, photo ? 1.5f : 0);
                     var baseline = photo ? facing : expected;
                     for (var i = 0; i < bones.Length; i++) Assert.That(Vector3.Distance(actual[i], baseline[i] + delta), Is.LessThan(.004f), $"photo={photo}, floating={floating}, {bones[i]}");
                 }
@@ -140,7 +141,10 @@ namespace jp.unisakistudio.posingsystemeditor.tests
                 var yawAtOrigin = Sample(true, false, .75f, false, distance: 0);
                 for (var i = 0; i < bones.Length; i++) Assert.That(Vector3.Distance(returnedToZero[i], yawAtOrigin[i]), Is.LessThan(.004f), "Returning distance to zero must remove only the automatic half-turn");
                 var walkingWithFeature = Sample(true, true, .75f, true);
-                for (var i = 0; i < bones.Length; i++) Assert.That(Vector3.Distance(walkingWithFeature[i], walk[i]), Is.LessThan(.004f), "Preserve proxy locomotion");
+                var walkingFacing = Sample(true, true, .25f, true, distance: 0);
+                for (var i = 0; i < bones.Length; i++) Assert.That(Vector3.Distance(walkingWithFeature[i] - walkingFacing[i], Vector3.forward * 1.5f), Is.LessThan(.004f), "Move default locomotion");
+                var walkingRestored = Sample(true, true, .75f, true, true);
+                for (var i = 0; i < bones.Length; i++) Assert.That(Vector3.Distance(walkingRestored[i], walk[i]), Is.LessThan(.004f), "Restore default locomotion");
                 var restored = Sample(true, true, .75f, false, true);
                 for (var i = 0; i < bones.Length; i++) Assert.That(Vector3.Distance(restored[i], expected[i]), Is.LessThan(.004f), "Return to original pose after switching off");
                 ps.features.photography = ps.features.floating = false;
@@ -149,7 +153,7 @@ namespace jp.unisakistudio.posingsystemeditor.tests
             }
             finally { context.DeactivateAllExtensionContexts(); }
 
-            Vector3[] Sample(bool photo, bool floating, float yaw, bool walking, bool switchOff = false, float distance = .5f, bool returnDistanceToZero = false)
+            Vector3[] Sample(bool photo, bool floating, float yaw, bool walking, bool switchOff = false, float distance = .5f, bool returnDistanceToZero = false, float floorHeight = .7f)
             {
                 var graph = PlayableGraph.Create("PoseSpaceControllerComparison");
                 try
@@ -162,7 +166,7 @@ namespace jp.unisakistudio.posingsystemeditor.tests
                     {
                         playable.SetBool(PosingSystemFeatureUtility.PhotoActive, photo); playable.SetBool(PosingSystemFeatureUtility.FloatActive, floating);
                         playable.SetFloat(PosingSystemFeatureUtility.PhotoDistance, distance); playable.SetFloat(PosingSystemFeatureUtility.PhotoYaw, yaw);
-                        playable.SetFloat(PosingSystemFeatureUtility.FloatHeight, .4f);
+                        playable.SetFloat(PosingSystemFeatureUtility.FloatHeight, floorHeight);
                     }
                     AnimationPlayableOutput.Create(graph, "Avatar", animator).SetSourcePlayable(playable);
                     graph.Play(); for (var i = 0; i < 12; i++) graph.Evaluate(.02f);

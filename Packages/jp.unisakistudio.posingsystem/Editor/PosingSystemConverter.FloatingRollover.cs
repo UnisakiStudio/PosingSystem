@@ -75,18 +75,22 @@ namespace jp.unisakistudio.posingsystemeditor
         private static void BuildFloating(PosingSystem ps, AnimatorController controller, IAssetSaver saver)
         {
             FeatureParameter(controller, PosingSystemFeatureUtility.FloatActive, AnimatorControllerParameterType.Bool);
-            FeatureParameter(controller, PosingSystemFeatureUtility.FloatHeight, AnimatorControllerParameterType.Float);
+            SetFloorHeightDefault(controller);
             BuildFloatingActivation(ps, saver);
             if (ps.features.floatingBackend == PosingSystemFeatureSettings.MovementBackend.PoseSpaceAdditive) return;
             MeasureRootTranslationUnits(ps.GetAvatar().gameObject, out var units);
             var zero = RootOffsetClip(Vector3.zero, Quaternion.identity, "FloatZero");
             var up = RootOffsetClip(Vector3.up * 3 / Mathf.Max(.001f, Mathf.Abs(units.y)), Quaternion.identity, "Float3m");
+            var down = RootOffsetClip(Vector3.down * 3 / Mathf.Max(.001f, Mathf.Abs(units.y)), Quaternion.identity, "FloatMinus3m");
+            AnimationUtility.SetAdditiveReferencePose(down, zero, 0);
+            SaveGeneratedAsset(down, controller, saver);
             AnimationUtility.SetAdditiveReferencePose(up, zero, 0);
             SaveGeneratedAsset(zero, controller, saver);
             SaveGeneratedAsset(up, controller, saver);
             var blend = new BlendTree { name = "FloatingHeight", blendParameter = PosingSystemFeatureUtility.FloatHeight,
                 blendType = BlendTreeType.Simple1D, useAutomaticThresholds = false };
-            blend.AddChild(zero, 0);
+            blend.AddChild(down, 0);
+            blend.AddChild(zero, PosingSystemFeatureUtility.FloatHeightCenter);
             blend.AddChild(up, 1);
             SaveGeneratedAsset(blend, controller, saver);
             AddFeatureMotion(controller, "USSPS_Floating", blend, zero, PosingSystemFeatureUtility.FloatActive, saver,
@@ -94,15 +98,27 @@ namespace jp.unisakistudio.posingsystemeditor
             // No backend emits Tracking Control here. Interaction with VRChat IK is verified in-game.
         }
 
+        private static void SetFloorHeightDefault(AnimatorController controller)
+        {
+            FeatureParameter(controller, PosingSystemFeatureUtility.FloatHeight, AnimatorControllerParameterType.Float,
+                PosingSystemFeatureUtility.FloatHeightCenter);
+            // Existing prebuilt controllers can still carry the former zero default.
+            var parameters = controller.parameters;
+            foreach (var parameter in parameters.Where(p => p.name == PosingSystemFeatureUtility.FloatHeight))
+                parameter.defaultFloat = PosingSystemFeatureUtility.FloatHeightCenter;
+            controller.parameters = parameters;
+        }
+
         private static void BuildFloatingActivation(PosingSystem ps, IAssetSaver saver)
         {
             // Derive this unsynced flag on every client from the single synced height value.
             var controller = CreateFeatureController(ps, "USSPS_FloatActivation", VRCAvatarDescriptor.AnimLayerType.FX, saver);
             FeatureParameter(controller, PosingSystemFeatureUtility.FloatActive, AnimatorControllerParameterType.Bool);
-            FeatureParameter(controller, PosingSystemFeatureUtility.FloatHeight, AnimatorControllerParameterType.Float);
+            SetFloorHeightDefault(controller);
             var layer = FeatureLayer(controller, "床の高さの有効化", AvatarMaskBodyPart.Root, false, saver);
-            var off = layer.stateMachine.AddState("床の高さ0");
-            var on = layer.stateMachine.AddState("床を上げる");
+            var off = layer.stateMachine.AddState("床の高さ中央");
+            var on = layer.stateMachine.AddState("床の高さ調整中");
+            layer.stateMachine.defaultState = off;
             foreach (var state in new[] { off, on })
             {
                 state.writeDefaultValues = false;
@@ -114,10 +130,13 @@ namespace jp.unisakistudio.posingsystemeditor
                     value = state == on ? 1 : 0
                 });
             }
-            FeatureTransition(off.AddTransition(on)).AddCondition(AnimatorConditionMode.Greater,
-                PosingSystemFeatureUtility.FloatHeightThreshold, PosingSystemFeatureUtility.FloatHeight);
-            FeatureTransition(on.AddTransition(off)).AddCondition(AnimatorConditionMode.Less,
-                PosingSystemFeatureUtility.FloatHeightThreshold, PosingSystemFeatureUtility.FloatHeight);
+            var lower = PosingSystemFeatureUtility.FloatHeightCenter - PosingSystemFeatureUtility.FloatHeightThreshold;
+            var upper = PosingSystemFeatureUtility.FloatHeightCenter + PosingSystemFeatureUtility.FloatHeightThreshold;
+            FeatureTransition(off.AddTransition(on)).AddCondition(AnimatorConditionMode.Less, lower, PosingSystemFeatureUtility.FloatHeight);
+            FeatureTransition(off.AddTransition(on)).AddCondition(AnimatorConditionMode.Greater, upper, PosingSystemFeatureUtility.FloatHeight);
+            var restore = FeatureTransition(on.AddTransition(off));
+            restore.AddCondition(AnimatorConditionMode.Greater, lower, PosingSystemFeatureUtility.FloatHeight);
+            restore.AddCondition(AnimatorConditionMode.Less, upper, PosingSystemFeatureUtility.FloatHeight);
             PersistFeatureStates(layer, controller, saver);
         }
 

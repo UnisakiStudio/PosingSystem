@@ -237,7 +237,7 @@ namespace jp.unisakistudio.posingsystemeditor.tests
             Assert.That(PoseCurves(), Is.EqualTo(compactCurves), "Repeated prebuild must not retain unused height variants");
             Assert.That(controller.layers.Count(l => l.name == PosingSystemConverter.FootHeightAdditiveLayer), Is.EqualTo(1));
             var currentSignature = PosingSystemConverter.GetDefineSerializeJson(ps);
-            ps.data = currentSignature.Replace("movement-final-v1:", "menu-controls-v4:");
+            ps.data = System.Text.RegularExpressions.Regex.Replace(currentSignature, @"movement-final-v\d+:", "menu-controls-v4:");
             ps.features.footHeightBackend = PosingSystemFeatureSettings.FootHeightBackend.ClipLevel;
             Assert.That(PosingSystemConverter.GetDefineSerializeJson(ps), Is.Not.EqualTo(ps.data),
                 "Comparison-era prebuilds must be invalidated");
@@ -393,6 +393,9 @@ namespace jp.unisakistudio.posingsystemeditor.tests
                         c.subParameters.Any(p => p.name == PosingSystemFeatureUtility.FloatHeight));
                     Assert.That(heightMenu.parameter.name, Is.EqualTo(PosingSystemFeatureUtility.FloatHeightAdjusting));
                     Assert.That(heightMenu.value, Is.EqualTo(1));
+                    var floorHeight = parameters.Single(p => p.name == PosingSystemFeatureUtility.FloatHeight);
+                    Assert.That(floorHeight.defaultValue, Is.EqualTo(.5f));
+                    Assert.That(floorHeight.saved, Is.False);
                     var adjusting = parameters.Single(p => p.name == PosingSystemFeatureUtility.FloatHeightAdjusting);
                     Assert.That(adjusting.networkSynced || adjusting.saved, Is.False);
                     Assert.That(adjusting.defaultValue, Is.Zero);
