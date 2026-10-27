@@ -1,4 +1,4 @@
-#region
+﻿#region
 
 using System.Collections.Immutable;
 using System.Collections.Generic;
@@ -1294,13 +1294,13 @@ namespace jp.unisakistudio.posingsystemeditor
                 isIconDisabled = posingSystem.isIconDisabled,
                 isIconSmall = posingSystem.isIconSmall,
                 additiveBreathingLogicVersion = 3,
-                // Regenerate IK clips for ViewPosition anchors and the scaled flat-pose height fallback.
-                autoPoseLogicVersion = 3,
+                // Rebuild unsupported IK poses with their manual adjustment instead of discarding it.
+                autoPoseLogicVersion = 4,
                 importedMotionLogicVersion = 2,
-                // Invalidate prebuilds generated before per-frame rollover head centering.
                 generatedAssetLogicVersion = 1,
                 autoImportAvatarAnimations = posingSystem.autoImportAvatarAnimations,
                 importedMotionInputs = ImportedMotionInputSignature(posingSystem),
+                // Invalidate prebuilds generated before per-frame rollover head centering.
                 rolloverCenteringLogicVersion = 1,
                 rolloverGenerationLogicVersion = 1,
                 autoPoseKneeSafetyEnabled = posingSystem.UsesAutoPoseCatalog &&
@@ -1620,7 +1620,7 @@ namespace jp.unisakistudio.posingsystemeditor
                         {
                             initialParamValues[define.paramName] = 0;
                         }
-                        if (animation.initial)
+                        if (animation.enabled && animation.animationClip != null && animation.initial)
                         {
                             initialParamValues[define.paramName] = animation.typeParameterValue;
                         }

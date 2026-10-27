@@ -82,12 +82,21 @@ namespace jp.unisakistudio.posingsystem
         public virtual string AvatarReferenceProfileResourceName => string.Empty;
 
         [Header("自動調整アニメーション制作")]
-        [Tooltip("商品開発時に作成した姿勢別IK設定です。設定されている場合、従来の姿勢別 adjustmentClip は使用しません。")]
+        [Tooltip("商品開発時に作成した姿勢別IK設定です。有効なIKルールがある姿勢では自動調整を使い、それ以外は従来の姿勢別 adjustmentClip を使用します。")]
         public PosingSystemAutoPoseCatalog autoPoseCatalog;
 
         [HideInInspector] public bool enablePoseIk = true;
         public bool UsesAutoPoseCatalog => enablePoseIk && autoPoseCatalog != null && autoPoseCatalog.productionReady;
-        public bool UsesAutoPoseFor(BaseAnimationDefine pose) => UsesAutoPoseCatalog && pose != null && !pose.disablePoseIk;
+        public bool UsesAutoPoseFor(BaseAnimationDefine pose)
+        {
+            if (!UsesAutoPoseCatalog || pose == null || pose.disablePoseIk) return false;
+            var animation = pose as AnimationDefine;
+            var layer = defines?.FirstOrDefault(d => d?.animations?.Any(a => ReferenceEquals(a, pose)) == true);
+            var key = layer != null ? PosingSystemAutoPoseCatalog.BuildPoseKey(layer.menuName, animation?.displayName)
+                : animation?.displayName;
+            var definition = autoPoseCatalog.Find(key, pose.animationClip as AnimationClip);
+            return definition?.limbRules?.Any(rule => rule != null && rule.enabled) == true;
+        }
 
         public enum LocomotionTypeGroup
         {

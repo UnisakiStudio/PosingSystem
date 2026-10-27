@@ -100,7 +100,7 @@ namespace jp.unisakistudio.posingsystemeditor
         private void DrawAutoPoseAuthoringPanel(AnimationEntry entry) => AdditionalAnimationControlsGUI?.Invoke(this);
 
         private bool UsesIkInPreview() => _posingSystem != null && GetSelectedEntry()?.Animation?.disablePoseIk == false &&
-            (_posingSystem.UsesAutoPoseCatalog || (AdditionalIkPreviewRequested != null &&
+            (_posingSystem.UsesAutoPoseFor(GetSelectedEntry()?.Animation) || (AdditionalIkPreviewRequested != null &&
                 AdditionalIkPreviewRequested.GetInvocationList()
                     .Cast<Func<PosingAnimationAdjustmentWindow, bool>>().Any(request => request(this))));
 
@@ -114,7 +114,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 var hasRules = definition?.limbRules?.Any(r => r != null && r.enabled) == true;
                 if (!hasRules)
                 {
-                    EditorGUILayout.LabelField("このポーズにはIKによる自動調整が設定されていません。", EditorStyles.wordWrappedLabel);
+                    EditorGUILayout.LabelField("このポーズにはIKによる自動調整が設定されていません。元の姿勢と手動調整を使用します。", EditorStyles.wordWrappedLabel);
                     return;
                 }
                 EditorGUILayout.LabelField("アバターに合わないときは、このポーズだけIKをオフにできます。ほかのポーズやアバターには影響しません。", EditorStyles.wordWrappedLabel);

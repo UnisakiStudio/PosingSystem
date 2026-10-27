@@ -25,7 +25,7 @@ namespace jp.unisakistudio.posingsystem
         public string productName;
 
         [InspectorName("公開用として有効")]
-        [Tooltip("有効にすると、このカタログを参照するポーズでは従来の調整Animationを無視してIK自動調整を使用します。")]
+        [Tooltip("有効にすると、IKルールがあるポーズではIK自動調整を使用します。未対応ポーズでは従来の調整Animationを使用します。")]
         public bool productionReady;
 
         [InspectorName("姿勢別IK設定一覧")]

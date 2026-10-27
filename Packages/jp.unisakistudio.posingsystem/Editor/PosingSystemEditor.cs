@@ -49,7 +49,6 @@ namespace jp.unisakistudio.posingsystemeditor
         private List<ReorderableList> reorderableLists = new List<ReorderableList>();
         List<string> existProducts;
         List<string> existFolders;
-        Texture2D exMenuBackground = null;
         private readonly PosingSystemInspectorHeader inspectorHeader = new PosingSystemInspectorHeader();
         private readonly PosingSystemPrebuildInspector prebuildInspector = new PosingSystemPrebuildInspector();
 
@@ -337,7 +336,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 {
                     foreach (var window in Resources.FindObjectsOfTypeAll<PosingAnimationAdjustmentWindow>().Where(window => window.IsOpen))
                     {
-                        window.Close();
+                        window.StopAdjustment();
                     }
                 }
                 else
@@ -1185,6 +1184,11 @@ namespace jp.unisakistudio.posingsystemeditor
             var animatorController = avatar.baseAnimationLayers[(int)VRC.SDK3.Avatars.Components.VRCAvatarDescriptor.AnimLayerType.Base];
             if (animatorController.animatorController == null)
             {
+                return;
+            }
+            if (animatorController.animatorController is not UnityEditor.Animations.AnimatorController)
+            {
+                EditorUtility.DisplayDialog("元姿勢の読み込み", "アバターのBaseに通常のAnimatorControllerを設定してください。AnimatorOverrideControllerには対応していません。", "OK");
                 return;
             }
 

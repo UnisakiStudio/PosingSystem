@@ -118,6 +118,16 @@ namespace jp.unisakistudio.posingsystemeditor
             hasUnsavedChanges = HasAnyChangesInAllAnimations();
         }
 
+        private readonly Dictionary<PosingSystem.AnimationDefine, string> _adjustmentKeys = new();
+
+        private string GetAdjustmentKey(AnimationEntry entry)
+        {
+            if (entry?.Animation == null) return string.Empty;
+            if (!_adjustmentKeys.TryGetValue(entry.Animation, out var key))
+                _adjustmentKeys.Add(entry.Animation, key = Guid.NewGuid().ToString("N"));
+            return key;
+        }
+
         private string GetAnimationKey(AnimationEntry entry)
         {
             if (entry?.Layer?.menuName != null && entry?.Animation?.displayName != null)
@@ -132,7 +142,7 @@ namespace jp.unisakistudio.posingsystemeditor
             var entry = GetSelectedEntry();
             if (entry == null) return;
 
-            var key = GetAnimationKey(entry);
+            var key = GetAdjustmentKey(entry);
             if (string.IsNullOrEmpty(key)) return;
 
             _adjustmentStates[key] = _adjustments;
@@ -156,7 +166,7 @@ namespace jp.unisakistudio.posingsystemeditor
             var entry = GetSelectedEntry();
             if (entry == null) return false;
 
-            var key = GetAnimationKey(entry);
+            var key = GetAdjustmentKey(entry);
             if (string.IsNullOrEmpty(key)) return false;
 
             if (!_originalAdjustmentData.TryGetValue(key, out var originalData))
@@ -173,7 +183,7 @@ namespace jp.unisakistudio.posingsystemeditor
             var entry = GetSelectedEntry();
             if (entry == null) return false;
 
-            var key = GetAnimationKey(entry);
+            var key = GetAdjustmentKey(entry);
             if (string.IsNullOrEmpty(key)) return false;
 
             // Muscleの変更をチェック
@@ -216,7 +226,7 @@ namespace jp.unisakistudio.posingsystemeditor
             var entry = GetSelectedEntry();
             if (entry == null) return false;
 
-            var key = GetAnimationKey(entry);
+            var key = GetAdjustmentKey(entry);
             if (string.IsNullOrEmpty(key)) return false;
 
             if (!_originalAdjustmentData.TryGetValue(key, out var originalData))
@@ -250,7 +260,7 @@ namespace jp.unisakistudio.posingsystemeditor
             var entry = GetSelectedEntry();
             if (entry == null) return false;
 
-            var key = GetAnimationKey(entry);
+            var key = GetAdjustmentKey(entry);
             if (string.IsNullOrEmpty(key)) return false;
 
             if (_limitBreakStates != null)
@@ -266,7 +276,7 @@ namespace jp.unisakistudio.posingsystemeditor
             var entry = GetSelectedEntry();
             if (entry == null) return;
 
-            var key = GetAnimationKey(entry);
+            var key = GetAdjustmentKey(entry);
             if (string.IsNullOrEmpty(key)) return;
 
             if (_limitBreakStates != null)
@@ -293,7 +303,7 @@ namespace jp.unisakistudio.posingsystemeditor
             var entry = GetSelectedEntry();
             if (entry == null) return false;
 
-            var key = GetAnimationKey(entry);
+            var key = GetAdjustmentKey(entry);
             if (string.IsNullOrEmpty(key)) return false;
 
             if (_limitBreakStates != null)
@@ -309,7 +319,7 @@ namespace jp.unisakistudio.posingsystemeditor
             var entry = GetSelectedEntry();
             if (entry == null) return;
 
-            var key = GetAnimationKey(entry);
+            var key = GetAdjustmentKey(entry);
             if (string.IsNullOrEmpty(key)) return;
 
             if (_limitBreakStates != null)
@@ -336,7 +346,7 @@ namespace jp.unisakistudio.posingsystemeditor
             var entry = GetSelectedEntry();
             if (entry == null) return false;
 
-            var key = GetAnimationKey(entry);
+            var key = GetAdjustmentKey(entry);
             if (string.IsNullOrEmpty(key)) return false;
 
             if (_limitBreakStates != null)
@@ -352,7 +362,7 @@ namespace jp.unisakistudio.posingsystemeditor
             var entry = GetSelectedEntry();
             if (entry == null) return;
 
-            var key = GetAnimationKey(entry);
+            var key = GetAdjustmentKey(entry);
             if (string.IsNullOrEmpty(key)) return;
 
             if (_limitBreakStates != null)
@@ -454,7 +464,7 @@ namespace jp.unisakistudio.posingsystemeditor
             for (int i = 0; i < _animationEntries.Count; i++)
             {
                 var entry = _animationEntries[i];
-                var key = GetAnimationKey(entry);
+                var key = GetAdjustmentKey(entry);
                 var hasChanges = HasAnimationChanges(key);
 
                 if (hasChanges)
@@ -605,7 +615,8 @@ namespace jp.unisakistudio.posingsystemeditor
             hasUnsavedChanges = false;
         }
 
-        public void Close()
+        // End the adjustment session while keeping the window available for reuse.
+        public void StopAdjustment()
         {
             ClearAdjustmentStates();
             _isOpen = false;
@@ -673,7 +684,7 @@ namespace jp.unisakistudio.posingsystemeditor
             PreloadAllAdjustmentData(preserveDrafts: true);
             SynchronizeAdjustmentStates();
             var entry = GetSelectedEntry();
-            _adjustments = entry == null ? null : GetAdjustmentState(GetAnimationKey(entry));
+            _adjustments = entry == null ? null : GetAdjustmentState(GetAdjustmentKey(entry));
             UpdatePreviousAdjustmentValues();
             ApplyPreviewPose();
             UpdateHasUnsavedChanges();
@@ -771,7 +782,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 EditorGUILayout.HelpBox(PosingAnimationAdjustmentWindowText.PosingSystemNotFound, MessageType.Warning);
                 if (GUILayout.Button(PosingAnimationAdjustmentWindowText.Close))
                 {
-                    Close();
+                    StopAdjustment();
                 }
                 UpdateHasUnsavedChanges();
                 return;
@@ -1011,7 +1022,7 @@ namespace jp.unisakistudio.posingsystemeditor
             var entry = GetSelectedEntry();
             if (entry == null) return;
 
-            var key = GetAnimationKey(entry);
+            var key = GetAdjustmentKey(entry);
             if (string.IsNullOrEmpty(key)) return;
 
             // 現在の調整値を元データとして更新（変更検知をリセット）
@@ -1109,7 +1120,7 @@ namespace jp.unisakistudio.posingsystemeditor
             PosingSystemEditorChangeUtility.MarkChanged(_posingSystem);
 
             // データをリセット
-            var key = GetAnimationKey(entry);
+            var key = GetAdjustmentKey(entry);
             if (!string.IsNullOrEmpty(key))
             {
                 if (_allAdjustmentData.ContainsKey(key))
@@ -1200,7 +1211,7 @@ namespace jp.unisakistudio.posingsystemeditor
             PosingSystemEditorChangeUtility.MarkChanged(_posingSystem);
 
             // 複製したクリップに現在の調整値を保存
-            var key = GetAnimationKey(entry);
+            var key = GetAdjustmentKey(entry);
             if (!string.IsNullOrEmpty(key))
             {
                 var adjustmentData = _allAdjustmentData.TryGetValue(key, out var data) ? data : _adjustments.adjustments;
@@ -1230,7 +1241,7 @@ namespace jp.unisakistudio.posingsystemeditor
             int processedCount = 0;
             foreach (var entry in _animationEntries)
             {
-                var key = GetAnimationKey(entry);
+                var key = GetAdjustmentKey(entry);
                 if (string.IsNullOrEmpty(key)) continue;
 
                 // 変更があるかチェック
@@ -1722,7 +1733,7 @@ namespace jp.unisakistudio.posingsystemeditor
             var entry = GetSelectedEntry();
             if (entry == null || _adjustments == null) return;
 
-            var key = GetAnimationKey(entry);
+            var key = GetAdjustmentKey(entry);
             if (string.IsNullOrEmpty(key)) return;
 
             // 元の値を取得
@@ -1744,7 +1755,7 @@ namespace jp.unisakistudio.posingsystemeditor
             var entry = GetSelectedEntry();
             if (entry == null || _adjustments == null) return;
 
-            var key = GetAnimationKey(entry);
+            var key = GetAdjustmentKey(entry);
             if (string.IsNullOrEmpty(key)) return;
 
             // 元の値を取得
@@ -1768,7 +1779,7 @@ namespace jp.unisakistudio.posingsystemeditor
             var entry = GetSelectedEntry();
             if (entry == null || _adjustments == null) return;
 
-            var key = GetAnimationKey(entry);
+            var key = GetAdjustmentKey(entry);
             if (string.IsNullOrEmpty(key)) return;
 
             // 元の値を取得
@@ -1842,7 +1853,7 @@ namespace jp.unisakistudio.posingsystemeditor
             var entry = GetSelectedEntry();
             if (entry == null) return;
 
-            var key = GetAnimationKey(entry);
+            var key = GetAdjustmentKey(entry);
             if (string.IsNullOrEmpty(key)) return;
 
             _adjustments = GetAdjustmentState(key);
@@ -1923,7 +1934,7 @@ namespace jp.unisakistudio.posingsystemeditor
             var entry = GetSelectedEntry();
             if (entry == null) return;
 
-            var key = GetAnimationKey(entry);
+            var key = GetAdjustmentKey(entry);
             if (string.IsNullOrEmpty(key)) return;
 
             // ファイルから直接読み込み
@@ -2056,7 +2067,7 @@ namespace jp.unisakistudio.posingsystemeditor
         {
             foreach (var entry in _animationEntries)
             {
-                var key = GetAnimationKey(entry);
+                var key = GetAdjustmentKey(entry);
                 if (string.IsNullOrEmpty(key)) continue;
 
                 if (!_allAdjustmentData.TryGetValue(key, out var adjustmentData)) continue;
@@ -2232,7 +2243,7 @@ namespace jp.unisakistudio.posingsystemeditor
             AssetDatabase.SaveAssets();
 
             // 保存した値を新しい元データとして更新
-            var key = GetAnimationKey(entry);
+            var key = GetAdjustmentKey(entry);
             if (!string.IsNullOrEmpty(key))
             {
                 if (!_originalAdjustmentData.ContainsKey(key))
@@ -2541,7 +2552,7 @@ namespace jp.unisakistudio.posingsystemeditor
             // 全ての姿勢の調整値を読み込み
             foreach (var entry in _animationEntries)
             {
-                var key = GetAnimationKey(entry);
+                var key = GetAdjustmentKey(entry);
                 if (string.IsNullOrEmpty(key)) continue;
 
                 // 元データを読み込み
