@@ -218,6 +218,13 @@ namespace jp.unisakistudio.posingsystemeditor
                     }
                 });
 
+            // Experimental scopes must compile before MA remaps parameters and copies the template.
+            // Outside a scope this pass performs no asset or avatar changes.
+            InPhase(BuildPhase.Resolving)
+                .BeforePlugin("nadena.dev.modular-avatar")
+                .Run("Compile posing controller source", ctx =>
+                    PosingSystemControllerGeneration.PrepareBeforeModularAvatar(ctx.AvatarRootObject, ctx.AssetSaver));
+
             // AnimatorControllerのレイヤーを編集
             InPhase(BuildPhase.Resolving)
                 .AfterPlugin("nadena.dev.modular-avatar")

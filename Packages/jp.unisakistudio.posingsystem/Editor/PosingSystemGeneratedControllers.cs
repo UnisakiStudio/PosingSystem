@@ -148,8 +148,19 @@ namespace jp.unisakistudio.posingsystemeditor
                 if (breathSource != null) sources.Add(breathSource);
                 // Include previously generated feature controllers, but never another tool's controllers.
                 if (existing != null && existing.controllers != null) sources.AddRange(existing.controllers.Where(c => c != null));
-                foreach (var pair in PosingSystemControllerGraph.Clone(sources))
+                using var compiled = PosingSystemControllerGeneration.TryCreate(avatar, mainSource);
+                var cloneSources = compiled == null ? sources : sources.Where(c => c != mainSource).ToList();
+                foreach (var pair in PosingSystemControllerGraph.Clone(cloneSources))
                 { copies.Add(pair.Key, pair.Value); temporary.Add(pair.Value); }
+                if (compiled != null)
+                {
+                    if (copies.ContainsKey(mainSource))
+                        throw new InvalidOperationException("Another controller unexpectedly references the reference template graph.");
+                    copies.Add(mainSource, compiled.Controller);
+                    temporary.UnionWith(compiled.Objects.Values);
+                    // Session takes ownership, including unreachable objects that must be cleaned up.
+                    compiled.Objects.Clear();
+                }
                 foreach (var source in sources) roots.Add((AnimatorController)copies[source]);
                 main = (AnimatorController)copies[mainSource];
                 foreach (var merge in mainMerges) merge.animator = main;

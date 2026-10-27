@@ -22,6 +22,38 @@ namespace jp.unisakistudio.posingsystemeditor.tests
         private Scene scene;
         private Scene previousScene;
         private const BindingFlags Private = BindingFlags.Instance | BindingFlags.NonPublic;
+        private Scene batchStartingScene;
+        private string batchStartingPath;
+
+        [OneTimeSetUp]
+        public void CreateOwnedSavedStartingSceneForBatch()
+        {
+            if (!Application.isBatchMode || !string.IsNullOrEmpty(SceneManager.GetActiveScene().path)) return;
+            batchStartingScene = SceneManager.GetActiveScene();
+            // Unity refuses another additive scene while the runner scene is untitled.
+            // In batch only, prove it contains no user objects before giving it a test path.
+            Assert.That(batchStartingScene.GetRootGameObjects().All(r =>
+                r.name == "nadena.dev.ndmf__Activator" && r.transform.childCount == 0 &&
+                r.GetComponents<Component>().All(c => c is Transform ||
+                    (c != null && c.GetType().FullName == "nadena.dev.ndmf.runtime.ApplyOnPlayGlobalActivator"))),
+                Is.True, "Refusing to save an untitled scene containing user objects");
+            batchStartingPath = "Assets/USSPS_PersistenceBatch_" + Guid.NewGuid().ToString("N") + ".unity";
+            Assert.That(EditorSceneManager.SaveScene(batchStartingScene, batchStartingPath), Is.True);
+            SceneManager.SetActiveScene(batchStartingScene);
+        }
+
+        [OneTimeTearDown]
+        public void RemoveOwnedBatchStartingScene()
+        {
+            if (string.IsNullOrEmpty(batchStartingPath)) return;
+            if (batchStartingScene.IsValid() && batchStartingScene.isLoaded)
+            {
+                var replacement = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Additive);
+                EditorSceneManager.CloseScene(batchStartingScene, true);
+                SceneManager.SetActiveScene(replacement);
+            }
+            AssetDatabase.DeleteAsset(batchStartingPath);
+        }
 
         [SetUp] public void SetUp()
         {
