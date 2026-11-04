@@ -190,12 +190,14 @@ namespace jp.unisakistudio.posingsystemeditor
             var explicitlyInvalidated = posingSystem.previousErrorCheckTime == DateTime.MinValue;
             if (!explicitlyInvalidated
                 && statusByInstanceId.TryGetValue(instanceId, out var cachedStatus)
-                && cachedStatus.Signature.Equals(signature))
+                && cachedStatus.Signature.Equals(signature)
+                && !PosingSystemInspectionCache.HasChanged(posingSystem))
             {
                 return (cachedStatus.IsWarning, cachedStatus.IsError);
             }
 
-            var isWarning = PosingSystemConverter.HasWarning(posingSystem);
+            var isWarning = (PosingSystemConverter.GetVisibleWarningsForInspector(posingSystem) &
+                (PosingSystem.WarningType.PrebuildOutOfDate | PosingSystem.WarningType.Configuration)) != 0;
             var isError = PosingSystemConverter.HasError(posingSystem);
             StatusEvaluationCount++;
 
@@ -266,6 +268,7 @@ namespace jp.unisakistudio.posingsystemeditor
             foreach (var entry in statusByInstanceId.Values)
             {
                 if (entry.Target == null || entry.Target.previousErrorCheckTime == DateTime.MinValue ||
+                    PosingSystemInspectionCache.HasChanged(entry.Target) ||
                     !entry.Signature.Equals(new StatusSignature(entry.Target, hierarchyVersion, projectVersion)))
                 {
                     InvalidateAll();
@@ -292,6 +295,7 @@ namespace jp.unisakistudio.posingsystemeditor
 
         internal static void InvalidateAll()
         {
+            PosingSystemInspectionCache.Clear();
             statusByInstanceId.Clear();
             Revision++;
             EditorApplication.RepaintHierarchyWindow();

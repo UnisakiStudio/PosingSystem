@@ -796,6 +796,14 @@ namespace jp.unisakistudio.posingsystemeditor
                 && !string.IsNullOrEmpty(posingSystem.data) && IsPosingSystemDataUpdated(posingSystem);
 
         public static PosingSystem.WarningType GetVisibleWarnings(PosingSystem posingSystem)
+            => GetVisibleWarnings(posingSystem, false, null);
+
+        internal static PosingSystem.WarningType GetVisibleWarningsForInspector(PosingSystem posingSystem,
+            List<PosingSystemDiagnostics.Issue> issues = null)
+            => GetVisibleWarnings(posingSystem, true, issues);
+
+        private static PosingSystem.WarningType GetVisibleWarnings(PosingSystem posingSystem, bool inspection,
+            List<PosingSystemDiagnostics.Issue> issues)
         {
             if (posingSystem == null) return PosingSystem.WarningType.None;
             var warnings = PosingSystem.WarningType.None;
@@ -803,11 +811,13 @@ namespace jp.unisakistudio.posingsystemeditor
             if (avatar != null)
             {
                 if (string.IsNullOrEmpty(posingSystem.data)) warnings |= PosingSystem.WarningType.PrebuildNotRun;
-                else if (ShouldReportPrebuildUpdateWarning(posingSystem)) warnings |= PosingSystem.WarningType.PrebuildOutOfDate;
+                else if (!posingSystem.IsWarningIgnored(PosingSystem.WarningType.PrebuildOutOfDate) &&
+                    (inspection ? PosingSystemInspectionCache.IsUpdated(posingSystem) : IsPosingSystemDataUpdated(posingSystem)))
+                    warnings |= PosingSystem.WarningType.PrebuildOutOfDate;
                 if (avatar.autoFootsteps) warnings |= PosingSystem.WarningType.AutoFootsteps;
             }
             if (!posingSystem.IsWarningIgnored(PosingSystem.WarningType.Configuration) &&
-                PosingSystemDiagnostics.Collect(posingSystem).Any(issue => issue.Severity == MessageType.Warning))
+                (issues ?? PosingSystemDiagnostics.Collect(posingSystem)).Any(issue => issue.Severity == MessageType.Warning))
                 warnings |= PosingSystem.WarningType.Configuration;
             return warnings & ~posingSystem.ignoredWarnings;
         }
@@ -1247,6 +1257,7 @@ namespace jp.unisakistudio.posingsystemeditor
         /// </summary>
         private static string GetStableObjectIdentifier(UnityEngine.Object obj)
         {
+            PosingSystemInspectionCache.Track(obj);
             if (obj == null) return "";
 
             string assetPath = AssetDatabase.GetAssetPath(obj);

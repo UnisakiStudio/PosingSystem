@@ -16,7 +16,7 @@ namespace jp.unisakistudio.posingsystemeditor
             var animator = avatar == null ? null : avatar.GetComponent<Animator>();
             if (animator == null || animator.avatar == null || !animator.isHuman) return BuildState.AvatarRequired;
             if (string.IsNullOrEmpty(ps.data)) return BuildState.NotBuilt;
-            return PosingSystemConverter.IsPosingSystemDataUpdated(ps) ? BuildState.Outdated : BuildState.Ready;
+            return PosingSystemInspectionCache.IsUpdated(ps) ? BuildState.Outdated : BuildState.Ready;
         }
 
         internal void Draw(SerializedObject serialized, PosingSystem ps)

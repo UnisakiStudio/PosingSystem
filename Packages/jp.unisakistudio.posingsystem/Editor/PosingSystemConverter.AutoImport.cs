@@ -74,6 +74,7 @@ namespace jp.unisakistudio.posingsystemeditor
             }
             foreach (var system in systems)
             {
+                PosingSystemInspectionCache.Track(system);
                 text.Append(system.autoImportAvatarAnimations ? "auto;" : "manual;");
                 if (system.autoImportAvatarAnimations) text.Append(Fingerprint(GetAutoImportSource(system)));
                 foreach (var row in system.overrideDefines ?? new List<PosingSystem.OverrideAnimationDefine>())

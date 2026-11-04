@@ -67,9 +67,10 @@ namespace jp.unisakistudio.posingsystemeditor
 
         internal void Draw(SerializedObject serialized, PosingSystem ps)
         {
-            var visibleIssues = GetIssues(ps).Where(i => i.Severity != MessageType.Warning ||
+            var allIssues = GetIssues(ps);
+            var visibleIssues = allIssues.Where(i => i.Severity != MessageType.Warning ||
                 !ps.IsWarningIgnored(PosingSystem.WarningType.Configuration)).ToList();
-            var visibleWarnings = PosingSystemConverter.GetVisibleWarnings(ps);
+            var visibleWarnings = PosingSystemConverter.GetVisibleWarningsForInspector(ps, allIssues);
             var changed = GUI.changed;
             using (new EditorGUILayout.VerticalScope(EditorStyles.helpBox))
             {
@@ -81,7 +82,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 if ((visibleWarnings & PosingSystem.WarningType.PrebuildNotRun) != 0)
                     DrawPrebuildWarning(ps, PosingSystem.WarningType.PrebuildNotRun, "まだプレビルドしていません。「プレビルドを更新」で姿勢データを生成できます。");
                 if ((visibleWarnings & PosingSystem.WarningType.PrebuildOutOfDate) != 0)
-                    DrawPrebuildWarning(ps, PosingSystem.WarningType.PrebuildOutOfDate, "生成後に設定が変わっています。「プレビルドを更新」で現在の設定を反映してください。");
+                    DrawPrebuildWarning(ps, PosingSystem.WarningType.PrebuildOutOfDate, "プレビルド後に設定が変更されています。「プレビルドを更新」で現在の設定を反映してください。");
                 if (visibleIssues.Any(i => i.Severity != MessageType.Error))
                 {
                     showNotes = DrawBoxFoldout(showNotes, "注意・補足を確認（" + visibleIssues.Count(i => i.Severity != MessageType.Error) + "件）");

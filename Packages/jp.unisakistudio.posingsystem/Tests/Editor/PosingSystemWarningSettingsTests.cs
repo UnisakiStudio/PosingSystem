@@ -215,6 +215,97 @@ namespace jp.unisakistudio.posingsystemeditor.tests
 
         private (bool Warning, bool Error) Status() => ((bool, bool))Badge("GetStatus", posing);
 
+        private static readonly Type InspectionCache = typeof(PosingSystemEditor).Assembly
+            .GetType("jp.unisakistudio.posingsystemeditor.PosingSystemInspectionCache");
+        private bool InspectionUpdated() => (bool)InspectionCache.GetMethod("IsUpdated", BindingFlags.NonPublic | BindingFlags.Static)
+            .Invoke(null, new object[] { posing });
+        private static int InspectionEvaluations => (int)InspectionCache.GetProperty("EvaluationCount", BindingFlags.NonPublic | BindingFlags.Static).GetValue(null);
+
+        [Test]
+        public void Inspection_UnchangedDrawsReuseComparison_AndDirtySettingsInvalidateImmediately()
+        {
+            posing.data = PosingSystemConverter.GetDefineSerializeJson(posing);
+            Assert.That(InspectionUpdated(), Is.False);
+            var count = InspectionEvaluations;
+            for (var i = 0; i < 100; i++) Assert.That(InspectionUpdated(), Is.False);
+            Assert.That(InspectionEvaluations, Is.EqualTo(count));
+            posing.isIconSmall = !posing.isIconSmall;
+            EditorUtility.SetDirty(posing);
+            Assert.That(InspectionUpdated(), Is.True);
+            Assert.That(InspectionEvaluations, Is.EqualTo(count + 1));
+            posing.data = PosingSystemConverter.GetDefineSerializeJson(posing);
+            Assert.That(InspectionUpdated(), Is.False, "Successful rebuild updates the display immediately.");
+        }
+
+        [Test]
+        public void Inspection_UnsavedImportedClipEdit_InvalidatesCacheAndHierarchy()
+        {
+            var clip = new AnimationClip();
+            try
+            {
+                posing.overrideDefines = new List<PosingSystem.OverrideAnimationDefine> {
+                    new PosingSystem.OverrideAnimationDefine { animationClip = clip } };
+                posing.data = PosingSystemConverter.GetDefineSerializeJson(posing);
+                Assert.That(Status().Warning, Is.False);
+                var count = InspectionEvaluations;
+                clip.SetCurve("", typeof(Transform), "m_LocalPosition.x", AnimationCurve.Linear(0, 0, 1, 1));
+                EditorUtility.SetDirty(clip);
+                Badge("CheckTrackedChanges");
+                Assert.That(InspectionUpdated(), Is.True);
+                Assert.That(InspectionEvaluations, Is.GreaterThan(count));
+                Assert.That(Status().Warning, Is.True);
+            }
+            finally { Object.DestroyImmediate(clip); }
+        }
+
+        [Test]
+        public void Inspection_CacheDoesNotAffectStrictBuildComparison()
+        {
+            posing.data = PosingSystemConverter.GetDefineSerializeJson(posing);
+            Assert.That(InspectionUpdated(), Is.False);
+            // Conversion may edit inputs directly before SetDirty or editor notifications.
+            posing.isIconSmall = !posing.isIconSmall;
+            Assert.That(PosingSystemConverter.IsPosingSystemDataUpdated(posing), Is.True);
+        }
+
+        [Test]
+        public void Inspection_OtherProductOnSameAvatar_InvalidatesSharedImportInputs()
+        {
+            var child = new GameObject("Other product");
+            child.transform.SetParent(root.transform);
+            var other = child.AddComponent<PosingSystem>();
+            other.autoImportAvatarAnimations = false;
+            posing.data = PosingSystemConverter.GetDefineSerializeJson(posing);
+            Assert.That(InspectionUpdated(), Is.False);
+            other.autoImportAvatarAnimations = true;
+            EditorUtility.SetDirty(other);
+            Assert.That(InspectionUpdated(), Is.True);
+        }
+
+        [Test]
+        public void Inspection_UnsavedBaseControllerStateEdit_InvalidatesComparison()
+        {
+            var controller = new UnityEditor.Animations.AnimatorController();
+            var machine = new UnityEditor.Animations.AnimatorStateMachine();
+            var state = machine.AddState("Original");
+            try
+            {
+                controller.AddLayer(new UnityEditor.Animations.AnimatorControllerLayer { name = "Base", stateMachine = machine });
+                avatar.baseAnimationLayers = new[] { new VRCAvatarDescriptor.CustomAnimLayer {
+                    type = VRCAvatarDescriptor.AnimLayerType.Base, isDefault = false, animatorController = controller } };
+                posing.autoImportAvatarAnimations = true;
+                posing.data = PosingSystemConverter.GetDefineSerializeJson(posing);
+                Assert.That(InspectionUpdated(), Is.False);
+                state.speed = 2;
+                EditorUtility.SetDirty(state);
+                Assert.That(InspectionUpdated(), Is.True);
+            }
+            finally
+            {
+                Object.DestroyImmediate(state); Object.DestroyImmediate(machine); Object.DestroyImmediate(controller);
+            }
+        }
+
         [Test]
         public void SettingsChangeAndUndoRedo_UpdateWarningWithoutReopeningScene()
         {

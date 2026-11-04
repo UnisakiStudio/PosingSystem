@@ -159,7 +159,9 @@ namespace jp.unisakistudio.posingsystemeditor
             EnsurePhotoMenu(ps, f.photography, recordUndo);
             EnsureFloorHeightMenu(ps, f.floating, recordUndo);
             EnsureRolloverMenu(ps, f.rollover, recordUndo);
-            if (recordUndo) ps.data = string.Empty;
+            // Keep the last successful build snapshot so edits report Outdated, not NotBuilt.
+            // The converter compares feature/pose inputs and regenerates when they differ.
+            if (recordUndo) PosingSystemHierarchyBadge.InvalidateAll();
             EditorUtility.SetDirty(ps);
             PrefabUtility.RecordPrefabInstancePropertyModifications(ps);
         }
