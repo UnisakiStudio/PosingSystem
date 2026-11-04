@@ -279,6 +279,7 @@ public sealed class PosingSystemAutoPosePositionTests
     [Test]
     public void ReferenceConversion_AndCaptureRoundTrip_PreservePositionForEveryReference()
     {
+        ViewRule(out _);
         var rule = Rule();
         var tip = animator.GetBoneTransform(HumanBodyBones.LeftHand);
         Assert.That(PosingSystemAutoPoseAdjustmentUtility.TryCaptureRuleFromCurrentPose(animator, rule, out _), Is.True);
@@ -291,6 +292,37 @@ public sealed class PosingSystemAutoPosePositionTests
             Assert.That(PosingSystemAutoPoseAdjustmentUtility.TryCaptureRuleFromCurrentPose(animator, rule, out _), Is.True);
             Assert.That(Vector3.Distance(rule.normalizedTargetOffset, offset), Is.LessThan(.00001f));
         }
+    }
+
+    [TestCase(.5f)]
+    [TestCase(2f)]
+    public void LengthReferences_ScaleOnceIncludingParentScale(float scale)
+    {
+        ViewRule(out _);
+        var descriptor = animator.GetComponent<VRC.SDK3.Avatars.Components.VRCAvatarDescriptor>();
+        var head = animator.GetBoneTransform(HumanBodyBones.Head);
+        var root = animator.transform;
+        // Lateral/depth offsets do not contribute to head height.
+        descriptor.ViewPosition = head.position - root.position + root.TransformVector(new Vector3(.25f, -.12f, .35f));
+        float Measure(PosingSystemAutoPoseLengthReference reference)
+        {
+            Assert.That(PosingSystemAutoPoseAdjustmentUtility.TryMeasureReferenceLength(animator, reference,
+                PosingSystemAutoPoseLimb.LeftArm, out var length, out var message), Is.True, message);
+            return length;
+        }
+        animator.GetBoneTransform(HumanBodyBones.Hips).localRotation *= Quaternion.Euler(50, 20, -30);
+        Assert.That(Measure(PosingSystemAutoPoseLengthReference.Fixed), Is.EqualTo(1f).Within(.00001f));
+        Assert.That(Measure(PosingSystemAutoPoseLengthReference.HeadToViewpoint), Is.EqualTo(.12f).Within(.00001f));
+        var references = Enum.GetValues(typeof(PosingSystemAutoPoseLengthReference)).Cast<PosingSystemAutoPoseLengthReference>();
+        var baseline = references.ToDictionary(reference => reference, Measure);
+        var parent = new GameObject("Scaled avatar parent");
+        SceneManager.MoveGameObjectToScene(parent, scene);
+        root.SetParent(parent.transform, false);
+        parent.transform.localScale = Vector3.one * scale;
+        // Descriptor stores a world-distance offset for the resized avatar.
+        descriptor.ViewPosition *= scale;
+        foreach (var pair in baseline)
+            Assert.That(Measure(pair.Key), Is.EqualTo(pair.Value * scale).Within(.00002f), pair.Key.ToString());
     }
 
     [TestCase(PosingSystemAutoPoseLimb.LeftLeg)]
@@ -419,6 +451,8 @@ public sealed class PosingSystemAutoPosePositionTests
     [TestCase(true, PosingSystemAutoPoseLengthReference.Leg)]
     [TestCase(false, PosingSystemAutoPoseLengthReference.Forearm, true)]
     [TestCase(true, PosingSystemAutoPoseLengthReference.Leg, true)]
+    [TestCase(false, PosingSystemAutoPoseLengthReference.Fixed)]
+    [TestCase(true, PosingSystemAutoPoseLengthReference.HeadToViewpoint, true)]
     public void GeneratedClip_ReflectsMaskedIkAndSelectedReference(bool world, PosingSystemAutoPoseLengthReference reference, bool view = false)
     {
         animator.transform.SetPositionAndRotation(Vector3.zero, Quaternion.identity);

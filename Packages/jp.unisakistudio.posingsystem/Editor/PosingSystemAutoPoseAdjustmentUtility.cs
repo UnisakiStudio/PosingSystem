@@ -542,6 +542,24 @@ namespace jp.unisakistudio.posingsystemeditor
                 length = MeasureAvatarHeight(animator); // Preserve existing catalog behavior.
                 return true;
             }
+            if (reference == PosingSystemAutoPoseLengthReference.Fixed ||
+                reference == PosingSystemAutoPoseLengthReference.HeadToViewpoint)
+            {
+                var localLength = 1f;
+                if (reference == PosingSystemAutoPoseLengthReference.HeadToViewpoint)
+                {
+                    if (!TryGetRestHeadAndView(animator, out _, out var restHead, out var view, out message))
+                        return false;
+                    localLength = Mathf.Abs(view.y - restHead.m13);
+                }
+                length = localLength * animator.transform.TransformVector(Vector3.up).magnitude;
+                if (length > .00001f && !float.IsInfinity(length)) return true;
+                message = reference == PosingSystemAutoPoseLengthReference.Fixed
+                    ? "アバターのスケールから有効な固定長を測定できません。"
+                    : "HeadとViewpointの高低差を測定できません。View Positionとアバターのスケールを確認してください。";
+                length = 0f;
+                return false;
+            }
             if (reference == PosingSystemAutoPoseLengthReference.Leg)
             {
                 // Sum both segments so bending the knee never shortens the reference length.
@@ -849,9 +867,34 @@ namespace jp.unisakistudio.posingsystemeditor
             Animator animator, bool avatarIndependent, out TargetFrame frame, out string message)
         {
             frame = default;
+            if (!TryGetRestHeadAndView(animator, out var head, out var restHead, out var rootLocalView, out message))
+                return false;
+            if (!TryGetRestRotationInAvatarSpace(animator, head, out var restRotation))
+            {
+                message = "ViewPositionの基準となるHeadの回転を取得できません。";
+                return false;
+            }
+            var headLocalView = restHead.inverse.MultiplyPoint3x4(rootLocalView);
+            var position = head.TransformPoint(headLocalView);
+            if (float.IsNaN(position.x) || float.IsNaN(position.y) || float.IsNaN(position.z) ||
+                float.IsInfinity(position.x) || float.IsInfinity(position.y) || float.IsInfinity(position.z))
+            {
+                message = "ViewPositionまたはボーンの座標に無効な値があります。";
+                return false;
+            }
+            frame = new TargetFrame(position, avatarIndependent
+                ? ToAvatarIndependentRotation(head.rotation, restRotation) : head.rotation);
+            return true;
+        }
+
+        private static bool TryGetRestHeadAndView(Animator animator, out Transform head, out Matrix4x4 restHead,
+            out Vector3 rootLocalView, out string message)
+        {
+            rootLocalView = default;
+            restHead = Matrix4x4.identity;
             message = string.Empty;
             var descriptor = animator.GetComponent<VRCAvatarDescriptor>();
-            var head = animator.GetBoneTransform(HumanBodyBones.Head);
+            head = animator.GetBoneTransform(HumanBodyBones.Head);
             if (descriptor == null || head == null)
             {
                 message = "ViewPositionを基準にするには、同じアバターのAvatar DescriptorとHeadボーンが必要です。";
@@ -878,7 +921,6 @@ namespace jp.unisakistudio.posingsystemeditor
                 message = "ViewPositionの基準となるHeadの参照姿勢を取得できません。";
                 return false;
             }
-            var restHead = Matrix4x4.identity;
             for (var i = chain.Count - 1; i >= 0; i--)
             {
                 var bone = chain[i];
@@ -887,22 +929,12 @@ namespace jp.unisakistudio.posingsystemeditor
                 restHead *= Matrix4x4.TRS(known ? rest.position : bone.localPosition,
                     known ? rest.rotation : bone.localRotation, bone.localScale);
             }
-            if (restHead.determinant == 0 || !TryGetRestRotationInAvatarSpace(animator, head, out var restRotation))
+            if (restHead.determinant == 0)
             {
                 message = "ViewPositionを計算できません。HeadまでのボーンのスケールとHumanoid設定を確認してください。";
                 return false;
             }
-            var rootLocalView = animator.transform.InverseTransformVector(descriptor.ViewPosition);
-            var headLocalView = restHead.inverse.MultiplyPoint3x4(rootLocalView);
-            var position = head.TransformPoint(headLocalView);
-            if (float.IsNaN(position.x) || float.IsNaN(position.y) || float.IsNaN(position.z) ||
-                float.IsInfinity(position.x) || float.IsInfinity(position.y) || float.IsInfinity(position.z))
-            {
-                message = "ViewPositionまたはボーンの座標に無効な値があります。";
-                return false;
-            }
-            frame = new TargetFrame(position, avatarIndependent
-                ? ToAvatarIndependentRotation(head.rotation, restRotation) : head.rotation);
+            rootLocalView = animator.transform.InverseTransformVector(descriptor.ViewPosition);
             return true;
         }
 

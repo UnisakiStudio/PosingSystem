@@ -131,6 +131,10 @@ namespace jp.unisakistudio.posingsystem
         Shin = 5,
         [InspectorName("脚全体の長さ（太もも＋すね）")]
         Leg = 6,
+        [InspectorName("固定長（アバタースケールのみ）")]
+        Fixed = 7,
+        [InspectorName("頭の大きさ（HeadとViewpointの高低差）")]
+        HeadToViewpoint = 8,
     }
 
     [Serializable]
@@ -179,7 +183,7 @@ namespace jp.unisakistudio.posingsystem
         public PosingSystemAutoPosePositionSpace positionSpace;
 
         [InspectorName("位置の長さの基準")]
-        [Tooltip("位置の比率で1とする長さです。腕・脚は動かす手足と同じ側を測ります。脚全体は太ももとすねの合計です。胸はChestからNeckまで（UpperChestがあれば経由）を測ります。")]
+        [Tooltip("位置の比率で1とする長さです。固定長はアバターのスケール1で1m、頭の大きさは基準姿勢でのHeadとViewpointの高低差です。腕・脚は同じ側を測ります。")]
         public PosingSystemAutoPoseLengthReference lengthReference;
 
         [InspectorName("X方向を合わせる")]
