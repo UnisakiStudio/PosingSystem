@@ -464,8 +464,7 @@ namespace jp.unisakistudio.posingsystemeditor
             for (int i = 0; i < _animationEntries.Count; i++)
             {
                 var entry = _animationEntries[i];
-                var key = GetAdjustmentKey(entry);
-                var hasChanges = HasAnimationChanges(key);
+                var hasChanges = HasAnimationChanges(GetAdjustmentKey(entry));
 
                 if (hasChanges)
                 {
@@ -475,7 +474,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 {
                     labels[i] = new GUIContent(entry.Label);
                 }
-                AdditionalAnimationListItem?.Invoke(this, key, entry.Animation.animationClip as AnimationClip, labels[i]);
+                AdditionalAnimationListItem?.Invoke(this, GetAnimationKey(entry), entry.Animation.animationClip as AnimationClip, labels[i]);
             }
             return labels;
         }
