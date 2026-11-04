@@ -313,6 +313,7 @@ public sealed class PosingSystemAutoPosePositionTests
         animator.GetBoneTransform(HumanBodyBones.Hips).localRotation *= Quaternion.Euler(50, 20, -30);
         Assert.That(Measure(PosingSystemAutoPoseLengthReference.Fixed), Is.EqualTo(1f).Within(.00001f));
         Assert.That(Measure(PosingSystemAutoPoseLengthReference.HeadToViewpoint), Is.EqualTo(.12f).Within(.00001f));
+        Assert.That(Measure(PosingSystemAutoPoseLengthReference.HeadToViewpointDepth), Is.EqualTo(.35f).Within(.00001f));
         var references = Enum.GetValues(typeof(PosingSystemAutoPoseLengthReference)).Cast<PosingSystemAutoPoseLengthReference>();
         var baseline = references.ToDictionary(reference => reference, Measure);
         var parent = new GameObject("Scaled avatar parent");
@@ -323,6 +324,24 @@ public sealed class PosingSystemAutoPosePositionTests
         descriptor.ViewPosition *= scale;
         foreach (var pair in baseline)
             Assert.That(Measure(pair.Key), Is.EqualTo(pair.Value * scale).Within(.00002f), pair.Key.ToString());
+    }
+
+    [TestCase(-.08f)]
+    [TestCase(0f)]
+    public void HeadDepth_UsesOnlyAvatarZ_WithNonuniformScale(float depth)
+    {
+        var root = animator.transform;
+        root.localScale = new Vector3(.5f, 2f, 3f);
+        ViewRule(out _);
+        var head = animator.GetBoneTransform(HumanBodyBones.Head);
+        animator.GetComponent<VRC.SDK3.Avatars.Components.VRCAvatarDescriptor>().ViewPosition =
+            head.position - root.position + root.TransformVector(new Vector3(.1f, .2f, depth));
+        var valid = PosingSystemAutoPoseAdjustmentUtility.TryMeasureReferenceLength(animator,
+            PosingSystemAutoPoseLengthReference.HeadToViewpointDepth, PosingSystemAutoPoseLimb.LeftArm,
+            out var length, out var message);
+        Assert.That(valid, Is.EqualTo(depth != 0f), message);
+        Assert.That(length, Is.EqualTo(Mathf.Abs(depth) * 3f).Within(.00001f));
+        if (!valid) Assert.That(message, Does.Contain("前後差"));
     }
 
     [TestCase(PosingSystemAutoPoseLimb.LeftLeg)]
@@ -453,6 +472,7 @@ public sealed class PosingSystemAutoPosePositionTests
     [TestCase(true, PosingSystemAutoPoseLengthReference.Leg, true)]
     [TestCase(false, PosingSystemAutoPoseLengthReference.Fixed)]
     [TestCase(true, PosingSystemAutoPoseLengthReference.HeadToViewpoint, true)]
+    [TestCase(true, PosingSystemAutoPoseLengthReference.HeadToViewpointDepth, true)]
     public void GeneratedClip_ReflectsMaskedIkAndSelectedReference(bool world, PosingSystemAutoPoseLengthReference reference, bool view = false)
     {
         animator.transform.SetPositionAndRotation(Vector3.zero, Quaternion.identity);

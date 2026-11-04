@@ -135,6 +135,8 @@ namespace jp.unisakistudio.posingsystem
         Fixed = 7,
         [InspectorName("頭の大きさ（HeadとViewpointの高低差）")]
         HeadToViewpoint = 8,
+        [InspectorName("頭の大きさ（HeadとViewpointの前後差）")]
+        HeadToViewpointDepth = 9,
     }
 
     [Serializable]
@@ -183,7 +185,7 @@ namespace jp.unisakistudio.posingsystem
         public PosingSystemAutoPosePositionSpace positionSpace;
 
         [InspectorName("位置の長さの基準")]
-        [Tooltip("位置の比率で1とする長さです。固定長はアバターのスケール1で1m、頭の大きさは基準姿勢でのHeadとViewpointの高低差です。腕・脚は同じ側を測ります。")]
+        [Tooltip("位置の比率で1とする長さです。固定長はアバターのスケール1で1mです。頭の大きさは基準姿勢のHeadとViewpointの高低差（Y）または前後差（Z）をアバター座標で測ります。腕・脚は同じ側を測ります。")]
         public PosingSystemAutoPoseLengthReference lengthReference;
 
         [InspectorName("X方向を合わせる")]

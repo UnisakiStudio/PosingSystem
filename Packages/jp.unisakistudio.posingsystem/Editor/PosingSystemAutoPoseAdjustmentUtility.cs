@@ -542,21 +542,22 @@ namespace jp.unisakistudio.posingsystemeditor
                 length = MeasureAvatarHeight(animator); // Preserve existing catalog behavior.
                 return true;
             }
-            if (reference == PosingSystemAutoPoseLengthReference.Fixed ||
+            var useDepth = reference == PosingSystemAutoPoseLengthReference.HeadToViewpointDepth;
+            if (useDepth || reference == PosingSystemAutoPoseLengthReference.Fixed ||
                 reference == PosingSystemAutoPoseLengthReference.HeadToViewpoint)
             {
                 var localLength = 1f;
-                if (reference == PosingSystemAutoPoseLengthReference.HeadToViewpoint)
+                if (reference != PosingSystemAutoPoseLengthReference.Fixed)
                 {
                     if (!TryGetRestHeadAndView(animator, out _, out var restHead, out var view, out message))
                         return false;
-                    localLength = Mathf.Abs(view.y - restHead.m13);
+                    localLength = useDepth ? Mathf.Abs(view.z - restHead.m23) : Mathf.Abs(view.y - restHead.m13);
                 }
-                length = localLength * animator.transform.TransformVector(Vector3.up).magnitude;
+                length = localLength * animator.transform.TransformVector(useDepth ? Vector3.forward : Vector3.up).magnitude;
                 if (length > .00001f && !float.IsInfinity(length)) return true;
                 message = reference == PosingSystemAutoPoseLengthReference.Fixed
                     ? "アバターのスケールから有効な固定長を測定できません。"
-                    : "HeadとViewpointの高低差を測定できません。View Positionとアバターのスケールを確認してください。";
+                    : $"HeadとViewpointの{(useDepth ? "前後差" : "高低差")}を測定できません。View Positionとアバターのスケールを確認してください。";
                 length = 0f;
                 return false;
             }
