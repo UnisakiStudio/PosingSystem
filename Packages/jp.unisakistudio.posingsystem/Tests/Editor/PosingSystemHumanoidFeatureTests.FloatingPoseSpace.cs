@@ -45,15 +45,26 @@ namespace jp.unisakistudio.posingsystemeditor.tests
         public void FloatingPoseSpace_HeightMenuOnly_HoldsViewThroughPoseChangesAndMenuClosure(bool vr, int fps)
             => CheckFloatingPoseSpaceLifecycle(PosingSystemFeatureSettings.FloatingPoseSpaceMode.HeightMenuOnly, vr, fps);
 
-        private void CheckFloatingPoseSpaceLifecycle(PosingSystemFeatureSettings.FloatingPoseSpaceMode mode, bool vr, int fps)
+        [TestCase(false, 30, false)]
+        [TestCase(false, 60, true)]
+        [TestCase(false, 90, false)]
+        [TestCase(false, 144, true)]
+        [TestCase(true, 30, true)]
+        [TestCase(true, 60, false)]
+        [TestCase(true, 90, true)]
+        [TestCase(true, 144, false)]
+        public void FloatingPoseSpace_PhotographyDoesNotResampleDisplacedHead(bool vr, int fps, bool photoFirst)
+            => CheckFloatingPoseSpaceLifecycle(PosingSystemFeatureSettings.FloatingPoseSpaceMode.HeightMenuOnly, vr, fps, photoFirst);
+
+        private void CheckFloatingPoseSpaceLifecycle(PosingSystemFeatureSettings.FloatingPoseSpaceMode mode, bool vr, int fps, bool? photoFirst = null)
         {
             root.AddComponent<VRCAvatarDescriptor>();
             var settings = Object.Instantiate(AssetDatabase.LoadAssetAtPath<GameObject>(AssetDatabase.GUIDToAssetPath("ecde0b1d67f9e854992715d64f778d8c")), root.transform);
             var ps = settings.GetComponent<PosingSystem>();
             ps.features = new PosingSystemFeatureSettings { floating = true, mirror = false, footHeight = false,
                 breathing = false, fingerGestureControl = false, floatingBackend = PosingSystemFeatureSettings.MovementBackend.PoseSpaceAdditive,
-                floatingPoseSpace = mode };
-            Assert.That(PosingSystemFeatureUtility.OptionalBits(ps), Is.EqualTo(8));
+                floatingPoseSpace = mode, photography = photoFirst.HasValue };
+            if (!photoFirst.HasValue) Assert.That(PosingSystemFeatureUtility.OptionalBits(ps), Is.EqualTo(8));
             testFolder = "Assets/USSPS_FeatureTests_" + Guid.NewGuid().ToString("N");
             AssetDatabase.CreateFolder("Assets", testFolder.Substring(7));
             var controller = AnimatorController.CreateAnimatorControllerAtPath(testFolder + "/Base.controller");
@@ -119,6 +130,65 @@ namespace jp.unisakistudio.posingsystemeditor.tests
                 AnimationPlayableOutput.Create(graph, "Avatar", animator).SetSourcePlayable(playable);
                 graph.Play();
                 var previous = 0;
+                if (photoFirst.HasValue)
+                {
+                    playable.SetBool("IsLocal", true);
+                    Tick(fps);
+                    if (photoFirst.Value)
+                    {
+                        playable.SetBool(PosingSystemFeatureUtility.PhotoActive, true);
+                        Tick(fps);
+                    }
+                    playable.SetBool(PosingSystemFeatureUtility.FloatHeightAdjusting, true);
+                    playable.SetFloat(PosingSystemFeatureUtility.FloatHeight, .52f);
+                    Tick(fps);
+                    var beforePhoto = CountEnter();
+                    Assert.That(beforePhoto, Is.EqualTo(photoFirst.Value ? 0 : 1), "Starting floor adjustment in photography must not capture the displaced head");
+                    if (photoFirst.Value)
+                    {
+                        playable.SetFloat(PosingSystemFeatureUtility.FloatHeight, .5f);
+                        Tick(fps);
+                        Assert.That(poseSpaceCalls, Is.Empty, "Cancelling before acquiring a floor view must not clear another layer's pose space");
+                        playable.SetFloat(PosingSystemFeatureUtility.FloatHeight, .52f);
+                        Tick(fps);
+                    }
+                    playable.SetBool(PosingSystemFeatureUtility.PhotoActive, true);
+                    Tick(fps);
+                    playable.SetFloat(PosingSystemFeatureUtility.FloatHeight, .54f);
+                    Tick(fps);
+                    Assert.That(CountEnter(), Is.EqualTo(beforePhoto), "Changing height in photography must keep the existing viewpoint");
+                    playable.SetBool(PosingSystemFeatureUtility.FloatHeightAdjusting, false);
+                    Tick(fps);
+                    playable.SetBool(PosingSystemFeatureUtility.PhotoActive, false);
+                    Tick(fps);
+                    Assert.That(CountEnter(), Is.EqualTo(beforePhoto + 1), "Leaving photography must sample the latest floor height even after closing its radial");
+                    Tick(fps);
+                    Assert.That(CountEnter(), Is.EqualTo(beforePhoto + 1), "No repeated refresh after settling");
+                    // Interrupt the settling period. A short photo-off pulse must never sample a photo pose.
+                    playable.SetBool(PosingSystemFeatureUtility.PhotoActive, true);
+                    Tick(fps);
+                    playable.SetBool(PosingSystemFeatureUtility.PhotoActive, false);
+                    Tick(1);
+                    playable.SetBool(PosingSystemFeatureUtility.PhotoActive, true);
+                    Tick(fps);
+                    Assert.That(CountEnter(), Is.EqualTo(beforePhoto + 1), "Photo toggles during settling must cancel the pending sample");
+                    playable.SetBool(PosingSystemFeatureUtility.PhotoActive, false);
+                    Tick(fps);
+                    Assert.That(CountEnter(), Is.EqualTo(beforePhoto + 2));
+                    playable.SetBool(PosingSystemFeatureUtility.PhotoActive, true);
+                    Tick(fps);
+                    playable.SetFloat(PosingSystemFeatureUtility.FloatHeight, .5f);
+                    Tick(fps);
+                    Assert.That(poseSpaceCalls.Count(c => c.name == "Release" && !c.enter), Is.EqualTo(1));
+                    Assert.That(poseSpaceCalls.Count(c => c.name == "RestoreDesktop" && c.enter), Is.Zero, "Desktop restoration must not capture the photography head either");
+                    var photoEndedAt = frameNumber;
+                    playable.SetBool(PosingSystemFeatureUtility.PhotoActive, false);
+                    Tick(fps);
+                    Assert.That(poseSpaceCalls.Count(c => c.name == "RestoreDesktop" && c.enter), Is.EqualTo(vr ? 0 : 1));
+                    if (!vr) Assert.That(requestFrames.Last() - photoEndedAt, Is.GreaterThanOrEqualTo(Mathf.CeilToInt(fps * .08f)),
+                        "Restoring the desktop view must wait for the photography displacement to settle after exit");
+                    return;
+                }
                 Tick(30);
                 Assert.That(poseSpaceCalls, Is.Empty);
                 playable.SetFloat(PosingSystemFeatureUtility.FloatHeight, .2f);

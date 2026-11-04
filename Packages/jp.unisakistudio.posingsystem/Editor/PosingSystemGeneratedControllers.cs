@@ -70,6 +70,7 @@ namespace jp.unisakistudio.posingsystemeditor
         internal static void Convert(PosingSystem ps, IAssetSaver destination, Action<IAssetSaver> convert)
         {
             if (Current != null) throw new InvalidOperationException("ポーズ生成の再入を検出しました。");
+            using var defaults = PosingSystemControllerGeneration.BeginDefaultScope(ps.GetAvatar()?.gameObject);
             using var session = new Session(ps, destination);
             Current = session;
             try { session.Prepare(); convert(session); session.Commit(); }
@@ -114,6 +115,7 @@ namespace jp.unisakistudio.posingsystemeditor
             bool committed;
             bool optimizeDesktopSelection;
             bool oneFrameSelection;
+            bool preserveCustomController;
             internal Session(PosingSystem system, IAssetSaver saver)
             {
                 ps = system; destination = saver;
@@ -136,6 +138,7 @@ namespace jp.unisakistudio.posingsystemeditor
                     mainMerges.Select(m => m.animator as AnimatorController).FirstOrDefault(c => c != null);
                 if (mainSource == null) throw new InvalidOperationException("共通ポージングControllerが見つかりません。");
                 existing = Metadata(mainSource);
+                PosingSystemControllerGeneration.MarkOwnedPrebuild(avatar, existing, mainMerges);
 
                 var breathing = systems.Where(PosingSystemFeatureUtility.UsesBreathing)
                     .Select(p => PosingSystemConverter.GetAdditiveBreathingMergeAnimator(p, true))
@@ -151,6 +154,8 @@ namespace jp.unisakistudio.posingsystemeditor
                 // Include previously generated feature controllers, but never another tool's controllers.
                 if (existing != null && existing.controllers != null) sources.AddRange(existing.controllers.Where(c => c != null));
                 using var compiled = PosingSystemControllerGeneration.TryCreate(avatar, mainSource);
+                preserveCustomController = existing != null ? existing.preserveCustomController :
+                    compiled == null && AssetDatabase.AssetPathToGUID(AssetDatabase.GetAssetPath(mainSource)) != PosingSystemControllerGeneration.TemplateGuid;
                 var cloneSources = compiled == null ? sources : sources.Where(c => c != mainSource).ToList();
                 foreach (var pair in PosingSystemControllerGraph.Clone(cloneSources))
                 { copies.Add(pair.Key, pair.Value); temporary.Add(pair.Value); }
@@ -246,6 +251,7 @@ namespace jp.unisakistudio.posingsystemeditor
                     if (remap.Count > 0) Undo.RegisterCompleteObjectUndo(remap.Values.ToArray(), "ポーズのプレビルド");
                     foreach (var pair in remap) { EditorUtility.CopySerialized(pair.Key, pair.Value); EditorUtility.SetDirty(pair.Value); }
                     owner.Write(metadata);
+                    metadata.preserveCustomController = preserveCustomController;
                     metadata.controllers = controllers.Select(c => remap.TryGetValue(c, out var value) ? (AnimatorController)value : c).ToArray();
                     metadata.committedUtc = DateTime.UtcNow.ToString("O");
                     EditorUtility.SetDirty(metadata);

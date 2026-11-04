@@ -38,7 +38,11 @@ namespace jp.unisakistudio.posingsystemeditor
                                mode == PosingSystemFeatureSettings.FloatingPoseSpaceMode.ExitThenReenter || fastChanges;
             FeatureParameter(controller, "IsLocal", AnimatorControllerParameterType.Bool);
             FeatureParameter(controller, "VRMode", AnimatorControllerParameterType.Int);
-            if (heightMenuOnly) FeatureParameter(controller, PosingSystemFeatureUtility.FloatHeightAdjusting, AnimatorControllerParameterType.Bool);
+            if (heightMenuOnly)
+            {
+                FeatureParameter(controller, PosingSystemFeatureUtility.FloatHeightAdjusting, AnimatorControllerParameterType.Bool);
+                FeatureParameter(controller, PosingSystemFeatureUtility.PhotoActive, AnimatorControllerParameterType.Bool);
+            }
             foreach (var name in new[] { FloatPoseSupported, FloatPoseRestore, FloatPoseKey, FloatPoseSavedKey,
                          FloatPoseSavedHeight, FloatPoseHeightDelta, FloatPoseKeyDelta, "USSPS_InternalNoOp" })
                 FeatureParameter(controller, name, AnimatorControllerParameterType.Float);
@@ -79,6 +83,27 @@ namespace jp.unisakistudio.posingsystemeditor
             var restoreReady = State("RestoreReady");
             var restore = State("RestoreDesktop");
             layer.stateMachine.defaultState = idle;
+            if (heightMenuOnly)
+            {
+                // Photography displaces and rotates the animated head. Sampling it would also move
+                // the view, potentially putting the body behind the user. Keep the pre-photo space
+                // until photography ends, then sample the latest floor height after the pose settles.
+                var photoWait = State("PhotoWait"); // No floor pose space acquired yet.
+                var photoHold = State("PhotoHold"); // We own a floor pose space and must release it on disable.
+                var photoSettle = State("PhotoSettle");
+                var waiting = FeatureTransition(idle.AddTransition(photoWait));
+                Active(waiting, false);
+                waiting.AddCondition(AnimatorConditionMode.If, 0, PosingSystemFeatureUtility.PhotoActive);
+                FeatureTransition(photoWait.AddTransition(idle)).AddCondition(AnimatorConditionMode.IfNot, 0, PosingSystemFeatureUtility.FloatActive);
+                Active(FeatureTransition(photoWait.AddTransition(settle)));
+                foreach (var state in new[] { entered, watching, photoSettle })
+                    FeatureTransition(state.AddTransition(photoHold)).AddCondition(AnimatorConditionMode.If, 0, PosingSystemFeatureUtility.PhotoActive);
+                FeatureTransition(settle.AddTransition(photoWait)).AddCondition(AnimatorConditionMode.If, 0, PosingSystemFeatureUtility.PhotoActive);
+                Cancel(photoHold);
+                Cancel(photoSettle);
+                Active(FeatureTransition(photoHold.AddTransition(photoSettle)));
+                Active(After(photoSettle, entered, .08f));
+            }
             PoseSpace(entered, true);
             PoseSpace(release, false);
             PoseSpace(restore, true);
@@ -118,7 +143,9 @@ namespace jp.unisakistudio.posingsystemeditor
                 Active(FeatureTransition(idle.AddTransition(immediateChanges ? entered : refresh)));
                 if (settle != null)
                 {
-                    Cancel(settle);
+                    if (heightMenuOnly)
+                        FeatureTransition(settle.AddTransition(idle)).AddCondition(AnimatorConditionMode.IfNot, 0, PosingSystemFeatureUtility.FloatActive);
+                    else Cancel(settle);
                     Active(After(settle, entered, .08f)); // Let the pose layers settle before sampling the head.
                 }
                 if (fastChanges) Active(FeatureTransition(entered.AddTransition(watching)));
@@ -147,6 +174,19 @@ namespace jp.unisakistudio.posingsystemeditor
             restoreDesktop.AddCondition(AnimatorConditionMode.Equals, 0, "VRMode");
             restoreDesktop.AddCondition(AnimatorConditionMode.Greater, .5f, FloatPoseRestore);
             restoreDesktop.AddCondition(AnimatorConditionMode.If, 0, "IsLocal");
+            if (heightMenuOnly)
+            {
+                restoreDesktop.AddCondition(AnimatorConditionMode.IfNot, 0, PosingSystemFeatureUtility.PhotoActive);
+                var photoRestoreWait = State("PhotoRestoreWait");
+                var waitForPhotoExit = FeatureTransition(restoreReady.AddTransition(photoRestoreWait));
+                waitForPhotoExit.AddCondition(AnimatorConditionMode.Equals, 0, "VRMode");
+                waitForPhotoExit.AddCondition(AnimatorConditionMode.Greater, .5f, FloatPoseRestore);
+                waitForPhotoExit.AddCondition(AnimatorConditionMode.If, 0, "IsLocal");
+                waitForPhotoExit.AddCondition(AnimatorConditionMode.If, 0, PosingSystemFeatureUtility.PhotoActive);
+                // Time spent waiting inside photography does not count toward settling after exit.
+                FeatureTransition(photoRestoreWait.AddTransition(restoreWait))
+                    .AddCondition(AnimatorConditionMode.IfNot, 0, PosingSystemFeatureUtility.PhotoActive);
+            }
             FeatureTransition(restoreReady.AddTransition(idle)).AddCondition(AnimatorConditionMode.NotEqual, 0, "VRMode");
             FeatureTransition(restoreReady.AddTransition(idle)).AddCondition(AnimatorConditionMode.Less, .5f, FloatPoseRestore);
             FeatureTransition(restoreReady.AddTransition(idle)).AddCondition(AnimatorConditionMode.IfNot, 0, "IsLocal");
@@ -174,11 +214,13 @@ namespace jp.unisakistudio.posingsystemeditor
                 // It releases only when floating is explicitly switched off.
                 if (!heightMenuOnly) FeatureTransition(state.AddTransition(release)).AddCondition(AnimatorConditionMode.Less, .5f, FloatPoseSupported);
             }
-            void Active(AnimatorStateTransition transition)
+            void Active(AnimatorStateTransition transition, bool excludePhotography = true)
             {
                 transition.AddCondition(AnimatorConditionMode.If, 0, PosingSystemFeatureUtility.FloatActive);
                 transition.AddCondition(AnimatorConditionMode.If, 0, "IsLocal");
                 transition.AddCondition(AnimatorConditionMode.Greater, .5f, FloatPoseSupported);
+                if (heightMenuOnly && excludePhotography)
+                    transition.AddCondition(AnimatorConditionMode.IfNot, 0, PosingSystemFeatureUtility.PhotoActive);
             }
             AnimatorStateTransition After(AnimatorState from, AnimatorState to, float seconds)
             {

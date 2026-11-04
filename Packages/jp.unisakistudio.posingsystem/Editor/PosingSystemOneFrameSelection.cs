@@ -11,16 +11,21 @@ using Object = UnityEngine.Object;
 
 namespace jp.unisakistudio.posingsystemeditor
 {
-    // Experimental opt-in playback accelerator. Public selection/sync producers remain intact.
-    // Only the three observed desktop heights with unambiguous ordinary threshold signs qualify.
+    // Default desktop playback accelerator. Public selection/sync producers remain intact.
+    // Only observed desktop heights with unambiguous ordinary threshold signs qualify.
     internal static class PosingSystemOneFrameSelection
     {
         internal const string Guard = "USSPS_OneFramePlayback";
         const string Prefix = "USSPS.Compiler.OneFrame.v1:";
         const string MarkerName = Prefix + "guard";
         static readonly string[] Classifiers = { "USSPS_IsShallow", "USSPS_IsDeep", "USSPS_IsSleep" };
+        static readonly string[] ClassifierOutputs = { "USSPS_FinalShallowThreshold", "USSPS_FinalDeepThreshold", "USSPS_FinalSleepThreshold" };
+        internal static bool IsClassifierOutputLayer(string name) => ClassifierOutputs.Contains(name);
         [Serializable] sealed class Backup { public float[] classifierDefaults; }
-        static readonly float[] Heights = { .35f, .6f, 1f };
+        // Desktop VRChat also reports crouching as 0x3f199999 (0.599999964 in OSCQuery),
+        // one representable float below .6f. Keep exact matching for both observed values;
+        // widening every height to an epsilon band would change boundary/fallback behavior.
+        static readonly float[] Heights = { .35f, Adjacent(.6f, -1), .6f, 1f };
         static readonly string[] Menus = { "SitStand", "SitShallow", "SitDeep" };
         static readonly string[] Thresholds = { "USSPS_ShallowThreshold", "USSPS_DeepThreshold", "USSPS_SleepThreshold" };
         // The reference classifier blends +/-1 clips; float cancellation near equality preserves
@@ -60,8 +65,22 @@ namespace jp.unisakistudio.posingsystemeditor
                 }
                 serialized.ApplyModifiedPropertiesWithoutUndo();
             }
+            // The earlier layer snapshot still contains the removed serialized override keys.
+            // Read it back before removing output layers, or assigning layers would revive them.
+            layers=controller.layers;
             var parameters=controller.parameters.Where(p=>p.name!=Guard).ToArray();
             for(var i=0;i<Classifiers.Length;i++)parameters.Single(p=>p.name==Classifiers[i]).defaultFloat=backup.classifierDefaults[i];
+            // Older v1 graphs have no final passes. Removing newer passes must also preserve
+            // indices of any unrelated synced layers added after the generated graph.
+            var kept=layers.Select((layer,i)=>(layer,i)).Where(p=>!IsClassifierOutputLayer(p.layer.name)).ToArray();
+            var indices=kept.Select((p,i)=>(old:p.i,index:i)).ToDictionary(p=>p.old,p=>p.index);
+            foreach(var pair in kept)if(pair.layer.syncedLayerIndex>=0)
+            {
+                if(!indices.TryGetValue(pair.layer.syncedLayerIndex,out var target))
+                    throw new InvalidOperationException("External layer is synced to a generated classifier pass");
+                pair.layer.syncedLayerIndex=target;
+            }
+            controller.layers=kept.Select(p=>p.layer).ToArray();
             controller.parameters=parameters;return true;
         }
         static AnimatorCondition C(string p, AnimatorConditionMode m, float v=0) => new() {parameter=p,mode=m,threshold=v};
@@ -95,6 +114,7 @@ namespace jp.unisakistudio.posingsystemeditor
             Restore(controller);
             PosingSystemDesktopSelection.Restore(controller);
             var layers=controller.layers;
+            if(layers.Any(l=>IsClassifierOutputLayer(l.name)))throw new InvalidOperationException("Classifier output layer name is already in use");
             var index=Array.FindIndex(layers,l=>l.name=="USSPS_Locomotion");
             var legacy=layers[index].stateMachine;
             var encoder=layers.Single(l=>l.name=="USSPS_LocomotionType").stateMachine;
@@ -177,7 +197,7 @@ namespace jp.unisakistudio.posingsystemeditor
             // Grounded would intercept takeoff; nested special-state guards protect landing.
             foreach(var c in Common.Where(c=>c.parameter!="Grounded" && c.parameter!="VRMode" && c.parameter!="TrackingType"))
                 foreach(var term in Not(c))Any(legacy,null,active.Concat(term));
-            // Unknown heights, including immediately adjacent representable values, use legacy.
+            // Heights outside the explicitly recognized values use legacy.
             Any(legacy,null,active.Append(C("Upright",AnimatorConditionMode.Less,Heights[0])));
             for(var i=0;i<Heights.Length-1;i++)Any(legacy,null,active.Concat(new[]{C("Upright",AnimatorConditionMode.Greater,Heights[i]),C("Upright",AnimatorConditionMode.Less,Heights[i+1])}));
             Any(legacy,null,active.Append(C("Upright",AnimatorConditionMode.Greater,Heights.Last())));
@@ -191,6 +211,19 @@ namespace jp.unisakistudio.posingsystemeditor
                 Any(legacy,null,prefix.Concat(new[]{C(Thresholds[0],AnimatorConditionMode.Less,u),C(Thresholds[1],AnimatorConditionMode.Greater,u)}));
             }
             wrapper.anyStateTransitions=any.ToArray();layers[index].stateMachine=wrapper;controller.layers=layers;
+            // Synced additive feature layers can retain/accumulate the calculated floats in
+            // VRChat even when standalone Unity evaluation settles correctly. Re-evaluate the
+            // same arithmetic after those layers, without writing humanoid/default channels.
+            // Reuse the original motions; public selection/sync drivers remain their owners.
+            for(var i=0;i<Classifiers.Length;i++)
+            {
+                var source=layers.Single(l=>l.name==ClassifierOutputs[i].Replace("_Final","_"));
+                var state=Own(new AnimatorState {name="Calculate",writeDefaultValues=false,
+                    motion=source.stateMachine.states.Single(s=>s.state.motion is BlendTree).state.motion});
+                var machine=Own(new AnimatorStateMachine {name=ClassifierOutputs[i],defaultState=state,
+                    states=new[]{new ChildAnimatorState {state=state}}});
+                controller.AddLayer(new AnimatorControllerLayer {name=machine.name,stateMachine=machine,defaultWeight=1});
+            }
         }
     }
 }

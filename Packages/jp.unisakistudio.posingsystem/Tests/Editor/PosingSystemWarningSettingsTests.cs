@@ -130,6 +130,19 @@ namespace jp.unisakistudio.posingsystemeditor.tests
         }
 
         [Test]
+        public void PhotographyFloorFix_InvalidatesPreviousPrebuildButKeepsCurrentCache()
+        {
+            var current = PosingSystemConverter.GetDefineSerializeJson(posing, true);
+            posing.data = current;
+            Assert.That(PosingSystemConverter.IsPosingSystemDataUpdated(posing), Is.False);
+            // Alpha.2 has no photography/floor coordination revision in its saved cache.
+            posing.data = System.Text.RegularExpressions.Regex.Replace(current,
+                "\\\"floatingPhotographyLogicVersion\\\":\\d+,?", "");
+            Assert.That(PosingSystemConverter.IsPosingSystemDataUpdated(posing), Is.True,
+                "A prebuild saved before the photography/floor fix must not silently keep the old graph");
+        }
+
+        [Test]
         public void IgnorePrebuildUpdate_SuppressesBuildNotificationButStillRequiresRegeneration()
         {
             posing.data = "legacy-data";

@@ -13,7 +13,7 @@ namespace jp.unisakistudio.posingsystemeditor.tests
         [TestCase(30, false)] [TestCase(60, false)] [TestCase(90, false)] [TestCase(144, false)]
         [TestCase(30, true)] [TestCase(60, true)] [TestCase(90, true)] [TestCase(144, true)]
         [TestCase(60,false,true)] [TestCase(60,true,true)]
-        public void Compiler_ONE01_OrdinaryPosturesSettleInOneEvaluation(int fps, bool selected, bool flat=false)
+        public void Compiler_ONE01_OrdinaryPosturesSettleInOneEvaluation(int fps, bool selected, bool flat=false, bool observedClientHeight=false)
         {
             var controller = CompileSettings(CompilerSettings(), true);
             var playback = controller.layers.Single(l => l.name == "USSPS_Locomotion").stateMachine;
@@ -35,7 +35,9 @@ namespace jp.unisakistudio.posingsystemeditor.tests
             rig.Tick(fps * 2, fps);
             var failures = new List<string>();
             {
-                foreach (var step in new[] { (.6f, "SitShallow", 1), (.35f, "SitDeep", 2), (.6f, "SitShallow", 1), (1f, "SitStand", 0) })
+                // Actual desktop OSCQuery sample on 2026-10-28: 0.599999964 (0x3f199999).
+                var crouch = observedClientHeight ? BitConverter.ToSingle(BitConverter.GetBytes(0x3f199999), 0) : .6f;
+                foreach (var step in new[] { (crouch, "SitShallow", 1), (.35f, "SitDeep", 2), (crouch, "SitShallow", 1), (1f, "SitStand", 0) })
                 {
                     var sync = selected ? CompilerBinding(controller, step.Item2).sync : step.Item3;
                     var target = playback.entryTransitions.Where(t => t.conditions.Any(c => c.parameter == "USSPS_Pose" && c.threshold == sync && c.mode == AnimatorConditionMode.Equals) &&
@@ -69,7 +71,8 @@ namespace jp.unisakistudio.posingsystemeditor.tests
             // synchronized output, controls, and the identity of the selected playback state.
             var snapshot=rig.Snapshot();
             return snapshot.Substring(0,snapshot.IndexOf(";states=",StringComparison.Ordinal))+
-                ";states="+string.Join(",",Enumerable.Range(0,rig.Playable.GetLayerCount()).Select(i=>
+                ";states="+string.Join(",",Enumerable.Range(0,rig.Playable.GetLayerCount())
+                    .Where(i=>!PosingSystemOneFrameSelection.IsClassifierOutputLayer(rig.Playable.GetLayerName(i))).Select(i=>
                     rig.Playable.GetCurrentAnimatorStateInfo(i).shortNameHash+":"+rig.Playable.IsInTransition(i)));
         }
 
@@ -129,7 +132,7 @@ namespace jp.unisakistudio.posingsystemeditor.tests
 
         [TestCase(30)] [TestCase(60)] [TestCase(90)] [TestCase(144)]
         [TestCase(60,true)] [TestCase(90,true)]
-        public void Compiler_ONE04_SelectedHumanoidMusclesChangeInOneEvaluation(int fps,bool features=false)
+        public void Compiler_ONE04_SelectedHumanoidMusclesChangeInOneEvaluation(int fps,bool features=false,bool observedClientHeight=false)
         {
             var ps=CompilerSettings();
             if(features)ps.features=new jp.unisakistudio.posingsystem.PosingSystemFeatureSettings {footHeight=true,photography=true,floating=true,breathing=false,fingerGestureControl=false};
@@ -146,11 +149,73 @@ namespace jp.unisakistudio.posingsystemeditor.tests
             using var handler=new HumanPoseHandler(animator.avatar,root.transform);
             var pose=new HumanPose();var muscle=Array.IndexOf(HumanTrait.MuscleName,"Spine Front-Back");
             rig.Tick(180,fps);
-            foreach(var step in new[]{(.6f,1),(.35f,2),(1f,0),(.6f,1),(1f,0)})
+            var crouch = observedClientHeight ? BitConverter.ToSingle(BitConverter.GetBytes(0x3f199999), 0) : .6f;
+            foreach(var step in new[]{(crouch,1),(.35f,2),(1f,0),(crouch,1),(1f,0)})
             {
                 rig.Set("Upright",step.Item1);rig.Tick(1,fps);handler.GetHumanPose(ref pose);
                 TestContext.WriteLine($"Humanoid fps={fps}, u={step.Item1}, actual={pose.muscles[muscle]:R}, expected={expected[step.Item2]:R}");
                 Assert.That(pose.muscles[muscle],Is.EqualTo(expected[step.Item2]).Within(.002f));
+            }
+        }
+
+        [TestCase(false)] [TestCase(true)]
+        public void Compiler_ONE25_ObservedClientCrouchSelectsInOneEvaluation(bool selected)
+            => Compiler_ONE01_OrdinaryPosturesSettleInOneEvaluation(60, selected, false, true);
+
+        [Test]
+        public void Compiler_ONE26_ObservedClientCrouchMusclesChangeInOneEvaluation()
+            => Compiler_ONE04_SelectedHumanoidMusclesChangeInOneEvaluation(60, true, true);
+
+        [Test]
+        public void Compiler_ONE27_FinalClassifierPassCannotResetPoseOrAddDriverWrites()
+        {
+            var ps=CompilerSettings();
+            ps.features.footHeight=ps.features.photography=ps.features.floating=true;
+            var c=CompileSettings(ps,true);
+            PosingSystemOneFrameSelection.Apply(c,assets.Add);
+            var last=c.layers.Skip(c.layers.Length-3).ToArray();
+            CollectionAssert.AreEqual(new[]{"USSPS_FinalShallowThreshold","USSPS_FinalDeepThreshold","USSPS_FinalSleepThreshold"},last.Select(l=>l.name));
+            foreach(var layer in last)
+            {
+                Assert.That(layer.defaultWeight,Is.EqualTo(1));
+                Assert.That(layer.syncedLayerIndex,Is.EqualTo(-1));
+                var state=layer.stateMachine.states.Single().state;
+                Assert.That(state.writeDefaultValues,Is.False,"A final pass must not reset humanoid or feature curves");
+                Assert.That(state.behaviours,Is.Empty,"Keep original public sync/driver ownership");
+                var curves=PosingSystemControllerGraph.Collect(new UnityEngine.Object[]{state.motion},o=>true)
+                    .OfType<AnimationClip>().SelectMany(AnimationUtility.GetCurveBindings).ToArray();
+                Assert.That(curves,Is.Not.Empty);
+                foreach(var curve in curves)
+                {
+                    Assert.That(curve.path,Is.Empty);
+                    Assert.That(curve.type,Is.EqualTo(typeof(Animator)));
+                    Assert.That(curve.propertyName,Is.EqualTo(layer.name.Replace("USSPS_Final","USSPS_Is").Replace("Threshold","")));
+                }
+            }
+        }
+
+        [TestCase(false)] [TestCase(true)]
+        public void Compiler_ONE28_FinalClassifierPassResistsAdditiveDefaultContamination(bool selected)
+        {
+            var ps=CompilerSettings();
+            ps.features.footHeight=ps.features.photography=ps.features.floating=true;
+            var c=CompileSettings(ps,true);PosingSystemOneFrameSelection.Apply(c,assets.Add);
+            // Explicit stress model, not a claim to emulate VRChat scheduling: nonzero
+            // parameter defaults accumulate through the real synced additive feature layers.
+            var names=new[]{"USSPS_IsShallow","USSPS_IsDeep","USSPS_IsSleep"};
+            var parameters=c.parameters;
+            foreach(var p in parameters.Where(p=>names.Contains(p.name)))p.defaultFloat=-1;
+            c.parameters=parameters;
+            using var rig=new ControllerCompilerRuntimeProbe(animator,c,true,false);
+            foreach(var menu in new[]{"SitStand","SitShallow","SitDeep"})rig.Set(menu,selected?CompilerBinding(c,menu).select:0);
+            foreach(var u in new[]{1f,.599999964f,1f,.35f,1f,.599999964f,.35f,1f})
+            {
+                rig.Set("Upright",u);rig.Tick(20,90);
+                var group=u==1?0:u>.5?1:2;
+                Assert.That(rig.Playable.GetInteger("LocomotionTypeGroup"),Is.EqualTo(group),"u="+u);
+                for(var i=0;i<names.Length;i++)
+                    Assert.That(Math.Sign(rig.Playable.GetFloat(names[i])),Is.EqualTo(i<group?1:-1),names[i]+" at "+u);
+                if(u==1 && !selected)Assert.That(rig.Playable.GetInteger("USSPS_Pose"),Is.Zero,"Standing sync must recover");
             }
         }
 

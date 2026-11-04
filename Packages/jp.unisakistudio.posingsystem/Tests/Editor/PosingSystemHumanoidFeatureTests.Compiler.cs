@@ -506,8 +506,8 @@ namespace jp.unisakistudio.posingsystemeditor.tests
                 Assert.That(merge.animator, Is.SameAs(controller));
                 Assert.That(controller.parameters.Any(p => p.name == "PreserveExistingPoseMarker"), Is.True);
                 Assert.That(AssetDatabase.GetAssetPath(controller), Is.EqualTo(path));
-                // A later ordinary prebuild must restore/reapply the generated conditions too,
-                // without requiring the original experimental Scope to remain alive.
+                // A later ordinary prebuild upgrades the old three-evaluation comparison
+                // to the current desktop default without accumulating branches or losing poses.
                 var clip = Clip(); clip.name = "ChangedComparisonPose";
                 copiedSystem.defines.Add(new PosingSystem.LayerDefine("", "Changed", "SitShallow", 12, "Changed", new()
                     { new PosingSystem.AnimationDefine { enabled=true, displayName="Changed", animationClip=clip } }));
@@ -524,8 +524,12 @@ namespace jp.unisakistudio.posingsystemeditor.tests
                         Assert.That(drivers[0].localOnly,Is.True,state.state.name);
                     }
                     counts.Add(PosingSystemControllerGraph.Collect(new[] { controller }, o => AssetDatabase.GetAssetPath(o)==path).Count);
-                    Assert.That(controller.layers.Single(l=>l.name=="USSPS_Locomotion").stateMachine.entryTransitions
-                        .Any(t=>t.name.StartsWith("USSPS.Compiler.Desktop.v1.add:")),Is.True);
+                    Assert.That(controller.parameters.Count(p=>p.name==PosingSystemOneFrameSelection.Guard),Is.EqualTo(1));
+                    var direct = controller.layers.Single(l=>l.name=="USSPS_Locomotion").stateMachine.stateMachines
+                        .Single(m=>m.stateMachine.name=="DirectSitShallow").stateMachine;
+                    Assert.That(direct.entryTransitions.Any(t=>t.conditions.Any(c=>c.parameter=="SitShallow" && c.threshold>0)),Is.True);
+                    Assert.That(controller.animationClips.Any(c=>c.name.Contains("ChangedComparisonPose")),Is.True,
+                        "The newly added pose must remain reachable after the upgrade");
                     Assert.That(AssetDatabase.GetAssetPath(controller),Is.EqualTo(path));
                 }
                 Assert.That(counts[1],Is.EqualTo(counts[0]),"Changing settings then rebuilding must not accumulate branches");

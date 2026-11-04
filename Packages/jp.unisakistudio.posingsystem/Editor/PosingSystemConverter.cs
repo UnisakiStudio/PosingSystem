@@ -139,6 +139,7 @@ namespace jp.unisakistudio.posingsystemeditor
             public int importedMotionLogicVersion;
             public int generatedAssetLogicVersion;
             public int controllerLogicVersion;
+            public int floatingPhotographyLogicVersion;
             public bool autoImportAvatarAnimations;
             public string importedMotionInputs;
             public int rolloverCenteringLogicVersion;
@@ -219,12 +220,13 @@ namespace jp.unisakistudio.posingsystemeditor
                     }
                 });
 
-            // Experimental scopes must compile before MA remaps parameters and copies the template.
-            // Outside a scope this pass performs no asset or avatar changes.
+            // Compile before MA remaps parameters. NDMF carries only this build's eligibility
+            // to the later conversion pass; explicit reference/comparison scopes take precedence.
             InPhase(BuildPhase.Resolving)
                 .BeforePlugin("nadena.dev.modular-avatar")
                 .Run("Compile posing controller source", ctx =>
-                    PosingSystemControllerGeneration.PrepareBeforeModularAvatar(ctx.AvatarRootObject, ctx.AssetSaver));
+                    PosingSystemControllerGeneration.PrepareBeforeModularAvatar(ctx.AvatarRootObject, ctx.AssetSaver,
+                        ctx.GetState<PosingSystemControllerGeneration.BuildState>()));
 
             // AnimatorControllerのレイヤーを編集
             InPhase(BuildPhase.Resolving)
@@ -238,6 +240,8 @@ namespace jp.unisakistudio.posingsystemeditor
                     }
 
                     // Capture before DuplicateEraser removes shared settings objects.
+                    using var generation = PosingSystemControllerGeneration.BeginDefaultScope(ctx.AvatarRootObject,
+                        ctx.GetState<PosingSystemControllerGeneration.BuildState>());
                     ctx.GetState<DefaultIdleSuppressionState>().enabled = ctx.AvatarRootObject
                         .GetComponentsInChildren<PosingSystem>()
                         .Any(ps => ps.additiveBreathing?.disableDefaultIdle == true &&
@@ -1327,7 +1331,8 @@ namespace jp.unisakistudio.posingsystemeditor
                 autoPoseLogicVersion = 4,
                 importedMotionLogicVersion = 2,
                 generatedAssetLogicVersion = 1,
-                controllerLogicVersion = 1, // Full standard-pose sync encoding and one local encoder per state.
+                controllerLogicVersion = 2, // Desktop one-evaluation is now standard; invalidate alpha.3 prebuilds.
+                floatingPhotographyLogicVersion = 1, // Do not reuse a prebuild which samples the displaced photography head.
                 autoImportAvatarAnimations = posingSystem.autoImportAvatarAnimations,
                 importedMotionInputs = ImportedMotionInputSignature(posingSystem),
                 // Invalidate prebuilds generated before per-frame rollover head centering.

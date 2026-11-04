@@ -19,6 +19,8 @@ namespace jp.unisakistudio.posingsystemeditor
         public string committedUtc;
         public AnimatorController[] controllers;
         public long[] generatedLocalIds;
+        // Retain an explicitly supplied common controller across later prebuilds.
+        public bool preserveCustomController;
     }
 }
 #endif

@@ -14,26 +14,50 @@ using Object = UnityEngine.Object;
 
 namespace jp.unisakistudio.posingsystemeditor
 {
-    // Experimental opt-in is scoped to one build root, never a project-wide preference.
-    // Normal builds and unrelated avatars keep their existing generation path.
+    // Normal builds use desktop one-evaluation playback. Explicit comparison scopes
+    // still select reference/three-evaluation output without a project-wide preference.
     internal static class PosingSystemControllerGeneration
     {
         internal const string TemplateGuid = "44c97b69ea5e25340aabee19781f30ad";
         private static readonly Dictionary<GameObject, Scope> Scopes = new();
+
+        // NDMF owns this state for one build; no static build/merge references survive it.
+        internal sealed class BuildState
+        {
+            public BuildState() { }
+            internal readonly HashSet<ModularAvatarMergeAnimator> CompiledMerges = new();
+        }
+
+        internal static Scope BeginDefaultScope(GameObject avatar, BuildState state = null)
+        {
+            if (avatar == null || Scopes.ContainsKey(avatar)) return null;
+            var scope = new Scope(avatar, true, true, true);
+            if (state != null) scope.CompiledMerges.UnionWith(state.CompiledMerges);
+            return scope;
+        }
+
+        internal static void MarkOwnedPrebuild(GameObject avatar, PosingSystemGeneratedAsset metadata,
+            IEnumerable<ModularAvatarMergeAnimator> merges)
+        {
+            if (metadata != null && !metadata.preserveCustomController &&
+                Scopes.TryGetValue(avatar, out var scope) && scope.IsDefault)
+                scope.CompiledMerges.UnionWith(merges);
+        }
 
         internal sealed class Scope : IDisposable
         {
             private readonly GameObject avatar;
             internal readonly bool Optimize;
             internal readonly bool OneFrame;
+            internal readonly bool IsDefault;
             internal readonly List<string> Decisions = new();
             internal int Created;
             internal readonly HashSet<ModularAvatarMergeAnimator> CompiledMerges = new();
-            internal Scope(GameObject root, bool optimize, bool oneFrame = false)
+            internal Scope(GameObject root, bool optimize, bool oneFrame = false, bool isDefault = false)
             {
                 if (root == null || Scopes.ContainsKey(root)) throw new InvalidOperationException("Invalid or overlapping controller generation scope.");
                 if(oneFrame && !optimize)throw new ArgumentException("One-frame selection requires the optimized compiler scope");
-                avatar = root; Optimize = optimize; OneFrame = oneFrame; Scopes.Add(root, this);
+                avatar = root; Optimize = optimize; OneFrame = oneFrame; IsDefault = isDefault; Scopes.Add(root, this);
             }
             public void Dispose() => Scopes.Remove(avatar);
         }
@@ -71,8 +95,10 @@ namespace jp.unisakistudio.posingsystemeditor
             return result;
         }
 
-        internal static void PrepareBeforeModularAvatar(GameObject avatar, nadena.dev.ndmf.IAssetSaver saver)
+        internal static void PrepareBeforeModularAvatar(GameObject avatar, nadena.dev.ndmf.IAssetSaver saver, BuildState state = null)
         {
+            state?.CompiledMerges.Clear();
+            using var defaults = state == null ? null : BeginDefaultScope(avatar);
             if (avatar == null || !Scopes.ContainsKey(avatar)) return;
             var merges = avatar.GetComponentsInChildren<PosingSystem>(true)
                 .Where(p => p.GetAvatar()?.gameObject == avatar && !p.GetComponentsInParent<Transform>(true).Any(t => t.CompareTag("EditorOnly")))
@@ -80,6 +106,7 @@ namespace jp.unisakistudio.posingsystemeditor
             foreach (var group in merges.GroupBy(m => m.animator))
             {
                 if (!(group.Key is AnimatorController source)) continue;
+                MarkOwnedPrebuild(avatar, PosingSystemGeneratedControllers.Metadata(source), group);
                 using var generated = TryCreate(avatar, source);
                 if (generated == null) continue;
                 var controller = generated.Controller;
@@ -91,6 +118,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 foreach (var merge in group) merge.animator = controller;
                 MarkCompiled(avatar, group);
             }
+            if (defaults != null) state.CompiledMerges.UnionWith(defaults.CompiledMerges);
         }
 
         [MenuItem("Tools/ゆにさきスタジオ/実験/選択アバターの最適化比較コピーを作成")]
