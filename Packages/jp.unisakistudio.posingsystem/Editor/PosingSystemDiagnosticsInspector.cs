@@ -68,9 +68,9 @@ namespace jp.unisakistudio.posingsystemeditor
         internal void Draw(SerializedObject serialized, PosingSystem ps)
         {
             var allIssues = GetIssues(ps);
-            var visibleIssues = allIssues.Where(i => i.Severity != MessageType.Warning ||
-                !ps.IsWarningIgnored(PosingSystem.WarningType.Configuration)).ToList();
             var visibleWarnings = PosingSystemConverter.GetVisibleWarningsForInspector(ps, allIssues);
+            var visibleIssues = allIssues.Where(i => i.Severity != MessageType.Warning ||
+                (visibleWarnings & PosingSystem.WarningType.Configuration) != 0).ToList();
             var changed = GUI.changed;
             using (new EditorGUILayout.VerticalScope(EditorStyles.helpBox))
             {

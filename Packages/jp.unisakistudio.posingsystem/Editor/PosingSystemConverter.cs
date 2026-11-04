@@ -786,9 +786,8 @@ namespace jp.unisakistudio.posingsystemeditor
 
         public static bool HasWarning(PosingSystem posingSystem)
         {
-            // An unbuilt object and Auto-Footsteps alone do not add a hierarchy warning.
-            return (GetVisibleWarnings(posingSystem) &
-                (PosingSystem.WarningType.PrebuildOutOfDate | PosingSystem.WarningType.Configuration)) != 0;
+            return GetDiagnosticWarnings(posingSystem, false, null) != PosingSystem.WarningType.None ||
+                PosingSystemHierarchyBadge.HasInspectorWarning(posingSystem);
         }
 
         public static bool ShouldReportPrebuildUpdateWarning(PosingSystem posingSystem)
@@ -796,13 +795,20 @@ namespace jp.unisakistudio.posingsystemeditor
                 && !string.IsNullOrEmpty(posingSystem.data) && IsPosingSystemDataUpdated(posingSystem);
 
         public static PosingSystem.WarningType GetVisibleWarnings(PosingSystem posingSystem)
-            => GetVisibleWarnings(posingSystem, false, null);
+        {
+            var warnings = GetDiagnosticWarnings(posingSystem, false, null);
+            // This public API also includes the informational Auto-Footsteps troubleshooting note.
+            if (posingSystem != null && !posingSystem.IsWarningIgnored(PosingSystem.WarningType.AutoFootsteps) &&
+                posingSystem.GetAvatar() is { autoFootsteps: true })
+                warnings |= PosingSystem.WarningType.AutoFootsteps;
+            return warnings;
+        }
 
         internal static PosingSystem.WarningType GetVisibleWarningsForInspector(PosingSystem posingSystem,
             List<PosingSystemDiagnostics.Issue> issues = null)
-            => GetVisibleWarnings(posingSystem, true, issues);
+            => GetDiagnosticWarnings(posingSystem, true, issues);
 
-        private static PosingSystem.WarningType GetVisibleWarnings(PosingSystem posingSystem, bool inspection,
+        private static PosingSystem.WarningType GetDiagnosticWarnings(PosingSystem posingSystem, bool inspection,
             List<PosingSystemDiagnostics.Issue> issues)
         {
             if (posingSystem == null) return PosingSystem.WarningType.None;
@@ -814,7 +820,6 @@ namespace jp.unisakistudio.posingsystemeditor
                 else if (!posingSystem.IsWarningIgnored(PosingSystem.WarningType.PrebuildOutOfDate) &&
                     (inspection ? PosingSystemInspectionCache.IsUpdated(posingSystem) : IsPosingSystemDataUpdated(posingSystem)))
                     warnings |= PosingSystem.WarningType.PrebuildOutOfDate;
-                if (avatar.autoFootsteps) warnings |= PosingSystem.WarningType.AutoFootsteps;
             }
             if (!posingSystem.IsWarningIgnored(PosingSystem.WarningType.Configuration) &&
                 (issues ?? PosingSystemDiagnostics.Collect(posingSystem)).Any(issue => issue.Severity == MessageType.Warning))

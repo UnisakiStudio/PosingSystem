@@ -235,6 +235,7 @@ namespace jp.unisakistudio.posingsystemeditor
 
         private void OnDisable()
         {
+            PosingSystemHierarchyBadge.SetInspectorWarning(GetInstanceID(), null);
             if (tabBackground != null) DestroyImmediate(tabBackground);
             Undo.undoRedoPerformed -= OnFeatureUndoRedo;
             //            AnimationMode.EndSampling();
@@ -252,6 +253,14 @@ namespace jp.unisakistudio.posingsystemeditor
         }
 
         public override void OnInspectorGUI()
+        {
+            drewInspectorWarning = false;
+            DrawPosingInspector();
+            if (Event.current.type == EventType.Repaint)
+                PosingSystemHierarchyBadge.SetInspectorWarning(GetInstanceID(), drewInspectorWarning ? target as PosingSystem : null);
+        }
+
+        private void DrawPosingInspector()
         {
             PosingSystem posingSystem = target as PosingSystem;
             inspectorHeader.Draw(posingSystem);

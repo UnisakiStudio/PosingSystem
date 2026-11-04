@@ -22,7 +22,7 @@ namespace jp.unisakistudio.posingsystemeditor
         private string error;
         private bool showBrowser;
 
-        internal void Draw(PosingSystem posingSystem)
+        internal void Draw(PosingSystem posingSystem, Action<string> drawWarning)
         {
             if (list == null) list = new PresetTreeView(entry => selected = entry);
 
@@ -83,7 +83,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 EditorGUILayout.HelpBox("該当するプリセットがありません。", MessageType.Info);
             }
             if (selected != null) EditorGUILayout.LabelField(selected.avatarName, PosingSystemInspectorGUI.Text(12, true));
-            if (!string.IsNullOrEmpty(error)) EditorGUILayout.HelpBox(error, MessageType.Warning);
+            if (!string.IsNullOrEmpty(error)) drawWarning(error);
 
             using (new EditorGUI.DisabledScope(selected == null))
             {

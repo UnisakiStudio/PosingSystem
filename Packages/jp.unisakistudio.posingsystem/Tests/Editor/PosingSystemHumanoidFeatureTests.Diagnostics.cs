@@ -116,7 +116,8 @@ namespace jp.unisakistudio.posingsystemeditor.tests
         public void Diagnostics_AutoFootstepsAlone_DoesNotRaiseHierarchyWarning()
         {
             var ps = DefaultIdleSettings(false, false);
-            ps.GetAvatar().autoFootsteps = true; ps.data = null;
+            ps.GetAvatar().autoFootsteps = true;
+            ps.data = PosingSystemConverter.GetDefineSerializeJson(ps, true);
             Assert.That(PosingSystemConverter.HasWarning(ps), Is.False);
         }
 

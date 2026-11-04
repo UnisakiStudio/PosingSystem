@@ -83,10 +83,10 @@ namespace jp.unisakistudio.posingsystemeditor
         private static readonly StateType[] DisplayOrder = new[] { StateType.AvatarSelect }
             .Concat(Enum.GetValues(typeof(StateType)).Cast<StateType>().Where(type => type != StateType.AvatarSelect)).ToArray();
 
-        internal void Draw(SerializedObject serialized, PosingSystem ps)
+        internal void Draw(SerializedObject serialized, PosingSystem ps, Action<string> drawWarning)
         {
             EditorGUILayout.HelpBox("自動取り込みの結果は生成時だけ使い、この一覧には追加しません。手動指定をOFFにした種類や、指定済みモーションを外した種類は自動で補完しません。自動取り込みに戻すには「手動指定を解除」を使います。", MessageType.Info);
-            if (warning != null) EditorGUILayout.HelpBox(warning, MessageType.Warning);
+            if (warning != null) drawWarning(warning);
             using (var viewport = new EditorGUILayout.ScrollViewScope(scroll, GUILayout.Height(340)))
             {
                 scroll = viewport.scrollPosition;

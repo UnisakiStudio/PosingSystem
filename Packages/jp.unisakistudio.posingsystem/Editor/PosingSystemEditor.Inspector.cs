@@ -12,6 +12,13 @@ namespace jp.unisakistudio.posingsystemeditor
         private readonly PosingSystemDiagnosticsInspector diagnosticsInspector = new PosingSystemDiagnosticsInspector();
         private Texture2D tabBackground;
         private Color tabBackgroundColor;
+        private bool drewInspectorWarning;
+
+        private void DrawInspectorWarning(string message)
+        {
+            drewInspectorWarning = true;
+            EditorGUILayout.HelpBox(message, MessageType.Warning);
+        }
 
         private void DrawUserInspector(PosingSystem ps)
         {
@@ -183,12 +190,12 @@ namespace jp.unisakistudio.posingsystemeditor
                             PosingSystemPoseListUtility.MarkChanged(ps);
                             serializedObject.Update();
                         }
-                    importBrowser.Draw(serializedObject, ps);
+                    importBrowser.Draw(serializedObject, ps, DrawInspectorWarning);
                 }
             PosingSystemEditorChangeUtility.Apply(serializedObject);
             PosingSystemInspectorGUI.Section("プリセット");
             EditorGUILayout.LabelField("使い始めるときの姿勢セットを変更できます。変更すると現在のポーズ設定が置き換わります。", PosingSystemInspectorGUI.Text(11));
-            presetBrowser.Draw(ps);
+            presetBrowser.Draw(ps, DrawInspectorWarning);
             serializedObject.Update();
             if (PosingSystemInspectorGUI.Link(presetManagementOpen ? "プリセットの保存・管理を閉じる" : "プリセットの保存・管理")) presetManagementOpen = !presetManagementOpen;
             if (presetManagementOpen && GUILayout.Button("現在の設定からプリセットを作成")) PosingPresetCreatorWindow.ShowWindow(ps);

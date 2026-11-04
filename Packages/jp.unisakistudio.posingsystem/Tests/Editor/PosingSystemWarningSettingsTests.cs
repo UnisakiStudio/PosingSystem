@@ -48,13 +48,18 @@ namespace jp.unisakistudio.posingsystemeditor.tests
         }
 
         [Test]
-        public void DefaultSettings_ShowWarningsWithoutAddingUnbuiltHierarchyBadge()
+        public void UnbuiltHierarchyBadge_IsVisibleByDefaultAndRespectsWarningPreferences()
         {
             Assert.That(posing.ignoredWarnings, Is.EqualTo(PosingSystem.WarningType.None));
             Assert.That(PosingSystemConverter.GetVisibleWarnings(posing), Is.EqualTo(PosingSystem.WarningType.PrebuildNotRun));
-            Assert.That(PosingSystemConverter.HasWarning(posing), Is.False);
-            avatar.autoFootsteps = true;
-            Assert.That(PosingSystemConverter.HasWarning(posing), Is.False, "Auto-Footsteps is troubleshooting information in 3.1.");
+            Assert.That(PosingSystemConverter.HasWarning(posing), Is.True);
+            Assert.That(PosingSystemHierarchyBadge.GetDisplayStatus(posing).IsWarning, Is.True);
+            SetIgnored(posing, PosingSystem.WarningType.PrebuildNotRun, true);
+            Assert.That(PosingSystemHierarchyBadge.GetDisplayStatus(posing).IsWarning, Is.False);
+            SetIgnored(posing, PosingSystem.WarningType.PrebuildNotRun, false);
+            Assert.That(PosingSystemHierarchyBadge.GetDisplayStatus(posing).IsWarning, Is.True);
+            posing.hideHierarchyWarnings = true;
+            Assert.That(PosingSystemHierarchyBadge.GetDisplayStatus(posing).IsWarning, Is.False);
         }
 
         [TestCase(PosingSystem.WarningType.AutoFootsteps)]
@@ -73,6 +78,38 @@ namespace jp.unisakistudio.posingsystemeditor.tests
             Assert.That(avatar.autoFootsteps, Is.True, "Ignoring the warning must not change avatar settings.");
             SetIgnored(posing, warning, false);
             Assert.That(PosingSystemConverter.GetVisibleWarnings(posing), Is.EqualTo(before));
+        }
+
+        [Test]
+        public void DisplayedOperationWarning_FollowsItsInspectorAndTarget()
+        {
+            SetIgnored(posing, PosingSystem.WarningType.PrebuildNotRun, true);
+            avatar.autoFootsteps = true;
+            Assert.That(PosingSystemConverter.GetVisibleWarningsForInspector(posing), Is.EqualTo(PosingSystem.WarningType.None));
+            Assert.That(PosingSystemHierarchyBadge.GetDisplayStatus(posing).IsWarning, Is.False);
+            var other = new GameObject("Other inspector target");
+            var otherPose = other.AddComponent<PosingSystem>();
+            const int first = 1001, second = 1002;
+            try
+            {
+                PosingSystemHierarchyBadge.SetInspectorWarning(first, posing);
+                PosingSystemHierarchyBadge.SetInspectorWarning(second, posing);
+                Assert.That(PosingSystemHierarchyBadge.GetDisplayStatus(posing).IsWarning, Is.True);
+                Assert.That(PosingSystemHierarchyBadge.HasInspectorWarning(otherPose), Is.False);
+                PosingSystemHierarchyBadge.SetInspectorWarning(first, otherPose);
+                Assert.That(PosingSystemHierarchyBadge.GetDisplayStatus(posing).IsWarning, Is.True);
+                posing.hideHierarchyWarnings = true;
+                Assert.That(PosingSystemHierarchyBadge.GetDisplayStatus(posing).IsWarning, Is.False);
+                posing.hideHierarchyWarnings = false;
+                PosingSystemHierarchyBadge.SetInspectorWarning(second, null);
+                Assert.That(PosingSystemHierarchyBadge.GetDisplayStatus(posing).IsWarning, Is.False);
+            }
+            finally
+            {
+                PosingSystemHierarchyBadge.SetInspectorWarning(first, null);
+                PosingSystemHierarchyBadge.SetInspectorWarning(second, null);
+                Object.DestroyImmediate(other);
+            }
         }
 
         [Test]
@@ -373,6 +410,8 @@ namespace jp.unisakistudio.posingsystemeditor.tests
             Assert.That(PosingSystemDiagnostics.Collect(posing).Any(i => i.Code == "PS025"), Is.True);
             Assert.That(Status().Warning, Is.True);
             SetIgnored(posing, PosingSystem.WarningType.Configuration, true);
+            Assert.That(Status().Warning, Is.True, "The independent unbuilt warning still applies.");
+            SetIgnored(posing, PosingSystem.WarningType.PrebuildNotRun, true);
             Assert.That(Status().Warning, Is.False);
             Assert.That(Status().Error, Is.True, "Other invalid settings must still report errors.");
         }

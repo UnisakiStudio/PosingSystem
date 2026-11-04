@@ -136,6 +136,26 @@ namespace jp.unisakistudio.posingsystemeditor
         }
 
         private static readonly Dictionary<int, BadgeStatus> statusByInstanceId = new Dictionary<int, BadgeStatus>();
+        // Multiple locked Inspectors can show different tabs for the same object.
+        private static readonly Dictionary<int, int> warningTargetByInspector = new Dictionary<int, int>();
+
+        internal static void SetInspectorWarning(int inspectorId, PosingSystem target)
+        {
+            if (target == null)
+            {
+                if (!warningTargetByInspector.Remove(inspectorId)) return;
+            }
+            else
+            {
+                var targetId = target.GetInstanceID();
+                if (warningTargetByInspector.TryGetValue(inspectorId, out var previous) && previous == targetId) return;
+                warningTargetByInspector[inspectorId] = targetId;
+            }
+            EditorApplication.RepaintHierarchyWindow();
+        }
+
+        internal static bool HasInspectorWarning(PosingSystem target)
+            => target != null && warningTargetByInspector.ContainsValue(target.GetInstanceID());
         private static Texture2D warningIcon;
         private static Texture2D errorIcon;
         private static int hierarchyVersion;
@@ -167,7 +187,7 @@ namespace jp.unisakistudio.posingsystemeditor
 
             EnsureIcons();
             var status = GetDisplayStatus(posingSystem);
-            var rect = new Rect(selectionRect.xMax - 18, selectionRect.y, 16, selectionRect.height);
+            var rect = new Rect(selectionRect.x, selectionRect.y, 16, selectionRect.height);
             if (status.IsError) GUI.Label(rect, new GUIContent(errorIcon, "設定にエラーがあります。Inspectorの「設定の確認」を開いてください。"));
             else if (status.IsWarning) GUI.Label(rect, new GUIContent(warningIcon, "設定の確認、またはプレビルドの更新が必要です。Inspectorを確認してください。"));
         }
@@ -175,7 +195,8 @@ namespace jp.unisakistudio.posingsystemeditor
         internal static (bool IsWarning, bool IsError) GetDisplayStatus(PosingSystem posingSystem)
         {
             var status = GetStatus(posingSystem);
-            return (status.IsWarning && posingSystem != null && !posingSystem.hideHierarchyWarnings, status.IsError);
+            return (posingSystem != null && !posingSystem.hideHierarchyWarnings &&
+                (status.IsWarning || HasInspectorWarning(posingSystem)), status.IsError);
         }
 
         internal static (bool IsWarning, bool IsError) GetStatus(PosingSystem posingSystem)
@@ -196,8 +217,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 return (cachedStatus.IsWarning, cachedStatus.IsError);
             }
 
-            var isWarning = (PosingSystemConverter.GetVisibleWarningsForInspector(posingSystem) &
-                (PosingSystem.WarningType.PrebuildOutOfDate | PosingSystem.WarningType.Configuration)) != 0;
+            var isWarning = PosingSystemConverter.GetVisibleWarningsForInspector(posingSystem) != PosingSystem.WarningType.None;
             var isError = PosingSystemConverter.HasError(posingSystem);
             StatusEvaluationCount++;
 
