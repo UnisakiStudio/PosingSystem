@@ -380,6 +380,22 @@ namespace jp.unisakistudio.posingsystemeditor.tests
             Assert.That(candidates,Does.Not.Contain(AssetDatabase.GetAssetPath(template)));
         }
 
+        [Test]
+        public void Cleanup_DoesNotInspectControllerContentsFromOtherScenes()
+        {
+            var controller = Generate();
+            var path = AssetDatabase.GetAssetPath(controller);
+            // Duplicate metadata makes inspecting this file fail. Only its owner should inspect it.
+            var duplicate = ScriptableObject.CreateInstance<PosingSystemGeneratedAsset>();
+            AssetDatabase.AddObjectToAsset(duplicate, path);
+            AssetDatabase.SaveAssetIfDirty(duplicate);
+            var ownerGuid = AssetDatabase.AssetPathToGUID(scene.path);
+            Assert.Throws<InvalidOperationException>(() => PosingSystemGeneratedCleanup.Candidates(ownerGuid));
+
+            var other = NewScene("Other");
+            Assert.That(PosingSystemGeneratedCleanup.Candidates(AssetDatabase.AssetPathToGUID(other.path)), Is.Empty);
+        }
+
         [TestCase("scene")]
         [TestCase("prefab")]
         [TestCase("inactive")]

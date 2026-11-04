@@ -97,9 +97,12 @@ namespace jp.unisakistudio.posingsystemeditor
 
         internal static string[] Candidates(string sceneGuid)
         {
-            // Reading must not create the generated directory.
+            // Filter indexed paths before loading subassets. The generated root may have moved.
+            var sceneDirectory = "/Scenes/" + sceneGuid + "/";
             return AssetDatabase.FindAssets("t:PosingSystemGeneratedAsset").Select(AssetDatabase.GUIDToAssetPath)
-                .Distinct().Where(path => {
+                .Distinct().Where(path => path.StartsWith("Assets/", StringComparison.Ordinal) &&
+                    path.Contains(sceneDirectory) && path.EndsWith(".controller", StringComparison.Ordinal))
+                .Where(path => {
                     var data = AssetDatabase.LoadAllAssetsAtPath(path).OfType<PosingSystemGeneratedAsset>().SingleOrDefault();
                     return data != null && data.formatVersion == 1 && data.ownerKind == "Scenes" &&
                         data.ownerGuid == sceneGuid && !string.IsNullOrEmpty(data.assetId) &&
@@ -107,9 +110,7 @@ namespace jp.unisakistudio.posingsystemeditor
                         data.controllers.All(c => c != null && AssetDatabase.GetAssetPath(c) == path) &&
                         data.generatedLocalIds != null && data.generatedLocalIds.Length > 0 &&
                         GlobalObjectId.TryParse(data.ownerGlobalId, out _) &&
-                        AssetDatabase.LoadMainAssetAtPath(path) is UnityEditor.Animations.AnimatorController &&
-                        path.StartsWith("Assets/", StringComparison.Ordinal) &&
-                        path.Contains("/Scenes/" + sceneGuid + "/") && path.EndsWith(".controller", StringComparison.Ordinal);
+                        AssetDatabase.LoadMainAssetAtPath(path) is UnityEditor.Animations.AnimatorController;
                 }).ToArray();
         }
 
