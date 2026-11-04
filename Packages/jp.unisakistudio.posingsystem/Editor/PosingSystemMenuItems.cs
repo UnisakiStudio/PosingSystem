@@ -42,9 +42,19 @@ namespace jp.unisakistudio.posingsystemeditor
 
         static public void AddPrefab(string name)
         {
+            if (Selection.activeGameObject == null)
+            {
+                EditorUtility.DisplayDialog("追加先を選択してください [PS040]", "HierarchyでVRC Avatar Descriptorの付いたアバター、またはその子オブジェクトを選択してから追加してください。", "閉じる");
+                return;
+            }
             if (Selection.activeGameObject)
             {
-                var avatar = Selection.activeGameObject.GetComponent<VRCAvatarDescriptor>();
+                var avatar = Selection.activeGameObject.GetComponentInParent<VRCAvatarDescriptor>(true);
+                if (avatar == null || EditorUtility.IsPersistent(avatar) || UnityEditor.SceneManagement.PrefabStageUtility.GetPrefabStage(avatar.gameObject) != null)
+                {
+                    EditorUtility.DisplayDialog("追加先を確認してください [PS040]", "シーンのHierarchyに配置したVRC Avatar Descriptor付きアバターを選択してください。Project内のPrefabやPrefab編集画面には追加できません。", "閉じる");
+                    return;
+                }
 
                 // 導入するPosingSystemのPrefabsを探す
                 var guids = AssetDatabase.FindAssets("t:prefab " + name)
@@ -52,71 +62,49 @@ namespace jp.unisakistudio.posingsystemeditor
                     .Where(path => string.Equals(Path.GetFileNameWithoutExtension(path), name, System.StringComparison.CurrentCulture));
                 if (guids.Count() == 0)
                 {
-                    EditorUtility.DisplayDialog("エラー", "Prefabsが見つかりません。ツールを再度インポートしなおしてください", "閉じる");
+                    if (EditorUtility.DisplayDialog("ツール本体が見つかりません [PS041]", "探しているPrefab: " + name + "\nBOOTH同梱のライセンス用unitypackageだけでは、ツール本体の導入は完了しません。ALCOM / VCCでこのプロジェクトに商品本体と「ゆにさきポーズシステム」が追加されているか確認してください。\n導入済みの場合: " + PosingSystemDiagnostics.RestoreTool, "公式ヘルプを開く", "閉じる"))
+                        Application.OpenURL(PosingSystemPackageInfo.SupportUrl);
                     return;
                 }
 
                 // 導入するPosingSystemのPrefabsを読み込む
                 var prefabs = AssetDatabase.LoadAssetAtPath<GameObject>(guids.First());
 
+                if (prefabs == null || prefabs.GetComponent<PosingSystem>() == null)
+                {
+                    if (EditorUtility.DisplayDialog("Prefabを読み込めません [PS042]", "対象: " + name + "\nPrefabが破損しているか、Posing Systemコンポーネントがありません。ConsoleのMissing Script・コンパイルエラーを確認してください。\n" + PosingSystemDiagnostics.RestoreTool, "公式ヘルプを開く", "閉じる"))
+                        Application.OpenURL(PosingSystemPackageInfo.SupportUrl);
+                    return;
+                }
                 // 導入するPosingSystemのPrefabsをアバターに配置する
-                var instance = PrefabUtility.InstantiatePrefab(prefabs, avatar.transform);
+                var instance = PrefabUtility.InstantiatePrefab(prefabs, avatar.transform) as GameObject;
+                if (instance == null)
+                {
+                    if (EditorUtility.DisplayDialog("Prefabを配置できません [PS043]", "対象: " + name + "\nConsoleでMissing Prefabなどのインポートエラーを確認してください。配置先のシーンを開き直して再実行してください。", "公式ヘルプを開く", "閉じる"))
+                        Application.OpenURL(PosingSystemPackageInfo.SupportUrl);
+                    return;
+                }
                 Undo.RegisterCreatedObjectUndo(instance, "Add Prefab");
                 UnityEditor.EditorUtility.SetDirty(instance);
+                var installedPosingSystem = (instance as GameObject).GetComponent<PosingSystem>();
+                PosingSystemAvatarAdjustmentInspector.ConfigureNewInstallation(installedPosingSystem);
+                Selection.activeGameObject = instance;
 
-                // アバターのオブジェクトを取得
-                var avatarObject = avatar.gameObject;
-
-                // PrefabVariantのVariantParentを遡ってすべてのPrefabsのGUIDと名前を取得する
-                var variantParents = new List<GameObject>() { avatarObject };
-                var variantParent = PrefabUtility.GetCorrespondingObjectFromSource(avatarObject);
-                while (variantParent != null)
+                // Build only metadata; reference targets are loaded only after the user chooses a preset.
+                var presetCatalog = PosingSystemPresetDefinesCache.GetCatalog(installedPosingSystem);
+                if (presetCatalog == null)
                 {
-                    variantParents.Add(variantParent);
-                    variantParent = PrefabUtility.GetCorrespondingObjectFromSource(variantParent);
+                    var message = "ツールを追加しました。プリセット一覧を読み込めませんでした。「アバター調整」の「再読込」で再試行できます。";
+                    SceneView.lastActiveSceneView?.ShowNotification(new GUIContent(message));
+                    Debug.Log("[PosingSystem] " + message, installedPosingSystem);
+                    return;
                 }
-                var variantParentNames = variantParents
-                    .Select(parent => parent.name)
-                    .ToList();
-                var variantParentGUIDHashes = variantParents
-                    .Select((parent) =>
-                    {
-                        var guid = AssetDatabase.AssetPathToGUID(AssetDatabase.GetAssetPath(parent));
-                        return GetPosingSystemGUIDHash(guid);
-                    })
-                    .ToList();
-
-                // PresetDefineを探す
-                var presetDefines = AssetDatabase.FindAssets("t:PosingSystemPresetDefines")
-                    .Select(AssetDatabase.GUIDToAssetPath)
-                    .Select(path => AssetDatabase.LoadAssetAtPath<PosingSystemPresetDefines>(path))
-                    .SelectMany(defines => defines.presetDefines);
-
-                Debug.Log("[PosingSystem]" + presetDefines.Count() + "個のPresetDefineが見つかりました");
-                Debug.Log("[PosingSystem]" + variantParentGUIDHashes.Count() + "個のGUIDが見つかりました:" + variantParentGUIDHashes.Aggregate((a, b) => a + ", " + b));
-                Debug.Log("[PosingSystem]" + variantParentNames.Count() + "個の名前が見つかりました:" + variantParentNames.Aggregate((a, b) => a + ", " + b));
-
-                // 配置するPrefabsに対応しているものだけにしぼる
-                presetDefines = presetDefines.Where(presetDefine => presetDefine.prefabs.Contains(prefabs)).ToList();
-
-                Debug.Log("[PosingSystem]" + presetDefines.Count() + "個のPresetDefineがPrefabsに適合しました");
-
-                // 配置するPrefabsに対応しているPresetDefineを探す
-                var presetDefine = presetDefines.FirstOrDefault(presetDefine => presetDefine.prefabsHashes.FindAll(variantParentGUIDHashes.Contains).Count() > 0);
-                if (presetDefine == null)
-                {
-                    Debug.Log("[PosingSystem]PrefabsのGUIDに合ったPresetDefineはありませんでした");
-                    Debug.Log("[PosingSystem]名前で探します");
-                    presetDefine = presetDefines.FirstOrDefault(presetDefine => presetDefine.prefabsNames.FindAll(variantParentNames.Contains).Count() > 0);
-                    if (presetDefine == null)
-                    {
-                        Debug.Log("[PosingSystem]名前に合ったPresetDefineはありませんでした");
-                    }
-                }
-                else
-                {
-                    Debug.Log("[PosingSystem]PrefabsのGUIDでPresetDefineが見つかりました");
-                }
+                var toolGuid = AssetDatabase.AssetPathToGUID(AssetDatabase.GetAssetPath(prefabs));
+                var presetDefines = PosingSystemPresetDefinesCache.GetMatchingEntries(presetCatalog, prefabs, prefabs.name)
+                    .Where(entry => entry.toolGuids.Contains(toolGuid)).ToList();
+                // Inspectorの「アバターに適合」と同じ判定を使用する。
+                var presetDefine = PosingSystemPresetDefinesCache.GetAvatarMatchingEntries(presetDefines, avatar.gameObject)
+                    .FirstOrDefault();
 
                 // PresetDefineを適用する
                 if (presetDefine != null)
@@ -124,7 +112,11 @@ namespace jp.unisakistudio.posingsystemeditor
                     if (EditorUtility.DisplayDialog("情報", "このアバターのために作成された「" + presetDefine.avatarName + "」向けのプリセットが見つかりました。\nこのプリセットを適用するとアバターごとの体型の違いに対応した調整データが自動で設定されます。\n\nプリセットを適用しますか？", "適用する", "スキップ"))
                     {
                         Debug.Log("[PosingSystem]" + presetDefine.avatarName + "を適用します");
-                        presetDefine.preset.ApplyTo((instance as GameObject).GetComponent<PosingSystem>(), new string[] { "defines", "overrideDefines", });
+                        if (!PosingSystemPresetDefinesCache.ApplyPreset(installedPosingSystem, presetDefine))
+                        {
+                            EditorUtility.DisplayDialog("プリセットを読み込めません",
+                                "プリセットが削除されたか、このツールに適用できません。Inspectorの「再読込」で一覧を更新してください。", "閉じる");
+                        }
                     }
                 }
 
@@ -132,11 +124,8 @@ namespace jp.unisakistudio.posingsystemeditor
                 if (EditorUtility.DisplayDialog("プレビルド", "プレビルドをしますか？\nプレビルドを行うとアバターのビルドとアップロードが速くなります。", "はい", "いいえ"))
                 {
                     // プレビルドをする
-                    PosingSystem posingSystem = (instance as GameObject).GetComponent<PosingSystem>();
-                    PosingSystemEditor.Prebuild(posingSystem);
-                    PosingSystemEditor.RenewAvatar(posingSystem);
-
-                    EditorUtility.DisplayDialog("プレビルド", "プレビルドが完了しました", "OK");
+                    if (PosingSystemEditor.TryPrebuildAndRenew(installedPosingSystem))
+                        EditorUtility.DisplayDialog("プレビルド", "プレビルドが完了しました", "OK");
                 }
             }
        }

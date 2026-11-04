@@ -1,4 +1,4 @@
-﻿
+
 #region
 
 using System;
@@ -13,12 +13,27 @@ namespace jp.unisakistudio.posingsystem
 {
     public class PosingSystem : MonoBehaviour, IEditorOnly
     {
-        [HideInInspector]
-        public bool developmentMode = false;
         public string settingName;
         public bool isIconDisabled = false;
         public bool isIconSmall = false;
         public const int PreviewMask = 21;
+
+        [Serializable]
+        public class FeatureMenuIcons
+        {
+            public Texture2D breathing, rollover, floorHeight;
+            public Texture2D photoMode, photoDistance, photoDirection, photoExit;
+
+            public Texture2D Get(string key) => key switch
+            {
+                "Breathing" => breathing, "Rollover" => rollover, "FloorHeight" => floorHeight,
+                "PhotoAssistance" => photoMode, "PhotoDistance" => photoDistance,
+                "PhotoDirection" => photoDirection, "PhotoExit" => photoExit, _ => null
+            };
+        }
+
+        // Product prefab references also cover menus that have not been enabled yet.
+        [HideInInspector] public FeatureMenuIcons featureMenuIcons = new();
 
         // トラッキング機能統合オプション
         [HideInInspector]
@@ -35,22 +50,159 @@ namespace jp.unisakistudio.posingsystem
             AutoFootsteps = 1 << 0,
             PrebuildNotRun = 1 << 1,
             PrebuildOutOfDate = 1 << 2,
-            All = AutoFootsteps | PrebuildNotRun | PrebuildOutOfDate,
+            Configuration = 1 << 3,
+            All = AutoFootsteps | PrebuildNotRun | PrebuildOutOfDate | Configuration,
         }
 
-        // Display preferences belong to each component, not to the generated animation data.
-        [HideInInspector]
-        public WarningType ignoredWarnings = WarningType.None;
+        public enum WarningDisplayPosition { InspectorTop, InspectorBottom }
+
+        // Keep the original field name/flag values so saved preferences from 3.0 are restored.
+        // Display preferences are deliberately excluded from the generated animation settings DTO.
+        [HideInInspector] public WarningType ignoredWarnings = WarningType.None;
+        [HideInInspector] public WarningDisplayPosition warningDisplayPosition;
+        [HideInInspector] public bool hideHierarchyWarnings;
 
         public bool IsWarningIgnored(WarningType warning)
-        {
-            return warning != WarningType.None && (ignoredWarnings & warning) == warning;
-        }
+            => warning != WarningType.None && (ignoredWarnings & warning) == warning;
 
         // エディタ内だけで使う一時プレビュー。Prefab overrideやシーンへ保存すると、
         // 参照だけ失われて非表示のアバターがシーンに残るためシリアライズしない。
         [NonSerialized, HideInInspector]
         public GameObject previewAvatarObject;
+
+        [Header("アバター固有姿勢補正")]
+        public bool enableAvatarSpecificAdjustment = true;
+        [HideInInspector] public bool avatarSpecificAdjustmentUsageInitialized;
+        public bool enableReverseKneeSafetyClamp = true;
+        [Range(0f, 5f)] public float reverseKneeSafetyAngle = 0.5f;
+        [HideInInspector] public AnimationClip avatarSpecificAdjustmentClip;
+        [HideInInspector] public string avatarSpecificAdjustmentSignature;
+        [HideInInspector] public float avatarSpecificLeftKneeBendDegrees;
+        [HideInInspector] public float avatarSpecificRightKneeBendDegrees;
+        public virtual string AvatarReferenceProfileResourceName => string.Empty;
+
+        [Header("自動調整アニメーション制作")]
+        [Tooltip("商品開発時に作成した姿勢別IK設定です。有効なIKルールがある姿勢では自動調整を使い、それ以外は従来の姿勢別 adjustmentClip を使用します。")]
+        public PosingSystemAutoPoseCatalog autoPoseCatalog;
+
+        [HideInInspector] public bool enablePoseIk = true;
+        public bool UsesAutoPoseCatalog => enablePoseIk && autoPoseCatalog != null && autoPoseCatalog.productionReady;
+        public bool UsesAutoPoseFor(BaseAnimationDefine pose)
+        {
+            if (!UsesAutoPoseCatalog || pose == null || pose.disablePoseIk) return false;
+            var animation = pose as AnimationDefine;
+            var layer = defines?.FirstOrDefault(d => d?.animations?.Any(a => ReferenceEquals(a, pose)) == true);
+            var key = layer != null ? PosingSystemAutoPoseCatalog.BuildPoseKey(layer.menuName, animation?.displayName)
+                : animation?.displayName;
+            var definition = autoPoseCatalog.Find(key, pose.animationClip as AnimationClip);
+            return definition?.limbRules?.Any(rule => rule != null && rule.enabled) == true;
+        }
+
+        public enum LocomotionTypeGroup
+        {
+            [InspectorName("立ち")]
+            Standing = 0,
+            [InspectorName("浅座り")]
+            SitShallow = 1,
+            [InspectorName("深座り")]
+            SitDeep = 2,
+            [InspectorName("寝姿勢")]
+            SitSleep = 3,
+            [InspectorName("VirtualLove")]
+            VirtualLove = 4,
+            [InspectorName("姿勢補正中")]
+            TypeFix = 5,
+        }
+
+        public enum BreathingLevel
+        {
+            Medium = 0,
+            None = 1,
+            Weak = 2,
+            Strong = 3,
+            Custom = 4,
+            Rapid = 5,
+        }
+
+        [System.Serializable]
+        public class AdditiveBreathingSettings
+        {
+            public bool enabled = true;
+            // Independent of the optional breathing animation and its in-game parameter.
+            public bool disableDefaultIdle = false;
+            public BreathingLevel standingLevel = BreathingLevel.Medium;
+            public BreathingLevel sitShallowLevel = BreathingLevel.Medium;
+            public BreathingLevel sitDeepLevel = BreathingLevel.Medium;
+            public BreathingLevel sitSleepLevel = BreathingLevel.Medium;
+            public BreathingLevel virtualLoveLevel = BreathingLevel.Medium;
+            public BreathingLevel typeFixLevel = BreathingLevel.Medium;
+
+            [InspectorName("立ち")]
+            public AnimationClip standing;
+            [InspectorName("浅座り")]
+            public AnimationClip sitShallow;
+            [InspectorName("深座り")]
+            public AnimationClip sitDeep;
+            [InspectorName("寝姿勢")]
+            public AnimationClip sitSleep;
+            [InspectorName("VirtualLove")]
+            public AnimationClip virtualLove;
+            [InspectorName("姿勢補正中")]
+            public AnimationClip typeFix;
+
+            public BreathingLevel GetLevel(LocomotionTypeGroup group)
+            {
+                switch (group)
+                {
+                    case LocomotionTypeGroup.Standing:
+                        return standingLevel;
+                    case LocomotionTypeGroup.SitShallow:
+                        return sitShallowLevel;
+                    case LocomotionTypeGroup.SitDeep:
+                        return sitDeepLevel;
+                    case LocomotionTypeGroup.SitSleep:
+                        return sitSleepLevel;
+                    case LocomotionTypeGroup.VirtualLove:
+                        return virtualLoveLevel;
+                    case LocomotionTypeGroup.TypeFix:
+                        return typeFixLevel;
+                    default:
+                        return BreathingLevel.Medium;
+                }
+            }
+
+            public AnimationClip GetCustomClip(LocomotionTypeGroup group)
+            {
+                switch (group)
+                {
+                    case LocomotionTypeGroup.Standing:
+                        return standing;
+                    case LocomotionTypeGroup.SitShallow:
+                        return sitShallow;
+                    case LocomotionTypeGroup.SitDeep:
+                        return sitDeep;
+                    case LocomotionTypeGroup.SitSleep:
+                        return sitSleep;
+                    case LocomotionTypeGroup.VirtualLove:
+                        return virtualLove;
+                    case LocomotionTypeGroup.TypeFix:
+                        return typeFix;
+                    default:
+                        return null;
+                }
+            }
+        }
+
+        [Header("呼吸機能")]
+        public AdditiveBreathingSettings additiveBreathing = new();
+
+        // 同期パラメーターを8bit以内に収める商品版では、呼吸用Boolも含めて完全に除外する。
+        // 商品Prefab側に明示的に記録し、名前やアセットパスには依存しない。
+        [HideInInspector]
+        public bool isEightBitVersion = false;
+
+        [HideInInspector] public PosingSystemFeatureSettings features = new();
+        [HideInInspector] public bool featureSettingsMigrated;
 
         [System.Serializable]
         public class BaseAnimationDefine
@@ -62,15 +214,18 @@ namespace jp.unisakistudio.posingsystem
             public string motionTimeParamName = "";
             public Motion animationClip;
             public Texture2D previewImage;
-            // Dry Inspector previews can omit unmerged clothing. Legacy images are unverified.
-            [HideInInspector]
-            public bool previewImageIsFinal;
             public AnimationClip adjustmentClip;
+            // Per-avatar override; never changes the shared product IK catalog.
+            public bool disablePoseIk;
         }
 
         [System.Serializable]
         public class AnimationDefine : BaseAnimationDefine
         {
+            // The normal animation is the center pose; the side clip is sampled at its first frame.
+            public bool isRollover = false;
+            public AnimationClip rolloverSideAnimation;
+            [Range(0, 1)] public float rolloverContactStrength = .25f;
             public string displayName;
             public bool initial = false;
             public bool initialSet = false;
@@ -173,6 +328,10 @@ namespace jp.unisakistudio.posingsystem
 
         public string savedInstanceId = "";
         public UnityEngine.Object thumbnailPackObject = null;
+
+        // Legacy serialized reference retained for upgrades. New preset lists are editor memory only.
+        [HideInInspector]
+        public UnityEngine.Object presetCatalogObject;
 
         [NonSerialized]
         public bool isWarning = false;

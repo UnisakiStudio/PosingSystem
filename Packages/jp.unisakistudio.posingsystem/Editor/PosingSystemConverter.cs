@@ -1,4 +1,4 @@
-#region
+﻿#region
 
 using System.Collections.Immutable;
 using System.Collections.Generic;
@@ -11,6 +11,7 @@ using VRC.SDKBase;
 using VRC.SDK3.Avatars.Components;
 #if NDMF
 using nadena.dev.ndmf;
+using nadena.dev.ndmf.vrchat;
 using nadena.dev.ndmf.animator;
 
 #endif
@@ -26,8 +27,19 @@ using nadena.dev.modular_avatar.core;
 
 namespace jp.unisakistudio.posingsystemeditor
 {
-    public class PosingSystemConverter : Plugin<PosingSystemConverter>
+    public partial class PosingSystemConverter : Plugin<PosingSystemConverter>
     {
+        public const string AdditiveBreathingDuplicateEraserId =
+            "jp.unisakistudio.posingsystem_additive_breathing";
+        public const string DefaultAdditiveBreathingControllerGuid =
+            "8e775531e66ee35469b6c4d6a6b741fd";
+        public const string BreathingStrongClipGuid = "ef90febf8e7934b45a1030ad138e96e5";
+        public const string BreathingMediumClipGuid = "a497bb916b6f9e9459b224ad7c50a228";
+        public const string BreathingWeakClipGuid = "dd189cb98905b73498257854e1ad50c5";
+        public const string BreathingRapidClipGuid = "ca474236197ac9f4f99d0da8925e90d5";
+        public const string DefaultEmptyAnimationGuid =
+            "52aff6f8eb70ac94ca2d631a92b39a80";
+
         // NDMFの自パス実行中かの簡易フラグ（OnPreprocessAvatarの再帰呼び出しを避けるため）
         private static bool _isExecutingNdMfPass = false;
         [System.Serializable]
@@ -43,6 +55,7 @@ namespace jp.unisakistudio.posingsystemeditor
         private class BaseAnimationDefineDTO
         {
             public bool enabled;
+            public bool disablePoseIk;
             public bool isRotate;
             public int rotate;
             public bool isMotionTime;
@@ -56,6 +69,10 @@ namespace jp.unisakistudio.posingsystemeditor
         [System.Serializable]
         private class AnimationDefineDTO : BaseAnimationDefineDTO
         {
+            public bool isRollover;
+            public string rolloverSideAnimationGuid;
+            public string rolloverSideAnimationHash;
+            public float rolloverContactStrength;
             public string displayName;
             public bool initial;
             public bool initialSet;
@@ -69,6 +86,31 @@ namespace jp.unisakistudio.posingsystemeditor
         private class OverrideAnimationDefineDTO : BaseAnimationDefineDTO
         {
             public PosingSystem.OverrideAnimationDefine.AnimationStateType stateType;
+        }
+
+        [System.Serializable]
+        private class AdditiveBreathingSettingsDTO
+        {
+            public bool enabled;
+            public bool disableDefaultIdle;
+            public PosingSystem.BreathingLevel standingLevel;
+            public PosingSystem.BreathingLevel sitShallowLevel;
+            public PosingSystem.BreathingLevel sitDeepLevel;
+            public PosingSystem.BreathingLevel sitSleepLevel;
+            public PosingSystem.BreathingLevel virtualLoveLevel;
+            public PosingSystem.BreathingLevel typeFixLevel;
+            public string standingGuid;
+            public string standingHash;
+            public string sitShallowGuid;
+            public string sitShallowHash;
+            public string sitDeepGuid;
+            public string sitDeepHash;
+            public string sitSleepGuid;
+            public string sitSleepHash;
+            public string virtualLoveGuid;
+            public string virtualLoveHash;
+            public string typeFixGuid;
+            public string typeFixHash;
         }
 
         [System.Serializable]
@@ -86,12 +128,30 @@ namespace jp.unisakistudio.posingsystemeditor
         [System.Serializable]
         private class DefineSerializeRootDTO
         {
+            public string featureSettings;
+            public string rolloverClipGuid;
+            public string rolloverClipHash;
+            public bool enablePoseIk;
             public bool isIconDisabled;
             public bool isIconSmall;
-            public int horizontalRootTranslationVersion;
-            public int postureOverrideVersion;
+            public int additiveBreathingLogicVersion;
+            public int autoPoseLogicVersion;
+            public int importedMotionLogicVersion;
+            public int generatedAssetLogicVersion;
+            public int controllerLogicVersion;
+            public int floatingPhotographyLogicVersion;
+            public bool autoImportAvatarAnimations;
+            public string importedMotionInputs;
+            public int rolloverCenteringLogicVersion;
+            public int rolloverGenerationLogicVersion;
+            public bool autoPoseKneeSafetyEnabled;
+            public float autoPoseMinimumKneeAngle;
+            public Vector2 autoPoseKneeBaseline;
+            public string autoPoseCatalogGuid;
+            public string autoPoseCatalogHash;
             public System.Collections.Generic.List<LayerDefineDTO> list;
             public System.Collections.Generic.List<OverrideAnimationDefineDTO> overrides;
+            public AdditiveBreathingSettingsDTO additiveBreathing;
             public string version;
             public string savedInstanceId;
         }
@@ -143,6 +203,31 @@ namespace jp.unisakistudio.posingsystemeditor
         {
             errorLocalizer = LocalizationAsset.ErrorLocalization();
 
+            // MAが同期パラメーターやメニューを処理する前に、選択した機能に同期する。
+            InPhase(BuildPhase.Generating)
+                .BeforePlugin("nadena.dev.modular-avatar")
+                .Run("Synchronize optional posing features", ctx =>
+                {
+                    if (ctx == null || ctx.AvatarRootObject == null)
+                    {
+                        return;
+                    }
+
+                    foreach (var posingSystem in ctx.AvatarRootObject
+                                 .GetComponentsInChildren<PosingSystem>(true))
+                    {
+                        PosingSystemFeatureUtility.Synchronize(posingSystem);
+                    }
+                });
+
+            // Compile before MA remaps parameters. NDMF carries only this build's eligibility
+            // to the later conversion pass; explicit reference/comparison scopes take precedence.
+            InPhase(BuildPhase.Resolving)
+                .BeforePlugin("nadena.dev.modular-avatar")
+                .Run("Compile posing controller source", ctx =>
+                    PosingSystemControllerGeneration.PrepareBeforeModularAvatar(ctx.AvatarRootObject, ctx.AssetSaver,
+                        ctx.GetState<PosingSystemControllerGeneration.BuildState>()));
+
             // AnimatorControllerのレイヤーを編集
             InPhase(BuildPhase.Resolving)
                 .AfterPlugin("nadena.dev.modular-avatar")
@@ -154,12 +239,21 @@ namespace jp.unisakistudio.posingsystemeditor
                         return;
                     }
 
+                    // Capture before DuplicateEraser removes shared settings objects.
+                    using var generation = PosingSystemControllerGeneration.BeginDefaultScope(ctx.AvatarRootObject,
+                        ctx.GetState<PosingSystemControllerGeneration.BuildState>());
+                    ctx.GetState<DefaultIdleSuppressionState>().enabled = ctx.AvatarRootObject
+                        .GetComponentsInChildren<PosingSystem>()
+                        .Any(ps => ps.additiveBreathing?.disableDefaultIdle == true &&
+                            !ps.GetComponentsInParent<Transform>(true).Any(t => t.CompareTag("EditorOnly")));
+
                     foreach (var posingSystem in ctx.AvatarRootObject.GetComponentsInChildren<PosingSystem>())
                     {
                         if (posingSystem.tag == "EditorOnly")
                         {
                             continue;
                         }
+                        PosingSystemDiagnostics.ThrowIfInvalid(posingSystem);
                         // 未プレビルド（null / 空文字）は直後に自動変換するため、
                         // 「設定変更済み」としてNDMFエラーを報告しない。
                         if (ShouldReportPrebuildUpdateWarning(posingSystem))
@@ -201,6 +295,18 @@ namespace jp.unisakistudio.posingsystemeditor
                     RecalibratePoseRootTranslation(ctx);
                 });
 
+            // No AnimatorServicesContext compatibility: NDMF commits MA's virtual controllers
+            // before this pass. Editing the committed build clone also covers MA Append/Replace.
+            InPhase(BuildPhase.Transforming)
+                .AfterPlugin("nadena.dev.modular-avatar")
+                .BeforePlugin("nadena.dev.modular-avatar.late-transform-stages")
+                .Run("Suppress VRChat default idle", SuppressDefaultIdle);
+
+            InPhase(BuildPhase.Transforming)
+                .AfterPlugin("nadena.dev.modular-avatar")
+                .BeforePlugin("nadena.dev.modular-avatar.late-transform-stages")
+                .Run("Keep local photography head visible", BuildPhotographyHeadVisibility);
+
             // トラッキング機能の統合（プレビルドでは実行しない、NDMFビルド時のみ、MAの前）
             var mergeControlSequence = InPhase(BuildPhase.Generating)
                 .BeforePlugin("nadena.dev.modular-avatar");
@@ -215,7 +321,8 @@ namespace jp.unisakistudio.posingsystemeditor
 
                     bool mergeTrackingControl = ctx.AvatarRootObject
                         .GetComponentsInChildren<jp.unisakistudio.posingsystem.PosingSystem>()
-                        .Any(posingSystem => posingSystem.tag != "EditorOnly" && posingSystem.mergeTrackingControl);
+                        .Any(posingSystem => posingSystem.tag != "EditorOnly" &&
+                            (posingSystem.mergeTrackingControl || (posingSystem.features?.photography ?? false)));
 
                     if (!mergeTrackingControl)
                     {
@@ -227,8 +334,8 @@ namespace jp.unisakistudio.posingsystemeditor
                         // NDMF標準の仮想Controllerだけを書き換える。
                         // 元アセットや共有Controllerを直接変更しない。
                         var controllerContext = ctx.Extension<AnimatorServicesContext>().ControllerContext;
-                        MergeTrackingControl(ctx.AvatarDescriptor, controllerContext);
-                        MergeLocomotionControl(ctx.AvatarDescriptor, controllerContext);
+                        MergeTrackingControl(ctx.VRChatAvatarDescriptor(), controllerContext);
+                        MergeLocomotionControl(ctx.VRChatAvatarDescriptor(), controllerContext);
                     }
                     catch (AddStateMachineBehaviourFailedException)
                     {
@@ -259,7 +366,11 @@ namespace jp.unisakistudio.posingsystemeditor
 
                         foreach (var posingSystem in ctx.AvatarRootObject.GetComponentsInChildren<PosingSystem>())
                         {
-                            CreateBuildMenuIcons(posingSystem, ctx.AssetSaver);
+                            if (posingSystem.thumbnailPackObject == null)
+                            {
+                                TakeScreenshot(posingSystem, true, true);
+                                SetMenuIcon(posingSystem);
+                            }
                         }
                         foreach (var posingSystem in ctx.AvatarRootObject.GetComponentsInChildren<PosingSystem>())
                         {
@@ -272,6 +383,7 @@ namespace jp.unisakistudio.posingsystemeditor
                     }
                 });
         }
+
 
         // 変換基準時点（Resolvingフェーズ）のRootT実寸。Transformingフェーズの再校正パスと共有する
         private class RootTranslationCalibrationState
@@ -418,7 +530,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 return;
             }
 
-            var descriptor = ctx.AvatarDescriptor;
+            var descriptor = ctx.VRChatAvatarDescriptor();
             var fixedMotions = new Dictionary<Motion, Motion>();
             var processedControllers = new HashSet<AnimatorController>();
             GameObject workingAvatar = null;
@@ -437,7 +549,8 @@ namespace jp.unisakistudio.posingsystemeditor
                     {
                         continue;
                     }
-                    foreach (var layer in animatorController.layers)
+                    var layers = animatorController.layers;
+                    foreach (var layer in layers)
                     {
                         if (layer.stateMachine == null)
                         {
@@ -445,7 +558,15 @@ namespace jp.unisakistudio.posingsystemeditor
                         }
                         RecalibrateStateMachine(
                             ctx, layer.stateMachine, fixedMotions, unitScale, finalUnits, workingAvatar);
+                        if (layer.syncedLayerIndex >= 0 && layer.syncedLayerIndex < layers.Length)
+                        foreach (var state in AllFeatureStates(layers[layer.syncedLayerIndex].stateMachine))
+                        {
+                            var motion = layer.GetOverrideMotion(state);
+                            if (motion == null || (!motion.name.StartsWith(FootHeightOffsetPrefix) && !motion.name.StartsWith(MovementOffsetPrefix))) continue;
+                            layer.SetOverrideMotion(state, RecalibrateMotion(ctx, motion, fixedMotions, unitScale, finalUnits, workingAvatar));
+                        }
                     }
+                    animatorController.layers = layers;
                 }
             }
             finally
@@ -535,7 +656,9 @@ namespace jp.unisakistudio.posingsystemeditor
                 for (int bindingIndex = 0; bindingIndex < rootTranslationBindings.Length; bindingIndex++)
                 {
                     var binding = rootTranslationBindings[bindingIndex];
-                    var axisScale = bindingIndex == 0 ? unitScale.x : bindingIndex == 1 ? unitScale.y : unitScale.z;
+                    var axisScale = animationClip.name.StartsWith(FootHeightOffsetPrefix) || animationClip.name.StartsWith(MovementOffsetPrefix + "Vertical_") ? unitScale.y :
+                        animationClip.name.StartsWith(MovementOffsetPrefix + "Forward_") ? unitScale.z :
+                        bindingIndex == 0 ? unitScale.x : bindingIndex == 1 ? unitScale.y : unitScale.z;
                     var curve = AnimationUtility.GetEditorCurve(targetClip, binding);
                     if (curve == null)
                     {
@@ -560,7 +683,12 @@ namespace jp.unisakistudio.posingsystemeditor
                     AnimationUtility.SetAnimationClipSettings(targetClip, clipSetting);
                 }
 
-                RecenterHorizontalRootTranslation(workingAvatar, targetClip, finalUnits);
+                // These curves are body-space vertical deltas, not absolute pose positions.
+                if (!animationClip.name.StartsWith(FootHeightOffsetPrefix) && !animationClip.name.StartsWith(MovementOffsetPrefix))
+                {
+                    if (animationClip.name.Contains(RolloverCenteredMarker)) CenterRolloverHead(workingAvatar, targetClip);
+                    else RecenterHorizontalRootTranslation(workingAvatar, targetClip, finalUnits);
+                }
 
                 fixedMotions[motion] = targetClip;
                 return targetClip;
@@ -662,46 +790,50 @@ namespace jp.unisakistudio.posingsystemeditor
 
         public static bool HasWarning(PosingSystem posingSystem)
         {
-            // As before, an unbuilt object alone does not add a hierarchy warning badge.
-            return (GetVisibleWarnings(posingSystem) & ~PosingSystem.WarningType.PrebuildNotRun)
-                != PosingSystem.WarningType.None;
+            return GetDiagnosticWarnings(posingSystem, false, null) != PosingSystem.WarningType.None ||
+                PosingSystemHierarchyBadge.HasInspectorWarning(posingSystem);
         }
 
         public static bool ShouldReportPrebuildUpdateWarning(PosingSystem posingSystem)
-        {
-            return !posingSystem.IsWarningIgnored(PosingSystem.WarningType.PrebuildOutOfDate)
-                && !string.IsNullOrEmpty(posingSystem.data)
-                && IsPosingSystemDataUpdated(posingSystem);
-        }
+            => posingSystem != null && !posingSystem.IsWarningIgnored(PosingSystem.WarningType.PrebuildOutOfDate)
+                && !string.IsNullOrEmpty(posingSystem.data) && IsPosingSystemDataUpdated(posingSystem);
 
         public static PosingSystem.WarningType GetVisibleWarnings(PosingSystem posingSystem)
         {
-            var avatar = posingSystem.GetAvatar();
-
-            if (avatar == null)
-            {
-                return PosingSystem.WarningType.None;
-            }
-
-            var warnings = PosingSystem.WarningType.None;
-            if (string.IsNullOrEmpty(posingSystem.data))
-            {
-                warnings |= PosingSystem.WarningType.PrebuildNotRun;
-            }
-            else if (ShouldReportPrebuildUpdateWarning(posingSystem))
-            {
-                warnings |= PosingSystem.WarningType.PrebuildOutOfDate;
-            }
-
-            if (avatar.autoFootsteps)
-            {
+            var warnings = GetDiagnosticWarnings(posingSystem, false, null);
+            // This public API also includes the informational Auto-Footsteps troubleshooting note.
+            if (posingSystem != null && !posingSystem.IsWarningIgnored(PosingSystem.WarningType.AutoFootsteps) &&
+                posingSystem.GetAvatar() is { autoFootsteps: true })
                 warnings |= PosingSystem.WarningType.AutoFootsteps;
+            return warnings;
+        }
+
+        internal static PosingSystem.WarningType GetVisibleWarningsForInspector(PosingSystem posingSystem,
+            List<PosingSystemDiagnostics.Issue> issues = null)
+            => GetDiagnosticWarnings(posingSystem, true, issues);
+
+        private static PosingSystem.WarningType GetDiagnosticWarnings(PosingSystem posingSystem, bool inspection,
+            List<PosingSystemDiagnostics.Issue> issues)
+        {
+            if (posingSystem == null) return PosingSystem.WarningType.None;
+            var warnings = PosingSystem.WarningType.None;
+            var avatar = posingSystem.GetAvatar();
+            if (avatar != null)
+            {
+                if (string.IsNullOrEmpty(posingSystem.data)) warnings |= PosingSystem.WarningType.PrebuildNotRun;
+                else if (!posingSystem.IsWarningIgnored(PosingSystem.WarningType.PrebuildOutOfDate) &&
+                    (inspection ? PosingSystemInspectionCache.IsUpdated(posingSystem) : IsPosingSystemDataUpdated(posingSystem)))
+                    warnings |= PosingSystem.WarningType.PrebuildOutOfDate;
             }
+            if (!posingSystem.IsWarningIgnored(PosingSystem.WarningType.Configuration) &&
+                (issues ?? PosingSystemDiagnostics.Collect(posingSystem)).Any(issue => issue.Severity == MessageType.Warning))
+                warnings |= PosingSystem.WarningType.Configuration;
             return warnings & ~posingSystem.ignoredWarnings;
         }
 
         public static bool HasError(PosingSystem posingSystem)
         {
+            if (PosingSystemDiagnostics.Collect(posingSystem).Any(issue => issue.Severity == MessageType.Error)) return true;
             var avatar = posingSystem.GetAvatar();
             if (avatar == null)
             {
@@ -715,11 +847,12 @@ namespace jp.unisakistudio.posingsystemeditor
             {
                 return true;
             }
-            if (posingSystem.GetAvatar().GetComponent<Animator>().avatar == null)
+            var animator = avatar.GetComponent<Animator>();
+            if (animator == null || animator.avatar == null)
             {
                 return true;
             }
-            if (!posingSystem.GetAvatar().GetComponent<Animator>().isHuman)
+            if (!animator.isHuman)
             {
                 return true;
             }
@@ -728,6 +861,8 @@ namespace jp.unisakistudio.posingsystemeditor
 
         public static bool IsPosingSystemDataUpdated(PosingSystem posingSystem)
         {
+            if (posingSystem == null || posingSystem.defines == null ||
+                posingSystem.defines.Any(d => d?.animations == null || d.animations.Any(a => a == null))) return true;
             return posingSystem.data != GetDefineSerializeJson(posingSystem, true);
         }
 
@@ -898,8 +1033,8 @@ namespace jp.unisakistudio.posingsystemeditor
             var maMergeAnimator = animatorDuplicateErase.GetComponent<ModularAvatarMergeAnimator>();
             if (!maMergeAnimator)
             {
-                Debug.LogError("[PosingSystem]ポージングシステム用の共通ポージングMAMergeAnimatorが見つかりません");
-                throw new System.Exception("ポージングシステム用の共通ポージングMAMergeAnimatorが見つかりません");
+                throw PosingSystemDiagnostics.Failure("PS011", "共通ポージングAnimatorにMA Merge Animatorがありません。",
+                    "ConsoleにコンパイルエラーやMissing Scriptがないか確認してください。" + PosingSystemDiagnostics.RestoreTool, animatorDuplicateErase);
             }
             if (!maMergeAnimator.animator)
             {
@@ -912,14 +1047,14 @@ namespace jp.unisakistudio.posingsystemeditor
                         maMergeAnimator.animator = locomotionController;
                     }
                     else {
-                        Debug.LogError("[PosingSystem]PosingSystemLocomotion.controllerが見つかりません");
-                        throw new System.Exception("PosingSystemLocomotion.controllerが見つかりません");
+                        throw PosingSystemDiagnostics.Failure("PS030", "標準のPosingSystemLocomotion.controllerが見つからず、参照を復元できません。",
+                            PosingSystemDiagnostics.RestoreTool, maMergeAnimator);
                     }
                 }
                 else
                 {
-                    Debug.LogError("[PosingSystem]ポージングシステム用の共通ポージングMAMergeAnimatorにAnimatorが設定されていません");
-                    throw new System.Exception("ポージングシステム用の共通ポージングMAMergeAnimatorにAnimatorが設定されていません");
+                    throw PosingSystemDiagnostics.Failure("PS012", "共通ポージングAnimatorのAnimator参照が未設定です。",
+                        "Inspectorの「プレビルドを更新」で標準Controllerからの復元を試してください。" + PosingSystemDiagnostics.RestoreTool, maMergeAnimator);
                 }
             }
 
@@ -946,7 +1081,7 @@ namespace jp.unisakistudio.posingsystemeditor
 
                 // Generated内のControllerが削除されてMissingになった場合は、標準Controllerへ戻す。
                 // 標準ControllerはUSSPS_IsDefaultレイヤーを持つため、プレビルド済み候補からは除外される。
-                var animatorController = maMergeAnimator.animator as AnimatorController;
+                var animatorController = maMergeAnimator != null ? maMergeAnimator.animator as AnimatorController : null;
                 if (animatorController == null && !maMergeAnimator.animator)
                 {
                     animatorController = RestoreMissingLocomotionController(maMergeAnimator);
@@ -964,25 +1099,119 @@ namespace jp.unisakistudio.posingsystemeditor
             return null;
         }
 
-        public static void ConvertToModularAvatarComponents(PosingSystem posingSystem, IAssetSaver assetSaver = null)
+        private static AnimatorController FindDefaultAdditiveBreathingController()
         {
-            if (posingSystem == null)
+            var assetPath = AssetDatabase.GUIDToAssetPath(DefaultAdditiveBreathingControllerGuid);
+            return string.IsNullOrEmpty(assetPath)
+                ? null
+                : AssetDatabase.LoadAssetAtPath<AnimatorController>(assetPath);
+        }
+
+        public static ModularAvatarMergeAnimator GetAdditiveBreathingMergeAnimator(
+            PosingSystem posingSystem,
+            bool doRecover = false)
+        {
+            if (posingSystem == null || posingSystem.GetAvatar() == null)
             {
-                Debug.LogError("[PosingSystem] 変換対象のPosingSystemがnullです。");
-                return;
+                return null;
             }
 
-            // Prefab Mode、誤配置、ビルド中の外部ツールによる階層変更などで
-            // Descriptorを取得できない場合、後続処理がavatarを前提としているため安全に中止する。
-            var avatar = posingSystem.GetAvatar();
+            if (doRecover && posingSystem.isEightBitVersion)
+            {
+                return null;
+            }
+
+            var duplicateEraser = posingSystem.GetComponentsInChildren<DuplicateEraser>(true)
+                .FirstOrDefault(component =>
+                    component.gameObject.tag != "EditorOnly" &&
+                    component.ID == AdditiveBreathingDuplicateEraserId);
+            // Preparation happens before Synchronize re-enables excluded feature objects.
+            // Reuse that same component so its controller is cloned before it becomes active.
+            if (duplicateEraser == null && doRecover && PosingSystemFeatureUtility.UsesBreathing(posingSystem))
+                duplicateEraser = posingSystem.GetComponentsInChildren<DuplicateEraser>(true)
+                    .FirstOrDefault(component => component.ID == AdditiveBreathingDuplicateEraserId);
+            ModularAvatarMergeAnimator mergeAnimator = null;
+            if (duplicateEraser != null)
+            {
+                mergeAnimator = duplicateEraser.GetComponent<ModularAvatarMergeAnimator>();
+            }
+            else if (doRecover)
+            {
+                var mergeObject = new GameObject("Additive呼吸Animator");
+                mergeObject.transform.SetParent(posingSystem.transform, false);
+                duplicateEraser = mergeObject.AddComponent<DuplicateEraser>();
+                duplicateEraser.ID = AdditiveBreathingDuplicateEraserId;
+                mergeAnimator = mergeObject.AddComponent<ModularAvatarMergeAnimator>();
+            }
+
+            if (mergeAnimator == null)
+            {
+                return null;
+            }
+
+            if (!mergeAnimator.animator && doRecover)
+            {
+                mergeAnimator.animator = FindDefaultAdditiveBreathingController();
+            }
+
+            mergeAnimator.layerType = VRCAvatarDescriptor.AnimLayerType.Additive;
+            mergeAnimator.mergeAnimatorMode = MergeAnimatorMode.Append;
+            mergeAnimator.pathMode = MergeAnimatorPathMode.Absolute;
+            mergeAnimator.matchAvatarWriteDefaults = true;
+            mergeAnimator.deleteAttachedAnimator = false;
+            EditorUtility.SetDirty(mergeAnimator);
+            return mergeAnimator;
+        }
+
+        public static ModularAvatarMergeAnimator GetPrebuiltAdditiveBreathingMergeAnimator(
+            PosingSystem posingSystem)
+        {
+            var avatar = posingSystem != null ? posingSystem.GetAvatar() : null;
             if (avatar == null)
             {
-                Debug.LogError(
-                    $"[PosingSystem]「{posingSystem.name}」からVRCAvatarDescriptorを取得できないため変換できません。" +
-                    "配置が正しい場合は、このメッセージを含むビルドログを添えてお問い合わせください。",
-                    posingSystem);
-                return;
+                return null;
             }
+
+            foreach (var duplicateEraser in avatar.GetComponentsInChildren<DuplicateEraser>(true)
+                         .Where(component =>
+                             component.gameObject.tag != "EditorOnly" &&
+                             component.ID == AdditiveBreathingDuplicateEraserId))
+            {
+                var mergeAnimator = duplicateEraser.GetComponent<ModularAvatarMergeAnimator>();
+                var animatorController = mergeAnimator != null
+                    ? mergeAnimator.animator as AnimatorController
+                    : null;
+                if (animatorController == null)
+                {
+                    continue;
+                }
+
+                var guid = AssetDatabase.AssetPathToGUID(AssetDatabase.GetAssetPath(animatorController));
+                if (guid != DefaultAdditiveBreathingControllerGuid)
+                {
+                    return mergeAnimator;
+                }
+            }
+
+            return null;
+        }
+
+        public static void ConvertToModularAvatarComponents(PosingSystem posingSystem, IAssetSaver assetSaver = null)
+        {
+            PosingSystemDiagnostics.ThrowIfInvalid(posingSystem);
+            PosingSystemGeneratedControllers.Convert(posingSystem, assetSaver,
+                saver => ConvertToModularAvatarComponentsCore(posingSystem, saver));
+        }
+
+        private static void ConvertToModularAvatarComponentsCore(PosingSystem posingSystem, IAssetSaver assetSaver)
+        {
+            PosingSystemDiagnostics.ThrowIfInvalid(posingSystem);
+            var avatar = posingSystem.GetAvatar();
+            // A partially failed conversion must not retain a previous success marker.
+            posingSystem.data = null;
+            EditorUtility.SetDirty(posingSystem);
+
+            PosingSystemFeatureUtility.Synchronize(posingSystem);
 
             // 自動生成するメニュー項目を一度削除する
             DeletePosingMenuObjects(posingSystem);
@@ -996,14 +1225,11 @@ namespace jp.unisakistudio.posingsystemeditor
             // メニューを再作成する
             CreatePosingMenuObjects(posingSystem);
 
-            // アバターの姿勢設定を自動インポート（オプションがオンの場合）
-            if (posingSystem.autoImportAvatarAnimations)
-            {
-                AutoImportAvatarAnimations(posingSystem);
-            }
-
             // MergeAnimatorのAnimatorControllerがオリジナルじゃなかったらベースを複製して設定する
             CreateOriginalAnimatorController(posingSystem);
+
+            // Additive呼吸専用MergeAnimatorのControllerも、アバターごとの編集用に複製する
+            CreateOriginalAdditiveBreathingAnimatorController(posingSystem);
 
             // MergeAnimatorのAnimatorControllerのParametersをセットする
             ResetAnimatorControllerParameters(posingSystem);
@@ -1011,8 +1237,14 @@ namespace jp.unisakistudio.posingsystemeditor
             // AnimatorControllerを変更する
             ConvertAnimatorController(posingSystem, assetSaver);
 
+            // 姿勢ごとの呼吸アニメーションを設定する
+            ConvertAdditiveBreathingAnimations(posingSystem);
+
             // アニメーションをOverrideする
-            ConvertOverrideAnimations(posingSystem);
+            ResetImportedMotionStates(posingSystem, assetSaver);
+            ConvertOverrideAnimations(posingSystem, assetSaver);
+
+            ConvertOptionalFeatures(posingSystem, assetSaver);
 
             // アイコン画像ファイルがあったらメニューに設定する
             if (posingSystem.thumbnailPackObject != null)
@@ -1023,6 +1255,8 @@ namespace jp.unisakistudio.posingsystemeditor
             // 変更を保存
             posingSystem.data = GetDefineSerializeJson(posingSystem);
 
+            PosingSystemHierarchyBadge.Invalidate(posingSystem);
+
             // PosingSystemオブジェクトをDirtyにしてシーンの保存対象にする
             EditorUtility.SetDirty(posingSystem);
         }
@@ -1032,6 +1266,7 @@ namespace jp.unisakistudio.posingsystemeditor
         /// </summary>
         private static string GetStableObjectIdentifier(UnityEngine.Object obj)
         {
+            PosingSystemInspectionCache.Track(obj);
             if (obj == null) return "";
 
             string assetPath = AssetDatabase.GetAssetPath(obj);
@@ -1041,6 +1276,8 @@ namespace jp.unisakistudio.posingsystemeditor
                 string guid = AssetDatabase.AssetPathToGUID(assetPath);
                 if (!string.IsNullOrEmpty(guid))
                 {
+                    if (AssetDatabase.TryGetGUIDAndLocalFileIdentifier(obj, out string assetGuid, out long localId))
+                        return assetGuid + ":" + localId.ToString(System.Globalization.CultureInfo.InvariantCulture);
                     return guid;
                 }
             }
@@ -1069,19 +1306,87 @@ namespace jp.unisakistudio.posingsystemeditor
 
         public static string GetDefineSerializeJson(PosingSystem posingSystem, bool ignoreInstanceId = false)
         {
+            var breathing = posingSystem.additiveBreathing;
+            var standingBreathing = ResolveAdditiveBreathingClip(
+                breathing, PosingSystem.LocomotionTypeGroup.Standing);
+            var sitShallowBreathing = ResolveAdditiveBreathingClip(
+                breathing, PosingSystem.LocomotionTypeGroup.SitShallow);
+            var sitDeepBreathing = ResolveAdditiveBreathingClip(
+                breathing, PosingSystem.LocomotionTypeGroup.SitDeep);
+            var sitSleepBreathing = ResolveAdditiveBreathingClip(
+                breathing, PosingSystem.LocomotionTypeGroup.SitSleep);
+            var virtualLoveBreathing = ResolveAdditiveBreathingClip(
+                breathing, PosingSystem.LocomotionTypeGroup.VirtualLove);
+            var typeFixBreathing = ResolveAdditiveBreathingClip(
+                breathing, PosingSystem.LocomotionTypeGroup.TypeFix);
+
+
             // Map to DTOs that do NOT have previewImage fields
             var dto = new DefineSerializeRootDTO
             {
                 isIconDisabled = posingSystem.isIconDisabled,
                 isIconSmall = posingSystem.isIconSmall,
-                // Invalidate prebuilds made before uniform root scale was included in RootT conversion.
-                horizontalRootTranslationVersion = 1,
-                // Regenerate prebuilds which rejected single-clip crouch/prone overrides.
-                postureOverrideVersion = 1,
+                additiveBreathingLogicVersion = 3,
+                // Rebuild unsupported IK poses with their manual adjustment instead of discarding it.
+                autoPoseLogicVersion = 4,
+                importedMotionLogicVersion = 2,
+                generatedAssetLogicVersion = 1,
+                controllerLogicVersion = 2, // Desktop one-evaluation is now standard; invalidate alpha.3 prebuilds.
+                floatingPhotographyLogicVersion = 1, // Do not reuse a prebuild which samples the displaced photography head.
+                autoImportAvatarAnimations = posingSystem.autoImportAvatarAnimations,
+                importedMotionInputs = ImportedMotionInputSignature(posingSystem),
+                // Invalidate prebuilds generated before per-frame rollover head centering.
+                rolloverCenteringLogicVersion = 1,
+                rolloverGenerationLogicVersion = 1,
+                autoPoseKneeSafetyEnabled = posingSystem.UsesAutoPoseCatalog &&
+                    PosingSystemAvatarAdjustmentUtility.GetKneeSafety(posingSystem).Enabled,
+                autoPoseMinimumKneeAngle = posingSystem.reverseKneeSafetyAngle,
+                autoPoseKneeBaseline = new Vector2(posingSystem.avatarSpecificLeftKneeBendDegrees,
+                    posingSystem.avatarSpecificRightKneeBendDegrees),
+                featureSettings = FeatureSettingsSignature(posingSystem),
+                rolloverClipGuid = GetStableObjectIdentifier(posingSystem.features?.rolloverAnimation),
+                rolloverClipHash = GetAssetContentHash(posingSystem.features?.rolloverAnimation),
+                enablePoseIk = posingSystem.enablePoseIk,
                 list = new System.Collections.Generic.List<LayerDefineDTO>(),
                 overrides = new System.Collections.Generic.List<OverrideAnimationDefineDTO>(),
+                additiveBreathing = new AdditiveBreathingSettingsDTO
+                {
+                    enabled = breathing != null && breathing.enabled,
+                    disableDefaultIdle = breathing?.disableDefaultIdle ?? false,
+                    standingLevel = breathing?.GetLevel(PosingSystem.LocomotionTypeGroup.Standing)
+                        ?? PosingSystem.BreathingLevel.Medium,
+                    sitShallowLevel = breathing?.GetLevel(PosingSystem.LocomotionTypeGroup.SitShallow)
+                        ?? PosingSystem.BreathingLevel.Medium,
+                    sitDeepLevel = breathing?.GetLevel(PosingSystem.LocomotionTypeGroup.SitDeep)
+                        ?? PosingSystem.BreathingLevel.Medium,
+                    sitSleepLevel = breathing?.GetLevel(PosingSystem.LocomotionTypeGroup.SitSleep)
+                        ?? PosingSystem.BreathingLevel.Medium,
+                    virtualLoveLevel = breathing?.GetLevel(PosingSystem.LocomotionTypeGroup.VirtualLove)
+                        ?? PosingSystem.BreathingLevel.Medium,
+                    typeFixLevel = breathing?.GetLevel(PosingSystem.LocomotionTypeGroup.TypeFix)
+                        ?? PosingSystem.BreathingLevel.Medium,
+                    standingGuid = GetStableObjectIdentifier(standingBreathing),
+                    standingHash = GetAssetContentHash(standingBreathing),
+                    sitShallowGuid = GetStableObjectIdentifier(sitShallowBreathing),
+                    sitShallowHash = GetAssetContentHash(sitShallowBreathing),
+                    sitDeepGuid = GetStableObjectIdentifier(sitDeepBreathing),
+                    sitDeepHash = GetAssetContentHash(sitDeepBreathing),
+                    sitSleepGuid = GetStableObjectIdentifier(sitSleepBreathing),
+                    sitSleepHash = GetAssetContentHash(sitSleepBreathing),
+                    virtualLoveGuid = GetStableObjectIdentifier(virtualLoveBreathing),
+                    virtualLoveHash = GetAssetContentHash(virtualLoveBreathing),
+                    typeFixGuid = GetStableObjectIdentifier(typeFixBreathing),
+                    typeFixHash = GetAssetContentHash(typeFixBreathing),
+                },
                 version = VersionName,
                 savedInstanceId = ignoreInstanceId ? posingSystem.savedInstanceId : UnityEditor.GlobalObjectId.GetGlobalObjectIdSlow(posingSystem).ToString(),
+                autoPoseCatalogGuid = GetStableObjectIdentifier(posingSystem.autoPoseCatalog),
+                // Include edits still in memory: dependency hashes alone only see the saved asset.
+                // EditorJsonUtility preserves persistent animation references as GUID/fileID.
+                autoPoseCatalogHash = GetAssetContentHash(posingSystem.autoPoseCatalog) +
+                    (posingSystem.autoPoseCatalog != null
+                        ? Hash128.Compute(EditorJsonUtility.ToJson(posingSystem.autoPoseCatalog)).ToString()
+                        : string.Empty),
             };
 
             if (posingSystem.defines != null)
@@ -1105,14 +1410,23 @@ namespace jp.unisakistudio.posingsystemeditor
                             var aDTO = new AnimationDefineDTO
                             {
                                 enabled = a.enabled,
+                                disablePoseIk = a.disablePoseIk,
                                 isRotate = a.isRotate,
                                 rotate = a.rotate,
                                 isMotionTime = a.isMotionTime,
+                                isRollover = a.isRollover,
+                                rolloverSideAnimationGuid = GetStableObjectIdentifier(a.rolloverSideAnimation),
+                                rolloverSideAnimationHash = GetAssetContentHash(a.rolloverSideAnimation),
+                                rolloverContactStrength = a.rolloverContactStrength,
                                 motionTimeParamName = a.motionTimeParamName,
                                 animationClipGuid = GetStableObjectIdentifier(a.animationClip),
-                                adjustmentClipGuid = GetStableObjectIdentifier(a.adjustmentClip),
+                                adjustmentClipGuid = posingSystem.UsesAutoPoseFor(a)
+                                    ? string.Empty
+                                    : GetStableObjectIdentifier(a.adjustmentClip),
                                 animationClipHash = GetAssetContentHash(a.animationClip),
-                                adjustmentClipHash = GetAssetContentHash(a.adjustmentClip),
+                                adjustmentClipHash = posingSystem.UsesAutoPoseFor(a)
+                                    ? string.Empty
+                                    : GetAssetContentHash(a.adjustmentClip),
                                 displayName = a.displayName,
                                 initial = a.initial,
                                 initialSet = a.initialSet,
@@ -1132,17 +1446,23 @@ namespace jp.unisakistudio.posingsystemeditor
             {
                 foreach (var ov in posingSystem.overrideDefines)
                 {
+                    if (ov == null) continue;
                     var ovDTO = new OverrideAnimationDefineDTO
                     {
                         enabled = ov.enabled,
+                        disablePoseIk = ov.disablePoseIk,
                         isRotate = ov.isRotate,
                         rotate = ov.rotate,
                         isMotionTime = ov.isMotionTime,
                         motionTimeParamName = ov.motionTimeParamName,
                         animationClipGuid = GetStableObjectIdentifier(ov.animationClip),
-                        adjustmentClipGuid = GetStableObjectIdentifier(ov.adjustmentClip),
+                        adjustmentClipGuid = posingSystem.UsesAutoPoseFor(ov)
+                            ? string.Empty
+                            : GetStableObjectIdentifier(ov.adjustmentClip),
                         animationClipHash = GetAssetContentHash(ov.animationClip),
-                        adjustmentClipHash = GetAssetContentHash(ov.adjustmentClip),
+                        adjustmentClipHash = posingSystem.UsesAutoPoseFor(ov)
+                            ? string.Empty
+                            : GetAssetContentHash(ov.adjustmentClip),
                         stateType = ov.stateType
                     };
                     dto.overrides.Add(ovDTO);
@@ -1335,7 +1655,7 @@ namespace jp.unisakistudio.posingsystemeditor
                         {
                             initialParamValues[define.paramName] = 0;
                         }
-                        if (animation.initial)
+                        if (animation.enabled && animation.animationClip != null && animation.initial)
                         {
                             initialParamValues[define.paramName] = animation.typeParameterValue;
                         }
@@ -1460,7 +1780,9 @@ namespace jp.unisakistudio.posingsystemeditor
                     // アイコンがあったら設定する
                     if (animation.isCustomIcon)
                     {
-                        item.Control.icon = animation.icon;
+                        if (animation.isRollover && animation.previewImage == null)
+                            animation.previewImage = PosingSystemRolloverIcon.CopyWithBadge(animation.icon);
+                        item.Control.icon = animation.isRollover ? animation.previewImage : animation.icon;
                     }
                 }
 
@@ -1468,122 +1790,10 @@ namespace jp.unisakistudio.posingsystemeditor
         }
 
         public static void CreateOriginalAnimatorController(PosingSystem posingSystem)
-        {
-            if (posingSystem == null)
-            {
-                Debug.LogError("[PosingSystem] CreateOriginalAnimatorController: PosingSystem is null.");
-                return;
-            }
+            => PosingSystemGeneratedControllers.EnsureBase(posingSystem);
 
-            // このメソッド内で何度も親階層を探索せず、最初に取得したアバターを使い続ける。
-            // ビルド中の階層変更やアバター外からの直接呼び出しでもNullReferenceExceptionにしない。
-            var avatar = posingSystem.GetAvatar();
-            if (avatar == null)
-            {
-                Debug.LogError(
-                    $"[PosingSystem]「{posingSystem.name}」からVRCAvatarDescriptorを取得できないため" +
-                    "AnimatorControllerを生成できません。配置が正しい場合はビルドログを添えてお問い合わせください。",
-                    posingSystem);
-                return;
-            }
-
-            // 共通ポージングAnimatorを探す
-            var maMergeAnimator = GetCommonMergeAnimator(posingSystem, true);
-            
-            if (maMergeAnimator == null || maMergeAnimator.animator == null)
-            {
-                Debug.LogError("[PosingSystem] MergeAnimator or its animator is null");
-                return;
-            }
-            
-            var animatorController = maMergeAnimator.animator as AnimatorController;
-            if (animatorController == null)
-            {
-                Debug.LogError("[PosingSystem] Animator is not an AnimatorController");
-                return;
-            }
-
-            // 設定されているAnimatorControllerが標準のものかどうかをチェックし、標準じゃないなら処理はもうしなくていい
-            var isDefault = animatorController.layers.Any(l => l.name == "USSPS_IsDefault");
-            if (!isDefault)
-            {
-                // 他のPosingSystemの共通ポージングAnimatorにも同じものを設定する
-                var otherPosingSystems = avatar.GetComponentsInChildren<PosingSystem>();
-                foreach (var otherPosingSystem in otherPosingSystems)
-                {
-                    var otherMaMergeAnimator = GetCommonMergeAnimator(otherPosingSystem);
-                    if (otherMaMergeAnimator)
-                    {
-                        otherMaMergeAnimator.animator = maMergeAnimator.animator;
-                        Undo.RecordObject(otherMaMergeAnimator, "set animator controller");
-                        EditorUtility.SetDirty(otherMaMergeAnimator);
-                    }
-                }
-
-                // その先の処理は必要ない
-                return;
-            }
-
-            // 別の共通ポージングAnimatorに設定されているものがないか調べる
-            var prebuiltMergeAnimator = GetPrebuiltMergeAnimator(posingSystem);
-            if (prebuiltMergeAnimator)
-            {
-                maMergeAnimator.animator = prebuiltMergeAnimator.animator;
-                Undo.RecordObject(maMergeAnimator, "set animator controller");
-                EditorUtility.SetDirty(maMergeAnimator);
-                return;
-            }
-            var templeteAnimatorControllerPath = AssetDatabase.GetAssetPath(animatorController);
-
-            // AnimatorControllerの保存先を決める
-            var directoryPath = PosingSystemEditor.GetGeneratedFolderPath();
-            if (string.IsNullOrEmpty(directoryPath))
-            {
-                directoryPath = "Assets/UnisakiStudio/GeneratedResources";
-                Debug.LogWarning("[PosingSystem] GetGeneratedFolderPath returned empty; using fallback: " + directoryPath);
-            }
-            var avatarFileName = PosingSystemEditor.SanitizeAssetFileName(avatar.name, "PosingSystem");
-            var newAnimatorControllerPath = directoryPath + "/" + avatarFileName + ".controller";
-            newAnimatorControllerPath = AssetDatabase.GenerateUniqueAssetPath(newAnimatorControllerPath);
-            if (string.IsNullOrEmpty(newAnimatorControllerPath))
-            {
-                // GenerateUniqueAssetPathは保存先フォルダがAssetDatabaseに認識されていない場合などに空文字を返す
-                Debug.LogError($"可愛いポーズツール: AnimatorControllerの保存先パスを生成できませんでした。フォルダ「{directoryPath}」がプロジェクトに認識されているか確認してください。");
-                return;
-            }
-
-            // 複製を実行
-            /*
-            var newAnimatorController = new AnimatorController();
-            EditorUtility.CopySerialized(maMergeAnimator.animator, newAnimatorController);
-            AssetDatabase.CreateAsset(newAnimatorController, newAnimatorControllerPath);
-            */
-            var newAnimatorController = AnimatorControllerDeepCopy.CloneAnimatorController(animatorController, newAnimatorControllerPath);
-//            AssetDatabase.CopyAsset(templeteAnimatorControllerPath, newAnimatorControllerPath);
-
-            if (newAnimatorController == null)
-            {
-                return;
-            }
-
-            // オブジェクトに割り当てる
-            maMergeAnimator.animator = newAnimatorController;
-
-            // 新しいAnimatorControllerの「USSPS_IsDefault」レイヤーを削除する
-            var isDefaultLayerIndex = newAnimatorController.layers.ToList().FindIndex(l => l.name == "USSPS_IsDefault");
-            if (isDefaultLayerIndex != -1)
-            {
-                var layers = newAnimatorController.layers.ToList();
-                layers.RemoveAt(isDefaultLayerIndex);
-                newAnimatorController.layers = layers.ToArray();
-                EditorUtility.SetDirty(newAnimatorController);
-            }
-            AssetDatabase.SaveAssets();
-
-            // 変更を記録
-            Undo.RecordObject(maMergeAnimator, "set animator controller");
-            EditorUtility.SetDirty(maMergeAnimator);
-        }
+        public static void CreateOriginalAdditiveBreathingAnimatorController(PosingSystem posingSystem)
+            => PosingSystemGeneratedControllers.EnsureBreathing(posingSystem);
 
         public static void ResetAnimatorControllerParameters(PosingSystem posingSystem)
         {
@@ -1595,7 +1805,7 @@ namespace jp.unisakistudio.posingsystemeditor
             }
 
             // AnimatorControllerを取得
-            var animatorController = maMergeAnimator.animator as AnimatorController;
+            var animatorController = maMergeAnimator != null ? maMergeAnimator.animator as AnimatorController : null;
             if (animatorController == null)
             {
                 Debug.LogError("[PosingSystem]「" + posingSystem.name + "」の共通ポージングAnimatorに設定されているAnimatorControllerが不正です。AnimatorOverrideController等は使用できません");
@@ -1625,7 +1835,9 @@ namespace jp.unisakistudio.posingsystemeditor
                 return;
             }
 
-            var waitAnimation = AssetDatabase.LoadAssetAtPath<AnimationClip>(AssetDatabase.GUIDToAssetPath(AssetDatabase.FindAssets("PosingSystem_Empty")[0]));
+            var waitAnimation = AssetDatabase.LoadAssetAtPath<AnimationClip>(AssetDatabase.GUIDToAssetPath(DefaultEmptyAnimationGuid));
+            if (waitAnimation == null)
+                throw PosingSystemDiagnostics.Failure("PS031", "ツールに同梱される空アニメーションが見つかりません。", PosingSystemDiagnostics.RestoreTool, posingSystem);
 
             // 共通ポージングAnimatorを探す
             var maMergeAnimator = GetPrebuiltMergeAnimator(posingSystem);
@@ -1635,7 +1847,7 @@ namespace jp.unisakistudio.posingsystemeditor
             }
 
             // AnimatorControllerを取得
-            var animatorController = maMergeAnimator.animator as AnimatorController;
+            var animatorController = maMergeAnimator != null ? maMergeAnimator.animator as AnimatorController : null;
             if (animatorController == null)
             {
                 Debug.LogError("[PosingSystem]「" + posingSystem.name + "」の共通ポージングAnimatorに設定されているAnimatorControllerが不正です。AnimatorOverrideController等は使用できません");
@@ -1645,8 +1857,8 @@ namespace jp.unisakistudio.posingsystemeditor
             var srcAvatarAnimator = avatar.GetComponent<Animator>();
             if (srcAvatarAnimator == null || srcAvatarAnimator.avatar == null || !srcAvatarAnimator.isHuman)
             {
-                // ヒューマノイド前提の変換処理のため、環境が整っていない場合はスキップ
-                return;
+                throw PosingSystemDiagnostics.Failure("PS005", "姿勢変換に必要なHumanoid Animatorを取得できません。",
+                    "アバターのルートにあるAnimatorのAvatar欄と、元モデルのRig設定を確認してください。", posingSystem);
             }
 
             // アバターのPosingSystemの一番大きなSyncedParameterValueを探す
@@ -1654,16 +1866,13 @@ namespace jp.unisakistudio.posingsystemeditor
 
             // LocomotionレイヤーとLocomotionTypeレイヤーを取得
             var layer = animatorController.layers.FirstOrDefault(l => l.name == "USSPS_Locomotion");
-            if (layer == null)
-            {
-                return;
-            }
+            if (layer == null || layer.stateMachine == null)
+                throw PosingSystemDiagnostics.Failure("PS014", "共通ControllerにUSSPS_Locomotionレイヤーがありません。", PosingSystemDiagnostics.RestoreTool, maMergeAnimator);
             var stateMachine = layer.stateMachine;
             var typeLayer = animatorController.layers.FirstOrDefault(l => l.name == "USSPS_LocomotionType");
-            if (typeLayer == null)
-            {
-                return;
-            }
+            if (typeLayer == null || typeLayer.stateMachine == null)
+                throw PosingSystemDiagnostics.Failure("PS014", "共通ControllerにUSSPS_LocomotionTypeレイヤーがありません。", PosingSystemDiagnostics.RestoreTool, maMergeAnimator);
+            NormalizeDefaultPoseEncoding(animatorController, assetSaver);
 
             // 変換は必ず、その時点の処理対象アバターから作った一時クローンで行う。
             // previewAvatarObjectはVRC/NDMFの前処理結果を表示するためのEditorキャッシュであり、
@@ -1678,16 +1887,14 @@ namespace jp.unisakistudio.posingsystemeditor
             var workingAnimator = workingAvatar.GetComponent<Animator>();
             if (workingAnimator == null || workingAnimator.avatar == null || !workingAnimator.isHuman)
             {
-                Debug.LogError("[PosingSystem] 変換用アバターに有効なHumanoid Animatorがありません。");
                 Object.DestroyImmediate(workingAvatar);
-                return;
+                throw PosingSystemDiagnostics.Failure("PS005", "変換用アバターに有効なHumanoid Animatorがありません。", "元アバターのAnimatorとAvatar参照を確認してください。", posingSystem);
             }
             var headBone = workingAnimator.GetBoneTransform(HumanBodyBones.Head);
             if (headBone == null)
             {
-                Debug.LogError("[PosingSystem] アバターのHeadボーンが見つかりません。Humanoidリグが正しく設定されているか確認してください。");
                 Object.DestroyImmediate(workingAvatar);
-                return;
+                throw PosingSystemDiagnostics.Failure("PS006", "変換用アバターのHeadボーンが見つかりません。", "元モデルのRig > Configureと、シーンの頭ボーンを確認してください。", posingSystem);
             }
 
             // アバターの背の高さ係数を計算
@@ -1723,9 +1930,9 @@ namespace jp.unisakistudio.posingsystemeditor
             }
             catch (System.Exception e)
             {
-                Debug.LogError($"[PosingSystem] アバターの高さ計算中にエラーが発生しました: {e.Message}\n{e.StackTrace}");
                 Object.DestroyImmediate(workingAvatar);
-                return;
+                throw PosingSystemDiagnostics.Failure("PS034", "アバターの高さ計算に失敗しました。",
+                    "アバターのHumanoid設定とHeadボーンを確認してください。詳細はConsoleの内部例外を確認してください。", posingSystem, e);
             }
             finally
             {
@@ -1760,11 +1967,6 @@ namespace jp.unisakistudio.posingsystemeditor
                         if (!animationDefine.enabled)
                         {
                             continue;
-                        }
-
-                        if (animatorController.parameters.Where(param => param.name == animationDefine.motionTimeParamName).Count() == 0)
-                        {
-                            animatorController.AddParameter(animationDefine.motionTimeParamName, AnimatorControllerParameterType.Float);
                         }
 
                         // アニメーションを作成
@@ -1843,8 +2045,8 @@ namespace jp.unisakistudio.posingsystemeditor
                             }
                             catch (System.Exception e)
                             {
-                                Debug.LogError($"[PosingSystem] アニメーション '{animationDefine.displayName}' の処理中にエラーが発生しました: {e.Message}\n{e.StackTrace}");
-                                continue;
+                                throw PosingSystemDiagnostics.Failure("PS035", $"ポーズ「{define.menuName} / {animationDefine.displayName}」の変換に失敗しました。",
+                                    "ポーズ一覧で該当アニメーションと調整クリップを確認してください。切り分ける場合はそのポーズを一時的に無効にして再実行してください。", posingSystem, e);
                             }
                             finally
                             {
@@ -1854,42 +2056,29 @@ namespace jp.unisakistudio.posingsystemeditor
                             }
 
                             var newAnimationClip = Object.Instantiate(tempClipForCurves);
-                            if (animationDefine.adjustmentClip != null)
+                            AnimationClip automaticAdjustmentClip = null;
+                            var adjustmentClip = posingSystem.UsesAutoPoseFor(animationDefine)
+                                ? null
+                                : animationDefine.adjustmentClip;
+                            if (posingSystem.UsesAutoPoseFor(animationDefine))
                             {
-                                var adjustmentClip = animationDefine.adjustmentClip;
-
-                                // RootQカーブはQuaternion乗算で合成（元の回転 × 調整の回転）
-                                AdditiveCurveUtility.MultiplyRootQCurves(tempClipForCurves, adjustmentClip, newAnimationClip);
-
-                                // RootTカーブは従来通り加算
-                                foreach (var binding in AnimationUtility.GetCurveBindings(adjustmentClip))
-                                {
-                                    if (AdditiveCurveUtility.IsRootTBinding(binding))
-                                    {
-                                        var adjustmentCurve = AnimationUtility.GetEditorCurve(adjustmentClip, binding);
-                                        var baseCurve = AnimationUtility.GetEditorCurve(newAnimationClip, binding);
-                                        if (baseCurve == null)
-                                        {
-                                            baseCurve = new AnimationCurve();
-                                        }
-                                        baseCurve = AdditiveCurveUtility.AddCurve(baseCurve, adjustmentCurve);
-                                        AnimationUtility.SetEditorCurve(newAnimationClip, binding, baseCurve);
-                                    }
-                                }
-
-                                // マッスルカーブはHumanPoseHandlerを使って再ベイク
-                                // これにより、元のアニメーションと調整アニメーションのバインディングパスの違いを吸収する
-                                var adjustedMuscleIndices = AdditiveCurveUtility.GetAdjustedMuscleIndices(adjustmentClip);
-                                if (adjustedMuscleIndices.Count > 0)
-                                {
-                                    ApplyMuscleAdjustmentsWithRebake(
-                                        workingAvatar,
-                                        tempClipForCurves,
-                                        adjustmentClip,
-                                        newAnimationClip,
-                                        adjustedMuscleIndices
-                                    );
-                                }
+                                automaticAdjustmentClip = CreateAutomaticPoseAdjustmentClip(
+                                    posingSystem,
+                                    workingAnimator,
+                                    tempClipForCurves,
+                                    PosingSystemAutoPoseCatalog.BuildPoseKey(
+                                        define.menuName,
+                                        animationDefine.displayName));
+                                adjustmentClip = automaticAdjustmentClip;
+                            }
+                            try
+                            {
+                                ApplyClipAdjustments(posingSystem, workingAvatar, tempClipForCurves,
+                                    newAnimationClip, adjustmentClip, true);
+                            }
+                            finally
+                            {
+                                if (automaticAdjustmentClip != null) Object.DestroyImmediate(automaticAdjustmentClip);
                             }
                             foreach (var binding in AnimationUtility.GetCurveBindings(newAnimationClip))
                             {
@@ -1922,15 +2111,30 @@ namespace jp.unisakistudio.posingsystemeditor
                                 if (rootQwCurve != null)
                                     setCurve("RootQ.w", (keyframe, i) => keyframe.value);
                             }
-                            if (animationDefine.isRotate)
-                            {
-                                var clipSetting = AnimationUtility.GetAnimationClipSettings(newAnimationClip);
-                                clipSetting.orientationOffsetY += animationDefine.rotate;
-                                AnimationUtility.SetAnimationClipSettings(newAnimationClip, clipSetting);
-                            }
+                            ApplyClipRotation(newAnimationClip, animationDefine);
 
                             // 生成したアニメーションクリップをAnimatorControllerのサブアセットとして永続化
                             newAnimationClip.name = "_USSPS_" + (animationDefine.animationClip != null ? animationDefine.animationClip.name : "Animation") + "_Processed";
+                            if (animationDefine.isRollover)
+                            {
+                                // Compose only after the center pose's own adjustments have been applied.
+                                if (animationDefine.rolloverSideAnimation != null)
+                                {
+                                    var side = PrepareRolloverSide(posingSystem, animationDefine, workingAvatar);
+                                    try
+                                    {
+                                        var generated = PosingSystemRolloverGenerator.Create(workingAvatar,
+                                            newAnimationClip, side, animationDefine.rolloverContactStrength);
+                                        generated.name = newAnimationClip.name;
+                                        Object.DestroyImmediate(newAnimationClip);
+                                        newAnimationClip = generated;
+                                    }
+                                    finally { Object.DestroyImmediate(side); }
+                                }
+                                // An empty side field preserves existing authored-roll settings.
+                                CenterRolloverHead(workingAvatar, newAnimationClip);
+                                newAnimationClip.name += RolloverCenteredMarker;
+                            }
                             SaveGeneratedAsset(newAnimationClip, animatorController, assetSaver);
                             EditorUtility.SetDirty(animatorController);
                             EditorUtility.SetDirty(newAnimationClip);
@@ -1992,11 +2196,7 @@ namespace jp.unisakistudio.posingsystemeditor
                                 stateMachine.states = states;
                             }
 
-                            if (animationDefine.isMotionTime)
-                            {
-                                state.timeParameterActive = true;
-                                state.timeParameter = animationDefine.motionTimeParamName;
-                            }
+                            ConfigurePoseMotionTime(animatorController, state, animationDefine);
 
                             state.motion = motion;
                         }
@@ -2036,11 +2236,7 @@ namespace jp.unisakistudio.posingsystemeditor
                                 stateMachine.states = states;
                             }
 
-                            if (animationDefine.isMotionTime)
-                            {
-                                state.timeParameterActive = true;
-                                state.timeParameter = animationDefine.motionTimeParamName;
-                            }
+                            ConfigurePoseMotionTime(animatorController, state, animationDefine);
 
                             state.motion = motion;
                         }
@@ -2093,13 +2289,21 @@ namespace jp.unisakistudio.posingsystemeditor
                         }
 
                         // 再生する姿勢を同期するためのParameterDriverを作成
-                        var typeParameterDriver = typeState.AddStateMachineBehaviour<VRC.SDK3.Avatars.Components.VRCAvatarParameterDriver>();
+                        // Rebuilds reuse selector states. Reuse our encoder too, instead of adding
+                        // another identical callback on every prebuild. Preserve other behaviours.
+                        var existingEncoders = typeState.behaviours.OfType<VRC.SDK3.Avatars.Components.VRCAvatarParameterDriver>()
+                            .Where(b => b.parameters.Count == parameters.Count && b.parameters.All(p =>
+                                p.type == VRC_AvatarParameterDriver.ChangeType.Set && parameters.Any(v => v.name == p.name))).ToArray();
+                        var typeParameterDriver = existingEncoders.FirstOrDefault() ?? typeState.AddStateMachineBehaviour<VRC.SDK3.Avatars.Components.VRCAvatarParameterDriver>();
+                        typeState.behaviours = typeState.behaviours.Where(b => b == typeParameterDriver || !existingEncoders.Contains(b)).ToArray();
                         if (typeParameterDriver == null)
                         {
                             Debug.LogError("[PosingSystem]AddStateMachineBehaviourに失敗しました");
                             throw new System.Exception("AddStateMachineBehaviourに失敗しました");
                         }
                         typeParameterDriver.isLocalPlayer = true;
+                        typeParameterDriver.localOnly = true;
+                        typeParameterDriver.parameters.Clear();
                         foreach (var parameter in parameters)
                         {
                             var drivingParam = new VRC.SDKBase.VRC_AvatarParameterDriver.Parameter
@@ -2115,6 +2319,8 @@ namespace jp.unisakistudio.posingsystemeditor
 
                 AssetDatabase.SaveAssets();
 
+                // The comparison backend retains one pose and supplies height from a separate layer.
+                var additiveFootHeight = UsesAdditiveFootHeight(avatar.GetComponentsInChildren<PosingSystem>());
                 // FootHeight用のBlendTreeを作る
                 var skipBlendTree = new List<BlendTree>();
                 void addFootHeightBlendtree(AnimatorStateMachine stateMachine)
@@ -2235,6 +2441,25 @@ namespace jp.unisakistudio.posingsystemeditor
                         // 既にFootHeight用のBlendTreeがある場合はスキップ
                         if (state.state.motion.name.IndexOf("_USSPS_") == 0 && state.state.motion.name.IndexOf("_footheight") != -1)
                         {
+                            // A one-child wrapper is the compact backend. Re-expand it when returning
+                            // to ClipLevel, including imported locomotion states reused across prebuilds.
+                            if (!additiveFootHeight && state.state.motion is BlendTree compact && compact.children.Length == 1)
+                                state.state.motion = compact.children[0].motion;
+                            else continue;
+                        }
+                        if (additiveFootHeight && state.state.motion is AnimationClip)
+                        {
+                            var source = state.state.motion;
+                            if (source is AnimationClip proxy && proxy.name.StartsWith("proxy_")) continue;
+                            Motion neutral = Object.Instantiate(source);
+                            if (neutral == null) continue;
+                            neutral.name = "_USSPS_" + source.name + "_zero";
+                            SaveGeneratedAsset(neutral, animatorController, assetSaver);
+                            var wrapper = new BlendTree { name = "_USSPS_" + source.name + "_footheight",
+                                blendParameter = "FootHeight", useAutomaticThresholds = false };
+                            wrapper.AddChild(neutral, .5f);
+                            SaveGeneratedAsset(wrapper, animatorController, assetSaver);
+                            state.state.motion = wrapper;
                             continue;
                         }
                         if (state.state.motion.GetType() == typeof(AnimationClip))
@@ -2334,27 +2559,521 @@ namespace jp.unisakistudio.posingsystemeditor
             }
         }
 
+        public const string AdditiveBreathingLayerName = "USSPS_AdditiveBreathing";
+        public const string AdditiveBreathingEnabledParameterName = "USSPS_Breathing";
+        public const string AdditiveBreathingPoseParameterName = "USSPS_Pose";
+        public const string AdditiveBreathingDisabledStateName = "BreathingOff";
+        public const string AdditiveBreathingResetClipName = "_USSPS_AdditiveBreathingReset";
+
+        /// <summary>
+        /// 8bit商品版から呼吸用の同期Bool、メニュー、Additive統合をまとめて取り除く。
+        /// </summary>
+        public static void DisableAdditiveBreathingForEightBit(PosingSystem posingSystem)
+        {
+            if (posingSystem == null || !posingSystem.isEightBitVersion)
+            {
+                return;
+            }
+
+            if (posingSystem.additiveBreathing != null)
+            {
+                posingSystem.additiveBreathing.enabled = false;
+            }
+
+            foreach (var parameters in posingSystem.GetComponentsInChildren<ModularAvatarParameters>(true))
+            {
+                parameters.parameters.RemoveAll(parameter =>
+                    parameter.nameOrPrefix == AdditiveBreathingEnabledParameterName);
+                EditorUtility.SetDirty(parameters);
+            }
+
+            foreach (var menuItem in posingSystem.GetComponentsInChildren<ModularAvatarMenuItem>(true)
+                         .Where(item =>
+                             item.Control != null &&
+                             item.Control.parameter != null &&
+                             item.Control.parameter.name == AdditiveBreathingEnabledParameterName)
+                         .ToArray())
+            {
+                Object.DestroyImmediate(menuItem.gameObject);
+            }
+
+            foreach (var duplicateEraser in posingSystem.GetComponentsInChildren<DuplicateEraser>(true)
+                         .Where(component => component.ID == AdditiveBreathingDuplicateEraserId)
+                         .ToArray())
+            {
+                Object.DestroyImmediate(duplicateEraser.gameObject);
+            }
+
+            EditorUtility.SetDirty(posingSystem);
+        }
+
+        /// <summary>
+        /// 同期済みの姿勢番号からLocomotionTypeGroupを復元して切り替わるAdditive呼吸レイヤーを構築する。
+        /// 未設定のグループには空クリップを割り当て、前のグループの呼吸が残らないようにする。
+        /// </summary>
+        public static AnimationClip ResolveAdditiveBreathingClip(
+            PosingSystem.AdditiveBreathingSettings settings,
+            PosingSystem.LocomotionTypeGroup group)
+        {
+            if (settings == null)
+            {
+                return null;
+            }
+
+            string clipGuid;
+            switch (settings.GetLevel(group))
+            {
+                case PosingSystem.BreathingLevel.None:
+                    return null;
+                case PosingSystem.BreathingLevel.Weak:
+                    clipGuid = BreathingWeakClipGuid;
+                    break;
+                case PosingSystem.BreathingLevel.Strong:
+                    clipGuid = BreathingStrongClipGuid;
+                    break;
+                case PosingSystem.BreathingLevel.Custom:
+                    return settings.GetCustomClip(group);
+                case PosingSystem.BreathingLevel.Rapid:
+                    clipGuid = BreathingRapidClipGuid;
+                    break;
+                case PosingSystem.BreathingLevel.Medium:
+                default:
+                    clipGuid = BreathingMediumClipGuid;
+                    break;
+            }
+
+            var clipPath = AssetDatabase.GUIDToAssetPath(clipGuid);
+            return string.IsNullOrEmpty(clipPath)
+                ? null
+                : AssetDatabase.LoadAssetAtPath<AnimationClip>(clipPath);
+        }
+
+        public static void ConvertAdditiveBreathingAnimations(PosingSystem posingSystem)
+        {
+            if (posingSystem == null)
+            {
+                return;
+            }
+
+            // 旧版でLocomotion用Controllerへ追加していた呼吸レイヤーは移行時に取り除く。
+            var locomotionMergeAnimator = GetPrebuiltMergeAnimator(posingSystem);
+            if (locomotionMergeAnimator == null)
+            {
+                locomotionMergeAnimator = GetCommonMergeAnimator(posingSystem);
+            }
+            var locomotionController = locomotionMergeAnimator != null
+                ? locomotionMergeAnimator.animator as AnimatorController
+                : null;
+            if (locomotionController != null)
+            {
+                var locomotionLayers = locomotionController.layers.ToList();
+                var legacyLayerIndex = locomotionLayers.FindIndex(
+                    candidate => candidate.name == AdditiveBreathingLayerName);
+                if (legacyLayerIndex >= 0)
+                {
+                    locomotionLayers.RemoveAt(legacyLayerIndex);
+                    locomotionController.layers = locomotionLayers.ToArray();
+                    EditorUtility.SetDirty(locomotionController);
+                }
+            }
+
+            if (!PosingSystemFeatureUtility.UsesBreathing(posingSystem))
+            {
+                DisableAdditiveBreathingForEightBit(posingSystem);
+                return;
+            }
+
+            var maMergeAnimator = GetAdditiveBreathingMergeAnimator(posingSystem, true);
+            var animatorController = maMergeAnimator != null
+                ? maMergeAnimator.animator as AnimatorController
+                : null;
+            if (animatorController == null)
+            {
+                return;
+            }
+
+            var layers = animatorController.layers.ToList();
+            var layerIndex = layers.FindIndex(candidate => candidate.name == AdditiveBreathingLayerName);
+            var settings = posingSystem.additiveBreathing;
+            var hasClip = settings != null && System.Enum
+                .GetValues(typeof(PosingSystem.LocomotionTypeGroup))
+                .Cast<PosingSystem.LocomotionTypeGroup>()
+                .Any(group => ResolveAdditiveBreathingClip(settings, group) != null);
+
+            // 以前生成したレイヤーがある場合、無効化設定も生成済みControllerへ反映する。
+            if (settings == null || !settings.enabled || !hasClip)
+            {
+                if (layerIndex >= 0)
+                {
+                    var disabledLayer = layers[layerIndex];
+                    disabledLayer.defaultWeight = 0f;
+                    animatorController.layers = new[] { disabledLayer };
+                    EditorUtility.SetDirty(animatorController);
+                }
+                return;
+            }
+
+            var resetClip = GetOrCreateAdditiveBreathingResetClip(animatorController, settings);
+
+            // Additive Playable Layerでも他クライアントと同じ呼吸になるよう、
+            // 非同期のLocomotionType/LocomotionTypeGroupには依存しない。
+            var obsoleteParameterNames = new HashSet<string>
+            {
+                "LocomotionTypeGroup",
+                "LocomotionType",
+                "USSPS_TypeFix",
+            };
+            for (var parameterIndex = animatorController.parameters.Length - 1;
+                 parameterIndex >= 0;
+                 parameterIndex--)
+            {
+                if (obsoleteParameterNames.Contains(animatorController.parameters[parameterIndex].name))
+                {
+                    animatorController.RemoveParameter(parameterIndex);
+                }
+            }
+
+            var maxSyncedParameterValue = GetMaxSyncedParameterValue(posingSystem.GetAvatar());
+            var synchronizedPoseParameters = SplitSyncParameters(0, maxSyncedParameterValue);
+            foreach (var synchronizedPoseParameter in synchronizedPoseParameters)
+            {
+                if (!animatorController.parameters.Any(parameter =>
+                        parameter.name == synchronizedPoseParameter.name))
+                {
+                    animatorController.AddParameter(
+                        synchronizedPoseParameter.name,
+                        synchronizedPoseParameter.aType);
+                }
+            }
+
+            if (!animatorController.parameters.Any(parameter =>
+                    parameter.name == AdditiveBreathingEnabledParameterName))
+            {
+                animatorController.AddParameter(
+                    AdditiveBreathingEnabledParameterName,
+                    AnimatorControllerParameterType.Bool);
+            }
+
+
+            // ゲーム内設定の呼吸トグルは初期状態をONにする。
+            var controllerParameters = animatorController.parameters;
+            var breathingEnabledParameter = controllerParameters.First(parameter =>
+                parameter.name == AdditiveBreathingEnabledParameterName);
+            breathingEnabledParameter.defaultBool = true;
+            animatorController.parameters = controllerParameters;
+
+            AnimatorControllerLayer breathingLayer;
+            if (layerIndex < 0)
+            {
+                var stateMachine = new AnimatorStateMachine
+                {
+                    name = AdditiveBreathingLayerName,
+                };
+                if (EditorUtility.IsPersistent(animatorController))
+                {
+                    AssetDatabase.AddObjectToAsset(stateMachine, animatorController);
+                }
+
+                breathingLayer = new AnimatorControllerLayer
+                {
+                    name = AdditiveBreathingLayerName,
+                    stateMachine = stateMachine,
+                };
+                animatorController.AddLayer(breathingLayer);
+                layers = animatorController.layers.ToList();
+                layerIndex = layers.FindIndex(candidate => candidate.name == AdditiveBreathingLayerName);
+                breathingLayer = layers[layerIndex];
+            }
+            else
+            {
+                breathingLayer = layers[layerIndex];
+            }
+
+            breathingLayer.blendingMode = AnimatorLayerBlendingMode.Additive;
+            breathingLayer.defaultWeight = 1f;
+            breathingLayer.iKPass = false;
+
+            var stateMachineToConfigure = breathingLayer.stateMachine;
+            foreach (var transition in stateMachineToConfigure.anyStateTransitions.ToArray())
+            {
+                stateMachineToConfigure.RemoveAnyStateTransition(transition);
+                if (EditorUtility.IsPersistent(transition))
+                {
+                    Object.DestroyImmediate(transition, true);
+                }
+            }
+
+            var breathingDisabledState = stateMachineToConfigure.states
+                .Select(childState => childState.state)
+                .FirstOrDefault(candidate => candidate.name == AdditiveBreathingDisabledStateName);
+            if (breathingDisabledState == null)
+            {
+                breathingDisabledState = stateMachineToConfigure.AddState(
+                    AdditiveBreathingDisabledStateName,
+                    new Vector3(800f, 0f));
+                AddAnimatorSubAssetIfNeeded(breathingDisabledState, animatorController);
+            }
+
+            foreach (var oldTransition in breathingDisabledState.transitions.ToArray())
+            {
+                breathingDisabledState.RemoveTransition(oldTransition);
+                if (EditorUtility.IsPersistent(oldTransition))
+                {
+                    Object.DestroyImmediate(oldTransition, true);
+                }
+            }
+
+            breathingDisabledState.writeDefaultValues = false;
+            breathingDisabledState.motion = resetClip;
+
+            var breathingDisabledTransition =
+                stateMachineToConfigure.AddAnyStateTransition(breathingDisabledState);
+            AddAnimatorSubAssetIfNeeded(breathingDisabledTransition, animatorController);
+            breathingDisabledTransition.hasExitTime = false;
+            breathingDisabledTransition.duration = 0.35f;
+            breathingDisabledTransition.canTransitionToSelf = false;
+            breathingDisabledTransition.interruptionSource =
+                TransitionInterruptionSource.SourceThenDestination;
+            breathingDisabledTransition.AddCondition(
+                AnimatorConditionMode.IfNot,
+                0f,
+                AdditiveBreathingEnabledParameterName);
+
+            var groups = System.Enum.GetValues(typeof(PosingSystem.LocomotionTypeGroup))
+                .Cast<PosingSystem.LocomotionTypeGroup>()
+                .ToArray();
+            AnimatorState standingState = null;
+            var statesByGroup = new Dictionary<PosingSystem.LocomotionTypeGroup, AnimatorState>();
+            for (var index = 0; index < groups.Length; index++)
+            {
+                var group = groups[index];
+                var stateName = group.ToString();
+                var state = stateMachineToConfigure.states
+                    .Select(childState => childState.state)
+                    .FirstOrDefault(candidate => candidate.name == stateName);
+                if (state == null)
+                {
+                    state = stateMachineToConfigure.AddState(stateName, new Vector3(500f, index * 70f));
+                    AddAnimatorSubAssetIfNeeded(state, animatorController);
+                }
+
+                foreach (var oldTransition in state.transitions.ToArray())
+                {
+                    state.RemoveTransition(oldTransition);
+                    if (EditorUtility.IsPersistent(oldTransition))
+                    {
+                        Object.DestroyImmediate(oldTransition, true);
+                    }
+                }
+
+                state.writeDefaultValues = false;
+                state.motion = ResolveAdditiveBreathingClip(settings, group) ?? resetClip;
+                statesByGroup[group] = state;
+
+                if (group == PosingSystem.LocomotionTypeGroup.Standing)
+                {
+                    standingState = state;
+                }
+            }
+
+            // USSPS_Poseの0～3は標準姿勢用の予約値。頭の高さ無視中に個別ポーズを
+            // 選択していない場合も1（中腰）/2（伏せ）が同期されるため、呼吸側でも扱う。
+            // 3は寝姿勢用の予約値として先に確保し、今後Locomotion側が出力しても正しく動かす。
+            var defaultPoseGroups = new[]
+            {
+                new KeyValuePair<int, PosingSystem.LocomotionTypeGroup>(
+                    0, PosingSystem.LocomotionTypeGroup.Standing),
+                new KeyValuePair<int, PosingSystem.LocomotionTypeGroup>(
+                    1, PosingSystem.LocomotionTypeGroup.SitShallow),
+                new KeyValuePair<int, PosingSystem.LocomotionTypeGroup>(
+                    2, PosingSystem.LocomotionTypeGroup.SitDeep),
+                new KeyValuePair<int, PosingSystem.LocomotionTypeGroup>(
+                    3, PosingSystem.LocomotionTypeGroup.SitSleep),
+            };
+            foreach (var defaultPoseGroup in defaultPoseGroups)
+            {
+                AddSynchronizedPoseBreathingTransition(
+                    stateMachineToConfigure,
+                    statesByGroup[defaultPoseGroup.Value],
+                    defaultPoseGroup.Key,
+                    maxSyncedParameterValue,
+                    animatorController);
+            }
+
+            var configuredPoseValues = new HashSet<int>(defaultPoseGroups.Select(pair => pair.Key));
+            if (posingSystem.defines != null)
+            {
+                foreach (var define in posingSystem.defines)
+                {
+                    if (define == null || define.animations == null)
+                    {
+                        continue;
+                    }
+
+                    var groupValue = define.locomotionTypeValue / 10;
+                    if (!System.Enum.IsDefined(typeof(PosingSystem.LocomotionTypeGroup), groupValue))
+                    {
+                        continue;
+                    }
+
+                    var group = (PosingSystem.LocomotionTypeGroup)groupValue;
+                    AnimatorState groupState;
+                    if (!statesByGroup.TryGetValue(group, out groupState))
+                    {
+                        continue;
+                    }
+
+                    foreach (var animation in define.animations)
+                    {
+                        if (animation == null || !animation.enabled ||
+                            animation.syncdParameterValue <= 0 ||
+                            !configuredPoseValues.Add(animation.syncdParameterValue))
+                        {
+                            continue;
+                        }
+
+                        AddSynchronizedPoseBreathingTransition(
+                            stateMachineToConfigure,
+                            groupState,
+                            animation.syncdParameterValue,
+                            maxSyncedParameterValue,
+                            animatorController);
+                    }
+                }
+            }
+
+            if (!PosingSystemFeatureUtility.AvatarUsesBreathingControl(posingSystem))
+            {
+                stateMachineToConfigure.RemoveAnyStateTransition(breathingDisabledTransition);
+                if (EditorUtility.IsPersistent(breathingDisabledTransition)) Object.DestroyImmediate(breathingDisabledTransition, true);
+                foreach (var transition in stateMachineToConfigure.anyStateTransitions)
+                    transition.conditions = transition.conditions.Where(c => c.parameter != AdditiveBreathingEnabledParameterName).ToArray();
+                stateMachineToConfigure.RemoveState(breathingDisabledState);
+                animatorController.parameters = animatorController.parameters.Where(p => p.name != AdditiveBreathingEnabledParameterName).ToArray();
+            }
+
+            stateMachineToConfigure.defaultState = standingState;
+            animatorController.layers = new[] { breathingLayer };
+            EditorUtility.SetDirty(stateMachineToConfigure);
+            EditorUtility.SetDirty(animatorController);
+            if (EditorUtility.IsPersistent(animatorController))
+            {
+                AssetDatabase.SaveAssets();
+            }
+        }
+
+        private static void AddSynchronizedPoseBreathingTransition(
+            AnimatorStateMachine stateMachine,
+            AnimatorState destinationState,
+            int syncedPoseValue,
+            int maxSyncedParameterValue,
+            AnimatorController animatorController)
+        {
+            var transition = stateMachine.AddAnyStateTransition(destinationState);
+            AddAnimatorSubAssetIfNeeded(transition, animatorController);
+            transition.hasExitTime = false;
+            transition.duration = 0.35f;
+            transition.canTransitionToSelf = false;
+            transition.interruptionSource = TransitionInterruptionSource.SourceThenDestination;
+            transition.AddCondition(
+                AnimatorConditionMode.If,
+                0f,
+                AdditiveBreathingEnabledParameterName);
+
+            foreach (var parameter in SplitSyncParameters(syncedPoseValue, maxSyncedParameterValue))
+            {
+                transition.AddCondition(
+                    parameter.type == ParameterSyncType.Bool
+                        ? (parameter.value != 0
+                            ? AnimatorConditionMode.If
+                            : AnimatorConditionMode.IfNot)
+                        : AnimatorConditionMode.Equals,
+                    parameter.value,
+                    parameter.name);
+            }
+        }
+
+        private static void AddAnimatorSubAssetIfNeeded(
+            Object subAsset,
+            AnimatorController animatorController)
+        {
+            if (subAsset != null &&
+                EditorUtility.IsPersistent(animatorController) &&
+                string.IsNullOrEmpty(AssetDatabase.GetAssetPath(subAsset)))
+            {
+                AssetDatabase.AddObjectToAsset(subAsset, animatorController);
+            }
+        }
+
+        private static AnimationClip GetOrCreateAdditiveBreathingResetClip(
+            AnimatorController animatorController,
+            PosingSystem.AdditiveBreathingSettings settings)
+        {
+            AnimationClip resetClip = null;
+            var controllerPath = AssetDatabase.GetAssetPath(animatorController);
+            if (!string.IsNullOrEmpty(controllerPath))
+            {
+                resetClip = AssetDatabase.LoadAllAssetsAtPath(controllerPath)
+                    .OfType<AnimationClip>()
+                    .FirstOrDefault(clip => clip.name == AdditiveBreathingResetClipName);
+            }
+
+            if (resetClip == null)
+            {
+                resetClip = animatorController.layers
+                    .SelectMany(layer => layer.stateMachine.states)
+                    .Select(child => child.state.motion as AnimationClip)
+                    .FirstOrDefault(clip =>
+                        clip != null && clip.name == AdditiveBreathingResetClipName);
+            }
+
+            if (resetClip == null)
+            {
+                resetClip = new AnimationClip
+                {
+                    name = AdditiveBreathingResetClipName,
+                    frameRate = 60f,
+                };
+                AddAnimatorSubAssetIfNeeded(resetClip, animatorController);
+            }
+
+            foreach (var oldBinding in AnimationUtility.GetCurveBindings(resetClip))
+            {
+                AnimationUtility.SetEditorCurve(resetClip, oldBinding, null);
+            }
+
+            var groups = System.Enum.GetValues(typeof(PosingSystem.LocomotionTypeGroup))
+                .Cast<PosingSystem.LocomotionTypeGroup>();
+            var bindings = groups
+                .Select(group => ResolveAdditiveBreathingClip(settings, group))
+                .Where(clip => clip != null)
+                .SelectMany(AnimationUtility.GetCurveBindings)
+                .Distinct();
+            foreach (var binding in bindings)
+            {
+                AnimationUtility.SetEditorCurve(
+                    resetClip,
+                    binding,
+                    AnimationCurve.Constant(0f, 1f, 0f));
+            }
+
+            var clipSettings = AnimationUtility.GetAnimationClipSettings(resetClip);
+            clipSettings.loopTime = true;
+            AnimationUtility.SetAnimationClipSettings(resetClip, clipSettings);
+            EditorUtility.SetDirty(resetClip);
+            return resetClip;
+        }
+
         private static Vector3 GetHorizontalOffsetInRootUnits(
             Transform avatarRoot,
             Vector3 worldPosition,
             float humanScale)
         {
-            // humanScale excludes the root Transform scale. With positive uniform scaling,
-            // one RootT unit moves humanScale * rootScale world meters.
+            // RootT uses humanScale units. Rotate the world offset into avatar axes while
+            // preserving its meter magnitude, then normalize it by the humanoid scale.
             var worldOffset = worldPosition - avatarRoot.position;
             var avatarSpaceOffset = Quaternion.Inverse(avatarRoot.rotation) * worldOffset;
-            var offset = new Vector3(avatarSpaceOffset.x, 0f, avatarSpaceOffset.z) / humanScale;
-            var scale = avatarRoot.lossyScale;
-            // Keep existing behavior for nonuniform, reflected or degenerate transforms.
-            // Relative tolerance avoids treating tiny nonuniform scales as uniform.
-            if (scale.x > 0.000001f && scale.y > 0.000001f && scale.z > 0.000001f
-                && !float.IsInfinity(scale.x)
-                && Mathf.Abs(scale.x - scale.y) <= scale.x * 0.00001f
-                && Mathf.Abs(scale.x - scale.z) <= scale.x * 0.00001f)
-            {
-                offset /= scale.x;
-            }
-            return offset;
+            return new Vector3(avatarSpaceOffset.x, 0f, avatarSpaceOffset.z) / humanScale;
         }
 
         private static bool HasValidHumanoidAnimator(GameObject avatarObject)
@@ -2564,7 +3283,11 @@ namespace jp.unisakistudio.posingsystemeditor
         /// </summary>
         private static void RemoveOldSubAssets(AnimatorController animatorController)
         {
-            if (animatorController == null) return;
+            // Only a standalone prebuilt controller owns all sub-assets in its file.
+            // NDMF packs multiple controllers and their motions into shared containers;
+            // pruning one controller's unused motions there can delete another one's clips.
+            if (animatorController == null || !AssetDatabase.IsMainAsset(animatorController) ||
+                PosingSystemGeneratedControllers.Metadata(animatorController) != null) return;
 
             var allAssets = AssetDatabase.LoadAllAssetsAtPath(AssetDatabase.GetAssetPath(animatorController));
             var assetsToRemove = new List<UnityEngine.Object>();
@@ -2621,6 +3344,13 @@ namespace jp.unisakistudio.posingsystemeditor
             foreach (var layer in animatorController.layers)
             {
                 checkStateMachine(layer.stateMachine);
+                if (layer.syncedLayerIndex < 0 || layer.syncedLayerIndex >= animatorController.layers.Length) continue;
+                foreach (var state in AllFeatureStates(animatorController.layers[layer.syncedLayerIndex].stateMachine))
+                {
+                    var motion = layer.GetOverrideMotion(state);
+                    if (motion is AnimationClip clip) usedAnimationClips.Add(clip);
+                    else if (motion is BlendTree tree) checkBlendTreeAction(tree);
+                }
             }
 
             foreach (var asset in allAssets)
@@ -2698,25 +3428,6 @@ namespace jp.unisakistudio.posingsystemeditor
 
         public static void TakeScreenshot(PosingSystem posingSystem, bool force = false, bool drypreview = true)
         {
-            TakeScreenshot(posingSystem, force, drypreview, false, null);
-        }
-
-        private static void CreateBuildMenuIcons(PosingSystem posingSystem, IAssetSaver assetSaver)
-        {
-            // Manual final captures preprocess an EditorOnly clone. Avoid recursive captures.
-            if (posingSystem.CompareTag("EditorOnly")) return;
-            TakeScreenshot(posingSystem, false, true, true, assetSaver);
-            SetMenuIcon(posingSystem);
-        }
-
-        private static bool NeedsThumbnailCapture(PosingSystem.BaseAnimationDefine animation, bool force, bool requireFinalImage)
-        {
-            if (animation is PosingSystem.AnimationDefine pose && pose.isCustomIcon) return false;
-            return force || animation.previewImage == null || (requireFinalImage && !animation.previewImageIsFinal);
-        }
-
-        private static void TakeScreenshot(PosingSystem posingSystem, bool force, bool drypreview, bool forBuild, IAssetSaver assetSaver)
-        {
             // NDMFのビルドパス内では OnPreprocessAvatar を起動しないため、preprocessを回避するドライプレビューのみ許可
             if (_isExecutingNdMfPass)
             {
@@ -2736,7 +3447,11 @@ namespace jp.unisakistudio.posingsystemeditor
             {
                 for (int j = 0; j < posingSystem.defines[i].animations.Count; j++)
                 {
-                    if (!NeedsThumbnailCapture(posingSystem.defines[i].animations[j], force, forBuild))
+                    if (force == false && posingSystem.defines[i].animations[j].previewImage != null)
+                    {
+                        continue;
+                    }
+                    if (force == false && posingSystem.defines[i].animations[j].isCustomIcon)
                     {
                         continue;
                     }
@@ -2747,7 +3462,7 @@ namespace jp.unisakistudio.posingsystemeditor
             {
                 for (int j = 0; j < posingSystem.overrideDefines.Count; j++)
                 {
-                    if (!NeedsThumbnailCapture(posingSystem.overrideDefines[j], force, forBuild))
+                    if (force == false && posingSystem.overrideDefines[j].previewImage != null)
                     {
                         continue;
                     }
@@ -2766,8 +3481,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 return;
             }
             GameObject clone;
-            // Uploaded icons must use the processed build avatar, not a cached editor clone.
-            var usingEditorPreview = !forBuild && drypreview && HasValidHumanoidAnimator(posingSystem.previewAvatarObject);
+            var usingEditorPreview = drypreview && HasValidHumanoidAnimator(posingSystem.previewAvatarObject);
             if (usingEditorPreview)
             {
                 clone = posingSystem.previewAvatarObject;
@@ -2776,11 +3490,11 @@ namespace jp.unisakistudio.posingsystemeditor
             {
                 // フル前処理ではキャッシュを再利用しない。NDMF所有の一時アセットを参照する
                 // 前処理済みクローンは、このTakeScreenshot呼び出しの外へ持ち出さない。
-                if (!forBuild && posingSystem.previewAvatarObject != null)
+                if (posingSystem.previewAvatarObject != null)
                 {
                     Object.DestroyImmediate(posingSystem.previewAvatarObject);
                 }
-                if (!forBuild) posingSystem.previewAvatarObject = null;
+                posingSystem.previewAvatarObject = null;
                 clone = drypreview
                     ? CreatePreviewAvatarClone(srcAvatar.gameObject, posingSystem, "DryPreview")
                     : CreateBuildPipelineAvatarClone(srcAvatar.gameObject, posingSystem);
@@ -2828,59 +3542,44 @@ namespace jp.unisakistudio.posingsystemeditor
                     {
                         var animation = posingSystem.defines[i].animations[j];
 
-                        if (!NeedsThumbnailCapture(animation, force, forBuild))
+                        if (force == false && animation.previewImage != null)
+                        {
+                            continue;
+                        }
+                        if (force == false && animation.isCustomIcon && !animation.isRollover)
                         {
                             continue;
                         }
 
-                        // Build output must not modify textures or subassets in the source pack.
-                        if (forBuild) animation.previewImage = null;
-                        animation.previewImageIsFinal = false;
-                        if (!CaptureIconScreenshot(animation, posingSystem, camera, clone, force)) continue;
-                        animation.previewImageIsFinal = forBuild || !drypreview;
+                        TakeIconScreenshot(animation, posingSystem, camera, clone, force);
                         if (animation.previewImage != null && !AssetDatabase.IsSubAsset(animation.previewImage))
                         {
-                            if (forBuild)
-                            {
-                                assetSaver?.SaveAsset(animation.previewImage);
-                            }
-                            else if (posingSystem.thumbnailPackObject != null)
+                            if (posingSystem.thumbnailPackObject != null)
                             {
                                 AssetDatabase.AddObjectToAsset(animation.previewImage, posingSystem.thumbnailPackObject);
                             }
                         }
                     }
                 }
-                for (int j = 0; j < (posingSystem.overrideDefines?.Count ?? 0); j++)
+                for (int j = 0; j < posingSystem.overrideDefines.Count; j++)
                 {
                     var animation = posingSystem.overrideDefines[j];
 
-                    if (!NeedsThumbnailCapture(animation, force, forBuild))
+                    if (force == false && animation.previewImage != null)
                     {
                         continue;
                     }
 
-                    if (forBuild) animation.previewImage = null;
-                    animation.previewImageIsFinal = false;
-                    if (!CaptureIconScreenshot(animation, posingSystem, camera, clone, force)) continue;
-                    animation.previewImageIsFinal = forBuild || !drypreview;
+                    TakeIconScreenshot(animation, posingSystem, camera, clone, force);
                     if (animation.previewImage != null && !AssetDatabase.IsSubAsset(animation.previewImage))
                     {
-                        if (forBuild)
-                        {
-                            assetSaver?.SaveAsset(animation.previewImage);
-                        }
-                        else if (posingSystem.thumbnailPackObject != null)
+                        if (posingSystem.thumbnailPackObject != null)
                         {
                             AssetDatabase.AddObjectToAsset(animation.previewImage, posingSystem.thumbnailPackObject);
                         }
                     }
                 }
-                if (!forBuild)
-                {
-                    EditorUtility.SetDirty(posingSystem);
-                    AssetDatabase.SaveAssets();
-                }
+                AssetDatabase.SaveAssets();
                 screenshotCompleted = true;
             }
             finally
@@ -2905,7 +3604,7 @@ namespace jp.unisakistudio.posingsystemeditor
 
                 // フル前処理の結果は撮影だけに使い、調整ウィンドウ等が必要とするEditorプレビューは
                 // NDMFの一時アセットを一切参照しない元アバターのクローンとして別に作る。
-                if (!forBuild && !drypreview && screenshotCompleted && posingSystem != null && posingSystem.previewAvatarObject == null)
+                if (!drypreview && screenshotCompleted && posingSystem != null && posingSystem.previewAvatarObject == null)
                 {
                     var editorPreview = CreatePreviewAvatarClone(srcAvatar.gameObject, posingSystem, "EditorPreview");
                     if (HasValidHumanoidAnimator(editorPreview))
@@ -2996,35 +3695,92 @@ namespace jp.unisakistudio.posingsystemeditor
                     if (controlHash.ContainsKey((posingSystem.defines[i].paramName, animation.typeParameterValue)))
                     {
                         controlHash[(posingSystem.defines[i].paramName, animation.typeParameterValue)].icon =
-                            animation.isCustomIcon ? animation.icon : animation.previewImage;
+                            animation.isCustomIcon && !animation.isRollover ? animation.icon : animation.previewImage;
                     }
                 }
             }
         }
 
-        public static void TakeIconScreenshot(PosingSystem.BaseAnimationDefine animation, PosingSystem posingSystem, Camera camera, GameObject previewAvatarObject, bool force)
+        private static AnimationClip CreateAutomaticPoseAdjustmentClip(
+            PosingSystem posingSystem,
+            Animator animator,
+            AnimationClip baseClip,
+            string poseKey)
         {
-            CaptureIconScreenshot(animation, posingSystem, camera, previewAvatarObject, force);
+            if (posingSystem == null || !posingSystem.UsesAutoPoseCatalog)
+            {
+                return null;
+            }
+
+            var definition = PosingSystemAutoPoseAdjustmentUtility.FindDefinition(
+                posingSystem,
+                poseKey,
+                baseClip);
+            if (definition == null)
+            {
+                Debug.LogWarning(
+                    $"[PosingSystem] '{poseKey}' のIK自動調整データがありません。従来の調整Animationは使用せず、元の姿勢を出力します。",
+                    posingSystem);
+                return null;
+            }
+
+            if (PosingSystemAutoPoseAdjustmentUtility.TryCreateAdjustmentClip(
+                    animator,
+                    baseClip,
+                    definition,
+                    out var adjustmentClip,
+                    out _,
+                    out var message,
+                    PosingSystemAvatarAdjustmentUtility.GetKneeSafety(posingSystem)))
+            {
+                return adjustmentClip;
+            }
+
+            Debug.LogWarning(
+                $"[PosingSystem] '{poseKey}' のIK自動調整に失敗しました。従来の調整Animationは使用しません: {message}",
+                posingSystem);
+            return null;
         }
 
-        private static bool CaptureIconScreenshot(PosingSystem.BaseAnimationDefine animation, PosingSystem posingSystem, Camera camera, GameObject previewAvatarObject, bool force)
+        private static string FindPoseKey(
+            PosingSystem posingSystem,
+            PosingSystem.AnimationDefine animation)
+        {
+            if (posingSystem?.defines != null && animation != null)
+            {
+                foreach (var layer in posingSystem.defines)
+                {
+                    if (layer?.animations != null && layer.animations.Any(item => ReferenceEquals(item, animation)))
+                    {
+                        return PosingSystemAutoPoseCatalog.BuildPoseKey(
+                            layer.menuName,
+                            animation.displayName);
+                    }
+                }
+            }
+            return animation?.displayName ?? string.Empty;
+        }
+
+        public static void TakeIconScreenshot(PosingSystem.BaseAnimationDefine animation, PosingSystem posingSystem, Camera camera, GameObject previewAvatarObject, bool force)
         {
             var animationDefine = animation as PosingSystem.AnimationDefine;
             if (force == false && animation.previewImage != null)
             {
-                return false;
+                return;
             }
-            if (animationDefine != null && animationDefine.isCustomIcon)
+            if (animationDefine != null && animationDefine.isCustomIcon && animationDefine.isRollover)
             {
-                return false;
+                animation.previewImage = PosingSystemRolloverIcon.CopyWithBadge(animationDefine.icon);
+                return;
             }
+            if (force == false && animationDefine != null && animationDefine.isCustomIcon) return;
 
             // 元のアバターを取得
             var srcAvatar = posingSystem.GetAvatar();
             if (srcAvatar == null)
             {
                 Debug.LogWarning("[PosingSystem] スクリーンショット撮影: アバターが見つかりません。");
-                return false;
+                return;
             }
 
             // previewAvatarObjectがあればそれを使用、なければクローンを作成
@@ -3057,7 +3813,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 {
                     PosingSystemEditor.SetPreviewAvatarVisibility(workingAvatar, false);
                 }
-                return false;
+                return;
             }
 
             try
@@ -3104,10 +3860,23 @@ namespace jp.unisakistudio.posingsystemeditor
                     {
                         // 調整アニメーションを適用したクリップを作成
                         var clipToSample = firstAnimationClip;
-                        if (animationDefine != null && animationDefine.adjustmentClip != null)
+                        AnimationClip automaticAdjustmentClip = null;
+                        var selectedAdjustmentClip = posingSystem.UsesAutoPoseFor(animationDefine)
+                            ? null
+                            : animationDefine?.adjustmentClip;
+                        if (posingSystem.UsesAutoPoseFor(animationDefine))
+                        {
+                            automaticAdjustmentClip = CreateAutomaticPoseAdjustmentClip(
+                                posingSystem,
+                                avatarAnimator,
+                                firstAnimationClip,
+                                FindPoseKey(posingSystem, animationDefine));
+                            selectedAdjustmentClip = automaticAdjustmentClip;
+                        }
+                        if (selectedAdjustmentClip != null)
                         {
                             clipToSample = Object.Instantiate(firstAnimationClip);
-                            var adjustmentClip = animationDefine.adjustmentClip;
+                            var adjustmentClip = selectedAdjustmentClip;
 
                             // RootQカーブはQuaternion乗算で合成（元の回転 × 調整の回転）
                             AdditiveCurveUtility.MultiplyRootQCurves(firstAnimationClip, adjustmentClip, clipToSample);
@@ -3138,10 +3907,18 @@ namespace jp.unisakistudio.posingsystemeditor
                         AnimationMode.SampleAnimationClip(workingAvatar, clipToSample, 0);
                         AnimationMode.EndSampling();
 
+                        // サムネイルにも自動補正と安全クランプを反映する。
+                        PosingSystemAvatarAdjustmentUtility.ApplyToAnimator(
+                            posingSystem, avatarAnimator, 0f);
+
                         // 一時的に作成したクリップを削除
                         if (clipToSample != firstAnimationClip)
                         {
                             Object.DestroyImmediate(clipToSample);
+                        }
+                        if (automaticAdjustmentClip != null)
+                        {
+                            Object.DestroyImmediate(automaticAdjustmentClip);
                         }
 
                         if (animation.isRotate)
@@ -3216,6 +3993,7 @@ namespace jp.unisakistudio.posingsystemeditor
 
                 animation.previewImage.ReadPixels(new Rect(0, 0, iconSize, iconSize), 0, 0);
                 animation.previewImage.Apply();
+                if (animationDefine != null && animationDefine.isRollover) PosingSystemRolloverIcon.Stamp(animation.previewImage);
                 animation.previewImage.Compress(true);
 
                 // RenderTextureを解放（順序重要：activeをnull→targetTextureをnull→Release→Destroy）
@@ -3223,12 +4001,10 @@ namespace jp.unisakistudio.posingsystemeditor
                 camera.targetTexture = null;
                 renderTexture.Release();
                 Object.DestroyImmediate(renderTexture);
-                return true;
             }
             catch (System.Exception e)
             {
                 Debug.LogError($"[PosingSystem] スクリーンショット撮影中にエラーが発生しました: {e.Message}\n{e.StackTrace}");
-                return false;
             }
             finally
             {
@@ -3261,7 +4037,8 @@ namespace jp.unisakistudio.posingsystemeditor
             AnimationClip baseClip,
             AnimationClip adjustmentClip,
             AnimationClip resultClip,
-            HashSet<int> adjustedMuscleIndices)
+            HashSet<int> adjustedMuscleIndices,
+            PosingSystem posingSystem)
         {
             if (workingAvatar == null || baseClip == null || adjustmentClip == null || resultClip == null)
             {
@@ -3365,6 +4142,9 @@ namespace jp.unisakistudio.posingsystemeditor
                             humanPose.muscles[muscleIndex] += adjustValue;
                         }
                     }
+
+                    // 全補正の合成後にのみ安全クランプする。
+                    PosingSystemAvatarAdjustmentUtility.ClampKnees(posingSystem, ref humanPose);
 
                     // 対象マッスルの値をカーブに追加
                     foreach (var muscleIndex in targetMuscleIndices)
@@ -3490,7 +4270,7 @@ namespace jp.unisakistudio.posingsystemeditor
             (PosingSystem.OverrideAnimationDefine.AnimationStateType.AvatarSelect, "USSPS_Locomotion", "", "AvatarSelecting", false, 0, 0),
         };
 
-        public static void ConvertOverrideAnimations(PosingSystem posingSystem)
+        public static void ConvertOverrideAnimations(PosingSystem posingSystem, IAssetSaver assetSaver = null)
         {
             // 共通ポージングAnimatorを探す
             var maMergeAnimator = GetPrebuiltMergeAnimator(posingSystem);
@@ -3500,19 +4280,14 @@ namespace jp.unisakistudio.posingsystemeditor
             }
 
             // AnimatorControllerを取得
-            var animatorController = maMergeAnimator.animator as AnimatorController;
+            var animatorController = maMergeAnimator != null ? maMergeAnimator.animator as AnimatorController : null;
             if (animatorController == null)
             {
                 Debug.LogError("[PosingSystem]「" + posingSystem.name + "」の共通ポージングAnimatorに設定されているAnimatorControllerが不正です。AnimatorOverrideController等は使用できません");
                 throw new System.Exception("「" + posingSystem.name + "」の共通ポージングAnimatorに設定されているAnimatorControllerが不正です。AnimatorOverrideController等は使用できません");
             }
 
-            if (posingSystem.overrideDefines == null)
-            {
-                return;
-            }
-
-            foreach (var define in posingSystem.overrideDefines)
+            foreach (var define in ResolveImportedMotionDefinitions(posingSystem))
             {
                 if (define == null || !define.enabled || !IsValidOverrideMotion(define.stateType, define.animationClip))
                 {
@@ -3522,6 +4297,8 @@ namespace jp.unisakistudio.posingsystemeditor
                     }
                     continue;
                 }
+
+                var importedMotion = PrepareImportedMotion(posingSystem, define, animatorController, assetSaver);
 
                 foreach (var overrideSetting in OverrideSettings.Where(setting => setting.stateType == define.stateType))
                 {
@@ -3553,16 +4330,35 @@ namespace jp.unisakistudio.posingsystemeditor
                     {
                         if (animatorState.motion is BlendTree)
                         {
-                            BlendTree blendTree = (BlendTree)animatorState.motion;
+                            // The whole-motion import and controller copy can still reference the source asset.
+                            // Own the complete mutable tree before replacing an idle child.
+                            var copies = new Dictionary<BlendTree, BlendTree>();
+                            BlendTree CopyTree(BlendTree source)
+                            {
+                                if (copies.TryGetValue(source, out var existing)) return existing;
+                                var copy = new BlendTree();
+                                EditorUtility.CopySerialized(source, copy);
+                                copy.name = "_USSPS_Override_" + source.name;
+                                copies.Add(source, copy);
+                                var children = copy.children;
+                                for (var i = 0; i < children.Length; i++)
+                                    if (children[i].motion is BlendTree nested) children[i].motion = CopyTree(nested);
+                                copy.children = children;
+                                if (assetSaver != null || EditorUtility.IsPersistent(animatorController))
+                                    SaveGeneratedAsset(copy, animatorController, assetSaver);
+                                return copy;
+                            }
+                            BlendTree blendTree = CopyTree((BlendTree)animatorState.motion);
+                            animatorState.motion = blendTree;
                             var blendTreeIndex = blendTree.children.ToList().FindIndex(child => Mathf.Approximately(child.position.x, overrideSetting.posX) && Mathf.Approximately(child.position.y, overrideSetting.posY));
                             if (blendTreeIndex != -1)
                             {
                                 blendTree.RemoveChild(blendTreeIndex);
                             }
-                            blendTree.AddChild(define.animationClip, new Vector2(overrideSetting.posX, overrideSetting.posY));
+                            blendTree.AddChild(importedMotion, new Vector2(overrideSetting.posX, overrideSetting.posY));
 
                             // override用に指定されたモーションがBlendTreeの場合、そのパラメータもAnimatorControllerに追加する
-                            if (define.animationClip is BlendTree overrideBlendTree)
+                            if (importedMotion is BlendTree overrideBlendTree)
                             {
                                 AddBlendTreeParametersToAnimator(animatorController, overrideBlendTree);
                             }
@@ -3574,10 +4370,12 @@ namespace jp.unisakistudio.posingsystemeditor
                     }
                     else
                     {
-                        animatorState.motion = define.animationClip;
+                        animatorState.motion = importedMotion;
+                        ConfigureMotionTime(animatorController, animatorState,
+                            define.isMotionTime ? define.motionTimeParamName : "");
 
                         // 単純置き換えでも、元クリップがBlendTreeの場合はパラメータを追加
-                        if (define.animationClip is BlendTree overrideBlendTree)
+                        if (importedMotion is BlendTree overrideBlendTree)
                         {
                             AddBlendTreeParametersToAnimator(animatorController, overrideBlendTree);
                         }
@@ -3596,8 +4394,9 @@ namespace jp.unisakistudio.posingsystemeditor
             switch (stateType)
             {
                 case PosingSystem.OverrideAnimationDefine.AnimationStateType.StandWalkRun:
-                    // 立ち・歩き・走り全体を単発Clipにすると移動が失われる。
-                    // しゃがみ・伏せは元から単発Clipで構成するアバターもあるため許可する。
+                case PosingSystem.OverrideAnimationDefine.AnimationStateType.Crouch:
+                case PosingSystem.OverrideAnimationDefine.AnimationStateType.Prone:
+                    // これらはステート全体を置き換えるため、単発Clipでは歩行・旋回が失われる。
                     return motion is BlendTree;
                 default:
                     return true;
@@ -3605,15 +4404,18 @@ namespace jp.unisakistudio.posingsystemeditor
         }
 
         /// <summary>
-        /// アバターのAnimatorControllerから固有のアニメーションを自動でインポートする
+        /// アバター固有のモーションを検出する。結果は生成用で、ユーザーの設定を書き換えない。
         /// </summary>
-        public static void AutoImportAvatarAnimations(PosingSystem posingSystem)
+        public static List<PosingSystem.OverrideAnimationDefine> AutoImportAvatarAnimations(PosingSystem posingSystem)
         {
-            var avatar = posingSystem.GetAvatar();
-            if (avatar == null) return;
-
-            var animatorController = avatar.baseAnimationLayers[(int)VRC.SDK3.Avatars.Components.VRCAvatarDescriptor.AnimLayerType.Base];
-            if (animatorController.animatorController == null) return;
+            var result = new List<PosingSystem.OverrideAnimationDefine>();
+            var sourceController = GetAutoImportSource(posingSystem);
+            if (sourceController == null) return result;
+            if (sourceController is not AnimatorController animatorController)
+            {
+                Debug.LogWarning("[PosingSystem] 元姿勢を取り込めません。アバターのBaseに通常のAnimatorControllerを設定してください。AnimatorOverrideControllerには対応していません。", posingSystem);
+                return result;
+            }
 
             var detectSettings = new List<(PosingSystem.OverrideAnimationDefine.AnimationStateType type, string stateName)>()
             {
@@ -3650,39 +4452,30 @@ namespace jp.unisakistudio.posingsystemeditor
                 (PosingSystem.OverrideAnimationDefine.AnimationStateType.ShortLanding, "land"),
             };
 
-            // 既存のoverrideDefinesで設定済みの種類を取得
+            // Duplicate detections are suppressed in this result only, never in serialized settings.
             var existingTypes = new HashSet<PosingSystem.OverrideAnimationDefine.AnimationStateType>();
-            if (posingSystem.overrideDefines != null)
-            {
-                foreach (var def in posingSystem.overrideDefines)
-                {
-                    existingTypes.Add(def.stateType);
-                }
-            }
-            else
-            {
-                posingSystem.overrideDefines = new List<PosingSystem.OverrideAnimationDefine>();
-            }
 
             string normalizeStateName(string name)
             {
-                return name.Replace("ing", "").Replace(" ", "").Replace("_", "").ToLower();
+                return name.ToLowerInvariant().Replace("ing", "").Replace(" ", "").Replace("_", "");
             }
 
             // 全レイヤーからステートを収集(サブステートマシン含む)
             var allStates = new List<AnimatorState>();
+            var visitedMachines = new HashSet<AnimatorStateMachine>();
             void collectStates(AnimatorStateMachine stateMachine)
             {
+                if (stateMachine == null || !visitedMachines.Add(stateMachine)) return;
                 foreach (var subStateMachine in stateMachine.stateMachines)
                 {
                     collectStates(subStateMachine.stateMachine);
                 }
                 foreach (var state in stateMachine.states)
                 {
-                    allStates.Add(state.state);
+                    if (state.state != null) allStates.Add(state.state);
                 }
             }
-            foreach (var layer in ((AnimatorController)animatorController.animatorController).layers)
+            foreach (var layer in animatorController.layers)
             {
                 collectStates(layer.stateMachine);
             }
@@ -3690,8 +4483,7 @@ namespace jp.unisakistudio.posingsystemeditor
             var importedStates = new HashSet<AnimatorState>();
             void searchOverride(List<(PosingSystem.OverrideAnimationDefine.AnimationStateType type, string stateName)> settings)
             {
-                // 同じ種類の候補が複数あれば、移動も含められるBlendTreeを優先する。
-                foreach (var state in allStates.OrderByDescending(state => state.motion is BlendTree))
+                foreach (var state in allStates)
                 {
                     if (importedStates.Contains(state))
                     {
@@ -3733,11 +4525,11 @@ namespace jp.unisakistudio.posingsystemeditor
                     var define = new PosingSystem.OverrideAnimationDefine();
                     define.stateType = detectSetting.type;
                     define.animationClip = state.motion;
-                    posingSystem.overrideDefines.Add(define);
+                    result.Add(define);
                     existingTypes.Add(detectSetting.type);
                     importedStates.Add(state);
 
-                    Debug.Log($"[PosingSystem] アバターから自動インポート: {detectSetting.type} ({state.motion.name})");
+                    Debug.Log($"[PosingSystem] アバターのモーションを検出: {detectSetting.type} ({state.motion.name})");
                 }
             }
 
@@ -3760,6 +4552,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 var stateList = string.Join(", ", undetectedStates.Select(state => $"「{state.name}」({state.motion.name})"));
                 Debug.LogWarning($"[PosingSystem] アバター専用モーションの可能性があるステートを自動検出できませんでした: {stateList}\n専用の歩行・ジャンプモーション等が失われる場合は、可愛いポーズツールの「元のアニメーションの上書き設定」で手動で割り当ててください。");
             }
+            return result;
         }
 
         /// <summary>

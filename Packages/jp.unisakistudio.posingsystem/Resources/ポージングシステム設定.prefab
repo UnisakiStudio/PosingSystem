@@ -34,6 +34,7 @@ Transform:
   - {fileID: 6777864231134229789}
   - {fileID: 1762945089683593122}
   - {fileID: 6323969900648483451}
+  - {fileID: 3811993490487165093}
   m_Father: {fileID: 5349737914996196103}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3803740126011966764
@@ -147,11 +148,11 @@ GameObject:
   - component: {fileID: 8864144594240250409}
   m_Layer: 0
   m_Name: "\u8DB3\u306E\u9AD8\u3055"
-  m_TagString: Untagged
+  m_TagString: EditorOnly
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6777864231134229789
 Transform:
   m_ObjectHideFlags: 0
@@ -201,6 +202,77 @@ MonoBehaviour:
   isDefault: 0
   automaticValue: 0
   label: 
+--- !u!1 &1725548514093773592
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8940691363325071014}
+  - component: {fileID: 5844430454348362816}
+  - component: {fileID: 1738887289779726490}
+  m_Layer: 0
+  m_Name: "Additive\u547C\u5438Animator"
+  m_TagString: EditorOnly
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &8940691363325071014
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1725548514093773592}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5864725431271323250}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5844430454348362816
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1725548514093773592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1bb122659f724ebf85fe095ac02dc339, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _modularAvatarVersionTag:
+    UpdatedAtVersion: 1.18.5
+    MinimumVersion: 1.18.0
+  animator: {fileID: 9100000, guid: 8e775531e66ee35469b6c4d6a6b741fd, type: 2}
+  layerType: 2
+  deleteAttachedAnimator: 0
+  pathMode: 1
+  matchAvatarWriteDefaults: 1
+  relativePathRoot:
+    referencePath: 
+    targetObject: {fileID: 0}
+  layerPriority: 0
+  mergeAnimatorMode: 0
+--- !u!114 &1738887289779726490
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1725548514093773592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64057a377e671e7498a11e1eec12457d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: jp.unisakistudio.posingsystem_additive_breathing
 --- !u!1 &1879612549225283352
 GameObject:
   m_ObjectHideFlags: 0
@@ -327,11 +399,11 @@ GameObject:
   - component: {fileID: 3385141257451228010}
   m_Layer: 0
   m_Name: "\u3042\u304A\u3080\u3051\u6642\u81EA\u52D5\u982D\u56FA\u5B9A"
-  m_TagString: Untagged
+  m_TagString: EditorOnly
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1762945089683593122
 Transform:
   m_ObjectHideFlags: 0
@@ -942,6 +1014,71 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ID: jp.unisakistudio.posingsystem_autolockhead
+--- !u!1 &6467650865787566582
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3811993490487165093}
+  - component: {fileID: 3076672556827384202}
+  m_Layer: 0
+  m_Name: "\u547C\u5438"
+  m_TagString: EditorOnly
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &3811993490487165093
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6467650865787566582}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 91883449057368357}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3076672556827384202
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6467650865787566582}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b29d45007c5493d926d2cd45a489529, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _modularAvatarVersionTag:
+    UpdatedAtVersion: 1.18.5
+    MinimumVersion: 1.18.0
+  Control:
+    name: "\u547C\u5438"
+    icon: {fileID: 2800000, guid: 0c5a42759ae9f6f4b965dc91975ee77d, type: 3}
+    type: 102
+    parameter:
+      name: USSPS_Breathing
+    value: 1
+    style: 0
+    subMenu: {fileID: 0}
+    subParameters: []
+    labels: []
+  MenuSource: 1
+  menuSource_otherObjectChildren: {fileID: 0}
+  isSynced: 1
+  isSaved: 1
+  isDefault: 0
+  automaticValue: 0
+  label: 
 --- !u!1 &6683198001544478910
 GameObject:
   m_ObjectHideFlags: 0
@@ -1043,6 +1180,7 @@ Transform:
   - {fileID: 5256636774324005339}
   - {fileID: 1506260025925657832}
   - {fileID: 2550358210574256928}
+  - {fileID: 8940691363325071014}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3111512797015574386
@@ -1057,18 +1195,68 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3e0024a473359d4b8be8f7430848a54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  developmentMode: 1
   settingName: 
   isIconDisabled: 0
   isIconSmall: 0
   mergeTrackingControl: 1
   autoImportAvatarAnimations: 1
+  ignoredWarnings: 0
+  warningDisplayPosition: 0
+  hideHierarchyWarnings: 0
+  enableAvatarSpecificAdjustment: 0
+  avatarSpecificAdjustmentUsageInitialized: 1
+  enableReverseKneeSafetyClamp: 1
+  reverseKneeSafetyAngle: 0.5
+  avatarSpecificAdjustmentClip: {fileID: 0}
+  avatarSpecificAdjustmentSignature: 
+  avatarSpecificLeftKneeBendDegrees: 0
+  avatarSpecificRightKneeBendDegrees: 0
+  autoPoseCatalog: {fileID: 0}
+  enablePoseIk: 1
+  additiveBreathing:
+    enabled: 0
+    disableDefaultIdle: 0
+    standingLevel: 0
+    sitShallowLevel: 0
+    sitDeepLevel: 0
+    sitSleepLevel: 0
+    virtualLoveLevel: 0
+    typeFixLevel: 0
+    standing: {fileID: 0}
+    sitShallow: {fileID: 0}
+    sitDeep: {fileID: 0}
+    sitSleep: {fileID: 0}
+    virtualLove: {fileID: 0}
+    typeFix: {fileID: 0}
+  isEightBitVersion: 0
+  features:
+    mirror: 0
+    footHeight: 0
+    footHeightBackend: 1
+    breathing: 0
+    breathingControl: 0
+    fingerGestureControl: 0
+    faceForward: 0
+    photography: 0
+    photographySynced: 1
+    photographyKeepHeadVisible: 0
+    floating: 0
+    rollover: 0
+    rolloverAnimation: {fileID: 0}
+    rolloverAngle: 60
+    rolloverDeadZone: 3
+    photographyBackend: 4
+    floatingBackend: 4
+    floatingPoseSpace: 7
+    movementWriteDefaults: 1
+  featureSettingsMigrated: 1
   defines: []
   overrideDefines: []
   SubmenuRoot: {fileID: 7038226818119546702}
   data: 
   savedInstanceId: 
   thumbnailPackObject: {fileID: 0}
+  presetCatalogObject: {fileID: 11400000, guid: 87dba9abaf5e0fd40a875a2d5ceffacf, type: 2}
 --- !u!114 &4484946395121339899
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1082,8 +1270,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _modularAvatarVersionTag:
-    UpdatedAtVersion: 
-    MinimumVersion: 
+    UpdatedAtVersion: 1.18.5
+    MinimumVersion: 1.18.0
   parameters:
   - nameOrPrefix: USSPS_Pose
     remapTo: 
@@ -1095,16 +1283,6 @@ MonoBehaviour:
     saved: 0
     hasExplicitDefaultValue: 0
     m_overrideAnimatorDefaults: 0
-  - nameOrPrefix: FootHeight
-    remapTo: 
-    internalParameter: 0
-    isPrefix: 0
-    syncType: 2
-    localOnly: 0
-    defaultValue: 0.5
-    saved: 1
-    hasExplicitDefaultValue: 0
-    m_overrideAnimatorDefaults: 0
   - nameOrPrefix: HeadTrackingLock
     remapTo: 
     internalParameter: 0
@@ -1113,7 +1291,7 @@ MonoBehaviour:
     localOnly: 1
     defaultValue: 0
     saved: 1
-    hasExplicitDefaultValue: 0
+    hasExplicitDefaultValue: 1
     m_overrideAnimatorDefaults: 0
   - nameOrPrefix: HandTrackingLock
     remapTo: 
@@ -1315,16 +1493,6 @@ MonoBehaviour:
     saved: 1
     hasExplicitDefaultValue: 0
     m_overrideAnimatorDefaults: 0
-  - nameOrPrefix: USSPS_Mirror
-    remapTo: 
-    internalParameter: 0
-    isPrefix: 0
-    syncType: 3
-    localOnly: 0
-    defaultValue: 0
-    saved: 1
-    hasExplicitDefaultValue: 0
-    m_overrideAnimatorDefaults: 0
   - nameOrPrefix: USSPS_TypeFix
     remapTo: 
     internalParameter: 0
@@ -1377,11 +1545,11 @@ GameObject:
   - component: {fileID: 8724607857423838391}
   m_Layer: 0
   m_Name: "\u5DE6\u53F3\u53CD\u8EE2"
-  m_TagString: Untagged
+  m_TagString: EditorOnly
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1349146810221834049
 Transform:
   m_ObjectHideFlags: 0
@@ -1608,11 +1776,11 @@ GameObject:
   - component: {fileID: 7397528422928180819}
   m_Layer: 0
   m_Name: "\u30B8\u30A7\u30B9\u30C1\u30E3\u30FC\u7121\u52B9Animator"
-  m_TagString: Untagged
+  m_TagString: EditorOnly
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3271447811965151217
 Transform:
   m_ObjectHideFlags: 0
@@ -1666,8 +1834,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _modularAvatarVersionTag:
-    UpdatedAtVersion: 
-    MinimumVersion: 
+    UpdatedAtVersion: 1.18.5
+    MinimumVersion: 1.18.0
   parameters:
   - nameOrPrefix: USSPS_FingerGestureDisable_Menu
     remapTo: 
@@ -1699,16 +1867,6 @@ MonoBehaviour:
     saved: 1
     hasExplicitDefaultValue: 0
     m_overrideAnimatorDefaults: 0
-  - nameOrPrefix: USSPS_FingerGestureDisable_Sync
-    remapTo: 
-    internalParameter: 0
-    isPrefix: 0
-    syncType: 3
-    localOnly: 0
-    defaultValue: 0
-    saved: 0
-    hasExplicitDefaultValue: 0
-    m_overrideAnimatorDefaults: 0
 --- !u!114 &7397528422928180819
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1735,11 +1893,11 @@ GameObject:
   - component: {fileID: 6991887548369062078}
   m_Layer: 0
   m_Name: "\u30B8\u30A7\u30B9\u30C1\u30E3\u30FC\u7121\u52B9"
-  m_TagString: Untagged
+  m_TagString: EditorOnly
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5256636774324005339
 Transform:
   m_ObjectHideFlags: 0

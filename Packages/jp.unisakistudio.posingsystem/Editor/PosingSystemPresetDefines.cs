@@ -11,12 +11,17 @@ namespace jp.unisakistudio.posingsystemeditor
         [System.Serializable]
         public class PresetDefine
         {
-            public List<GameObject> prefabs;
+            public List<LazyLoadReference<GameObject>> prefabs;
             public string avatarName;
-            public Preset preset;
+            public LazyLoadReference<Preset> preset;
             public List<string> prefabsHashes;
             public List<string> prefabsNames;
         }
+        // Same serialized object-reference format as the former direct references.
+        // Metadata readers must use isSet/instanceID, and only applying a preset uses asset.
+        internal static event System.Action Changed;
+        private void OnValidate() => Changed?.Invoke();
+
         [SerializeField]
         public List<PresetDefine> presetDefines = new List<PresetDefine>();
     }

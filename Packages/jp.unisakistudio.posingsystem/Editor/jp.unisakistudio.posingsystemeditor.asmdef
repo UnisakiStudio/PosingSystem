@@ -7,6 +7,7 @@
         "VRC.SDK3A.Editor",
         "jp.unisakistudio.posingsystem",
         "nadena.dev.ndmf",
+        "nadena.dev.ndmf.vrchat",
         "nadena.dev.modular-avatar.core"
     ],
     "includePlatforms": [

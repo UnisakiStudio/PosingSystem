@@ -366,8 +366,8 @@ namespace jp.unisakistudio.posingsystemeditor
                 PosingSystem tempPs = tempObj.GetComponent<PosingSystem>();
 
                 // プロパティ初期化
-                tempPs.developmentMode = false;
                 tempPs.previewAvatarObject = null; // プレビューアバターは保存しない
+                tempPs.presetCatalogObject = null; // プロジェクト共有キャッシュはプリセットに含めない
                 tempPs.isWarning = false;
                 tempPs.isError = false;
 
@@ -387,7 +387,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 var presetDefine = new PosingSystemPresetDefines.PresetDefine();
 
                 presetDefine.avatarName = avatarName;
-                presetDefine.prefabs = new List<GameObject>(applicablePrefabs.Where(x => x != null));
+                presetDefine.prefabs = applicablePrefabs.Where(x => x != null).Select(x => new LazyLoadReference<GameObject>(x)).ToList();
                 presetDefine.preset = preset;
                 presetDefine.prefabsNames = new List<string>(targetGameObjectNames.Where(x => !string.IsNullOrEmpty(x)));
 
@@ -417,7 +417,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 Selection.activeObject = folderObj;
                 EditorGUIUtility.PingObject(folderObj);
 
-                EditorUtility.DisplayDialog("完了", "プリセットを作成しました。", "OK");
+                EditorUtility.DisplayDialog("完了", "プリセットを作成しました。プリセット選択の「再読込」で一覧に反映できます。", "OK");
                 Close();
             }
             catch (System.Exception e)
@@ -438,6 +438,9 @@ namespace jp.unisakistudio.posingsystemeditor
                 foreach (var animation in define.animations)
                 {
                     animation.previewImage = null;
+                    if (animation.rolloverSideAnimation != null)
+                        animation.rolloverSideAnimation = CopyAnimationClip(animation.rolloverSideAnimation, targetFolderPath,
+                            copiedClips, posingSystemObjectName, animation.displayName + "_RolloverSide");
                     if (animation.adjustmentClip != null)
                     {
                         string poseName = animation.displayName;
