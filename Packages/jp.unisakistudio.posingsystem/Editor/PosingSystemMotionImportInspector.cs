@@ -85,7 +85,7 @@ namespace jp.unisakistudio.posingsystemeditor
 
         internal void Draw(SerializedObject serialized, PosingSystem ps, Action<string> drawWarning)
         {
-            EditorGUILayout.HelpBox("自動取り込みの結果は生成時だけ使い、この一覧には追加しません。手動指定をOFFにした種類や、指定済みモーションを外した種類は自動で補完しません。自動取り込みに戻すには「手動指定を解除」を使います。", MessageType.Info);
+            EditorGUILayout.HelpBox(PosingSystemLocalization.Text("自動取り込みの結果は生成時だけ使い、この一覧には追加しません。手動指定をOFFにした種類や、指定済みモーションを外した種類は自動で補完しません。自動取り込みに戻すには「手動指定を解除」を使います。"), MessageType.Info);
             if (warning != null) drawWarning(warning);
             using (var viewport = new EditorGUILayout.ScrollViewScope(scroll, GUILayout.Height(340)))
             {
@@ -99,7 +99,7 @@ namespace jp.unisakistudio.posingsystemeditor
                         using (new EditorGUILayout.HorizontalScope())
                         {
                             GUILayout.Label(Labels[(int)type], PosingSystemInspectorGUI.Text(12, true));
-                            if (definition != null && GUILayout.Button(new GUIContent("手動指定を解除", "この種類の手動設定と調整を解除します。自動取り込みがONなら次回生成時に再検出します。Undoで戻せます。"), EditorStyles.miniButton, GUILayout.Width(96)))
+                            if (definition != null && GUILayout.Button(new GUIContent(PosingSystemLocalization.Text("手動指定を解除"), "この種類の手動設定と調整を解除します。自動取り込みがONなら次回生成時に再検出します。Undoで戻せます。"), EditorStyles.miniButton, GUILayout.Width(96)))
                             {
                                 PosingSystemEditorChangeUtility.Commit(serialized);
                                 PosingSystemMotionImportUtility.ClearManualChoice(ps, type);
@@ -134,7 +134,7 @@ namespace jp.unisakistudio.posingsystemeditor
                             using (new EditorGUI.DisabledScope(definition?.animationClip == null))
                             {
                                 var active = definition != null && definition.enabled;
-                                var next = GUILayout.Toggle(active, new GUIContent("使用", "この種類のモーションを使う"), GUILayout.Width(47));
+                                var next = GUILayout.Toggle(active, new GUIContent(PosingSystemLocalization.Text("使用"), "この種類のモーションを使う"), GUILayout.Width(47));
                                 if (active != next) { PosingSystemEditorChangeUtility.Commit(serialized); PosingSystemMotionImportUtility.Select(ps, index, next); serialized.Update(); GUIUtility.ExitGUI(); }
                             }
                         }
@@ -144,7 +144,7 @@ namespace jp.unisakistudio.posingsystemeditor
                                 .Where(i => ps.overrideDefines[i]?.stateType == type).ToArray();
                             if (alternatives.Length > 1)
                             {
-                                EditorGUILayout.LabelField("以前の設定から、使う1つを選べます。", PosingSystemInspectorGUI.Text(11));
+                                EditorGUILayout.LabelField(PosingSystemLocalization.Text("以前の設定から、使う1つを選べます。"), PosingSystemInspectorGUI.Text(11));
                                 var selected = Array.IndexOf(alternatives, index);
                                 var next = EditorGUILayout.Popup(selected, alternatives.Select(i => ps.overrideDefines[i].animationClip != null ? ps.overrideDefines[i].animationClip.name : "未指定").ToArray());
                                 if (next != selected) { PosingSystemEditorChangeUtility.Commit(serialized); PosingSystemMotionImportUtility.Select(ps, alternatives[next]); serialized.Update(); GUIUtility.ExitGUI(); }
@@ -162,11 +162,11 @@ namespace jp.unisakistudio.posingsystemeditor
             try
             {
                 EditorGUIUtility.labelWidth = 145;
-                EditorGUILayout.PropertyField(property.FindPropertyRelative("isRotate"), new GUIContent("向きを回転させる"));
-                if (property.FindPropertyRelative("isRotate").boolValue) EditorGUILayout.PropertyField(property.FindPropertyRelative("rotate"), new GUIContent("回転角度"));
-                EditorGUILayout.PropertyField(property.FindPropertyRelative("isMotionTime"), new GUIContent("再生位置を指定する"));
-                if (property.FindPropertyRelative("isMotionTime").boolValue) EditorGUILayout.PropertyField(property.FindPropertyRelative("motionTimeParamName"), new GUIContent("再生位置のパラメーター"));
-                EditorGUILayout.PropertyField(property.FindPropertyRelative("adjustmentClip"), new GUIContent("調整アニメーション"));
+                EditorGUILayout.PropertyField(property.FindPropertyRelative("isRotate"), new GUIContent(PosingSystemLocalization.Text("向きを回転させる")));
+                if (property.FindPropertyRelative("isRotate").boolValue) EditorGUILayout.PropertyField(property.FindPropertyRelative("rotate"), new GUIContent(PosingSystemLocalization.Text("回転角度")));
+                EditorGUILayout.PropertyField(property.FindPropertyRelative("isMotionTime"), new GUIContent(PosingSystemLocalization.Text("再生位置を指定する")));
+                if (property.FindPropertyRelative("isMotionTime").boolValue) EditorGUILayout.PropertyField(property.FindPropertyRelative("motionTimeParamName"), new GUIContent(PosingSystemLocalization.Text("再生位置のパラメーター")));
+                EditorGUILayout.PropertyField(property.FindPropertyRelative("adjustmentClip"), new GUIContent(PosingSystemLocalization.Text("調整アニメーション")));
             }
             finally { EditorGUIUtility.labelWidth = previous; }
         }

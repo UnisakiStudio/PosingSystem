@@ -16,6 +16,7 @@ namespace jp.unisakistudio.posingsystemeditor
         };
         internal static void Section(string title)
         {
+            title = PosingSystemLocalization.Text(title);
             GUILayout.Space(6);
             var rect = GUILayoutUtility.GetRect(0, 24, GUILayout.ExpandWidth(true));
             EditorGUI.DrawRect(new Rect(rect.x, rect.y + 5, 3, 14), Accent);
@@ -23,10 +24,12 @@ namespace jp.unisakistudio.posingsystemeditor
         }
         internal static bool Link(string label, params GUILayoutOption[] options)
         {
+            label = PosingSystemLocalization.Text(label);
             return Link(GUILayoutUtility.GetRect(new GUIContent(label), Text(11), options), label);
         }
         internal static bool Link(Rect rect, string label)
         {
+            label = PosingSystemLocalization.Text(label);
             var changed = GUI.changed;
             var style = Text(11); style.normal.textColor = Accent;
             var clicked = GUI.Button(rect, label, style);

@@ -819,14 +819,14 @@ namespace jp.unisakistudio.posingsystemeditor
             {
                 using (new EditorGUILayout.VerticalScope(GUI.skin.box))
                 {
-                    EditorGUILayout.LabelField("自動アバター補正", EditorStyles.boldLabel);
+                    EditorGUILayout.LabelField(PosingSystemLocalization.Text("自動アバター補正"), EditorStyles.boldLabel);
                     using (new EditorGUI.DisabledScope(true))
                     {
                         EditorGUILayout.ObjectField(_posingSystem.avatarSpecificAdjustmentClip, typeof(AnimationClip), false);
                     }
                     EditorGUI.BeginChangeCheck();
                     _debugPreviewAvatarSpecificAdjustment = EditorGUILayout.ToggleLeft(
-                        "デバッグ: アバター固有補正をプレビュー",
+                        PosingSystemLocalization.Text("デバッグ: アバター固有補正をプレビュー"),
                         _debugPreviewAvatarSpecificAdjustment);
                     if (EditorGUI.EndChangeCheck())
                     {
@@ -834,7 +834,7 @@ namespace jp.unisakistudio.posingsystemeditor
                         Repaint();
                     }
                     EditorGUILayout.LabelField(
-                        "この切り替えは調整ウィンドウのプレビュー専用です。保存・サムネイル・最終出力には影響しません。膝クランプは引き続き有効です。",
+                        PosingSystemLocalization.Text("この切り替えは調整ウィンドウのプレビュー専用です。保存・サムネイル・最終出力には影響しません。膝クランプは引き続き有効です。"),
                         EditorStyles.wordWrappedMiniLabel);
                 }
             }
@@ -1005,7 +1005,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 if (UsesIkInPreview())
                 {
                     EditorGUILayout.HelpBox(
-                        "IKで手足の位置を自動調整しています。手動で調整するには、下の「IKを調整に反映」を押してください。",
+                        PosingSystemLocalization.Text("IKで手足の位置を自動調整しています。手動で調整するには、下の「IKを調整に反映」を押してください。"),
                         MessageType.Info);
                 }
             }

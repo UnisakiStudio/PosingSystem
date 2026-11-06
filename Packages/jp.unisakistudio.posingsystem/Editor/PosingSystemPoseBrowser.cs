@@ -23,21 +23,21 @@ namespace jp.unisakistudio.posingsystemeditor
 
         internal void Draw(SerializedObject serialized, PosingSystem ps, bool imports = false)
         {
-            var names = imports ? ImportLabels : ps.defines.Select(d => d.menuName).ToArray();
-            if (names.Length == 0) { EditorGUILayout.HelpBox("姿勢の分類が設定されていません。", MessageType.Info); return; }
+            var names = (imports ? ImportLabels : ps.defines.Select(d => d.menuName).ToArray()).Select(PosingSystemLocalization.Text).ToArray();
+            if (names.Length == 0) { EditorGUILayout.HelpBox(PosingSystemLocalization.Text("姿勢の分類が設定されていません。"), MessageType.Info); return; }
             category = Mathf.Clamp(category, -1, names.Length - 1);
             using (new EditorGUILayout.HorizontalScope(GUILayout.ExpandWidth(true)))
             {
                 using (new EditorGUILayout.VerticalScope(GUILayout.Width(72)))
                 {
-                    Tab(serialized, -1, "検索", EditorGUIUtility.IconContent("Search Icon").image);
+                    Tab(serialized, -1, PosingSystemLocalization.Text("検索"), EditorGUIUtility.IconContent("Search Icon").image);
                     for (var i = 0; i < names.Length; i++) Tab(serialized, i, names[i]);
                 }
                 using (new EditorGUILayout.VerticalScope(GUILayout.Width(Mathf.Max(150, EditorGUIUtility.currentViewWidth - (imports ? 150 : 134)))))
                 {
                     if (category < 0)
                     {
-                        EditorGUILayout.LabelField("すべての姿勢から検索", PosingSystemInspectorGUI.Text(12, true));
+                        EditorGUILayout.LabelField(PosingSystemLocalization.Text("すべての姿勢から検索"), PosingSystemInspectorGUI.Text(12, true));
                         search = EditorGUILayout.TextField(search, EditorStyles.toolbarSearchField);
                     }
                     else EditorGUILayout.LabelField(names[category], PosingSystemInspectorGUI.Text(12, true));
@@ -65,9 +65,9 @@ namespace jp.unisakistudio.posingsystemeditor
                         for (var i = 0; i < define.animations.Count; i++)
                         {
                             var entry = define.animations[i];
-                            if (category < 0 && !PosingSystemPoseListUtility.Matches(search, entry.displayName, entry.animationClip)) continue;
+                            if (category < 0 && !PosingSystemPoseListUtility.Matches(search, entry.displayName, entry.animationClip) && !PosingSystemPoseListUtility.Matches(search, PosingSystemLocalization.Text(entry.displayName), entry.animationClip)) continue;
                             DrawRow(serialized, ps, serialized.FindProperty("defines").GetArrayElementAtIndex(layer).FindPropertyRelative("animations").GetArrayElementAtIndex(i), layer, i,
-                                string.IsNullOrWhiteSpace(entry.displayName) ? "名前なし" : entry.displayName, define.menuName, entry, false);
+                                string.IsNullOrWhiteSpace(entry.displayName) ? PosingSystemLocalization.Text("名前なし") : PosingSystemLocalization.Text(entry.displayName), PosingSystemLocalization.Text(define.menuName), entry, false);
                             count++;
                         }
                     }
@@ -82,7 +82,7 @@ namespace jp.unisakistudio.posingsystemeditor
                     using (new EditorGUILayout.HorizontalScope())
                     {
                         using (new EditorGUI.DisabledScope(category < 0))
-                            if (PosingSystemInspectorGUI.Link("＋ 1件追加"))
+                            if (PosingSystemInspectorGUI.Link(PosingSystemLocalization.Text("＋ 1件追加")))
                             {
                                 PosingSystemEditorChangeUtility.Commit(serialized); Undo.IncrementCurrentGroup(); Undo.RecordObject(ps, "Add animation");
                                 if (imports)
@@ -129,16 +129,16 @@ namespace jp.unisakistudio.posingsystemeditor
                 var x = rect.x + 49;
                 var textWidth = Mathf.Max(50, rect.width - 80);
                 var initial = entry is PosingSystem.AnimationDefine p && p.initial;
-                if (category < 0) GUI.Label(new Rect(x, rect.y + 1, textWidth, 16), categoryName + (initial ? "  ・初期ポーズ" : ""), PosingSystemInspectorGUI.Text(10));
+                if (category < 0) GUI.Label(new Rect(x, rect.y + 1, textWidth, 16), categoryName + (initial ? "  · " + PosingSystemLocalization.Text("初期ポーズ") : ""), PosingSystemInspectorGUI.Text(10));
                 GUI.Label(new Rect(x, rect.y + (category < 0 ? 19 : 3), textWidth, 30), title, PosingSystemInspectorGUI.Text(12, true));
                 var enabled = property.FindPropertyRelative("enabled");
                 var checkRect = new Rect(rect.xMax - 23, rect.y + 5, 21, 21);
-                EditorGUI.BeginProperty(checkRect, new GUIContent("このポーズを使う"), enabled);
+                EditorGUI.BeginProperty(checkRect, new GUIContent(PosingSystemLocalization.Text("このポーズを使う")), enabled);
                 enabled.boolValue = PosingSystemInspectorGUI.Check(checkRect, enabled.boolValue, new GUIContent("", "このポーズを使う"));
                 EditorGUI.EndProperty();
                 var previewing = PosingSystemQuickPreview.IsPreviewing(ps, entry);
                 using (new EditorGUI.DisabledScope(!(entry.animationClip is AnimationClip) || ps.GetAvatar() == null || Application.isPlaying))
-                    if (GUI.Button(new Rect(x, rect.yMax - 23, 80, 21), new GUIContent(previewing ? "終了" : "プレビュー", "最初の姿勢をSceneタブで確認できます。終了すると元の姿勢に戻ります。")))
+                    if (GUI.Button(new Rect(x, rect.yMax - 23, 80, 21), new GUIContent(previewing ? PosingSystemLocalization.Text("終了") : PosingSystemLocalization.Text("プレビュー"), "最初の姿勢をSceneタブで確認できます。終了すると元の姿勢に戻ります。")))
                     {
                         PosingSystemEditorChangeUtility.Commit(serialized);
                         if (previewing) PosingSystemQuickPreview.Stop();
@@ -147,12 +147,12 @@ namespace jp.unisakistudio.posingsystemeditor
                             var current = imports ? (PosingSystem.BaseAnimationDefine)ps.overrideDefines[index] : ps.defines[layer].animations[index];
                             var poseKey = imports ? current.animationClip.name : PosingSystemAutoPoseCatalog.BuildPoseKey(ps.defines[layer].menuName, ps.defines[layer].animations[index].displayName);
                             if (!PosingSystemQuickPreview.Start(ps, current, poseKey, out var message))
-                                EditorUtility.DisplayDialog("姿勢のプレビュー", message, "閉じる");
+                                EditorUtility.DisplayDialog(PosingSystemLocalization.Text("姿勢のプレビュー"), message, "閉じる");
                         }
                         GUIUtility.ExitGUI();
                     }
-                if (category >= 0 && initial) GUI.Label(new Rect(x + 84, rect.yMax - 21, Mathf.Max(0, textWidth - 112), 18), "初期ポーズ", PosingSystemInspectorGUI.Text(10));
-                if (PosingSystemInspectorGUI.Link(new Rect(rect.xMax - 29, rect.yMax - 20, 29, 18), expanded == key ? "閉じる" : "詳細"))
+                if (category >= 0 && initial) GUI.Label(new Rect(x + 84, rect.yMax - 21, Mathf.Max(0, textWidth - 112), 18), PosingSystemLocalization.Text("初期ポーズ"), PosingSystemInspectorGUI.Text(10));
+                if (PosingSystemInspectorGUI.Link(new Rect(rect.xMax - 29, rect.yMax - 20, 29, 18), expanded == key ? PosingSystemLocalization.Text("閉じる") : PosingSystemLocalization.Text("詳細")))
                 {
                     SwitchDetail(serialized, key);
                     GUIUtility.ExitGUI();
@@ -189,12 +189,12 @@ namespace jp.unisakistudio.posingsystemeditor
                     if (property.FindPropertyRelative("rolloverSideAnimation").objectReferenceValue != null)
                     {
                         Field("rolloverContactStrength", "接地補正の強さ");
-                        EditorGUILayout.HelpBox("通常のアニメーションを中央にし、横向きの姿勢と左右反転をビルド時に合成します。各クリップの最初の姿勢を使用します。中央は0.5、左右端は0と1です。接地補正は0で無効、0.25で25％です。", MessageType.None);
+                        EditorGUILayout.HelpBox(PosingSystemLocalization.Text("通常のアニメーションを中央にし、横向きの姿勢と左右反転をビルド時に合成します。各クリップの最初の姿勢を使用します。中央は0.5、左右端は0と1です。接地補正は0で無効、0.25で25％です。"), MessageType.None);
                     }
                     else
-                        EditorGUILayout.HelpBox("横向きのAnimationClipを指定してください。未指定の場合は、従来どおり通常欄の完成済み寝返りアニメーションを使います。", MessageType.Info);
+                        EditorGUILayout.HelpBox(PosingSystemLocalization.Text("横向きのAnimationClipを指定してください。未指定の場合は、従来どおり通常欄の完成済み寝返りアニメーションを使います。"), MessageType.Info);
                     if (!ps.features.rollover)
-                        EditorGUILayout.HelpBox("ゲーム内で使うには「機能」タブの「寝返り」もオンにしてください。", MessageType.Info);
+                        EditorGUILayout.HelpBox(PosingSystemLocalization.Text("ゲーム内で使うには「機能」タブの「寝返り」もオンにしてください。"), MessageType.Info);
                 }
                 Field("isRotate", "向きを調整する");
                 if (property.FindPropertyRelative("isRotate").boolValue) Field("rotate", "回転角度");
@@ -203,7 +203,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 if (!imports)
                 {
                     var initial = property.FindPropertyRelative("initial").boolValue;
-                    var next = EditorGUILayout.ToggleLeft("この分類の初期ポーズにする", initial);
+                    var next = EditorGUILayout.ToggleLeft(PosingSystemLocalization.Text("この分類の初期ポーズにする"), initial);
                     if (next != initial)
                     {
                         PosingSystemEditorChangeUtility.Commit(serialized); Undo.IncrementCurrentGroup(); PosingSystemPoseListUtility.SetInitial(ps, layer, index, next); serialized.Update();
@@ -211,21 +211,21 @@ namespace jp.unisakistudio.posingsystemeditor
                 }
                 var array = imports ? serialized.FindProperty("overrideDefines") : serialized.FindProperty("defines").GetArrayElementAtIndex(layer).FindPropertyRelative("animations");
                 var positions = Enumerable.Range(1, array.arraySize).Select(i => i + "番").ToArray();
-                var nextIndex = EditorGUILayout.Popup(new GUIContent("順番", "この分類の中で移動先の順番を選べます。"), index, positions);
+                var nextIndex = EditorGUILayout.Popup(new GUIContent(PosingSystemLocalization.Text("順番"), "この分類の中で移動先の順番を選べます。"), index, positions);
                 if (nextIndex != index) Move(nextIndex);
                 using (new EditorGUILayout.HorizontalScope())
                 {
                     using (new EditorGUI.DisabledScope(index == 0)) if (GUILayout.Button("↑", GUILayout.Width(28))) Move(index - 1);
                     using (new EditorGUI.DisabledScope(index == array.arraySize - 1)) if (GUILayout.Button("↓", GUILayout.Width(28))) Move(index + 1);
                     GUILayout.FlexibleSpace();
-                    if (PosingSystemInspectorGUI.Link("一覧から削除", GUILayout.Width(72))) { PosingSystemEditorChangeUtility.DeleteArrayElement(array, index); Finish(); }
+                    if (PosingSystemInspectorGUI.Link(PosingSystemLocalization.Text("一覧から削除"), GUILayout.Width(72))) { PosingSystemEditorChangeUtility.DeleteArrayElement(array, index); Finish(); }
                 }
             }
             finally { EditorGUIUtility.labelWidth = oldLabelWidth; }
             void Field(string name, string label)
             {
                 GUI.SetNextControlName(property.propertyPath + "." + name);
-                EditorGUILayout.PropertyField(property.FindPropertyRelative(name), new GUIContent(label));
+                EditorGUILayout.PropertyField(property.FindPropertyRelative(name), new GUIContent(PosingSystemLocalization.Text(label)));
             }
             void Move(int to) { MoveRow(serialized, ps, layer, index, to, imports); GUI.FocusControl(null); GUIUtility.ExitGUI(); }
             void Finish() { PosingSystemEditorChangeUtility.Commit(serialized); expanded = null; pendingRowY = null; serialized.Update(); GUIUtility.ExitGUI(); }
@@ -271,7 +271,7 @@ namespace jp.unisakistudio.posingsystemeditor
             using (new EditorGUILayout.VerticalScope(EditorStyles.helpBox))
             {
                 destination = Mathf.Clamp(destination, 0, names.Length - 1);
-                EditorGUILayout.LabelField("追加先の姿勢", PosingSystemInspectorGUI.Text(11));
+                EditorGUILayout.LabelField(PosingSystemLocalization.Text("追加先の姿勢"), PosingSystemInspectorGUI.Text(11));
                 destination = EditorGUILayout.Popup(destination, names);
                 var drop = GUILayoutUtility.GetRect(0, 52, GUILayout.ExpandWidth(true));
                 GUI.Box(drop, GUIContent.none);
@@ -285,9 +285,9 @@ namespace jp.unisakistudio.posingsystemeditor
                     if (evt.type == EventType.DragPerform && clips.Count > 0) { DragAndDrop.AcceptDrag(); Stage(clips); }
                     evt.Use();
                 }
-                GUILayout.Label("または", style);
-                if (GUILayout.Button("Projectで選択中のクリップを読み込む", new GUIStyle(GUI.skin.button) { wordWrap = true }, GUILayout.Height(36))) Stage(PosingSystemPoseListUtility.CollectClips(Selection.objects));
-                EditorGUILayout.LabelField("Projectで選ぶときは、Inspector右上の鍵を閉じてから選択してください。", PosingSystemInspectorGUI.Text(11));
+                GUILayout.Label(PosingSystemLocalization.Text("または"), style);
+                if (GUILayout.Button(PosingSystemLocalization.Text("Projectで選択中のクリップを読み込む"), new GUIStyle(GUI.skin.button) { wordWrap = true }, GUILayout.Height(36))) Stage(PosingSystemPoseListUtility.CollectClips(Selection.objects));
+                EditorGUILayout.LabelField(PosingSystemLocalization.Text("Projectで選ぶときは、Inspector右上の鍵を閉じてから選択してください。"), PosingSystemInspectorGUI.Text(11));
                 pending.RemoveAll(clip => clip == null);
                 for (var i = 0; i < pending.Count; i++)
                     using (new EditorGUILayout.HorizontalScope())
@@ -304,7 +304,7 @@ namespace jp.unisakistudio.posingsystemeditor
                         var added = PosingSystemPoseListUtility.AddClips(ps, destination, pending);
                         pending.Clear(); category = destination; notice = added + "件追加しました。"; serialized.Update(); GUIUtility.ExitGUI();
                     }
-                if (pending.Count > count) EditorGUILayout.LabelField("追加先にあるクリップは重複して追加されません。", PosingSystemInspectorGUI.Text(11));
+                if (pending.Count > count) EditorGUILayout.LabelField(PosingSystemLocalization.Text("追加先にあるクリップは重複して追加されません。"), PosingSystemInspectorGUI.Text(11));
             }
         }
         private void Stage(IEnumerable<AnimationClip> clips)

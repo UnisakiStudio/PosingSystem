@@ -1,0 +1,108 @@
+{
+  "entries": [
+    {
+      "key": "changelog",
+      "value": "Lihat perubahan"
+    },
+    {
+      "key": "changelog.close",
+      "value": "Tutup perubahan"
+    },
+    {
+      "key": "help",
+      "value": "Bantuan / Perubahan"
+    },
+    {
+      "key": "help.close",
+      "value": "Tutup bantuan"
+    },
+    {
+      "key": "manual",
+      "value": "Panduan"
+    },
+    {
+      "key": "support",
+      "value": "Dukungan"
+    },
+    {
+      "key": "うつ伏せ寝",
+      "value": "Tengkurap"
+    },
+    {
+      "key": "ジェスチャー無効",
+      "value": "Gestur mati"
+    },
+    {
+      "key": "中腰姿勢",
+      "value": "Jongkok"
+    },
+    {
+      "key": "仰向け寝",
+      "value": "Telentang"
+    },
+    {
+      "key": "向き",
+      "value": "Arah"
+    },
+    {
+      "key": "呼吸",
+      "value": "Napas"
+    },
+    {
+      "key": "姿勢選択",
+      "value": "Pilih pose"
+    },
+    {
+      "key": "寝返り",
+      "value": "Berguling"
+    },
+    {
+      "key": "左右反転",
+      "value": "Cerminkan"
+    },
+    {
+      "key": "床の高さ",
+      "value": "Tinggi lantai"
+    },
+    {
+      "key": "座り姿勢",
+      "value": "Duduk"
+    },
+    {
+      "key": "戻る",
+      "value": "Kembali"
+    },
+    {
+      "key": "撮影モード",
+      "value": "Mode foto"
+    },
+    {
+      "key": "撮影モードを終了",
+      "value": "Keluar foto"
+    },
+    {
+      "key": "立ち姿勢",
+      "value": "Berdiri"
+    },
+    {
+      "key": "設定",
+      "value": "Pengaturan"
+    },
+    {
+      "key": "足の高さ",
+      "value": "Tinggi kaki"
+    },
+    {
+      "key": "足固定",
+      "value": "Kunci kaki"
+    },
+    {
+      "key": "距離",
+      "value": "Jarak"
+    },
+    {
+      "key": "首固定",
+      "value": "Kunci kepala"
+    }
+  ]
+}

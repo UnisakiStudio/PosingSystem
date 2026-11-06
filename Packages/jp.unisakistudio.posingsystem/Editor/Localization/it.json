@@ -1,0 +1,620 @@
+{
+  "entries": [
+    {
+      "key": "changelog",
+      "value": "Mostra novità"
+    },
+    {
+      "key": "changelog.close",
+      "value": "Chiudi novità"
+    },
+    {
+      "key": "help",
+      "value": "Aiuto / Novità"
+    },
+    {
+      "key": "help.close",
+      "value": "Chiudi aiuto"
+    },
+    {
+      "key": "manual",
+      "value": "Guida"
+    },
+    {
+      "key": "support",
+      "value": "Assistenza"
+    },
+    {
+      "key": "あぐら",
+      "value": "A gambe incrociate"
+    },
+    {
+      "key": "あぐら２",
+      "value": "Gambe incrociate 2"
+    },
+    {
+      "key": "いじけ",
+      "value": "Broncio"
+    },
+    {
+      "key": "うずくまり",
+      "value": "Rannicchiato"
+    },
+    {
+      "key": "うつ伏せ寝",
+      "value": "Prono"
+    },
+    {
+      "key": "おいで",
+      "value": "Vieni qui"
+    },
+    {
+      "key": "おきあがり",
+      "value": "Alzarsi"
+    },
+    {
+      "key": "おすまし",
+      "value": "Composto"
+    },
+    {
+      "key": "おちこみ",
+      "value": "Giù di morale"
+    },
+    {
+      "key": "お伺いポーズ",
+      "value": "Permesso?"
+    },
+    {
+      "key": "お姉さん座り",
+      "value": "Seduta elegante"
+    },
+    {
+      "key": "お疲れ",
+      "value": "Sfinito"
+    },
+    {
+      "key": "くずし",
+      "value": "Scomposto"
+    },
+    {
+      "key": "くつろぎ１",
+      "value": "Comodo 1"
+    },
+    {
+      "key": "くつろぎ２",
+      "value": "Comodo 2"
+    },
+    {
+      "key": "ぐだり１",
+      "value": "Accasciato 1"
+    },
+    {
+      "key": "ぐだり２",
+      "value": "Accasciato 2"
+    },
+    {
+      "key": "ぐだり３",
+      "value": "Accasciato 3"
+    },
+    {
+      "key": "ざせつ",
+      "value": "Sconfitto"
+    },
+    {
+      "key": "じだらく",
+      "value": "Pigrizia"
+    },
+    {
+      "key": "たたみ",
+      "value": "Tatami"
+    },
+    {
+      "key": "ねころび",
+      "value": "Sdraiato"
+    },
+    {
+      "key": "ねころび１",
+      "value": "Sdraiato 1"
+    },
+    {
+      "key": "ねころび２",
+      "value": "Sdraiato 2"
+    },
+    {
+      "key": "ねころび３",
+      "value": "Sdraiato 3"
+    },
+    {
+      "key": "のんびり",
+      "value": "Tranquillo"
+    },
+    {
+      "key": "のーんびり",
+      "value": "Molto tranquillo"
+    },
+    {
+      "key": "はいずり",
+      "value": "Strisciare"
+    },
+    {
+      "key": "はりつけ",
+      "value": "Contro il muro"
+    },
+    {
+      "key": "びっくり",
+      "value": "Sorpreso"
+    },
+    {
+      "key": "ふくじゅう",
+      "value": "Sottomissione"
+    },
+    {
+      "key": "むきりょく",
+      "value": "Senza energie"
+    },
+    {
+      "key": "よりかかり",
+      "value": "Appoggiato"
+    },
+    {
+      "key": "アイドル",
+      "value": "Idol"
+    },
+    {
+      "key": "カエルのポーズ１",
+      "value": "Rana 1"
+    },
+    {
+      "key": "カエルのポーズ２",
+      "value": "Rana 2"
+    },
+    {
+      "key": "キック",
+      "value": "Calcio"
+    },
+    {
+      "key": "クマ人形",
+      "value": "Orsacchiotto"
+    },
+    {
+      "key": "ケンカ",
+      "value": "Pronto alla lotta"
+    },
+    {
+      "key": "コンビニ",
+      "value": "Minimarket"
+    },
+    {
+      "key": "ジェスチャー無効",
+      "value": "Blocca gesti"
+    },
+    {
+      "key": "ゾンビ",
+      "value": "Zombie"
+    },
+    {
+      "key": "バンザイ",
+      "value": "Braccia alzate"
+    },
+    {
+      "key": "プランク",
+      "value": "Plank"
+    },
+    {
+      "key": "ベッド",
+      "value": "Letto"
+    },
+    {
+      "key": "マットレス",
+      "value": "Materasso"
+    },
+    {
+      "key": "モデル",
+      "value": "Modello"
+    },
+    {
+      "key": "ラダー運動",
+      "value": "Agilità"
+    },
+    {
+      "key": "リクライニング",
+      "value": "Reclinato"
+    },
+    {
+      "key": "リラックス",
+      "value": "Relax"
+    },
+    {
+      "key": "リラックス１",
+      "value": "Relax 1"
+    },
+    {
+      "key": "リラックス２",
+      "value": "Relax 2"
+    },
+    {
+      "key": "リラックス３",
+      "value": "Relax 3"
+    },
+    {
+      "key": "不機嫌",
+      "value": "Imbronciato"
+    },
+    {
+      "key": "中腰姿勢",
+      "value": "Accovacciato"
+    },
+    {
+      "key": "二人分座り",
+      "value": "Posto per due"
+    },
+    {
+      "key": "五体投地",
+      "value": "Prostrazione"
+    },
+    {
+      "key": "仰向け寝",
+      "value": "Supino"
+    },
+    {
+      "key": "伏せ",
+      "value": "Prono"
+    },
+    {
+      "key": "休憩中",
+      "value": "In pausa"
+    },
+    {
+      "key": "低姿勢",
+      "value": "Posizione bassa"
+    },
+    {
+      "key": "体育座り",
+      "value": "Ginocchia al petto"
+    },
+    {
+      "key": "倒され寝",
+      "value": "A terra"
+    },
+    {
+      "key": "傍観者",
+      "value": "Spettatore"
+    },
+    {
+      "key": "内股座り",
+      "value": "Punte all’interno"
+    },
+    {
+      "key": "制止",
+      "value": "Fermo"
+    },
+    {
+      "key": "前かがみ",
+      "value": "Piegato in avanti"
+    },
+    {
+      "key": "右向き寝",
+      "value": "Sonno lato D"
+    },
+    {
+      "key": "右向き昼寝",
+      "value": "Pisolino lato D"
+    },
+    {
+      "key": "合蹠のポーズ",
+      "value": "Farfalla"
+    },
+    {
+      "key": "向き",
+      "value": "Direzione"
+    },
+    {
+      "key": "呼吸",
+      "value": "Respiro"
+    },
+    {
+      "key": "和室",
+      "value": "Stanza giapponese"
+    },
+    {
+      "key": "商談",
+      "value": "Trattativa"
+    },
+    {
+      "key": "地球寝",
+      "value": "Abbraccia la terra"
+    },
+    {
+      "key": "培養中",
+      "value": "In una capsula"
+    },
+    {
+      "key": "堤防",
+      "value": "Argine"
+    },
+    {
+      "key": "壁ドン",
+      "value": "Al muro"
+    },
+    {
+      "key": "女の子座り",
+      "value": "Seduta a W"
+    },
+    {
+      "key": "姿勢選択",
+      "value": "Scegli posa"
+    },
+    {
+      "key": "寝返り",
+      "value": "Girarsi"
+    },
+    {
+      "key": "左右反転",
+      "value": "Specchio"
+    },
+    {
+      "key": "左向き寝",
+      "value": "Sonno lato S"
+    },
+    {
+      "key": "左向き昼寝",
+      "value": "Pisolino lato S"
+    },
+    {
+      "key": "左向き昼寝２",
+      "value": "Pisolino lato S2"
+    },
+    {
+      "key": "布団",
+      "value": "Futon"
+    },
+    {
+      "key": "床の高さ",
+      "value": "Altezza suolo"
+    },
+    {
+      "key": "座り姿勢",
+      "value": "Seduto"
+    },
+    {
+      "key": "座布団",
+      "value": "Cuscino da terra"
+    },
+    {
+      "key": "待ちぼうけ",
+      "value": "Lunga attesa"
+    },
+    {
+      "key": "待ち伏せ",
+      "value": "Agguato"
+    },
+    {
+      "key": "後方彼氏",
+      "value": "Veglia discreta"
+    },
+    {
+      "key": "従者のポーズ",
+      "value": "Servitore"
+    },
+    {
+      "key": "忍者走り",
+      "value": "Corsa ninja"
+    },
+    {
+      "key": "思考中",
+      "value": "Pensieroso"
+    },
+    {
+      "key": "戻る",
+      "value": "Indietro"
+    },
+    {
+      "key": "抱きしめ",
+      "value": "Abbraccio"
+    },
+    {
+      "key": "撮影モード",
+      "value": "Modalità foto"
+    },
+    {
+      "key": "撮影モードを終了",
+      "value": "Esci da foto"
+    },
+    {
+      "key": "斜め座り",
+      "value": "Seduto di sbieco"
+    },
+    {
+      "key": "昼寝",
+      "value": "Pisolino"
+    },
+    {
+      "key": "晴天寝",
+      "value": "Pisolino al sole"
+    },
+    {
+      "key": "服従",
+      "value": "Obbedienza"
+    },
+    {
+      "key": "木の上寝",
+      "value": "Pisolino sull’albero"
+    },
+    {
+      "key": "楽園",
+      "value": "Paradiso"
+    },
+    {
+      "key": "海岸",
+      "value": "Lungomare"
+    },
+    {
+      "key": "照れ",
+      "value": "Timido"
+    },
+    {
+      "key": "猫のポーズ（右）",
+      "value": "Gatto lato D"
+    },
+    {
+      "key": "猫のポーズ（左）",
+      "value": "Gatto lato S"
+    },
+    {
+      "key": "猫寝",
+      "value": "Pisolino da gatto"
+    },
+    {
+      "key": "異変無し",
+      "value": "Tutto tranquillo"
+    },
+    {
+      "key": "直立",
+      "value": "In piedi"
+    },
+    {
+      "key": "睡魔",
+      "value": "Sonnolenza"
+    },
+    {
+      "key": "砂浜",
+      "value": "Spiaggia"
+    },
+    {
+      "key": "空気椅子",
+      "value": "Sedia invisibile"
+    },
+    {
+      "key": "立ち姿勢",
+      "value": "In piedi"
+    },
+    {
+      "key": "絨毯",
+      "value": "Tappeto"
+    },
+    {
+      "key": "考える男",
+      "value": "Il Pensatore"
+    },
+    {
+      "key": "肘パンチ",
+      "value": "Gomitata"
+    },
+    {
+      "key": "肘付き",
+      "value": "Sul gomito"
+    },
+    {
+      "key": "脱力寝",
+      "value": "Sonno rilassato"
+    },
+    {
+      "key": "腕枕寝",
+      "value": "Pisolino sul braccio"
+    },
+    {
+      "key": "腕枕（右）",
+      "value": "Cuscino braccio D"
+    },
+    {
+      "key": "腕枕（左）",
+      "value": "Cuscino braccio S"
+    },
+    {
+      "key": "腕立て伏せ",
+      "value": "Flessioni"
+    },
+    {
+      "key": "膝立て",
+      "value": "Un ginocchio alzato"
+    },
+    {
+      "key": "芝生",
+      "value": "Prato"
+    },
+    {
+      "key": "行き倒れ",
+      "value": "Crollato"
+    },
+    {
+      "key": "見下し",
+      "value": "Sguardo dall’alto"
+    },
+    {
+      "key": "観察中",
+      "value": "Osservazione"
+    },
+    {
+      "key": "訓練場",
+      "value": "Campo di allenamento"
+    },
+    {
+      "key": "設定",
+      "value": "Impostazioni"
+    },
+    {
+      "key": "警戒",
+      "value": "In guardia"
+    },
+    {
+      "key": "警戒（右）",
+      "value": "In guardia D"
+    },
+    {
+      "key": "警戒（左）",
+      "value": "In guardia S"
+    },
+    {
+      "key": "足の高さ",
+      "value": "Altezza piedi"
+    },
+    {
+      "key": "足伸ばし",
+      "value": "Gambe distese"
+    },
+    {
+      "key": "足固定",
+      "value": "Blocca piedi"
+    },
+    {
+      "key": "足組み",
+      "value": "Gambe accavallate"
+    },
+    {
+      "key": "足組み２",
+      "value": "Gambe accavallate 2"
+    },
+    {
+      "key": "足降ろし",
+      "value": "Gambe abbassate"
+    },
+    {
+      "key": "距離",
+      "value": "Distanza"
+    },
+    {
+      "key": "蹲踞",
+      "value": "Accovacciato"
+    },
+    {
+      "key": "運動会",
+      "value": "Giornata sportiva"
+    },
+    {
+      "key": "面接",
+      "value": "Colloquio"
+    },
+    {
+      "key": "首固定",
+      "value": "Blocca testa"
+    },
+    {
+      "key": "騎士",
+      "value": "Cavaliere"
+    },
+    {
+      "key": "魔王降臨",
+      "value": "Re demone"
+    }
+  ]
+}

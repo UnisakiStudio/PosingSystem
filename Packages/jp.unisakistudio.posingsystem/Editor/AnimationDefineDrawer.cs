@@ -109,13 +109,13 @@ namespace jp.unisakistudio.posingsystemeditor
             animationClipProperty.objectReferenceValue = EditorGUI.ObjectField(animFieldRect, animationClipProperty.objectReferenceValue, typeof(Motion), false);
             contentRect.y += EditorGUIUtility.singleLineHeight;
 
-            EditorGUI.PropertyField(contentRect, isRolloverProperty, new GUIContent("寝返りを使う"));
+            EditorGUI.PropertyField(contentRect, isRolloverProperty, new GUIContent(PosingSystemLocalization.Text("寝返りを使う")));
             contentRect.y += EditorGUIUtility.singleLineHeight;
             if (isRolloverProperty.boolValue)
             {
-                EditorGUI.PropertyField(contentRect, property.FindPropertyRelative("rolloverSideAnimation"), new GUIContent("寝返り時の横向き"));
+                EditorGUI.PropertyField(contentRect, property.FindPropertyRelative("rolloverSideAnimation"), new GUIContent(PosingSystemLocalization.Text("寝返り時の横向き")));
                 contentRect.y += EditorGUIUtility.singleLineHeight;
-                EditorGUI.PropertyField(contentRect, property.FindPropertyRelative("rolloverContactStrength"), new GUIContent("接地補正の強さ"));
+                EditorGUI.PropertyField(contentRect, property.FindPropertyRelative("rolloverContactStrength"), new GUIContent(PosingSystemLocalization.Text("接地補正の強さ")));
                 contentRect.y += EditorGUIUtility.singleLineHeight;
                 PosingSystemRolloverIcon.Draw(iconRect);
             }

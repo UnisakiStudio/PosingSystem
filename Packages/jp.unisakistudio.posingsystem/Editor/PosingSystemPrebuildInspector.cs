@@ -30,13 +30,13 @@ namespace jp.unisakistudio.posingsystemeditor
             {
                 using (new EditorGUILayout.HorizontalScope())
                 {
-                    GUILayout.Label("プレビルド", label, GUILayout.Width(76), GUILayout.Height(24));
+                    GUILayout.Label(PosingSystemLocalization.Text("プレビルド"), label, GUILayout.Width(76), GUILayout.Height(24));
                     var status = state == BuildState.Ready ? "最新" : state == BuildState.Outdated ? "設定の更新あり" :
                         state == BuildState.NotBuilt ? "未実行" : "アバターの設定が必要";
                     GUILayout.Label(status, statusLabel, GUILayout.Height(24));
                     using (new EditorGUI.DisabledScope(state == BuildState.AvatarRequired || EditorApplication.isCompiling || EditorApplication.isPlaying))
                     {
-                        if (GUILayout.Button("プレビルドを更新", GUILayout.Width(120), GUILayout.Height(24)))
+                        if (GUILayout.Button(PosingSystemLocalization.Text("プレビルドを更新"), GUILayout.Width(120), GUILayout.Height(24)))
                         {
                             PosingSystemEditorChangeUtility.Commit(serialized);
                             PosingSystemEditor.TryPrebuildAndRenew(ps);
@@ -47,15 +47,15 @@ namespace jp.unisakistudio.posingsystemeditor
                     if (PosingSystemInspectorGUI.Link(showDetails ? "閉じる" : "詳細", GUILayout.Width(34), GUILayout.Height(24))) showDetails = !showDetails;
                 }
                 if (state == BuildState.AvatarRequired)
-                    EditorGUILayout.HelpBox("プレビルドを実行できません。Inspectorの「設定の確認」で、アバターの配置・Animator・Humanoidの設定を確認してください。", MessageType.Info);
+                    EditorGUILayout.HelpBox(PosingSystemLocalization.Text("プレビルドを実行できません。Inspectorの「設定の確認」で、アバターの配置・Animator・Humanoidの設定を確認してください。"), MessageType.Info);
                 if (showDetails)
                 {
-                GUILayout.Label("設定を先に生成して、アバターのビルド時間を短縮します。", note);
+                GUILayout.Label(PosingSystemLocalization.Text("設定を先に生成して、アバターのビルド時間を短縮します。"), note);
                 using (new EditorGUILayout.HorizontalScope())
                 {
                     using (new EditorGUI.DisabledScope(state != BuildState.Ready || ps.isIconDisabled || PosingSystemEditor.IsAndroidBuildTarget() || EditorApplication.isPlaying))
                     {
-                        if (GUILayout.Button(new GUIContent("アイコンを撮り直す", "衣装や見た目を変えたときに使います。設定を変えたときはプレビルドしてください。"), GUILayout.Height(20)))
+                        if (GUILayout.Button(new GUIContent(PosingSystemLocalization.Text("アイコンを撮り直す"), "衣装や見た目を変えたときに使います。設定を変えたときはプレビルドしてください。"), GUILayout.Height(20)))
                         {
                             PosingSystemEditor.TryRenewAvatar(ps);
                             serialized.Update();
@@ -69,10 +69,10 @@ namespace jp.unisakistudio.posingsystemeditor
                     using (new EditorGUILayout.HorizontalScope())
                     {
                         using (new EditorGUI.DisabledScope(true))
-                            EditorGUILayout.ObjectField("画像ファイル", ps.thumbnailPackObject, typeof(PosingSystemThumbnailPack), false);
+                            EditorGUILayout.ObjectField(PosingSystemLocalization.Text("画像ファイル"), ps.thumbnailPackObject, typeof(PosingSystemThumbnailPack), false);
                         using (new EditorGUI.DisabledScope(ps.thumbnailPackObject == null))
                         {
-                            if (GUILayout.Button("削除", GUILayout.Width(44)) && EditorUtility.DisplayDialog("アイコン画像ファイルを削除",
+                            if (GUILayout.Button(PosingSystemLocalization.Text("削除"), GUILayout.Width(44)) && EditorUtility.DisplayDialog(PosingSystemLocalization.Text("アイコン画像ファイルを削除"),
                                 "生成済みの画像ファイルを削除します。削除後は「アイコンを撮り直す」で再生成できます。", "削除する", "キャンセル"))
                             {
                                 Undo.RecordObject(ps, "Delete thumbnail pack");
@@ -84,7 +84,7 @@ namespace jp.unisakistudio.posingsystemeditor
                             }
                         }
                     }
-                    GUILayout.Label("Modular Avatarで追加した衣装などは、アバターのビルド時に撮影し直したアイコンへ反映されます。", note);
+                    GUILayout.Label(PosingSystemLocalization.Text("Modular Avatarで追加した衣装などは、アバターのビルド時に撮影し直したアイコンへ反映されます。"), note);
                 }
             }
             }

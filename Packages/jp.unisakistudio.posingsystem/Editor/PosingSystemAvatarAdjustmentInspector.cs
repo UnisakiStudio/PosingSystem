@@ -98,7 +98,7 @@ namespace jp.unisakistudio.posingsystemeditor
             if (posingSystem != null && posingSystem.UsesAutoPoseCatalog)
             {
                 EditorGUILayout.HelpBox(
-                    "姿勢別IK自動調整が有効です。従来のアバター固有補正と調整Animationは使用しません。",
+                    PosingSystemLocalization.Text("姿勢別IK自動調整が有効です。従来のアバター固有補正と調整Animationは使用しません。"),
                     MessageType.Info);
                 return;
             }
@@ -114,7 +114,7 @@ namespace jp.unisakistudio.posingsystemeditor
 
             EditorGUILayout.BeginHorizontal();
             var enabled = EditorGUILayout.ToggleLeft(
-                new GUIContent("アバター固有補正を使用", "基準アバターとの初期関節角度・ひねりの差を補正します。"),
+                new GUIContent(PosingSystemLocalization.Text("アバター固有補正を使用"), "基準アバターとの初期関節角度・ひねりの差を補正します。"),
                 posingSystem.enableAvatarSpecificAdjustment,
                 GUILayout.Width(190f));
             if (enabled)
@@ -122,7 +122,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 using (new EditorGUI.DisabledScope(true))
                 {
                     EditorGUILayout.ObjectField(
-                        new GUIContent("自動生成された補正"),
+                        new GUIContent(PosingSystemLocalization.Text("自動生成された補正")),
                         posingSystem.avatarSpecificAdjustmentClip,
                         typeof(AnimationClip),
                         false);
@@ -132,14 +132,14 @@ namespace jp.unisakistudio.posingsystemeditor
 
             EditorGUILayout.BeginHorizontal();
             var kneeClamp = EditorGUILayout.ToggleLeft(
-                new GUIContent("逆関節防止機能", "足IKで膝が逆向きに折れることを防止します。"),
+                new GUIContent(PosingSystemLocalization.Text("逆関節防止機能"), "足IKで膝が逆向きに折れることを防止します。"),
                 posingSystem.enableReverseKneeSafetyClamp,
                 GUILayout.Width(190f));
             var safetyAngle = posingSystem.reverseKneeSafetyAngle;
             if (kneeClamp)
             {
                 safetyAngle = EditorGUILayout.Slider(
-                    new GUIContent("最低膝曲げ角度（°）", "膝がこの角度より伸びる前にクランプします。"),
+                    new GUIContent(PosingSystemLocalization.Text("最低膝曲げ角度（°）"), "膝がこの角度より伸びる前にクランプします。"),
                     safetyAngle, 0f, 5f);
             }
             EditorGUILayout.EndHorizontal();
@@ -162,7 +162,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 !PosingSystemAvatarAdjustmentUtility.IsGeneratedClipCurrent(posingSystem))
             {
                 EditorGUILayout.HelpBox(
-                    "アバターの初期姿勢が変わったため、補正を自動更新します。",
+                    PosingSystemLocalization.Text("アバターの初期姿勢が変わったため、補正を自動更新します。"),
                     MessageType.Warning);
                 ScheduleAutomaticGeneration(posingSystem);
             }

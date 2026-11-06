@@ -1,0 +1,108 @@
+{
+  "entries": [
+    {
+      "key": "changelog",
+      "value": "Zobrazit změny"
+    },
+    {
+      "key": "changelog.close",
+      "value": "Zavřít změny"
+    },
+    {
+      "key": "help",
+      "value": "Nápověda / Změny"
+    },
+    {
+      "key": "help.close",
+      "value": "Zavřít nápovědu"
+    },
+    {
+      "key": "manual",
+      "value": "Návod"
+    },
+    {
+      "key": "support",
+      "value": "Podpora"
+    },
+    {
+      "key": "うつ伏せ寝",
+      "value": "Na břiše"
+    },
+    {
+      "key": "ジェスチャー無効",
+      "value": "Gesta vyp."
+    },
+    {
+      "key": "中腰姿勢",
+      "value": "Podřep"
+    },
+    {
+      "key": "仰向け寝",
+      "value": "Na zádech"
+    },
+    {
+      "key": "向き",
+      "value": "Směr"
+    },
+    {
+      "key": "呼吸",
+      "value": "Dýchání"
+    },
+    {
+      "key": "姿勢選択",
+      "value": "Vybrat pózu"
+    },
+    {
+      "key": "寝返り",
+      "value": "Přetočit se"
+    },
+    {
+      "key": "左右反転",
+      "value": "Zrcadlit"
+    },
+    {
+      "key": "床の高さ",
+      "value": "Výška podlahy"
+    },
+    {
+      "key": "座り姿勢",
+      "value": "Sezení"
+    },
+    {
+      "key": "戻る",
+      "value": "Zpět"
+    },
+    {
+      "key": "撮影モード",
+      "value": "Režim focení"
+    },
+    {
+      "key": "撮影モードを終了",
+      "value": "Ukončit focení"
+    },
+    {
+      "key": "立ち姿勢",
+      "value": "Stání"
+    },
+    {
+      "key": "設定",
+      "value": "Nastavení"
+    },
+    {
+      "key": "足の高さ",
+      "value": "Výška chodidel"
+    },
+    {
+      "key": "足固定",
+      "value": "Zamknout nohy"
+    },
+    {
+      "key": "距離",
+      "value": "Vzdálenost"
+    },
+    {
+      "key": "首固定",
+      "value": "Zamknout hlavu"
+    }
+  ]
+}

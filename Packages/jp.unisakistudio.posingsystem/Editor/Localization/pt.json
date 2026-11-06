@@ -1,0 +1,108 @@
+{
+  "entries": [
+    {
+      "key": "changelog",
+      "value": "Ver alterações"
+    },
+    {
+      "key": "changelog.close",
+      "value": "Fechar alterações"
+    },
+    {
+      "key": "help",
+      "value": "Ajuda / Alterações"
+    },
+    {
+      "key": "help.close",
+      "value": "Fechar ajuda"
+    },
+    {
+      "key": "manual",
+      "value": "Manual"
+    },
+    {
+      "key": "support",
+      "value": "Suporte"
+    },
+    {
+      "key": "うつ伏せ寝",
+      "value": "De bruços"
+    },
+    {
+      "key": "ジェスチャー無効",
+      "value": "Sem gestos"
+    },
+    {
+      "key": "中腰姿勢",
+      "value": "Agachado"
+    },
+    {
+      "key": "仰向け寝",
+      "value": "De costas"
+    },
+    {
+      "key": "向き",
+      "value": "Direção"
+    },
+    {
+      "key": "呼吸",
+      "value": "Respiração"
+    },
+    {
+      "key": "姿勢選択",
+      "value": "Escolher pose"
+    },
+    {
+      "key": "寝返り",
+      "value": "Virar"
+    },
+    {
+      "key": "左右反転",
+      "value": "Espelhar"
+    },
+    {
+      "key": "床の高さ",
+      "value": "Altura chão"
+    },
+    {
+      "key": "座り姿勢",
+      "value": "Sentado"
+    },
+    {
+      "key": "戻る",
+      "value": "Voltar"
+    },
+    {
+      "key": "撮影モード",
+      "value": "Modo foto"
+    },
+    {
+      "key": "撮影モードを終了",
+      "value": "Sair da foto"
+    },
+    {
+      "key": "立ち姿勢",
+      "value": "Em pé"
+    },
+    {
+      "key": "設定",
+      "value": "Definições"
+    },
+    {
+      "key": "足の高さ",
+      "value": "Altura pés"
+    },
+    {
+      "key": "足固定",
+      "value": "Fixar pés"
+    },
+    {
+      "key": "距離",
+      "value": "Distância"
+    },
+    {
+      "key": "首固定",
+      "value": "Fixar cabeça"
+    }
+  ]
+}

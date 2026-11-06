@@ -23,14 +23,14 @@ namespace jp.unisakistudio.posingsystemeditor
             if (!showPreferences) return;
             using (new EditorGUILayout.VerticalScope(EditorStyles.helpBox))
             {
-                EditorGUILayout.PropertyField(serialized.FindProperty("hideHierarchyWarnings"), new GUIContent("Hierarchyの警告マークを非表示"));
+                EditorGUILayout.PropertyField(serialized.FindProperty("hideHierarchyWarnings"), new GUIContent(PosingSystemLocalization.Text("Hierarchyの警告マークを非表示")));
                 if (PosingSystemEditorChangeUtility.Apply(serialized)) GUIUtility.ExitGUI();
                 DrawWarningToggle(serialized, ps, PosingSystem.WarningType.All, "すべての警告・注意を非表示");
                 DrawWarningToggle(serialized, ps, PosingSystem.WarningType.PrebuildNotRun, "プレビルド未実行の警告を非表示");
                 DrawWarningToggle(serialized, ps, PosingSystem.WarningType.PrebuildOutOfDate, "プレビルド後の設定変更の警告を非表示");
                 DrawWarningToggle(serialized, ps, PosingSystem.WarningType.Configuration, "ポーズ・アバター設定の注意を非表示");
                 DrawWarningToggle(serialized, ps, PosingSystem.WarningType.AutoFootsteps, "自動足踏みに関する案内を非表示");
-                EditorGUILayout.LabelField("このポーズツールごとに保存します。エラー表示と、ビルド時に必要な再生成は有効なままです。", EditorStyles.wordWrappedMiniLabel);
+                EditorGUILayout.LabelField(PosingSystemLocalization.Text("このポーズツールごとに保存します。エラー表示と、ビルド時に必要な再生成は有効なままです。"), EditorStyles.wordWrappedMiniLabel);
             }
         }
 
@@ -77,7 +77,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 var errors = visibleIssues.Count(i => i.Severity == MessageType.Error);
                 var warnings = visibleIssues.Count(i => i.Severity == MessageType.Warning);
                 if ((visibleWarnings & (PosingSystem.WarningType.PrebuildNotRun | PosingSystem.WarningType.PrebuildOutOfDate)) != 0) warnings++;
-                EditorGUILayout.LabelField("設定の確認", errors > 0 ? errors + "件のエラー" : warnings > 0 ? warnings + "件の注意" : "検出できる設定エラーはありません");
+                EditorGUILayout.LabelField(PosingSystemLocalization.Text("設定の確認"), errors > 0 ? errors + "件のエラー" : warnings > 0 ? warnings + "件の注意" : "検出できる設定エラーはありません");
                 foreach (var issue in visibleIssues.Where(i => i.Severity == MessageType.Error)) DrawIssue(ps, issue);
                 if ((visibleWarnings & PosingSystem.WarningType.PrebuildNotRun) != 0)
                     DrawPrebuildWarning(ps, PosingSystem.WarningType.PrebuildNotRun, "まだプレビルドしていません。「プレビルドを更新」で姿勢データを生成できます。");
@@ -91,10 +91,10 @@ namespace jp.unisakistudio.posingsystemeditor
                 if (failures.TryGetValue(ps.GetInstanceID(), out var failure))
                 {
                     EditorGUILayout.HelpBox("前回の処理は完了していません。\n" + failure, MessageType.Error);
-                    if (GUILayout.Button("前回の失敗内容をコピー")) EditorGUIUtility.systemCopyBuffer = failure;
-                    if (GUILayout.Button("前回の失敗表示を閉じる")) SetFailure(ps, null);
+                    if (GUILayout.Button(PosingSystemLocalization.Text("前回の失敗内容をコピー"))) EditorGUIUtility.systemCopyBuffer = failure;
+                    if (GUILayout.Button(PosingSystemLocalization.Text("前回の失敗表示を閉じる"))) SetFailure(ps, null);
                 }
-                if (GUILayout.Button("設定を再確認")) { issues = null; nextCheck = 0; PosingSystemHierarchyBadge.Invalidate(ps); }
+                if (GUILayout.Button(PosingSystemLocalization.Text("設定を再確認"))) { issues = null; nextCheck = 0; PosingSystemHierarchyBadge.Invalidate(ps); }
                 DrawPreferences(serialized, ps);
             }
             GUI.changed = changed;
@@ -110,7 +110,7 @@ namespace jp.unisakistudio.posingsystemeditor
         private static void DrawPrebuildWarning(PosingSystem ps, PosingSystem.WarningType type, string message)
         {
             EditorGUILayout.HelpBox(message, MessageType.Warning);
-            if (PosingSystemInspectorGUI.Link("この警告を今後表示しない"))
+            if (PosingSystemInspectorGUI.Link(PosingSystemLocalization.Text("この警告を今後表示しない")))
             {
                 PosingSystemEditor.SetWarningIgnored(ps, type, true);
                 GUIUtility.ExitGUI();

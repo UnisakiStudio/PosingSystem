@@ -1,0 +1,108 @@
+{
+  "entries": [
+    {
+      "key": "changelog",
+      "value": "Değişiklikleri göster"
+    },
+    {
+      "key": "changelog.close",
+      "value": "Değişiklikleri kapat"
+    },
+    {
+      "key": "help",
+      "value": "Yardım / Değişiklikler"
+    },
+    {
+      "key": "help.close",
+      "value": "Yardımı kapat"
+    },
+    {
+      "key": "manual",
+      "value": "Kılavuz"
+    },
+    {
+      "key": "support",
+      "value": "Destek"
+    },
+    {
+      "key": "うつ伏せ寝",
+      "value": "Yüzüstü"
+    },
+    {
+      "key": "ジェスチャー無効",
+      "value": "Jestleri kapat"
+    },
+    {
+      "key": "中腰姿勢",
+      "value": "Çömelme"
+    },
+    {
+      "key": "仰向け寝",
+      "value": "Sırtüstü"
+    },
+    {
+      "key": "向き",
+      "value": "Yön"
+    },
+    {
+      "key": "呼吸",
+      "value": "Nefes"
+    },
+    {
+      "key": "姿勢選択",
+      "value": "Poz seç"
+    },
+    {
+      "key": "寝返り",
+      "value": "Dön"
+    },
+    {
+      "key": "左右反転",
+      "value": "Aynala"
+    },
+    {
+      "key": "床の高さ",
+      "value": "Zemin yüksekliği"
+    },
+    {
+      "key": "座り姿勢",
+      "value": "Oturarak"
+    },
+    {
+      "key": "戻る",
+      "value": "Geri"
+    },
+    {
+      "key": "撮影モード",
+      "value": "Fotoğraf modu"
+    },
+    {
+      "key": "撮影モードを終了",
+      "value": "Fotoğraftan çık"
+    },
+    {
+      "key": "立ち姿勢",
+      "value": "Ayakta"
+    },
+    {
+      "key": "設定",
+      "value": "Ayarlar"
+    },
+    {
+      "key": "足の高さ",
+      "value": "Ayak yüksekliği"
+    },
+    {
+      "key": "足固定",
+      "value": "Ayakları kilitle"
+    },
+    {
+      "key": "距離",
+      "value": "Mesafe"
+    },
+    {
+      "key": "首固定",
+      "value": "Başı kilitle"
+    }
+  ]
+}

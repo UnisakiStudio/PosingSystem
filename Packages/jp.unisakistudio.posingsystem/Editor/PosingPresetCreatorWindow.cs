@@ -230,24 +230,24 @@ namespace jp.unisakistudio.posingsystemeditor
         {
             if (sourcePosingSystem == null)
             {
-                EditorGUILayout.HelpBox("ソースとなるPosingSystemが見つかりません。", MessageType.Error);
+                EditorGUILayout.HelpBox(PosingSystemLocalization.Text("ソースとなるPosingSystemが見つかりません。"), MessageType.Error);
                 return;
             }
 
             scrollPosition = EditorGUILayout.BeginScrollView(scrollPosition);
 
-            EditorGUILayout.LabelField("プリセット作成設定", EditorStyles.boldLabel);
+            EditorGUILayout.LabelField(PosingSystemLocalization.Text("プリセット作成設定"), EditorStyles.boldLabel);
             EditorGUILayout.Space();
 
             EditorGUILayout.HelpBox("アニメーション調節機能を使用して姿勢をアバターに合わせたデータを、別のアバターデータでも使用したい場合は、プリセットを作成すると便利です。PrefabsやFBXを登録してプリセットを作成すると、そのアバターに" + sourcePosingSystem.name + "を追加した時に自動でプリセットが適用されるようになります。また、作成したプリセットは公開、配付、販売が可能です。", MessageType.None);
             EditorGUILayout.Space();
 
             // アバター名
-            avatarName = EditorGUILayout.TextField("アバター名", avatarName);
+            avatarName = EditorGUILayout.TextField(PosingSystemLocalization.Text("アバター名"), avatarName);
 
             EditorGUILayout.Space();
-            EditorGUILayout.LabelField("アバターデータフォルダの自動検出", EditorStyles.boldLabel);
-            if (GUILayout.Button("自動検出"))
+            EditorGUILayout.LabelField(PosingSystemLocalization.Text("アバターデータフォルダの自動検出"), EditorStyles.boldLabel);
+            if (GUILayout.Button(PosingSystemLocalization.Text("自動検出")))
             {
                 targetAvatarPrefabs.Clear();
                 targetGameObjectNames.Clear();
@@ -255,12 +255,12 @@ namespace jp.unisakistudio.posingsystemeditor
             }
 
             EditorGUILayout.Space();
-            EditorGUILayout.LabelField("適用するPrefabs (PosingSystem)", EditorStyles.boldLabel);
+            EditorGUILayout.LabelField(PosingSystemLocalization.Text("適用するPrefabs (PosingSystem)"), EditorStyles.boldLabel);
             DrawGameObjectList(applicablePrefabs);
 
             EditorGUILayout.Space();
-            EditorGUILayout.LabelField("配置対象のアバターPrefabs/FBX", EditorStyles.boldLabel);
-            if (GUILayout.Button("Projectで選択中のPrefabを追加"))
+            EditorGUILayout.LabelField(PosingSystemLocalization.Text("配置対象のアバターPrefabs/FBX"), EditorStyles.boldLabel);
+            if (GUILayout.Button(PosingSystemLocalization.Text("Projectで選択中のPrefabを追加")))
             {
                 foreach (var obj in Selection.objects)
                 {
@@ -276,8 +276,8 @@ namespace jp.unisakistudio.posingsystemeditor
             DrawGameObjectList(targetAvatarPrefabs);
 
             EditorGUILayout.Space();
-            EditorGUILayout.LabelField("配置対象のアバターPrefab/FBXのファイル名", EditorStyles.boldLabel);
-            if (GUILayout.Button("Projectで選択中のファイル名を追加"))
+            EditorGUILayout.LabelField(PosingSystemLocalization.Text("配置対象のアバターPrefab/FBXのファイル名"), EditorStyles.boldLabel);
+            if (GUILayout.Button(PosingSystemLocalization.Text("Projectで選択中のファイル名を追加")))
             {
                 foreach (var obj in Selection.objects)
                 {
@@ -291,7 +291,7 @@ namespace jp.unisakistudio.posingsystemeditor
 
             EditorGUILayout.Space(20);
 
-            if (GUILayout.Button("プリセットを作成", GUILayout.Height(40)))
+            if (GUILayout.Button(PosingSystemLocalization.Text("プリセットを作成"), GUILayout.Height(40)))
             {
                 CreatePreset();
             }
@@ -341,7 +341,7 @@ namespace jp.unisakistudio.posingsystemeditor
         {
             if (string.IsNullOrEmpty(avatarName))
             {
-                EditorUtility.DisplayDialog("エラー", "アバター名を入力してください。", "OK");
+                EditorUtility.DisplayDialog(PosingSystemLocalization.Text("エラー"), "アバター名を入力してください。", "OK");
                 return;
             }
 
@@ -354,7 +354,7 @@ namespace jp.unisakistudio.posingsystemeditor
             targetFolderPath = AssetDatabase.GenerateUniqueAssetPath(targetFolderPath);
             if (string.IsNullOrEmpty(targetFolderPath))
             {
-                EditorUtility.DisplayDialog("エラー", $"保存先フォルダのパスを生成できませんでした。フォルダ「{generatedFolderPath}」がプロジェクトに認識されているか確認してください。", "OK");
+                EditorUtility.DisplayDialog(PosingSystemLocalization.Text("エラー"), $"保存先フォルダのパスを生成できませんでした。フォルダ「{generatedFolderPath}」がプロジェクトに認識されているか確認してください。", "OK");
                 return;
             }
             Directory.CreateDirectory(targetFolderPath);
@@ -417,12 +417,12 @@ namespace jp.unisakistudio.posingsystemeditor
                 Selection.activeObject = folderObj;
                 EditorGUIUtility.PingObject(folderObj);
 
-                EditorUtility.DisplayDialog("完了", "プリセットを作成しました。プリセット選択の「再読込」で一覧に反映できます。", "OK");
+                EditorUtility.DisplayDialog(PosingSystemLocalization.Text("完了"), "プリセットを作成しました。プリセット選択の「再読込」で一覧に反映できます。", "OK");
                 Close();
             }
             catch (System.Exception e)
             {
-                EditorUtility.DisplayDialog("エラー", "プリセット作成中にエラーが発生しました。\n" + e.Message, "OK");
+                EditorUtility.DisplayDialog(PosingSystemLocalization.Text("エラー"), "プリセット作成中にエラーが発生しました。\n" + e.Message, "OK");
                 Debug.LogException(e);
             }
         }

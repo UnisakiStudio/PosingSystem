@@ -148,7 +148,7 @@ namespace jp.unisakistudio.posingsystemeditor
             Handles.BeginGUI();
             GUILayout.BeginArea(new Rect(12, 12, 300, 65), EditorStyles.helpBox);
             GUILayout.Label("プレビュー中：" + label, EditorStyles.miniBoldLabel);
-            if (GUILayout.Button("プレビューを終了（元の姿勢に戻す）")) Stop();
+            if (GUILayout.Button(PosingSystemLocalization.Text("プレビューを終了（元の姿勢に戻す）"))) Stop();
             GUILayout.EndArea();
             Handles.EndGUI();
         }

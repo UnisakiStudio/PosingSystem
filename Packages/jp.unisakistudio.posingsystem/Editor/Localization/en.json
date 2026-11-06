@@ -1,0 +1,1520 @@
+{
+  "entries": [
+    {
+      "key": "AnimatorのAvatar欄が未設定です。Inspectorの「設定の確認」の対処手順をご確認ください。",
+      "value": "The Animator's Avatar field is empty. See Check settings in the Inspector."
+    },
+    {
+      "key": "Auto-Footstepsはオンです。ポーズ中に意図せず足が動く場合は、下のボタンでオフにして比較できます。問題がなければ変更は不要です。",
+      "value": "Auto-Footsteps is on. If your feet move unexpectedly during poses, turn it off below and compare. Leave it as is if there is no issue."
+    },
+    {
+      "key": "Hierarchyの警告マークを非表示",
+      "value": "Hide Hierarchy warning badges"
+    },
+    {
+      "key": "IKで手足の位置を自動調整しています。手動で調整するには、下の「IKを調整に反映」を押してください。",
+      "value": "IK is adjusting the limbs. To edit manually, select Bake IK into adjustments below."
+    },
+    {
+      "key": "IKの結果を新しい調整アニメーションに保存して、このポーズのIKをオフにします。その後は下の項目で手動調整できます。",
+      "value": "Save the IK result to a new adjustment animation and disable IK for this pose. You can then adjust it manually below."
+    },
+    {
+      "key": "IKを反映できませんでした",
+      "value": "Could not bake IK"
+    },
+    {
+      "key": "IKを調整に反映",
+      "value": "Bake IK into adjustments"
+    },
+    {
+      "key": "Modular Avatarで追加した衣装などは、アバターのビルド時に撮影し直したアイコンへ反映されます。",
+      "value": "Outfits added with Modular Avatar are included when icons are retaken during the avatar build."
+    },
+    {
+      "key": "PrefabsHashesに\nクリップボードから追加",
+      "value": "Add to PrefabsHashes\nfrom clipboard"
+    },
+    {
+      "key": "PrefabsHashesを\nクリア",
+      "value": "Clear\nPrefabsHashes"
+    },
+    {
+      "key": "PrefabsNamesに\nクリップボードから追加",
+      "value": "Add to PrefabsNames\nfrom clipboard"
+    },
+    {
+      "key": "PrefabsNamesを\nクリア",
+      "value": "Clear\nPrefabsNames"
+    },
+    {
+      "key": "Prefabを読み込めません [PS042]",
+      "value": "Could not load prefab [PS042]"
+    },
+    {
+      "key": "Prefabを配置できません [PS043]",
+      "value": "Could not place prefab [PS043]"
+    },
+    {
+      "key": "Projectで選ぶときは、Inspector右上の鍵を閉じてから選択してください。",
+      "value": "Lock the Inspector using the top-right padlock before selecting clips in Project."
+    },
+    {
+      "key": "Projectで選択中のPrefabを追加",
+      "value": "Add prefabs selected in Project"
+    },
+    {
+      "key": "Projectで選択中のクリップを読み込む",
+      "value": "Import clips selected in Project"
+    },
+    {
+      "key": "Projectで選択中のファイル名を追加",
+      "value": "Add filenames selected in Project"
+    },
+    {
+      "key": "VRChatのメニューで呼吸をつけたり止めたりできます。ON/OFFは他の人にも反映されます。",
+      "value": "Toggle breathing in VRChat. Other users can see the change."
+    },
+    {
+      "key": "VRChatのメニューに切り替え項目を追加します。使いたいときに、ポーズの左右を反転できます。",
+      "value": "Add a menu toggle to mirror your pose."
+    },
+    {
+      "key": "VRChat標準の揺れを止める",
+      "value": "Disable VRChat idle sway"
+    },
+    {
+      "key": "ViewPosition（目の位置）",
+      "value": "ViewPosition (eye position)"
+    },
+    {
+      "key": "changelog",
+      "value": "View changelog"
+    },
+    {
+      "key": "changelog.close",
+      "value": "Close changelog"
+    },
+    {
+      "key": "help",
+      "value": "Help / Changelog"
+    },
+    {
+      "key": "help.close",
+      "value": "Close help / changelog"
+    },
+    {
+      "key": "manual",
+      "value": "Manual"
+    },
+    {
+      "key": "package",
+      "value": "Package ID"
+    },
+    {
+      "key": "support",
+      "value": "Support"
+    },
+    {
+      "key": "unknown",
+      "value": "Unknown"
+    },
+    {
+      "key": "version",
+      "value": "Version"
+    },
+    {
+      "key": "※ 寝返りと姿勢崩れ抑制のbit表示は、今の状態でチェックを変更したときの増減量です。首固定の1 bitは共用します。",
+      "value": "Roll Over and distortion-reduction bit counts show the change from the current settings. They share the 1-bit head lock."
+    },
+    {
+      "key": "「Use Auto-Footsteps for 3 and 4 point tracking」をオフにする",
+      "value": "Turn off Use Auto-Footsteps for 3 and 4 point tracking"
+    },
+    {
+      "key": "「ポーズ一覧」で対応するポーズの詳細を開き、「寝返りを使う」をオンにしてください。",
+      "value": "Open a supported pose in Poses and enable Enable roll over."
+    },
+    {
+      "key": "あぐら",
+      "value": "Cross-legged"
+    },
+    {
+      "key": "あぐら２",
+      "value": "Cross-legged 2"
+    },
+    {
+      "key": "いじけ",
+      "value": "Sulking"
+    },
+    {
+      "key": "うずくまり",
+      "value": "Curled Up"
+    },
+    {
+      "key": "うつ伏せ寝",
+      "value": "Prone"
+    },
+    {
+      "key": "おいで",
+      "value": "Come Here"
+    },
+    {
+      "key": "おきあがり",
+      "value": "Getting Up"
+    },
+    {
+      "key": "おすまし",
+      "value": "Poised"
+    },
+    {
+      "key": "おちこみ",
+      "value": "Feeling Down"
+    },
+    {
+      "key": "お伺いポーズ",
+      "value": "May I?"
+    },
+    {
+      "key": "お姉さん座り",
+      "value": "Elegant Sit"
+    },
+    {
+      "key": "お疲れ",
+      "value": "Worn Out"
+    },
+    {
+      "key": "くずし",
+      "value": "Slouch"
+    },
+    {
+      "key": "くつろぎ１",
+      "value": "Lounging 1"
+    },
+    {
+      "key": "くつろぎ２",
+      "value": "Lounging 2"
+    },
+    {
+      "key": "ぐだり１",
+      "value": "Flopped 1"
+    },
+    {
+      "key": "ぐだり２",
+      "value": "Flopped 2"
+    },
+    {
+      "key": "ぐだり３",
+      "value": "Flopped 3"
+    },
+    {
+      "key": "このアバターの手足の自動調整が無効になっています。",
+      "value": "Automatic limb adjustment is disabled for this avatar."
+    },
+    {
+      "key": "このアバターは人型ではありません。アバターのAnimatorにHumanoid型のAvatarが設定されていない場合はこのツールは使えません。",
+      "value": "This avatar is not Humanoid. This tool requires a Humanoid Avatar assigned to its Animator."
+    },
+    {
+      "key": "このコンピュータにはゆにさきポーズシステムの使用が許諾されていません。Boothのショップから可愛いポーズツールを購入して、コンピュータにライセンスをインストールしてください",
+      "value": "This computer is not licensed to use Unisaki Posing System. Purchase Kawaii Posing from BOOTH and install the license on this computer."
+    },
+    {
+      "key": "このコンピュータにはカッコいいポーズツールの使用が許諾されていません。Boothのショップからカッコいいポーズツールを購入して、コンピュータにライセンスをインストールしてください。カッコいいポーズツールを購入しているのにこのエラーが表示される場合は、Boothから最新版のZipファイルをダウンロードして、「CoolPosing.unitypackage」をインポートしてください。（この作業は１つのパソコンにつき一回行う必要があります）",
+      "value": "This computer is not licensed to use Cool Posing. Purchase the tool from BOOTH and install its license. If you have already purchased it, download the latest ZIP from BOOTH and import CoolPosing.unitypackage. This is required once per computer."
+    },
+    {
+      "key": "このコンピュータには可愛いポーズツールの使用が許諾されていません。Boothのショップから可愛いポーズツールを購入して、コンピュータにライセンスをインストールしてください。可愛いポーズツールを購入しているのにこのエラーが表示される場合は、Boothから最新版のZipファイルをダウンロードして、「KawaiiPosing.unitypackage」をインポートしてください。（この作業は１つのパソコンにつき一回行う必要があります）",
+      "value": "This computer is not licensed to use Kawaii Posing. Purchase the tool from BOOTH and install its license. If you have already purchased it, download the latest ZIP from BOOTH and import KawaiiPosing.unitypackage. This is required once per computer."
+    },
+    {
+      "key": "このポーズにはIKによる自動調整が設定されていません。元の姿勢と手動調整を使用します。",
+      "value": "This pose has no automatic IK adjustment. It uses the original pose and manual adjustments."
+    },
+    {
+      "key": "このポーズのIKを使う",
+      "value": "Enable IK for this pose"
+    },
+    {
+      "key": "このポーズの手足の自動調整（IK）",
+      "value": "Limb adjustment (IK) for this pose"
+    },
+    {
+      "key": "このポーズを使う",
+      "value": "Use this pose"
+    },
+    {
+      "key": "このポーズツールごとに保存します。エラー表示と、ビルド時に必要な再生成は有効なままです。",
+      "value": "Saved per pose tool. Errors and required build-time regeneration remain enabled."
+    },
+    {
+      "key": "このルールを使用",
+      "value": "Enable this rule"
+    },
+    {
+      "key": "この分類の初期ポーズにする",
+      "value": "Set as default for this category"
+    },
+    {
+      "key": "この切り替えは調整ウィンドウのプレビュー専用です。保存・サムネイル・最終出力には影響しません。膝クランプは引き続き有効です。",
+      "value": "This toggle affects only the adjustment preview, not saved data, thumbnails or final output. The knee clamp remains enabled."
+    },
+    {
+      "key": "この警告を今後表示しない",
+      "value": "Do not show this warning again"
+    },
+    {
+      "key": "ざせつ",
+      "value": "Defeated"
+    },
+    {
+      "key": "しゃがみ（Crouching）",
+      "value": "Crouching"
+    },
+    {
+      "key": "じだらく",
+      "value": "Lazy Day"
+    },
+    {
+      "key": "すべての姿勢から検索",
+      "value": "Search all poses"
+    },
+    {
+      "key": "たたみ",
+      "value": "Tatami"
+    },
+    {
+      "key": "ねころび",
+      "value": "Lying Down"
+    },
+    {
+      "key": "ねころび１",
+      "value": "Lying Down 1"
+    },
+    {
+      "key": "ねころび２",
+      "value": "Lying Down 2"
+    },
+    {
+      "key": "ねころび３",
+      "value": "Lying Down 3"
+    },
+    {
+      "key": "のんびり",
+      "value": "Taking It Easy"
+    },
+    {
+      "key": "のーんびり",
+      "value": "Very Relaxed"
+    },
+    {
+      "key": "はいずり",
+      "value": "Crawling"
+    },
+    {
+      "key": "はりつけ",
+      "value": "Pinned"
+    },
+    {
+      "key": "びっくり",
+      "value": "Surprised"
+    },
+    {
+      "key": "ふくじゅう",
+      "value": "Submission"
+    },
+    {
+      "key": "または",
+      "value": "or"
+    },
+    {
+      "key": "むきりょく",
+      "value": "No Energy"
+    },
+    {
+      "key": "ゆにさきポーズシステム",
+      "value": "Unisaki Posing System"
+    },
+    {
+      "key": "よりかかり",
+      "value": "Leaning"
+    },
+    {
+      "key": "アイコンを撮り直す",
+      "value": "Retake icons"
+    },
+    {
+      "key": "アイコン画像の容量を減らす",
+      "value": "Reduce icon size"
+    },
+    {
+      "key": "アイコン画像ファイルを削除",
+      "value": "Delete icon image file"
+    },
+    {
+      "key": "アイドル",
+      "value": "Idol"
+    },
+    {
+      "key": "アップロード時に適用します。未翻訳の項目は日本語で表示されます。",
+      "value": "Applied on upload. Untranslated items use Japanese."
+    },
+    {
+      "key": "アニメーション調整",
+      "value": "Animation Adjustment"
+    },
+    {
+      "key": "アニメーション調整ウィンドウが表示されています。調整が終わったらウィンドウを閉じてください",
+      "value": "The animation adjustment window is open. Close it when you finish adjusting."
+    },
+    {
+      "key": "アニメーション調整ウィンドウを閉じる",
+      "value": "Close animation adjustment window"
+    },
+    {
+      "key": "アバターとの組み合わせ",
+      "value": "Avatar integration"
+    },
+    {
+      "key": "アバターに合わないときは、このポーズだけIKをオフにできます。ほかのポーズやアバターには影響しません。",
+      "value": "Disable IK for just this pose if it does not suit your avatar. Other poses and avatars are unaffected."
+    },
+    {
+      "key": "アバターのルートにAnimatorがありません。Inspectorの「設定の確認」の対処手順をご確認ください。",
+      "value": "The avatar root has no Animator. See Check settings in the Inspector."
+    },
+    {
+      "key": "アバターの初期姿勢が変わったため、補正を自動更新します。",
+      "value": "The avatar rest pose changed. Corrections will update automatically."
+    },
+    {
+      "key": "アバターの姿勢をリセット（Tポーズに戻す）",
+      "value": "Reset avatar to T-pose"
+    },
+    {
+      "key": "アバターの容量を抑えたいときに便利です。アイコン画像は少し粗くなります。",
+      "value": "Reduce avatar size at the cost of some icon detail."
+    },
+    {
+      "key": "アバターデータフォルダの自動検出",
+      "value": "Detect avatar data folder"
+    },
+    {
+      "key": "アバター名",
+      "value": "Avatar name"
+    },
+    {
+      "key": "アバター固有補正を使用",
+      "value": "Enable avatar correction"
+    },
+    {
+      "key": "アバター調整",
+      "value": "Avatar Setup"
+    },
+    {
+      "key": "エラー",
+      "value": "Error"
+    },
+    {
+      "key": "オブジェクトがVRC用のアバターオブジェクトの中に入っていません。このオブジェクトはVRCAvatarDescriptorコンポーネントの付いたオブジェクトの中に配置してください",
+      "value": "Place this object inside an avatar object with a VRCAvatarDescriptor component."
+    },
+    {
+      "key": "カエルのポーズ１",
+      "value": "Frog 1"
+    },
+    {
+      "key": "カエルのポーズ２",
+      "value": "Frog 2"
+    },
+    {
+      "key": "カスタムアニメーション",
+      "value": "Custom animation"
+    },
+    {
+      "key": "カッコいいポーズツール",
+      "value": "Cool Posing"
+    },
+    {
+      "key": "キック",
+      "value": "Kick"
+    },
+    {
+      "key": "クマ人形",
+      "value": "Teddy Bear"
+    },
+    {
+      "key": "ケンカ",
+      "value": "Ready to Fight"
+    },
+    {
+      "key": "ゲーム内で使うには「機能」タブの「寝返り」もオンにしてください。",
+      "value": "Also enable Roll Over in the Features tab to use this in VRChat."
+    },
+    {
+      "key": "ゲーム内メニューの言語",
+      "value": "In-game menu language"
+    },
+    {
+      "key": "コンビニ",
+      "value": "Corner Store"
+    },
+    {
+      "key": "ジェスチャー無効",
+      "value": "Disable Gestures"
+    },
+    {
+      "key": "ジャンプ",
+      "value": "Jump"
+    },
+    {
+      "key": "スライダーは−1〜1。範囲外の値も数値欄に入力できます。",
+      "value": "Slider range: -1 to 1. You can type values outside this range."
+    },
+    {
+      "key": "ソースとなるPosingSystemが見つかりません。",
+      "value": "The source PosingSystem could not be found."
+    },
+    {
+      "key": "ゾンビ",
+      "value": "Zombie"
+    },
+    {
+      "key": "ツール本体が見つかりません [PS041]",
+      "value": "Tool prefab not found [PS041]"
+    },
+    {
+      "key": "デバッグ: アバター固有補正をプレビュー",
+      "value": "Debug: preview avatar correction"
+    },
+    {
+      "key": "データ形式のバージョン",
+      "value": "Data format version"
+    },
+    {
+      "key": "バンザイ",
+      "value": "Arms Up"
+    },
+    {
+      "key": "プランク",
+      "value": "Plank"
+    },
+    {
+      "key": "プリセット",
+      "value": "Presets"
+    },
+    {
+      "key": "プリセットを作成",
+      "value": "Create preset"
+    },
+    {
+      "key": "プリセットを読み込めません",
+      "value": "Could not load preset"
+    },
+    {
+      "key": "プリセット作成設定",
+      "value": "Preset creation settings"
+    },
+    {
+      "key": "プリセット選択",
+      "value": "Select preset"
+    },
+    {
+      "key": "プレビュー",
+      "value": "Preview"
+    },
+    {
+      "key": "プレビューを終了（元の姿勢に戻す）",
+      "value": "End preview (restore original pose)"
+    },
+    {
+      "key": "プレビルド",
+      "value": "Prebuild"
+    },
+    {
+      "key": "プレビルドを実行できません。Inspectorの「設定の確認」で、アバターの配置・Animator・Humanoidの設定を確認してください。",
+      "value": "Cannot prebuild. Check avatar placement, Animator and Humanoid settings under Check settings in the Inspector."
+    },
+    {
+      "key": "プレビルドを更新",
+      "value": "Update prebuild"
+    },
+    {
+      "key": "ベッド",
+      "value": "Bed"
+    },
+    {
+      "key": "ポーズアイコン生成",
+      "value": "Generate pose icons"
+    },
+    {
+      "key": "ポーズ一覧",
+      "value": "Poses"
+    },
+    {
+      "key": "ポーズ名",
+      "value": "Pose name"
+    },
+    {
+      "key": "ポーズ画像を更新",
+      "value": "Update pose thumbnails"
+    },
+    {
+      "key": "マットレス",
+      "value": "Mattress"
+    },
+    {
+      "key": "メニューに撮影モードを追加します。前へ最大3m移動したり回転したりして、自分から見える位置を調整できます。",
+      "value": "Add Photo Mode to move up to 3 m forward and rotate for a better view of yourself."
+    },
+    {
+      "key": "メニューのアイコン画像",
+      "value": "Menu icons"
+    },
+    {
+      "key": "メニュー追加",
+      "value": "Menu features"
+    },
+    {
+      "key": "モデル",
+      "value": "Model"
+    },
+    {
+      "key": "ライセンスの削除",
+      "value": "Remove license"
+    },
+    {
+      "key": "ライセンス削除",
+      "value": "License removal"
+    },
+    {
+      "key": "ラダー運動",
+      "value": "Agility Drill"
+    },
+    {
+      "key": "リクライニング",
+      "value": "Reclining"
+    },
+    {
+      "key": "リラックス",
+      "value": "Relaxed"
+    },
+    {
+      "key": "リラックス１",
+      "value": "Relaxed 1"
+    },
+    {
+      "key": "リラックス２",
+      "value": "Relaxed 2"
+    },
+    {
+      "key": "リラックス３",
+      "value": "Relaxed 3"
+    },
+    {
+      "key": "ルール名",
+      "value": "Rule name"
+    },
+    {
+      "key": "一括追加機能",
+      "value": "Batch add"
+    },
+    {
+      "key": "一覧から削除",
+      "value": "Remove from list"
+    },
+    {
+      "key": "一覧は追加・変更時に更新されます。表示が変わらない場合は「再読込」を押してください。",
+      "value": "The list updates when items are added or changed. Select Reload if the display is stale."
+    },
+    {
+      "key": "不機嫌",
+      "value": "Grumpy"
+    },
+    {
+      "key": "中腰姿勢",
+      "value": "Crouching"
+    },
+    {
+      "key": "二人分座り",
+      "value": "Room for Two"
+    },
+    {
+      "key": "五体投地",
+      "value": "Prostration"
+    },
+    {
+      "key": "以前の設定から、使う1つを選べます。",
+      "value": "Choose one of the previous settings."
+    },
+    {
+      "key": "仰向け寝",
+      "value": "Supine"
+    },
+    {
+      "key": "伏せ",
+      "value": "Prone"
+    },
+    {
+      "key": "伏せ（Prone）",
+      "value": "Prone"
+    },
+    {
+      "key": "休憩中",
+      "value": "On a Break"
+    },
+    {
+      "key": "位置の座標系",
+      "value": "Position coordinate space"
+    },
+    {
+      "key": "位置の長さの基準",
+      "value": "Position length reference"
+    },
+    {
+      "key": "位置を合わせる強さ",
+      "value": "Position weight"
+    },
+    {
+      "key": "位置（選んだ長さを1とする比率）",
+      "value": "Position (relative to selected length)"
+    },
+    {
+      "key": "低姿勢",
+      "value": "Keeping Low"
+    },
+    {
+      "key": "体格に合わせた手足の自動調整",
+      "value": "Automatic limb adjustment"
+    },
+    {
+      "key": "体育座り",
+      "value": "Knees Up"
+    },
+    {
+      "key": "使い始めるときの姿勢セットを変更できます。変更すると現在のポーズ設定が置き換わります。",
+      "value": "Choose a starting pose set. This replaces the current pose settings."
+    },
+    {
+      "key": "使用",
+      "value": "Use"
+    },
+    {
+      "key": "使用方法:\n1. 追加したい文字列を改行区切りでクリップボードにコピー\n2. 対応するボタンをクリック\n3. 重複する項目は自動的に除外されます",
+      "value": "Instructions:\n1. Copy one item per line to the clipboard.\n2. Click the matching button.\n3. Duplicates are skipped."
+    },
+    {
+      "key": "便利機能",
+      "value": "Convenience"
+    },
+    {
+      "key": "倒され寝",
+      "value": "Knocked Down"
+    },
+    {
+      "key": "傍観者",
+      "value": "Bystander"
+    },
+    {
+      "key": "元の姿勢",
+      "value": "Original Poses"
+    },
+    {
+      "key": "元の姿勢Animation",
+      "value": "Original pose animation"
+    },
+    {
+      "key": "元の姿勢Animationに含まれる肘・膝の曲がり方を、IKを解く前に自動取得します。",
+      "value": "Read elbow and knee bend directions from the original pose animation before solving IK."
+    },
+    {
+      "key": "元姿勢の読み込み",
+      "value": "Import original poses"
+    },
+    {
+      "key": "公開用として有効",
+      "value": "Enable for production"
+    },
+    {
+      "key": "公開用として有効です。カタログを参照する商品では、従来の姿勢別調整Animationとアバター固有補正が使用されません。設定漏れの姿勢がないことを確認してください。",
+      "value": "Enabled for production. Products using this catalog bypass legacy per-pose adjustment animations and avatar corrections. Check that all poses are configured."
+    },
+    {
+      "key": "内股座り",
+      "value": "Toes In"
+    },
+    {
+      "key": "再生位置のパラメーター",
+      "value": "Playback position parameter"
+    },
+    {
+      "key": "再生位置を指定する",
+      "value": "Set playback position"
+    },
+    {
+      "key": "再読込",
+      "value": "Reload"
+    },
+    {
+      "key": "初期ポーズ",
+      "value": "Default pose"
+    },
+    {
+      "key": "制止",
+      "value": "Stop"
+    },
+    {
+      "key": "削除",
+      "value": "Delete"
+    },
+    {
+      "key": "前かがみ",
+      "value": "Leaning Forward"
+    },
+    {
+      "key": "前回の失敗内容をコピー",
+      "value": "Copy previous failure details"
+    },
+    {
+      "key": "前回の失敗表示を閉じる",
+      "value": "Dismiss previous failure"
+    },
+    {
+      "key": "動かす手足",
+      "value": "Limb to move"
+    },
+    {
+      "key": "取り込むアニメーションを個別に指定",
+      "value": "Choose animations to import"
+    },
+    {
+      "key": "可愛いポーズツール",
+      "value": "Kawaii Posing"
+    },
+    {
+      "key": "右向き寝",
+      "value": "Side Sleep R"
+    },
+    {
+      "key": "右向き昼寝",
+      "value": "Side Nap R"
+    },
+    {
+      "key": "合蹠のポーズ",
+      "value": "Butterfly"
+    },
+    {
+      "key": "同梱プリセットを表示しない",
+      "value": "Hide bundled presets"
+    },
+    {
+      "key": "名前で検索",
+      "value": "Search by name"
+    },
+    {
+      "key": "名前なし",
+      "value": "Unnamed"
+    },
+    {
+      "key": "向き",
+      "value": "Direction"
+    },
+    {
+      "key": "向きを合わせる強さ",
+      "value": "Rotation weight"
+    },
+    {
+      "key": "向きを回転させる",
+      "value": "Rotate direction"
+    },
+    {
+      "key": "呼吸",
+      "value": "Breathing"
+    },
+    {
+      "key": "呼吸に合わせて胸などが動きます。姿勢ごとに強さを設定でき、同期bitを使わずに利用できます。",
+      "value": "Animate the chest with breathing. Set the strength per pose without extra sync bits."
+    },
+    {
+      "key": "呼吸の動きをつける",
+      "value": "Animate breathing"
+    },
+    {
+      "key": "呼吸の設定",
+      "value": "Breathing settings"
+    },
+    {
+      "key": "和室",
+      "value": "Japanese Room"
+    },
+    {
+      "key": "商品名",
+      "value": "Product name"
+    },
+    {
+      "key": "商談",
+      "value": "Business Talk"
+    },
+    {
+      "key": "回転角度",
+      "value": "Rotation angle"
+    },
+    {
+      "key": "地球寝",
+      "value": "Hug the Earth"
+    },
+    {
+      "key": "培養中",
+      "value": "In a Pod"
+    },
+    {
+      "key": "基準にする身体ボーン",
+      "value": "Reference body bone"
+    },
+    {
+      "key": "堤防",
+      "value": "Embankment"
+    },
+    {
+      "key": "壁ドン",
+      "value": "Wall Lean"
+    },
+    {
+      "key": "女の子座り",
+      "value": "W-sit"
+    },
+    {
+      "key": "姿勢のプレビュー",
+      "value": "Preview pose"
+    },
+    {
+      "key": "姿勢のプレビューや、細かな調整ができます。",
+      "value": "Preview and fine-tune your poses."
+    },
+    {
+      "key": "姿勢の分類",
+      "value": "Pose category"
+    },
+    {
+      "key": "姿勢の分類が設定されていません。",
+      "value": "No pose categories are configured."
+    },
+    {
+      "key": "姿勢の識別キー",
+      "value": "Pose identity key"
+    },
+    {
+      "key": "姿勢別IK自動調整が有効です。従来のアバター固有補正と調整Animationは使用しません。",
+      "value": "Per-pose IK adjustment is enabled. Legacy avatar corrections and adjustment animations are bypassed."
+    },
+    {
+      "key": "姿勢設定を追加",
+      "value": "Add pose settings"
+    },
+    {
+      "key": "姿勢選択",
+      "value": "Select Pose"
+    },
+    {
+      "key": "完了",
+      "value": "Done"
+    },
+    {
+      "key": "寝姿勢",
+      "value": "Lying"
+    },
+    {
+      "key": "寝返り",
+      "value": "Roll Over"
+    },
+    {
+      "key": "寝返りの設定",
+      "value": "Roll-over settings"
+    },
+    {
+      "key": "寝返りを使う",
+      "value": "Enable roll over"
+    },
+    {
+      "key": "寝返り時の横向き",
+      "value": "Sideways roll-over pose"
+    },
+    {
+      "key": "左右反転",
+      "value": "Mirror"
+    },
+    {
+      "key": "左向き寝",
+      "value": "Side Sleep L"
+    },
+    {
+      "key": "左向き昼寝",
+      "value": "Side Nap L"
+    },
+    {
+      "key": "左向き昼寝２",
+      "value": "Side Nap L2"
+    },
+    {
+      "key": "布団",
+      "value": "Futon"
+    },
+    {
+      "key": "床の高さ",
+      "value": "Floor Height"
+    },
+    {
+      "key": "座り姿勢",
+      "value": "Sitting"
+    },
+    {
+      "key": "座布団",
+      "value": "Floor Cushion"
+    },
+    {
+      "key": "弱・中・強はゆっくりした呼吸、急は速い呼吸です。姿勢ごとに選べます。",
+      "value": "Low, Medium and High use slow breathing; Rapid uses fast breathing. Choose per pose."
+    },
+    {
+      "key": "待ちぼうけ",
+      "value": "Still Waiting"
+    },
+    {
+      "key": "待ち伏せ",
+      "value": "Ambush"
+    },
+    {
+      "key": "後方彼氏",
+      "value": "Watching Over"
+    },
+    {
+      "key": "従者のポーズ",
+      "value": "Retainer"
+    },
+    {
+      "key": "忍者走り",
+      "value": "Ninja Run"
+    },
+    {
+      "key": "思考中",
+      "value": "Thinking"
+    },
+    {
+      "key": "情報",
+      "value": "Information"
+    },
+    {
+      "key": "戻る",
+      "value": "Back"
+    },
+    {
+      "key": "手動指定を解除",
+      "value": "Clear manual selection"
+    },
+    {
+      "key": "手足のIKルールを追加",
+      "value": "Add limb IK rule"
+    },
+    {
+      "key": "手足の向きも合わせる",
+      "value": "Match limb rotation"
+    },
+    {
+      "key": "手足の自動調整を使う",
+      "value": "Enable automatic limb adjustment"
+    },
+    {
+      "key": "抱きしめ",
+      "value": "Hug"
+    },
+    {
+      "key": "指の形を固定・解除する切り替えをメニューに追加します。固定中はコントローラーを握っても形を保てます。",
+      "value": "Add a toggle to lock finger gestures, even when gripping the controller."
+    },
+    {
+      "key": "指定した種類にはこのモーションを使います。未指定の種類は元の設定を使います。",
+      "value": "Selected types use these motions. Other types keep their original settings."
+    },
+    {
+      "key": "接地補正の強さ",
+      "value": "Ground correction strength"
+    },
+    {
+      "key": "撮影モード",
+      "value": "Photo Mode"
+    },
+    {
+      "key": "撮影モードで動かした位置と向きを他の人にも表示できます。自分の画面だけで撮影する場合は0 bitで使えます。",
+      "value": "Share Photo Mode position and rotation with others. Local-only photography uses 0 bits."
+    },
+    {
+      "key": "撮影モードを同期する",
+      "value": "Sync Photo Mode"
+    },
+    {
+      "key": "撮影モードを終了",
+      "value": "Exit Photo Mode"
+    },
+    {
+      "key": "撮影モード中は頭を非表示にしない",
+      "value": "Keep your head visible in Photo Mode"
+    },
+    {
+      "key": "斜め座り",
+      "value": "Angled Sit"
+    },
+    {
+      "key": "旧版のアバター設定を取り除きます",
+      "value": "Remove legacy avatar settings"
+    },
+    {
+      "key": "旧版フォルダの削除を確認",
+      "value": "Confirm legacy folder deletion"
+    },
+    {
+      "key": "昼寝",
+      "value": "Nap"
+    },
+    {
+      "key": "晴天寝",
+      "value": "Sunny Nap"
+    },
+    {
+      "key": "最低膝曲げ角度（°）",
+      "value": "Minimum knee bend (degrees)"
+    },
+    {
+      "key": "服従",
+      "value": "Obedience"
+    },
+    {
+      "key": "木の上寝",
+      "value": "Tree Nap"
+    },
+    {
+      "key": "未保存の手動調整があります",
+      "value": "Unsaved manual adjustments"
+    },
+    {
+      "key": "検索",
+      "value": "Search"
+    },
+    {
+      "key": "楽園",
+      "value": "Paradise"
+    },
+    {
+      "key": "横向きのAnimationClipを指定してください。未指定の場合は、従来どおり通常欄の完成済み寝返りアニメーションを使います。",
+      "value": "Assign a sideways AnimationClip. If empty, the completed roll-over animation in the regular field is used as before."
+    },
+    {
+      "key": "機能",
+      "value": "Features"
+    },
+    {
+      "key": "海岸",
+      "value": "Seaside"
+    },
+    {
+      "key": "照れ",
+      "value": "Shy"
+    },
+    {
+      "key": "猫のポーズ（右）",
+      "value": "Cat Stretch R"
+    },
+    {
+      "key": "猫のポーズ（左）",
+      "value": "Cat Stretch L"
+    },
+    {
+      "key": "猫寝",
+      "value": "Cat Nap"
+    },
+    {
+      "key": "現在のアバターから読み込む",
+      "value": "Import from current avatar"
+    },
+    {
+      "key": "現在の設定からプリセットを作成",
+      "value": "Create preset from current settings"
+    },
+    {
+      "key": "現在は制作中です。商品Prefabから参照されていても、従来の調整Animationが引き続き使用されます。",
+      "value": "Work in progress. Legacy adjustment animations remain in use even when a product prefab references this catalog."
+    },
+    {
+      "key": "画像でポーズを見分けやすくできます。アバターのビルド時間は少し長くなります。",
+      "value": "Use thumbnails to identify poses. Avatar builds take a little longer."
+    },
+    {
+      "key": "画像ファイル",
+      "value": "Image file"
+    },
+    {
+      "key": "異変無し",
+      "value": "All Clear"
+    },
+    {
+      "key": "直立",
+      "value": "Standing"
+    },
+    {
+      "key": "着地（短）",
+      "value": "Short landing"
+    },
+    {
+      "key": "着地（長）",
+      "value": "Long landing"
+    },
+    {
+      "key": "睡魔",
+      "value": "Sleepy"
+    },
+    {
+      "key": "短い落下",
+      "value": "Short fall"
+    },
+    {
+      "key": "砂浜",
+      "value": "Sandy Beach"
+    },
+    {
+      "key": "確認",
+      "value": "Confirm"
+    },
+    {
+      "key": "種類ごとに1つのモーションを指定できます。上の「元の姿勢を使う」とは別に設定できます。",
+      "value": "Choose one motion per type, independently of Use original poses above."
+    },
+    {
+      "key": "空気椅子",
+      "value": "Wall Sit"
+    },
+    {
+      "key": "立ちのみ",
+      "value": "Standing only"
+    },
+    {
+      "key": "立ち・歩き",
+      "value": "Standing / Walking"
+    },
+    {
+      "key": "立ち姿勢",
+      "value": "Standing"
+    },
+    {
+      "key": "立ち止まっているときに自動で入る、VRChat標準の身体の揺れを止められます。ポーズツールで設定した呼吸の動きはそのまま使えます。",
+      "value": "Disable VRChat's default idle sway while keeping this tool's breathing animation."
+    },
+    {
+      "key": "終了",
+      "value": "Stop"
+    },
+    {
+      "key": "絨毯",
+      "value": "Carpet"
+    },
+    {
+      "key": "置き場所の基準",
+      "value": "Target reference"
+    },
+    {
+      "key": "考える男",
+      "value": "The Thinker"
+    },
+    {
+      "key": "肘パンチ",
+      "value": "Elbow Strike"
+    },
+    {
+      "key": "肘・膝の曲げ方",
+      "value": "Elbow / knee bending"
+    },
+    {
+      "key": "肘・膝を曲げる方向",
+      "value": "Elbow / knee bend direction"
+    },
+    {
+      "key": "肘付き",
+      "value": "Elbow Rest"
+    },
+    {
+      "key": "脱力寝",
+      "value": "Flopped Asleep"
+    },
+    {
+      "key": "腕や脚の長さに合わせて、手足が自然な置き場所へ届くよう調整します。",
+      "value": "Adjust limbs to reach natural positions for this avatar's proportions."
+    },
+    {
+      "key": "腕枕寝",
+      "value": "Arm Pillow Nap"
+    },
+    {
+      "key": "腕枕（右）",
+      "value": "Arm Pillow R"
+    },
+    {
+      "key": "腕枕（左）",
+      "value": "Arm Pillow L"
+    },
+    {
+      "key": "腕立て伏せ",
+      "value": "Push-up"
+    },
+    {
+      "key": "膝が伸びきる手前で止める角度です。",
+      "value": "Stop the knee just before it fully straightens."
+    },
+    {
+      "key": "膝の補正",
+      "value": "Knee correction"
+    },
+    {
+      "key": "膝立て",
+      "value": "One Knee Up"
+    },
+    {
+      "key": "自分で用意したモーションを使う",
+      "value": "Use your own motions"
+    },
+    {
+      "key": "自分の頭が近くにあっても撮影できます。自分の画面だけに反映され、撮影終了後は通常の表示に戻ります。",
+      "value": "Keep your head visible locally for close-up photos. Normal visibility returns after Photo Mode."
+    },
+    {
+      "key": "自動アバター補正",
+      "value": "Automatic avatar correction"
+    },
+    {
+      "key": "自動取り込みの結果は生成時だけ使い、この一覧には追加しません。手動指定をOFFにした種類や、指定済みモーションを外した種類は自動で補完しません。自動取り込みに戻すには「手動指定を解除」を使います。",
+      "value": "Automatic imports are used during generation and are not added to this list. Types disabled or cleared manually are not auto-filled. Use Clear manual selection to restore automatic importing."
+    },
+    {
+      "key": "自動検出",
+      "value": "Auto-detect"
+    },
+    {
+      "key": "自動生成された補正",
+      "value": "Generated correction"
+    },
+    {
+      "key": "芝生",
+      "value": "Lawn"
+    },
+    {
+      "key": "行き倒れ",
+      "value": "Collapsed"
+    },
+    {
+      "key": "見た目の手足の向き",
+      "value": "Visible limb orientation"
+    },
+    {
+      "key": "見下し",
+      "value": "Looking Down"
+    },
+    {
+      "key": "観察中",
+      "value": "Observing"
+    },
+    {
+      "key": "角度は度数で指定します。寝姿勢を選び、VRChatのメニューで首固定を解除して使ってください。",
+      "value": "Angles are in degrees. Select a lying pose and unlock the head in the VRChat menu."
+    },
+    {
+      "key": "計算する順番",
+      "value": "Evaluation order"
+    },
+    {
+      "key": "計算の反復回数",
+      "value": "Solver iterations"
+    },
+    {
+      "key": "訓練場",
+      "value": "Training Ground"
+    },
+    {
+      "key": "設定",
+      "value": "Settings"
+    },
+    {
+      "key": "設定の確認",
+      "value": "Check settings"
+    },
+    {
+      "key": "設定を先に生成して、アバターのビルド時間を短縮します。",
+      "value": "Generate settings in advance to shorten avatar builds."
+    },
+    {
+      "key": "設定を再確認",
+      "value": "Check settings again"
+    },
+    {
+      "key": "該当するプリセットがありません。",
+      "value": "No matching presets."
+    },
+    {
+      "key": "詳細",
+      "value": "Details"
+    },
+    {
+      "key": "調整アニメーション",
+      "value": "Adjustment animation"
+    },
+    {
+      "key": "警戒",
+      "value": "On Guard"
+    },
+    {
+      "key": "警戒（右）",
+      "value": "On Guard R"
+    },
+    {
+      "key": "警戒（左）",
+      "value": "On Guard L"
+    },
+    {
+      "key": "足の高さ",
+      "value": "Foot Height"
+    },
+    {
+      "key": "足伸ばし",
+      "value": "Legs Out"
+    },
+    {
+      "key": "足固定",
+      "value": "Lock Feet"
+    },
+    {
+      "key": "足組み",
+      "value": "Legs Crossed"
+    },
+    {
+      "key": "足組み２",
+      "value": "Legs Crossed 2"
+    },
+    {
+      "key": "足降ろし",
+      "value": "Legs Down"
+    },
+    {
+      "key": "距離",
+      "value": "Distance"
+    },
+    {
+      "key": "蹲踞",
+      "value": "Deep Squat"
+    },
+    {
+      "key": "身体の補正",
+      "value": "Body correction"
+    },
+    {
+      "key": "追加先にあるクリップは重複して追加されません。",
+      "value": "Clips already in the target will not be added again."
+    },
+    {
+      "key": "追加先の姿勢",
+      "value": "Target pose"
+    },
+    {
+      "key": "追加先を確認してください [PS040]",
+      "value": "Check the destination [PS040]"
+    },
+    {
+      "key": "追加先を選択してください [PS040]",
+      "value": "Select a destination [PS040]"
+    },
+    {
+      "key": "追加機能を外して、ExpressionParametersの使用量を減らす",
+      "value": "Disable optional features to reduce ExpressionParameters usage"
+    },
+    {
+      "key": "逆関節防止機能",
+      "value": "Prevent reverse knee bending"
+    },
+    {
+      "key": "通常のアニメーションを中央にし、横向きの姿勢と左右反転をビルド時に合成します。各クリップの最初の姿勢を使用します。中央は0.5、左右端は0と1です。接地補正は0で無効、0.25で25％です。",
+      "value": "At build time, combine the regular pose at the center with the sideways pose and its mirror. The first frame of each clip is used. Center is 0.5; endpoints are 0 and 1. Ground correction is off at 0 and 25% at 0.25."
+    },
+    {
+      "key": "運動会",
+      "value": "Sports Day"
+    },
+    {
+      "key": "適用するPrefabs (PosingSystem)",
+      "value": "PosingSystem prefabs to apply"
+    },
+    {
+      "key": "選択時",
+      "value": "On selection"
+    },
+    {
+      "key": "配置対象のアバターPrefab/FBXのファイル名",
+      "value": "Target avatar prefab / FBX filenames"
+    },
+    {
+      "key": "配置対象のアバターPrefabs/FBX",
+      "value": "Target avatar prefabs / FBX"
+    },
+    {
+      "key": "長い落下",
+      "value": "Long fall"
+    },
+    {
+      "key": "閉じる",
+      "value": "Close"
+    },
+    {
+      "key": "開く ›",
+      "value": "Open ›"
+    },
+    {
+      "key": "面接",
+      "value": "Interview"
+    },
+    {
+      "key": "順番",
+      "value": "Order"
+    },
+    {
+      "key": "頭の位置を保ち、足側の高さを変えられます。足が床に埋まる・浮くときに調整できます。",
+      "value": "Adjust foot height while keeping your head in place to correct floating or sunken feet."
+    },
+    {
+      "key": "頭の向きに合わせて寝返りできます。一部の寝姿勢のみ対応しています。",
+      "value": "Roll over by tilting your head. Supported by certain lying poses."
+    },
+    {
+      "key": "頭も含めた身体全体の高さを変えられます。VRChatの「床の高さ」で、50%を元の高さとして上下3mまで調整できます。",
+      "value": "Move your whole body, including your head, up or down by up to 3 m. Floor Height is neutral at 50%."
+    },
+    {
+      "key": "首の向きの違いによる姿勢崩れを抑制",
+      "value": "Reduce pose distortion from head rotation"
+    },
+    {
+      "key": "首固定",
+      "value": "Lock Head"
+    },
+    {
+      "key": "首固定を解除したとき、元のポーズと首の向きが異なることで起きる姿勢崩れを抑えます。",
+      "value": "Reduce distortion when your head faces a different direction from the original pose with head lock off."
+    },
+    {
+      "key": "騎士",
+      "value": "Knight"
+    },
+    {
+      "key": "魔王降臨",
+      "value": "Demon Lord"
+    },
+    {
+      "key": "＋ 1件追加",
+      "value": "+ Add pose"
+    }
+  ]
+}

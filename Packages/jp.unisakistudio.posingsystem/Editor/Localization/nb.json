@@ -1,0 +1,108 @@
+{
+  "entries": [
+    {
+      "key": "changelog",
+      "value": "Vis endringer"
+    },
+    {
+      "key": "changelog.close",
+      "value": "Lukk endringer"
+    },
+    {
+      "key": "help",
+      "value": "Hjelp / Endringer"
+    },
+    {
+      "key": "help.close",
+      "value": "Lukk hjelp"
+    },
+    {
+      "key": "manual",
+      "value": "Brukerveiledning"
+    },
+    {
+      "key": "support",
+      "value": "Brukerstøtte"
+    },
+    {
+      "key": "うつ伏せ寝",
+      "value": "På magen"
+    },
+    {
+      "key": "ジェスチャー無効",
+      "value": "Gester av"
+    },
+    {
+      "key": "中腰姿勢",
+      "value": "På huk"
+    },
+    {
+      "key": "仰向け寝",
+      "value": "På ryggen"
+    },
+    {
+      "key": "向き",
+      "value": "Retning"
+    },
+    {
+      "key": "呼吸",
+      "value": "Pust"
+    },
+    {
+      "key": "姿勢選択",
+      "value": "Velg positur"
+    },
+    {
+      "key": "寝返り",
+      "value": "Snu deg"
+    },
+    {
+      "key": "左右反転",
+      "value": "Speilvend"
+    },
+    {
+      "key": "床の高さ",
+      "value": "Gulvhøyde"
+    },
+    {
+      "key": "座り姿勢",
+      "value": "Sittende"
+    },
+    {
+      "key": "戻る",
+      "value": "Tilbake"
+    },
+    {
+      "key": "撮影モード",
+      "value": "Fotomodus"
+    },
+    {
+      "key": "撮影モードを終了",
+      "value": "Avslutt foto"
+    },
+    {
+      "key": "立ち姿勢",
+      "value": "Stående"
+    },
+    {
+      "key": "設定",
+      "value": "Innstillinger"
+    },
+    {
+      "key": "足の高さ",
+      "value": "Fothøyde"
+    },
+    {
+      "key": "足固定",
+      "value": "Lås føtter"
+    },
+    {
+      "key": "距離",
+      "value": "Avstand"
+    },
+    {
+      "key": "首固定",
+      "value": "Lås hode"
+    }
+  ]
+}

@@ -19,6 +19,7 @@ namespace jp.unisakistudio.posingsystemeditor
         internal void Draw(PosingSystem target)
         {
             EnsureStyles();
+            PosingSystemLocalization.DrawLanguageSelector();
             var product = PosingSystemPackageInfo.Get(target.GetType(), MonoScript.FromMonoBehaviour(target));
             var system = PosingSystemPackageInfo.Get(typeof(PosingSystem));
             var hasSeparateProduct = !string.IsNullOrEmpty(product.name) && product.name != system.name;
@@ -30,18 +31,18 @@ namespace jp.unisakistudio.posingsystemeditor
                 var title = string.IsNullOrEmpty(target.settingName) ? product.displayName : target.settingName;
                 using (new EditorGUILayout.HorizontalScope())
                 {
-                    EditorGUILayout.LabelField(new GUIContent(title, "パッケージID: " + product.name), titleStyle, GUILayout.Height(20));
-                    GUILayout.Label("バージョン " + (product.version ?? "不明"), bodyStyle, GUILayout.Width(116), GUILayout.Height(20));
+                    EditorGUILayout.LabelField(new GUIContent(PosingSystemLocalization.Text(title), PosingSystemLocalization.Text("package", "パッケージID") + ": " + product.name), titleStyle, GUILayout.Height(20));
+                    GUILayout.Label(PosingSystemLocalization.Text("version", "バージョン") + " " + (product.version ?? PosingSystemLocalization.Text("unknown", "不明")), bodyStyle, GUILayout.Width(116), GUILayout.Height(20));
                 }
                 if (hasSeparateProduct) DrawVersion("ゆにさきポーズシステム", system);
 
-                if (PosingSystemInspectorGUI.Link(showHelp ? "ヘルプ・変更履歴を閉じる" : "ヘルプ・変更履歴")) showHelp = !showHelp;
+                if (PosingSystemInspectorGUI.Link(showHelp ? PosingSystemLocalization.Text("help.close", "ヘルプ・変更履歴を閉じる") : PosingSystemLocalization.Text("help", "ヘルプ・変更履歴"))) showHelp = !showHelp;
                 if (showHelp)
                     using (new EditorGUILayout.HorizontalScope())
                     {
-                        if (PosingSystemInspectorGUI.Link("使い方")) Application.OpenURL(product.ManualUrl);
-                        if (PosingSystemInspectorGUI.Link("お問い合わせ")) Application.OpenURL(PosingSystemPackageInfo.SupportUrl);
-                        if (PosingSystemInspectorGUI.Link(showChangelog ? "変更履歴を閉じる" : "変更履歴を見る")) showChangelog = !showChangelog;
+                        if (PosingSystemInspectorGUI.Link(PosingSystemLocalization.Text("manual", "使い方"))) Application.OpenURL(product.ManualUrl);
+                        if (PosingSystemInspectorGUI.Link(PosingSystemLocalization.Text("support", "お問い合わせ"))) Application.OpenURL(PosingSystemPackageInfo.SupportUrl);
+                        if (PosingSystemInspectorGUI.Link(showChangelog ? PosingSystemLocalization.Text("changelog.close", "変更履歴を閉じる") : PosingSystemLocalization.Text("changelog", "変更履歴を見る"))) showChangelog = !showChangelog;
                     }
 
                 // Foldouts, tabs and scroll positions are UI state, not avatar settings.

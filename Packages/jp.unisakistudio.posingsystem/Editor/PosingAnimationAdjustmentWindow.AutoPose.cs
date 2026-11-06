@@ -80,10 +80,10 @@ namespace jp.unisakistudio.posingsystemeditor
             {
                 using (new EditorGUILayout.VerticalScope(EditorStyles.helpBox))
                 {
-                    EditorGUILayout.LabelField("体格に合わせた手足の自動調整", EditorStyles.boldLabel);
-                    EditorGUILayout.LabelField("腕や脚の長さに合わせて、手足が自然な置き場所へ届くよう調整します。", EditorStyles.wordWrappedLabel);
+                    EditorGUILayout.LabelField(PosingSystemLocalization.Text("体格に合わせた手足の自動調整"), EditorStyles.boldLabel);
+                    EditorGUILayout.LabelField(PosingSystemLocalization.Text("腕や脚の長さに合わせて、手足が自然な置き場所へ届くよう調整します。"), EditorStyles.wordWrappedLabel);
                     EditorGUI.BeginChangeCheck();
-                    var enabled = EditorGUILayout.ToggleLeft("手足の自動調整を使う", _posingSystem.enablePoseIk);
+                    var enabled = EditorGUILayout.ToggleLeft(PosingSystemLocalization.Text("手足の自動調整を使う"), _posingSystem.enablePoseIk);
                     if (EditorGUI.EndChangeCheck())
                     {
                         Undo.RecordObject(_posingSystem, "Toggle automatic pose adjustment");
@@ -108,38 +108,38 @@ namespace jp.unisakistudio.posingsystemeditor
         {
             using (new EditorGUILayout.VerticalScope(EditorStyles.helpBox))
             {
-                EditorGUILayout.LabelField("このポーズの手足の自動調整（IK）", EditorStyles.boldLabel);
+                EditorGUILayout.LabelField(PosingSystemLocalization.Text("このポーズの手足の自動調整（IK）"), EditorStyles.boldLabel);
                 var definition = PosingSystemAutoPoseAdjustmentUtility.FindDefinition(_posingSystem,
                     GetAnimationKey(entry), entry.Animation.animationClip as AnimationClip);
                 var hasRules = definition?.limbRules?.Any(r => r != null && r.enabled) == true;
                 if (!hasRules)
                 {
-                    EditorGUILayout.LabelField("このポーズにはIKによる自動調整が設定されていません。元の姿勢と手動調整を使用します。", EditorStyles.wordWrappedLabel);
+                    EditorGUILayout.LabelField(PosingSystemLocalization.Text("このポーズにはIKによる自動調整が設定されていません。元の姿勢と手動調整を使用します。"), EditorStyles.wordWrappedLabel);
                     return;
                 }
-                EditorGUILayout.LabelField("アバターに合わないときは、このポーズだけIKをオフにできます。ほかのポーズやアバターには影響しません。", EditorStyles.wordWrappedLabel);
+                EditorGUILayout.LabelField(PosingSystemLocalization.Text("アバターに合わないときは、このポーズだけIKをオフにできます。ほかのポーズやアバターには影響しません。"), EditorStyles.wordWrappedLabel);
                 var enabled = !entry.Animation.disablePoseIk;
-                var next = EditorGUILayout.ToggleLeft("このポーズのIKを使う", enabled);
+                var next = EditorGUILayout.ToggleLeft(PosingSystemLocalization.Text("このポーズのIKを使う"), enabled);
                 if (next != enabled)
                 {
                     PosingSystemPoseIkUserUtility.SetEnabled(_posingSystem, entry.Animation, next);
                     ApplyPreviewPose();
                 }
                 if (next && !UsesIkInPreview())
-                    EditorGUILayout.HelpBox("このアバターの手足の自動調整が無効になっています。", MessageType.Info);
+                    EditorGUILayout.HelpBox(PosingSystemLocalization.Text("このアバターの手足の自動調整が無効になっています。"), MessageType.Info);
                 using (new EditorGUI.DisabledScope(!UsesIkInPreview()))
-                    if (GUILayout.Button("IKを調整に反映", GUILayout.Height(26)))
+                    if (GUILayout.Button(PosingSystemLocalization.Text("IKを調整に反映"), GUILayout.Height(26)))
                     {
                         if (HasAnyChanges())
                         {
-                            if (!EditorUtility.DisplayDialog("未保存の手動調整があります",
+                            if (!EditorUtility.DisplayDialog(PosingSystemLocalization.Text("未保存の手動調整があります"),
                                 "手動調整を保存してから、現在のIKの結果を別の調整アニメーションに保存します。既存のファイルは残ります。", "保存して続ける", "キャンセル")) return;
                             SaveAdjustmentClip();
                         }
                         EnsureAdjustmentFolderExists();
                         var path = GetAdjustmentFolderPath() + "/" + SanitizeFileName(_posingSystem.GetAvatar().name + "_" + entry.Animation.displayName) + "_IK.anim";
                         if (!PosingSystemPoseIkUserUtility.TryBake(_posingSystem, entry.Animation, GetAnimationKey(entry), path, out var message))
-                            EditorUtility.DisplayDialog("IKを反映できませんでした", message, "閉じる");
+                            EditorUtility.DisplayDialog(PosingSystemLocalization.Text("IKを反映できませんでした"), message, "閉じる");
                         else
                         {
                             ReloadCurrentAdjustmentFromFile();
@@ -148,7 +148,7 @@ namespace jp.unisakistudio.posingsystemeditor
                             Repaint();
                         }
                     }
-                EditorGUILayout.LabelField("IKの結果を新しい調整アニメーションに保存して、このポーズのIKをオフにします。その後は下の項目で手動調整できます。", EditorStyles.wordWrappedMiniLabel);
+                EditorGUILayout.LabelField(PosingSystemLocalization.Text("IKの結果を新しい調整アニメーションに保存して、このポーズのIKをオフにします。その後は下の項目で手動調整できます。"), EditorStyles.wordWrappedMiniLabel);
             }
         }
 

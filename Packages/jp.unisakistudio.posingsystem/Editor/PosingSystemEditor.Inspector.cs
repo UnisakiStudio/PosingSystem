@@ -54,8 +54,8 @@ namespace jp.unisakistudio.posingsystemeditor
                         }
                     poseBrowser.Draw(serializedObject, ps);
                     using (new EditorGUI.DisabledScope(!valid || IsAndroidBuildTarget() || Application.isPlaying))
-                        if (GUILayout.Button("ポーズ画像を更新", GUILayout.Height(26)) && EditorUtility.DisplayDialog(
-                            "ポーズ画像を更新", "すべてのポーズ画像を作り直します。ポーズの数によっては少し時間がかかります。\n更新中はUnityの操作をお待ちください。", "更新する", "キャンセル"))
+                        if (GUILayout.Button(PosingSystemLocalization.Text("ポーズ画像を更新"), GUILayout.Height(26)) && EditorUtility.DisplayDialog(
+                            PosingSystemLocalization.Text("ポーズ画像を更新"), "すべてのポーズ画像を作り直します。ポーズの数によっては少し時間がかかります。\n更新中はUnityの操作をお待ちください。", "更新する", "キャンセル"))
                         {
                             PosingSystemEditorChangeUtility.Commit(serializedObject);
                             PosingSystemQuickPreview.Stop();
@@ -69,7 +69,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 {
                     GUILayout.Space(8);
                     if (PosingSystemInspectorGUI.Link(troubleshootingOpen ? "トラブルシューティングを閉じる" : "トラブルシューティング")) troubleshootingOpen = !troubleshootingOpen;
-                    if (troubleshootingOpen && GUILayout.Button("アバターの姿勢をリセット（Tポーズに戻す）")) ResetAvatarPose(ps.GetAvatar());
+                    if (troubleshootingOpen && GUILayout.Button(PosingSystemLocalization.Text("アバターの姿勢をリセット（Tポーズに戻す）"))) ResetAvatarPose(ps.GetAvatar());
                 }
             }
             if (PosingSystemEditorChangeUtility.Apply(serializedObject))
@@ -81,8 +81,8 @@ namespace jp.unisakistudio.posingsystemeditor
 
         private static bool DrawAnimationAdjustmentLauncher()
         {
-            const string title = "アニメーション調整";
-            const string description = "姿勢のプレビューや、細かな調整ができます。";
+            var title = PosingSystemLocalization.Text("アニメーション調整");
+            var description = PosingSystemLocalization.Text("姿勢のプレビューや、細かな調整ができます。");
             var titleStyle = PosingSystemInspectorGUI.Text(13, true);
             var descriptionStyle = PosingSystemInspectorGUI.Text(11);
             var layoutStyle = new GUIStyle(descriptionStyle)
@@ -114,7 +114,7 @@ namespace jp.unisakistudio.posingsystemeditor
             var openStyle = PosingSystemInspectorGUI.Text(11, true);
             openStyle.alignment = TextAnchor.MiddleCenter;
             openStyle.normal.textColor = Color.white;
-            GUI.Label(openRect, "開く ›", openStyle);
+            GUI.Label(openRect, PosingSystemLocalization.Text("開く ›"), openStyle);
             GUILayout.Space(6);
             return clicked;
         }
@@ -123,8 +123,8 @@ namespace jp.unisakistudio.posingsystemeditor
         {
             using (new EditorGUILayout.VerticalScope(EditorStyles.helpBox))
             {
-                EditorGUILayout.LabelField("呼吸の設定", PosingSystemInspectorGUI.Text(12, true));
-                EditorGUILayout.LabelField("弱・中・強はゆっくりした呼吸、急は速い呼吸です。姿勢ごとに選べます。", PosingSystemInspectorGUI.Text(11));
+                EditorGUILayout.LabelField(PosingSystemLocalization.Text("呼吸の設定"), PosingSystemInspectorGUI.Text(12, true));
+                EditorGUILayout.LabelField(PosingSystemLocalization.Text("弱・中・強はゆっくりした呼吸、急は速い呼吸です。姿勢ごとに選べます。"), PosingSystemInspectorGUI.Text(11));
                 using (new EditorGUI.DisabledScope(!serializedObject.FindProperty("features.breathing").boolValue))
                     foreach (var name in GetAdditiveBreathingDisplayNames(ps))
                         DrawAdditiveBreathingLevel(serializedObject.FindProperty("additiveBreathing"), name);
@@ -137,7 +137,7 @@ namespace jp.unisakistudio.posingsystemeditor
         {
             PosingSystemAvatarAdjustmentInspector.EnsureUsageDefault(ps);
             serializedObject.Update();
-            PosingSystemInspectorGUI.Section("身体の補正");
+            PosingSystemInspectorGUI.Section(PosingSystemLocalization.Text("身体の補正"));
             var unavailable = ps.UsesAutoPoseCatalog || !PosingSystemAvatarAdjustmentUtility.HasReferenceProfile(ps);
             PosingSystemSettingsInspector.DrawCards(serializedObject, ps, new[] {
                 new PosingSystemSettingsInspector.Setting("enableAvatarSpecificAdjustment", "アバター固有補正を使う", "アバターごとの関節の向きやひねりの違いを自動で補正します。"),
@@ -149,9 +149,9 @@ namespace jp.unisakistudio.posingsystemeditor
                 using (new EditorGUILayout.VerticalScope(EditorStyles.helpBox))
                 using (new EditorGUI.DisabledScope(unavailable || !ps.enableReverseKneeSafetyClamp))
                 {
-                    EditorGUILayout.LabelField("膝の補正", PosingSystemInspectorGUI.Text(12, true));
+                    EditorGUILayout.LabelField(PosingSystemLocalization.Text("膝の補正"), PosingSystemInspectorGUI.Text(12, true));
                     EditorGUILayout.Slider(serializedObject.FindProperty("reverseKneeSafetyAngle"), 0, 5, "最低膝曲げ角度（°）");
-                    EditorGUILayout.LabelField("膝が伸びきる手前で止める角度です。", PosingSystemInspectorGUI.Text(11));
+                    EditorGUILayout.LabelField(PosingSystemLocalization.Text("膝が伸びきる手前で止める角度です。"), PosingSystemInspectorGUI.Text(11));
                 }
             if (PosingSystemEditorChangeUtility.Apply(serializedObject))
             {
@@ -162,14 +162,14 @@ namespace jp.unisakistudio.posingsystemeditor
             PosingSystemAvatarAdjustmentInspector.ScheduleAutomaticGeneration(ps);
             serializedObject.Update();
 
-            PosingSystemInspectorGUI.Section("アバターとの組み合わせ");
+            PosingSystemInspectorGUI.Section(PosingSystemLocalization.Text("アバターとの組み合わせ"));
             PosingSystemSettingsInspector.DrawCards(serializedObject, ps, new[] {
                 new PosingSystemSettingsInspector.Setting("autoImportAvatarAnimations", "アバターの元の立ち・しゃがみ・伏せ姿勢を使う", "生成時にアバターのBaseからモーションを検出します。取り込み設定の一覧には追加しません。手動設定がある種類は手動指定を優先します。"),
                 new PosingSystemSettingsInspector.Setting("mergeTrackingControl", "各固定機能の他ギミックとの統合", "ほかのギミックとの併用によって固定機能がうまく動かない場合はオンにしてください。") },
                 null, null, null, ref breathingOpen);
 
-            PosingSystemInspectorGUI.Section("自分で用意したモーションを使う");
-            EditorGUILayout.LabelField("種類ごとに1つのモーションを指定できます。上の「元の姿勢を使う」とは別に設定できます。", PosingSystemInspectorGUI.Text(11));
+            PosingSystemInspectorGUI.Section(PosingSystemLocalization.Text("自分で用意したモーションを使う"));
+            EditorGUILayout.LabelField(PosingSystemLocalization.Text("種類ごとに1つのモーションを指定できます。上の「元の姿勢を使う」とは別に設定できます。"), PosingSystemInspectorGUI.Text(11));
             if (PosingSystemInspectorGUI.Link(importOpen ? "▼ 取り込み設定を閉じる" : "▶ 取り込み設定を開く"))
             {
                 PosingSystemEditorChangeUtility.Commit(serializedObject);
@@ -179,10 +179,10 @@ namespace jp.unisakistudio.posingsystemeditor
             if (importOpen)
                 using (new EditorGUILayout.VerticalScope(EditorStyles.helpBox))
                 {
-                    EditorGUILayout.LabelField("取り込むアニメーションを個別に指定", PosingSystemInspectorGUI.Text(12, true));
-                    EditorGUILayout.LabelField("指定した種類にはこのモーションを使います。未指定の種類は元の設定を使います。", PosingSystemInspectorGUI.Text(11));
+                    EditorGUILayout.LabelField(PosingSystemLocalization.Text("取り込むアニメーションを個別に指定"), PosingSystemInspectorGUI.Text(12, true));
+                    EditorGUILayout.LabelField(PosingSystemLocalization.Text("指定した種類にはこのモーションを使います。未指定の種類は元の設定を使います。"), PosingSystemInspectorGUI.Text(11));
                     using (new EditorGUI.DisabledScope(!valid))
-                        if (GUILayout.Button("現在のアバターから読み込む"))
+                        if (GUILayout.Button(PosingSystemLocalization.Text("現在のアバターから読み込む")))
                         {
                             PosingSystemEditorChangeUtility.Commit(serializedObject);
                             Undo.RecordObject(ps, "Import avatar animations");
@@ -193,12 +193,12 @@ namespace jp.unisakistudio.posingsystemeditor
                     importBrowser.Draw(serializedObject, ps, DrawInspectorWarning);
                 }
             PosingSystemEditorChangeUtility.Apply(serializedObject);
-            PosingSystemInspectorGUI.Section("プリセット");
-            EditorGUILayout.LabelField("使い始めるときの姿勢セットを変更できます。変更すると現在のポーズ設定が置き換わります。", PosingSystemInspectorGUI.Text(11));
+            PosingSystemInspectorGUI.Section(PosingSystemLocalization.Text("プリセット"));
+            EditorGUILayout.LabelField(PosingSystemLocalization.Text("使い始めるときの姿勢セットを変更できます。変更すると現在のポーズ設定が置き換わります。"), PosingSystemInspectorGUI.Text(11));
             presetBrowser.Draw(ps, DrawInspectorWarning);
             serializedObject.Update();
             if (PosingSystemInspectorGUI.Link(presetManagementOpen ? "プリセットの保存・管理を閉じる" : "プリセットの保存・管理")) presetManagementOpen = !presetManagementOpen;
-            if (presetManagementOpen && GUILayout.Button("現在の設定からプリセットを作成")) PosingPresetCreatorWindow.ShowWindow(ps);
+            if (presetManagementOpen && GUILayout.Button(PosingSystemLocalization.Text("現在の設定からプリセットを作成"))) PosingPresetCreatorWindow.ShowWindow(ps);
         }
 
         private void DrawInspectorTabs()
@@ -221,7 +221,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 if (selected) EditorGUI.DrawRect(new Rect(rect.x, rect.y, rect.width, 3), PosingSystemInspectorGUI.Accent);
                 var style = PosingSystemInspectorGUI.Text(12, selected); style.alignment = TextAnchor.MiddleCenter;
                 if (selected) style.normal.textColor = PosingSystemInspectorGUI.Accent;
-                GUI.Label(rect, InspectorTabLabels[i], style);
+                GUI.Label(rect, PosingSystemLocalization.Text(InspectorTabLabels[i]), style);
             }
             GUILayout.Space(-2);
         }

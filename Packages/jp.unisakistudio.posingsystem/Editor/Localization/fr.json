@@ -1,0 +1,620 @@
+{
+  "entries": [
+    {
+      "key": "changelog",
+      "value": "Voir l’historique"
+    },
+    {
+      "key": "changelog.close",
+      "value": "Fermer l’historique"
+    },
+    {
+      "key": "help",
+      "value": "Aide / Historique"
+    },
+    {
+      "key": "help.close",
+      "value": "Fermer l’aide"
+    },
+    {
+      "key": "manual",
+      "value": "Guide"
+    },
+    {
+      "key": "support",
+      "value": "Assistance"
+    },
+    {
+      "key": "あぐら",
+      "value": "En tailleur"
+    },
+    {
+      "key": "あぐら２",
+      "value": "En tailleur 2"
+    },
+    {
+      "key": "いじけ",
+      "value": "Bouderie"
+    },
+    {
+      "key": "うずくまり",
+      "value": "Recroquevillé"
+    },
+    {
+      "key": "うつ伏せ寝",
+      "value": "Sur le ventre"
+    },
+    {
+      "key": "おいで",
+      "value": "Viens ici"
+    },
+    {
+      "key": "おきあがり",
+      "value": "Se relever"
+    },
+    {
+      "key": "おすまし",
+      "value": "Pose élégante"
+    },
+    {
+      "key": "おちこみ",
+      "value": "Abattu"
+    },
+    {
+      "key": "お伺いポーズ",
+      "value": "Puis-je ?"
+    },
+    {
+      "key": "お姉さん座り",
+      "value": "Assise élégante"
+    },
+    {
+      "key": "お疲れ",
+      "value": "Épuisé"
+    },
+    {
+      "key": "くずし",
+      "value": "Avachi"
+    },
+    {
+      "key": "くつろぎ１",
+      "value": "Détente 1"
+    },
+    {
+      "key": "くつろぎ２",
+      "value": "Détente 2"
+    },
+    {
+      "key": "ぐだり１",
+      "value": "Affalé 1"
+    },
+    {
+      "key": "ぐだり２",
+      "value": "Affalé 2"
+    },
+    {
+      "key": "ぐだり３",
+      "value": "Affalé 3"
+    },
+    {
+      "key": "ざせつ",
+      "value": "Vaincu"
+    },
+    {
+      "key": "じだらく",
+      "value": "Paresse"
+    },
+    {
+      "key": "たたみ",
+      "value": "Tatami"
+    },
+    {
+      "key": "ねころび",
+      "value": "Allongé"
+    },
+    {
+      "key": "ねころび１",
+      "value": "Allongé 1"
+    },
+    {
+      "key": "ねころび２",
+      "value": "Allongé 2"
+    },
+    {
+      "key": "ねころび３",
+      "value": "Allongé 3"
+    },
+    {
+      "key": "のんびり",
+      "value": "Tranquille"
+    },
+    {
+      "key": "のーんびり",
+      "value": "Très tranquille"
+    },
+    {
+      "key": "はいずり",
+      "value": "Ramper"
+    },
+    {
+      "key": "はりつけ",
+      "value": "Plaqué au mur"
+    },
+    {
+      "key": "びっくり",
+      "value": "Surpris"
+    },
+    {
+      "key": "ふくじゅう",
+      "value": "Soumission"
+    },
+    {
+      "key": "むきりょく",
+      "value": "Sans énergie"
+    },
+    {
+      "key": "よりかかり",
+      "value": "Appuyé"
+    },
+    {
+      "key": "アイドル",
+      "value": "Idole"
+    },
+    {
+      "key": "カエルのポーズ１",
+      "value": "Grenouille 1"
+    },
+    {
+      "key": "カエルのポーズ２",
+      "value": "Grenouille 2"
+    },
+    {
+      "key": "キック",
+      "value": "Coup de pied"
+    },
+    {
+      "key": "クマ人形",
+      "value": "Nounours"
+    },
+    {
+      "key": "ケンカ",
+      "value": "Prêt au combat"
+    },
+    {
+      "key": "コンビニ",
+      "value": "Supérette"
+    },
+    {
+      "key": "ジェスチャー無効",
+      "value": "Sans gestes"
+    },
+    {
+      "key": "ゾンビ",
+      "value": "Zombie"
+    },
+    {
+      "key": "バンザイ",
+      "value": "Bras levés"
+    },
+    {
+      "key": "プランク",
+      "value": "Planche"
+    },
+    {
+      "key": "ベッド",
+      "value": "Lit"
+    },
+    {
+      "key": "マットレス",
+      "value": "Matelas"
+    },
+    {
+      "key": "モデル",
+      "value": "Mannequin"
+    },
+    {
+      "key": "ラダー運動",
+      "value": "Agilité"
+    },
+    {
+      "key": "リクライニング",
+      "value": "Incliné"
+    },
+    {
+      "key": "リラックス",
+      "value": "Relax"
+    },
+    {
+      "key": "リラックス１",
+      "value": "Relax 1"
+    },
+    {
+      "key": "リラックス２",
+      "value": "Relax 2"
+    },
+    {
+      "key": "リラックス３",
+      "value": "Relax 3"
+    },
+    {
+      "key": "不機嫌",
+      "value": "Grognon"
+    },
+    {
+      "key": "中腰姿勢",
+      "value": "Accroupi"
+    },
+    {
+      "key": "二人分座り",
+      "value": "Place pour deux"
+    },
+    {
+      "key": "五体投地",
+      "value": "Prosternation"
+    },
+    {
+      "key": "仰向け寝",
+      "value": "Sur le dos"
+    },
+    {
+      "key": "伏せ",
+      "value": "Sur le ventre"
+    },
+    {
+      "key": "休憩中",
+      "value": "En pause"
+    },
+    {
+      "key": "低姿勢",
+      "value": "Profil bas"
+    },
+    {
+      "key": "体育座り",
+      "value": "Genoux serrés"
+    },
+    {
+      "key": "倒され寝",
+      "value": "À terre"
+    },
+    {
+      "key": "傍観者",
+      "value": "Spectateur"
+    },
+    {
+      "key": "内股座り",
+      "value": "Pieds en dedans"
+    },
+    {
+      "key": "制止",
+      "value": "Stop"
+    },
+    {
+      "key": "前かがみ",
+      "value": "Penché en avant"
+    },
+    {
+      "key": "右向き寝",
+      "value": "Sommeil côté D"
+    },
+    {
+      "key": "右向き昼寝",
+      "value": "Sieste côté D"
+    },
+    {
+      "key": "合蹠のポーズ",
+      "value": "Papillon"
+    },
+    {
+      "key": "向き",
+      "value": "Direction"
+    },
+    {
+      "key": "呼吸",
+      "value": "Respiration"
+    },
+    {
+      "key": "和室",
+      "value": "Pièce japonaise"
+    },
+    {
+      "key": "商談",
+      "value": "Négociation"
+    },
+    {
+      "key": "地球寝",
+      "value": "Étreinte du sol"
+    },
+    {
+      "key": "培養中",
+      "value": "En capsule"
+    },
+    {
+      "key": "堤防",
+      "value": "Digue"
+    },
+    {
+      "key": "壁ドン",
+      "value": "Appui au mur"
+    },
+    {
+      "key": "女の子座り",
+      "value": "Assise en W"
+    },
+    {
+      "key": "姿勢選択",
+      "value": "Choisir pose"
+    },
+    {
+      "key": "寝返り",
+      "value": "Se retourner"
+    },
+    {
+      "key": "左右反転",
+      "value": "Miroir"
+    },
+    {
+      "key": "左向き寝",
+      "value": "Sommeil côté G"
+    },
+    {
+      "key": "左向き昼寝",
+      "value": "Sieste côté G"
+    },
+    {
+      "key": "左向き昼寝２",
+      "value": "Sieste côté G2"
+    },
+    {
+      "key": "布団",
+      "value": "Futon"
+    },
+    {
+      "key": "床の高さ",
+      "value": "Hauteur sol"
+    },
+    {
+      "key": "座り姿勢",
+      "value": "Assis"
+    },
+    {
+      "key": "座布団",
+      "value": "Coussin de sol"
+    },
+    {
+      "key": "待ちぼうけ",
+      "value": "Longue attente"
+    },
+    {
+      "key": "待ち伏せ",
+      "value": "Embuscade"
+    },
+    {
+      "key": "後方彼氏",
+      "value": "Veille discrète"
+    },
+    {
+      "key": "従者のポーズ",
+      "value": "Serviteur"
+    },
+    {
+      "key": "忍者走り",
+      "value": "Course ninja"
+    },
+    {
+      "key": "思考中",
+      "value": "En réflexion"
+    },
+    {
+      "key": "戻る",
+      "value": "Retour"
+    },
+    {
+      "key": "抱きしめ",
+      "value": "Câlin"
+    },
+    {
+      "key": "撮影モード",
+      "value": "Mode photo"
+    },
+    {
+      "key": "撮影モードを終了",
+      "value": "Quitter photo"
+    },
+    {
+      "key": "斜め座り",
+      "value": "Assise de biais"
+    },
+    {
+      "key": "昼寝",
+      "value": "Sieste"
+    },
+    {
+      "key": "晴天寝",
+      "value": "Sieste au soleil"
+    },
+    {
+      "key": "服従",
+      "value": "Obéissance"
+    },
+    {
+      "key": "木の上寝",
+      "value": "Sieste perchée"
+    },
+    {
+      "key": "楽園",
+      "value": "Paradis"
+    },
+    {
+      "key": "海岸",
+      "value": "Bord de mer"
+    },
+    {
+      "key": "照れ",
+      "value": "Timide"
+    },
+    {
+      "key": "猫のポーズ（右）",
+      "value": "Chat côté D"
+    },
+    {
+      "key": "猫のポーズ（左）",
+      "value": "Chat côté G"
+    },
+    {
+      "key": "猫寝",
+      "value": "Sieste de chat"
+    },
+    {
+      "key": "異変無し",
+      "value": "Rien à signaler"
+    },
+    {
+      "key": "直立",
+      "value": "Debout"
+    },
+    {
+      "key": "睡魔",
+      "value": "Somnolence"
+    },
+    {
+      "key": "砂浜",
+      "value": "Plage"
+    },
+    {
+      "key": "空気椅子",
+      "value": "Chaise invisible"
+    },
+    {
+      "key": "立ち姿勢",
+      "value": "Debout"
+    },
+    {
+      "key": "絨毯",
+      "value": "Tapis"
+    },
+    {
+      "key": "考える男",
+      "value": "Le Penseur"
+    },
+    {
+      "key": "肘パンチ",
+      "value": "Coup de coude"
+    },
+    {
+      "key": "肘付き",
+      "value": "Appui sur coude"
+    },
+    {
+      "key": "脱力寝",
+      "value": "Sommeil relâché"
+    },
+    {
+      "key": "腕枕寝",
+      "value": "Sieste sur bras"
+    },
+    {
+      "key": "腕枕（右）",
+      "value": "Oreiller bras D"
+    },
+    {
+      "key": "腕枕（左）",
+      "value": "Oreiller bras G"
+    },
+    {
+      "key": "腕立て伏せ",
+      "value": "Pompes"
+    },
+    {
+      "key": "膝立て",
+      "value": "Un genou levé"
+    },
+    {
+      "key": "芝生",
+      "value": "Pelouse"
+    },
+    {
+      "key": "行き倒れ",
+      "value": "Effondré"
+    },
+    {
+      "key": "見下し",
+      "value": "Regard de haut"
+    },
+    {
+      "key": "観察中",
+      "value": "Observation"
+    },
+    {
+      "key": "訓練場",
+      "value": "Terrain d’exercice"
+    },
+    {
+      "key": "設定",
+      "value": "Réglages"
+    },
+    {
+      "key": "警戒",
+      "value": "Aux aguets"
+    },
+    {
+      "key": "警戒（右）",
+      "value": "Aux aguets D"
+    },
+    {
+      "key": "警戒（左）",
+      "value": "Aux aguets G"
+    },
+    {
+      "key": "足の高さ",
+      "value": "Hauteur pieds"
+    },
+    {
+      "key": "足伸ばし",
+      "value": "Jambes tendues"
+    },
+    {
+      "key": "足固定",
+      "value": "Pieds fixes"
+    },
+    {
+      "key": "足組み",
+      "value": "Jambes croisées"
+    },
+    {
+      "key": "足組み２",
+      "value": "Jambes croisées 2"
+    },
+    {
+      "key": "足降ろし",
+      "value": "Jambes baissées"
+    },
+    {
+      "key": "距離",
+      "value": "Distance"
+    },
+    {
+      "key": "蹲踞",
+      "value": "Accroupi"
+    },
+    {
+      "key": "運動会",
+      "value": "Fête sportive"
+    },
+    {
+      "key": "面接",
+      "value": "Entretien"
+    },
+    {
+      "key": "首固定",
+      "value": "Tête fixe"
+    },
+    {
+      "key": "騎士",
+      "value": "Chevalier"
+    },
+    {
+      "key": "魔王降臨",
+      "value": "Seigneur démon"
+    }
+  ]
+}

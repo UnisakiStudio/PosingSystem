@@ -1,0 +1,108 @@
+{
+  "entries": [
+    {
+      "key": "changelog",
+      "value": "Xem thay đổi"
+    },
+    {
+      "key": "changelog.close",
+      "value": "Đóng thay đổi"
+    },
+    {
+      "key": "help",
+      "value": "Trợ giúp / Thay đổi"
+    },
+    {
+      "key": "help.close",
+      "value": "Đóng trợ giúp"
+    },
+    {
+      "key": "manual",
+      "value": "Hướng dẫn"
+    },
+    {
+      "key": "support",
+      "value": "Hỗ trợ"
+    },
+    {
+      "key": "うつ伏せ寝",
+      "value": "Nằm sấp"
+    },
+    {
+      "key": "ジェスチャー無効",
+      "value": "Tắt cử chỉ"
+    },
+    {
+      "key": "中腰姿勢",
+      "value": "Ngồi xổm"
+    },
+    {
+      "key": "仰向け寝",
+      "value": "Nằm ngửa"
+    },
+    {
+      "key": "向き",
+      "value": "Hướng"
+    },
+    {
+      "key": "呼吸",
+      "value": "Thở"
+    },
+    {
+      "key": "姿勢選択",
+      "value": "Chọn tư thế"
+    },
+    {
+      "key": "寝返り",
+      "value": "Lật người"
+    },
+    {
+      "key": "左右反転",
+      "value": "Lật đối xứng"
+    },
+    {
+      "key": "床の高さ",
+      "value": "Độ cao sàn"
+    },
+    {
+      "key": "座り姿勢",
+      "value": "Ngồi"
+    },
+    {
+      "key": "戻る",
+      "value": "Quay lại"
+    },
+    {
+      "key": "撮影モード",
+      "value": "Chế độ chụp"
+    },
+    {
+      "key": "撮影モードを終了",
+      "value": "Thoát chụp"
+    },
+    {
+      "key": "立ち姿勢",
+      "value": "Đứng"
+    },
+    {
+      "key": "設定",
+      "value": "Cài đặt"
+    },
+    {
+      "key": "足の高さ",
+      "value": "Độ cao chân"
+    },
+    {
+      "key": "足固定",
+      "value": "Khóa chân"
+    },
+    {
+      "key": "距離",
+      "value": "Khoảng cách"
+    },
+    {
+      "key": "首固定",
+      "value": "Khóa đầu"
+    }
+  ]
+}

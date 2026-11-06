@@ -1,0 +1,226 @@
+{
+  "fr": {
+    "help": "Aide / Historique",
+    "help.close": "Fermer l’aide",
+    "manual": "Guide",
+    "support": "Assistance",
+    "changelog": "Voir l’historique",
+    "changelog.close": "Fermer l’historique"
+  },
+  "it": {
+    "help": "Aiuto / Novità",
+    "help.close": "Chiudi aiuto",
+    "manual": "Guida",
+    "support": "Assistenza",
+    "changelog": "Mostra novità",
+    "changelog.close": "Chiudi novità"
+  },
+  "zh-Hans": {
+    "help": "帮助 / 更新记录",
+    "help.close": "关闭帮助",
+    "manual": "使用说明",
+    "support": "联系我们",
+    "changelog": "查看更新记录",
+    "changelog.close": "关闭更新记录"
+  },
+  "zh-Hant": {
+    "help": "說明 / 更新紀錄",
+    "help.close": "關閉說明",
+    "manual": "使用說明",
+    "support": "聯絡我們",
+    "changelog": "查看更新紀錄",
+    "changelog.close": "關閉更新紀錄"
+  },
+  "ko": {
+    "help": "도움말 / 변경 내역",
+    "help.close": "도움말 닫기",
+    "manual": "사용 설명서",
+    "support": "문의",
+    "changelog": "변경 내역 보기",
+    "changelog.close": "변경 내역 닫기"
+  },
+  "th": {
+    "help": "ช่วยเหลือ / ประวัติการอัปเดต",
+    "help.close": "ปิดความช่วยเหลือ",
+    "manual": "คู่มือ",
+    "support": "ติดต่อเรา",
+    "changelog": "ดูประวัติการอัปเดต",
+    "changelog.close": "ปิดประวัติการอัปเดต"
+  },
+  "de": {
+    "help": "Hilfe / Änderungen",
+    "help.close": "Hilfe schließen",
+    "manual": "Anleitung",
+    "support": "Support",
+    "changelog": "Änderungen anzeigen",
+    "changelog.close": "Änderungen schließen"
+  },
+  "es": {
+    "help": "Ayuda / Cambios",
+    "help.close": "Cerrar ayuda",
+    "manual": "Manual",
+    "support": "Asistencia",
+    "changelog": "Ver cambios",
+    "changelog.close": "Cerrar cambios"
+  },
+  "pt": {
+    "help": "Ajuda / Alterações",
+    "help.close": "Fechar ajuda",
+    "manual": "Manual",
+    "support": "Suporte",
+    "changelog": "Ver alterações",
+    "changelog.close": "Fechar alterações"
+  },
+  "pt-BR": {
+    "help": "Ajuda / Alterações",
+    "help.close": "Fechar ajuda",
+    "manual": "Manual",
+    "support": "Suporte",
+    "changelog": "Ver alterações",
+    "changelog.close": "Fechar alterações"
+  },
+  "ru": {
+    "help": "Справка / Изменения",
+    "help.close": "Закрыть справку",
+    "manual": "Руководство",
+    "support": "Поддержка",
+    "changelog": "Список изменений",
+    "changelog.close": "Закрыть изменения"
+  },
+  "uk": {
+    "help": "Довідка / Зміни",
+    "help.close": "Закрити довідку",
+    "manual": "Посібник",
+    "support": "Підтримка",
+    "changelog": "Переглянути зміни",
+    "changelog.close": "Закрити зміни"
+  },
+  "pl": {
+    "help": "Pomoc / Zmiany",
+    "help.close": "Zamknij pomoc",
+    "manual": "Instrukcja",
+    "support": "Wsparcie",
+    "changelog": "Pokaż zmiany",
+    "changelog.close": "Zamknij zmiany"
+  },
+  "nl": {
+    "help": "Hulp / Wijzigingen",
+    "help.close": "Hulp sluiten",
+    "manual": "Handleiding",
+    "support": "Ondersteuning",
+    "changelog": "Wijzigingen bekijken",
+    "changelog.close": "Wijzigingen sluiten"
+  },
+  "sv": {
+    "help": "Hjälp / Ändringar",
+    "help.close": "Stäng hjälp",
+    "manual": "Handbok",
+    "support": "Support",
+    "changelog": "Visa ändringar",
+    "changelog.close": "Stäng ändringar"
+  },
+  "da": {
+    "help": "Hjælp / Ændringer",
+    "help.close": "Luk hjælp",
+    "manual": "Vejledning",
+    "support": "Support",
+    "changelog": "Vis ændringer",
+    "changelog.close": "Luk ændringer"
+  },
+  "fi": {
+    "help": "Ohje / Muutokset",
+    "help.close": "Sulje ohje",
+    "manual": "Käyttöohje",
+    "support": "Tuki",
+    "changelog": "Näytä muutokset",
+    "changelog.close": "Sulje muutokset"
+  },
+  "nb": {
+    "help": "Hjelp / Endringer",
+    "help.close": "Lukk hjelp",
+    "manual": "Brukerveiledning",
+    "support": "Brukerstøtte",
+    "changelog": "Vis endringer",
+    "changelog.close": "Lukk endringer"
+  },
+  "cs": {
+    "help": "Nápověda / Změny",
+    "help.close": "Zavřít nápovědu",
+    "manual": "Návod",
+    "support": "Podpora",
+    "changelog": "Zobrazit změny",
+    "changelog.close": "Zavřít změny"
+  },
+  "tr": {
+    "help": "Yardım / Değişiklikler",
+    "help.close": "Yardımı kapat",
+    "manual": "Kılavuz",
+    "support": "Destek",
+    "changelog": "Değişiklikleri göster",
+    "changelog.close": "Değişiklikleri kapat"
+  },
+  "id": {
+    "help": "Bantuan / Perubahan",
+    "help.close": "Tutup bantuan",
+    "manual": "Panduan",
+    "support": "Dukungan",
+    "changelog": "Lihat perubahan",
+    "changelog.close": "Tutup perubahan"
+  },
+  "vi": {
+    "help": "Trợ giúp / Thay đổi",
+    "help.close": "Đóng trợ giúp",
+    "manual": "Hướng dẫn",
+    "support": "Hỗ trợ",
+    "changelog": "Xem thay đổi",
+    "changelog.close": "Đóng thay đổi"
+  },
+  "hi": {
+    "help": "सहायता / बदलाव",
+    "help.close": "सहायता बंद करें",
+    "manual": "मार्गदर्शिका",
+    "support": "संपर्क करें",
+    "changelog": "बदलाव देखें",
+    "changelog.close": "बदलाव बंद करें"
+  },
+  "bn": {
+    "help": "সহায়তা / পরিবর্তন",
+    "help.close": "সহায়তা বন্ধ করুন",
+    "manual": "নির্দেশিকা",
+    "support": "যোগাযোগ",
+    "changelog": "পরিবর্তন দেখুন",
+    "changelog.close": "পরিবর্তন বন্ধ করুন"
+  },
+  "ta": {
+    "help": "உதவி / மாற்றங்கள்",
+    "help.close": "உதவியை மூடு",
+    "manual": "வழிகாட்டி",
+    "support": "தொடர்பு கொள்ளவும்",
+    "changelog": "மாற்றங்களைக் காட்டு",
+    "changelog.close": "மாற்றங்களை மூடு"
+  },
+  "te": {
+    "help": "సహాయం / మార్పులు",
+    "help.close": "సహాయం మూసివేయి",
+    "manual": "మార్గదర్శిని",
+    "support": "సంప్రదించండి",
+    "changelog": "మార్పులను చూపు",
+    "changelog.close": "మార్పులను మూసివేయి"
+  },
+  "ar": {
+    "help": "المساعدة / التغييرات",
+    "help.close": "إغلاق المساعدة",
+    "manual": "الدليل",
+    "support": "الدعم",
+    "changelog": "عرض التغييرات",
+    "changelog.close": "إغلاق التغييرات"
+  },
+  "he": {
+    "help": "עזרה / שינויים",
+    "help.close": "סגירת העזרה",
+    "manual": "מדריך",
+    "support": "תמיכה",
+    "changelog": "הצגת שינויים",
+    "changelog.close": "סגירת השינויים"
+  }
+}

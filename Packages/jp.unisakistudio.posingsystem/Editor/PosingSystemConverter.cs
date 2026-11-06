@@ -217,6 +217,7 @@ namespace jp.unisakistudio.posingsystemeditor
                                  .GetComponentsInChildren<PosingSystem>(true))
                     {
                         PosingSystemFeatureUtility.Synchronize(posingSystem);
+                        PosingSystemMenuLocalization.Apply(posingSystem, ctx.AssetSaver);
                     }
                 });
 

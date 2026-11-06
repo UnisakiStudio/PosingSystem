@@ -49,8 +49,8 @@ namespace jp.unisakistudio.posingsystemeditor
             if (showBrowser)
             {
             EditorGUILayout.BeginHorizontal();
-            EditorGUILayout.LabelField("プリセット選択", EditorStyles.boldLabel);
-            if (GUILayout.Button("再読込", GUILayout.Width(72)))
+            EditorGUILayout.LabelField(PosingSystemLocalization.Text("プリセット選択"), EditorStyles.boldLabel);
+            if (GUILayout.Button(PosingSystemLocalization.Text("再読込"), GUILayout.Width(72)))
             {
                 try
                 {
@@ -63,11 +63,11 @@ namespace jp.unisakistudio.posingsystemeditor
                 }
             }
             EditorGUILayout.EndHorizontal();
-            EditorGUILayout.LabelField("一覧は追加・変更時に更新されます。表示が変わらない場合は「再読込」を押してください。", EditorStyles.wordWrappedMiniLabel);
+            EditorGUILayout.LabelField(PosingSystemLocalization.Text("一覧は追加・変更時に更新されます。表示が変わらない場合は「再読込」を押してください。"), EditorStyles.wordWrappedMiniLabel);
             if (catalog != null)
             {
                 EditorGUI.BeginChangeCheck();
-                var hideBundled = EditorGUILayout.ToggleLeft(new GUIContent("同梱プリセットを表示しない",
+                var hideBundled = EditorGUILayout.ToggleLeft(new GUIContent(PosingSystemLocalization.Text("同梱プリセットを表示しない"),
                     "ツールに同梱された公式プリセットを一覧と検索結果に表示しません。同じプロジェクト内のアバターで共有する設定です。"),
                     catalog.hideBundledPresets);
                 if (EditorGUI.EndChangeCheck())
@@ -75,12 +75,12 @@ namespace jp.unisakistudio.posingsystemeditor
                     PosingSystemPresetDefinesCache.SetHideBundledPresets(hideBundled);
                 }
             }
-            search = EditorGUILayout.TextField("名前で検索", search);
+            search = EditorGUILayout.TextField(PosingSystemLocalization.Text("名前で検索"), search);
             list.SetFilter(search, catalog != null && catalog.hideBundledPresets);
             list.OnGUI(GUILayoutUtility.GetRect(0, 240, GUILayout.ExpandWidth(true)));
 
             if (catalog != null && list.MatchCount == 0)
-                EditorGUILayout.HelpBox("該当するプリセットがありません。", MessageType.Info);
+                EditorGUILayout.HelpBox(PosingSystemLocalization.Text("該当するプリセットがありません。"), MessageType.Info);
             }
             if (selected != null) EditorGUILayout.LabelField(selected.avatarName, PosingSystemInspectorGUI.Text(12, true));
             if (!string.IsNullOrEmpty(error)) drawWarning(error);
