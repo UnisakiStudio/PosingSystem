@@ -148,6 +148,27 @@ namespace jp.unisakistudio.posingsystemeditor
             return profile != null && profile.IsValid;
         }
 
+        // Transient comparison data; no generated assets or source settings are changed.
+        public static bool TryGetPreviewMuscleAdjustment(PosingSystem system, Animator animator,
+            out float[] adjustments, out string message)
+        {
+            adjustments = null;
+            message = string.Empty;
+            if (!TryGetReferenceProfile(system, out var profile))
+            {
+                message = "この商品には基準データがありません。";
+                return false;
+            }
+            if (!IsValidHumanoid(animator)) { message = "Humanoid Animatorが必要です。"; return false; }
+            if (!TryReadAvatarBaselineOnTemporaryClone(animator, out var muscles, out var bends, out message)) return false;
+            adjustments = new float[HumanTrait.MuscleCount];
+            for (var i = 0; i < adjustments.Length; i++) adjustments[i] = muscles[i] - profile.referenceMuscles[i];
+            SetHingeAdjustment(adjustments, LeftKneeMuscleIndex, bends.leftKnee - profile.leftKneeBendDegrees);
+            SetHingeAdjustment(adjustments, RightKneeMuscleIndex, bends.rightKnee - profile.rightKneeBendDegrees);
+            SetHingeAdjustment(adjustments, LeftElbowMuscleIndex, bends.leftElbow - profile.leftElbowBendDegrees);
+            SetHingeAdjustment(adjustments, RightElbowMuscleIndex, bends.rightElbow - profile.rightElbowBendDegrees);
+            return true;
+        }
         public static bool TryGenerate(PosingSystem posingSystem, out string message)
         {
             message = string.Empty;
