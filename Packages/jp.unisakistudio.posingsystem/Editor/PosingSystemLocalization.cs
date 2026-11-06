@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using jp.unisakistudio.posingsystem;
 
 namespace jp.unisakistudio.posingsystemeditor
 {
@@ -12,12 +13,39 @@ namespace jp.unisakistudio.posingsystemeditor
         internal static readonly string[] Codes = { "ja", "en", "fr", "it", "zh-Hans", "zh-Hant", "ko", "th", "de", "es", "pt", "pt-BR", "ru", "uk", "pl", "nl", "sv", "da", "fi", "nb", "cs", "tr", "id", "vi", "hi", "bn", "ta", "te", "ar", "he" };
         internal static readonly string[] Names = { "日本語", "English", "Français", "Italiano", "简体中文", "繁體中文", "한국어", "ไทย", "Deutsch", "Español", "Português", "Português (Brasil)", "Русский", "Українська", "Polski", "Nederlands", "Svenska", "Dansk", "Suomi", "Norsk", "Čeština", "Türkçe", "Bahasa Indonesia", "Tiếng Việt", "हिन्दी", "বাংলা", "தமிழ்", "తెలుగు", "العربية", "עברית" };
         internal static bool HasSelection => EditorPrefs.HasKey(PreferenceKey);
-        internal static string Language => Normalize(EditorPrefs.GetString(PreferenceKey, "ja"));
+        private static string activeLanguage;
+        private static string PreferenceLanguage => Normalize(EditorPrefs.GetString(PreferenceKey, "ja"));
+        internal static string Language => activeLanguage ?? PreferenceLanguage;
+        internal static string ResolveLanguage(PosingSystem target)
+            => target != null && !string.IsNullOrEmpty(target.menuLanguage) ? Normalize(target.menuLanguage) : PreferenceLanguage;
+        internal static IDisposable ForInspector(PosingSystem target) => new LanguageScope(ResolveLanguage(target));
+        private sealed class LanguageScope : IDisposable
+        {
+            private readonly string previous;
+            internal LanguageScope(string language) { previous = activeLanguage; activeLanguage = language; }
+            public void Dispose() { activeLanguage = previous; }
+        }
         internal static string Normalize(string code) => Array.IndexOf(Codes, code) >= 0 ? code : "ja";
         internal static void Select(string code)
         {
             EditorPrefs.SetString(PreferenceKey, Normalize(code));
+            if (activeLanguage != null) activeLanguage = Normalize(code);
             UnityEditorInternal.InternalEditorUtility.RepaintAllViews();
+        }
+
+        internal static bool ApplyLanguageSelection(int index, PosingSystem target = null)
+        {
+            if (index < 0 || index >= Codes.Length) return false;
+            if (target != null)
+            {
+                if (target.menuLanguage == Codes[index]) return false;
+                Undo.RecordObject(target, "Change tool language");
+                target.menuLanguage = Codes[index];
+                PosingSystemEditorChangeUtility.MarkChanged(target);
+            }
+            else if (HasSelection && Language == Codes[index]) return false;
+            Select(Codes[index]);
+            return true;
         }
 
         [Serializable] internal sealed class Catalog { public Entry[] entries; }
@@ -66,22 +94,24 @@ namespace jp.unisakistudio.posingsystemeditor
             return result;
         }
 
-        internal static void DrawLanguageSelector()
+        internal static void DrawLanguageSelector(PosingSystem target)
         {
             var changed = GUI.changed;
-            if (!HasSelection)
+            if (!HasSelection && string.IsNullOrEmpty(target.menuLanguage))
             {
                 EditorGUILayout.HelpBox("言語を選択してください / Choose your language. 未翻訳の項目は日本語で表示されます / Untranslated text uses Japanese.", MessageType.Info);
                 // An explicit button records even the default Japanese choice.
                 var selected = EditorGUILayout.Popup("Language / 言語", pendingSelection, Names);
                 pendingSelection = selected;
-                if (GUILayout.Button("選択 / Continue")) Select(Codes[pendingSelection]);
+                if (GUILayout.Button("選択 / Continue")) ApplyLanguageSelection(pendingSelection, target);
             }
             else
             {
-                EditorGUI.BeginChangeCheck();
-                var selected = EditorGUILayout.Popup("Language / 言語", Array.IndexOf(Codes, Language), Names);
-                if (EditorGUI.EndChangeCheck()) Select(Codes[selected]);
+                var current = Array.IndexOf(Codes, Language);
+                var selected = EditorGUILayout.Popup("Language / 言語", current, Names);
+                // Popup callbacks can run inside other inspectors' change-check scopes.
+                // Persist the returned selection directly, including Japanese at index zero.
+                if (selected != current) ApplyLanguageSelection(selected, target);
             }
             GUI.changed = changed;
         }

@@ -4,7 +4,7 @@ On first use, choose a language at the top of the Inspector and press Select / C
 
 ## VRChat menu language
 
-In Features, choose In-game menu language, then upload your avatar. This setting is separate from the tool interface language. Upload the avatar again to change a menu that is already in VRChat.
+The language selected at the top of the Inspector applies to both the tool interface and the in-game menu. The choice is saved on the tool in your avatar. Upload your avatar again to apply a changed language in VRChat.
 
 ## Pose names and translations
 

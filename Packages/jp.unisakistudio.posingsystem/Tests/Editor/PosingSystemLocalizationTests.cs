@@ -30,6 +30,60 @@ namespace jp.unisakistudio.posingsystemeditor.tests
                 Assert.That(PosingSystemLocalization.Translate(code, "manual", "missing"), Is.Not.EqualTo("missing"), code);
             }
         }
+        [Test]
+        public void OneSelectionControlsInspectorAndMenuWithoutChangingOtherAvatars()
+        {
+            const string key = "jp.unisakistudio.posingsystem.language";
+            var existed = EditorPrefs.HasKey(key); var previous = EditorPrefs.GetString(key);
+            var first = new UnityEngine.GameObject("first"); var second = new UnityEngine.GameObject("second");
+            try
+            {
+                var ps = first.AddComponent<jp.unisakistudio.posingsystem.PosingSystem>();
+                var other = second.AddComponent<jp.unisakistudio.posingsystem.PosingSystem>(); other.menuLanguage = "fr";
+                PosingSystemLocalization.Select("en");
+                using (PosingSystemLocalization.ForInspector(ps))
+                {
+                    Assert.That(PosingSystemLocalization.Language, Is.EqualTo("en"));
+                    Assert.That(PosingSystemLocalization.ApplyLanguageSelection(0, ps), Is.True);
+                    Assert.That(ps.menuLanguage, Is.EqualTo("ja"));
+                    Assert.That(PosingSystemLocalization.Language, Is.EqualTo("ja"));
+                    Assert.That(PosingSystemLocalization.ResolveLanguage(ps), Is.EqualTo("ja"));
+                    Assert.That(PosingSystemLocalization.Text("機能"), Is.EqualTo("機能"));
+                }
+                PosingSystemLocalization.Select("en");
+                using (PosingSystemLocalization.ForInspector(ps)) Assert.That(PosingSystemLocalization.Language, Is.EqualTo("ja"));
+                using (PosingSystemLocalization.ForInspector(other)) Assert.That(PosingSystemLocalization.Language, Is.EqualTo("fr"));
+                Assert.That(PosingSystemLocalization.Language, Is.EqualTo("en"));
+            }
+            finally
+            {
+                UnityEngine.Object.DestroyImmediate(first); UnityEngine.Object.DestroyImmediate(second);
+                if (existed) EditorPrefs.SetString(key, previous); else EditorPrefs.DeleteKey(key);
+            }
+        }
+
+        [Test]
+        public void PopupSelectionCanReturnToJapaneseAtIndexZero()
+        {
+            const string key = "jp.unisakistudio.posingsystem.language";
+            var existed = EditorPrefs.HasKey(key); var previous = EditorPrefs.GetString(key);
+            try
+            {
+                PosingSystemLocalization.Select("en");
+                Assert.That(PosingSystemLocalization.ApplyLanguageSelection(0), Is.True);
+                Assert.That(EditorPrefs.GetString(key), Is.EqualTo("ja"));
+                Assert.That(PosingSystemLocalization.Text("機能"), Is.EqualTo("機能"));
+                Assert.That(PosingSystemLocalization.ApplyLanguageSelection(1), Is.True);
+                Assert.That(PosingSystemLocalization.Text("機能"), Is.EqualTo("Features"));
+                Assert.That(PosingSystemLocalization.ApplyLanguageSelection(0), Is.True);
+                Assert.That(PosingSystemLocalization.Text("アバター固有補正を使う"), Is.EqualTo("アバター固有補正を使う"));
+                Assert.That(PosingSystemLocalization.ApplyLanguageSelection(0), Is.False);
+                Assert.That(PosingSystemLocalization.ApplyLanguageSelection(-1), Is.False);
+                Assert.That(EditorPrefs.GetString(key), Is.EqualTo("ja"));
+            }
+            finally { if (existed) EditorPrefs.SetString(key, previous); else EditorPrefs.DeleteKey(key); }
+        }
+
         [TestCase(0, 0, "No detectable configuration errors")]
         [TestCase(0, 1, "1 warning")]
         [TestCase(0, 3, "3 warnings")]

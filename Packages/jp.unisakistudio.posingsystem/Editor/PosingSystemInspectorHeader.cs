@@ -19,7 +19,7 @@ namespace jp.unisakistudio.posingsystemeditor
         internal void Draw(PosingSystem target)
         {
             EnsureStyles();
-            PosingSystemLocalization.DrawLanguageSelector();
+            PosingSystemLocalization.DrawLanguageSelector(target);
             var product = PosingSystemPackageInfo.Get(target.GetType(), MonoScript.FromMonoBehaviour(target));
             var system = PosingSystemPackageInfo.Get(typeof(PosingSystem));
             var hasSeparateProduct = !string.IsNullOrEmpty(product.name) && product.name != system.name;

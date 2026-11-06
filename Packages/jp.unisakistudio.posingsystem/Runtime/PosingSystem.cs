@@ -14,8 +14,8 @@ namespace jp.unisakistudio.posingsystem
     public class PosingSystem : MonoBehaviour, IEditorOnly
     {
         public string settingName;
-        // Build-time menu display only; does not change pose identity or animation data.
-        [HideInInspector] public string menuLanguage = "ja";
+        // One language for the Inspector and upload menu. Empty uses the last user choice.
+        [HideInInspector] public string menuLanguage = "";
         public bool isIconDisabled = false;
         public bool isIconSmall = false;
         public const int PreviewMask = 21;

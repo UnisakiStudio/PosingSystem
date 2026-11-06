@@ -4,7 +4,7 @@
 
 ## Langue du menu VRChat
 
-Dans l’onglet des fonctionnalités, choisissez la langue du menu en jeu, puis téléversez votre avatar. Ce réglage est distinct de la langue de l’outil. Un nouveau téléversement est nécessaire pour modifier un avatar déjà dans VRChat.
+La langue choisie en haut de l’Inspector s’applique à l’interface de l’outil et au menu en jeu. Le choix est enregistré sur l’outil dans votre avatar. Téléversez à nouveau l’avatar pour appliquer le changement dans VRChat.
 
 ## Noms des poses
 

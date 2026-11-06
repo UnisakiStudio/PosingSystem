@@ -4,7 +4,7 @@ Al primo utilizzo, scegli una lingua nella parte superiore dell’Inspector e pr
 
 ## Lingua del menu VRChat
 
-Nella scheda delle funzioni, scegli la lingua del menu in gioco e carica l’avatar. Questa impostazione è separata dalla lingua dello strumento. Per modificare un avatar già in VRChat è necessario caricarlo di nuovo.
+La lingua scelta nella parte superiore dell’Inspector si applica sia all’interfaccia sia al menu in gioco. La scelta viene salvata sullo strumento nell’avatar. Carica di nuovo l’avatar per applicare la modifica in VRChat.
 
 ## Nomi delle pose
 

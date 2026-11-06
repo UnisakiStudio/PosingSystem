@@ -33,3 +33,8 @@ Seven user guides are in `Documentation~/Localization`. Full existing online man
 Unity tests cover preferences, catalog availability, fallback, cycles, original-data preservation, nested ownership, inactive objects and installer targets. Development-only integration tests additionally build actual KawaiiPosing and CoolPosing prefabs in English and Traditional Chinese, with and without prebuild. The main development workspace stores test logs and the handoff record under `Recordings/Localization_20261107` and `docs/v3.2.0-feature-candidates.md`.
 
 No version bump, package publication or public deployment is part of this checkpoint. More Inspector strings, full manuals, remaining pose languages, translation review and actual UI/VRChat visual checks remain before release.
+
+
+## Updated language UX (2026-11-07)
+
+The two language selectors have been unified at the user's request. The header is the only selector. It stores `menuLanguage` on the selected PosingSystem with Undo/Prefab support, and remembers the last choice for tools without an explicit selection. An Inspector language scope uses that same saved value for all display text; the NDMF menu pass resolves the same value. Empty values fall back to the last preference (Japanese if none). The old Features-tab selector is removed. Popup changes compare selected indices directly instead of relying on the surrounding GUI.changed state. Earlier descriptions of independent Inspector and menu languages are superseded by this section.

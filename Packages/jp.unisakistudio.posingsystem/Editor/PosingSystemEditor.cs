@@ -255,7 +255,8 @@ namespace jp.unisakistudio.posingsystemeditor
         public override void OnInspectorGUI()
         {
             drewInspectorWarning = false;
-            DrawPosingInspector();
+            using (PosingSystemLocalization.ForInspector(target as PosingSystem))
+                DrawPosingInspector();
             if (Event.current.type == EventType.Repaint)
                 PosingSystemHierarchyBadge.SetInspectorWarning(GetInstanceID(), drewInspectorWarning ? target as PosingSystem : null);
         }

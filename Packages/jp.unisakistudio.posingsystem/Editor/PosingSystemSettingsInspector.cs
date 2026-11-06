@@ -74,16 +74,6 @@ namespace jp.unisakistudio.posingsystemeditor
             PosingSystemFeatureUtility.Migrate(ps);
             serialized.Update();
             EnsureStyles();
-            EditorGUI.BeginChangeCheck();
-            var menuLanguage = serialized.FindProperty("menuLanguage");
-            var languageIndex = Array.IndexOf(PosingSystemLocalization.Codes, PosingSystemLocalization.Normalize(menuLanguage.stringValue));
-            var selectedLanguage = EditorGUILayout.Popup(PosingSystemLocalization.Text("ゲーム内メニューの言語"), languageIndex, PosingSystemLocalization.Names);
-            if (EditorGUI.EndChangeCheck())
-            {
-                menuLanguage.stringValue = PosingSystemLocalization.Codes[selectedLanguage];
-                PosingSystemEditorChangeUtility.Apply(serialized);
-            }
-            EditorGUILayout.HelpBox(PosingSystemLocalization.Text("アップロード時に適用します。未翻訳の項目は日本語で表示されます。"), MessageType.Info);
             DrawSummary(ps);
             foreach (var group in Groups)
             {

@@ -12,7 +12,7 @@ namespace jp.unisakistudio.posingsystemeditor
     {
         internal static void Apply(PosingSystem ps, IAssetSaver saver = null)
         {
-            var language = PosingSystemLocalization.Normalize(ps.menuLanguage);
+            var language = PosingSystemLocalization.ResolveLanguage(ps);
             if (language == "ja") return;
             var copies = new Dictionary<VRCExpressionsMenu, VRCExpressionsMenu>();
             foreach (var item in ps.GetComponentsInChildren<ModularAvatarMenuItem>(true))
