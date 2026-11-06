@@ -303,19 +303,36 @@ namespace jp.unisakistudio.posingsystemeditor.tests
             if(!remove)Assert.That(row.rotate,Is.EqualTo(30));
         }
 
-        [TestCase(false)] [TestCase(true)]
-        public void NdmfBuild_UsesAutomaticMotionWithoutChangingSourceOrManualSettings(bool prebuilt)
+        [TestCase(false, false, false)] [TestCase(true, false, false)]
+        [TestCase(false, true, false)] [TestCase(true, true, false)]
+        [TestCase(false, false, true)] [TestCase(true, false, true)]
+        [TestCase(false, true, true)] [TestCase(true, true, true)]
+        public void NdmfBuild_UsesAutomaticMotionWithoutChangingSourceOrManualSettings(bool prebuilt, bool defaultBase, bool manual)
         {
+            if (defaultBase) SetSource(null, true);
+            if (manual) ps.overrideDefines.Add(Row(Clip("ManualLanding", .3f), StateType.ShortLanding));
             if(prebuilt)Prebuild();
             var files=AssetDatabase.FindAssets("t:PosingSystemGeneratedAsset",new[]{folder}).OrderBy(x=>x).ToArray();
             var before=EditorJsonUtility.ToJson(source);var originalRows=ps.overrideDefines;
+            var rowsBefore = ManualJson(ps);
+            var originalComponents = root.GetComponentsInChildren<Component>(true);
+            var settingsBefore = originalComponents.Where(c => c != null).ToDictionary(c => c, c => EditorJsonUtility.ToJson(c));
+            var dirtyBefore = originalComponents.Where(c => c != null).ToDictionary(c => c, EditorUtility.IsDirty);
+            var sourceControllers = root.GetComponentsInChildren<ModularAvatarMergeAnimator>(true)
+                .Select(m => (Object)m.animator).Where(o => o != null).Concat(new Object[] { source });
+            var sourceGraph = PosingSystemControllerGraph.Collect(sourceControllers, PosingSystemControllerGraph.IsGraphObject)
+                .ToDictionary(o => o, o => EditorJsonUtility.ToJson(o));
             var clone=Object.Instantiate(root);owned.Add(clone);
+            clone.name = root.name;
             var cloneAvatar=clone.GetComponent<VRCAvatarDescriptor>();
             cloneAvatar.customExpressions=true;
             var parameters=ScriptableObject.CreateInstance<VRC.SDK3.Avatars.ScriptableObjects.VRCExpressionParameters>();owned.Add(parameters);
             parameters.parameters=Array.Empty<VRC.SDK3.Avatars.ScriptableObjects.VRCExpressionParameters.Parameter>();
             cloneAvatar.expressionParameters=parameters;
             var context=new BuildContext(clone,null,false);
+            var messages = new List<string>();
+            void OnLog(string message, string stack, LogType type) => messages.Add(message);
+            Application.logMessageReceived += OnLog;
             try
             {
                 var method=typeof(AvatarProcessor).GetMethod("ProcessAvatar",BindingFlags.Static|BindingFlags.NonPublic,null,new[]{typeof(BuildContext),typeof(BuildPhase),typeof(BuildPhase)},null);
@@ -324,14 +341,70 @@ namespace jp.unisakistudio.posingsystemeditor.tests
                 var output=(AnimatorController)cloneAvatar.baseAnimationLayers.Single(l=>l.type==VRCAvatarDescriptor.AnimLayerType.Base).animatorController;
                 var imported=output.layers.Where(l=>l.name.Contains("USSPS_Locomotion")).SelectMany(l=>States(l.stateMachine))
                     .Where(s=>s.name=="Jump").Select(s=>s.motion).ToArray();
-                Assert.That(imported.Any(m=>m!=null&&m.name.Contains("AutoJump")),Is.True);
-                Assert.That(ps.overrideDefines,Is.SameAs(originalRows));Assert.That(originalRows,Is.Empty);
+                Assert.That(context.Successful, Is.True);
+                Assert.That(imported.Any(m=>m!=null&&m.name.Contains("AutoJump")),Is.EqualTo(!defaultBase));
+                if (manual)
+                    Assert.That(output.layers.Where(l => l.name.Contains("USSPS_Locomotion")).SelectMany(l => States(l.stateMachine))
+                        .Any(s => s.motion != null && s.motion.name.Contains("ManualLanding")), Is.True);
+                Assert.That(messages.Any(m => m.Contains("再度プレビルド")), Is.False, string.Join("\n", messages));
+                Assert.That(ps.overrideDefines,Is.SameAs(originalRows));
+                Assert.That(ManualJson(ps), Is.EqualTo(rowsBefore));
                 Assert.That(EditorJsonUtility.ToJson(source),Is.EqualTo(before));
+                Assert.That(root.GetComponentsInChildren<Component>(true), Is.EqualTo(originalComponents));
+                foreach (var entry in settingsBefore) Assert.That(EditorJsonUtility.ToJson(entry.Key), Is.EqualTo(entry.Value), entry.Key.name);
+                foreach (var entry in dirtyBefore) Assert.That(EditorUtility.IsDirty(entry.Key), Is.EqualTo(entry.Value), entry.Key.name);
+                foreach (var entry in sourceGraph) Assert.That(EditorJsonUtility.ToJson(entry.Key), Is.EqualTo(entry.Value), entry.Key.name);
                 Assert.That(AssetDatabase.FindAssets("t:PosingSystemGeneratedAsset",new[]{folder}).OrderBy(x=>x),Is.EqualTo(files));
                 foreach(var layer in cloneAvatar.baseAnimationLayers)
                     if(layer.animatorController!=null)owned.UnionWith(PosingSystemControllerGraph.Collect(new Object[]{layer.animatorController},o=>PosingSystemControllerGraph.IsGraphObject(o)&&!EditorUtility.IsPersistent(o)));
             }
-            finally{context.DeactivateAllExtensionContexts();}
+            finally{Application.logMessageReceived -= OnLog;context.DeactivateAllExtensionContexts();}
+        }
+
+        [TestCase(false)] [TestCase(true)]
+        public void BuildInputSnapshot_UsesOriginalInputAndRestoresLiveLookup(bool defaultBase)
+        {
+            if (defaultBase) SetSource(null, true);
+            Prebuild();
+            var before = Signature();
+            var rows = ManualJson(ps);
+            var state = new PosingSystemConverter.AutoImportBuildState();
+            state.Capture(root);
+            var replacement = AnimatorController.CreateAnimatorControllerAtPath(folder + "/BuildOnly.controller");
+            var replacementClip = Clip("BuildOnlyJump", .6f);
+            replacement.layers[0].stateMachine.AddState("Jump").motion = replacementClip;
+            SetSource(replacement);
+            using (new PosingSystemConverter.AutoImportBuildScope(state))
+            {
+                Assert.That(Signature(), Is.EqualTo(before));
+                Assert.That(PosingSystemConverter.ShouldReportPrebuildUpdateWarning(ps), Is.False);
+                var detected = PosingSystemConverter.AutoImportAvatarAnimations(ps);
+                if (defaultBase) Assert.That(detected, Is.Empty);
+                else Assert.That(detected.Single().animationClip, Is.SameAs(clip));
+                Assert.That(ManualJson(ps), Is.EqualTo(rows));
+            }
+            Assert.That(PosingSystemConverter.AutoImportAvatarAnimations(ps).Single().animationClip, Is.SameAs(replacementClip));
+            Assert.That(PosingSystemConverter.ShouldReportPrebuildUpdateWarning(ps), Is.True);
+        }
+
+        [Test]
+        public void BuildInputSnapshot_PreservesRealInputChangesAndDoesNotLeakOnException()
+        {
+            Prebuild();
+            jump.motion = Clip("ChangedBeforeBuild", .8f);
+            var state = new PosingSystemConverter.AutoImportBuildState();
+            state.Capture(root);
+            Assert.Throws<InvalidOperationException>(() =>
+            {
+                using var scope = new PosingSystemConverter.AutoImportBuildScope(state);
+                Assert.That(PosingSystemConverter.ShouldReportPrebuildUpdateWarning(ps), Is.True);
+                throw new InvalidOperationException("Simulated build failure");
+            });
+            SetSource(null, true);
+            Assert.That(PosingSystemConverter.AutoImportAvatarAnimations(ps), Is.Empty);
+            state.Capture(root);
+            using (new PosingSystemConverter.AutoImportBuildScope(state))
+                Assert.That(PosingSystemConverter.AutoImportAvatarAnimations(ps), Is.Empty);
         }
     }
 }

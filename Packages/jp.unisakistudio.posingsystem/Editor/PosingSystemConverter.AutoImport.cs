@@ -16,6 +16,40 @@ namespace jp.unisakistudio.posingsystemeditor
 {
     public partial class PosingSystemConverter
     {
+        // NDMF/MA can replace the Base layer with its SDK default or a build-owned copy.
+        // Capture the user's input on the build clone before that happens. This state is
+        // owned by one BuildContext, never serialized back into the scene or import rows.
+        internal sealed class AutoImportBuildState
+        {
+            public AutoImportBuildState() { }
+            internal readonly Dictionary<VRCAvatarDescriptor, RuntimeAnimatorController> Sources = new();
+
+            internal void Capture(GameObject root)
+            {
+                Sources.Clear();
+                if (root == null) return;
+                foreach (var system in root.GetComponentsInChildren<PosingSystem>(true))
+                {
+                    var avatar = system.GetAvatar();
+                    if (avatar != null && !Sources.ContainsKey(avatar))
+                        Sources.Add(avatar, ReadAutoImportSource(avatar));
+                }
+            }
+        }
+
+        // Conversion is synchronous; finally/Dispose also restores this on build failure.
+        internal sealed class AutoImportBuildScope : IDisposable
+        {
+            private readonly AutoImportBuildState previous;
+            internal AutoImportBuildScope(AutoImportBuildState state)
+            {
+                previous = activeAutoImportBuild;
+                activeAutoImportBuild = state;
+            }
+            public void Dispose() => activeAutoImportBuild = previous;
+        }
+        [ThreadStatic] private static AutoImportBuildState activeAutoImportBuild;
+
         private static PosingSystem[] ImportSystems(PosingSystem ps)
         {
             var avatar = ps != null ? ps.GetAvatar() : null;
@@ -28,6 +62,13 @@ namespace jp.unisakistudio.posingsystemeditor
         internal static RuntimeAnimatorController GetAutoImportSource(PosingSystem ps)
         {
             var avatar = ps != null ? ps.GetAvatar() : null;
+            if (avatar != null && activeAutoImportBuild != null &&
+                activeAutoImportBuild.Sources.TryGetValue(avatar, out var source)) return source;
+            return ReadAutoImportSource(avatar);
+        }
+
+        private static RuntimeAnimatorController ReadAutoImportSource(VRCAvatarDescriptor avatar)
+        {
             if (avatar?.baseAnimationLayers == null) return null;
             // Layer arrays need not use the enum's numerical order.
             foreach (var layer in avatar.baseAnimationLayers)

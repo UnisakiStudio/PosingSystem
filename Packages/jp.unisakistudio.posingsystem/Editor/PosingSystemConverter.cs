@@ -225,8 +225,11 @@ namespace jp.unisakistudio.posingsystemeditor
             InPhase(BuildPhase.Resolving)
                 .BeforePlugin("nadena.dev.modular-avatar")
                 .Run("Compile posing controller source", ctx =>
+                {
+                    ctx.GetState<AutoImportBuildState>().Capture(ctx.AvatarRootObject);
                     PosingSystemControllerGeneration.PrepareBeforeModularAvatar(ctx.AvatarRootObject, ctx.AssetSaver,
-                        ctx.GetState<PosingSystemControllerGeneration.BuildState>()));
+                        ctx.GetState<PosingSystemControllerGeneration.BuildState>());
+                });
 
             // AnimatorControllerのレイヤーを編集
             InPhase(BuildPhase.Resolving)
@@ -240,6 +243,7 @@ namespace jp.unisakistudio.posingsystemeditor
                     }
 
                     // Capture before DuplicateEraser removes shared settings objects.
+                    using var imports = new AutoImportBuildScope(ctx.GetState<AutoImportBuildState>());
                     using var generation = PosingSystemControllerGeneration.BeginDefaultScope(ctx.AvatarRootObject,
                         ctx.GetState<PosingSystemControllerGeneration.BuildState>());
                     ctx.GetState<DefaultIdleSuppressionState>().enabled = ctx.AvatarRootObject
