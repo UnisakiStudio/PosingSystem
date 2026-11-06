@@ -27,6 +27,7 @@ namespace jp.unisakistudio.posingsystemeditor
 
         // Keys may be stable semantic IDs or the original Japanese display text.
         // Never use this method for object names, parameter names or serialized IDs.
+        public static string Format(string japanese, params object[] arguments) => string.Format(Text(japanese), arguments);
         public static string Text(string japanese) => Text(japanese, japanese);
         public static string Text(string key, string japanese) => Translate(Language, key, japanese);
         public static string Translate(string language, string key, string fallback)

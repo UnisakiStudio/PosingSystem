@@ -21,10 +21,16 @@ namespace jp.unisakistudio.posingsystemeditor
         private string search = "";
         private string error;
         private bool showBrowser;
+        private string displayLanguage;
 
         internal void Draw(PosingSystem posingSystem, Action<string> drawWarning)
         {
             if (list == null) list = new PresetTreeView(entry => selected = entry);
+            if (displayLanguage != PosingSystemLocalization.Language)
+            {
+                displayLanguage = PosingSystemLocalization.Language;
+                list.Reload();
+            }
 
             if (!loadFailed)
             {
@@ -82,12 +88,12 @@ namespace jp.unisakistudio.posingsystemeditor
             if (catalog != null && list.MatchCount == 0)
                 EditorGUILayout.HelpBox(PosingSystemLocalization.Text("該当するプリセットがありません。"), MessageType.Info);
             }
-            if (selected != null) EditorGUILayout.LabelField(selected.avatarName, PosingSystemInspectorGUI.Text(12, true));
+            if (selected != null) EditorGUILayout.LabelField(PosingSystemLocalization.Text(selected.avatarName), PosingSystemInspectorGUI.Text(12, true));
             if (!string.IsNullOrEmpty(error)) drawWarning(error);
 
             using (new EditorGUI.DisabledScope(selected == null))
             {
-                if (GUILayout.Button(selected == null ? "プリセットを選択してください" : "このプリセットに変更する"))
+                if (GUILayout.Button(PosingSystemLocalization.Text(selected == null ? "プリセットを選択してください" : "このプリセットに変更する")))
                 {
                     if (PosingSystemPresetDefinesCache.ApplyPreset(posingSystem, selected))
                     {
@@ -172,9 +178,9 @@ namespace jp.unisakistudio.posingsystemeditor
             protected override TreeViewItem BuildRoot()
             {
                 var root = new TreeViewItem(0, -1, "Presets");
-                var compatible = new TreeViewItem(AvatarGroup, 0, "アバターに適合");
-                var user = new TreeViewItem(UserGroup, 0, "ユーザー作成");
-                var official = new TreeViewItem(OfficialGroup, 0, "ゆにさきスタジオ公式");
+                var compatible = new TreeViewItem(AvatarGroup, 0, PosingSystemLocalization.Text("アバターに適合"));
+                var user = new TreeViewItem(UserGroup, 0, PosingSystemLocalization.Text("ユーザー作成"));
+                var official = new TreeViewItem(OfficialGroup, 0, PosingSystemLocalization.Text("ゆにさきスタジオ公式"));
                 root.AddChild(compatible);
                 root.AddChild(user);
                 if (!hideBundled) root.AddChild(official);
@@ -185,19 +191,20 @@ namespace jp.unisakistudio.posingsystemeditor
                     var entry = items[i];
                     if (hideBundled && entry.official) continue;
                     if (!string.IsNullOrEmpty(filter)
-                        && (entry.avatarName ?? "").IndexOf(filter, StringComparison.CurrentCultureIgnoreCase) < 0)
+                        && (entry.avatarName ?? "").IndexOf(filter, StringComparison.CurrentCultureIgnoreCase) < 0
+                        && (PosingSystemLocalization.Text(entry.avatarName) ?? "").IndexOf(filter, StringComparison.CurrentCultureIgnoreCase) < 0)
                         continue;
                     // IDs stay stable when the search filters other rows out.
                     var id = i * 2 + 4;
                     entryById.Add(id, entry);
-                    var label = string.IsNullOrWhiteSpace(entry.avatarName) ? "(名前なし)" : entry.avatarName;
+                    var label = PosingSystemLocalization.Text(string.IsNullOrWhiteSpace(entry.avatarName) ? "(名前なし)" : entry.avatarName);
                     (entry.official ? official : user).AddChild(new TreeViewItem(id, 1, label));
                     MatchCount++;
                     if (avatarMatches.Contains(entry))
                     {
                         entryById.Add(id + 1, entry);
                         compatible.AddChild(new TreeViewItem(id + 1, 1,
-                            label + (entry.official ? "（公式）" : "（ユーザー作成）")));
+                            label + PosingSystemLocalization.Text(entry.official ? "（公式）" : "（ユーザー作成）")));
                     }
                 }
                 compatible.displayName += " (" + (compatible.children?.Count ?? 0) + ")";

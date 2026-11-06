@@ -70,8 +70,8 @@ namespace jp.unisakistudio.posingsystemeditor
 
         private void DrawVersion(string name, PosingSystemPackageInfo.Info package)
         {
-            EditorGUILayout.LabelField(new GUIContent(name + "  /  バージョン " + (package.version ?? "不明"),
-                "パッケージID: " + package.name), bodyStyle, GUILayout.Height(18));
+            EditorGUILayout.LabelField(new GUIContent(PosingSystemLocalization.Text(name) + "  /  " + PosingSystemLocalization.Text("version", "バージョン") + " " + (package.version ?? PosingSystemLocalization.Text("unknown", "不明")),
+                PosingSystemLocalization.Text("package", "パッケージID") + ": " + package.name), bodyStyle, GUILayout.Height(18));
         }
 
         private void DrawChangelog(string changelog)

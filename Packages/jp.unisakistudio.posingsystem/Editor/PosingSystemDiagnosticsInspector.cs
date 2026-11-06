@@ -37,7 +37,7 @@ namespace jp.unisakistudio.posingsystemeditor
         private static void DrawWarningToggle(SerializedObject serialized, PosingSystem ps, PosingSystem.WarningType type, string label)
         {
             var before = ps.IsWarningIgnored(type);
-            var after = EditorGUILayout.ToggleLeft(label, before);
+            var after = EditorGUILayout.ToggleLeft(PosingSystemLocalization.Text(label), before);
             if (before == after) return;
             PosingSystemEditorChangeUtility.Commit(serialized);
             PosingSystemEditor.SetWarningIgnored(ps, type, after);
@@ -77,7 +77,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 var errors = visibleIssues.Count(i => i.Severity == MessageType.Error);
                 var warnings = visibleIssues.Count(i => i.Severity == MessageType.Warning);
                 if ((visibleWarnings & (PosingSystem.WarningType.PrebuildNotRun | PosingSystem.WarningType.PrebuildOutOfDate)) != 0) warnings++;
-                EditorGUILayout.LabelField(PosingSystemLocalization.Text("設定の確認"), errors > 0 ? errors + "件のエラー" : warnings > 0 ? warnings + "件の注意" : "検出できる設定エラーはありません");
+                EditorGUILayout.LabelField(PosingSystemLocalization.Text("設定の確認"), Summary(errors, warnings));
                 foreach (var issue in visibleIssues.Where(i => i.Severity == MessageType.Error)) DrawIssue(ps, issue);
                 if ((visibleWarnings & PosingSystem.WarningType.PrebuildNotRun) != 0)
                     DrawPrebuildWarning(ps, PosingSystem.WarningType.PrebuildNotRun, "まだプレビルドしていません。「プレビルドを更新」で姿勢データを生成できます。");
@@ -85,12 +85,12 @@ namespace jp.unisakistudio.posingsystemeditor
                     DrawPrebuildWarning(ps, PosingSystem.WarningType.PrebuildOutOfDate, "プレビルド後に設定が変更されています。「プレビルドを更新」で現在の設定を反映してください。");
                 if (visibleIssues.Any(i => i.Severity != MessageType.Error))
                 {
-                    showNotes = DrawBoxFoldout(showNotes, "注意・補足を確認（" + visibleIssues.Count(i => i.Severity != MessageType.Error) + "件）");
+                    showNotes = DrawBoxFoldout(showNotes, PosingSystemLocalization.Format("注意・補足を確認（{0}件）", visibleIssues.Count(i => i.Severity != MessageType.Error)));
                     if (showNotes) foreach (var issue in visibleIssues.Where(i => i.Severity != MessageType.Error)) DrawIssue(ps, issue);
                 }
                 if (failures.TryGetValue(ps.GetInstanceID(), out var failure))
                 {
-                    EditorGUILayout.HelpBox("前回の処理は完了していません。\n" + failure, MessageType.Error);
+                    EditorGUILayout.HelpBox(PosingSystemLocalization.Text("前回の処理は完了していません。") + "\n" + failure, MessageType.Error);
                     if (GUILayout.Button(PosingSystemLocalization.Text("前回の失敗内容をコピー"))) EditorGUIUtility.systemCopyBuffer = failure;
                     if (GUILayout.Button(PosingSystemLocalization.Text("前回の失敗表示を閉じる"))) SetFailure(ps, null);
                 }
@@ -100,16 +100,23 @@ namespace jp.unisakistudio.posingsystemeditor
             GUI.changed = changed;
         }
 
+        internal static string Summary(int errors, int warnings)
+        {
+            if (errors > 0) return errors == 1 ? PosingSystemLocalization.Text("1件のエラー") : PosingSystemLocalization.Format("{0}件のエラー", errors);
+            if (warnings > 0) return warnings == 1 ? PosingSystemLocalization.Text("1件の注意") : PosingSystemLocalization.Format("{0}件の注意", warnings);
+            return PosingSystemLocalization.Text("検出できる設定エラーはありません");
+        }
+
         private static bool DrawBoxFoldout(bool expanded, string label)
         {
             // Reserve space for the foldout arrow inside the surrounding help box.
             using (new EditorGUI.IndentLevelScope())
-                return EditorGUILayout.Foldout(expanded, label, true);
+                return EditorGUILayout.Foldout(expanded, PosingSystemLocalization.Text(label), true);
         }
 
         private static void DrawPrebuildWarning(PosingSystem ps, PosingSystem.WarningType type, string message)
         {
-            EditorGUILayout.HelpBox(message, MessageType.Warning);
+            EditorGUILayout.HelpBox(PosingSystemLocalization.Text(message), MessageType.Warning);
             if (PosingSystemInspectorGUI.Link(PosingSystemLocalization.Text("この警告を今後表示しない")))
             {
                 PosingSystemEditor.SetWarningIgnored(ps, type, true);
@@ -119,8 +126,8 @@ namespace jp.unisakistudio.posingsystemeditor
 
         private static void DrawIssue(PosingSystem ps, PosingSystemDiagnostics.Issue issue)
         {
-            EditorGUILayout.HelpBox(issue.Message, issue.Severity);
-            if (issue.Context != null && GUILayout.Button("対象を選択（" + issue.Code + "）"))
+            EditorGUILayout.HelpBox(PosingSystemLocalization.Text(issue.Message), issue.Severity);
+            if (issue.Context != null && GUILayout.Button(PosingSystemLocalization.Format("対象を選択（{0}）", issue.Code)))
             {
                 Selection.activeObject = issue.Context;
                 EditorGUIUtility.PingObject(issue.Context);

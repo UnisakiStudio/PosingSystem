@@ -144,13 +144,13 @@ namespace jp.unisakistudio.posingsystemeditor
                 new PosingSystemSettingsInspector.Setting("enableReverseKneeSafetyClamp", "膝が逆向きに曲がるのを防ぐ", "脚を伸ばしたときに、膝が逆向きに折れるのを抑えます。") },
                 setting => setting.Path == "enableReverseKneeSafetyClamp" ? (kneeOpen ? "▼ 設定を閉じる" : "▶ 設定を開く") : null,
                 setting => kneeOpen = !kneeOpen, null, ref breathingOpen, disabled: unavailable);
-            if (unavailable) EditorGUILayout.HelpBox(ps.UsesAutoPoseCatalog ? "姿勢別IK自動調整を使用中です。従来の身体の補正は使用しません。" : "このツールにはアバター固有補正用の基準データがありません。", MessageType.Info);
+            if (unavailable) EditorGUILayout.HelpBox(PosingSystemLocalization.Text(ps.UsesAutoPoseCatalog ? "姿勢別IK自動調整を使用中です。従来の身体の補正は使用しません。" : "このツールにはアバター固有補正用の基準データがありません。"), MessageType.Info);
             if (kneeOpen)
                 using (new EditorGUILayout.VerticalScope(EditorStyles.helpBox))
                 using (new EditorGUI.DisabledScope(unavailable || !ps.enableReverseKneeSafetyClamp))
                 {
                     EditorGUILayout.LabelField(PosingSystemLocalization.Text("膝の補正"), PosingSystemInspectorGUI.Text(12, true));
-                    EditorGUILayout.Slider(serializedObject.FindProperty("reverseKneeSafetyAngle"), 0, 5, "最低膝曲げ角度（°）");
+                    EditorGUILayout.Slider(serializedObject.FindProperty("reverseKneeSafetyAngle"), 0, 5, PosingSystemLocalization.Text("最低膝曲げ角度（°）"));
                     EditorGUILayout.LabelField(PosingSystemLocalization.Text("膝が伸びきる手前で止める角度です。"), PosingSystemInspectorGUI.Text(11));
                 }
             if (PosingSystemEditorChangeUtility.Apply(serializedObject))

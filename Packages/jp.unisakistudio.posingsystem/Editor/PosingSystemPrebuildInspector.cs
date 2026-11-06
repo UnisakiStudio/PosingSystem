@@ -33,7 +33,7 @@ namespace jp.unisakistudio.posingsystemeditor
                     GUILayout.Label(PosingSystemLocalization.Text("プレビルド"), label, GUILayout.Width(76), GUILayout.Height(24));
                     var status = state == BuildState.Ready ? "最新" : state == BuildState.Outdated ? "設定の更新あり" :
                         state == BuildState.NotBuilt ? "未実行" : "アバターの設定が必要";
-                    GUILayout.Label(status, statusLabel, GUILayout.Height(24));
+                    GUILayout.Label(PosingSystemLocalization.Text(status), statusLabel, GUILayout.Height(24));
                     using (new EditorGUI.DisabledScope(state == BuildState.AvatarRequired || EditorApplication.isCompiling || EditorApplication.isPlaying))
                     {
                         if (GUILayout.Button(PosingSystemLocalization.Text("プレビルドを更新"), GUILayout.Width(120), GUILayout.Height(24)))
@@ -44,7 +44,9 @@ namespace jp.unisakistudio.posingsystemeditor
                             GUIUtility.ExitGUI();
                         }
                     }
-                    if (PosingSystemInspectorGUI.Link(showDetails ? "閉じる" : "詳細", GUILayout.Width(34), GUILayout.Height(24))) showDetails = !showDetails;
+                    var detailsLabel = PosingSystemLocalization.Text(showDetails ? "閉じる" : "詳細");
+                    var detailsWidth = Mathf.Max(34, PosingSystemInspectorGUI.Text(11).CalcSize(new GUIContent(detailsLabel)).x + 4);
+                    if (PosingSystemInspectorGUI.Link(detailsLabel, GUILayout.Width(detailsWidth), GUILayout.Height(24))) showDetails = !showDetails;
                 }
                 if (state == BuildState.AvatarRequired)
                     EditorGUILayout.HelpBox(PosingSystemLocalization.Text("プレビルドを実行できません。Inspectorの「設定の確認」で、アバターの配置・Animator・Humanoidの設定を確認してください。"), MessageType.Info);
@@ -62,7 +64,7 @@ namespace jp.unisakistudio.posingsystemeditor
                             GUIUtility.ExitGUI();
                         }
                     }
-                    if (GUILayout.Button(showImages ? "画像ファイル・補足を閉じる" : "画像ファイル・補足", GUILayout.Height(20))) showImages = !showImages;
+                    if (GUILayout.Button(PosingSystemLocalization.Text(showImages ? "画像ファイル・補足を閉じる" : "画像ファイル・補足"), GUILayout.Height(20))) showImages = !showImages;
                 }
                 if (showImages)
                 {

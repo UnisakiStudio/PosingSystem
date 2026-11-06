@@ -185,9 +185,9 @@ namespace jp.unisakistudio.posingsystemeditor
         internal static string DescriptionFor(PosingSystem ps, Setting setting)
         {
             if (setting.Path == "features.breathingControl" && !PosingSystemFeatureUtility.UsesBreathing(ps))
-                return PosingSystemLocalization.Text(setting.Description) + "\n使用するには便利機能の「呼吸の動きをつける」をオンにしてください。";
+                return PosingSystemLocalization.Text(setting.Description) + "\n" + PosingSystemLocalization.Text("使用するには便利機能の「呼吸の動きをつける」をオンにしてください。");
             if ((setting.Path == "features.photographySynced" || setting.Path == "features.photographyKeepHeadVisible") && !ps.features.photography)
-                return PosingSystemLocalization.Text(setting.Description) + "\n使用するにはメニュー追加の「撮影モード」をオンにしてください。";
+                return PosingSystemLocalization.Text(setting.Description) + "\n" + PosingSystemLocalization.Text("使用するにはメニュー追加の「撮影モード」をオンにしてください。");
             return PosingSystemLocalization.Text(setting.Description);
         }
 
@@ -234,7 +234,7 @@ namespace jp.unisakistudio.posingsystemeditor
             var iconRect = new Rect(rect.x + 4, rect.y + 4, CardIconSize, CardIconSize);
             PosingSystemSettingIcons.Draw(iconRect, setting.Path, ps);
             GUI.Label(new Rect(rect.x + CardTextLeft, rect.y + 4, textWidth, titleHeight), PosingSystemLocalization.Text(setting.Title), titleStyle);
-            GUI.Label(new Rect(rect.x + CardTextLeft, bodyY, textWidth, rect.yMax - 27 - bodyY), disabledReason, descriptionStyle);
+            GUI.Label(new Rect(rect.x + CardTextLeft, bodyY, textWidth, rect.yMax - 27 - bodyY), PosingSystemLocalization.Text(disabledReason), descriptionStyle);
             return clicked;
         }
 
@@ -258,7 +258,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 }
             }
             if (EditorGUI.EndChangeCheck()) Apply(serialized, ps);
-            void Draw(string name, string label) => EditorGUILayout.PropertyField(f.FindPropertyRelative(name), new GUIContent(label));
+            void Draw(string name, string label) => EditorGUILayout.PropertyField(f.FindPropertyRelative(name), new GUIContent(PosingSystemLocalization.Text(label)));
         }
 
         private static void EnsureStyles()

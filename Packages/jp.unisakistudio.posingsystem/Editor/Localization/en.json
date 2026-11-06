@@ -1,6 +1,18 @@
 {
   "entries": [
     {
+      "key": "(名前なし)",
+      "value": "(Unnamed)"
+    },
+    {
+      "key": "1件のエラー",
+      "value": "1 error"
+    },
+    {
+      "key": "1件の注意",
+      "value": "1 warning"
+    },
+    {
       "key": "AnimatorのAvatar欄が未設定です。Inspectorの「設定の確認」の対処手順をご確認ください。",
       "value": "The Animator's Avatar field is empty. See Check settings in the Inspector."
     },
@@ -125,8 +137,32 @@
       "value": "Version"
     },
     {
+      "key": "{0}件のエラー",
+      "value": "{0} errors"
+    },
+    {
+      "key": "{0}件の注意",
+      "value": "{0} warnings"
+    },
+    {
       "key": "※ 寝返りと姿勢崩れ抑制のbit表示は、今の状態でチェックを変更したときの増減量です。首固定の1 bitは共用します。",
       "value": "Roll Over and distortion-reduction bit counts show the change from the current settings. They share the 1-bit head lock."
+    },
+    {
+      "key": "▶ 取り込み設定を開く",
+      "value": "▶ Open import settings"
+    },
+    {
+      "key": "▶ 設定を開く",
+      "value": "▶ Open settings"
+    },
+    {
+      "key": "▼ 取り込み設定を閉じる",
+      "value": "▼ Close import settings"
+    },
+    {
+      "key": "▼ 設定を閉じる",
+      "value": "▼ Close settings"
     },
     {
       "key": "「Use Auto-Footsteps for 3 and 4 point tracking」をオフにする",
@@ -229,6 +265,14 @@
       "value": "This computer is not licensed to use Kawaii Posing. Purchase the tool from BOOTH and install its license. If you have already purchased it, download the latest ZIP from BOOTH and import KawaiiPosing.unitypackage. This is required once per computer."
     },
     {
+      "key": "このツールにはアバター固有補正用の基準データがありません。",
+      "value": "This tool has no reference data for avatar correction."
+    },
+    {
+      "key": "このプリセットに変更する",
+      "value": "Apply this preset"
+    },
+    {
       "key": "このポーズにはIKによる自動調整が設定されていません。元の姿勢と手動調整を使用します。",
       "value": "This pose has no automatic IK adjustment. It uses the original pose and manual adjustments."
     },
@@ -269,6 +313,22 @@
       "value": "Defeated"
     },
     {
+      "key": "しなの",
+      "value": "Shinano"
+    },
+    {
+      "key": "しなの (着せ替え)",
+      "value": "Shinano (Outfit)"
+    },
+    {
+      "key": "しなの（着せ替え)",
+      "value": "Shinano (Outfit)"
+    },
+    {
+      "key": "しなの（着せ替え）",
+      "value": "Shinano (Outfit)"
+    },
+    {
       "key": "しゃがみ（Crouching）",
       "value": "Crouching"
     },
@@ -279,6 +339,10 @@
     {
       "key": "すべての姿勢から検索",
       "value": "Search all poses"
+    },
+    {
+      "key": "すべての警告・注意を非表示",
+      "value": "Hide all warnings and notices"
     },
     {
       "key": "たたみ",
@@ -325,16 +389,36 @@
       "value": "Submission"
     },
     {
+      "key": "ほかのギミックとの併用によって固定機能がうまく動かない場合はオンにしてください。",
+      "value": "Enable this if tracking locks do not work correctly alongside other tools."
+    },
+    {
+      "key": "ほかのプリセットを探す",
+      "value": "Browse other presets"
+    },
+    {
       "key": "または",
       "value": "or"
+    },
+    {
+      "key": "まだプレビルドしていません。「プレビルドを更新」で姿勢データを生成できます。",
+      "value": "No prebuild yet. Select Update prebuild to generate pose data."
     },
     {
       "key": "むきりょく",
       "value": "No Energy"
     },
     {
+      "key": "ゆにさきスタジオ公式",
+      "value": "Official Unisaki Studio presets"
+    },
+    {
       "key": "ゆにさきポーズシステム",
       "value": "Unisaki Posing System"
+    },
+    {
+      "key": "ゆにさきポーズシステム設定",
+      "value": "Unisaki Posing System Settings"
     },
     {
       "key": "よりかかり",
@@ -373,6 +457,10 @@
       "value": "Close animation adjustment window"
     },
     {
+      "key": "アバターごとの関節の向きやひねりの違いを自動で補正します。",
+      "value": "Automatically correct differences in joint direction and twist for each avatar."
+    },
+    {
       "key": "アバターとの組み合わせ",
       "value": "Avatar integration"
     },
@@ -381,8 +469,16 @@
       "value": "Disable IK for just this pose if it does not suit your avatar. Other poses and avatars are unaffected."
     },
     {
+      "key": "アバターに適合",
+      "value": "Compatible with avatar"
+    },
+    {
       "key": "アバターのルートにAnimatorがありません。Inspectorの「設定の確認」の対処手順をご確認ください。",
       "value": "The avatar root has no Animator. See Check settings in the Inspector."
+    },
+    {
+      "key": "アバターの元の立ち・しゃがみ・伏せ姿勢を使う",
+      "value": "Use original standing, crouching and prone poses"
     },
     {
       "key": "アバターの初期姿勢が変わったため、補正を自動更新します。",
@@ -397,12 +493,20 @@
       "value": "Reduce avatar size at the cost of some icon detail."
     },
     {
+      "key": "アバターの設定が必要",
+      "value": "Avatar setup required"
+    },
+    {
       "key": "アバターデータフォルダの自動検出",
       "value": "Detect avatar data folder"
     },
     {
       "key": "アバター名",
       "value": "Avatar name"
+    },
+    {
+      "key": "アバター固有補正を使う",
+      "value": "Enable avatar correction"
     },
     {
       "key": "アバター固有補正を使用",
@@ -435,6 +539,10 @@
     {
       "key": "カッコいいポーズツール",
       "value": "Cool Posing"
+    },
+    {
+      "key": "カッコいいポーズツール設定",
+      "value": "Cool Posing Settings"
     },
     {
       "key": "キック",
@@ -505,12 +613,28 @@
       "value": "Presets"
     },
     {
+      "key": "プリセットの保存・管理",
+      "value": "Save / manage presets"
+    },
+    {
+      "key": "プリセットの保存・管理を閉じる",
+      "value": "Close preset management"
+    },
+    {
       "key": "プリセットを作成",
       "value": "Create preset"
     },
     {
       "key": "プリセットを読み込めません",
       "value": "Could not load preset"
+    },
+    {
+      "key": "プリセットを選択してください",
+      "value": "Select a preset"
+    },
+    {
+      "key": "プリセット一覧を閉じる",
+      "value": "Close preset list"
     },
     {
       "key": "プリセット作成設定",
@@ -541,12 +665,28 @@
       "value": "Update prebuild"
     },
     {
+      "key": "プレビルド後に設定が変更されています。「プレビルドを更新」で現在の設定を反映してください。",
+      "value": "Settings have changed since the last prebuild. Select Update prebuild to apply the current settings."
+    },
+    {
+      "key": "プレビルド後の設定変更の警告を非表示",
+      "value": "Hide changed-settings warnings"
+    },
+    {
+      "key": "プレビルド未実行の警告を非表示",
+      "value": "Hide missing prebuild warnings"
+    },
+    {
       "key": "ベッド",
       "value": "Bed"
     },
     {
       "key": "ポーズアイコン生成",
       "value": "Generate pose icons"
+    },
+    {
+      "key": "ポーズ・アバター設定の注意を非表示",
+      "value": "Hide pose and avatar notices"
     },
     {
       "key": "ポーズ一覧",
@@ -579,6 +719,10 @@
     {
       "key": "モデル",
       "value": "Model"
+    },
+    {
+      "key": "ユーザー作成",
+      "value": "User presets"
     },
     {
       "key": "ライセンスの削除",
@@ -701,6 +845,14 @@
       "value": "Use"
     },
     {
+      "key": "使用するにはメニュー追加の「撮影モード」をオンにしてください。",
+      "value": "Enable Photo Mode under Menu features to use this feature."
+    },
+    {
+      "key": "使用するには便利機能の「呼吸の動きをつける」をオンにしてください。",
+      "value": "Enable Animate breathing under Convenience to use this feature."
+    },
+    {
       "key": "使用方法:\n1. 追加したい文字列を改行区切りでクリップボードにコピー\n2. 対応するボタンをクリック\n3. 重複する項目は自動的に除外されます",
       "value": "Instructions:\n1. Copy one item per line to the clipboard.\n2. Click the matching button.\n3. Duplicates are skipped."
     },
@@ -741,6 +893,10 @@
       "value": "Enabled for production. Products using this catalog bypass legacy per-pose adjustment animations and avatar corrections. Check that all poses are configured."
     },
     {
+      "key": "共通アニメーション（従来設定）",
+      "value": "Shared animation (legacy)"
+    },
+    {
       "key": "内股座り",
       "value": "Toes In"
     },
@@ -773,6 +929,10 @@
       "value": "Leaning Forward"
     },
     {
+      "key": "前回の処理は完了していません。",
+      "value": "The previous operation did not finish."
+    },
+    {
       "key": "前回の失敗内容をコピー",
       "value": "Copy previous failure details"
     },
@@ -793,12 +953,20 @@
       "value": "Kawaii Posing"
     },
     {
+      "key": "可愛いポーズツール設定",
+      "value": "Kawaii Posing Settings"
+    },
+    {
       "key": "右向き寝",
       "value": "Side Sleep R"
     },
     {
       "key": "右向き昼寝",
       "value": "Side Nap R"
+    },
+    {
+      "key": "各固定機能の他ギミックとの統合",
+      "value": "Integrate tracking locks with other tools"
     },
     {
       "key": "合蹠のポーズ",
@@ -909,6 +1077,10 @@
       "value": "Per-pose IK adjustment is enabled. Legacy avatar corrections and adjustment animations are bypassed."
     },
     {
+      "key": "姿勢別IK自動調整を使用中です。従来の身体の補正は使用しません。",
+      "value": "Per-pose IK adjustment is active. Legacy body correction is not used."
+    },
+    {
       "key": "姿勢設定を追加",
       "value": "Add pose settings"
     },
@@ -939,6 +1111,14 @@
     {
       "key": "寝返り時の横向き",
       "value": "Sideways roll-over pose"
+    },
+    {
+      "key": "対象を選択（{0}）",
+      "value": "Select affected object ({0})"
+    },
+    {
+      "key": "小さな傾きを無視する範囲",
+      "value": "Head tilt dead zone"
     },
     {
       "key": "左右反転",
@@ -1061,6 +1241,10 @@
       "value": "Keep your head visible in Photo Mode"
     },
     {
+      "key": "撮影機能に必要なため、自動で選ばれています。",
+      "value": "Selected automatically because Photo Mode requires it."
+    },
+    {
       "key": "斜め座り",
       "value": "Angled Sit"
     },
@@ -1085,6 +1269,10 @@
       "value": "Minimum knee bend (degrees)"
     },
     {
+      "key": "最新",
+      "value": "Up to date"
+    },
+    {
       "key": "服従",
       "value": "Obedience"
     },
@@ -1097,6 +1285,14 @@
       "value": "Unsaved manual adjustments"
     },
     {
+      "key": "未実行",
+      "value": "Not built"
+    },
+    {
+      "key": "検出できる設定エラーはありません",
+      "value": "No detectable configuration errors"
+    },
+    {
       "key": "検索",
       "value": "Search"
     },
@@ -1105,12 +1301,20 @@
       "value": "Paradise"
     },
     {
+      "key": "横を向くまでの頭の傾き",
+      "value": "Head tilt for a full turn"
+    },
+    {
       "key": "横向きのAnimationClipを指定してください。未指定の場合は、従来どおり通常欄の完成済み寝返りアニメーションを使います。",
       "value": "Assign a sideways AnimationClip. If empty, the completed roll-over animation in the regular field is used as before."
     },
     {
       "key": "機能",
       "value": "Features"
+    },
+    {
+      "key": "注意・補足を確認（{0}件）",
+      "value": "View notices ({0})"
     },
     {
       "key": "海岸",
@@ -1145,12 +1349,24 @@
       "value": "Work in progress. Legacy adjustment animations remain in use even when a product prefab references this catalog."
     },
     {
+      "key": "生成時にアバターのBaseからモーションを検出します。取り込み設定の一覧には追加しません。手動設定がある種類は手動指定を優先します。",
+      "value": "Detect motions from the avatar's Base layer during generation. They are not added to the import list. Manual selections take priority."
+    },
+    {
       "key": "画像でポーズを見分けやすくできます。アバターのビルド時間は少し長くなります。",
       "value": "Use thumbnails to identify poses. Avatar builds take a little longer."
     },
     {
       "key": "画像ファイル",
       "value": "Image file"
+    },
+    {
+      "key": "画像ファイル・補足",
+      "value": "Image file / notes"
+    },
+    {
+      "key": "画像ファイル・補足を閉じる",
+      "value": "Close image file / notes"
     },
     {
       "key": "異変無し",
@@ -1241,6 +1457,10 @@
       "value": "Elbow Rest"
     },
     {
+      "key": "脚を伸ばしたときに、膝が逆向きに折れるのを抑えます。",
+      "value": "Prevent the knees from bending backward when the legs straighten."
+    },
+    {
       "key": "脱力寝",
       "value": "Flopped Asleep"
     },
@@ -1267,6 +1487,10 @@
     {
       "key": "膝が伸びきる手前で止める角度です。",
       "value": "Stop the knee just before it fully straightens."
+    },
+    {
+      "key": "膝が逆向きに曲がるのを防ぐ",
+      "value": "Prevent reverse knee bending"
     },
     {
       "key": "膝の補正",
@@ -1299,6 +1523,10 @@
     {
       "key": "自動生成された補正",
       "value": "Generated correction"
+    },
+    {
+      "key": "自動足踏みに関する案内を非表示",
+      "value": "Hide Auto-Footsteps notices"
     },
     {
       "key": "芝生",
@@ -1341,6 +1569,10 @@
       "value": "Settings"
     },
     {
+      "key": "設定の更新あり",
+      "value": "Settings changed"
+    },
+    {
       "key": "設定の確認",
       "value": "Check settings"
     },
@@ -1363,6 +1595,10 @@
     {
       "key": "調整アニメーション",
       "value": "Adjustment animation"
+    },
+    {
+      "key": "警告の表示設定",
+      "value": "Warning display settings"
     },
     {
       "key": "警戒",
@@ -1511,6 +1747,14 @@
     {
       "key": "魔王降臨",
       "value": "Demon Lord"
+    },
+    {
+      "key": "（ユーザー作成）",
+      "value": " (User)"
+    },
+    {
+      "key": "（公式）",
+      "value": " (Official)"
     },
     {
       "key": "＋ 1件追加",
