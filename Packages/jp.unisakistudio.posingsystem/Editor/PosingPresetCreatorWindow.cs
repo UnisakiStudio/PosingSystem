@@ -341,7 +341,7 @@ namespace jp.unisakistudio.posingsystemeditor
         {
             if (string.IsNullOrEmpty(avatarName))
             {
-                EditorUtility.DisplayDialog(PosingSystemLocalization.Text("エラー"), "アバター名を入力してください。", "OK");
+                PosingSystemLocalization.Dialog(PosingSystemLocalization.Text("エラー"), "アバター名を入力してください。", "OK");
                 return;
             }
 
@@ -354,7 +354,7 @@ namespace jp.unisakistudio.posingsystemeditor
             targetFolderPath = AssetDatabase.GenerateUniqueAssetPath(targetFolderPath);
             if (string.IsNullOrEmpty(targetFolderPath))
             {
-                EditorUtility.DisplayDialog(PosingSystemLocalization.Text("エラー"), $"保存先フォルダのパスを生成できませんでした。フォルダ「{generatedFolderPath}」がプロジェクトに認識されているか確認してください。", "OK");
+                PosingSystemLocalization.Dialog(PosingSystemLocalization.Text("エラー"), $"保存先フォルダのパスを生成できませんでした。フォルダ「{generatedFolderPath}」がプロジェクトに認識されているか確認してください。", "OK");
                 return;
             }
             Directory.CreateDirectory(targetFolderPath);
@@ -417,12 +417,12 @@ namespace jp.unisakistudio.posingsystemeditor
                 Selection.activeObject = folderObj;
                 EditorGUIUtility.PingObject(folderObj);
 
-                EditorUtility.DisplayDialog(PosingSystemLocalization.Text("完了"), "プリセットを作成しました。プリセット選択の「再読込」で一覧に反映できます。", "OK");
+                PosingSystemLocalization.Dialog(PosingSystemLocalization.Text("完了"), "プリセットを作成しました。プリセット選択の「再読込」で一覧に反映できます。", "OK");
                 Close();
             }
             catch (System.Exception e)
             {
-                EditorUtility.DisplayDialog(PosingSystemLocalization.Text("エラー"), "プリセット作成中にエラーが発生しました。\n" + e.Message, "OK");
+                PosingSystemLocalization.Dialog(PosingSystemLocalization.Text("エラー"), "プリセット作成中にエラーが発生しました。\n" + e.Message, "OK");
                 Debug.LogException(e);
             }
         }

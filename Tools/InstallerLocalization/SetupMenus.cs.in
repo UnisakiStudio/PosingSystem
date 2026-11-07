@@ -1,0 +1,113 @@
+namespace UnisakiStudio.Setup
+{
+    // Unity 2022.3 exposes dynamic registration internally. Keep reflection contained,
+    // retain static attribute menus as a fallback, and never execute an action on registration.
+    [InitializeOnLoad]
+    internal static class LocalizedMenus
+    {
+        private const string SessionKey = "jp.unisakistudio.posingsystem.localized-menu-paths";
+        private static readonly BindingFlags Flags = BindingFlags.Static | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.DeclaredOnly;
+        private static readonly MethodInfo Add = typeof(Menu).GetMethods(Flags).FirstOrDefault(m => m.Name == "AddMenuItem" && m.GetParameters().Length == 6);
+        private static readonly MethodInfo Remove = typeof(Menu).GetMethods(Flags).FirstOrDefault(m => m.Name == "RemoveMenuItem" && m.GetParameters().Length == 1);
+        private static readonly MethodInfo Exists = typeof(Menu).GetMethods(Flags).FirstOrDefault(m => m.Name == "MenuItemExists" && m.GetParameters().Length == 1);
+        private static readonly string Owner = typeof(Language).Assembly.FullName.Split(',')[0];
+        private static string language;
+        private static double nextCheck;
+        static LocalizedMenus()
+        {
+            EditorApplication.delayCall += Rebuild;
+            EditorApplication.update += Update;
+            AssemblyReloadEvents.beforeAssemblyReload += Cleanup;
+            EditorApplication.quitting += Cleanup;
+        }
+        private static bool IsOwner()
+        {
+            var core = AppDomain.CurrentDomain.GetAssemblies().FirstOrDefault(a => a.FullName.Split(',')[0] == "jp.unisakistudio.posingsystemeditor");
+            return core != null ? core == typeof(Language).Assembly : Owner == "Assembly-CSharp-Editor";
+        }
+        private static void Cleanup()
+        {
+            if (SessionState.GetString(SessionKey + ".owner", "") != Owner) return;
+            if (Remove == null || Exists == null) return;
+            foreach (var path in SessionState.GetString(SessionKey, "").Split(new[] { '\n' }, StringSplitOptions.RemoveEmptyEntries))
+                if ((bool)Exists.Invoke(null, new object[] { path })) Remove.Invoke(null, new object[] { path });
+            SessionState.SetString(SessionKey, "");
+        }
+        private static void Update()
+        {
+            if (EditorApplication.timeSinceStartup < nextCheck) return;
+            nextCheck = EditorApplication.timeSinceStartup + .5;
+            if (!IsOwner()) return;
+            if (language != Language.Current || SessionState.GetString(SessionKey + ".owner", "") != Owner) Rebuild();
+        }
+        internal static string PathFor(string source, string locale)
+        {
+            var parts = source.Split('/');
+            for (var i = 1; i < parts.Length; i++)
+            {
+                parts[i] = locale == "ja" ? parts[i] : Language.Translate(locale, parts[i]);
+            }
+            return string.Join("/", parts);
+        }
+        private sealed class Entry
+        {
+            internal MethodInfo Execute, Validate;
+            internal int Priority = 1000;
+        }
+        internal static void Rebuild()
+        {
+            if (!IsOwner()) return;
+            language = Language.Current;
+            if (Add == null || Remove == null || Exists == null) return;
+            var entries = new Dictionary<string, Entry>();
+            foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
+            {
+                var name = assembly.FullName.Split(',')[0];
+                if (!name.StartsWith("jp.unisakistudio.", StringComparison.Ordinal) && name != "Assembly-CSharp-Editor") continue;
+                Type[] types;
+                try { types = assembly.GetTypes(); }
+                catch (ReflectionTypeLoadException exception) { types = exception.Types.Where(t => t != null).ToArray(); }
+                foreach (var type in types)
+                    foreach (var method in type.GetMethods(Flags))
+                        foreach (var attribute in method.GetCustomAttributesData())
+                        {
+                            if (attribute.AttributeType != typeof(MenuItem) || attribute.ConstructorArguments.Count == 0) continue;
+                            var path = attribute.ConstructorArguments[0].Value as string;
+                            if (path == null || !path.Contains("/ゆにさきスタジオ/")) continue;
+                            if (!entries.TryGetValue(path, out var entry)) entries[path] = entry = new Entry();
+                            var validate = attribute.ConstructorArguments.Count > 1 && (bool)attribute.ConstructorArguments[1].Value;
+                            if (validate) entry.Validate = method;
+                            else
+                            {
+                                entry.Execute = method;
+                                if (attribute.ConstructorArguments.Count > 2) entry.Priority = (int)attribute.ConstructorArguments[2].Value;
+                            }
+                        }
+            }
+            var oldPaths = SessionState.GetString(SessionKey, "").Split(new[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
+            foreach (var path in oldPaths.Concat(entries.Where(e => e.Value.Execute != null).Select(e => e.Key)).Distinct())
+                if ((bool)Exists.Invoke(null, new object[] { path })) Remove.Invoke(null, new object[] { path });
+            var installed = new List<string>();
+            foreach (var pair in entries.Where(e => e.Value.Execute != null))
+            {
+                var entry = pair.Value;
+                var path = PathFor(pair.Key, language);
+                Action execute = () => Invoke(entry.Execute);
+                Func<bool> validate = entry.Validate == null ? (Func<bool>)(() => true) : () => (bool)Invoke(entry.Validate);
+                Add.Invoke(null, new object[] { path, "", false, entry.Priority, execute, validate });
+                installed.Add(path);
+            }
+            SessionState.SetString(SessionKey, string.Join("\n", installed));
+            SessionState.SetString(SessionKey + ".owner", Owner);
+        }
+        private static object Invoke(MethodInfo method)
+        {
+            try { return method.Invoke(null, method.GetParameters().Length == 0 ? null : new object[] { new MenuCommand(Selection.activeObject) }); }
+            catch (TargetInvocationException exception)
+            {
+                System.Runtime.ExceptionServices.ExceptionDispatchInfo.Capture(exception.InnerException ?? exception).Throw();
+                throw;
+            }
+        }
+    }
+}

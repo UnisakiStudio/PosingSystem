@@ -49,6 +49,7 @@ namespace jp.unisakistudio.posingsystemeditor
             if(legacy.name!="USSPS_Locomotion" || backup.classifierDefaults.Length!=Classifiers.Length)
                 throw new InvalidOperationException("Unknown one-frame controller layout");
             var clones=wrapper.stateMachines.Skip(1).SelectMany(m=>m.stateMachine.states).Select(s=>s.state).ToHashSet();
+            clones.UnionWith(wrapper.states.Select(child => child.state));
             foreach(var state in States(legacy))
                 state.behaviours=state.behaviours.Where(b=>b==null || b.name!=MarkerName).ToArray();
             layers[index].stateMachine=legacy;controller.layers=layers;
@@ -151,6 +152,28 @@ namespace jp.unisakistudio.posingsystemeditor
             foreach(var state in States(legacy))state.behaviours=state.behaviours.Append(ordinary.Contains(state)?legacyOrdinaryMarker:legacySpecialMarker).ToArray();
             var wrapper=Own(new AnimatorStateMachine {name="USSPS_Locomotion",stateMachines=new[]{new ChildAnimatorStateMachine {stateMachine=legacy}},
                 entryTransitions=new[]{Own(new AnimatorTransition {name=Prefix+JsonUtility.ToJson(backup),destinationStateMachine=legacy})}});
+            // The VRChat avatar picker samples the root default before normal tracking transitions run.
+            var selectionState = legacy.states.FirstOrDefault(child => child.state.name == "AvatarSelecting").state;
+            if (selectionState != null)
+            {
+                var preview = Own(new AnimatorState());
+                EditorUtility.CopySerialized(selectionState, preview);
+                preview.behaviours = selectionState.behaviours.Where(b => b != legacySpecialMarker && b != legacyOrdinaryMarker).ToArray();
+                preview.transitions = new[] { Own(new AnimatorStateTransition {
+                    destinationStateMachine = legacy, hasExitTime = false, duration = 0,
+                    conditions = new[] { Ne("TrackingType", 0) }
+                }) };
+                wrapper.states = new[] { new ChildAnimatorState { state = preview } };
+                wrapper.defaultState = preview;
+                wrapper.entryTransitions = new[] { Own(new AnimatorTransition {
+                    destinationState = preview, conditions = new[] { Eq("TrackingType", 0) }
+                }) }.Concat(wrapper.entryTransitions).ToArray();
+                foreach (var synced in layers.Where(l => l.syncedLayerIndex == index))
+                {
+                    synced.SetOverrideMotion(preview, synced.GetOverrideMotion(selectionState));
+                    synced.SetOverrideBehaviours(preview, synced.GetOverrideBehaviours(selectionState));
+                }
+            }
             // Legacy exits originally restart the layer's Entry. Retain that behavior when nested.
             wrapper.SetStateMachineTransitions(legacy,new[]{Own(new AnimatorTransition {destinationStateMachine=legacy})});
             var any=new List<AnimatorStateTransition>();

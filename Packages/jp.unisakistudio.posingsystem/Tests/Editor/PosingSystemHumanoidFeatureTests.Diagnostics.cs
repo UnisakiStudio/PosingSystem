@@ -44,20 +44,53 @@ namespace jp.unisakistudio.posingsystemeditor.tests
             Assert.That(issues.Any(i => i.Code == "PS005"), Is.False);
         }
 
-        [Test]
-        public void Diagnostics_MissingMergeComponent_StopsBeforeMenuOrDataMutation()
+        [TestCase(false, "PS011")]
+        [TestCase(true, "PS010")]
+        public void Diagnostics_MissingCommonAnimator_WarnsAndRebuildsOnce(bool removeChild, string code)
         {
             var ps = DefaultIdleSettings(false, false);
             var merge = PosingSystemConverter.GetCommonMergeAnimator(ps);
-            Object.DestroyImmediate(merge);
-            ps.data = "previous successful build";
-            var before = EditorJsonUtility.ToJson(ps);
-            var count = ps.GetComponentsInChildren<Transform>(true).Length;
-            var error = Assert.Throws<PosingSystemDiagnostics.DiagnosticException>(() => PosingSystemConverter.ConvertToModularAvatarComponents(ps));
-            Assert.That(error.Message, Does.Contain("PS011"));
-            Assert.That(error.Message, Does.Contain("対処:"));
-            Assert.That(EditorJsonUtility.ToJson(ps), Is.EqualTo(before));
-            Assert.That(ps.GetComponentsInChildren<Transform>(true).Length, Is.EqualTo(count));
+            Object.DestroyImmediate(removeChild ? (Object)merge.gameObject : merge);
+            var before = ps.GetComponentsInChildren<Transform>(true).Length;
+            var issues = PosingSystemDiagnostics.Collect(ps);
+            Assert.That(issues.Single(i => i.Code == code).Severity, Is.EqualTo(MessageType.Warning));
+            Assert.That(ps.GetComponentsInChildren<Transform>(true).Length, Is.EqualTo(before));
+            UnityEngine.TestTools.LogAssert.Expect(LogType.Warning, new System.Text.RegularExpressions.Regex(code));
+            var repaired = PosingSystemConverter.GetCommonMergeAnimator(ps, true);
+            Assert.That(repaired.animator, Is.InstanceOf<UnityEditor.Animations.AnimatorController>());
+            Assert.That(PosingSystemConverter.GetCommonMergeAnimator(ps, true), Is.SameAs(repaired));
+            Assert.That(PosingSystemDiagnostics.Collect(ps).Any(i => i.Code == code), Is.False);
+        }
+
+        [Test]
+        public void Diagnostics_MissingRoleMarker_RecoversExistingMergeWithoutDuplicatingIt()
+        {
+            var ps = DefaultIdleSettings(false, false);
+            var existing = PosingSystemConverter.GetCommonMergeAnimator(ps);
+            var source = existing.animator;
+            Object.DestroyImmediate(existing.GetComponent<DuplicateEraser>());
+            var before = ps.GetComponentsInChildren<ModularAvatarMergeAnimator>(true).Length;
+            Assert.That(PosingSystemDiagnostics.Collect(ps).Single(i => i.Code == "PS010").Severity, Is.EqualTo(MessageType.Warning));
+            Assert.That(PosingSystemConverter.GetCommonMergeAnimator(ps, true), Is.SameAs(existing));
+            Assert.That(existing.animator, Is.SameAs(source));
+            Assert.That(ps.GetComponentsInChildren<ModularAvatarMergeAnimator>(true).Length, Is.EqualTo(before));
+        }
+
+        [Test]
+        public void Diagnostics_MissingBreathingMerge_RestoresAdditiveController()
+        {
+            var ps = DefaultIdleSettings(false, true);
+            var original = PosingSystemConverter.GetAdditiveBreathingMergeAnimator(ps, true);
+            var child = original.gameObject;
+            Object.DestroyImmediate(original);
+            UnityEngine.TestTools.LogAssert.Expect(LogType.Warning, new System.Text.RegularExpressions.Regex("PS052"));
+            UnityEngine.TestTools.LogAssert.Expect(LogType.Warning, new System.Text.RegularExpressions.Regex("PS053"));
+            var repaired = PosingSystemConverter.GetAdditiveBreathingMergeAnimator(ps, true);
+            Assert.That(repaired.gameObject, Is.SameAs(child));
+            Assert.That(repaired.layerType, Is.EqualTo(VRC.SDK3.Avatars.Components.VRCAvatarDescriptor.AnimLayerType.Additive));
+            Assert.That(AssetDatabase.AssetPathToGUID(AssetDatabase.GetAssetPath(repaired.animator)),
+                Is.EqualTo(PosingSystemConverter.DefaultAdditiveBreathingControllerGuid));
+            Assert.That(child.GetComponents<ModularAvatarMergeAnimator>().Length, Is.EqualTo(1));
         }
 
         [Test]

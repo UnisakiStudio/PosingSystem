@@ -46,6 +46,7 @@ namespace jp.unisakistudio.posingsystemeditor
             new Setting("features.photography", "撮影モード", "メニューに撮影モードを追加します。前へ最大3m移動したり回転したりして、自分から見える位置を調整できます。")),
 
             new SettingGroup("便利機能",
+            new Setting("disableSleepJumpSwitch", "ジャンプで寝姿勢を切り替える", "仰向けとうつ伏せの両方を選んでいるとき、その場でジャンプすると切り替わります。", inverted: true),
             new Setting("features.faceForward", "首の向きの違いによる姿勢崩れを抑制", "首固定を解除したとき、元のポーズと首の向きが異なることで起きる姿勢崩れを抑えます。", 1, sharedHead: true),
             new Setting("features.photographySynced", "撮影モードを同期する", "撮影モードで動かした位置と向きを他の人にも表示できます。自分の画面だけで撮影する場合は0 bitで使えます。", 16),
             new Setting("features.photographyKeepHeadVisible", "撮影モード中は頭を非表示にしない", "自分の頭が近くにあっても撮影できます。自分の画面だけに反映され、撮影終了後は通常の表示に戻ります。"),

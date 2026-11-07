@@ -74,7 +74,7 @@ namespace jp.unisakistudio.posingsystemeditor
                             EditorGUILayout.ObjectField(PosingSystemLocalization.Text("画像ファイル"), ps.thumbnailPackObject, typeof(PosingSystemThumbnailPack), false);
                         using (new EditorGUI.DisabledScope(ps.thumbnailPackObject == null))
                         {
-                            if (GUILayout.Button(PosingSystemLocalization.Text("削除"), GUILayout.Width(44)) && EditorUtility.DisplayDialog(PosingSystemLocalization.Text("アイコン画像ファイルを削除"),
+                            if (GUILayout.Button(PosingSystemLocalization.Text("削除"), GUILayout.Width(44)) && PosingSystemLocalization.Dialog(PosingSystemLocalization.Text("アイコン画像ファイルを削除"),
                                 "生成済みの画像ファイルを削除します。削除後は「アイコンを撮り直す」で再生成できます。", "削除する", "キャンセル"))
                             {
                                 Undo.RecordObject(ps, "Delete thumbnail pack");

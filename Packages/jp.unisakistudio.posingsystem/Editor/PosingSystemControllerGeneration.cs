@@ -26,6 +26,7 @@ namespace jp.unisakistudio.posingsystemeditor
         {
             public BuildState() { }
             internal readonly HashSet<ModularAvatarMergeAnimator> CompiledMerges = new();
+            internal readonly HashSet<PosingSystem> MissingPrebuilds = new();
         }
 
         internal static Scope BeginDefaultScope(GameObject avatar, BuildState state = null)
@@ -85,11 +86,18 @@ namespace jp.unisakistudio.posingsystemeditor
                 if (!PosingSystemControllerEquivalence.Matches(reference, source, out var reason))
                 { scope.Decisions.Add("Preserved differing in-memory controller: " + reason); return null; }
             }
-            if (EditorUtility.IsDirty(reference)) throw new InvalidOperationException("The reference controller has unsaved edits; source generation cannot replace them.");
+            if (EditorUtility.IsDirty(reference)) throw new InvalidOperationException("共通Controllerに未保存の変更があります。変更を保存してからやり直してください。\n" + referencePath);
             using var sha = SHA256.Create();
             var hash = BitConverter.ToString(sha.ComputeHash(File.ReadAllBytes(referencePath))).Replace("-", "").ToLowerInvariant();
             if (hash != PosingSystemControllerCompiler.ReferenceSha256)
-                throw new InvalidOperationException("The reference controller differs from the versioned source definition. Regenerate and verify the definition first.");
+            {
+                // Unity can import the same graph from differently serialized YAML (e.g. CRLF).
+                using var definition = PosingSystemControllerCompiler.Create(false);
+                if (!PosingSystemControllerEquivalence.Matches(reference, definition.Controller, out var difference))
+                    throw new InvalidOperationException("共通Controllerの内容が、このバージョンの生成定義と一致しません。"
+                        + "独自の変更は別のControllerに保存し、ALCOM / VCCで同じバージョンの「ゆにさきポーズシステム」を入れ直してください。\n"
+                        + referencePath + "\n差異: " + difference);
+            }
             var result = PosingSystemControllerCompiler.Create(scope.Optimize);
             scope.Created++;
             return result;
@@ -98,11 +106,24 @@ namespace jp.unisakistudio.posingsystemeditor
         internal static void PrepareBeforeModularAvatar(GameObject avatar, nadena.dev.ndmf.IAssetSaver saver, BuildState state = null)
         {
             state?.CompiledMerges.Clear();
+            state?.MissingPrebuilds.Clear();
             using var defaults = state == null ? null : BeginDefaultScope(avatar);
             if (avatar == null || !Scopes.ContainsKey(avatar)) return;
-            var merges = avatar.GetComponentsInChildren<PosingSystem>(true)
-                .Where(p => p.GetAvatar()?.gameObject == avatar && !p.GetComponentsInParent<Transform>(true).Any(t => t.CompareTag("EditorOnly")))
-                .Select(p => PosingSystemConverter.GetCommonMergeAnimator(p, true)).Where(m => m != null).Distinct().ToArray();
+            var merges = new HashSet<ModularAvatarMergeAnimator>();
+            foreach (var system in avatar.GetComponentsInChildren<PosingSystem>(true)
+                         .Where(p => p.GetAvatar()?.gameObject == avatar && !p.GetComponentsInParent<Transform>(true).Any(t => t.CompareTag("EditorOnly"))))
+            {
+                var marker = PosingSystemDiagnostics.CommonAnimatorMarkers(system).FirstOrDefault(PosingSystemDiagnostics.ActiveCommonMarker);
+                var previousSource = marker != null && marker.TryGetComponent<ModularAvatarMergeAnimator>(out var sourceMerge)
+                    ? sourceMerge.animator : null;
+                var merge = PosingSystemConverter.GetCommonMergeAnimator(system, true);
+                if (merge == null) continue;
+                // A recovered template has no generated poses, even when the saved settings signature matches.
+                if (state != null && !string.IsNullOrEmpty(system.data) && merge.animator != null &&
+                    (!previousSource || AssetDatabase.AssetPathToGUID(AssetDatabase.GetAssetPath(merge.animator)) == TemplateGuid))
+                    state.MissingPrebuilds.Add(system);
+                merges.Add(merge);
+            }
             foreach (var group in merges.GroupBy(m => m.animator))
             {
                 if (!(group.Key is AnimatorController source)) continue;

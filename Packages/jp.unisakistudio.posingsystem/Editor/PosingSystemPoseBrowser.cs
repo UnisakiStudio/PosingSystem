@@ -147,7 +147,7 @@ namespace jp.unisakistudio.posingsystemeditor
                             var current = imports ? (PosingSystem.BaseAnimationDefine)ps.overrideDefines[index] : ps.defines[layer].animations[index];
                             var poseKey = imports ? current.animationClip.name : PosingSystemAutoPoseCatalog.BuildPoseKey(ps.defines[layer].menuName, ps.defines[layer].animations[index].displayName);
                             if (!PosingSystemQuickPreview.Start(ps, current, poseKey, out var message))
-                                EditorUtility.DisplayDialog(PosingSystemLocalization.Text("姿勢のプレビュー"), message, "閉じる");
+                                PosingSystemLocalization.Dialog(PosingSystemLocalization.Text("姿勢のプレビュー"), message, "閉じる");
                         }
                         GUIUtility.ExitGUI();
                     }

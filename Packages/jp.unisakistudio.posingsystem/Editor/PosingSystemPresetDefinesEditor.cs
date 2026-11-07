@@ -39,7 +39,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 EditorGUILayout.BeginHorizontal();
                 if (GUILayout.Button(PosingSystemLocalization.Text("PrefabsHashesを\nクリア"), GUILayout.Height(30)))
                 {
-                    if (EditorUtility.DisplayDialog(PosingSystemLocalization.Text("確認"), "PrefabsHashesをすべてクリアしますか？", "はい", "いいえ"))
+                    if (PosingSystemLocalization.Dialog(PosingSystemLocalization.Text("確認"), "PrefabsHashesをすべてクリアしますか？", "はい", "いいえ"))
                     {
                         Undo.RecordObject(target, "Clear PrefabsHashes");
                         presetDefine.prefabsHashes.Clear();
@@ -50,7 +50,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 
                 if (GUILayout.Button(PosingSystemLocalization.Text("PrefabsNamesを\nクリア"), GUILayout.Height(30)))
                 {
-                    if (EditorUtility.DisplayDialog(PosingSystemLocalization.Text("確認"), "PrefabsNamesをすべてクリアしますか？", "はい", "いいえ"))
+                    if (PosingSystemLocalization.Dialog(PosingSystemLocalization.Text("確認"), "PrefabsNamesをすべてクリアしますか？", "はい", "いいえ"))
                     {
                         Undo.RecordObject(target, "Clear PrefabsNames");
                         presetDefine.prefabsNames.Clear();
@@ -74,7 +74,7 @@ namespace jp.unisakistudio.posingsystemeditor
             
             if (string.IsNullOrEmpty(clipboardText))
             {
-                EditorUtility.DisplayDialog(PosingSystemLocalization.Text("エラー"), "クリップボードが空です。", "OK");
+                PosingSystemLocalization.Dialog(PosingSystemLocalization.Text("エラー"), "クリップボードが空です。", "OK");
                 return;
             }
             
@@ -86,7 +86,7 @@ namespace jp.unisakistudio.posingsystemeditor
             
             if (lines.Count == 0)
             {
-                EditorUtility.DisplayDialog(PosingSystemLocalization.Text("エラー"), "有効な文字列が見つかりませんでした。", "OK");
+                PosingSystemLocalization.Dialog(PosingSystemLocalization.Text("エラー"), "有効な文字列が見つかりませんでした。", "OK");
                 return;
             }
             
@@ -108,11 +108,11 @@ namespace jp.unisakistudio.posingsystemeditor
             
             if (addedCount > 0)
             {
-                EditorUtility.DisplayDialog(PosingSystemLocalization.Text("完了"), $"{listName}に{addedCount}個の項目を追加しました。\n（重複する項目は除外されました）", "OK");
+                PosingSystemLocalization.Dialog(PosingSystemLocalization.Text("完了"), $"{listName}に{addedCount}個の項目を追加しました。\n（重複する項目は除外されました）", "OK");
             }
             else
             {
-                EditorUtility.DisplayDialog(PosingSystemLocalization.Text("情報"), "すべての項目が既に存在するため、追加されませんでした。", "OK");
+                PosingSystemLocalization.Dialog(PosingSystemLocalization.Text("情報"), "すべての項目が既に存在するため、追加されませんでした。", "OK");
             }
         }
     }

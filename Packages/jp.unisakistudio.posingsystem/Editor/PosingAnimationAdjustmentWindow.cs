@@ -1049,7 +1049,7 @@ namespace jp.unisakistudio.posingsystemeditor
         {
             if (entry.Animation.adjustmentClip == null)
             {
-                EditorUtility.DisplayDialog(PosingAnimationAdjustmentWindowText.ErrorTitle, PosingAnimationAdjustmentWindowText.CombineMissingAdjustment, PosingAnimationAdjustmentWindowText.Ok);
+                PosingSystemLocalization.Dialog(PosingAnimationAdjustmentWindowText.ErrorTitle, PosingAnimationAdjustmentWindowText.CombineMissingAdjustment, PosingAnimationAdjustmentWindowText.Ok);
                 return;
             }
 
@@ -1153,14 +1153,14 @@ namespace jp.unisakistudio.posingsystemeditor
             ApplyPreviewPose();
             Repaint();
 
-            EditorUtility.DisplayDialog(PosingAnimationAdjustmentWindowText.CompleteTitle, string.Format(PosingAnimationAdjustmentWindowText.CombineSavedFormat, newPath), PosingAnimationAdjustmentWindowText.Ok);
+            PosingSystemLocalization.Dialog(PosingAnimationAdjustmentWindowText.CompleteTitle, string.Format(PosingAnimationAdjustmentWindowText.CombineSavedFormat, newPath), PosingAnimationAdjustmentWindowText.Ok);
         }
 
         private void DuplicateAdjustmentClip(AnimationEntry entry)
         {
             if (entry.Animation.adjustmentClip == null)
             {
-                EditorUtility.DisplayDialog(PosingAnimationAdjustmentWindowText.ErrorTitle, PosingAnimationAdjustmentWindowText.DuplicateMissingAdjustment, PosingAnimationAdjustmentWindowText.Ok);
+                PosingSystemLocalization.Dialog(PosingAnimationAdjustmentWindowText.ErrorTitle, PosingAnimationAdjustmentWindowText.DuplicateMissingAdjustment, PosingAnimationAdjustmentWindowText.Ok);
                 return;
             }
 
@@ -1226,12 +1226,12 @@ namespace jp.unisakistudio.posingsystemeditor
             // 元データを更新（変更検知をリセット）
             UpdateOriginalDataAfterClipChange();
 
-            EditorUtility.DisplayDialog(PosingAnimationAdjustmentWindowText.CompleteTitle, string.Format(PosingAnimationAdjustmentWindowText.DuplicateSavedFormat, newPath), PosingAnimationAdjustmentWindowText.Ok);
+            PosingSystemLocalization.Dialog(PosingAnimationAdjustmentWindowText.CompleteTitle, string.Format(PosingAnimationAdjustmentWindowText.DuplicateSavedFormat, newPath), PosingAnimationAdjustmentWindowText.Ok);
         }
 
         private void DuplicateAndSaveAllAdjustmentClips()
         {
-            if (!EditorUtility.DisplayDialog(PosingAnimationAdjustmentWindowText.ConfirmTitle, PosingAnimationAdjustmentWindowText.DuplicateAllConfirm, PosingAnimationAdjustmentWindowText.Yes, PosingAnimationAdjustmentWindowText.No))
+            if (!PosingSystemLocalization.Dialog(PosingAnimationAdjustmentWindowText.ConfirmTitle, PosingAnimationAdjustmentWindowText.DuplicateAllConfirm, PosingAnimationAdjustmentWindowText.Yes, PosingAnimationAdjustmentWindowText.No))
             {
                 return;
             }
@@ -1288,11 +1288,11 @@ namespace jp.unisakistudio.posingsystemeditor
                 PreloadAllAdjustmentData();
                 LoadAdjustmentValues();
 
-                EditorUtility.DisplayDialog(PosingAnimationAdjustmentWindowText.CompleteTitle, string.Format(PosingAnimationAdjustmentWindowText.DuplicateAllCompleteFormat, processedCount), PosingAnimationAdjustmentWindowText.Ok);
+                PosingSystemLocalization.Dialog(PosingAnimationAdjustmentWindowText.CompleteTitle, string.Format(PosingAnimationAdjustmentWindowText.DuplicateAllCompleteFormat, processedCount), PosingAnimationAdjustmentWindowText.Ok);
             }
             else
             {
-                EditorUtility.DisplayDialog(PosingAnimationAdjustmentWindowText.InfoTitle, PosingAnimationAdjustmentWindowText.NoChangesToDuplicate, PosingAnimationAdjustmentWindowText.Ok);
+                PosingSystemLocalization.Dialog(PosingAnimationAdjustmentWindowText.InfoTitle, PosingAnimationAdjustmentWindowText.NoChangesToDuplicate, PosingAnimationAdjustmentWindowText.Ok);
             }
         }
 
@@ -2093,7 +2093,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 }
             }
 
-            EditorUtility.DisplayDialog(PosingAnimationAdjustmentWindowText.CompleteTitle, PosingAnimationAdjustmentWindowText.SaveAllComplete, PosingAnimationAdjustmentWindowText.Ok);
+            PosingSystemLocalization.Dialog(PosingAnimationAdjustmentWindowText.CompleteTitle, PosingAnimationAdjustmentWindowText.SaveAllComplete, PosingAnimationAdjustmentWindowText.Ok);
             PosingSystemConverter.TakeScreenshot(_posingSystem, false, true);
             CleanupPreview();
             ApplyPreviewPose();
@@ -2102,7 +2102,7 @@ namespace jp.unisakistudio.posingsystemeditor
 
         private void ResetAllAnimationsAdjustments()
         {
-            if (EditorUtility.DisplayDialog(PosingAnimationAdjustmentWindowText.ConfirmTitle, PosingAnimationAdjustmentWindowText.ResetAllConfirm, PosingAnimationAdjustmentWindowText.Yes, PosingAnimationAdjustmentWindowText.No))
+            if (PosingSystemLocalization.Dialog(PosingAnimationAdjustmentWindowText.ConfirmTitle, PosingAnimationAdjustmentWindowText.ResetAllConfirm, PosingAnimationAdjustmentWindowText.Yes, PosingAnimationAdjustmentWindowText.No))
             {
                 ResetAllAdjustmentValues();
                 CleanupPreview();
@@ -2113,7 +2113,7 @@ namespace jp.unisakistudio.posingsystemeditor
 
         private void ReloadAllAnimationsAdjustments()
         {
-            if (EditorUtility.DisplayDialog(PosingAnimationAdjustmentWindowText.ConfirmTitle, PosingAnimationAdjustmentWindowText.ReloadAllConfirm, PosingAnimationAdjustmentWindowText.Yes, PosingAnimationAdjustmentWindowText.No))
+            if (PosingSystemLocalization.Dialog(PosingAnimationAdjustmentWindowText.ConfirmTitle, PosingAnimationAdjustmentWindowText.ReloadAllConfirm, PosingAnimationAdjustmentWindowText.Yes, PosingAnimationAdjustmentWindowText.No))
             {
                 // 全ての姿勢の調整値を再読み込み
                 Undo.RecordObjects(_adjustmentStates.Values.ToArray(), "Reload all pose adjustments");
@@ -2406,7 +2406,7 @@ namespace jp.unisakistudio.posingsystemeditor
             }
             if (_previewAvatar == null)
             {
-                EditorUtility.DisplayDialog(PosingAnimationAdjustmentWindowText.InfoTitle, PosingAnimationAdjustmentWindowText.AvatarAnimatorNotFound, PosingAnimationAdjustmentWindowText.Ok);
+                PosingSystemLocalization.Dialog(PosingAnimationAdjustmentWindowText.InfoTitle, PosingAnimationAdjustmentWindowText.AvatarAnimatorNotFound, PosingAnimationAdjustmentWindowText.Ok);
                 CleanupPreview();
                 return;
             }

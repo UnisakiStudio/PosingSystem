@@ -97,6 +97,10 @@
       "value": "Disable VRChat idle sway"
     },
     {
+      "key": "VRC想定移動モーション(無料配布)追加",
+      "value": "Add VRChat locomotion motions (Free)"
+    },
+    {
       "key": "ViewPosition（目の位置）",
       "value": "ViewPosition (eye position)"
     },
@@ -171,6 +175,10 @@
     {
       "key": "「ポーズ一覧」で対応するポーズの詳細を開き、「寝返りを使う」をオンにしてください。",
       "value": "Open a supported pose in Poses and enable Enable roll over."
+    },
+    {
+      "key": "あおむけ時自動頭固定",
+      "value": "Auto-Lock Head When Supine"
     },
     {
       "key": "あぐら",
@@ -309,6 +317,10 @@
       "value": "Do not show this warning again"
     },
     {
+      "key": "ごろ寝システムEX追加",
+      "value": "Add Gorone System EX"
+    },
+    {
       "key": "ざせつ",
       "value": "Defeated"
     },
@@ -409,12 +421,20 @@
       "value": "No Energy"
     },
     {
+      "key": "ゆにさきスタジオ",
+      "value": "Unisaki Studio"
+    },
+    {
       "key": "ゆにさきスタジオ公式",
       "value": "Official Unisaki Studio presets"
     },
     {
       "key": "ゆにさきポーズシステム",
       "value": "Unisaki Posing System"
+    },
+    {
+      "key": "ゆにさきポーズシステムライセンス削除",
+      "value": "Remove Posing System license"
     },
     {
       "key": "ゆにさきポーズシステム設定",
@@ -537,12 +557,32 @@
       "value": "Custom animation"
     },
     {
+      "key": "カッコいいポーズ",
+      "value": "Cool Posing"
+    },
+    {
       "key": "カッコいいポーズツール",
       "value": "Cool Posing"
     },
     {
+      "key": "カッコいいポーズツールライセンスインストール",
+      "value": "Install Cool Posing license"
+    },
+    {
+      "key": "カッコいいポーズツールライセンス削除",
+      "value": "Remove Cool Posing license"
+    },
+    {
+      "key": "カッコいいポーズツールライセンス状態確認",
+      "value": "Cool Posing license status"
+    },
+    {
       "key": "カッコいいポーズツール設定",
       "value": "Cool Posing Settings"
+    },
+    {
+      "key": "カッコいいポーズツール追加",
+      "value": "Add Cool Posing"
     },
     {
       "key": "キック",
@@ -773,8 +813,20 @@
       "value": "The list updates when items are added or changed. Select Reload if the display is stale."
     },
     {
+      "key": "三点だいしゅき(女)ツール追加",
+      "value": "Add Virtual Love (Female)"
+    },
+    {
+      "key": "三点だいしゅき(男)ツール追加",
+      "value": "Add Virtual Love (Male)"
+    },
+    {
       "key": "不機嫌",
       "value": "Grumpy"
+    },
+    {
+      "key": "中腰の高さ閾値",
+      "value": "Crouching Height Threshold"
     },
     {
       "key": "中腰姿勢",
@@ -787,6 +839,10 @@
     {
       "key": "五体投地",
       "value": "Prostration"
+    },
+    {
+      "key": "他商品連携用Prefabs",
+      "value": "Product integrations"
     },
     {
       "key": "以前の設定から、使う1つを選べます。",
@@ -949,12 +1005,44 @@
       "value": "Choose animations to import"
     },
     {
+      "key": "可愛いポーズ",
+      "value": "Kawaii Posing"
+    },
+    {
       "key": "可愛いポーズツール",
       "value": "Kawaii Posing"
     },
     {
+      "key": "可愛いポーズツールライセンスインストール",
+      "value": "Install Kawaii Posing license"
+    },
+    {
+      "key": "可愛いポーズツールライセンス削除",
+      "value": "Remove Kawaii Posing license"
+    },
+    {
+      "key": "可愛いポーズツールライセンス状態確認",
+      "value": "Kawaii Posing license status"
+    },
+    {
       "key": "可愛いポーズツール設定",
       "value": "Kawaii Posing Settings"
+    },
+    {
+      "key": "可愛いポーズツール追加",
+      "value": "Add Kawaii Posing"
+    },
+    {
+      "key": "可愛い座り",
+      "value": "Kawaii Sitting"
+    },
+    {
+      "key": "可愛い座り(女)ツール追加",
+      "value": "Add Kawaii Sitting (Female)"
+    },
+    {
+      "key": "可愛い座り(男)ツール追加",
+      "value": "Add Kawaii Sitting (Male)"
     },
     {
       "key": "右向き寝",
@@ -1093,6 +1181,14 @@
       "value": "Done"
     },
     {
+      "key": "実験",
+      "value": "Experimental"
+    },
+    {
+      "key": "寝の高さ閾値",
+      "value": "Lying Height Threshold"
+    },
+    {
       "key": "寝姿勢",
       "value": "Lying"
     },
@@ -1121,6 +1217,10 @@
       "value": "Head tilt dead zone"
     },
     {
+      "key": "少女モーション集追加",
+      "value": "Add Girl Motion Collection"
+    },
+    {
       "key": "左右反転",
       "value": "Mirror"
     },
@@ -1143,6 +1243,10 @@
     {
       "key": "床の高さ",
       "value": "Floor Height"
+    },
+    {
+      "key": "座りの高さ閾値",
+      "value": "Sitting Height Threshold"
     },
     {
       "key": "座り姿勢",
@@ -1321,6 +1425,10 @@
       "value": "Seaside"
     },
     {
+      "key": "添い寝ツール追加",
+      "value": "Add Sleep-together tool"
+    },
+    {
       "key": "照れ",
       "value": "Shy"
     },
@@ -1467,6 +1575,10 @@
     {
       "key": "腕や脚の長さに合わせて、手足が自然な置き場所へ届くよう調整します。",
       "value": "Adjust limbs to reach natural positions for this avatar's proportions."
+    },
+    {
+      "key": "腕固定",
+      "value": "Lock Arms"
     },
     {
       "key": "腕枕寝",
@@ -1685,6 +1797,14 @@
       "value": "PosingSystem prefabs to apply"
     },
     {
+      "key": "選択アバターの1評価版比較コピーを作成",
+      "value": "Create evaluation comparison copy"
+    },
+    {
+      "key": "選択アバターの最適化比較コピーを作成",
+      "value": "Create optimization comparison copy"
+    },
+    {
       "key": "選択時",
       "value": "On selection"
     },
@@ -1709,6 +1829,10 @@
       "value": "Open ›"
     },
     {
+      "key": "閾値設定",
+      "value": "Height Thresholds"
+    },
+    {
       "key": "面接",
       "value": "Interview"
     },
@@ -1723,6 +1847,10 @@
     {
       "key": "頭の向きに合わせて寝返りできます。一部の寝姿勢のみ対応しています。",
       "value": "Roll over by tilting your head. Supported by certain lying poses."
+    },
+    {
+      "key": "頭の高さ無視",
+      "value": "Ignore Head Height"
     },
     {
       "key": "頭も含めた身体全体の高さを変えられます。VRChatの「床の高さ」で、50%を元の高さとして上下3mまで調整できます。",

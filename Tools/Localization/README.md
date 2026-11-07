@@ -18,9 +18,9 @@ Use numbered variants consistently. Keep left/right markers consistent within ea
 
 ## Runtime behavior in the Editor
 
-The initial Inspector choice and later language dropdown use a user-specific EditorPrefs key independent of Unity's UI language. Missing or empty translations fall back to the source text. JSON catalogs are cached and invalidated on import changes. Display-only language changes preserve GUI.changed.
+The Inspector language dropdown uses a user-specific EditorPrefs key independent of Unity's UI language. Without an explicit choice, the OS language is used; unsupported languages use English. Missing translations use the standalone setup catalog's English fallback where available, then the original display text. JSON catalogs are cached and invalidated on import changes. Display-only language changes preserve GUI.changed.
 
-The per-tool `menuLanguage` setting is serialized on PosingSystem and defaults to Japanese for existing avatars. It is independent of the Editor preference. A Generating pass translates only the NDMF build clone before Modular Avatar processes menus, after synchronizing optional features. GameObject names, pose definitions, parameters and animations stay unchanged. Referenced expression menus are copied with shared-reference and cycle handling; owned menu-installer targets follow their copies. External target menus are not translated. Language changes do not invalidate animation prebuild snapshots.
+The per-tool `menuLanguage` setting is serialized on PosingSystem. The Inspector and generated game menu share this value. Empty values use the remembered preference or OS language; existing explicit avatar choices are respected. A Generating pass translates only the NDMF build clone before Modular Avatar processes menus, after synchronizing optional features. GameObject names, pose definitions, parameters and animations stay unchanged. Referenced expression menus are copied with shared-reference and cycle handling; owned menu-installer targets follow their copies. External target menus are not translated. Language changes do not invalidate animation prebuild snapshots.
 
 The original name remains editable in pose details; translated names appear in the list and work in search. Custom names without a catalog entry are displayed as entered.
 
@@ -37,4 +37,9 @@ No version bump, package publication or public deployment is part of this checkp
 
 ## Updated language UX (2026-11-07)
 
-The two language selectors have been unified at the user's request. The header is the only selector. It stores `menuLanguage` on the selected PosingSystem with Undo/Prefab support, and remembers the last choice for tools without an explicit selection. An Inspector language scope uses that same saved value for all display text; the NDMF menu pass resolves the same value. Empty values fall back to the last preference (Japanese if none). The old Features-tab selector is removed. Popup changes compare selected indices directly instead of relying on the surrounding GUI.changed state. Earlier descriptions of independent Inspector and menu languages are superseded by this section.
+The two language selectors have been unified at the user's request. The header is the only selector. It stores `menuLanguage` on the selected PosingSystem with Undo/Prefab support, and remembers the last choice for tools without an explicit selection. An Inspector language scope uses that same saved value for all display text; the NDMF menu pass resolves the same value. Empty values fall back to the last preference, then the OS language, then English. The old Features-tab selector is removed. Popup changes compare selected indices directly instead of relying on the surrounding GUI.changed state. Earlier descriptions of independent Inspector and menu languages are superseded by this section.
+
+
+## Setup programs (2026-11-08)
+
+`../InstallerLocalization/README.md` documents the shared EditorPrefs behavior, standalone license/setup translation, native editor menus, upstream MIT source build, and review-only installer packages. The same code works before the main product package is present. License storage compatibility is preserved.

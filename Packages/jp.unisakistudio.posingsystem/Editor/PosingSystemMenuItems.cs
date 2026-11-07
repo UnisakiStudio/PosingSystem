@@ -40,11 +40,28 @@ namespace jp.unisakistudio.posingsystemeditor
             return hash;
         }
 
+        internal static GameObject FindInstallPrefab(string name, out string[] paths)
+        {
+            paths = AssetDatabase.FindAssets("t:Prefab " + name)
+                .Select(AssetDatabase.GUIDToAssetPath)
+                .Where(path => string.Equals(Path.GetFileNameWithoutExtension(path), name, StringComparison.Ordinal))
+                .OrderBy(path => path, StringComparer.Ordinal)
+                .ToArray();
+            // 同名のバックアップや改変コピーより、商品パッケージの本体を優先する。
+            var packaged = paths.Where(path => path.StartsWith("Packages/jp.unisakistudio.", StringComparison.Ordinal)).ToArray();
+            foreach (var path in packaged.Length > 0 ? packaged : paths)
+            {
+                var prefab = AssetDatabase.LoadAssetAtPath<GameObject>(path);
+                if (prefab != null && prefab.GetComponent<PosingSystem>() != null) return prefab;
+            }
+            return null;
+        }
+
         static public void AddPrefab(string name)
         {
             if (Selection.activeGameObject == null)
             {
-                EditorUtility.DisplayDialog(PosingSystemLocalization.Text("追加先を選択してください [PS040]"), "HierarchyでVRC Avatar Descriptorの付いたアバター、またはその子オブジェクトを選択してから追加してください。", "閉じる");
+                UnisakiStudio.Setup.Language.Dialog(PosingSystemLocalization.Text("追加先を選択してください [PS040]"), "HierarchyでVRC Avatar Descriptorの付いたアバター、またはその子オブジェクトを選択してから追加してください。", "閉じる");
                 return;
             }
             if (Selection.activeGameObject)
@@ -52,27 +69,22 @@ namespace jp.unisakistudio.posingsystemeditor
                 var avatar = Selection.activeGameObject.GetComponentInParent<VRCAvatarDescriptor>(true);
                 if (avatar == null || EditorUtility.IsPersistent(avatar) || UnityEditor.SceneManagement.PrefabStageUtility.GetPrefabStage(avatar.gameObject) != null)
                 {
-                    EditorUtility.DisplayDialog(PosingSystemLocalization.Text("追加先を確認してください [PS040]"), "シーンのHierarchyに配置したVRC Avatar Descriptor付きアバターを選択してください。Project内のPrefabやPrefab編集画面には追加できません。", "閉じる");
+                    UnisakiStudio.Setup.Language.Dialog(PosingSystemLocalization.Text("追加先を確認してください [PS040]"), "シーンのHierarchyに配置したVRC Avatar Descriptor付きアバターを選択してください。Project内のPrefabやPrefab編集画面には追加できません。", "閉じる");
                     return;
                 }
 
                 // 導入するPosingSystemのPrefabsを探す
-                var guids = AssetDatabase.FindAssets("t:prefab " + name)
-                    .Select(AssetDatabase.GUIDToAssetPath)
-                    .Where(path => string.Equals(Path.GetFileNameWithoutExtension(path), name, System.StringComparison.CurrentCulture));
-                if (guids.Count() == 0)
+                var prefabs = FindInstallPrefab(name, out var paths);
+                if (paths.Length == 0)
                 {
-                    if (EditorUtility.DisplayDialog(PosingSystemLocalization.Text("ツール本体が見つかりません [PS041]"), "探しているPrefab: " + name + "\nBOOTH同梱のライセンス用unitypackageだけでは、ツール本体の導入は完了しません。ALCOM / VCCでこのプロジェクトに商品本体と「ゆにさきポーズシステム」が追加されているか確認してください。\n導入済みの場合: " + PosingSystemDiagnostics.RestoreTool, "公式ヘルプを開く", "閉じる"))
+                    if (UnisakiStudio.Setup.Language.Dialog(PosingSystemLocalization.Text("ツール本体が見つかりません [PS041]"), "探しているPrefab: " + name + "\nBOOTH同梱のライセンス用unitypackageだけでは、ツール本体の導入は完了しません。ALCOM / VCCでこのプロジェクトに商品本体と「ゆにさきポーズシステム」が追加されているか確認してください。\n導入済みの場合: " + UnisakiStudio.Setup.Language.T(PosingSystemDiagnostics.RestoreTool), "公式ヘルプを開く", "閉じる"))
                         Application.OpenURL(PosingSystemPackageInfo.SupportUrl);
                     return;
                 }
 
-                // 導入するPosingSystemのPrefabsを読み込む
-                var prefabs = AssetDatabase.LoadAssetAtPath<GameObject>(guids.First());
-
-                if (prefabs == null || prefabs.GetComponent<PosingSystem>() == null)
+                if (prefabs == null)
                 {
-                    if (EditorUtility.DisplayDialog(PosingSystemLocalization.Text("Prefabを読み込めません [PS042]"), "対象: " + name + "\nPrefabが破損しているか、Posing Systemコンポーネントがありません。ConsoleのMissing Script・コンパイルエラーを確認してください。\n" + PosingSystemDiagnostics.RestoreTool, "公式ヘルプを開く", "閉じる"))
+                    if (UnisakiStudio.Setup.Language.Dialog(PosingSystemLocalization.Text("Prefabを読み込めません [PS042]"), "対象: " + string.Join("\n", paths) + "\nPrefabが破損しているか、Posing Systemコンポーネントがありません。ConsoleのMissing Script・コンパイルエラーを確認してください。\n" + UnisakiStudio.Setup.Language.T(PosingSystemDiagnostics.RestoreTool), "公式ヘルプを開く", "閉じる"))
                         Application.OpenURL(PosingSystemPackageInfo.SupportUrl);
                     return;
                 }
@@ -80,7 +92,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 var instance = PrefabUtility.InstantiatePrefab(prefabs, avatar.transform) as GameObject;
                 if (instance == null)
                 {
-                    if (EditorUtility.DisplayDialog(PosingSystemLocalization.Text("Prefabを配置できません [PS043]"), "対象: " + name + "\nConsoleでMissing Prefabなどのインポートエラーを確認してください。配置先のシーンを開き直して再実行してください。", "公式ヘルプを開く", "閉じる"))
+                    if (UnisakiStudio.Setup.Language.Dialog(PosingSystemLocalization.Text("Prefabを配置できません [PS043]"), "対象: " + name + "\nConsoleでMissing Prefabなどのインポートエラーを確認してください。配置先のシーンを開き直して再実行してください。", "公式ヘルプを開く", "閉じる"))
                         Application.OpenURL(PosingSystemPackageInfo.SupportUrl);
                     return;
                 }
@@ -95,7 +107,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 if (presetCatalog == null)
                 {
                     var message = "ツールを追加しました。プリセット一覧を読み込めませんでした。「アバター調整」の「再読込」で再試行できます。";
-                    SceneView.lastActiveSceneView?.ShowNotification(new GUIContent(message));
+                    SceneView.lastActiveSceneView?.ShowNotification(new GUIContent(UnisakiStudio.Setup.Language.T(message)));
                     Debug.Log("[PosingSystem] " + message, installedPosingSystem);
                     return;
                 }
@@ -106,27 +118,31 @@ namespace jp.unisakistudio.posingsystemeditor
                 var presetDefine = PosingSystemPresetDefinesCache.GetAvatarMatchingEntries(presetDefines, avatar.gameObject)
                     .FirstOrDefault();
 
+                Undo.RecordObject(installedPosingSystem, "Set tool language");
+                installedPosingSystem.menuLanguage = UnisakiStudio.Setup.Language.Current;
                 // PresetDefineを適用する
                 if (presetDefine != null)
                 {
-                    if (EditorUtility.DisplayDialog(PosingSystemLocalization.Text("情報"), "このアバターのために作成された「" + presetDefine.avatarName + "」向けのプリセットが見つかりました。\nこのプリセットを適用するとアバターごとの体型の違いに対応した調整データが自動で設定されます。\n\nプリセットを適用しますか？", "適用する", "スキップ"))
+                    if (UnisakiStudio.Setup.Language.Dialog(PosingSystemLocalization.Text("情報"), () => UnisakiStudio.Setup.Language.Format("A preset for {0} was found. Apply it to adjust the poses to this avatar?", PosingSystemLocalization.Text(presetDefine.avatarName)), "適用する", "スキップ"))
                     {
                         Debug.Log("[PosingSystem]" + presetDefine.avatarName + "を適用します");
                         if (!PosingSystemPresetDefinesCache.ApplyPreset(installedPosingSystem, presetDefine))
                         {
-                            EditorUtility.DisplayDialog(PosingSystemLocalization.Text("プリセットを読み込めません"),
+                            UnisakiStudio.Setup.Language.Dialog(PosingSystemLocalization.Text("プリセットを読み込めません"),
                                 "プリセットが削除されたか、このツールに適用できません。Inspectorの「再読込」で一覧を更新してください。", "閉じる");
                         }
                     }
                 }
 
                 // さっそくプレビルドをするかどうかユーザーに尋ねる
-                if (EditorUtility.DisplayDialog(PosingSystemLocalization.Text("プレビルド"), "プレビルドをしますか？\nプレビルドを行うとアバターのビルドとアップロードが速くなります。", "はい", "いいえ"))
+                if (UnisakiStudio.Setup.Language.Dialog(PosingSystemLocalization.Text("プレビルド"), "プレビルドをしますか？\nプレビルドを行うとアバターのビルドとアップロードが速くなります。", "はい", "いいえ"))
                 {
                     // プレビルドをする
                     if (PosingSystemEditor.TryPrebuildAndRenew(installedPosingSystem))
-                        EditorUtility.DisplayDialog(PosingSystemLocalization.Text("プレビルド"), "プレビルドが完了しました", "OK");
+                        UnisakiStudio.Setup.Language.Dialog(PosingSystemLocalization.Text("プレビルド"), "プレビルドが完了しました", "OK");
                 }
+                installedPosingSystem.menuLanguage = UnisakiStudio.Setup.Language.Current;
+                PosingSystemEditorChangeUtility.MarkChanged(installedPosingSystem);
             }
        }
         
@@ -199,7 +215,7 @@ namespace jp.unisakistudio.posingsystemeditor
         {
             if (!IsLicensed())
             {
-                EditorUtility.DisplayDialog(
+                PosingSystemLocalization.Dialog(
                     PosingSystemLocalization.Text("ライセンスの削除"),
                     "ゆにさきポーズシステムのライセンスはインストールされていません。",
                     "OK"
@@ -207,7 +223,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 return;
             }
             
-            bool shouldUninstall = EditorUtility.DisplayDialog(
+            bool shouldUninstall = PosingSystemLocalization.Dialog(
                 PosingSystemLocalization.Text("ライセンス削除"),
                 "ゆにさきポーズシステムのライセンスを削除しますか？\n\n" +
                 "削除すると、ツールの機能が制限されます。\n" +
@@ -301,7 +317,7 @@ namespace jp.unisakistudio.posingsystemeditor
             }
 #endif
             
-            EditorUtility.DisplayDialog(
+            PosingSystemLocalization.Dialog(
                 PosingSystemLocalization.Text("ライセンス削除"),
                 resultMessage,
                 "OK"

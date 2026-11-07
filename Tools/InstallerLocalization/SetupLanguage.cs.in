@@ -1,0 +1,219 @@
+// Shared, standalone setup UI. Generated catalogs are embedded at build time.
+// This file does not inspect, register or remove any product license.
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Reflection;
+using System.Text.RegularExpressions;
+using UnityEditor;
+using UnityEngine;
+
+namespace UnisakiStudio.Setup
+{
+    internal static class Language
+    {
+        internal const string PreferenceKey = "jp.unisakistudio.posingsystem.language";
+        internal static readonly string[] Codes = __CODES__;
+        internal static readonly string[] Names = __NAMES__;
+        private static readonly Dictionary<string, string> Aliases = __ALIASES__;
+        private static readonly Dictionary<string, Dictionary<string, string>> Catalogs = __CATALOGS__;
+__FACTORIES__
+        private sealed class Template
+        {
+            internal Regex Pattern;
+            internal string Canonical;
+            internal int[] Indices;
+        }
+        private static readonly List<Template> Templates = BuildTemplates();
+        private static List<Template> BuildTemplates()
+        {
+            var result = new List<Template>();
+            foreach (var pair in Aliases)
+            {
+                var matches = Regex.Matches(pair.Key, @"\{(\d+)\}");
+                if (matches.Count == 0) continue;
+                var indices = new List<int>();
+                var pattern = "^"; var position = 0;
+                foreach (Match match in matches)
+                {
+                    var index = int.Parse(match.Groups[1].Value, CultureInfo.InvariantCulture);
+                    indices.Add(index);
+                    pattern += Regex.Escape(pair.Key.Substring(position, match.Index - position)) + "(?<p" + index + ">.+?)";
+                    position = match.Index + match.Length;
+                }
+                pattern += Regex.Escape(pair.Key.Substring(position)) + "$";
+                result.Add(new Template { Pattern = new Regex(pattern, RegexOptions.Singleline | RegexOptions.CultureInvariant), Canonical = pair.Value, Indices = indices.ToArray() });
+            }
+            return result;
+        }
+        private static bool TryFormatted(string language, string text, out string translated)
+        {
+            foreach (var template in Templates)
+            {
+                var match = template.Pattern.Match(text);
+                if (!match.Success) continue;
+                var maximum = 0;
+                foreach (var index in template.Indices) maximum = Math.Max(maximum, index);
+                var arguments = new object[maximum + 1];
+                foreach (var index in template.Indices) arguments[index] = match.Groups["p" + index].Value;
+                var target = Catalogs.TryGetValue(language, out var catalog) && catalog.TryGetValue(template.Canonical, out var value) ? value : template.Canonical;
+                try { translated = string.Format(CultureInfo.InvariantCulture, target, arguments); return true; }
+                catch (FormatException) { }
+            }
+            translated = null; return false;
+        }
+        internal static string Current => Resolve(EditorPrefs.GetString(PreferenceKey, ""),
+            CultureInfo.CurrentUICulture.Name, Application.systemLanguage.ToString());
+        internal static bool IsSupported(string code) => Array.IndexOf(Codes, code) >= 0;
+        internal static string Resolve(string saved, string culture, string systemLanguage)
+            => IsSupported(saved) ? saved : Detect(culture, systemLanguage);
+        internal static string Detect(string culture, string systemLanguage)
+        {
+            culture = (culture ?? "").Replace('_', '-').ToLowerInvariant();
+            string regional = culture == "zh-tw" || culture == "zh-hk" || culture == "zh-mo" || culture.StartsWith("zh-hant")
+                ? "zh-Hant" : culture.StartsWith("zh") ? "zh-Hans" : culture.StartsWith("pt-br") ? "pt-BR"
+                : culture.StartsWith("nb") || culture.StartsWith("nn") || culture.StartsWith("no") ? "nb"
+                : culture.Split('-')[0];
+            string code;
+            switch (systemLanguage)
+            {
+                case "Japanese": code = "ja"; break;
+                case "ChineseSimplified": code = "zh-Hans"; break;
+                case "ChineseTraditional": code = "zh-Hant"; break;
+                case "Chinese": code = regional.StartsWith("zh-") ? regional : "zh-Hans"; break;
+                case "Portuguese": code = regional == "pt-BR" ? "pt-BR" : "pt"; break;
+                case "Norwegian": code = "nb"; break;
+                case "English": code = "en"; break;
+                case "French": code = "fr"; break;
+                case "Italian": code = "it"; break;
+                case "Korean": code = "ko"; break;
+                case "Thai": code = "th"; break;
+                case "German": code = "de"; break;
+                case "Spanish": code = "es"; break;
+                case "Russian": code = "ru"; break;
+                case "Ukrainian": code = "uk"; break;
+                case "Polish": code = "pl"; break;
+                case "Dutch": code = "nl"; break;
+                case "Swedish": code = "sv"; break;
+                case "Danish": code = "da"; break;
+                case "Finnish": code = "fi"; break;
+                case "Czech": code = "cs"; break;
+                case "Turkish": code = "tr"; break;
+                case "Indonesian": code = "id"; break;
+                case "Vietnamese": code = "vi"; break;
+                case "Hindi": code = "hi"; break;
+                case "Arabic": code = "ar"; break;
+                case "Hebrew": code = "he"; break;
+                default: code = regional; break;
+            }
+            return IsSupported(code) ? code : "en";
+        }
+        internal static void Select(string code)
+        {
+            if (!IsSupported(code)) throw new ArgumentException("Unsupported language", nameof(code));
+            EditorPrefs.SetString(PreferenceKey, code);
+            UnityEditorInternal.InternalEditorUtility.RepaintAllViews();
+        }
+        internal static string Translate(string language, string source)
+        {
+            if (string.IsNullOrEmpty(source)) return source;
+            var trimmed = source.Trim();
+            if (trimmed.Length == 0) return source;
+            var canonical = Aliases.TryGetValue(trimmed, out var english) ? english : trimmed;
+            var value = Catalogs.TryGetValue(language, out var catalog) && catalog.TryGetValue(canonical, out var translated)
+                ? translated : canonical;
+            var start = source.IndexOf(trimmed, StringComparison.Ordinal);
+            if (value == canonical && canonical == trimmed && TryFormatted(language, trimmed, out var formatted))
+                return source.Substring(0, start) + formatted + source.Substring(start + trimmed.Length);
+            if (value == canonical && canonical == trimmed)
+            {
+                var colon = trimmed.IndexOf(':');
+                if (colon > 0)
+                {
+                    var left = trimmed.Substring(0, colon).Trim();
+                    var right = trimmed.Substring(colon + 1);
+                    var meaning = Aliases.TryGetValue(left, out var aliasedLeft) ? aliasedLeft : left;
+                    if (meaning == "Storage")
+                        return source.Substring(0, start) + Translate(language, left) + ":" + right + source.Substring(start + trimmed.Length);
+                    if (left == "KawaiiPosing" || left == "CoolPosing" || left == "PosingSystem")
+                        return source.Substring(0, start) + left + ":" + Translate(language, right) + source.Substring(start + trimmed.Length);
+                }
+            }
+            if (value == canonical && canonical == trimmed)
+            {
+                foreach (var pair in Aliases)
+                {
+                    foreach (var prefix in new[] { pair.Key, pair.Value })
+                    {
+                        if (!prefix.EndsWith(":", StringComparison.Ordinal) || trimmed.Length <= prefix.Length || !trimmed.StartsWith(prefix, StringComparison.Ordinal)) continue;
+                        return source.Substring(0, start) + Translate(language, prefix) + trimmed.Substring(prefix.Length) + source.Substring(start + trimmed.Length);
+                    }
+                }
+            }
+            if (value == canonical && canonical == trimmed && source.IndexOf('\n') >= 0)
+            {
+                var lines = source.Split('\n');
+                for (var i = 0; i < lines.Length; i++) lines[i] = Translate(language, lines[i]);
+                return string.Join("\n", lines);
+            }
+            return source.Substring(0, start) + value + source.Substring(start + trimmed.Length);
+        }
+        internal static string T(string source) => Translate(Current, source);
+        internal static string Format(string source, params object[] arguments) => string.Format(T(source), arguments);
+        internal static void Progress(string title, string message, float progress)
+        {
+            Debug.Log("[VPAI] " + message); // Preserve detailed stage text for diagnostics.
+            EditorUtility.DisplayProgressBar(T(title), T(message), progress);
+        }
+        internal static string StorageNotice
+        {
+            get
+            {
+#if UNITY_EDITOR_WIN
+                return T("Storage") + ": HKEY_CURRENT_USER\\Software\\UnisakiStudio";
+#elif UNITY_EDITOR_OSX
+                return T("Storage") + ": " + System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "UnisakiStudio");
+#elif UNITY_EDITOR_LINUX
+                return T("Storage") + ": " + System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), ".local", "share", "UnisakiStudio");
+#else
+                return T("Storage") + ": " + T("Current user");
+#endif
+            }
+        }
+        internal static bool Dialog(string title, string message, string ok, string cancel = "")
+            => Dialog(title, () => T(message), ok, cancel);
+        internal static bool Dialog(string title, Func<string> message, string ok, string cancel = "")
+        {
+            // Both license activators and VPAI can run before the product package exists.
+            // Language remains reachable from every setup confirmation without another package.
+            while (true)
+            {
+                var choice = EditorUtility.DisplayDialogComplex(T(title), message(), T(ok),
+                    string.IsNullOrEmpty(cancel) ? T("Close") : T(cancel), T("Language..."));
+                if (choice != 2) return choice == 0;
+                Choose();
+            }
+        }
+        internal static void Choose()
+        {
+            var window = ScriptableObject.CreateInstance<LanguagePicker>();
+            window.titleContent = new GUIContent("Language / 言語");
+            window.minSize = new Vector2(380, 130);
+            window.maxSize = new Vector2(700, 220);
+            window.ShowModal();
+        }
+        private sealed class LanguagePicker : EditorWindow
+        {
+            private int selection;
+            private void OnEnable() { selection = Array.IndexOf(Codes, Current); }
+            private void OnGUI()
+            {
+                EditorGUILayout.Space(8);
+                selection = EditorGUILayout.Popup("Language / 言語", selection, Names);
+                EditorGUILayout.HelpBox(Translate(Codes[selection], "This language is remembered for other Unity projects on this computer."), MessageType.Info);
+                if (GUILayout.Button(Translate(Codes[selection], "Apply"))) { Select(Codes[selection]); Close(); }
+            }
+        }
+    }
+}

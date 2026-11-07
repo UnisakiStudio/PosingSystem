@@ -12,9 +12,9 @@ namespace jp.unisakistudio.posingsystemeditor
         private const string PreferenceKey = "jp.unisakistudio.posingsystem.language";
         internal static readonly string[] Codes = { "ja", "en", "fr", "it", "zh-Hans", "zh-Hant", "ko", "th", "de", "es", "pt", "pt-BR", "ru", "uk", "pl", "nl", "sv", "da", "fi", "nb", "cs", "tr", "id", "vi", "hi", "bn", "ta", "te", "ar", "he" };
         internal static readonly string[] Names = { "日本語", "English", "Français", "Italiano", "简体中文", "繁體中文", "한국어", "ไทย", "Deutsch", "Español", "Português", "Português (Brasil)", "Русский", "Українська", "Polski", "Nederlands", "Svenska", "Dansk", "Suomi", "Norsk", "Čeština", "Türkçe", "Bahasa Indonesia", "Tiếng Việt", "हिन्दी", "বাংলা", "தமிழ்", "తెలుగు", "العربية", "עברית" };
-        internal static bool HasSelection => EditorPrefs.HasKey(PreferenceKey);
+        internal static bool HasSelection => Array.IndexOf(Codes, EditorPrefs.GetString(PreferenceKey, "")) >= 0;
         private static string activeLanguage;
-        private static string PreferenceLanguage => Normalize(EditorPrefs.GetString(PreferenceKey, "ja"));
+        private static string PreferenceLanguage => UnisakiStudio.Setup.Language.Current;
         internal static string Language => activeLanguage ?? PreferenceLanguage;
         internal static string ResolveLanguage(PosingSystem target)
             => target != null && !string.IsNullOrEmpty(target.menuLanguage) ? Normalize(target.menuLanguage) : PreferenceLanguage;
@@ -28,7 +28,7 @@ namespace jp.unisakistudio.posingsystemeditor
         internal static string Normalize(string code) => Array.IndexOf(Codes, code) >= 0 ? code : "ja";
         internal static void Select(string code)
         {
-            EditorPrefs.SetString(PreferenceKey, Normalize(code));
+            UnisakiStudio.Setup.Language.Select(Normalize(code));
             if (activeLanguage != null) activeLanguage = Normalize(code);
             UnityEditorInternal.InternalEditorUtility.RepaintAllViews();
         }
@@ -55,6 +55,12 @@ namespace jp.unisakistudio.posingsystemeditor
 
         // Keys may be stable semantic IDs or the original Japanese display text.
         // Never use this method for object names, parameter names or serialized IDs.
+        public static bool Dialog(string title, string message, string ok, string cancel = "")
+            => string.IsNullOrEmpty(cancel)
+                ? EditorUtility.DisplayDialog(Text(title), Text(message), Text(ok))
+                : EditorUtility.DisplayDialog(Text(title), Text(message), Text(ok), Text(cancel));
+        public static bool DialogFormat(string title, string message, string ok, string cancel, params object[] arguments)
+            => Dialog(title, Format(message, arguments), ok, cancel);
         public static string Format(string japanese, params object[] arguments) => string.Format(Text(japanese), arguments);
         public static string Text(string japanese) => Text(japanese, japanese);
         public static string Text(string key, string japanese) => Translate(Language, key, japanese);
@@ -69,7 +75,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 catalog = ParseCatalog(asset != null ? asset.text : null);
                 Catalogs[language] = catalog;
             }
-            return catalog.TryGetValue(key, out var value) && !string.IsNullOrWhiteSpace(value) ? value : fallback;
+            return catalog.TryGetValue(key, out var value) && !string.IsNullOrWhiteSpace(value) ? value : UnisakiStudio.Setup.Language.Translate(language, fallback);
         }
         internal static Dictionary<string, string> ParseCatalog(string json)
         {
@@ -97,25 +103,12 @@ namespace jp.unisakistudio.posingsystemeditor
         internal static void DrawLanguageSelector(PosingSystem target)
         {
             var changed = GUI.changed;
-            if (!HasSelection && string.IsNullOrEmpty(target.menuLanguage))
-            {
-                EditorGUILayout.HelpBox("言語を選択してください / Choose your language. 未翻訳の項目は日本語で表示されます / Untranslated text uses Japanese.", MessageType.Info);
-                // An explicit button records even the default Japanese choice.
-                var selected = EditorGUILayout.Popup("Language / 言語", pendingSelection, Names);
-                pendingSelection = selected;
-                if (GUILayout.Button("選択 / Continue")) ApplyLanguageSelection(pendingSelection, target);
-            }
-            else
-            {
-                var current = Array.IndexOf(Codes, Language);
-                var selected = EditorGUILayout.Popup("Language / 言語", current, Names);
-                // Popup callbacks can run inside other inspectors' change-check scopes.
-                // Persist the returned selection directly, including Japanese at index zero.
-                if (selected != current) ApplyLanguageSelection(selected, target);
-            }
+            var current = Array.IndexOf(Codes, Language);
+            var selected = EditorGUILayout.Popup(new GUIContent("Language / 言語", Text("画面とゲーム内メニューの言語。未選択時はOSの言語を使用します。")), current, Names);
+            if (selected != current) ApplyLanguageSelection(selected, target);
             GUI.changed = changed;
         }
-        private static int pendingSelection;
+
     }
 }
 

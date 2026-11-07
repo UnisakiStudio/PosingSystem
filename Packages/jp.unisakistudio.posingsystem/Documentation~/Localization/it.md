@@ -1,6 +1,6 @@
 # Scegliere la lingua — v3.2.0
 
-Al primo utilizzo, scegli una lingua nella parte superiore dell’Inspector e premi Select / Continue. La scelta è indipendente dalla lingua di Unity e può essere modificata nello stesso punto.
+La lingua predefinita segue quella del computer, indipendentemente da Unity; per le lingue non supportate viene usato l’inglese. Puoi cambiarla con Language / 言語 in alto nell’Inspector. La scelta viene ricordata negli altri progetti Unity dello stesso utente su questo computer. Anche le conferme di installazione offrono il pulsante Language....
 
 ## Lingua del menu VRChat
 
@@ -12,4 +12,4 @@ L’elenco mostra i nomi tradotti. Puoi cercare il nome giapponese o la traduzio
 
 ## Traduzioni in corso
 
-Le traduzioni vengono aggiunte alla versione di sviluppo v3.2.0. I testi mancanti restano in giapponese, oppure nella forma originale per i nomi personalizzati. La copertura varia in base alla lingua.
+Le traduzioni vengono aggiunte gradualmente nella versione di sviluppo v3.2.0. Se manca una traduzione, viene usata quella inglese disponibile oppure il testo originale. I nomi personalizzati restano invariati. La copertura varia secondo la lingua.

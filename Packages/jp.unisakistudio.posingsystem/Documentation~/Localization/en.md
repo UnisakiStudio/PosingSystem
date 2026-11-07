@@ -1,6 +1,6 @@
 # Choose your language — v3.2.0
 
-On first use, choose a language at the top of the Inspector and press Select / Continue. This is independent of the Unity interface language. You can change it in the same place later.
+The default follows your computer’s language, independently of the Unity interface; unsupported languages use English. Change it using Language / 言語 at the top of the Inspector. Your choice is remembered for other Unity projects under the same user on this computer. Setup confirmations also offer a Language... button.
 
 ## VRChat menu language
 
@@ -12,4 +12,4 @@ The pose list shows translated names. Search using either the original Japanese 
 
 ## Translations in progress
 
-Translations are being added in the v3.2.0 development build. Missing translations use Japanese, or the original text for custom names. Coverage varies by language.
+Translations are being added in the v3.2.0 development build. Missing translations use an available English translation or the original display text. Custom names keep their original text. Coverage varies by language.

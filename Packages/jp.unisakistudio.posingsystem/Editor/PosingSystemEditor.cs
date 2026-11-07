@@ -82,16 +82,20 @@ namespace jp.unisakistudio.posingsystemeditor
         {
             AssemblyReloadEvents.beforeAssemblyReload += CleanupAllPreviewAvatars;
             EditorSceneManager.sceneOpened += OnSceneOpened;
+            EditorSceneManager.sceneSaving += (scene, _) => LegacyRolloverPoseMigration.ApplyToScene(scene);
+            PrefabUtility.prefabInstanceUpdated += LegacyRolloverPoseMigration.ApplyToHierarchy;
             EditorApplication.playModeStateChanged += OnPlayModeStateChanged;
 
             // アップデート前のバージョンがシーンへ保存したPreviewAvatarRootも、
             // スクリプト再読込後に確実に回収する。
             EditorApplication.delayCall += CleanupAllPreviewAvatars;
+            EditorApplication.delayCall += LegacyRolloverPoseMigration.ApplyToOpenScenes;
             EditorApplication.delayCall += PosingSystemAvatarAdjustmentInspector.ScheduleAllInOpenScenes;
         }
 
         private static void OnSceneOpened(Scene scene, OpenSceneMode mode)
         {
+            LegacyRolloverPoseMigration.ApplyToScene(scene);
             CleanupAllPreviewAvatars();
             EditorApplication.delayCall += PosingSystemAvatarAdjustmentInspector.ScheduleAllInOpenScenes;
         }
@@ -386,7 +390,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 {
                     EditorGUILayout.HelpBox(existProduct + "の設定がアバターに残っています！ 不具合が発生する可能性があるので、自動で設定を取り除く機能を使用してください。また、アバター購入時にBaseLayerに設定されていたLocomotion用のAnimatorControllerがある場合は、恐れ入りますが手動で復元してお使いください。", MessageType.Error);
                     if (GUILayout.Button(existProduct + "の設定を取り除く") &&
-                        EditorUtility.DisplayDialog(PosingSystemLocalization.Text("旧版のアバター設定を取り除きます"), existProduct + "の旧設定を取り除きます。ツールを通常アンインストールするための操作ではありません。調整内容を確認できるよう、先にプロジェクトをバックアップしてください。", "バックアップ済み・取り除く", "キャンセル"))
+                        PosingSystemLocalization.Dialog(PosingSystemLocalization.Text("旧版のアバター設定を取り除きます"), existProduct + "の旧設定を取り除きます。ツールを通常アンインストールするための操作ではありません。調整内容を確認できるよう、先にプロジェクトをバックアップしてください。", "バックアップ済み・取り除く", "キャンセル"))
                     {
                         RemoveExistProduct(avatar, existProduct);
                         existProducts = null;
@@ -406,7 +410,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 {
                     EditorGUILayout.HelpBox("旧unitypackage版の「" + existFolder + "」フォルダがプロジェクトに残っています。新版と競合する可能性があります。削除する前に移行手順とバックアップを確認してください。", MessageType.Error);
                     if (GUILayout.Button(existFolder + "のフォルダを取り除く") &&
-                        EditorUtility.DisplayDialog(PosingSystemLocalization.Text("旧版フォルダの削除を確認"), "削除対象: " + existFolder + "\nこの中のPrefabやアニメーションも削除されます。自作・調整済みデータがある場合はキャンセルし、移行手順に従ってください。バックアップなしでは元に戻せません。", "バックアップ済み・削除する", "キャンセル"))
+                        PosingSystemLocalization.Dialog(PosingSystemLocalization.Text("旧版フォルダの削除を確認"), "削除対象: " + existFolder + "\nこの中のPrefabやアニメーションも削除されます。自作・調整済みデータがある場合はキャンセルし、移行手順に従ってください。バックアップなしでは元に戻せません。", "バックアップ済み・削除する", "キャンセル"))
                     {
                         RemoveExistFolder(existFolder);
                         existFolders = null;
@@ -462,6 +466,7 @@ namespace jp.unisakistudio.posingsystemeditor
 
         public static void Prebuild(PosingSystem posingSystem)
         {
+            LegacyRolloverPoseMigration.Apply(posingSystem);
             PosingSystemDiagnostics.ThrowIfInvalid(posingSystem);
             // ビルド時のクローンでもプレビルド済みデータを同一と判定できるよう、
             // 元のPosingSystemを示す安定したIDをデータ生成より先に保存する。
@@ -507,7 +512,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 PosingSystemDiagnosticsInspector.SetFailure(posingSystem, message);
                 Debug.LogError("[PosingSystem] " + message, posingSystem);
                 Debug.LogException(ex, posingSystem);
-                if (EditorUtility.DisplayDialog(stage + "を完了できませんでした", message, "公式ヘルプを開く", "閉じる"))
+                if (PosingSystemLocalization.Dialog(stage + "を完了できませんでした", message, "公式ヘルプを開く", "閉じる"))
                     Application.OpenURL(PosingSystemPackageInfo.SupportUrl);
                 return false;
             }
@@ -1198,7 +1203,7 @@ namespace jp.unisakistudio.posingsystemeditor
             }
             if (animatorController.animatorController is not UnityEditor.Animations.AnimatorController)
             {
-                EditorUtility.DisplayDialog(PosingSystemLocalization.Text("元姿勢の読み込み"), "アバターのBaseに通常のAnimatorControllerを設定してください。AnimatorOverrideControllerには対応していません。", "OK");
+                PosingSystemLocalization.Dialog(PosingSystemLocalization.Text("元姿勢の読み込み"), "アバターのBaseに通常のAnimatorControllerを設定してください。AnimatorOverrideControllerには対応していません。", "OK");
                 return;
             }
 
@@ -1363,7 +1368,7 @@ namespace jp.unisakistudio.posingsystemeditor
             // ラベル付きフォルダがエクスプローラ等で削除・移動されていると古いパスが返るため、実在するフォルダのみ採用する
             var folder = AssetDatabase.FindAssets($"l:{label}")
                 .Select(AssetDatabase.GUIDToAssetPath)
-                .FirstOrDefault(path => AssetDatabase.IsValidFolder(path));
+                .FirstOrDefault(path => path.StartsWith("Assets/", System.StringComparison.Ordinal) && AssetDatabase.IsValidFolder(path));
             if (string.IsNullOrEmpty(folder))
             {
                 folder = DefaultAdjustmentFolderRoot;

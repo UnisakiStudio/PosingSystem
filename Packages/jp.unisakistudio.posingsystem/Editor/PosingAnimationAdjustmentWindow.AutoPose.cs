@@ -132,14 +132,14 @@ namespace jp.unisakistudio.posingsystemeditor
                     {
                         if (HasAnyChanges())
                         {
-                            if (!EditorUtility.DisplayDialog(PosingSystemLocalization.Text("未保存の手動調整があります"),
+                            if (!PosingSystemLocalization.Dialog(PosingSystemLocalization.Text("未保存の手動調整があります"),
                                 "手動調整を保存してから、現在のIKの結果を別の調整アニメーションに保存します。既存のファイルは残ります。", "保存して続ける", "キャンセル")) return;
                             SaveAdjustmentClip();
                         }
                         EnsureAdjustmentFolderExists();
                         var path = GetAdjustmentFolderPath() + "/" + SanitizeFileName(_posingSystem.GetAvatar().name + "_" + entry.Animation.displayName) + "_IK.anim";
                         if (!PosingSystemPoseIkUserUtility.TryBake(_posingSystem, entry.Animation, GetAnimationKey(entry), path, out var message))
-                            EditorUtility.DisplayDialog(PosingSystemLocalization.Text("IKを反映できませんでした"), message, "閉じる");
+                            PosingSystemLocalization.Dialog(PosingSystemLocalization.Text("IKを反映できませんでした"), message, "閉じる");
                         else
                         {
                             ReloadCurrentAdjustmentFromFile();

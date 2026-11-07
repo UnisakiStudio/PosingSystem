@@ -64,6 +64,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 case "features.photographySynced":
                 case "features.photography": return "photography";
                 case "features.floating": return "floating";
+                case "disableSleepJumpSwitch":
                 case "features.rollover": return "rollover";
                 case "isIconDisabled": return "pose-gallery";
                 case "isIconSmall": return "small-images";

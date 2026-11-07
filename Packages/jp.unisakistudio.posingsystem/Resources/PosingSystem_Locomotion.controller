@@ -2197,7 +2197,7 @@ AnimatorStateTransition:
     m_ConditionEvent: Grounded
     m_EventTreshold: 0
   - m_ConditionMode: 7
-    m_ConditionEvent: SitSleepDown
+    m_ConditionEvent: SitSleepUp
     m_EventTreshold: 0
   - m_ConditionMode: 3
     m_ConditionEvent: VelocityY

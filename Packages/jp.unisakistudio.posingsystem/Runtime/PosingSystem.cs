@@ -18,6 +18,7 @@ namespace jp.unisakistudio.posingsystem
         [HideInInspector] public string menuLanguage = "";
         public bool isIconDisabled = false;
         public bool isIconSmall = false;
+        public bool disableSleepJumpSwitch;
         public const int PreviewMask = 21;
 
         [Serializable]
@@ -205,6 +206,7 @@ namespace jp.unisakistudio.posingsystem
 
         [HideInInspector] public PosingSystemFeatureSettings features = new();
         [HideInInspector] public bool featureSettingsMigrated;
+        [HideInInspector] public bool legacyRolloverPosesMigrated;
 
         [System.Serializable]
         public class BaseAnimationDefine

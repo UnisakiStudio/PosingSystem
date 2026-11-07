@@ -1,0 +1,56 @@
+using System;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.Runtime.Loader;
+using System.Collections.Generic;
+
+class Program
+{
+    static int Main(string[] args)
+    {
+        var managed = Path.GetFullPath(args[0]);
+        AssemblyLoadContext.Default.Resolving += (_, name) =>
+        {
+            foreach (var directory in new[] { managed, Path.Combine(managed, "UnityEngine") })
+            {
+                var path = Path.Combine(directory, name.Name + ".dll");
+                if (File.Exists(path)) return AssemblyLoadContext.Default.LoadFromAssemblyPath(path);
+            }
+            return null;
+        };
+        var checks = 0;
+        foreach (var file in args.Skip(1))
+        {
+            // Outside Unity there is no InitializeOnLoad dispatcher. Only this pure helper
+            // is invoked; no activator or package-installer entry point is called.
+            var assembly = AssemblyLoadContext.Default.LoadFromAssemblyPath(Path.GetFullPath(file));
+            var type = assembly.GetType("UnisakiStudio.Setup.Language", true);
+            const BindingFlags flags = BindingFlags.NonPublic | BindingFlags.Static;
+            object Call(string name, params object[] values) => type.GetMethod(name, flags).Invoke(null, values);
+            void Check(bool value, string label) { if (!value) throw new Exception(Path.GetFileName(file) + ": " + label); checks++; }
+            Check((string)Call("Resolve", "fr", "ja-JP", "Japanese") == "fr", "saved preference priority");
+            Check((string)Call("Resolve", "", "en-US", "Japanese") == "ja", "OS instead of editor culture");
+            Check((string)Call("Detect", "zh-TW", "Chinese") == "zh-Hant", "Traditional Chinese");
+            Check((string)Call("Detect", "zh-CN", "ChineseSimplified") == "zh-Hans", "Simplified Chinese");
+            Check((string)Call("Detect", "pt-BR", "Portuguese") == "pt-BR", "Brazilian Portuguese");
+            Check((string)Call("Detect", "ta-IN", "Unknown") == "ta", "Indian language from culture");
+            Check((string)Call("Detect", "xx-XX", "Unknown") == "en", "unsupported language fallback");
+            Check((string)Call("Translate", "ja", "All Packages are Installed!") == "必要なパッケージはすべて導入済みです。", "VPAI message");
+            Check((string)Call("Translate", "en", "キャンセル") == "Cancel", "license action");
+            Check((string)Call("Translate", "ja", "License installation") == "ライセンスインストール", "license heading");
+            Check((string)Call("Translate", "en", "対象: MyAvatar") == "Target: MyAvatar", "dynamic message preserves avatar name");
+            Check((string)Call("Translate", "en", "https://example.com/project.json") == "https://example.com/project.json", "URL unchanged");
+            Check((string)type.GetField("PreferenceKey", flags).GetRawConstantValue() == "jp.unisakistudio.posingsystem.language", "same key across programs");
+            Check((string)Call("Translate", "fr", "KawaiiPosing: Enabled") == "KawaiiPosing: Activé", "translated license status");
+            Check((string)Call("Translate", "en", "対象: 有効") == "Target: 有効", "metadata must not be translated");
+            Check((string)Call("Translate", "ja", "Version Unity requise : 2022.3+") == "必要なUnityバージョン: 2022.3+", "language change preserves version");
+            var codes = (string[])type.GetField("Codes", flags).GetValue(null);
+            foreach (var code in codes)
+                Check(!string.IsNullOrWhiteSpace((string)Call("Translate", code, "Packages to install")), "setup terms in " + code);
+            Console.WriteLine(Path.GetFileName(file) + ": " + checks + " cumulative checks passed");
+        }
+        Console.WriteLine("PASSED " + checks);
+        return 0;
+    }
+}
