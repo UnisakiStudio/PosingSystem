@@ -40,6 +40,23 @@ namespace jp.unisakistudio.posingsystemeditor
             return hash;
         }
 
+        internal static GameObject FindInstallPrefab(string name, out string[] paths)
+        {
+            paths = AssetDatabase.FindAssets("t:Prefab " + name)
+                .Select(AssetDatabase.GUIDToAssetPath)
+                .Where(path => string.Equals(Path.GetFileNameWithoutExtension(path), name, StringComparison.Ordinal))
+                .OrderBy(path => path, StringComparer.Ordinal)
+                .ToArray();
+            // 同名のバックアップや改変コピーより、商品パッケージの本体を優先する。
+            var packaged = paths.Where(path => path.StartsWith("Packages/jp.unisakistudio.", StringComparison.Ordinal)).ToArray();
+            foreach (var path in packaged.Length > 0 ? packaged : paths)
+            {
+                var prefab = AssetDatabase.LoadAssetAtPath<GameObject>(path);
+                if (prefab != null && prefab.GetComponent<PosingSystem>() != null) return prefab;
+            }
+            return null;
+        }
+
         static public void AddPrefab(string name)
         {
             if (Selection.activeGameObject == null)
@@ -57,22 +74,17 @@ namespace jp.unisakistudio.posingsystemeditor
                 }
 
                 // 導入するPosingSystemのPrefabsを探す
-                var guids = AssetDatabase.FindAssets("t:prefab " + name)
-                    .Select(AssetDatabase.GUIDToAssetPath)
-                    .Where(path => string.Equals(Path.GetFileNameWithoutExtension(path), name, System.StringComparison.CurrentCulture));
-                if (guids.Count() == 0)
+                var prefabs = FindInstallPrefab(name, out var paths);
+                if (paths.Length == 0)
                 {
                     if (EditorUtility.DisplayDialog("ツール本体が見つかりません [PS041]", "探しているPrefab: " + name + "\nBOOTH同梱のライセンス用unitypackageだけでは、ツール本体の導入は完了しません。ALCOM / VCCでこのプロジェクトに商品本体と「ゆにさきポーズシステム」が追加されているか確認してください。\n導入済みの場合: " + PosingSystemDiagnostics.RestoreTool, "公式ヘルプを開く", "閉じる"))
                         Application.OpenURL(PosingSystemPackageInfo.SupportUrl);
                     return;
                 }
 
-                // 導入するPosingSystemのPrefabsを読み込む
-                var prefabs = AssetDatabase.LoadAssetAtPath<GameObject>(guids.First());
-
-                if (prefabs == null || prefabs.GetComponent<PosingSystem>() == null)
+                if (prefabs == null)
                 {
-                    if (EditorUtility.DisplayDialog("Prefabを読み込めません [PS042]", "対象: " + name + "\nPrefabが破損しているか、Posing Systemコンポーネントがありません。ConsoleのMissing Script・コンパイルエラーを確認してください。\n" + PosingSystemDiagnostics.RestoreTool, "公式ヘルプを開く", "閉じる"))
+                    if (EditorUtility.DisplayDialog("Prefabを読み込めません [PS042]", "対象: " + string.Join("\n", paths) + "\nPrefabが破損しているか、Posing Systemコンポーネントがありません。ConsoleのMissing Script・コンパイルエラーを確認してください。\n" + PosingSystemDiagnostics.RestoreTool, "公式ヘルプを開く", "閉じる"))
                         Application.OpenURL(PosingSystemPackageInfo.SupportUrl);
                     return;
                 }
