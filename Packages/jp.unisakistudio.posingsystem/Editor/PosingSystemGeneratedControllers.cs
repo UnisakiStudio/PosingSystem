@@ -110,6 +110,8 @@ namespace jp.unisakistudio.posingsystemeditor
             readonly HashSet<Object> temporary = new();
             readonly HashSet<Object> retained = new();
             readonly HashSet<AnimatorController> roots = new();
+            readonly List<Object> repairs = new();
+            internal void TrackRepair(Object obj) => repairs.Add(obj);
             AnimatorController mainSource, main;
             PosingSystemGeneratedAsset existing;
             bool committed;
@@ -136,7 +138,12 @@ namespace jp.unisakistudio.posingsystemeditor
                 mainSource = mainMerges.Select(m => m.animator as AnimatorController)
                     .FirstOrDefault(c => c != null && !c.layers.Any(l => l.name == "USSPS_IsDefault")) ??
                     mainMerges.Select(m => m.animator as AnimatorController).FirstOrDefault(c => c != null);
-                if (mainSource == null) throw new InvalidOperationException("共通ポージングControllerが見つかりません。");
+                if (mainSource == null)
+                    throw PosingSystemDiagnostics.Failure(mainMerges.Length == 0 ? "PS010" : "PS013",
+                        mainMerges.Length == 0 ? "このアバター内に有効な共通ポージングAnimatorが見つかりません。" :
+                        "共通ポージングAnimatorの参照からAnimator Controllerを読み込めません。",
+                        "共通ポージングAnimatorの有効状態・EditorOnlyタグ・MA Merge Animatorの参照を確認してください。調整済みの生成ファイルは保持してください。",
+                        ps);
                 existing = Metadata(mainSource);
                 PosingSystemControllerGeneration.MarkOwnedPrebuild(avatar, existing, mainMerges);
 
@@ -295,7 +302,11 @@ namespace jp.unisakistudio.posingsystemeditor
             public void Dispose()
             {
                 if (!committed)
+                {
                     foreach (var pair in original) if (pair.Key != null) pair.Key.animator = pair.Value;
+                    for (int i = repairs.Count - 1; i >= 0; i--)
+                        if (repairs[i] != null) Object.DestroyImmediate(repairs[i]);
+                }
                 // Include objects created by Animator APIs which do not explicitly call SaveAsset.
                 var graph = PosingSystemControllerGraph.Collect(temporary.Where(o => o != null).ToArray(),
                     o => PosingSystemControllerGraph.IsGraphObject(o) && !EditorUtility.IsPersistent(o) && !retained.Contains(o));

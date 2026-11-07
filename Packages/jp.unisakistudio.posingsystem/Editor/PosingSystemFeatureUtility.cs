@@ -282,8 +282,18 @@ namespace jp.unisakistudio.posingsystemeditor
             }
         }
 
-        private static Transform SettingsMenuParent(PosingSystem ps) => ps.GetComponentsInChildren<ModularAvatarMenuItem>(true)
-            .FirstOrDefault(m => UsesParameter(m, "USSPS_Mirror"))?.transform.parent ?? ps.transform;
+        private static Transform SettingsMenuParent(PosingSystem ps)
+        {
+            var items = ps.GetComponentsInChildren<ModularAvatarMenuItem>(true);
+            var mirror = items.FirstOrDefault(m => UsesParameter(m, "USSPS_Mirror"));
+            if (mirror != null) return mirror.transform.parent;
+            // NDMF strips disabled (EditorOnly) controls before the second synchronization.
+            var settings = items.FirstOrDefault(m => m.name == "設定" &&
+                m.Control.type == VRCExpressionsMenu.Control.ControlType.SubMenu);
+            if (settings != null) return settings.transform;
+            var sibling = items.FirstOrDefault(m => UsesParameter(m, FloatHeight) || UsesParameter(m, RollActive));
+            return sibling != null ? sibling.transform.parent : ps.transform;
+        }
 
         private static void EnsureFloorHeightMenu(PosingSystem ps, bool enabled, bool undo)
         {

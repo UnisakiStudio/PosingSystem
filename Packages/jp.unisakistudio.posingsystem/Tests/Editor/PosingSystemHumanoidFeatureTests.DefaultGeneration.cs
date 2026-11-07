@@ -52,6 +52,7 @@ namespace jp.unisakistudio.posingsystemeditor.tests
         // 0=fresh, 1=current prebuild, 2=alpha.3 cache, 3=changed prebuild.
         [TestCase(0, false)] [TestCase(1, false)] [TestCase(2, false)] [TestCase(3, false)]
         [TestCase(0, true)] [TestCase(1, true)] [TestCase(2, true)] [TestCase(3, true)]
+        [TestCase(4, true)]
         public void DefaultGeneration_NdmfBuildUsesOneEvaluationWithoutOptIn(int cache, bool optimizing)
         {
             var ps = DefaultGenerationSettings();
@@ -62,7 +63,9 @@ namespace jp.unisakistudio.posingsystemeditor.tests
             }
             else if (cache != 0) PrebuildPersistedSettings(ps);
             if (cache == 3) ps.features.mirror = !ps.features.mirror;
-            var source = PosingSystemConverter.GetCommonMergeAnimator(ps).animator;
+            var sceneMerge = PosingSystemConverter.GetCommonMergeAnimator(ps);
+            var source = sceneMerge.animator;
+            if (cache == 4) sceneMerge.animator = null;
             var before = EditorJsonUtility.ToJson(source);
             WithPersistedBuild(context =>
             {
@@ -81,6 +84,7 @@ namespace jp.unisakistudio.posingsystemeditor.tests
                 AssertDefaultGenerationOutput(context.AvatarRootObject.GetComponent<Animator>(), controller);
             });
             Assert.That(EditorJsonUtility.ToJson(source), Is.EqualTo(before), "Build must leave the scene/source controller unchanged");
+            if (cache == 4) Assert.That(sceneMerge.animator, Is.Null, "Recover only the build copy");
         }
 
         [Test]
@@ -142,6 +146,7 @@ namespace jp.unisakistudio.posingsystemeditor.tests
         private static void AssertDefaultGenerationOutput(Animator target, AnimatorController controller)
         {
             var layer = controller.layers.Single(l => l.name.EndsWith("USSPS_Locomotion"));
+            Assert.That(layer.stateMachine.defaultState.name, Is.EqualTo("AvatarSelecting"));
             Assert.That(controller.parameters.Count(p => p.name.EndsWith(PosingSystemOneFrameSelection.Guard)), Is.EqualTo(1));
             foreach (var category in new[] { "SitStand", "SitShallow", "SitDeep" })
                 Assert.That(layer.stateMachine.stateMachines.Count(s => s.stateMachine.name.EndsWith("Direct" + category)), Is.EqualTo(1));

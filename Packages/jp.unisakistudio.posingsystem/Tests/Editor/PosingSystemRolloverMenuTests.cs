@@ -36,6 +36,29 @@ namespace jp.unisakistudio.posingsystemeditor.tests
             return item;
         }
 
+        [TestCase(true, false)]
+        [TestCase(false, true)]
+        [TestCase(true, true)]
+        [TestCase(false, false)]
+        public void ResynchronizingAfterEditorOnlyRemovalKeepsEnabledSettingsInTheirSubmenu(bool floor, bool rollover)
+        {
+            settings.name = "設定";
+            var submenu = settings.gameObject.AddComponent<ModularAvatarMenuItem>();
+            submenu.Control.type = VRCExpressionsMenu.Control.ControlType.SubMenu;
+            ps.features.floating = floor;
+            ps.features.rollover = rollover;
+            PosingSystemFeatureUtility.Synchronize(ps);
+            foreach (var item in root.GetComponentsInChildren<ModularAvatarMenuItem>(true))
+                if (item != null && item.CompareTag("EditorOnly")) Object.DestroyImmediate(item.gameObject);
+            PosingSystemFeatureUtility.Synchronize(ps);
+            var controls = root.GetComponentsInChildren<ModularAvatarMenuItem>();
+            Assert.That(controls.Count(m => m.name == PosingSystemFeatureUtility.FloorHeightMenuName), Is.EqualTo(floor ? 1 : 0));
+            Assert.That(controls.Count(m => m.name == PosingSystemFeatureUtility.RollMenuName), Is.EqualTo(rollover ? 1 : 0));
+            foreach (var item in controls.Where(m => m.name == PosingSystemFeatureUtility.FloorHeightMenuName ||
+                m.name == PosingSystemFeatureUtility.RollMenuName))
+                Assert.That(item.transform.parent, Is.SameAs(settings));
+        }
+
         [TestCase(false)] [TestCase(true)]
         public void RolloverMenu_NewToggle_IsDirectAndIdempotent(bool undo)
         {

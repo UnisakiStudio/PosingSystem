@@ -1,4 +1,4 @@
-﻿#region
+#region
 
 using System.Collections.Immutable;
 using System.Collections.Generic;
@@ -227,6 +227,8 @@ namespace jp.unisakistudio.posingsystemeditor
                 .BeforePlugin("nadena.dev.modular-avatar")
                 .Run("Compile posing controller source", ctx =>
                 {
+                    if (ctx.AvatarRootObject.GetComponentInChildren<PosingSystem>(true) != null)
+                        PosingSystemDiagnostics.ThrowIfCompilationFailed(ctx.AvatarRootObject);
                     ctx.GetState<AutoImportBuildState>().Capture(ctx.AvatarRootObject);
                     PosingSystemControllerGeneration.PrepareBeforeModularAvatar(ctx.AvatarRootObject, ctx.AssetSaver,
                         ctx.GetState<PosingSystemControllerGeneration.BuildState>());
@@ -266,16 +268,10 @@ namespace jp.unisakistudio.posingsystemeditor
                             ErrorReport.ReportError(errorLocalizer, ErrorSeverity.NonFatal, "オブジェクトの設定が更新されています。再度プレビルドを行ってください", posingSystem.name);
                         }
 
-                        if (posingSystem.data == null || posingSystem.data.Length == 0 || posingSystem.data != GetDefineSerializeJson(posingSystem, true))
+                        if (ctx.GetState<PosingSystemControllerGeneration.BuildState>().MissingPrebuilds.Contains(posingSystem) ||
+                            string.IsNullOrEmpty(posingSystem.data) || posingSystem.data != GetDefineSerializeJson(posingSystem, true))
                         {
-                            try
-                            {
-                                ConvertToModularAvatarComponents(posingSystem, ctx.AssetSaver);
-                            }
-                            catch (AddStateMachineBehaviourCloneFailedException)
-                            {
-                                ErrorReport.ReportError(errorLocalizer, ErrorSeverity.Error, "AddStateMachineBehaviourに失敗しました");
-                            }
+                            ConvertToModularAvatarComponents(posingSystem, ctx.AssetSaver);
                         }
                     }
 
@@ -334,18 +330,9 @@ namespace jp.unisakistudio.posingsystemeditor
                         return;
                     }
 
-                    try
-                    {
-                        // NDMF標準の仮想Controllerだけを書き換える。
-                        // 元アセットや共有Controllerを直接変更しない。
-                        var controllerContext = ctx.Extension<AnimatorServicesContext>().ControllerContext;
-                        MergeTrackingControl(ctx.VRChatAvatarDescriptor(), controllerContext);
-                        MergeLocomotionControl(ctx.VRChatAvatarDescriptor(), controllerContext);
-                    }
-                    catch (AddStateMachineBehaviourFailedException)
-                    {
-                        ErrorReport.ReportError(errorLocalizer, ErrorSeverity.Error, "AddStateMachineBehaviourに失敗しました");
-                    }
+                    var controllerContext = ctx.Extension<AnimatorServicesContext>().ControllerContext;
+                    MergeTrackingControl(ctx.VRChatAvatarDescriptor(), controllerContext);
+                    MergeLocomotionControl(ctx.VRChatAvatarDescriptor(), controllerContext);
                 });
             });
 
@@ -999,10 +986,13 @@ namespace jp.unisakistudio.posingsystemeditor
 
         private static AnimatorController FindDefaultLocomotionController()
         {
-            return AssetDatabase.FindAssets("l:USSPS_Locomotion")
-                .Select(AssetDatabase.GUIDToAssetPath)
-                .Select(AssetDatabase.LoadAssetAtPath<AnimatorController>)
-                .FirstOrDefault();
+            return AssetDatabase.LoadAssetAtPath<AnimatorController>(
+                AssetDatabase.GUIDToAssetPath(PosingSystemControllerGeneration.TemplateGuid));
+        }
+
+        private static void ReportAnimatorRepair(string code, Component source, string message)
+        {
+            Debug.LogWarning($"[PosingSystem / {code}] {source.name}：{message} ポーズ生成を続行します。", source);
         }
 
         private static AnimatorController RestoreMissingLocomotionController(ModularAvatarMergeAnimator maMergeAnimator)
@@ -1012,11 +1002,20 @@ namespace jp.unisakistudio.posingsystemeditor
                 return maMergeAnimator != null ? maMergeAnimator.animator as AnimatorController : null;
             }
 
-            var locomotionController = FindDefaultLocomotionController();
+            var attached = maMergeAnimator.TryGetComponent<Animator>(out var animator)
+                ? animator.runtimeAnimatorController as AnimatorController : null;
+            var sourceMerge = PrefabUtility.GetCorrespondingObjectFromSource(maMergeAnimator);
+            var prefab = sourceMerge != null ? sourceMerge.animator as AnimatorController : null;
+            bool IsPoseController(AnimatorController candidate) => candidate != null &&
+                candidate.layers.Any(l => l.name == "USSPS_Locomotion" && l.stateMachine != null) &&
+                candidate.layers.Any(l => l.name == "USSPS_LocomotionType" && l.stateMachine != null);
+            var locomotionController = IsPoseController(attached) ? attached :
+                IsPoseController(prefab) ? prefab : FindDefaultLocomotionController();
             if (locomotionController)
             {
                 maMergeAnimator.animator = locomotionController;
                 EditorUtility.SetDirty(maMergeAnimator);
+                ReportAnimatorRepair("PS012", maMergeAnimator, $"共通Animatorの参照切れを「{locomotionController.name}」から復元しました。");
             }
             return locomotionController;
         }
@@ -1027,42 +1026,56 @@ namespace jp.unisakistudio.posingsystemeditor
             {
                 return null;
             }
-            var animatorDuplicateErase = posingSystem.GetComponentsInChildren<DuplicateEraser>()
-                .Where(d => d.gameObject.tag != "EditorOnly")
-                .Where(d => d.ID == "jp.unisakistudio.posingsystem_locomotion")
-                .FirstOrDefault();
+            var markers = PosingSystemDiagnostics.CommonAnimatorMarkers(posingSystem);
+            var animatorDuplicateErase = markers.FirstOrDefault(PosingSystemDiagnostics.ActiveCommonMarker);
             if (!animatorDuplicateErase)
             {
-                return null;
+                if (!doRecover || !PosingSystemDiagnostics.CanRecoverCommonChild(posingSystem, markers, out var orphan)) return null;
+                if (orphan != null)
+                {
+                    animatorDuplicateErase = orphan.AddComponent<DuplicateEraser>();
+                    animatorDuplicateErase.ID = PosingSystemDiagnostics.CommonAnimatorId;
+                    PosingSystemGeneratedControllers.Current?.TrackRepair(animatorDuplicateErase);
+                    ReportAnimatorRepair("PS010", animatorDuplicateErase, "既存の共通ポージングAnimatorに識別用コンポーネントを戻しました。");
+                }
+                else
+                {
+                    var template = PosingSystemDiagnostics.CommonAnimatorTemplate();
+                    var instance = Object.Instantiate(template.gameObject, posingSystem.transform, false);
+                    instance.name = template.name;
+                    PosingSystemGeneratedControllers.Current?.TrackRepair(instance);
+                    ReportAnimatorRepair("PS010", posingSystem, "不足していた共通ポージングAnimatorを標準Prefabから再作成しました。");
+                    return instance.GetComponent<ModularAvatarMergeAnimator>();
+                }
             }
             var maMergeAnimator = animatorDuplicateErase.GetComponent<ModularAvatarMergeAnimator>();
             if (!maMergeAnimator)
             {
-                throw PosingSystemDiagnostics.Failure("PS011", "共通ポージングAnimatorにMA Merge Animatorがありません。",
-                    "ConsoleにコンパイルエラーやMissing Scriptがないか確認してください。" + PosingSystemDiagnostics.RestoreTool, animatorDuplicateErase);
-            }
-            if (!maMergeAnimator.animator)
-            {
-                if (doRecover)
+                var template = doRecover ? PosingSystemDiagnostics.CommonAnimatorTemplate() : null;
+                if (template != null && template.animator != null &&
+                    GameObjectUtility.GetMonoBehavioursWithMissingScriptCount(animatorDuplicateErase.gameObject) == 0)
                 {
-                    // PosingSystemLocomotion.controllerを探して復旧する
-                    var locomotionController = RestoreMissingLocomotionController(maMergeAnimator);
-                    if (locomotionController)
-                    {
-                        maMergeAnimator.animator = locomotionController;
-                    }
-                    else {
-                        throw PosingSystemDiagnostics.Failure("PS030", "標準のPosingSystemLocomotion.controllerが見つからず、参照を復元できません。",
-                            PosingSystemDiagnostics.RestoreTool, maMergeAnimator);
-                    }
+                    maMergeAnimator = animatorDuplicateErase.gameObject.AddComponent<ModularAvatarMergeAnimator>();
+                    PosingSystemGeneratedControllers.Current?.TrackRepair(maMergeAnimator);
+                    EditorUtility.CopySerialized(template, maMergeAnimator);
+                    maMergeAnimator.animator = null;
+                    ReportAnimatorRepair("PS011", animatorDuplicateErase, "不足していたMA Merge Animatorを標準設定で再作成しました。");
                 }
                 else
                 {
-                    throw PosingSystemDiagnostics.Failure("PS012", "共通ポージングAnimatorのAnimator参照が未設定です。",
-                        "Inspectorの「プレビルドを更新」で標準Controllerからの復元を試してください。" + PosingSystemDiagnostics.RestoreTool, maMergeAnimator);
+                    throw PosingSystemDiagnostics.Failure("PS011", "共通ポージングAnimatorにMA Merge Animatorがありません。",
+                        "ConsoleにコンパイルエラーやMissing Scriptがないか確認してください。" + PosingSystemDiagnostics.RestoreTool, animatorDuplicateErase);
                 }
             }
-
+            if (!maMergeAnimator.animator)
+            {
+                if (!doRecover)
+                    throw PosingSystemDiagnostics.Failure("PS012", "共通ポージングAnimatorのAnimator参照が未設定です。",
+                        "Inspectorの「プレビルドを更新」で復元を試してください。" + PosingSystemDiagnostics.RestoreTool, maMergeAnimator);
+                if (!RestoreMissingLocomotionController(maMergeAnimator))
+                    throw PosingSystemDiagnostics.Failure("PS030", "標準のPosingSystemLocomotion.controllerが見つからず、参照を復元できません。",
+                        PosingSystemDiagnostics.RestoreTool, maMergeAnimator);
+            }
             return maMergeAnimator;
         }
 
@@ -1075,8 +1088,8 @@ namespace jp.unisakistudio.posingsystemeditor
             }
             // まずはプレビルド済みAnimatorを探す
             foreach (var animatorDuplicateErase in avatar.GetComponentsInChildren<DuplicateEraser>()
-                         .Where(d => d.gameObject.tag != "EditorOnly")
-                         .Where(d => d.ID == "jp.unisakistudio.posingsystem_locomotion"))
+                         .Where(d => PosingSystemDiagnostics.ActiveCommonMarker(d) && d.GetComponentInParent<VRCAvatarDescriptor>() == avatar)
+                         .Where(d => d.ID == PosingSystemDiagnostics.CommonAnimatorId))
             {
                 var maMergeAnimator = animatorDuplicateErase.GetComponent<ModularAvatarMergeAnimator>();
                 if (!maMergeAnimator)
@@ -1135,15 +1148,23 @@ namespace jp.unisakistudio.posingsystemeditor
             if (duplicateEraser == null && doRecover && PosingSystemFeatureUtility.UsesBreathing(posingSystem))
                 duplicateEraser = posingSystem.GetComponentsInChildren<DuplicateEraser>(true)
                     .FirstOrDefault(component => component.ID == AdditiveBreathingDuplicateEraserId);
+            bool existingBreathing = duplicateEraser != null;
             ModularAvatarMergeAnimator mergeAnimator = null;
             if (duplicateEraser != null)
             {
                 mergeAnimator = duplicateEraser.GetComponent<ModularAvatarMergeAnimator>();
+                if (!mergeAnimator && doRecover && GameObjectUtility.GetMonoBehavioursWithMissingScriptCount(duplicateEraser.gameObject) == 0)
+                {
+                    mergeAnimator = duplicateEraser.gameObject.AddComponent<ModularAvatarMergeAnimator>();
+                    PosingSystemGeneratedControllers.Current?.TrackRepair(mergeAnimator);
+                    ReportAnimatorRepair("PS052", duplicateEraser, "呼吸用のMA Merge Animatorを再作成しました。");
+                }
             }
             else if (doRecover)
             {
                 var mergeObject = new GameObject("Additive呼吸Animator");
                 mergeObject.transform.SetParent(posingSystem.transform, false);
+                PosingSystemGeneratedControllers.Current?.TrackRepair(mergeObject);
                 duplicateEraser = mergeObject.AddComponent<DuplicateEraser>();
                 duplicateEraser.ID = AdditiveBreathingDuplicateEraserId;
                 mergeAnimator = mergeObject.AddComponent<ModularAvatarMergeAnimator>();
@@ -1157,6 +1178,8 @@ namespace jp.unisakistudio.posingsystemeditor
             if (!mergeAnimator.animator && doRecover)
             {
                 mergeAnimator.animator = FindDefaultAdditiveBreathingController();
+                if (existingBreathing && mergeAnimator.animator)
+                    ReportAnimatorRepair("PS053", mergeAnimator, "呼吸用Controllerの参照を標準Controllerから復元しました。");
             }
 
             mergeAnimator.layerType = VRCAvatarDescriptor.AnimLayerType.Additive;
@@ -2180,8 +2203,7 @@ namespace jp.unisakistudio.posingsystemeditor
                                 var poseSpace = state.AddStateMachineBehaviour<VRC.SDK3.Avatars.Components.VRCAnimatorTemporaryPoseSpace>();
                                 if (poseSpace == null)
                                 {
-                                    Debug.LogError("[PosingSystem]AddStateMachineBehaviourに失敗しました");
-                                    throw new System.Exception("AddStateMachineBehaviourに失敗しました");
+                                    throw BehaviourFailure(state, typeof(VRCAnimatorTemporaryPoseSpace));
                                 }
                                 poseSpace.enterPoseSpace = true;
                                 poseSpace.fixedDelay = false;
@@ -2304,8 +2326,7 @@ namespace jp.unisakistudio.posingsystemeditor
                         typeState.behaviours = typeState.behaviours.Where(b => b == typeParameterDriver || !existingEncoders.Contains(b)).ToArray();
                         if (typeParameterDriver == null)
                         {
-                            Debug.LogError("[PosingSystem]AddStateMachineBehaviourに失敗しました");
-                            throw new System.Exception("AddStateMachineBehaviourに失敗しました");
+                            throw BehaviourFailure(typeState, typeof(VRCAvatarParameterDriver));
                         }
                         typeParameterDriver.isLocalPlayer = true;
                         typeParameterDriver.localOnly = true;
@@ -4612,10 +4633,6 @@ namespace jp.unisakistudio.posingsystemeditor
 
         #region Tracking/Locomotion Control Merge
 
-        class AddStateMachineBehaviourFailedException : System.Exception
-        {
-        }
-
         static void MergeTrackingControl(
             VRCAvatarDescriptor avatarDescriptor,
             VirtualControllerContext controllerContext)
@@ -4691,7 +4708,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 var animationBehaviour = animationState.AddStateMachineBehaviour<VRCAnimatorTrackingControl>();
                 if (trackingBehaviour == null || animationBehaviour == null)
                 {
-                    throw new AddStateMachineBehaviourFailedException();
+                    throw BehaviourFailure(trackingBehaviour == null ? trackingState : animationState, typeof(VRCAnimatorTrackingControl));
                 }
 
                 SetTrackingType(trackingBehaviour, trackingType,
@@ -4870,7 +4887,8 @@ namespace jp.unisakistudio.posingsystemeditor
                     locomotionDisableState.AddStateMachineBehaviour<VRCAnimatorLocomotionControl>();
                 if (locomotionEnableBehaviour == null || locomotionDisableBehaviour == null)
                 {
-                    throw new AddStateMachineBehaviourFailedException();
+                    throw BehaviourFailure(locomotionEnableBehaviour == null ? locomotionEnableState : locomotionDisableState,
+                        typeof(VRCAnimatorLocomotionControl));
                 }
 
                 locomotionEnableBehaviour.disableLocomotion = false;
@@ -4946,7 +4964,8 @@ namespace jp.unisakistudio.posingsystemeditor
             var parameterDriver = ScriptableObject.CreateInstance<VRCAvatarParameterDriver>();
             if (parameterDriver == null)
             {
-                throw new AddStateMachineBehaviourFailedException();
+                throw PosingSystemDiagnostics.Failure("PS051", $"状態「{state.Name}」の {nameof(VRCAvatarParameterDriver)} を生成できません。",
+                    "Consoleの直前のエラーとVRChat Avatars SDKのバージョンを確認してください。", null);
             }
 
             parameterDriver.parameters.Add(new VRC_AvatarParameterDriver.Parameter
@@ -5006,11 +5025,30 @@ namespace jp.unisakistudio.posingsystemeditor
             }
         }
 
+        private static System.Exception BehaviourFailure(AnimatorState state, System.Type type)
+        {
+            PosingSystemDiagnostics.ThrowIfCompilationFailed(state);
+            return PosingSystemDiagnostics.Failure("PS051", $"姿勢「{state.name}」にSDKの {type.Name} を追加できません。",
+                "Consoleの直前のエラーと、Unity・VRChat Avatars SDK・ポーズシステムのバージョンを確認してください。", state);
+        }
+
         static void RegisterGeneratedController(
             VirtualControllerContext controllerContext,
             ModularAvatarMergeAnimator mergeAnimator,
             AnimatorController controller)
         {
+            // These FX states only drive behaviours. A None motion can reset facial properties on WD-Off avatars.
+            mergeAnimator.matchAvatarWriteDefaults = true;
+            var clip = new AnimationClip { name = "USSPS_Control_NoOp" };
+            const string noOp = "USSPS_InternalNoOp";
+            FeatureParameter(controller, noOp, AnimatorControllerParameterType.Float);
+            AnimationUtility.SetEditorCurve(clip, EditorCurveBinding.FloatCurve("", typeof(Animator), noOp),
+                AnimationCurve.Constant(0, 1, 0));
+            foreach (var state in controller.layers.SelectMany(l => AllFeatureStates(l.stateMachine)))
+            {
+                state.motion = clip;
+                state.writeDefaultValues = false;
+            }
             controllerContext.Controllers[mergeAnimator] = controllerContext.Clone(controller);
         }
 

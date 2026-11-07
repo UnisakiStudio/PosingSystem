@@ -23,7 +23,7 @@ namespace jp.unisakistudio.posingsystemeditor
             settings.ApplyFinalizedMovementSettings();
             settings.rolloverAnimation = null; // Use the asset GUID and content hash, never a transient instance ID.
             // Regenerate comparison-era prebuilds, including ones which already selected E.
-            return "movement-final-v5:" + JsonUtility.ToJson(settings);
+            return "movement-final-v6:" + JsonUtility.ToJson(settings);
         }
 
         public static void ConvertOptionalFeatures(PosingSystem ps, IAssetSaver saver = null)
@@ -40,6 +40,7 @@ namespace jp.unisakistudio.posingsystemeditor
             foreach (var system in systems) PosingSystemFeatureUtility.Migrate(system);
             var main = controller.layers.FirstOrDefault(l => l.name == "USSPS_Locomotion");
             if (main == null) return;
+            ConfigureAvatarSelectionEntry(main.stateMachine);
             ConfigureSleepJumpSwitch(controller, systems.Any(p => p.disableSleepJumpSwitch));
             foreach (var state in AllFeatureStates(main.stateMachine))
             {
@@ -80,6 +81,34 @@ namespace jp.unisakistudio.posingsystemeditor
             if (floatingSystem != null) BuildFloatingPoseSpace(floatingSystem, controller, main, saver);
             EditorUtility.SetDirty(controller);
             if (EditorUtility.IsPersistent(controller)) RemoveOldSubAssets(controller);
+        }
+
+        internal const string AvatarSelectionFallback = "USSPS_AfterAvatarSelection";
+
+        private static void ConfigureAvatarSelectionEntry(AnimatorStateMachine machine)
+        {
+            var select = machine.states.FirstOrDefault(child => child.state.name == "AvatarSelecting").state;
+            if (select == null) return;
+            var entry = machine.entryTransitions.FirstOrDefault(t => t.destinationState == select &&
+                t.conditions.Length == 1 && t.conditions[0].parameter == "TrackingType" &&
+                t.conditions[0].mode == AnimatorConditionMode.Equals && t.conditions[0].threshold == 0);
+            if (entry == null)
+            {
+                entry = machine.AddEntryTransition(select);
+                entry.AddCondition(AnimatorConditionMode.Equals, 0, "TrackingType");
+            }
+            var fallback = machine.entryTransitions.FirstOrDefault(t => t.name == AvatarSelectionFallback);
+            var previousDefault = machine.defaultState;
+            if (fallback == null && previousDefault != null && previousDefault != select)
+            {
+                // Keep the previous fallback when tracking has initialized and no pose matches.
+                fallback = machine.AddEntryTransition(previousDefault);
+                fallback.name = AvatarSelectionFallback;
+                fallback.AddCondition(AnimatorConditionMode.NotEqual, 0, "TrackingType");
+            }
+            var entries = machine.entryTransitions.Where(t => t != entry && t != fallback).Prepend(entry);
+            machine.entryTransitions = (fallback != null ? entries.Append(fallback) : entries).ToArray();
+            machine.defaultState = select;
         }
 
         // All pose tools on the avatar share one sleep selector.
@@ -401,6 +430,7 @@ namespace jp.unisakistudio.posingsystemeditor
             obj.transform.SetParent(ps.transform, false);
             var merge = obj.AddComponent<nadena.dev.modular_avatar.core.ModularAvatarMergeAnimator>();
             merge.layerType = type;
+            if (type == VRCAvatarDescriptor.AnimLayerType.FX) merge.matchAvatarWriteDefaults = true;
             var controller = new AnimatorController { name = name };
             merge.animator = controller;
             if (saver != null) saver.SaveAsset(controller);

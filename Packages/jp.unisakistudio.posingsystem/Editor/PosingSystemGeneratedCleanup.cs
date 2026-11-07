@@ -49,6 +49,9 @@ namespace jp.unisakistudio.posingsystemeditor
                     foreach (var decision in Analyze(scene.path, paths))
                     {
                         if (!decision.DeleteFile && decision.Unused.Length == 0) continue;
+                        // A failed component import can temporarily hide serialized references from Unity.
+                        if (scene.GetRootGameObjects().SelectMany(root => root.GetComponentsInChildren<Transform>(true))
+                            .Any(t => GameObjectUtility.GetMonoBehavioursWithMissingScriptCount(t.gameObject) != 0)) return;
                         // No delayed deletion based on an old snapshot. Recheck all evidence now.
                         if (GuardReason() != null) return;
                         var fresh = Analyze(scene.path, Candidates(guid)).FirstOrDefault(d => d.Path == decision.Path);
@@ -116,6 +119,7 @@ namespace jp.unisakistudio.posingsystemeditor
 
         internal static string GuardReason()
         {
+            if (EditorUtility.scriptCompilationFailed) return "コンパイルエラーのため参照を確認できない";
             if (PosingSystemGeneratedControllers.IsGenerating || EditorApplication.isCompiling || EditorApplication.isUpdating ||
                 EditorApplication.isPlayingOrWillChangePlaymode || BuildPipeline.isBuildingPlayer) return "生成・ビルド・再生・インポート中";
             if (PrefabStageUtility.GetCurrentPrefabStage() != null) return "Prefab編集中";

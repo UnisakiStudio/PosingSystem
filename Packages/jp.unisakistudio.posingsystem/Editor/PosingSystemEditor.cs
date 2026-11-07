@@ -1362,7 +1362,7 @@ namespace jp.unisakistudio.posingsystemeditor
             // ラベル付きフォルダがエクスプローラ等で削除・移動されていると古いパスが返るため、実在するフォルダのみ採用する
             var folder = AssetDatabase.FindAssets($"l:{label}")
                 .Select(AssetDatabase.GUIDToAssetPath)
-                .FirstOrDefault(path => AssetDatabase.IsValidFolder(path));
+                .FirstOrDefault(path => path.StartsWith("Assets/", System.StringComparison.Ordinal) && AssetDatabase.IsValidFolder(path));
             if (string.IsNullOrEmpty(folder))
             {
                 folder = DefaultAdjustmentFolderRoot;

@@ -359,14 +359,15 @@ namespace jp.unisakistudio.posingsystemeditor.tests
                 var pose=definitions[group].animations.FirstOrDefault(p=>p.typeParameterValue==selected[group]);
                 var sync=selected[group]==0 ? group : pose?.syncdParameterValue ?? 0;
                 var inputs=optimized.parameters.ToDictionary(p=>p.name,p=>p.type==AnimatorControllerParameterType.Bool?(p.defaultBool?1f:0f):p.type==AnimatorControllerParameterType.Int?p.defaultInt:p.defaultFloat);
-                inputs["IsLocal"]=1;inputs["VRMode"]=0;inputs["LocomotionTypeGroup"]=group;
+                inputs["IsLocal"]=1;inputs["VRMode"]=0;inputs["TrackingType"]=3;inputs["LocomotionTypeGroup"]=group;
                 inputs["SitStand"]=a;inputs["SitShallow"]=b;inputs["SitDeep"]=c;
                 foreach(var value in PosingSystemConverter.SplitSyncParameters(sync,19))inputs[value.name]=value.value;
-                var expected=expectedEntries.Single(t=>Matches(t.conditions,inputs)).destinationState.name;
+                var expected=expectedEntries.First(t=>Matches(t.conditions,inputs)).destinationState.name;
                 // Poison the delayed intermediate values: the direct path must use current selections.
                 inputs["USSPS_Pose"]=223;inputs["USSPS_Pose0"]=1;inputs["LocomotionType"]=41;
                 var actual=entries.Where(t=>Matches(t.conditions,inputs)).ToArray();
-                Assert.That(actual.Length,Is.EqualTo(1),$"group={group}, selections={a}/{b}/{c}");
+                Assert.That(actual.Count(t=>t.name!=PosingSystemConverter.AvatarSelectionFallback),Is.EqualTo(1),$"group={group}, selections={a}/{b}/{c}");
+                Assert.That(actual[0].name,Is.Not.EqualTo(PosingSystemConverter.AvatarSelectionFallback));
                 Assert.That(actual[0].destinationState.name,Is.EqualTo(expected));checkedInputs++;
             }
             TestContext.WriteLine("Independent ordinary entry combinations: "+checkedInputs);

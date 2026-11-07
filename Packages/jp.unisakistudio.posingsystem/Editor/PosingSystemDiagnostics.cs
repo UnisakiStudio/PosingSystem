@@ -9,10 +9,61 @@ using UnityEngine;
 
 namespace jp.unisakistudio.posingsystemeditor
 {
+#if NDMF && MODULAR_AVATAR
+    internal sealed class PosingSystemCompilationPrecheck : VRC.SDKBase.Editor.BuildPipeline.IVRCSDKPreprocessAvatarCallback
+    {
+        public int callbackOrder => int.MinValue;
+        public bool OnPreprocessAvatar(GameObject avatar)
+        {
+            if (!EditorUtility.scriptCompilationFailed || avatar.GetComponentInChildren<PosingSystem>(true) == null)
+                return true;
+            Debug.LogWarning(PosingSystemDiagnostics.CompilationFailure(avatar).Message, avatar);
+            return false;
+        }
+    }
+#endif
+
     /// <summary>Read-only checks shared by the Inspector and conversion entry point.</summary>
     public static class PosingSystemDiagnostics
     {
         public const string RestoreTool = "シーンを保存・バックアップしてから、ALCOM / VCCで商品本体と「ゆにさきポーズシステム」を再取得してください。入れ直しても直らない場合は、Inspector上部の「ヘルプ・変更履歴」から公式マニュアル・お問い合わせをご確認ください。調整済みのオブジェクトやGeneratedResourcesは削除しないでください。";
+
+        internal const string CommonAnimatorId = "jp.unisakistudio.posingsystem_locomotion";
+        private const string CommonAnimatorPrefabGuid = "16f1d2fbf5ebb4d48b442583001516a2";
+        internal static ModularAvatarMergeAnimator CommonAnimatorTemplate()
+        {
+            var prefab = AssetDatabase.LoadAssetAtPath<GameObject>(AssetDatabase.GUIDToAssetPath(CommonAnimatorPrefabGuid));
+            return prefab != null ? prefab.GetComponent<ModularAvatarMergeAnimator>() : null;
+        }
+
+        internal static DuplicateEraser[] CommonAnimatorMarkers(PosingSystem ps) =>
+            ps.GetComponentsInChildren<DuplicateEraser>(true).Where(d => d.ID == CommonAnimatorId &&
+                d.GetComponentInParent<PosingSystem>(true) == ps && ps.GetAvatar() == d.GetComponentInParent<VRC.SDK3.Avatars.Components.VRCAvatarDescriptor>(true)).ToArray();
+
+        internal static bool ActiveCommonMarker(DuplicateEraser marker) =>
+            marker.gameObject.activeInHierarchy && !marker.GetComponentsInParent<Transform>(true).Any(t => t.CompareTag("EditorOnly"));
+
+        private static GameObject[] UnmarkedCommonChildren(PosingSystem ps, ModularAvatarMergeAnimator template) =>
+            ps.GetComponentsInChildren<Transform>(true).Where(t => t != ps.transform &&
+                t.GetComponentInParent<PosingSystem>(true) == ps && t.GetComponent<DuplicateEraser>() == null &&
+                (PrefabUtility.GetCorrespondingObjectFromOriginalSource(t.gameObject) == template.gameObject ||
+                 (t.name == template.name && t.GetComponent<ModularAvatarMergeAnimator>()?.layerType ==
+                     VRC.SDK3.Avatars.Components.VRCAvatarDescriptor.AnimLayerType.Base)))
+                .Select(t => t.gameObject).ToArray();
+
+        internal static bool CanRecoverCommonChild(PosingSystem ps, DuplicateEraser[] markers, out GameObject child)
+        {
+            child = null;
+            if (markers.Length != 0 || !ps.gameObject.activeInHierarchy) return false;
+            var template = CommonAnimatorTemplate();
+            if (template == null || template.animator == null) return false;
+            var candidates = UnmarkedCommonChildren(ps, template);
+            if (candidates.Length == 0) return true;
+            if (candidates.Length != 1) return false;
+            child = candidates[0];
+            return child.activeInHierarchy && !child.GetComponentsInParent<Transform>(true).Any(t => t.CompareTag("EditorOnly")) &&
+                GameObjectUtility.GetMonoBehavioursWithMissingScriptCount(child) == 0;
+        }
 
         public sealed class Issue
         {
@@ -62,15 +113,25 @@ namespace jp.unisakistudio.posingsystemeditor
                     Add("PS007", "胸のボーン（Chest）が割り当てられていません。", "胸の姿勢が崩れる場合は元モデルのRig > Configure > BodyのChestを確認してください。Upper Chestとは別の項目です。対応するボーンがない場合は無理に割り当てず、配布元の設定を確認してください。", MessageType.Warning, animator);
             }
 
-            var marker = ps.GetComponentsInChildren<DuplicateEraser>()
-                .FirstOrDefault(d => !d.CompareTag("EditorOnly") && d.ID == "jp.unisakistudio.posingsystem_locomotion");
+            var markers = CommonAnimatorMarkers(ps);
+            var marker = markers.FirstOrDefault(ActiveCommonMarker);
             if (marker == null)
-                Add("PS010", "有効な共通ポージングAnimatorが見つかりません。", "ツール内の共通ポージングAnimatorが削除・無効化されていないか、EditorOnlyになっていないか確認してください。" + RestoreTool);
+            {
+                if (CanRecoverCommonChild(ps, markers, out _))
+                    Add("PS010", "共通ポージングAnimatorがありません。", "プレビルド・ビルド時に標準Prefabから再作成します。", MessageType.Warning);
+                else Add("PS010", "有効な共通ポージングAnimatorが見つかりません。", "ツール内の共通ポージングAnimatorが1つだけ有効か、EditorOnlyタグ・Missing Scriptの有無と標準Prefabの導入状態を確認してください。");
+            }
             else
             {
                 var merge = marker.GetComponent<ModularAvatarMergeAnimator>();
                 if (merge == null)
-                    Add("PS011", "共通ポージングAnimatorにMA Merge Animatorがありません。", "Missing Scriptがある場合は、先にConsoleのコンパイルエラーとModular Avatar / NDMFの導入状態を確認してください。" + RestoreTool, context: marker);
+                {
+                    var recoverable = GameObjectUtility.GetMonoBehavioursWithMissingScriptCount(marker.gameObject) == 0 &&
+                        CommonAnimatorTemplate()?.animator != null;
+                    Add("PS011", "共通ポージングAnimatorにMA Merge Animatorがありません。",
+                        recoverable ? "プレビルド・ビルド時に標準設定から再作成します。" : RestoreTool,
+                        recoverable ? MessageType.Warning : MessageType.Error, marker);
+                }
                 else if (merge.animator == null)
                     Add("PS012", "共通ポージングAnimatorのAnimator参照が未設定です。", "プレビルド時に標準Controllerから復元を試みます。復元できない場合は、ゆにさきポーズシステムのパッケージを再取得してください。", MessageType.Warning, merge);
                 else if (!(merge.animator is AnimatorController controller))
@@ -136,10 +197,19 @@ namespace jp.unisakistudio.posingsystemeditor
 
         public static void ThrowIfInvalid(PosingSystem ps)
         {
+            ThrowIfCompilationFailed(ps);
             var errors = Collect(ps).Where(i => i.Severity == MessageType.Error).ToList();
             if (errors.Count == 0) return;
             throw Failure("PS000", "設定に問題があるため、ポーズの生成を開始できません。\n" + string.Join("\n\n", errors.Select(i => i.Message)),
                 "Inspectorの「設定の確認」で対象を選択し、表示された項目を直して再実行してください。", ps);
         }
+        internal static void ThrowIfCompilationFailed(UnityEngine.Object context)
+        {
+            if (EditorUtility.scriptCompilationFailed) throw CompilationFailure(context);
+        }
+
+        internal static DiagnosticException CompilationFailure(UnityEngine.Object context) =>
+            Failure("PS050", "Unityでスクリプトのコンパイルに失敗したため、ポーズの生成を開始できません。",
+                "Consoleの最初のコンパイルエラーを修正し、再コンパイルが完了してから実行してください。", context);
     }
 }

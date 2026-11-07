@@ -113,7 +113,8 @@ namespace jp.unisakistudio.posingsystemeditor
             for (var group = 0; group < 3; group++)
                 AddEntry(new[] { Local, Eq("VRMode", 0), Eq("LocomotionTypeGroup", group) }
                     .Concat(validSelections[group].Select(v => Ne(selections[group], v))).ToArray(), defaultDesktop);
-            playback.entryTransitions = entries.ToArray();
+            // The original default only applies after every generated ordinary selection was tried.
+            playback.entryTransitions = entries.OrderBy(t => t.name == PosingSystemConverter.AvatarSelectionFallback).ToArray();
             foreach (var pair in plans)
             {
                 var state = pair.Key; var transitions = new List<AnimatorStateTransition>();

@@ -277,10 +277,19 @@ namespace jp.unisakistudio.posingsystemeditor.tests
             var other=Settings();other.autoImportAvatarAnimations=false;
             var manual=Clip("SecondProductSelection",.35f);other.overrideDefines.Add(Row(manual,StateType.AvatarSelect));
             var before=ManualJson(other);
-            Prebuild();Assert.That(OutputState("AvatarSelecting").motion,Is.SameAs(manual));
+            void AssertSelectionMotion(PosingSystem target)
+            {
+                var machine = Output(target).layers.Single(l => l.name == "USSPS_Locomotion").stateMachine;
+                Assert.That(machine.defaultState.name, Is.EqualTo("AvatarSelecting"));
+                var selections = States(machine).Where(s => s.name == "AvatarSelecting").ToArray();
+                Assert.That(selections, Is.Not.Empty);
+                Assert.That(selections.All(s => s.motion == manual), Is.True, "Preview and normal selection must share the manual clip");
+            }
+            Prebuild();
+            AssertSelectionMotion(ps);
             var path=AssetDatabase.GetAssetPath(Output());
             PosingSystemEditor.Prebuild(other);
-            Assert.That(OutputState("AvatarSelecting",other).motion,Is.SameAs(manual));
+            AssertSelectionMotion(other);
             Assert.That(OutputState("Jump",other).motion,Is.SameAs(clip));
             Assert.That(AssetDatabase.GetAssetPath(Output(other)),Is.EqualTo(path));
             Assert.That(AssetDatabase.FindAssets("t:PosingSystemGeneratedAsset",new[]{folder}),Has.Length.EqualTo(1));

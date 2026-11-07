@@ -26,6 +26,7 @@ namespace jp.unisakistudio.posingsystemeditor
         {
             public BuildState() { }
             internal readonly HashSet<ModularAvatarMergeAnimator> CompiledMerges = new();
+            internal readonly HashSet<PosingSystem> MissingPrebuilds = new();
         }
 
         internal static Scope BeginDefaultScope(GameObject avatar, BuildState state = null)
@@ -98,11 +99,24 @@ namespace jp.unisakistudio.posingsystemeditor
         internal static void PrepareBeforeModularAvatar(GameObject avatar, nadena.dev.ndmf.IAssetSaver saver, BuildState state = null)
         {
             state?.CompiledMerges.Clear();
+            state?.MissingPrebuilds.Clear();
             using var defaults = state == null ? null : BeginDefaultScope(avatar);
             if (avatar == null || !Scopes.ContainsKey(avatar)) return;
-            var merges = avatar.GetComponentsInChildren<PosingSystem>(true)
-                .Where(p => p.GetAvatar()?.gameObject == avatar && !p.GetComponentsInParent<Transform>(true).Any(t => t.CompareTag("EditorOnly")))
-                .Select(p => PosingSystemConverter.GetCommonMergeAnimator(p, true)).Where(m => m != null).Distinct().ToArray();
+            var merges = new HashSet<ModularAvatarMergeAnimator>();
+            foreach (var system in avatar.GetComponentsInChildren<PosingSystem>(true)
+                         .Where(p => p.GetAvatar()?.gameObject == avatar && !p.GetComponentsInParent<Transform>(true).Any(t => t.CompareTag("EditorOnly"))))
+            {
+                var marker = PosingSystemDiagnostics.CommonAnimatorMarkers(system).FirstOrDefault(PosingSystemDiagnostics.ActiveCommonMarker);
+                var previousSource = marker != null && marker.TryGetComponent<ModularAvatarMergeAnimator>(out var sourceMerge)
+                    ? sourceMerge.animator : null;
+                var merge = PosingSystemConverter.GetCommonMergeAnimator(system, true);
+                if (merge == null) continue;
+                // A recovered template has no generated poses, even when the saved settings signature matches.
+                if (state != null && !string.IsNullOrEmpty(system.data) && merge.animator != null &&
+                    (!previousSource || AssetDatabase.AssetPathToGUID(AssetDatabase.GetAssetPath(merge.animator)) == TemplateGuid))
+                    state.MissingPrebuilds.Add(system);
+                merges.Add(merge);
+            }
             foreach (var group in merges.GroupBy(m => m.animator))
             {
                 if (!(group.Key is AnimatorController source)) continue;
