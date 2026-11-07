@@ -40,6 +40,7 @@ namespace jp.unisakistudio.posingsystemeditor
             foreach (var system in systems) PosingSystemFeatureUtility.Migrate(system);
             var main = controller.layers.FirstOrDefault(l => l.name == "USSPS_Locomotion");
             if (main == null) return;
+            ConfigureSleepJumpSwitch(controller, systems.Any(p => p.disableSleepJumpSwitch));
             foreach (var state in AllFeatureStates(main.stateMachine))
             {
                 if (state.mirrorParameter == "USSPS_Mirror") state.mirrorParameterActive = systems.Any(p => p.features.mirror);
@@ -79,6 +80,31 @@ namespace jp.unisakistudio.posingsystemeditor
             if (floatingSystem != null) BuildFloatingPoseSpace(floatingSystem, controller, main, saver);
             EditorUtility.SetDirty(controller);
             if (EditorUtility.IsPersistent(controller)) RemoveOldSubAssets(controller);
+        }
+
+        // All pose tools on the avatar share one sleep selector.
+        private static void ConfigureSleepJumpSwitch(AnimatorController controller, bool disabled)
+        {
+            var layer = controller.layers.FirstOrDefault(l => l.name == "USSPS_SitSleepSwitch");
+            if (layer == null) return;
+            foreach (var child in layer.stateMachine.states)
+            {
+                var state = child.state;
+                if (state.name != "SitSleepUp" && state.name != "SitSleepDown") continue;
+                var target = state.name == "SitSleepUp" ? "SitSleepDown" : "SitSleepUp";
+                foreach (var jump in state.transitions.Where(t => t.destinationState?.name == target + "_Judge"))
+                {
+                    // An existing prebuild can still contain the 3.1.0 guard on the source pose.
+                    var conditions = jump.conditions;
+                    for (var i = 0; i < conditions.Length; i++)
+                        if (conditions[i].parameter == state.name && conditions[i].mode == AnimatorConditionMode.NotEqual &&
+                            conditions[i].threshold == 0)
+                            conditions[i].parameter = target;
+                    jump.conditions = conditions;
+                    jump.mute = disabled;
+                    EditorUtility.SetDirty(jump);
+                }
+            }
         }
 
         private static IEnumerable<AnimatorState> AllFeatureStates(AnimatorStateMachine machine) =>

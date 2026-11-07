@@ -12,7 +12,7 @@ namespace jp.unisakistudio.posingsystemeditor
 {
     internal static partial class PosingSystemControllerCompiler
     {
-        internal const string ReferenceSha256 = "462fa9b486999c6e53727dffa657bc24c80dff31fd4242c06efec92dc8bcd6c7";
+        internal const string ReferenceSha256 = "172b37d792080ff705400cfe316a048a7bcc813137f46b48040adb36a7858cdb";
         internal const long RootId = 9100000L;
         private static readonly DefinitionNode[] Definition = new DefinitionNode[]
         {
@@ -1685,7 +1685,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 o.isExit = false;
                 o.solo = false;
                 o.mute = false;
-                o.conditions = new AnimatorCondition[] { new AnimatorCondition { parameter = @"Grounded", mode = (AnimatorConditionMode)2, threshold = 0.0f }, new AnimatorCondition { parameter = @"SitSleepDown", mode = (AnimatorConditionMode)7, threshold = 0.0f }, new AnimatorCondition { parameter = @"VelocityY", mode = (AnimatorConditionMode)3, threshold = 1.99f }, new AnimatorCondition { parameter = @"VelocityZ", mode = (AnimatorConditionMode)4, threshold = 0.01f }, new AnimatorCondition { parameter = @"VelocityZ", mode = (AnimatorConditionMode)3, threshold = -0.01f }, new AnimatorCondition { parameter = @"VelocityX", mode = (AnimatorConditionMode)4, threshold = 0.01f }, new AnimatorCondition { parameter = @"VelocityX", mode = (AnimatorConditionMode)3, threshold = -0.01f } };
+                o.conditions = new AnimatorCondition[] { new AnimatorCondition { parameter = @"Grounded", mode = (AnimatorConditionMode)2, threshold = 0.0f }, new AnimatorCondition { parameter = @"SitSleepUp", mode = (AnimatorConditionMode)7, threshold = 0.0f }, new AnimatorCondition { parameter = @"VelocityY", mode = (AnimatorConditionMode)3, threshold = 1.99f }, new AnimatorCondition { parameter = @"VelocityZ", mode = (AnimatorConditionMode)4, threshold = 0.01f }, new AnimatorCondition { parameter = @"VelocityZ", mode = (AnimatorConditionMode)3, threshold = -0.01f }, new AnimatorCondition { parameter = @"VelocityX", mode = (AnimatorConditionMode)4, threshold = 0.01f }, new AnimatorCondition { parameter = @"VelocityX", mode = (AnimatorConditionMode)3, threshold = -0.01f } };
                 o.duration = 0.0f;
                 o.offset = 0.0f;
                 o.exitTime = 0.0f;

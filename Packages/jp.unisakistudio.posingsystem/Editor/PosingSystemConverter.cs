@@ -129,6 +129,7 @@ namespace jp.unisakistudio.posingsystemeditor
         private class DefineSerializeRootDTO
         {
             public string featureSettings;
+            public bool disableSleepJumpSwitch;
             public string rolloverClipGuid;
             public string rolloverClipHash;
             public bool enablePoseIk;
@@ -1348,6 +1349,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 autoPoseKneeBaseline = new Vector2(posingSystem.avatarSpecificLeftKneeBendDegrees,
                     posingSystem.avatarSpecificRightKneeBendDegrees),
                 featureSettings = FeatureSettingsSignature(posingSystem),
+                disableSleepJumpSwitch = posingSystem.disableSleepJumpSwitch,
                 rolloverClipGuid = GetStableObjectIdentifier(posingSystem.features?.rolloverAnimation),
                 rolloverClipHash = GetAssetContentHash(posingSystem.features?.rolloverAnimation),
                 enablePoseIk = posingSystem.enablePoseIk,

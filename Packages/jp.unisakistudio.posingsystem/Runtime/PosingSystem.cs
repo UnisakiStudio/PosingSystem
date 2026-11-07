@@ -16,6 +16,7 @@ namespace jp.unisakistudio.posingsystem
         public string settingName;
         public bool isIconDisabled = false;
         public bool isIconSmall = false;
+        public bool disableSleepJumpSwitch;
         public const int PreviewMask = 21;
 
         [Serializable]

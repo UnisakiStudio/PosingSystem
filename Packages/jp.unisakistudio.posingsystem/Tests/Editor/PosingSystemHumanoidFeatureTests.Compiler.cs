@@ -71,6 +71,75 @@ namespace jp.unisakistudio.posingsystemeditor.tests
             finally { context.DeactivateAllExtensionContexts(); }
         }
 
+        [TestCase(false, false, false)]
+        [TestCase(false, true, false)]
+        [TestCase(false, false, true)]
+        [TestCase(false, true, true)]
+        [TestCase(true, false, true)]
+        [TestCase(true, true, true)]
+        public void SleepJumpSwitch_OnlyJumpsToASelectedPose(bool disabled, bool startProne, bool selectBoth)
+        {
+            var ps = CompilerSettings();
+            ps.disableSleepJumpSwitch = disabled;
+            var controller = CompileSettings(ps, true);
+            var sleep = controller.layers.Single(l => l.name == "USSPS_SitSleepSwitch");
+            // Drive the built selector independently of the head-height and face-direction sensors.
+            controller.layers = new[] { sleep };
+            using var rig = new ControllerCompilerRuntimeProbe(animator, controller, true, false);
+            rig.Set("LocomotionTypeGroup", 3);
+            rig.Set("KawaiiPosing_IsDown", startProne ? 1 : 0);
+            rig.Set("SitSleepUp", !startProne || selectBoth ? 1 : 0);
+            rig.Set("SitSleepDown", startProne || selectBoth ? 1 : 0);
+            rig.Tick(10, 60);
+            var prone = startProne;
+            int Expected() => Animator.StringToHash(prone ? "SitSleepDown" : "SitSleepUp");
+            int Current() => rig.Playable.GetCurrentAnimatorStateInfo(0).shortNameHash;
+            Assert.That(Current(), Is.EqualTo(Expected()), "Selected starting pose");
+            for (var jump = 0; jump < 2; jump++)
+            {
+                rig.Set("Grounded", 0);
+                rig.Set("VelocityY", 3);
+                for (var frame = 0; frame < 30; frame++)
+                {
+                    rig.Tick(1, 60);
+                    if (disabled || !selectBoth)
+                    {
+                        Assert.That(Current(), Is.EqualTo(Expected()), "Airborne frame " + frame);
+                        Assert.That(rig.Playable.IsInTransition(0), Is.False);
+                    }
+                }
+                rig.Set("Grounded", 1);
+                rig.Set("VelocityY", 0);
+                rig.Tick(10, 60);
+                if (!disabled && selectBoth) prone = !prone;
+                Assert.That(Current(), Is.EqualTo(Expected()), "Landed jump " + jump);
+            }
+        }
+
+        [Test]
+        public void SleepJumpSwitch_PrebuildUpdatesOldGuardAndRestoresSwitching()
+        {
+            var ps = CompilerSettings();
+            var controller = CompileSettings(ps, true);
+            var sleep = controller.layers.Single(l => l.name == "USSPS_SitSleepSwitch").stateMachine;
+            var jump = sleep.states.Single(s => s.state.name == "SitSleepDown").state.transitions
+                .Single(t => t.destinationState.name == "SitSleepUp_Judge");
+            var old = jump.conditions;
+            var guard = Array.FindIndex(old, c => c.parameter == "SitSleepUp");
+            old[guard].parameter = "SitSleepDown";
+            jump.conditions = old;
+            var before = PosingSystemConverter.GetDefineSerializeJson(ps);
+            ps.disableSleepJumpSwitch = true;
+            Assert.That(PosingSystemConverter.GetDefineSerializeJson(ps), Is.Not.EqualTo(before));
+            PosingSystemConverter.ConvertOptionalFeatures(ps);
+            Assert.That(jump.mute, Is.True);
+            Assert.That(jump.conditions.Count(c => c.parameter == "SitSleepUp"), Is.EqualTo(1));
+            ps.disableSleepJumpSwitch = false;
+            PosingSystemConverter.ConvertOptionalFeatures(ps);
+            Assert.That(jump.mute, Is.False);
+            Assert.That(PosingSystemConverter.GetDefineSerializeJson(ps), Is.EqualTo(before));
+        }
+
         [TestCase(1)] [TestCase(16)] [TestCase(64)] [TestCase(128)]
         public void Compiler_PERF01_ControllerGrowthIsLinearInPoseCount(int count)
         {

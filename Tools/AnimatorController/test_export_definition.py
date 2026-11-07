@@ -14,7 +14,7 @@ class DefinitionMigrationTests(unittest.TestCase):
     def test_reference_inventory_is_frozen(self):
         self.assertEqual(len(self.objects), 749)
         self.assertEqual(len(exporter.reachable(self.objects, self.identity)), 375)
-        self.assertEqual(self.digest, '462fa9b486999c6e53727dffa657bc24c80dff31fd4242c06efec92dc8bcd6c7')
+        self.assertEqual(self.digest, '172b37d792080ff705400cfe316a048a7bcc813137f46b48040adb36a7858cdb')
 
     def test_migration_is_deterministic_and_matches_checked_source(self):
         first = exporter.emit(self.objects, self.identity, self.digest)
