@@ -82,16 +82,20 @@ namespace jp.unisakistudio.posingsystemeditor
         {
             AssemblyReloadEvents.beforeAssemblyReload += CleanupAllPreviewAvatars;
             EditorSceneManager.sceneOpened += OnSceneOpened;
+            EditorSceneManager.sceneSaving += (scene, _) => LegacyRolloverPoseMigration.ApplyToScene(scene);
+            PrefabUtility.prefabInstanceUpdated += LegacyRolloverPoseMigration.ApplyToHierarchy;
             EditorApplication.playModeStateChanged += OnPlayModeStateChanged;
 
             // アップデート前のバージョンがシーンへ保存したPreviewAvatarRootも、
             // スクリプト再読込後に確実に回収する。
             EditorApplication.delayCall += CleanupAllPreviewAvatars;
+            EditorApplication.delayCall += LegacyRolloverPoseMigration.ApplyToOpenScenes;
             EditorApplication.delayCall += PosingSystemAvatarAdjustmentInspector.ScheduleAllInOpenScenes;
         }
 
         private static void OnSceneOpened(Scene scene, OpenSceneMode mode)
         {
+            LegacyRolloverPoseMigration.ApplyToScene(scene);
             CleanupAllPreviewAvatars();
             EditorApplication.delayCall += PosingSystemAvatarAdjustmentInspector.ScheduleAllInOpenScenes;
         }
@@ -461,6 +465,7 @@ namespace jp.unisakistudio.posingsystemeditor
 
         public static void Prebuild(PosingSystem posingSystem)
         {
+            LegacyRolloverPoseMigration.Apply(posingSystem);
             PosingSystemDiagnostics.ThrowIfInvalid(posingSystem);
             // ビルド時のクローンでもプレビルド済みデータを同一と判定できるよう、
             // 元のPosingSystemを示す安定したIDをデータ生成より先に保存する。
