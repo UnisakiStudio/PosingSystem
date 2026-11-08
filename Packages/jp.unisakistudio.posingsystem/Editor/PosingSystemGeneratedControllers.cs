@@ -42,7 +42,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 Path = stage != null ? stage.assetPath : avatar.scene.path;
                 Kind = stage != null ? "Prefabs" : string.IsNullOrEmpty(Path) ? "Unsaved" : "Scenes";
                 Guid = Kind == "Unsaved" ? SessionId + "-" + avatar.scene.handle : AssetDatabase.AssetPathToGUID(Path);
-                if (string.IsNullOrEmpty(Guid)) throw new InvalidOperationException("生成先のシーンまたはPrefabを識別できません。");
+                if (string.IsNullOrEmpty(Guid)) throw new InvalidOperationException(PosingSystemLocalization.Text("生成先のシーンまたはPrefabを識別できません。"));
                 GlobalId = GlobalObjectId.GetGlobalObjectIdSlow(avatar).ToString();
             }
             internal bool Matches(PosingSystemGeneratedAsset data)
@@ -69,7 +69,8 @@ namespace jp.unisakistudio.posingsystemeditor
 
         internal static void Convert(PosingSystem ps, IAssetSaver destination, Action<IAssetSaver> convert)
         {
-            if (Current != null) throw new InvalidOperationException("ポーズ生成の再入を検出しました。");
+            using var languageScope = PosingSystemLocalization.ForInspector(ps);
+            if (Current != null) throw new InvalidOperationException(PosingSystemLocalization.Text("ポーズ生成の再入を検出しました。"));
             using var defaults = PosingSystemControllerGeneration.BeginDefaultScope(ps.GetAvatar()?.gameObject);
             using var session = new Session(ps, destination);
             Current = session;
@@ -82,7 +83,7 @@ namespace jp.unisakistudio.posingsystemeditor
             if (Current == null) { Convert(ps, null, _ => EnsureBase(ps)); return; }
             var merge = PosingSystemConverter.GetCommonMergeAnimator(ps, true);
             if (merge == null || !(merge.animator is AnimatorController controller))
-                throw new InvalidOperationException("共通ポージングAnimatorが見つかりません。");
+                throw new InvalidOperationException(PosingSystemLocalization.Text("共通ポージングAnimatorがありません。"));
             // Prepare has already cloned the complete mutable graph and shared it within this avatar.
             controller.layers = controller.layers.Where(l => l.name != "USSPS_IsDefault").ToArray();
         }
@@ -93,9 +94,9 @@ namespace jp.unisakistudio.posingsystemeditor
             if (Current == null) { Convert(ps, null, _ => EnsureBreathing(ps)); return; }
             var merge = PosingSystemConverter.GetAdditiveBreathingMergeAnimator(ps, true);
             if (merge == null || !(merge.animator is AnimatorController controller))
-                throw new InvalidOperationException("呼吸用ポージングAnimatorが見つかりません。");
+                throw new InvalidOperationException(PosingSystemLocalization.Text("呼吸用ポージングAnimatorが見つかりません。"));
             if (!Current.IsTemporaryAsset(controller))
-                throw new InvalidOperationException("呼吸用Controllerを生成用コピーへ分離できませんでした。");
+                throw new InvalidOperationException(PosingSystemLocalization.Text("呼吸用Controllerを生成用コピーへ分離できませんでした。"));
         }
 
         // The converter receives an in-memory saver even for prebuilds. Only after successful
@@ -122,9 +123,9 @@ namespace jp.unisakistudio.posingsystemeditor
             {
                 ps = system; destination = saver;
                 avatar = ps.GetAvatar() != null ? ps.GetAvatar().gameObject : null;
-                if (avatar == null) throw new InvalidOperationException("導入先アバターが見つかりません。");
+                if (avatar == null) throw new InvalidOperationException(PosingSystemLocalization.Text("導入先アバターが見つかりません。"));
                 if (EditorUtility.IsPersistent(avatar))
-                    throw new InvalidOperationException("Project内のPrefabを直接変更できません。シーン内のアバター、またはPrefab編集モードでプレビルドしてください。");
+                    throw new InvalidOperationException(PosingSystemLocalization.Text("Project内のPrefabを直接変更できません。シーン内のアバター、またはPrefab編集モードでプレビルドしてください。"));
             }
 
             internal void Prepare()
@@ -140,7 +141,7 @@ namespace jp.unisakistudio.posingsystemeditor
                     mainMerges.Select(m => m.animator as AnimatorController).FirstOrDefault(c => c != null);
                 if (mainSource == null)
                     throw PosingSystemDiagnostics.Failure(mainMerges.Length == 0 ? "PS010" : "PS013",
-                        mainMerges.Length == 0 ? "このアバター内に有効な共通ポージングAnimatorが見つかりません。" :
+                        mainMerges.Length == 0 ? "有効な共通ポージングAnimatorが見つかりません。" :
                         "共通ポージングAnimatorの参照からAnimator Controllerを読み込めません。",
                         "共通ポージングAnimatorの有効状態・EditorOnlyタグ・MA Merge Animatorの参照を確認してください。調整済みの生成ファイルは保持してください。",
                         ps);

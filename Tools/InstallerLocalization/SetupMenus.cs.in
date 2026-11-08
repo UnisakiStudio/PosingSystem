@@ -10,6 +10,7 @@ namespace UnisakiStudio.Setup
         private static readonly MethodInfo Add = typeof(Menu).GetMethods(Flags).FirstOrDefault(m => m.Name == "AddMenuItem" && m.GetParameters().Length == 6);
         private static readonly MethodInfo Remove = typeof(Menu).GetMethods(Flags).FirstOrDefault(m => m.Name == "RemoveMenuItem" && m.GetParameters().Length == 1);
         private static readonly MethodInfo Exists = typeof(Menu).GetMethods(Flags).FirstOrDefault(m => m.Name == "MenuItemExists" && m.GetParameters().Length == 1);
+        private static readonly MethodInfo Extract = typeof(Menu).GetMethods(Flags).FirstOrDefault(m => m.Name == "ExtractSubmenus" && m.GetParameters().Length == 1);
         private static readonly string Owner = typeof(Language).Assembly.FullName.Split(',')[0];
         private static string language;
         private static double nextCheck;
@@ -28,11 +29,50 @@ namespace UnisakiStudio.Setup
         private static void Cleanup()
         {
             if (SessionState.GetString(SessionKey + ".owner", "") != Owner) return;
-            if (Remove == null || Exists == null) return;
-            foreach (var path in SessionState.GetString(SessionKey, "").Split(new[] { '\n' }, StringSplitOptions.RemoveEmptyEntries))
-                if ((bool)Exists.Invoke(null, new object[] { path })) Remove.Invoke(null, new object[] { path });
+            if (Remove == null || Extract == null) return;
+            RemoveRegistered(ReadPaths(), null, null, null);
             SessionState.SetString(SessionKey, "");
         }
+        [Serializable] private sealed class PathList { public string[] paths; }
+        private static string[] ReadPaths()
+        {
+            var saved = SessionState.GetString(SessionKey, "");
+            if (saved.TrimStart().StartsWith("{", StringComparison.Ordinal))
+            {
+                try { return JsonUtility.FromJson<PathList>(saved)?.paths ?? Array.Empty<string>(); }
+                catch (ArgumentException) { return Array.Empty<string>(); }
+            }
+            // Upgrade fallback. Old multiline captions cannot be reconstructed
+            // from this list; Rebuild also sweeps known canonical menu commands.
+            return saved.Split(new[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
+        }
+        private static void RemoveRegistered(IEnumerable<string> savedPaths, HashSet<string> knownPaths, HashSet<string> canonicalPaths, IEnumerable<string> sources)
+        {
+            var saved = new HashSet<string>(savedPaths, StringComparer.Ordinal);
+            var roots = saved.Where(p => p.Contains("/")).Select(p => p.Split('/')[0]);
+            var prefixes = new HashSet<string>(StringComparer.Ordinal);
+            if (sources != null)
+                foreach (var source in sources)
+                {
+                    var parts = source.Split('/');
+                    var length = parts.Length > 2 && parts[0] == "Assets" && parts[1] == "Create" ? 3 : 2;
+                    var studioRoot = string.Join("/", parts.Take(length));
+                    foreach (var code in Language.Codes) prefixes.Add(PathFor(studioRoot, code) + "/");
+                    roots = roots.Concat(new[] { parts[0] });
+                }
+            // Do not feed every unrelated Unity/plugin command through the
+            // translation parser. Only our studio submenus can be migration
+            // candidates; exact saved paths remain removable independently.
+            var actual = roots.Distinct().SelectMany(root => (string[])Extract.Invoke(null, new object[] { root })).Distinct()
+                .Where(path => saved.Contains(path) || prefixes.Any(prefix => path.StartsWith(prefix, StringComparison.Ordinal))).ToArray();
+            foreach (var path in actual)
+                if (saved.Contains(path) || knownPaths != null && knownPaths.Contains(path) || canonicalPaths != null && canonicalPaths.Contains(PathFor(path, "en")))
+                    // Unity's Exists check can return false for paths containing
+                    // trailing whitespace. The actual native inventory is the
+                    // authority; remove its exact path without an Exists gate.
+                    Remove.Invoke(null, new object[] { path });
+        }
+        private static string MenuPart(string value) => Regex.Replace(value, @"\s+", " ").Trim();
         private static void Update()
         {
             if (EditorApplication.timeSinceStartup < nextCheck) return;
@@ -46,7 +86,9 @@ namespace UnisakiStudio.Setup
             var first = parts.Length > 1 && parts[0] == "Assets" && parts[1] == "Create" ? 2 : 1;
             for (var i = first; i < parts.Length; i++)
             {
-                parts[i] = locale == "ja" ? parts[i] : Language.Translate(locale, parts[i]);
+                // Translate first, so legacy multiline captions can resolve via
+                // migration aliases, then keep the native menu path single-line.
+                parts[i] = MenuPart(locale == "ja" ? parts[i] : Language.Translate(locale, parts[i]));
             }
             return string.Join("/", parts);
         }
@@ -62,7 +104,7 @@ namespace UnisakiStudio.Setup
         {
             if (!IsOwner()) return;
             language = locale;
-            if (Add == null || Remove == null || Exists == null) return;
+            if (Add == null || Remove == null || Exists == null || Extract == null) return;
             var entries = new Dictionary<string, Entry>();
             foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
             {
@@ -106,20 +148,26 @@ namespace UnisakiStudio.Setup
                         }
                 }
             }
-            var oldPaths = SessionState.GetString(SessionKey, "").Split(new[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
-            foreach (var path in oldPaths.Concat(entries.Where(e => e.Value.HasAction).Select(e => e.Key)).Distinct())
-                if ((bool)Exists.Invoke(null, new object[] { path })) Remove.Invoke(null, new object[] { path });
+            var sources = entries.Where(e => e.Value.HasAction).Select(e => e.Key).ToArray();
+            var canonical = new HashSet<string>(sources.Select(source => PathFor(source, "en")), StringComparer.Ordinal);
+            var known = new HashSet<string>(sources.SelectMany(source => Language.Codes.Select(code => PathFor(source, code))), StringComparer.Ordinal);
+            // The native inventory sweep also recognizes captions left by a
+            // previous version whose newline-delimited SessionState was broken.
+            RemoveRegistered(ReadPaths(), known, canonical, sources);
             var installed = new List<string>();
             foreach (var pair in entries.Where(e => e.Value.HasAction))
             {
                 var entry = pair.Value;
                 var path = PathFor(pair.Key, language);
+                if (installed.Contains(path)) continue;
                 Action execute = entry.CreateAsset ?? (() => Invoke(entry.Execute));
                 Func<bool> validate = entry.Validate == null ? (Func<bool>)(() => true) : () => (bool)Invoke(entry.Validate);
                 Add.Invoke(null, new object[] { path, "", false, entry.Priority, execute, validate });
                 installed.Add(path);
             }
-            SessionState.SetString(SessionKey, string.Join("\n", installed));
+            // A JSON array preserves each path as one item even if future caption
+            // sources contain control characters before native normalization.
+            SessionState.SetString(SessionKey, JsonUtility.ToJson(new PathList { paths = installed.ToArray() }));
             SessionState.SetString(SessionKey + ".owner", Owner);
         }
         private static object Invoke(MethodInfo method)

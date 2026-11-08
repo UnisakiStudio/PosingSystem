@@ -88,7 +88,8 @@
     "[CoolPosing] ライセンスのインストールがキャンセルされました。": "[CoolPosing] License installation cancelled.",
     "[CoolPosing] ライセンスのインストールに失敗しました。プラットフォームを確認してください。": "[CoolPosing] License installation failed. Check your platform.",
     "[CoolPosing] ライセンスは既に有効化されています。": "[CoolPosing] License already installed.",
-    "[CoolPosing] ライセンスアクティベータスクリプトのパスが見つかりませんでした。": "[CoolPosing] License activator script not found."
+    "[CoolPosing] ライセンスアクティベータスクリプトのパスが見つかりませんでした。": "[CoolPosing] License activator script not found.",
+    "Consoleのエラーについて相談する": "Ask about Console errors"
   },
   "translations": {
     "ja": {
@@ -249,7 +250,8 @@
       "[CoolPosing] License installation cancelled.": "[CoolPosing] ライセンスのインストールがキャンセルされました。",
       "[CoolPosing] License installation failed. Check your platform.": "[CoolPosing] ライセンスのインストールに失敗しました。プラットフォームを確認してください。",
       "[CoolPosing] License already installed.": "[CoolPosing] ライセンスは既に有効化されています。",
-      "[CoolPosing] License activator script not found.": "[CoolPosing] ライセンスアクティベータスクリプトのパスが見つかりませんでした。"
+      "[CoolPosing] License activator script not found.": "[CoolPosing] ライセンスアクティベータスクリプトのパスが見つかりませんでした。",
+      "Ask about Console errors": "Consoleのエラーについて相談する"
     },
     "fr": {
       "Install": "Installer",
@@ -358,7 +360,8 @@
       "[KawaiiPosing] License already installed.": "[KawaiiPosing] Licence déjà installée.",
       "[KawaiiPosing] License installation cancelled.": "[KawaiiPosing] Installation de licence annulée.",
       "[KawaiiPosing] License installation failed. Check your platform.": "[KawaiiPosing] Échec de l'installation de licence. Vérifiez votre plateforme.",
-      "config.json not found. installing package failed.": "config.json est introuvable. L'installation du package a échoué."
+      "config.json not found. installing package failed.": "config.json est introuvable. L'installation du package a échoué.",
+      "Ask about Console errors": "Console — Demander de l'aide sur cette erreur"
     },
     "it": {
       "Install": "Installa",
@@ -467,7 +470,8 @@
       "[KawaiiPosing] License already installed.": "[KawaiiPosing] Licenza già installata.",
       "[KawaiiPosing] License installation cancelled.": "[KawaiiPosing] Installazione licenza annullata.",
       "[KawaiiPosing] License installation failed. Check your platform.": "[KawaiiPosing] Installazione licenza fallita. Controlla la piattaforma.",
-      "config.json not found. installing package failed.": "config.json non trovato. Installazione del pacchetto fallita."
+      "config.json not found. installing package failed.": "config.json non trovato. Installazione del pacchetto fallita.",
+      "Ask about Console errors": "Console — Chiedi aiuto per questo errore"
     },
     "zh-Hans": {
       "Install": "安装",
@@ -576,7 +580,8 @@
       "[KawaiiPosing] License already installed.": "[KawaiiPosing] 许可证已安装。",
       "[KawaiiPosing] License installation cancelled.": "[KawaiiPosing] 已取消许可证安装。",
       "[KawaiiPosing] License installation failed. Check your platform.": "[KawaiiPosing] 许可证安装失败。请检查当前平台。",
-      "config.json not found. installing package failed.": "未找到config.json，软件包安装失败。"
+      "config.json not found. installing package failed.": "未找到config.json，软件包安装失败。",
+      "Ask about Console errors": "Console — 咨询此错误"
     },
     "zh-Hant": {
       "Install": "安裝",
@@ -685,7 +690,8 @@
       "[KawaiiPosing] License already installed.": "[KawaiiPosing] 授權已安裝。",
       "[KawaiiPosing] License installation cancelled.": "[KawaiiPosing] 已取消授權安裝。",
       "[KawaiiPosing] License installation failed. Check your platform.": "[KawaiiPosing] 授權安裝失敗。請檢查目前平台。",
-      "config.json not found. installing package failed.": "找不到config.json，套件安裝失敗。"
+      "config.json not found. installing package failed.": "找不到config.json，套件安裝失敗。",
+      "Ask about Console errors": "Console — 詢問此錯誤"
     },
     "ko": {
       "Install": "설치",
@@ -794,7 +800,8 @@
       "[KawaiiPosing] License already installed.": "[KawaiiPosing] 라이선스가 이미 설치되어 있습니다.",
       "[KawaiiPosing] License installation cancelled.": "[KawaiiPosing] 라이선스 설치를 취소했습니다.",
       "[KawaiiPosing] License installation failed. Check your platform.": "[KawaiiPosing] 라이선스 설치에 실패했습니다. 플랫폼을 확인해 주세요.",
-      "config.json not found. installing package failed.": "config.json을 찾지 못했습니다. 패키지 설치에 실패했습니다."
+      "config.json not found. installing package failed.": "config.json을 찾지 못했습니다. 패키지 설치에 실패했습니다.",
+      "Ask about Console errors": "Console — 이 오류 문의"
     },
     "th": {
       "Install": "ติดตั้ง",
@@ -903,7 +910,8 @@
       "[KawaiiPosing] License already installed.": "[KawaiiPosing] ติดตั้งสิทธิ์ใช้งานแล้ว",
       "[KawaiiPosing] License installation cancelled.": "[KawaiiPosing] ยกเลิกการติดตั้งสิทธิ์ใช้งานแล้ว",
       "[KawaiiPosing] License installation failed. Check your platform.": "[KawaiiPosing] ติดตั้งสิทธิ์ใช้งานไม่สำเร็จ ตรวจสอบแพลตฟอร์ม",
-      "config.json not found. installing package failed.": "ไม่พบ config.json ติดตั้งแพ็กเกจไม่สำเร็จ"
+      "config.json not found. installing package failed.": "ไม่พบ config.json ติดตั้งแพ็กเกจไม่สำเร็จ",
+      "Ask about Console errors": "Console — สอบถามเกี่ยวกับข้อผิดพลาดนี้"
     },
     "de": {
       "Install": "Installieren",
@@ -1012,7 +1020,8 @@
       "[KawaiiPosing] License already installed.": "[KawaiiPosing] Lizenz bereits installiert.",
       "[KawaiiPosing] License installation cancelled.": "[KawaiiPosing] Lizenzinstallation abgebrochen.",
       "[KawaiiPosing] License installation failed. Check your platform.": "[KawaiiPosing] Lizenzinstallation fehlgeschlagen. Prüfe deine Plattform.",
-      "config.json not found. installing package failed.": "config.json nicht gefunden. Paketinstallation fehlgeschlagen."
+      "config.json not found. installing package failed.": "config.json nicht gefunden. Paketinstallation fehlgeschlagen.",
+      "Ask about Console errors": "Console — Hilfe zu diesem Fehler anfragen"
     },
     "es": {
       "Install": "Instalar",
@@ -1121,7 +1130,8 @@
       "[KawaiiPosing] License already installed.": "[KawaiiPosing] Licencia ya instalada.",
       "[KawaiiPosing] License installation cancelled.": "[KawaiiPosing] Instalación de licencia cancelada.",
       "[KawaiiPosing] License installation failed. Check your platform.": "[KawaiiPosing] Falló la instalación de licencia. Comprueba tu plataforma.",
-      "config.json not found. installing package failed.": "No se encontró config.json. Falló la instalación del paquete."
+      "config.json not found. installing package failed.": "No se encontró config.json. Falló la instalación del paquete.",
+      "Ask about Console errors": "Console — Consultar este error"
     },
     "pt": {
       "Install": "Instalar",
@@ -1230,7 +1240,8 @@
       "[KawaiiPosing] License already installed.": "[KawaiiPosing] Licença já instalada.",
       "[KawaiiPosing] License installation cancelled.": "[KawaiiPosing] Instalação de licença cancelada.",
       "[KawaiiPosing] License installation failed. Check your platform.": "[KawaiiPosing] Falha na instalação de licença. Verifique sua plataforma.",
-      "config.json not found. installing package failed.": "config.json não foi encontrado. A instalação do pacote falhou."
+      "config.json not found. installing package failed.": "config.json não foi encontrado. A instalação do pacote falhou.",
+      "Ask about Console errors": "Console — Pedir ajuda sobre este erro"
     },
     "pt-BR": {
       "Install": "Instalar",
@@ -1339,7 +1350,8 @@
       "[KawaiiPosing] License already installed.": "[KawaiiPosing] Licença já instalada.",
       "[KawaiiPosing] License installation cancelled.": "[KawaiiPosing] Instalação de licença cancelada.",
       "[KawaiiPosing] License installation failed. Check your platform.": "[KawaiiPosing] Falha na instalação de licença. Verifique sua plataforma.",
-      "config.json not found. installing package failed.": "config.json não foi encontrado. A instalação do pacote falhou."
+      "config.json not found. installing package failed.": "config.json não foi encontrado. A instalação do pacote falhou.",
+      "Ask about Console errors": "Console — Pedir ajuda sobre este erro"
     },
     "ru": {
       "Install": "Установить",
@@ -1448,7 +1460,8 @@
       "[KawaiiPosing] License already installed.": "[KawaiiPosing] Лицензия уже установлена.",
       "[KawaiiPosing] License installation cancelled.": "[KawaiiPosing] Установка лицензии отменена.",
       "[KawaiiPosing] License installation failed. Check your platform.": "[KawaiiPosing] Не удалось установить лицензию. Проверьте платформу.",
-      "config.json not found. installing package failed.": "Файл config.json не найден. Установка пакета не удалась."
+      "config.json not found. installing package failed.": "Файл config.json не найден. Установка пакета не удалась.",
+      "Ask about Console errors": "Console — Спросить об этой ошибке"
     },
     "uk": {
       "Install": "Встановити",
@@ -1557,7 +1570,8 @@
       "[KawaiiPosing] License already installed.": "[KawaiiPosing] Ліцензію вже встановлено.",
       "[KawaiiPosing] License installation cancelled.": "[KawaiiPosing] Установлення ліцензії скасовано.",
       "[KawaiiPosing] License installation failed. Check your platform.": "[KawaiiPosing] Не вдалося встановити ліцензію. Перевірте платформу.",
-      "config.json not found. installing package failed.": "Файл config.json не знайдено. Установлення пакета не вдалося."
+      "config.json not found. installing package failed.": "Файл config.json не знайдено. Установлення пакета не вдалося.",
+      "Ask about Console errors": "Console — Запитати про цю помилку"
     },
     "pl": {
       "Install": "Zainstaluj",
@@ -1666,7 +1680,8 @@
       "[KawaiiPosing] License already installed.": "[KawaiiPosing] Licencja jest już zainstalowana.",
       "[KawaiiPosing] License installation cancelled.": "[KawaiiPosing] Instalacja licencji została anulowana.",
       "[KawaiiPosing] License installation failed. Check your platform.": "[KawaiiPosing] Instalacja licencji nie powiodła się. Sprawdź platformę.",
-      "config.json not found. installing package failed.": "Nie znaleziono config.json. Instalacja pakietu nie powiodła się."
+      "config.json not found. installing package failed.": "Nie znaleziono config.json. Instalacja pakietu nie powiodła się.",
+      "Ask about Console errors": "Console — Zapytaj o ten błąd"
     },
     "nl": {
       "Install": "Installeren",
@@ -1775,7 +1790,8 @@
       "[KawaiiPosing] License already installed.": "[KawaiiPosing] Licentie al geïnstalleerd.",
       "[KawaiiPosing] License installation cancelled.": "[KawaiiPosing] Licentie-installatie geannuleerd.",
       "[KawaiiPosing] License installation failed. Check your platform.": "[KawaiiPosing] Licentie-installatie mislukt. Controleer je platform.",
-      "config.json not found. installing package failed.": "config.json is niet gevonden. Pakketinstallatie mislukt."
+      "config.json not found. installing package failed.": "config.json is niet gevonden. Pakketinstallatie mislukt.",
+      "Ask about Console errors": "Console — Hulp bij deze fout vragen"
     },
     "sv": {
       "Install": "Installera",
@@ -1884,7 +1900,8 @@
       "[KawaiiPosing] License already installed.": "[KawaiiPosing] Licensen är redan installerad.",
       "[KawaiiPosing] License installation cancelled.": "[KawaiiPosing] Licensinstallationen avbröts.",
       "[KawaiiPosing] License installation failed. Check your platform.": "[KawaiiPosing] Licensinstallationen misslyckades. Kontrollera plattformen.",
-      "config.json not found. installing package failed.": "config.json hittades inte. Paketinstallationen misslyckades."
+      "config.json not found. installing package failed.": "config.json hittades inte. Paketinstallationen misslyckades.",
+      "Ask about Console errors": "Console — Fråga om det här felet"
     },
     "da": {
       "Install": "Installer",
@@ -1993,7 +2010,8 @@
       "[KawaiiPosing] License already installed.": "[KawaiiPosing] Licensen er allerede installeret.",
       "[KawaiiPosing] License installation cancelled.": "[KawaiiPosing] Licensinstallationen blev annulleret.",
       "[KawaiiPosing] License installation failed. Check your platform.": "[KawaiiPosing] Licensinstallationen mislykkedes. Kontrollér platformen.",
-      "config.json not found. installing package failed.": "config.json blev ikke fundet. Pakkeinstallationen mislykkedes."
+      "config.json not found. installing package failed.": "config.json blev ikke fundet. Pakkeinstallationen mislykkedes.",
+      "Ask about Console errors": "Console — Spørg om denne fejl"
     },
     "fi": {
       "Install": "Asenna",
@@ -2102,7 +2120,8 @@
       "[KawaiiPosing] License already installed.": "[KawaiiPosing] Lisenssi on jo asennettu.",
       "[KawaiiPosing] License installation cancelled.": "[KawaiiPosing] Lisenssin asennus peruttiin.",
       "[KawaiiPosing] License installation failed. Check your platform.": "[KawaiiPosing] Lisenssin asennus epäonnistui. Tarkista alusta.",
-      "config.json not found. installing package failed.": "config.json-tiedostoa ei löytynyt. Paketin asennus epäonnistui."
+      "config.json not found. installing package failed.": "config.json-tiedostoa ei löytynyt. Paketin asennus epäonnistui.",
+      "Ask about Console errors": "Console — Kysy tästä virheestä"
     },
     "nb": {
       "Install": "Installer",
@@ -2211,7 +2230,8 @@
       "[KawaiiPosing] License already installed.": "[KawaiiPosing] Lisensen er allerede installert.",
       "[KawaiiPosing] License installation cancelled.": "[KawaiiPosing] Lisensinstallasjonen ble avbrutt.",
       "[KawaiiPosing] License installation failed. Check your platform.": "[KawaiiPosing] Lisensinstallasjonen mislyktes. Kontroller plattformen.",
-      "config.json not found. installing package failed.": "config.json ble ikke funnet. Pakkeinstallasjonen mislyktes."
+      "config.json not found. installing package failed.": "config.json ble ikke funnet. Pakkeinstallasjonen mislyktes.",
+      "Ask about Console errors": "Console — Spør om denne feilen"
     },
     "cs": {
       "Install": "Instalovat",
@@ -2320,7 +2340,8 @@
       "[KawaiiPosing] License already installed.": "[KawaiiPosing] Licence je již nainstalována.",
       "[KawaiiPosing] License installation cancelled.": "[KawaiiPosing] Instalace licence zrušena.",
       "[KawaiiPosing] License installation failed. Check your platform.": "[KawaiiPosing] Instalace licence selhala. Zkontrolujte platformu.",
-      "config.json not found. installing package failed.": "Soubor config.json nenalezen. Instalace balíčku selhala."
+      "config.json not found. installing package failed.": "Soubor config.json nenalezen. Instalace balíčku selhala.",
+      "Ask about Console errors": "Console — Zeptat se na tuto chybu"
     },
     "tr": {
       "Install": "Yükle",
@@ -2429,7 +2450,8 @@
       "[KawaiiPosing] License already installed.": "[KawaiiPosing] Lisans zaten kurulu.",
       "[KawaiiPosing] License installation cancelled.": "[KawaiiPosing] Lisans kurulumu iptal edildi.",
       "[KawaiiPosing] License installation failed. Check your platform.": "[KawaiiPosing] Lisans kurulumu başarısız. Platformunuzu kontrol edin.",
-      "config.json not found. installing package failed.": "config.json bulunamadı. Paket kurulumu başarısız."
+      "config.json not found. installing package failed.": "config.json bulunamadı. Paket kurulumu başarısız.",
+      "Ask about Console errors": "Console — Bu hata hakkında sor"
     },
     "id": {
       "Install": "Instal",
@@ -2538,7 +2560,8 @@
       "[KawaiiPosing] License already installed.": "[KawaiiPosing] Lisensi sudah terpasang.",
       "[KawaiiPosing] License installation cancelled.": "[KawaiiPosing] Pemasangan lisensi dibatalkan.",
       "[KawaiiPosing] License installation failed. Check your platform.": "[KawaiiPosing] Pemasangan lisensi gagal. Periksa platform Anda.",
-      "config.json not found. installing package failed.": "config.json tidak ditemukan. Pemasangan paket gagal."
+      "config.json not found. installing package failed.": "config.json tidak ditemukan. Pemasangan paket gagal.",
+      "Ask about Console errors": "Console — Tanyakan tentang kesalahan ini"
     },
     "vi": {
       "Install": "Cài đặt",
@@ -2647,7 +2670,8 @@
       "[KawaiiPosing] License already installed.": "[KawaiiPosing] Đã cài giấy phép.",
       "[KawaiiPosing] License installation cancelled.": "[KawaiiPosing] Đã hủy cài giấy phép.",
       "[KawaiiPosing] License installation failed. Check your platform.": "[KawaiiPosing] Cài giấy phép thất bại. Kiểm tra nền tảng.",
-      "config.json not found. installing package failed.": "Không tìm thấy config.json. Cài gói thất bại."
+      "config.json not found. installing package failed.": "Không tìm thấy config.json. Cài gói thất bại.",
+      "Ask about Console errors": "Console — Hỏi về lỗi này"
     },
     "hi": {
       "Install": "इंस्टॉल करें",
@@ -2756,7 +2780,8 @@
       "[KawaiiPosing] License already installed.": "[KawaiiPosing] लाइसेंस पहले से स्थापित है।",
       "[KawaiiPosing] License installation cancelled.": "[KawaiiPosing] लाइसेंस स्थापना रद्द की गई।",
       "[KawaiiPosing] License installation failed. Check your platform.": "[KawaiiPosing] लाइसेंस स्थापना विफल। अपना प्लेटफ़ॉर्म जाँचें।",
-      "config.json not found. installing package failed.": "config.json नहीं मिला। पैकेज स्थापना विफल।"
+      "config.json not found. installing package failed.": "config.json नहीं मिला। पैकेज स्थापना विफल।",
+      "Ask about Console errors": "Console — इस त्रुटि के बारे में पूछें"
     },
     "bn": {
       "Install": "ইনস্টল",
@@ -2865,7 +2890,8 @@
       "[KawaiiPosing] License already installed.": "[KawaiiPosing] লাইসেন্স আগে থেকেই ইনস্টল করা আছে।",
       "[KawaiiPosing] License installation cancelled.": "[KawaiiPosing] লাইসেন্স ইনস্টল বাতিল হয়েছে।",
       "[KawaiiPosing] License installation failed. Check your platform.": "[KawaiiPosing] লাইসেন্স ইনস্টল ব্যর্থ। আপনার প্ল্যাটফর্ম পরীক্ষা করুন।",
-      "config.json not found. installing package failed.": "config.json পাওয়া যায়নি। প্যাকেজ ইনস্টল ব্যর্থ।"
+      "config.json not found. installing package failed.": "config.json পাওয়া যায়নি। প্যাকেজ ইনস্টল ব্যর্থ।",
+      "Ask about Console errors": "Console — এই ত্রুটি সম্পর্কে জিজ্ঞাসা করুন"
     },
     "ta": {
       "Install": "நிறுவு",
@@ -2974,7 +3000,8 @@
       "[KawaiiPosing] License already installed.": "[KawaiiPosing] உரிமம் ஏற்கனவே நிறுவப்பட்டுள்ளது.",
       "[KawaiiPosing] License installation cancelled.": "[KawaiiPosing] உரிம நிறுவல் ரத்துசெய்யப்பட்டது.",
       "[KawaiiPosing] License installation failed. Check your platform.": "[KawaiiPosing] உரிம நிறுவல் தோல்வியுற்றது. உங்கள் தளத்தைச் சரிபார்க்கவும்.",
-      "config.json not found. installing package failed.": "config.json கிடைக்கவில்லை. தொகுப்பு நிறுவல் தோல்வியுற்றது."
+      "config.json not found. installing package failed.": "config.json கிடைக்கவில்லை. தொகுப்பு நிறுவல் தோல்வியுற்றது.",
+      "Ask about Console errors": "Console — இந்தப் பிழை பற்றிக் கேள்"
     },
     "te": {
       "Install": "ఇన్‌స్టాల్",
@@ -3083,7 +3110,8 @@
       "[KawaiiPosing] License already installed.": "[KawaiiPosing] లైసెన్స్ ఇప్పటికే ఇన్‌స్టాల్ అయింది.",
       "[KawaiiPosing] License installation cancelled.": "[KawaiiPosing] లైసెన్స్ ఇన్‌స్టాలేషన్ రద్దయింది.",
       "[KawaiiPosing] License installation failed. Check your platform.": "[KawaiiPosing] లైసెన్స్ ఇన్‌స్టాలేషన్ విఫలమైంది. మీ ప్లాట్‌ఫారమ్‌ను తనిఖీ చేయండి.",
-      "config.json not found. installing package failed.": "config.json కనబడలేదు. ప్యాకేజీ ఇన్‌స్టాలేషన్ విఫలమైంది."
+      "config.json not found. installing package failed.": "config.json కనబడలేదు. ప్యాకేజీ ఇన్‌స్టాలేషన్ విఫలమైంది.",
+      "Ask about Console errors": "Console — ఈ లోపం గురించి అడుగు"
     },
     "ar": {
       "Install": "تثبيت",
@@ -3192,7 +3220,8 @@
       "[KawaiiPosing] License already installed.": "[KawaiiPosing] الترخيص مثبت بالفعل.",
       "[KawaiiPosing] License installation cancelled.": "[KawaiiPosing] أُلغي تثبيت الترخيص.",
       "[KawaiiPosing] License installation failed. Check your platform.": "[KawaiiPosing] فشل تثبيت الترخيص. افحص منصتك.",
-      "config.json not found. installing package failed.": "لم يُعثر على config.json. فشل تثبيت الحزمة."
+      "config.json not found. installing package failed.": "لم يُعثر على config.json. فشل تثبيت الحزمة.",
+      "Ask about Console errors": "Console — الاستفسار عن هذا الخطأ"
     },
     "he": {
       "Install": "התקנה",
@@ -3301,7 +3330,8 @@
       "[KawaiiPosing] License already installed.": "[KawaiiPosing] הרישיון כבר מותקן.",
       "[KawaiiPosing] License installation cancelled.": "[KawaiiPosing] התקנת הרישיון בוטלה.",
       "[KawaiiPosing] License installation failed. Check your platform.": "[KawaiiPosing] התקנת הרישיון נכשלה. בדקו את הפלטפורמה.",
-      "config.json not found. installing package failed.": "config.json לא נמצא. התקנת החבילה נכשלה."
+      "config.json not found. installing package failed.": "config.json לא נמצא. התקנת החבילה נכשלה.",
+      "Ask about Console errors": "Console — בקשת עזרה לגבי השגיאה הזאת"
     }
   },
   "setup_keys": [

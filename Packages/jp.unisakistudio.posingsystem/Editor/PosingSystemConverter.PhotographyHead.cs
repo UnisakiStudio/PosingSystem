@@ -53,16 +53,18 @@ namespace jp.unisakistudio.posingsystemeditor
             if (owner == null) return;
             var issue = PhotographyHeadIssue(owner);
             if (issue != null)
-                throw PosingSystemDiagnostics.Failure(issue.Code, issue.Summary, issue.Action, issue.Context);
+                // A conflicting Head Chop may live outside the tool hierarchy.
+                // Use the owner here so its explicit language also applies to build errors.
+                throw PosingSystemDiagnostics.Failure(issue.Code, issue.Summary, issue.Action, owner);
             var head = ctx.AvatarRootObject.GetComponent<Animator>()?.GetBoneTransform(HumanBodyBones.Head);
             if (head == null)
-                throw new System.InvalidOperationException("撮影中の頭表示に必要なHeadボーンを取得できません。");
+                throw new System.InvalidOperationException(PosingSystemLocalization.FormatFor(owner, "撮影中の頭表示に必要なHeadボーンを取得できません。"));
             var descriptor = ctx.VRChatAvatarDescriptor();
             var slots = descriptor.baseAnimationLayers;
             var fxIndex = System.Array.FindIndex(slots, l => l.type == VRCAvatarDescriptor.AnimLayerType.FX);
             if (fxIndex < 0 || slots[fxIndex].animatorController is not AnimatorController controller ||
                 !ctx.IsTemporaryAsset(controller))
-                throw new System.InvalidOperationException("撮影中の頭表示にはビルド用FX Controllerの複製が必要です。");
+                throw new System.InvalidOperationException(PosingSystemLocalization.FormatFor(owner, "撮影中の頭表示にはビルド用FX Controllerの複製が必要です。"));
 
             var obj = new GameObject(PhotographyHeadObject);
             obj.transform.SetParent(owner.transform, false);

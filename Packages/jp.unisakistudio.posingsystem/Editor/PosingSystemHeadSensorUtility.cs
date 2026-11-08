@@ -25,7 +25,7 @@ namespace jp.unisakistudio.posingsystemeditor
 
         public static GameObject Create(Animator animator, Transform parent)
         {
-            if (animator == null || !animator.isHuman) throw new ArgumentException("Humanoidが必要です。");
+            if (animator == null || !animator.isHuman) throw new ArgumentException(PosingSystemLocalization.TextMessage("Humanoid Animatorが必要です。"));
             var head = animator.GetBoneTransform(HumanBodyBones.Head);
             var frame = new GameObject(SensorRoot);
             // Calibrate in avatar space; the tool object may have its own offset/scale.

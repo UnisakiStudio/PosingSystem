@@ -1,0 +1,7 @@
+{
+  "PosingSystemControllerGeneration.cs": {
+    "Hierarchyで比較するアバター、またはその子オブジェクトを選択してください。": "Only reached by the experimental comparison-copy developer command, whose MenuItems are compiled behind USSPS_EXPERIMENTAL_CONTROLLER; not part of the normal distributed product UI.",
+    "対象アバターにポーズシステムがありません。": "Only reached by CreateComparisonCopy, the experimental comparison-copy developer/test command; not part of the normal distributed product UI.",
+    "独自の共通Controllerが設定されています。自動置換せず比較コピーの作成を中止しました。": "Only reached by CreateComparisonCopy, the experimental comparison-copy developer/test command; not part of the normal distributed product UI."
+  }
+}

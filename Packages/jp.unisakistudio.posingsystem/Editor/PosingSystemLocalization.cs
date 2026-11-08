@@ -18,7 +18,7 @@ namespace jp.unisakistudio.posingsystemeditor
         internal static string Language => activeLanguage ?? PreferenceLanguage;
         internal static string ResolveLanguage(PosingSystem target)
             => target != null && !string.IsNullOrEmpty(target.menuLanguage) ? Normalize(target.menuLanguage) : PreferenceLanguage;
-        internal static IDisposable ForInspector(PosingSystem target) => new LanguageScope(ResolveLanguage(target));
+        internal static IDisposable ForInspector(PosingSystem target) => new LanguageScope(target != null ? ResolveLanguage(target) : Language);
         private sealed class LanguageScope : IDisposable
         {
             private readonly string previous;
@@ -62,6 +62,10 @@ namespace jp.unisakistudio.posingsystemeditor
         public static bool DialogFormat(string title, string message, string ok, string cancel, params object[] arguments)
             => Dialog(title, Format(message, arguments), ok, cancel);
         public static string Format(string japanese, params object[] arguments) => string.Format(Text(japanese), arguments);
+        public static string FormatFor(PosingSystem target, string japanese, params object[] arguments)
+        {
+            using (ForInspector(target)) return Format(japanese, arguments);
+        }
         public static string Text(string japanese) => Text(japanese, japanese);
         public static string Text(string key, string japanese) => Translate(Language, key, japanese);
         // A cached error may already be formatted in a previously selected language.

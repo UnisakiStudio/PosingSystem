@@ -55,7 +55,7 @@ namespace jp.unisakistudio.posingsystemeditor
                     poseBrowser.Draw(serializedObject, ps);
                     using (new EditorGUI.DisabledScope(!valid || IsAndroidBuildTarget() || Application.isPlaying))
                         if (GUILayout.Button(PosingSystemLocalization.Text("ポーズ画像を更新"), GUILayout.Height(26)) && PosingSystemLocalization.Dialog(
-                            PosingSystemLocalization.Text("ポーズ画像を更新"), "すべてのポーズ画像を作り直します。ポーズの数によっては少し時間がかかります。\n更新中はUnityの操作をお待ちください。", "更新する", "キャンセル"))
+                            PosingSystemLocalization.Text("ポーズ画像を更新"), PosingSystemLocalization.Text("すべてのポーズ画像を作り直します。ポーズの数によっては少し時間がかかります。\n更新中はUnityの操作をお待ちください。"), PosingSystemLocalization.Text("更新する"), "キャンセル"))
                         {
                             PosingSystemEditorChangeUtility.Commit(serializedObject);
                             PosingSystemQuickPreview.Stop();

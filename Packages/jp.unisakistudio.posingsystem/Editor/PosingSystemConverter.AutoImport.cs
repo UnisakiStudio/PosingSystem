@@ -139,11 +139,12 @@ namespace jp.unisakistudio.posingsystemeditor
         // layers remain intact, while OFF/deleted/invalid imports cannot leave stale motions.
         internal static void ResetImportedMotionStates(PosingSystem ps, IAssetSaver saver)
         {
+            using var languageScope = PosingSystemLocalization.ForInspector(ps);
             var merge = GetPrebuiltMergeAnimator(ps) ?? GetCommonMergeAnimator(ps);
             if (merge?.animator is not AnimatorController target) return;
             var template = FindDefaultLocomotionController();
-            if (template == null) throw new InvalidOperationException("元姿勢を復元する標準Controllerが見つかりません。");
-            if (target == template) throw new InvalidOperationException("配布元Controllerへ取り込み結果を書き込めません。");
+            if (template == null) throw new InvalidOperationException(PosingSystemLocalization.TextMessage("元姿勢を復元する標準Controllerが見つかりません。"));
+            if (target == template) throw new InvalidOperationException(PosingSystemLocalization.TextMessage("配布元Controllerへ取り込み結果を書き込めません。"));
             var copies = new Dictionary<BlendTree, BlendTree>();
             Motion CopyMotion(Motion motion)
             {
@@ -170,7 +171,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 var state = Find(target, setting.layerName, setting.stateMachineName, setting.stateName);
                 if (state == null || !visited.Add(state)) continue;
                 var original = Find(template, setting.layerName, setting.stateMachineName, setting.stateName);
-                if (original == null) throw new InvalidOperationException("標準Controllerの元姿勢が見つかりません: " + setting.stateName);
+                if (original == null) throw new InvalidOperationException(PosingSystemLocalization.TextMessage(string.Format("標準Controllerの元姿勢が見つかりません: {0}", setting.stateName)));
                 state.motion = CopyMotion(original.motion);
                 state.timeParameter = original.timeParameter;
                 state.timeParameterActive = original.timeParameterActive;

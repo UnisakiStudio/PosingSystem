@@ -34,6 +34,15 @@ keys, stale generated catalogs and declared terminology violations. Missing or
 fallback text blocks release. `--allow-incomplete` is only for documenting work in
 progress, never a passing release check. The CI workflow runs the strict gate.
 
+The display-path scan also checks all dialog arguments, direct GUI/GUIContent
+strings, local popup arrays, native MenuItem/CreateAssetMenu path segments and
+prebuild/build exception and diagnostic summaries/actions. It scans the three
+product checkouts when they are available and lists the covered roots in the
+report. Exact developer-only diagnostic exclusions require a reason in
+`source-audit-exceptions.json`; custom names, asset filenames and language
+autonyms remain display invariants. Run `python Tools/Localization/test_audit_coverage.py`
+to verify the scanner regressions.
+
 Review a diff for user-visible strings that bypass localization or are assembled
 dynamically; the literal scanner cannot prove arbitrary C# data flow. Check switching
 languages and returning to Japanese in Unity. Font coverage, wrapping, RTL and Indic

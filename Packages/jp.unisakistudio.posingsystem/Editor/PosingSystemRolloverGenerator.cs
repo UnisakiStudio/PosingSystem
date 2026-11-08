@@ -46,11 +46,11 @@ namespace jp.unisakistudio.posingsystemeditor
 
         public static AnimationClip Create(GameObject avatar, AnimationClip center, AnimationClip side, float contactStrength = .25f)
         {
-            if (!Supports(center) || !Supports(side)) throw new ArgumentException("寝返りの中央と横向きにはHumanoid AnimationClipが必要です。");
+            if (!Supports(center) || !Supports(side)) throw new ArgumentException(PosingSystemLocalization.TextMessage("寝返りの中央と横向きにはHumanoid AnimationClipが必要です。"));
             if (float.IsNaN(contactStrength) || float.IsInfinity(contactStrength) || contactStrength < 0 || contactStrength > 1)
                 throw new ArgumentOutOfRangeException(nameof(contactStrength));
             if (avatar == null || !avatar.TryGetComponent<Animator>(out var animator) || !animator.isHuman || !animator.avatar.isValid)
-                throw new ArgumentException("寝返りの生成には有効なHumanoidアバターが必要です。");
+                throw new ArgumentException(PosingSystemLocalization.TextMessage("寝返りの生成には有効なHumanoidアバターが必要です。"));
 
             var clone = Object.Instantiate(avatar);
             clone.name = "_USSPS_RolloverBake"; clone.hideFlags = HideFlags.HideAndDontSave;

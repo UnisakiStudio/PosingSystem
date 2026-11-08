@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using jp.unisakistudio.posingsystem;
 using UnityEditor;
 using UnityEditor.Animations;
 using UnityEngine;
@@ -26,10 +28,16 @@ namespace jp.unisakistudio.posingsystemeditor
             if (!ctx.GetState<DefaultIdleSuppressionState>().enabled) return;
             var descriptor = ctx.VRChatAvatarDescriptor();
             if (descriptor == null) return;
+            // This runs in a later NDMF phase, outside the per-tool conversion scope.
+            // Select the same active feature owner used when enabling this pass.
+            var languageOwner = ctx.AvatarRootObject.GetComponentsInChildren<PosingSystem>()
+                .FirstOrDefault(ps => ps.additiveBreathing?.disableDefaultIdle == true &&
+                    !ps.GetComponentsInParent<Transform>(true).Any(t => t.CompareTag("EditorOnly")));
+            using var languageScope = PosingSystemLocalization.ForInspector(languageOwner);
             var standardIdle = AssetDatabase.LoadAssetAtPath<AnimationClip>(
                 AssetDatabase.GUIDToAssetPath(StandardIdleClipGuid));
             if (standardIdle == null)
-                throw new InvalidOperationException("VRChat標準の待機アニメーションを特定できません。VRChat SDKを確認してください。");
+                throw new InvalidOperationException(PosingSystemLocalization.TextMessage("VRChat標準の待機アニメーションを特定できません。VRChat SDKを確認してください。"));
 
             var slots = descriptor.baseAnimationLayers;
             for (var i = 0; i < slots.Length; i++)
@@ -38,7 +46,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 // MA/NDMF materializes Default/None as an explicit, deep-cloned controller.
                 // Leave the layers and behaviours in place; only replace the standard proxy.
                 if (slots[i].animatorController is not AnimatorController controller)
-                    throw new InvalidOperationException("標準の揺れを無効化するAdditive Controllerが生成されていません。");
+                    throw new InvalidOperationException(PosingSystemLocalization.TextMessage("標準の揺れを無効化するAdditive Controllerが生成されていません。"));
                 RequireBuildAsset(controller);
                 var replaced = new Dictionary<Motion, Motion>();
                 AnimationClip empty = null;
@@ -108,7 +116,7 @@ namespace jp.unisakistudio.posingsystemeditor
             {
                 // Fail safely if processing order changes: never edit a shared source asset.
                 if (!ctx.IsTemporaryAsset(asset))
-                    throw new InvalidOperationException("標準の揺れの無効化にはビルド用Controllerの複製が必要です: " + asset.name);
+                    throw new InvalidOperationException(PosingSystemLocalization.TextMessage(string.Format("標準の揺れの無効化にはビルド用Controllerの複製が必要です: {0}", asset.name)));
             }
         }
 

@@ -4,5 +4,9 @@
   "×": "Multiplication/close symbol.",
   "X": "Coordinate axis symbol.",
   "Y": "Coordinate axis symbol.",
-  "Z": "Coordinate axis symbol."
+  "Z": "Coordinate axis symbol.",
+  "Language / 言語": "Intentionally bilingual language-selector label, kept recognizable before choosing any language.",
+  "日本語": "Native language autonym in the language selector; retain the recognizable native spelling.",
+  "简体中文": "Native language autonym in the language selector; retain the recognizable native spelling.",
+  "繁體中文": "Native language autonym in the language selector; retain the recognizable native spelling."
 }

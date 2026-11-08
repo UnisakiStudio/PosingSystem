@@ -19,7 +19,9 @@
     "Roll Over": [
       "Vänd dig",
       "vändning",
-      "vända dig"
+      "vända dig",
+      "vända sig",
+      "vändrörelsen"
     ]
   },
   "terminology_exceptions": [
@@ -32,5 +34,19 @@
     "Anatomy directions and finger numbering preserved"
   ],
   "native_speaker_review": false,
-  "rendered_visual_review": false
+  "rendered_visual_review": false,
+  "notes": [
+    "Reviewed maintenance diagnostics: vända sig is the generic reflexive infinitive corresponding to user-directed Vänd dig. Vändrörelsen is the definite compound noun meaning the turning movement; the same action is intended, not a separate feature."
+  ],
+  "term_form_reviews": {
+    "maintenance-diagnostics-parts-2026-11-09": {
+      "term": "Roll Over",
+      "approved_additional_forms": [
+        "vända sig",
+        "vändrörelsen"
+      ],
+      "reason": "Reviewed maintenance diagnostics: vända sig is the generic reflexive infinitive corresponding to user-directed Vänd dig. Vändrörelsen is the definite compound noun meaning the turning movement; the same action is intended, not a separate feature.",
+      "review": "AI contextual/grammar review; native-speaker review not performed"
+    }
+  }
 }

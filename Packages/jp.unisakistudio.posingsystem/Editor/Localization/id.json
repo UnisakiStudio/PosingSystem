@@ -65,12 +65,24 @@
       "value": "Periksa kesalahan impor seperti Missing Prefab di Console. Buka kembali adegan tujuan lalu coba lagi."
     },
     {
+      "key": "ConsoleにコンパイルエラーやMissing Scriptがないか確認してください。",
+      "value": "Periksa Console untuk menemukan kesalahan kompilasi atau komponen Missing Script."
+    },
+    {
       "key": "Consoleのエラー\n",
       "value": "Kesalahan Console\n"
     },
     {
       "key": "Consoleの最初のコンパイルエラーを修正し、再コンパイルが完了してから実行してください。",
       "value": "Perbaiki kesalahan kompilasi pertama di Console, tunggu kompilasi selesai, lalu coba lagi."
+    },
+    {
+      "key": "Consoleの直前のエラーとVRChat Avatars SDKのバージョンを確認してください。",
+      "value": "Periksa kesalahan sebelumnya di Console dan versi VRChat Avatars SDK."
+    },
+    {
+      "key": "Consoleの直前のエラーと、Unity・VRChat Avatars SDK・ポーズシステムのバージョンを確認してください。",
+      "value": "Periksa kesalahan sebelumnya di Console serta versi Unity, VRChat Avatars SDK, dan Posing System."
     },
     {
       "key": "HeadとViewpointの前後差を測定できません。View Positionとアバターのスケールを確認してください。",
@@ -143,6 +155,10 @@
     {
       "key": "IKルールを適用できませんでした。",
       "value": "Aturan IK tidak dapat diterapkan."
+    },
+    {
+      "key": "Inspectorの「プレビルドを更新」で復元を試してください。",
+      "value": "Coba pulihkan referensinya dengan “Perbarui prabuild” di Inspector."
     },
     {
       "key": "Inspectorの「設定の確認」で対象を選択し、表示された項目を直して再実行してください。",
@@ -221,6 +237,10 @@
       "value": "Tambahkan nama berkas yang dipilih di Project"
     },
     {
+      "key": "Project内のPrefabを直接変更できません。シーン内のアバター、またはPrefab編集モードでプレビルドしてください。",
+      "value": "Prefab di Project tidak dapat diubah langsung. Jalankan prabuild pada avatar di scene atau dalam mode Prefab."
+    },
+    {
       "key": "Submenu Rootには、このアバター内のメニュー生成先を指定してください。",
       "value": "Tetapkan tujuan menu di dalam avatar ini ke Submenu Root."
     },
@@ -233,12 +253,20 @@
       "value": "Periksa Animator pada objek yang sama dengan VRC Avatar Descriptor dan bandingkan pengaturannya dengan prefab avatar asli."
     },
     {
+      "key": "VRC Head Chopの数がVRChatの上限に達しています。",
+      "value": "Jumlah komponen VRC Head Chop telah mencapai batas VRChat."
+    },
+    {
       "key": "VRChatのメニューで呼吸をつけたり止めたりできます。ON/OFFは他の人にも反映されます。",
       "value": "Aktifkan atau nonaktifkan napas di VRChat. Pengguna lain dapat melihat perubahannya."
     },
     {
       "key": "VRChatのメニューに切り替え項目を追加します。使いたいときに、ポーズの左右を反転できます。",
       "value": "Tambahkan sakelar menu untuk mencerminkan pose."
+    },
+    {
+      "key": "VRChat標準の待機アニメーションを特定できません。VRChat SDKを確認してください。",
+      "value": "Animasi diam bawaan VRChat tidak dapat diidentifikasi. Periksa VRChat SDK."
     },
     {
       "key": "VRChat標準の揺れを止める",
@@ -271,6 +299,14 @@
     {
       "key": "ViewPosition（目の位置）",
       "value": "ViewPosition (posisi mata)"
+    },
+    {
+      "key": "[PosingSystem] NDMFプレビュー用アバターを有効なSceneに作成できませんでした。",
+      "value": "[PosingSystem] Tidak dapat membuat avatar pratinjau NDMF dalam Scene yang valid."
+    },
+    {
+      "key": "[PosingSystem] 生成Motionの保存先AnimatorControllerが永続アセットではありません。",
+      "value": "[PosingSystem] AnimatorController tujuan untuk menyimpan Motion yang dihasilkan bukan aset persisten."
     },
     {
       "key": "[パス]",
@@ -893,6 +929,10 @@
       "value": "Menggandakan dan menyimpan {0} animasi penyesuaian."
     },
     {
+      "key": "{0}番",
+      "value": "No. {0}"
+    },
+    {
       "key": "{0}（{1}行目）",
       "value": "{0} (baris {1})"
     },
@@ -957,12 +997,28 @@
       "value": "Ikon khusus diaktifkan untuk item {1} ({2}) dalam {0}, tetapi tidak ada gambar yang ditetapkan."
     },
     {
+      "key": "「{0}」の共通ポージングAnimatorに設定されているAnimatorControllerが不正です。AnimatorOverrideController等は使用できません",
+      "value": "AnimatorController yang ditetapkan pada Animator pose bersama di “{0}” tidak valid. AnimatorOverrideController dan jenis controller serupa tidak didukung."
+    },
+    {
+      "key": "「{0}」の姿勢メニューオブジェクトが見つかりません",
+      "value": "Objek menu pose untuk “{0}” tidak ditemukan."
+    },
+    {
+      "key": "「{0}」オブジェクトにMAParametersコンポーネントがありません",
+      "value": "Objek “{0}” tidak memiliki komponen MAParameters."
+    },
+    {
       "key": "「{0}」オブジェクトの設定が更新されています。再度プレビルドを行ってください",
       "value": "Pengaturan objek {0} telah berubah. Perbarui prabuild."
     },
     {
       "key": "「ポーズ一覧」で対応するポーズの詳細を開き、「寝返りを使う」をオンにしてください。",
       "value": "Buka pose yang didukung pada Pose lalu aktifkan berguling."
+    },
+    {
+      "key": "「撮影モード中は頭を非表示にしない」をオフにするか、既存のVRC Head Chopをまとめて1個分の空きを作ってください。",
+      "value": "Matikan “Tetap tampilkan kepala dalam mode foto” atau gabungkan komponen VRC Head Chop yang ada untuk mengosongkan satu slot komponen."
     },
     {
       "key": "「現在の手足位置から取得」を一度実行してください。再取得までは元Animationの手足の向きを維持します。",
@@ -1221,6 +1277,10 @@
       "value": "Panjang tungkai bawah"
     },
     {
+      "key": "すべてのポーズ画像を作り直します。ポーズの数によっては少し時間がかかります。\n更新中はUnityの操作をお待ちください。",
+      "value": "Membuat ulang semua gambar mini pose. Waktunya bergantung pada jumlah pose.\nTunggu hingga pembaruan selesai sebelum menggunakan Unity lagi."
+    },
+    {
       "key": "すべての姿勢から検索",
       "value": "Cari semua pose"
     },
@@ -1437,6 +1497,10 @@
       "value": "Tetapkan Animator Controller biasa ke lapisan Base avatar. Animator Override Controller tidak didukung."
     },
     {
+      "key": "アバターのHumanoid設定とHeadボーンを確認してください。詳細はConsoleの内部例外を確認してください。",
+      "value": "Periksa pengaturan Humanoid dan tulang Head avatar. Lihat pengecualian internal di Console untuk detail."
+    },
+    {
       "key": "アバターのスケールから有効な固定長を測定できません。",
       "value": "Tidak dapat mengukur panjang tetap yang valid dari skala avatar."
     },
@@ -1447,6 +1511,10 @@
     {
       "key": "アバターのルートにAnimatorがありません。Inspectorの「設定の確認」の対処手順をご確認ください。",
       "value": "Akar avatar tidak memiliki Animator. Lihat pemeriksaan pengaturan di Inspector."
+    },
+    {
+      "key": "アバターのルートにあるAnimatorのAvatar欄と、元モデルのRig設定を確認してください。",
+      "value": "Periksa kolom Avatar pada Animator di akar avatar dan pengaturan Rig model asli."
     },
     {
       "key": "アバターの元の立ち・しゃがみ・伏せ姿勢を使う",
@@ -1471,6 +1539,10 @@
     {
       "key": "アバターの設定が必要",
       "value": "Pengaturan avatar diperlukan"
+    },
+    {
+      "key": "アバターの高さ計算に失敗しました。",
+      "value": "Gagal menghitung tinggi avatar."
     },
     {
       "key": "アバターデータフォルダの自動検出",
@@ -1569,6 +1641,10 @@
       "value": "Cool Posing Tool (BOOTH)"
     },
     {
+      "key": "カテゴリ{0}",
+      "value": "Kategori {0}"
+    },
+    {
       "key": "キック",
       "value": "Tendangan"
     },
@@ -1643,6 +1719,10 @@
     {
       "key": "ツールに同梱された公式プリセットを一覧と検索結果に表示しません。同じプロジェクト内のアバターで共有する設定です。",
       "value": "Sembunyikan prasetel bawaan resmi dari daftar dan hasil pencarian. Pengaturan ini digunakan bersama oleh avatar dalam proyek."
+    },
+    {
+      "key": "ツールに同梱される空アニメーションが見つかりません。",
+      "value": "Animasi kosong yang disertakan dengan alat tidak ditemukan."
     },
     {
       "key": "ツールのルートにMA Parametersがありません。",
@@ -1837,6 +1917,10 @@
       "value": "Pose: {0} bit + fitur opsional: {1} bit / alat pose pada avatar ini"
     },
     {
+      "key": "ポーズ「{0} / {1}」の変換に失敗しました。",
+      "value": "Gagal mengonversi pose “{0} / {1}”."
+    },
+    {
       "key": "ポーズアイコン生成",
       "value": "Buat ikon pose"
     },
@@ -1869,6 +1953,10 @@
       "value": "Pilih satu pose awal dalam kategori itu."
     },
     {
+      "key": "ポーズ一覧で該当アニメーションと調整クリップを確認してください。切り分ける場合はそのポーズを一時的に無効にして再実行してください。",
+      "value": "Periksa animasi dan klip penyesuaian terkait dalam daftar pose. Untuk mengisolasi masalah, nonaktifkan sementara pose tersebut lalu coba lagi."
+    },
+    {
       "key": "ポーズ一覧で該当カテゴリを確認し、プリセットまたはバックアップから復元してください。",
       "value": "Periksa kategori itu pada daftar pose dan pulihkan dari prasetel atau cadangan."
     },
@@ -1883,6 +1971,10 @@
     {
       "key": "ポーズ名",
       "value": "Nama pose"
+    },
+    {
+      "key": "ポーズ生成の再入を検出しました。",
+      "value": "Pembuatan pose dipanggil lagi saat masih berjalan."
     },
     {
       "key": "ポーズ画像を更新",
@@ -2125,6 +2217,10 @@
       "value": "Ada perubahan yang belum disimpan. Simpan?"
     },
     {
+      "key": "保存して続ける",
+      "value": "Simpan dan lanjutkan"
+    },
+    {
       "key": "保存先にはAssets内のフォルダと.animファイルを指定してください。",
       "value": "Pilih folder di dalam Assets dan nama berkas .anim."
     },
@@ -2177,6 +2273,10 @@
       "value": "Pertahankan tekukan pose sumber"
     },
     {
+      "key": "元アバターのAnimatorとAvatar参照を確認してください。",
+      "value": "Periksa Animator avatar asli dan referensi Avatar."
+    },
+    {
       "key": "元モデルのInspector > RigでHumanoid設定とConfigureの割り当てを確認してください。配布元が指定する設定を優先してください。",
       "value": "Periksa Humanoid dan penetapan Configure di pengaturan Inspector > Rig model asli. Ikuti pengaturan yang disarankan pembuat avatar."
     },
@@ -2185,8 +2285,20 @@
       "value": "Periksa Head di Rig > Configure model asli dan pastikan tulang kepala masih ada dalam adegan."
     },
     {
+      "key": "元モデルのRig > Configureと、シーンの頭ボーンを確認してください。",
+      "value": "Periksa Rig > Configure pada model asli dan tulang Head di scene."
+    },
+    {
       "key": "元姿勢の読み込み",
       "value": "Impor pose asli"
+    },
+    {
+      "key": "元姿勢を復元する標準Controllerが見つかりません。",
+      "value": "Controller standar untuk memulihkan pose asli tidak ditemukan."
+    },
+    {
+      "key": "先にアバター用Controllerを複製してください。配布元のControllerには追加機能を書き込みません。",
+      "value": "Gandakan Controller avatar terlebih dahulu. Fitur tambahan tidak akan ditulis ke Controller yang didistribusikan."
     },
     {
       "key": "全ての変更された差分を保存しました。",
@@ -2241,6 +2353,14 @@
       "value": "Aktif untuk produksi. Produk yang menggunakan katalog ini melewati animasi penyesuaian pose lama dan koreksi avatar. Pastikan semua pose sudah diatur."
     },
     {
+      "key": "共通ControllerにUSSPS_LocomotionTypeレイヤーがありません。",
+      "value": "Controller bersama tidak memiliki layer USSPS_LocomotionType."
+    },
+    {
+      "key": "共通ControllerにUSSPS_Locomotionレイヤーがありません。",
+      "value": "Controller bersama tidak memiliki layer USSPS_Locomotion."
+    },
+    {
       "key": "共通Controllerに姿勢制御用のレイヤーがありません。",
       "value": "Controller bersama tidak memiliki lapisan kendali pose."
     },
@@ -2275,6 +2395,14 @@
     {
       "key": "共通ポージングAnimatorのAnimator参照が未設定です。",
       "value": "Animator pose bersama belum diberi Animator Controller."
+    },
+    {
+      "key": "共通ポージングAnimatorの参照からAnimator Controllerを読み込めません。",
+      "value": "Animator Controller yang dirujuk oleh Animator pose bersama tidak dapat dimuat."
+    },
+    {
+      "key": "共通ポージングAnimatorの有効状態・EditorOnlyタグ・MA Merge Animatorの参照を確認してください。調整済みの生成ファイルは保持してください。",
+      "value": "Pastikan Animator pose bersama aktif, tidak memiliki tag EditorOnly, dan memiliki referensi MA Merge Animator yang benar. Pertahankan berkas hasil pembuatan yang telah Anda sesuaikan."
     },
     {
       "key": "共通ポージングAnimatorへ別のControllerを指定していないか確認してください。",
@@ -2355,6 +2483,10 @@
     {
       "key": "動かす手足",
       "value": "Anggota tubuh yang digerakkan"
+    },
+    {
+      "key": "取り込みモーションの調整に有効なHumanoidアバターが必要です。",
+      "value": "Menyesuaikan gerakan impor memerlukan avatar Humanoid yang valid."
     },
     {
       "key": "取り込むアニメーションを個別に指定",
@@ -2493,6 +2625,14 @@
       "value": "Pengaturan napas"
     },
     {
+      "key": "呼吸用Controllerを生成用コピーへ分離できませんでした。",
+      "value": "Controller pernapasan tidak dapat dipisahkan ke salinan untuk pembuatan."
+    },
+    {
+      "key": "呼吸用ポージングAnimatorが見つかりません。",
+      "value": "Animator pose untuk pernapasan tidak ditemukan."
+    },
+    {
       "key": "和室",
       "value": "Kamar Jepang"
     },
@@ -2565,6 +2705,14 @@
       "value": "Bersandar Dinding"
     },
     {
+      "key": "変換用アバターに有効なHumanoid Animatorがありません。",
+      "value": "Avatar konversi tidak memiliki Humanoid Animator yang valid."
+    },
+    {
+      "key": "変換用アバターのHeadボーンが見つかりません。",
+      "value": "Tulang Head avatar konversi tidak ditemukan."
+    },
+    {
       "key": "変更のあるアニメーションの調整値を保存します。",
       "value": "Menyimpan penyesuaian animasi yang berubah."
     },
@@ -2591,6 +2739,10 @@
     {
       "key": "姿勢 {0}",
       "value": "Pose {0}"
+    },
+    {
+      "key": "姿勢「{0}」にSDKの {1} を追加できません。",
+      "value": "Tidak dapat menambahkan {1} dari SDK ke pose “{0}”."
     },
     {
       "key": "姿勢のプレビュー",
@@ -2633,6 +2785,10 @@
       "value": "Pengaturan IK per pose ({0})"
     },
     {
+      "key": "姿勢変換に必要なHumanoid Animatorを取得できません。",
+      "value": "Humanoid Animator yang diperlukan untuk konversi pose tidak dapat diperoleh."
+    },
+    {
       "key": "姿勢設定を追加",
       "value": "Tambahkan pengaturan pose"
     },
@@ -2661,8 +2817,24 @@
       "value": "Berguling"
     },
     {
+      "key": "寝返りの中央と横向きにはHumanoid AnimationClipが必要です。",
+      "value": "Pose tengah dan samping untuk berguling memerlukan AnimationClip Humanoid."
+    },
+    {
+      "key": "寝返りの生成には有効なHumanoidアバターが必要です。",
+      "value": "Membuat gerakan berguling memerlukan avatar Humanoid yang valid."
+    },
+    {
       "key": "寝返りの設定",
       "value": "Pengaturan berguling"
+    },
+    {
+      "key": "寝返りの頭位置補正で、RootTの移動量を計測できませんでした。",
+      "value": "Perpindahan RootT untuk pemusatan kepala saat berguling tidak dapat diukur."
+    },
+    {
+      "key": "寝返りの頭位置補正には、有効なHumanoidとHeadボーンが必要です。",
+      "value": "Pemusatan kepala saat berguling memerlukan Humanoid yang valid dan tulang Head."
     },
     {
       "key": "寝返りを使う",
@@ -2687,6 +2859,10 @@
     {
       "key": "対象を選択（{0}）",
       "value": "Pilih objek terkait ({0})"
+    },
+    {
+      "key": "導入先アバターが見つかりません。",
+      "value": "Avatar tujuan tidak ditemukan."
     },
     {
       "key": "小さな傾きを無視する範囲",
@@ -2813,6 +2989,10 @@
       "value": "Kembali"
     },
     {
+      "key": "所有シーンを確認できません。",
+      "value": "Scene pemilik tidak dapat diidentifikasi."
+    },
+    {
       "key": "手動で方向を指定",
       "value": "Atur arah secara manual"
     },
@@ -2823,6 +3003,10 @@
     {
       "key": "手動指定時だけ使用します。アバター正面を基準にした方向です。",
       "value": "Hanya digunakan dengan arah tekukan manual, relatif terhadap depan avatar."
+    },
+    {
+      "key": "手動調整を保存してから、現在のIKの結果を別の調整アニメーションに保存します。既存のファイルは残ります。",
+      "value": "Menyimpan penyesuaian manual, lalu menyimpan hasil IK saat ini ke animasi penyesuaian terpisah. Berkas yang ada tetap disimpan."
     },
     {
       "key": "手足のIKルールを追加",
@@ -2881,6 +3065,14 @@
       "value": "Tetap tampilkan kepala dalam mode foto"
     },
     {
+      "key": "撮影中の頭表示にはビルド用FX Controllerの複製が必要です。",
+      "value": "Agar kepala tetap terlihat saat memotret, diperlukan salinan FX Controller untuk build."
+    },
+    {
+      "key": "撮影中の頭表示に必要なHeadボーンを取得できません。",
+      "value": "Tulang Head yang diperlukan agar kepala tetap terlihat saat memotret tidak dapat diperoleh."
+    },
+    {
       "key": "撮影機能に必要なため、自動で選ばれています。",
       "value": "Dipilih otomatis karena diperlukan Mode foto."
     },
@@ -2891,6 +3083,10 @@
     {
       "key": "斜め座り",
       "value": "Duduk Miring"
+    },
+    {
+      "key": "既存のHead Chop設定との重複を避けるため、「撮影モード中は頭を非表示にしない」をオフにするか、既存設定のHead対象を見直してください。耳など別のボーンの設定はそのまま併用できます。",
+      "value": "Untuk menghindari konflik dengan pengaturan Head Chop yang ada, matikan “Tetap tampilkan kepala dalam mode foto” atau tinjau target Head pada pengaturan tersebut. Pengaturan tulang lain, seperti telinga, tetap dapat digunakan bersama."
     },
     {
       "key": "旧unitypackage版の「{0}」フォルダがプロジェクトに残っています。新版と競合する可能性があります。削除する前に移行手順とバックアップを確認してください。",
@@ -2923,6 +3119,10 @@
     {
       "key": "晴天寝",
       "value": "Tidur di Bawah Mentari"
+    },
+    {
+      "key": "更新する",
+      "value": "Perbarui"
     },
     {
       "key": "最低膝曲げ角度（°）",
@@ -2961,6 +3161,10 @@
       "value": "Tidur di Pohon"
     },
     {
+      "key": "未使用の生成ファイルをごみ箱へ移動しました: {0}",
+      "value": "File hasil pembuatan yang tidak digunakan telah dipindahkan ke tempat sampah: {0}"
+    },
+    {
       "key": "未保存の手動調整があります",
       "value": "Penyesuaian manual belum disimpan"
     },
@@ -2997,6 +3201,22 @@
       "value": "Surga"
     },
     {
+      "key": "標準Controllerの元姿勢が見つかりません: {0}",
+      "value": "Pose asli tidak ditemukan di Controller standar: {0}"
+    },
+    {
+      "key": "標準のPosingSystemLocomotion.controllerが見つからず、参照を復元できません。",
+      "value": "PosingSystemLocomotion.controller standar tidak ditemukan, sehingga referensinya tidak dapat dipulihkan."
+    },
+    {
+      "key": "標準の揺れの無効化にはビルド用Controllerの複製が必要です: {0}",
+      "value": "Menonaktifkan goyangan diam bawaan memerlukan salinan Controller untuk build: {0}"
+    },
+    {
+      "key": "標準の揺れを無効化するAdditive Controllerが生成されていません。",
+      "value": "Additive Controller untuk menonaktifkan goyangan diam bawaan belum dibuat."
+    },
+    {
       "key": "横を向くまでの頭の傾き",
       "value": "Kemiringan kepala untuk satu putaran penuh"
     },
@@ -3023,6 +3243,10 @@
     {
       "key": "照れ",
       "value": "Malu"
+    },
+    {
+      "key": "状態「{0}」の {1} を生成できません。",
+      "value": "Tidak dapat membuat {1} untuk state “{0}”."
     },
     {
       "key": "猫のポーズ（右）",
@@ -3065,8 +3289,32 @@
       "value": "Masih dikerjakan. Animasi penyesuaian lama tetap digunakan meski prefab produk merujuk katalog ini."
     },
     {
+      "key": "生成ファイルをごみ箱へ移動できません: {0}",
+      "value": "File yang dibuat tidak dapat dipindahkan ke tempat sampah: {0}"
+    },
+    {
+      "key": "生成先のシーンまたはPrefabを識別できません。",
+      "value": "Scene atau Prefab tujuan tidak dapat diidentifikasi."
+    },
+    {
       "key": "生成時にアバターのBaseからモーションを検出します。取り込み設定の一覧には追加しません。手動設定がある種類は手動指定を優先します。",
       "value": "Deteksi gerakan dari lapisan Base avatar saat pembuatan. Tidak ditambahkan ke daftar impor. Pilihan manual diutamakan."
+    },
+    {
+      "key": "生成済みの画像ファイルを削除します。削除後は「アイコンを撮り直す」で再生成できます。",
+      "value": "Menghapus berkas gambar yang dihasilkan. Anda dapat membuatnya lagi dengan “Ambil ulang ikon”."
+    },
+    {
+      "key": "生成物の所有情報の更新を保留しました: {0}",
+      "value": "Pembaruan informasi kepemilikan aset yang dibuat ditunda: {0}"
+    },
+    {
+      "key": "生成物の整理を保留しました: {0}",
+      "value": "Pembersihan aset yang dibuat ditunda: {0}"
+    },
+    {
+      "key": "生成物の移動を保留しました: {0}",
+      "value": "Pemindahan aset yang dibuat ditunda: {0}"
     },
     {
       "key": "画像でポーズを見分けやすくできます。アバターのビルド時間は少し長くなります。",
@@ -3151,6 +3399,10 @@
     {
       "key": "立ち止まっているときに自動で入る、VRChat標準の身体の揺れを止められます。ポーズツールで設定した呼吸の動きはそのまま使えます。",
       "value": "Nonaktifkan goyangan diam bawaan VRChat sambil mempertahankan animasi napas alat ini."
+    },
+    {
+      "key": "管理対象外の生成物です。",
+      "value": "Aset yang dibuat ini berada di luar cakupan yang dikelola."
     },
     {
       "key": "終了",
@@ -3585,6 +3837,10 @@
       "value": "Saat dipilih"
     },
     {
+      "key": "配布元Controllerへ取り込み結果を書き込めません。",
+      "value": "Hasil impor tidak dapat ditulis ke Controller sumber yang didistribusikan."
+    },
+    {
       "key": "配置対象のアバターPrefab/FBXのファイル名",
       "value": "Nama berkas prefab / FBX avatar tujuan"
     },
@@ -3633,6 +3889,10 @@
       "value": "Acuan posisi tangan atau kaki, seperti Head, Hips, lutut, atau ViewPosition (posisi mata). ViewPosition mengikuti gerakan kepala."
     },
     {
+      "key": "頭のボーンには既にVRC Head Chopが設定されています。",
+      "value": "Tulang kepala sudah memiliki pengaturan VRC Head Chop."
+    },
+    {
       "key": "頭のボーン（Head）を取得できません。姿勢の高さを計算できません。",
       "value": "Tulang Head tidak ditemukan sehingga tinggi pose tidak dapat dihitung."
     },
@@ -3659,6 +3919,10 @@
     {
       "key": "頭も含めた身体全体の高さを変えられます。VRChatの「床の高さ」で、50%を元の高さとして上下3mまで調整できます。",
       "value": "Gerakkan seluruh tubuh termasuk kepala hingga 3 m ke atas atau bawah. Tinggi lantai netral pada 50%."
+    },
+    {
+      "key": "顔の正面補正にはHumanoidと元のAnimationが必要です。",
+      "value": "Koreksi arah wajah memerlukan Humanoid dan Animation asli."
     },
     {
       "key": "首の向きの違いによる姿勢崩れを抑制",

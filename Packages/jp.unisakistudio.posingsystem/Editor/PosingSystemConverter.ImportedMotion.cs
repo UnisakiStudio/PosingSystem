@@ -18,6 +18,7 @@ namespace jp.unisakistudio.posingsystemeditor
         private static void ApplyClipAdjustments(PosingSystem ps, GameObject workingAvatar,
             AnimationClip source, AnimationClip result, AnimationClip adjustment, bool avatarAdjustment)
         {
+            using var languageScope = PosingSystemLocalization.ForInspector(ps);
             if (adjustment != null)
             {
                 AdditiveCurveUtility.MultiplyRootQCurves(source, adjustment, result);
@@ -40,7 +41,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 if (indices.Count > 0)
                 {
                     if (workingAvatar == null)
-                        throw new InvalidOperationException("取り込みモーションの調整に有効なHumanoidアバターが必要です。");
+                        throw new InvalidOperationException(PosingSystemLocalization.TextMessage("取り込みモーションの調整に有効なHumanoidアバターが必要です。"));
                     ApplyMuscleAdjustmentsWithRebake(workingAvatar, source, combined, result, indices, ps);
                 }
             }
@@ -67,6 +68,7 @@ namespace jp.unisakistudio.posingsystemeditor
         private static Motion PrepareImportedMotion(PosingSystem ps, PosingSystem.OverrideAnimationDefine definition,
             AnimatorController controller, IAssetSaver saver)
         {
+            using var languageScope = PosingSystemLocalization.ForInspector(ps);
             var idleTime = definition.stateType == PosingSystem.OverrideAnimationDefine.AnimationStateType.Stand &&
                 definition.isMotionTime && !string.IsNullOrWhiteSpace(definition.motionTimeParamName);
             if (!definition.isRotate && definition.adjustmentClip == null && !idleTime)
@@ -80,7 +82,7 @@ namespace jp.unisakistudio.posingsystemeditor
                     var avatar = ps.GetAvatar();
                     var animator = avatar != null ? avatar.GetComponent<Animator>() : null;
                     if (animator == null || animator.avatar == null || !animator.isHuman)
-                        throw new InvalidOperationException("取り込みモーションの調整に有効なHumanoidアバターが必要です。");
+                        throw new InvalidOperationException(PosingSystemLocalization.TextMessage("取り込みモーションの調整に有効なHumanoidアバターが必要です。"));
                     workingAvatar = Object.Instantiate(avatar.gameObject, PosingSystemEditor.GetPreviewAvatarRoot());
                     workingAvatar.name = "_PosingSystem_ImportedMotionAdjustment";
                     workingAvatar.hideFlags = HideFlags.HideAndDontSave;

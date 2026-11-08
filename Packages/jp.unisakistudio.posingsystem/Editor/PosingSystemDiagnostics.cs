@@ -177,35 +177,34 @@ namespace jp.unisakistudio.posingsystemeditor
                 for (var i = 0; i < ps.defines.Count; i++)
                 {
                     var layer = ps.defines[i];
-                    if (layer?.animations == null) { Add("PS021", "ポーズ一覧のカテゴリ" + (i + 1) + "のデータが欠けています。", "ポーズ一覧で該当カテゴリを確認し、プリセットまたはバックアップから復元してください。"); continue; }
-                    var category = string.IsNullOrEmpty(layer.menuName) ? "カテゴリ" + (i + 1) : layer.menuName;
+                    if (layer?.animations == null) { Add("PS021", string.Format("ポーズ一覧のカテゴリ{0}のデータが欠けています。", i + 1), "ポーズ一覧で該当カテゴリを確認し、プリセットまたはバックアップから復元してください。"); continue; }
+                    var category = string.IsNullOrEmpty(layer.menuName) ? PosingSystemLocalization.FormatFor(ps, "カテゴリ{0}", i + 1) : layer.menuName;
                     var enabled = layer.animations.Where(a => a != null && a.enabled).ToList();
                     if (enabled.Count == 0)
-                        Add("PS022", "「" + category + "」に有効なポーズがありません。このカテゴリの選択メニューは生成されません。", "ポーズ一覧で使うポーズを有効にしてください。意図的に空にしている場合は対応不要です。", MessageType.Info);
+                        Add("PS022", string.Format("「{0}」に有効なポーズがありません。このカテゴリの選択メニューは生成されません。", category), "ポーズ一覧で使うポーズを有効にしてください。意図的に空にしている場合は対応不要です。", MessageType.Info);
                     if (enabled.Count(a => a.initial) > 1)
-                        Add("PS023", "「" + category + "」で初期ポーズが複数選ばれています。", "ポーズ一覧で初期ポーズを1つにしてください。", MessageType.Warning);
+                        Add("PS023", string.Format("「{0}」で初期ポーズが複数選ばれています。", category), "ポーズ一覧で初期ポーズを1つにしてください。", MessageType.Warning);
                     for (var j = 0; j < layer.animations.Count; j++)
                     {
                         var pose = layer.animations[j];
-                        if (pose == null) { Add("PS024", "「" + category + "」の" + (j + 1) + "番目のポーズデータが欠けています。", "該当する項目をポーズ一覧から削除し、必要なアニメーションを追加し直してください。"); continue; }
+                        if (pose == null) { Add("PS024", string.Format("「{0}」の{1}番目のポーズデータが欠けています。", category, j + 1), "該当する項目をポーズ一覧から削除し、必要なアニメーションを追加し直してください。"); continue; }
                         if (!pose.enabled) continue;
-                        var location = "「" + category + "」の" + (j + 1) + "番目（" + pose.displayName + "）";
                         if (pose.animationClip == null)
-                            Add("PS025", location + "にアニメーションがありません。", "ポーズ一覧でアニメーションを指定するか、その項目を無効にしてください。", MessageType.Warning);
+                            Add("PS025", string.Format("「{0}」の{1}番目（{2}）にアニメーションがありません。", category, j + 1, pose.displayName), "ポーズ一覧でアニメーションを指定するか、その項目を無効にしてください。", MessageType.Warning);
                         else if (pose.animationClip is AnimationClip clip && clip.legacy)
-                            Add("PS026", location + "はLegacy形式のアニメーションです。", "Mecanimで使用できるアニメーションを指定してください。元モデル由来ならRigの設定も確認してください。", MessageType.Error, clip);
+                            Add("PS026", string.Format("「{0}」の{1}番目（{2}）はLegacy形式のアニメーションです。", category, j + 1, pose.displayName), "Mecanimで使用できるアニメーションを指定してください。元モデル由来ならRigの設定も確認してください。", MessageType.Error, clip);
                         if (pose.isRollover && pose.rolloverSideAnimation != null)
                         {
                             if (!(pose.animationClip is AnimationClip center) || !PosingSystemRolloverGenerator.Supports(center) ||
                                 !PosingSystemRolloverGenerator.Supports(pose.rolloverSideAnimation))
-                                Add("PS070", location + "の寝返りにはHumanoidのAnimationClipが必要です。", "中央と横向きに、Humanoid形式のクリップを指定してください。BlendTree・Legacy・身体カーブのないクリップは使用できません。", MessageType.Error);
+                                Add("PS070", string.Format("「{0}」の{1}番目（{2}）の寝返りにはHumanoidのAnimationClipが必要です。", category, j + 1, pose.displayName), "中央と横向きに、Humanoid形式のクリップを指定してください。BlendTree・Legacy・身体カーブのないクリップは使用できません。", MessageType.Error);
                             if (float.IsNaN(pose.rolloverContactStrength) || float.IsInfinity(pose.rolloverContactStrength) || pose.rolloverContactStrength < 0 || pose.rolloverContactStrength > 1)
-                                Add("PS071", location + "の接地補正の強さが範囲外です。", "0〜1の値を指定してください。", MessageType.Error);
+                                Add("PS071", string.Format("「{0}」の{1}番目（{2}）の接地補正の強さが範囲外です。", category, j + 1, pose.displayName), "0〜1の値を指定してください。", MessageType.Error);
                         }
                         if (!pose.isRollover && pose.isMotionTime && string.IsNullOrWhiteSpace(pose.motionTimeParamName))
-                            Add("PS027", location + "のMotion Time用パラメータ名が空です。", "Motion Timeのパラメータ名を設定するか、Motion Timeを無効にしてください。");
+                            Add("PS027", string.Format("「{0}」の{1}番目（{2}）のMotion Time用パラメータ名が空です。", category, j + 1, pose.displayName), "Motion Timeのパラメータ名を設定するか、Motion Timeを無効にしてください。");
                         if (pose.isCustomIcon && pose.icon == null)
-                            Add("PS028", location + "は独自アイコンが有効ですが画像がありません。", "アイコン画像を指定するか、独自アイコンを無効にして自動生成を使用してください。", MessageType.Warning);
+                            Add("PS028", string.Format("「{0}」の{1}番目（{2}）は独自アイコンが有効ですが画像がありません。", category, j + 1, pose.displayName), "アイコン画像を指定するか、独自アイコンを無効にして自動生成を使用してください。", MessageType.Warning);
                     }
                 }
             }

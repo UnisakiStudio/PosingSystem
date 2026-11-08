@@ -225,6 +225,7 @@ namespace jp.unisakistudio.posingsystemeditor
                     foreach (var posingSystem in ctx.AvatarRootObject
                                  .GetComponentsInChildren<PosingSystem>(true))
                     {
+                        using var languageScope = PosingSystemLocalization.ForInspector(posingSystem);
                         PosingSystemFeatureUtility.Synchronize(posingSystem);
                         PosingSystemMenuLocalization.Apply(posingSystem, ctx.AssetSaver);
                     }
@@ -265,6 +266,7 @@ namespace jp.unisakistudio.posingsystemeditor
 
                     foreach (var posingSystem in ctx.AvatarRootObject.GetComponentsInChildren<PosingSystem>())
                     {
+                        using var languageScope = PosingSystemLocalization.ForInspector(posingSystem);
                         if (posingSystem.tag == "EditorOnly")
                         {
                             continue;
@@ -340,6 +342,9 @@ namespace jp.unisakistudio.posingsystemeditor
                     }
 
                     var controllerContext = ctx.Extension<AnimatorServicesContext>().ControllerContext;
+                    using var languageScope = PosingSystemLocalization.ForInspector(ctx.AvatarRootObject
+                        .GetComponentsInChildren<PosingSystem>().FirstOrDefault(ps => ps.tag != "EditorOnly" &&
+                            (ps.mergeTrackingControl || (ps.features?.photography ?? false))));
                     MergeTrackingControl(ctx.VRChatAvatarDescriptor(), controllerContext);
                     MergeLocomotionControl(ctx.VRChatAvatarDescriptor(), controllerContext);
                 });
@@ -1030,6 +1035,7 @@ namespace jp.unisakistudio.posingsystemeditor
         }
         public static ModularAvatarMergeAnimator GetCommonMergeAnimator(PosingSystem posingSystem, bool doRecover = false)
         {
+            using var languageScope = PosingSystemLocalization.ForInspector(posingSystem);
             var avatar = posingSystem.GetAvatar();
             if (avatar == null)
             {
@@ -1073,14 +1079,14 @@ namespace jp.unisakistudio.posingsystemeditor
                 else
                 {
                     throw PosingSystemDiagnostics.Failure("PS011", "共通ポージングAnimatorにMA Merge Animatorがありません。",
-                        "ConsoleにコンパイルエラーやMissing Scriptがないか確認してください。" + PosingSystemDiagnostics.RestoreTool, animatorDuplicateErase);
+                        "ConsoleにコンパイルエラーやMissing Scriptがないか確認してください。\n" + PosingSystemDiagnostics.RestoreTool, animatorDuplicateErase);
                 }
             }
             if (!maMergeAnimator.animator)
             {
                 if (!doRecover)
                     throw PosingSystemDiagnostics.Failure("PS012", "共通ポージングAnimatorのAnimator参照が未設定です。",
-                        "Inspectorの「プレビルドを更新」で復元を試してください。" + PosingSystemDiagnostics.RestoreTool, maMergeAnimator);
+                        "Inspectorの「プレビルドを更新」で復元を試してください。\n" + PosingSystemDiagnostics.RestoreTool, maMergeAnimator);
                 if (!RestoreMissingLocomotionController(maMergeAnimator))
                     throw PosingSystemDiagnostics.Failure("PS030", "標準のPosingSystemLocomotion.controllerが見つからず、参照を復元できません。",
                         PosingSystemDiagnostics.RestoreTool, maMergeAnimator);
@@ -1236,6 +1242,7 @@ namespace jp.unisakistudio.posingsystemeditor
 
         public static void ConvertToModularAvatarComponents(PosingSystem posingSystem, IAssetSaver assetSaver = null)
         {
+            using var languageScope = PosingSystemLocalization.ForInspector(posingSystem);
             PosingSystemDiagnostics.ThrowIfInvalid(posingSystem);
             PosingSystemGeneratedControllers.Convert(posingSystem, assetSaver,
                 saver => ConvertToModularAvatarComponentsCore(posingSystem, saver));
@@ -1652,7 +1659,8 @@ namespace jp.unisakistudio.posingsystemeditor
             if (maParameter == null)
             {
                 Debug.LogError("[PosingSystem]「" + posingSystem.name + "」オブジェクトにMAParametersコンポーネントがありません");
-                throw new System.Exception("「" + posingSystem.name + "」オブジェクトにMAParametersコンポーネントがありません");
+                throw new System.Exception(PosingSystemLocalization.FormatFor(posingSystem,
+                    "「{0}」オブジェクトにMAParametersコンポーネントがありません", posingSystem.name));
             }
 
             // 必要なパラメータを列挙
@@ -1746,7 +1754,8 @@ namespace jp.unisakistudio.posingsystemeditor
                 if (submenuRoot == null)
                 {
                     Debug.LogError("[PosingSystem]「" + posingSystem.name + "」の姿勢メニューオブジェクトが見つかりません");
-                    throw new System.Exception("「" + posingSystem.name + "」の姿勢メニューオブジェクトが見つかりません");
+                    throw new System.Exception(PosingSystemLocalization.FormatFor(posingSystem,
+                        "「{0}」の姿勢メニューオブジェクトが見つかりません", posingSystem.name));
                 }
 
                 // 姿勢メニューオブジェクトの親のPosingSystemを調べる
@@ -1847,8 +1856,10 @@ namespace jp.unisakistudio.posingsystemeditor
             var animatorController = maMergeAnimator != null ? maMergeAnimator.animator as AnimatorController : null;
             if (animatorController == null)
             {
-                Debug.LogError("[PosingSystem]「" + posingSystem.name + "」の共通ポージングAnimatorに設定されているAnimatorControllerが不正です。AnimatorOverrideController等は使用できません");
-                throw new System.Exception("「" + posingSystem.name + "」の共通ポージングAnimatorに設定されているAnimatorControllerが不正です。AnimatorOverrideController等は使用できません");
+                var message = PosingSystemLocalization.FormatFor(posingSystem,
+                    "「{0}」の共通ポージングAnimatorに設定されているAnimatorControllerが不正です。AnimatorOverrideController等は使用できません", posingSystem.name);
+                Debug.LogError("[PosingSystem]" + message);
+                throw new System.Exception(message);
             }
 
             // アバターのPosingSystemの一番大きなSyncedParameterValueを探す
@@ -1868,6 +1879,7 @@ namespace jp.unisakistudio.posingsystemeditor
 
         public static void ConvertAnimatorController(PosingSystem posingSystem, IAssetSaver assetSaver = null)
         {
+            using var languageScope = PosingSystemLocalization.ForInspector(posingSystem);
             var avatar = posingSystem.GetAvatar();
             if (avatar == null)
             {
@@ -1889,8 +1901,10 @@ namespace jp.unisakistudio.posingsystemeditor
             var animatorController = maMergeAnimator != null ? maMergeAnimator.animator as AnimatorController : null;
             if (animatorController == null)
             {
-                Debug.LogError("[PosingSystem]「" + posingSystem.name + "」の共通ポージングAnimatorに設定されているAnimatorControllerが不正です。AnimatorOverrideController等は使用できません");
-                throw new System.Exception("「" + posingSystem.name + "」の共通ポージングAnimatorに設定されているAnimatorControllerが不正です。AnimatorOverrideController等は使用できません");
+                var message = PosingSystemLocalization.FormatFor(posingSystem,
+                    "「{0}」の共通ポージングAnimatorに設定されているAnimatorControllerが不正です。AnimatorOverrideController等は使用できません", posingSystem.name);
+                Debug.LogError("[PosingSystem]" + message);
+                throw new System.Exception(message);
             }
 
             var srcAvatarAnimator = avatar.GetComponent<Animator>();
@@ -2084,7 +2098,7 @@ namespace jp.unisakistudio.posingsystemeditor
                             }
                             catch (System.Exception e)
                             {
-                                throw PosingSystemDiagnostics.Failure("PS035", $"ポーズ「{define.menuName} / {animationDefine.displayName}」の変換に失敗しました。",
+                                throw PosingSystemDiagnostics.Failure("PS035", string.Format("ポーズ「{0} / {1}」の変換に失敗しました。", define.menuName, animationDefine.displayName),
                                     "ポーズ一覧で該当アニメーションと調整クリップを確認してください。切り分ける場合はそのポーズを一時的に無効にして再実行してください。", posingSystem, e);
                             }
                             finally
@@ -3171,7 +3185,7 @@ namespace jp.unisakistudio.posingsystemeditor
             {
                 Object.DestroyImmediate(clone);
                 throw new System.InvalidOperationException(
-                    "[PosingSystem] NDMFプレビュー用アバターを有効なSceneに作成できませんでした。");
+                    PosingSystemLocalization.FormatFor(posingSystem, "[PosingSystem] NDMFプレビュー用アバターを有効なSceneに作成できませんでした。"));
             }
 
             return clone;
@@ -3227,7 +3241,7 @@ namespace jp.unisakistudio.posingsystemeditor
             if (animatorController == null || !EditorUtility.IsPersistent(animatorController))
             {
                 throw new System.InvalidOperationException(
-                    "[PosingSystem] 生成Motionの保存先AnimatorControllerが永続アセットではありません。");
+                    PosingSystemLocalization.Text("[PosingSystem] 生成Motionの保存先AnimatorControllerが永続アセットではありません。"));
             }
 
             AssetDatabase.AddObjectToAsset(asset, animatorController);
@@ -4309,6 +4323,7 @@ namespace jp.unisakistudio.posingsystemeditor
 
         public static void ConvertOverrideAnimations(PosingSystem posingSystem, IAssetSaver assetSaver = null)
         {
+            using var languageScope = PosingSystemLocalization.ForInspector(posingSystem);
             // 共通ポージングAnimatorを探す
             var maMergeAnimator = GetPrebuiltMergeAnimator(posingSystem);
             if (maMergeAnimator == null)
@@ -4320,8 +4335,10 @@ namespace jp.unisakistudio.posingsystemeditor
             var animatorController = maMergeAnimator != null ? maMergeAnimator.animator as AnimatorController : null;
             if (animatorController == null)
             {
-                Debug.LogError("[PosingSystem]「" + posingSystem.name + "」の共通ポージングAnimatorに設定されているAnimatorControllerが不正です。AnimatorOverrideController等は使用できません");
-                throw new System.Exception("「" + posingSystem.name + "」の共通ポージングAnimatorに設定されているAnimatorControllerが不正です。AnimatorOverrideController等は使用できません");
+                var message = PosingSystemLocalization.FormatFor(posingSystem,
+                    "「{0}」の共通ポージングAnimatorに設定されているAnimatorControllerが不正です。AnimatorOverrideController等は使用できません", posingSystem.name);
+                Debug.LogError("[PosingSystem]" + message);
+                throw new System.Exception(message);
             }
 
             foreach (var define in ResolveImportedMotionDefinitions(posingSystem))
@@ -4974,7 +4991,7 @@ namespace jp.unisakistudio.posingsystemeditor
             var parameterDriver = ScriptableObject.CreateInstance<VRCAvatarParameterDriver>();
             if (parameterDriver == null)
             {
-                throw PosingSystemDiagnostics.Failure("PS051", $"状態「{state.Name}」の {nameof(VRCAvatarParameterDriver)} を生成できません。",
+                throw PosingSystemDiagnostics.Failure("PS051", string.Format("状態「{0}」の {1} を生成できません。", state.Name, nameof(VRCAvatarParameterDriver)),
                     "Consoleの直前のエラーとVRChat Avatars SDKのバージョンを確認してください。", null);
             }
 
@@ -5038,7 +5055,7 @@ namespace jp.unisakistudio.posingsystemeditor
         private static System.Exception BehaviourFailure(AnimatorState state, System.Type type)
         {
             PosingSystemDiagnostics.ThrowIfCompilationFailed(state);
-            return PosingSystemDiagnostics.Failure("PS051", $"姿勢「{state.name}」にSDKの {type.Name} を追加できません。",
+            return PosingSystemDiagnostics.Failure("PS051", string.Format("姿勢「{0}」にSDKの {1} を追加できません。", state.name, type.Name),
                 "Consoleの直前のエラーと、Unity・VRChat Avatars SDK・ポーズシステムのバージョンを確認してください。", state);
         }
 

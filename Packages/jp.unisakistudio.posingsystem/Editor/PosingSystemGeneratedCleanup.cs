@@ -58,14 +58,14 @@ namespace jp.unisakistudio.posingsystemeditor
                         if (fresh != null) Apply(fresh);
                     }
                 }
-                catch (Exception ex) { Debug.LogWarning("[PosingSystem] 生成物の整理を保留しました: " + ex.Message); }
+                catch (Exception ex) { Debug.LogWarning("[PosingSystem] " + PosingSystemLocalization.Format("生成物の整理を保留しました: {0}", PosingSystemLocalization.TextMessage(ex.Message))); }
             };
         }
 
         static void OnSaved(Scene scene)
         {
             try { UpdateSavedOwner(scene); }
-            catch (Exception ex) { Debug.LogWarning("[PosingSystem] 生成物の所有情報の更新を保留しました: " + ex.Message); }
+            catch (Exception ex) { Debug.LogWarning("[PosingSystem] " + PosingSystemLocalization.Format("生成物の所有情報の更新を保留しました: {0}", PosingSystemLocalization.TextMessage(ex.Message))); }
         }
 
         static void UpdateSavedOwner(Scene scene)
@@ -88,7 +88,7 @@ namespace jp.unisakistudio.posingsystemeditor
                         var oldPath = AssetDatabase.GetAssetPath(item);
                         var newPath = PosingSystemGeneratedControllers.NewPath(owner, avatar.name);
                         var error = AssetDatabase.MoveAsset(oldPath, newPath);
-                        if (!string.IsNullOrEmpty(error)) { Debug.LogWarning("[PosingSystem] 生成物の移動を保留しました: " + error); continue; }
+                        if (!string.IsNullOrEmpty(error)) { Debug.LogWarning("[PosingSystem] " + PosingSystemLocalization.Format("生成物の移動を保留しました: {0}", PosingSystemLocalization.TextMessage(error))); continue; }
                     }
                     else if (item.ownerKind != owner.Kind || item.ownerGuid != owner.Guid) continue; // Save As: never steal the old scene's file.
                     owner.Write(item);
@@ -148,9 +148,9 @@ namespace jp.unisakistudio.posingsystemeditor
         internal static List<Decision> Analyze(string scenePath, string[] candidates)
         {
             var sceneGuid = AssetDatabase.AssetPathToGUID(scenePath);
-            if (string.IsNullOrEmpty(sceneGuid)) throw new InvalidOperationException("所有シーンを確認できません。");
+            if (string.IsNullOrEmpty(sceneGuid)) throw new InvalidOperationException(PosingSystemLocalization.TextMessage("所有シーンを確認できません。"));
             var allowed = Candidates(sceneGuid).ToHashSet();
-            if (candidates.Any(p => !allowed.Contains(p))) throw new InvalidOperationException("管理対象外の生成物です。");
+            if (candidates.Any(p => !allowed.Contains(p))) throw new InvalidOperationException(PosingSystemLocalization.TextMessage("管理対象外の生成物です。"));
             var candidateSet = candidates.ToHashSet();
             var assets = AssetDatabase.GetAllAssetPaths().Where(p => !candidateSet.Contains(p) &&
                 (p.StartsWith("Assets/") || p.StartsWith("Packages/")) && !AssetDatabase.IsValidFolder(p)).ToArray();
@@ -198,8 +198,8 @@ namespace jp.unisakistudio.posingsystemeditor
             if (decision.DeleteFile)
             {
                 if (!AssetDatabase.MoveAssetToTrash(decision.Path))
-                    throw new InvalidOperationException("生成ファイルをごみ箱へ移動できません: " + decision.Path);
-                Debug.Log("[PosingSystem] 未使用の生成ファイルをごみ箱へ移動しました: " + decision.Path);
+                    throw new InvalidOperationException(PosingSystemLocalization.TextMessage(string.Format("生成ファイルをごみ箱へ移動できません: {0}", decision.Path)));
+                Debug.Log("[PosingSystem] " + PosingSystemLocalization.Format("未使用の生成ファイルをごみ箱へ移動しました: {0}", decision.Path));
                 return;
             }
             var removedIds = new HashSet<long>();

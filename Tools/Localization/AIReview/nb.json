@@ -22,7 +22,8 @@
     ],
     "Roll Over": [
       "Snu deg",
-      "snu deg"
+      "snu deg",
+      "snuing"
     ]
   },
   "review": [
@@ -32,5 +33,18 @@
     "Placeholder and key-set validation"
   ],
   "native_speaker_review": false,
-  "rendered_visual_review": false
+  "rendered_visual_review": false,
+  "notes": [
+    "Reviewed maintenance diagnostics: snuing is the Bokmål action noun derived from snu; snuingen is its definite form. These are natural nominal forms of the menu imperative Snu deg."
+  ],
+  "term_form_reviews": {
+    "maintenance-diagnostics-parts-2026-11-09": {
+      "term": "Roll Over",
+      "approved_additional_forms": [
+        "snuing"
+      ],
+      "reason": "Reviewed maintenance diagnostics: snuing is the Bokmål action noun derived from snu; snuingen is its definite form. These are natural nominal forms of the menu imperative Snu deg.",
+      "review": "AI contextual/grammar review; native-speaker review not performed"
+    }
+  }
 }

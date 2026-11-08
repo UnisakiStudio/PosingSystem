@@ -65,12 +65,24 @@
       "value": "Vérifiez les erreurs d'importation comme Missing Prefab dans la Console. Rouvrez la scène de destination et réessayez."
     },
     {
+      "key": "ConsoleにコンパイルエラーやMissing Scriptがないか確認してください。",
+      "value": "Vérifiez dans Console la présence d’erreurs de compilation ou de composants Missing Script."
+    },
+    {
       "key": "Consoleのエラー\n",
       "value": "Erreurs de la Console\n"
     },
     {
       "key": "Consoleの最初のコンパイルエラーを修正し、再コンパイルが完了してから実行してください。",
       "value": "Corrigez la première erreur de compilation dans la Console, attendez la fin de la compilation, puis réessayez."
+    },
+    {
+      "key": "Consoleの直前のエラーとVRChat Avatars SDKのバージョンを確認してください。",
+      "value": "Vérifiez les erreurs précédentes dans Console et la version de VRChat Avatars SDK."
+    },
+    {
+      "key": "Consoleの直前のエラーと、Unity・VRChat Avatars SDK・ポーズシステムのバージョンを確認してください。",
+      "value": "Vérifiez les erreurs précédentes dans Console et les versions de Unity, VRChat Avatars SDK et Posing System."
     },
     {
       "key": "HeadとViewpointの前後差を測定できません。View Positionとアバターのスケールを確認してください。",
@@ -143,6 +155,10 @@
     {
       "key": "IKルールを適用できませんでした。",
       "value": "Les règles IK n'ont pas pu être appliquées."
+    },
+    {
+      "key": "Inspectorの「プレビルドを更新」で復元を試してください。",
+      "value": "Essayez de restaurer la référence avec « Actualiser le précalcul » dans l’Inspector."
     },
     {
       "key": "Inspectorの「設定の確認」で対象を選択し、表示された項目を直して再実行してください。",
@@ -221,6 +237,10 @@
       "value": "Ajouter les noms de fichiers sélectionnés dans Project"
     },
     {
+      "key": "Project内のPrefabを直接変更できません。シーン内のアバター、またはPrefab編集モードでプレビルドしてください。",
+      "value": "Impossible de modifier directement un Prefab dans Project. Effectuez le précalcul sur un avatar de la scène ou en mode Prefab."
+    },
+    {
       "key": "Submenu Rootには、このアバター内のメニュー生成先を指定してください。",
       "value": "Attribuez à Submenu Root une destination de menu située dans cet avatar."
     },
@@ -233,12 +253,20 @@
       "value": "Vérifiez l'Animator sur le même objet que le VRC Avatar Descriptor et comparez ses réglages au prefab d'origine de l'avatar."
     },
     {
+      "key": "VRC Head Chopの数がVRChatの上限に達しています。",
+      "value": "Le nombre de composants VRC Head Chop a atteint la limite de VRChat."
+    },
+    {
       "key": "VRChatのメニューで呼吸をつけたり止めたりできます。ON/OFFは他の人にも反映されます。",
       "value": "Active ou désactive la respiration dans VRChat. Les autres utilisateurs voient aussi le changement."
     },
     {
       "key": "VRChatのメニューに切り替え項目を追加します。使いたいときに、ポーズの左右を反転できます。",
       "value": "Ajoute au menu une commande pour inverser la pose avec Miroir."
+    },
+    {
+      "key": "VRChat標準の待機アニメーションを特定できません。VRChat SDKを確認してください。",
+      "value": "Impossible d’identifier l’animation au repos par défaut de VRChat. Vérifiez le SDK VRChat."
     },
     {
       "key": "VRChat標準の揺れを止める",
@@ -271,6 +299,14 @@
     {
       "key": "ViewPosition（目の位置）",
       "value": "ViewPosition (position des yeux)"
+    },
+    {
+      "key": "[PosingSystem] NDMFプレビュー用アバターを有効なSceneに作成できませんでした。",
+      "value": "[PosingSystem] Impossible de créer l’avatar de prévisualisation NDMF dans une Scene valide."
+    },
+    {
+      "key": "[PosingSystem] 生成Motionの保存先AnimatorControllerが永続アセットではありません。",
+      "value": "[PosingSystem] L’AnimatorController cible pour enregistrer le Motion généré n’est pas un asset persistant."
     },
     {
       "key": "[パス]",
@@ -893,6 +929,10 @@
       "value": "{0} animations d'ajustement dupliquées et enregistrées."
     },
     {
+      "key": "{0}番",
+      "value": "N° {0}"
+    },
+    {
       "key": "{0}（{1}行目）",
       "value": "{0} (ligne {1})"
     },
@@ -957,12 +997,28 @@
       "value": "Une icône personnalisée est activée pour l'élément {1} ({2}) de {0}, mais aucune image n'est attribuée."
     },
     {
+      "key": "「{0}」の共通ポージングAnimatorに設定されているAnimatorControllerが不正です。AnimatorOverrideController等は使用できません",
+      "value": "L’AnimatorController affecté à l’Animator de pose commun de « {0} » est invalide. AnimatorOverrideController et les types de contrôleurs similaires ne sont pas pris en charge."
+    },
+    {
+      "key": "「{0}」の姿勢メニューオブジェクトが見つかりません",
+      "value": "L’objet de menu de poses de « {0} » est introuvable."
+    },
+    {
+      "key": "「{0}」オブジェクトにMAParametersコンポーネントがありません",
+      "value": "L’objet « {0} » ne possède pas de composant MAParameters."
+    },
+    {
       "key": "「{0}」オブジェクトの設定が更新されています。再度プレビルドを行ってください",
       "value": "Les réglages de l'objet {0} ont changé. Actualisez le précalcul."
     },
     {
       "key": "「ポーズ一覧」で対応するポーズの詳細を開き、「寝返りを使う」をオンにしてください。",
       "value": "Ouvrez une pose compatible dans Poses et activez Activer le retournement."
+    },
+    {
+      "key": "「撮影モード中は頭を非表示にしない」をオフにするか、既存のVRC Head Chopをまとめて1個分の空きを作ってください。",
+      "value": "Désactivez « Garder la tête visible en Mode photo » ou regroupez les composants VRC Head Chop existants pour libérer un emplacement."
     },
     {
       "key": "「現在の手足位置から取得」を一度実行してください。再取得までは元Animationの手足の向きを維持します。",
@@ -1221,6 +1277,10 @@
       "value": "Longueur du bas de jambe"
     },
     {
+      "key": "すべてのポーズ画像を作り直します。ポーズの数によっては少し時間がかかります。\n更新中はUnityの操作をお待ちください。",
+      "value": "Recrée toutes les vignettes des poses. Cela peut prendre du temps selon le nombre de poses.\nAttendez la fin de la mise à jour avant d’utiliser Unity."
+    },
+    {
       "key": "すべての姿勢から検索",
       "value": "Rechercher dans toutes les poses"
     },
@@ -1437,6 +1497,10 @@
       "value": "Attribuez un Animator Controller normal à la couche Base de l'avatar. Les Animator Override Controllers ne sont pas pris en charge."
     },
     {
+      "key": "アバターのHumanoid設定とHeadボーンを確認してください。詳細はConsoleの内部例外を確認してください。",
+      "value": "Vérifiez les paramètres Humanoid et l’os Head de l’avatar. Consultez l’exception interne dans Console pour plus de détails."
+    },
+    {
       "key": "アバターのスケールから有効な固定長を測定できません。",
       "value": "Impossible de mesurer une longueur fixe valide à partir de l'échelle de l'avatar."
     },
@@ -1447,6 +1511,10 @@
     {
       "key": "アバターのルートにAnimatorがありません。Inspectorの「設定の確認」の対処手順をご確認ください。",
       "value": "La racine de l'avatar n'a pas d'Animator. Consultez Vérifier les réglages dans l'Inspector."
+    },
+    {
+      "key": "アバターのルートにあるAnimatorのAvatar欄と、元モデルのRig設定を確認してください。",
+      "value": "Vérifiez le champ Avatar de l’Animator à la racine de l’avatar et les paramètres Rig du modèle d’origine."
     },
     {
       "key": "アバターの元の立ち・しゃがみ・伏せ姿勢を使う",
@@ -1471,6 +1539,10 @@
     {
       "key": "アバターの設定が必要",
       "value": "Configuration de l'avatar nécessaire"
+    },
+    {
+      "key": "アバターの高さ計算に失敗しました。",
+      "value": "Le calcul de la hauteur de l’avatar a échoué."
     },
     {
       "key": "アバターデータフォルダの自動検出",
@@ -1569,6 +1641,10 @@
       "value": "Cool Posing Tool (BOOTH)"
     },
     {
+      "key": "カテゴリ{0}",
+      "value": "Catégorie {0}"
+    },
+    {
       "key": "キック",
       "value": "Coup de pied"
     },
@@ -1643,6 +1719,10 @@
     {
       "key": "ツールに同梱された公式プリセットを一覧と検索結果に表示しません。同じプロジェクト内のアバターで共有する設定です。",
       "value": "Masque les préréglages officiels inclus dans la liste et les résultats de recherche. Ce réglage est partagé par les avatars de ce projet."
+    },
+    {
+      "key": "ツールに同梱される空アニメーションが見つかりません。",
+      "value": "L’animation vide fournie avec l’outil est introuvable."
     },
     {
       "key": "ツールのルートにMA Parametersがありません。",
@@ -1837,6 +1917,10 @@
       "value": "Poses : {0} bits + fonctions facultatives : {1} bits / outils de pose sur cet avatar"
     },
     {
+      "key": "ポーズ「{0} / {1}」の変換に失敗しました。",
+      "value": "La conversion de la pose « {0} / {1} » a échoué."
+    },
+    {
       "key": "ポーズアイコン生成",
       "value": "Générer les icônes des poses"
     },
@@ -1869,6 +1953,10 @@
       "value": "Sélectionnez une seule pose initiale dans cette catégorie."
     },
     {
+      "key": "ポーズ一覧で該当アニメーションと調整クリップを確認してください。切り分ける場合はそのポーズを一時的に無効にして再実行してください。",
+      "value": "Vérifiez l’animation et le clip d’ajustement concernés dans la liste des poses. Pour isoler le problème, désactivez temporairement cette pose et réessayez."
+    },
+    {
       "key": "ポーズ一覧で該当カテゴリを確認し、プリセットまたはバックアップから復元してください。",
       "value": "Vérifiez cette catégorie dans la liste des poses et restaurez-la à partir d'un préréglage ou d'une sauvegarde."
     },
@@ -1883,6 +1971,10 @@
     {
       "key": "ポーズ名",
       "value": "Nom de la pose"
+    },
+    {
+      "key": "ポーズ生成の再入を検出しました。",
+      "value": "La génération des poses a été rappelée alors qu’elle est déjà en cours."
     },
     {
       "key": "ポーズ画像を更新",
@@ -2125,6 +2217,10 @@
       "value": "Des modifications ne sont pas enregistrées. Les enregistrer ?"
     },
     {
+      "key": "保存して続ける",
+      "value": "Enregistrer et continuer"
+    },
+    {
       "key": "保存先にはAssets内のフォルダと.animファイルを指定してください。",
       "value": "Choisissez un dossier dans Assets et un nom de fichier .anim."
     },
@@ -2177,6 +2273,10 @@
       "value": "Conserver la flexion de la pose source"
     },
     {
+      "key": "元アバターのAnimatorとAvatar参照を確認してください。",
+      "value": "Vérifiez l’Animator de l’avatar d’origine et sa référence Avatar."
+    },
+    {
       "key": "元モデルのInspector > RigでHumanoid設定とConfigureの割り当てを確認してください。配布元が指定する設定を優先してください。",
       "value": "Vérifiez les réglages Humanoid et Configure dans Inspector > Rig du modèle d'origine. Suivez les recommandations du créateur de l'avatar."
     },
@@ -2185,8 +2285,20 @@
       "value": "Vérifiez Head dans Rig > Configure du modèle d'origine et assurez-vous que le bone de la tête est toujours présent dans la scène."
     },
     {
+      "key": "元モデルのRig > Configureと、シーンの頭ボーンを確認してください。",
+      "value": "Vérifiez Rig > Configure sur le modèle d’origine et l’os Head dans la scène."
+    },
+    {
       "key": "元姿勢の読み込み",
       "value": "Importer les poses d'origine"
+    },
+    {
+      "key": "元姿勢を復元する標準Controllerが見つかりません。",
+      "value": "Le Controller standard nécessaire pour restaurer les poses d’origine est introuvable."
+    },
+    {
+      "key": "先にアバター用Controllerを複製してください。配布元のControllerには追加機能を書き込みません。",
+      "value": "Dupliquez d’abord le Controller de l’avatar. Les fonctions supplémentaires ne seront pas écrites dans le Controller distribué."
     },
     {
       "key": "全ての変更された差分を保存しました。",
@@ -2241,6 +2353,14 @@
       "value": "Activé pour la production. Les produits utilisant ce catalogue ignorent les anciennes animations d'ajustement par pose et les corrections d'avatar. Vérifiez que toutes les poses sont configurées."
     },
     {
+      "key": "共通ControllerにUSSPS_LocomotionTypeレイヤーがありません。",
+      "value": "Le Controller commun ne contient pas de couche USSPS_LocomotionType."
+    },
+    {
+      "key": "共通ControllerにUSSPS_Locomotionレイヤーがありません。",
+      "value": "Le Controller commun ne contient pas de couche USSPS_Locomotion."
+    },
+    {
       "key": "共通Controllerに姿勢制御用のレイヤーがありません。",
       "value": "Le Controller commun n'a pas de couches de contrôle des poses."
     },
@@ -2275,6 +2395,14 @@
     {
       "key": "共通ポージングAnimatorのAnimator参照が未設定です。",
       "value": "Aucun Animator Controller n'est attribué à l'Animator de pose commun."
+    },
+    {
+      "key": "共通ポージングAnimatorの参照からAnimator Controllerを読み込めません。",
+      "value": "Impossible de charger l’Animator Controller référencé par l’Animator de pose commun."
+    },
+    {
+      "key": "共通ポージングAnimatorの有効状態・EditorOnlyタグ・MA Merge Animatorの参照を確認してください。調整済みの生成ファイルは保持してください。",
+      "value": "Vérifiez que l’Animator de pose commun est actif, sans tag EditorOnly, et que la référence MA Merge Animator est correcte. Conservez vos fichiers générés ajustés."
     },
     {
       "key": "共通ポージングAnimatorへ別のControllerを指定していないか確認してください。",
@@ -2355,6 +2483,10 @@
     {
       "key": "動かす手足",
       "value": "Membre à déplacer"
+    },
+    {
+      "key": "取り込みモーションの調整に有効なHumanoidアバターが必要です。",
+      "value": "L’ajustement des mouvements importés nécessite un avatar Humanoid valide."
     },
     {
       "key": "取り込むアニメーションを個別に指定",
@@ -2493,6 +2625,14 @@
       "value": "Réglages de respiration"
     },
     {
+      "key": "呼吸用Controllerを生成用コピーへ分離できませんでした。",
+      "value": "Impossible d’isoler le Controller de respiration dans une copie pour la génération."
+    },
+    {
+      "key": "呼吸用ポージングAnimatorが見つかりません。",
+      "value": "L’Animator de pose pour la respiration est introuvable."
+    },
+    {
       "key": "和室",
       "value": "Pièce japonaise"
     },
@@ -2565,6 +2705,14 @@
       "value": "Appui au mur"
     },
     {
+      "key": "変換用アバターに有効なHumanoid Animatorがありません。",
+      "value": "L’avatar de conversion ne possède pas de Humanoid Animator valide."
+    },
+    {
+      "key": "変換用アバターのHeadボーンが見つかりません。",
+      "value": "L’os Head de l’avatar de conversion est introuvable."
+    },
+    {
       "key": "変更のあるアニメーションの調整値を保存します。",
       "value": "Enregistre les ajustements des animations modifiées."
     },
@@ -2591,6 +2739,10 @@
     {
       "key": "姿勢 {0}",
       "value": "Pose {0}"
+    },
+    {
+      "key": "姿勢「{0}」にSDKの {1} を追加できません。",
+      "value": "Impossible d’ajouter {1} du SDK à la pose « {0} »."
     },
     {
       "key": "姿勢のプレビュー",
@@ -2633,6 +2785,10 @@
       "value": "Réglages IK par pose ({0})"
     },
     {
+      "key": "姿勢変換に必要なHumanoid Animatorを取得できません。",
+      "value": "Impossible d’obtenir le Humanoid Animator nécessaire à la conversion des poses."
+    },
+    {
       "key": "姿勢設定を追加",
       "value": "Ajouter des réglages de pose"
     },
@@ -2661,8 +2817,24 @@
       "value": "Se retourner"
     },
     {
+      "key": "寝返りの中央と横向きにはHumanoid AnimationClipが必要です。",
+      "value": "Les poses centrale et latérale pour se retourner nécessitent des AnimationClips Humanoid."
+    },
+    {
+      "key": "寝返りの生成には有効なHumanoidアバターが必要です。",
+      "value": "La génération du retournement nécessite un avatar Humanoid valide."
+    },
+    {
       "key": "寝返りの設定",
       "value": "Réglages du retournement"
+    },
+    {
+      "key": "寝返りの頭位置補正で、RootTの移動量を計測できませんでした。",
+      "value": "Impossible de mesurer le déplacement RootT pour le centrage de la tête lors du retournement."
+    },
+    {
+      "key": "寝返りの頭位置補正には、有効なHumanoidとHeadボーンが必要です。",
+      "value": "Le centrage de la tête pour se retourner nécessite un Humanoid valide et un os Head."
     },
     {
       "key": "寝返りを使う",
@@ -2687,6 +2859,10 @@
     {
       "key": "対象を選択（{0}）",
       "value": "Sélectionner l'objet concerné ({0})"
+    },
+    {
+      "key": "導入先アバターが見つかりません。",
+      "value": "L’avatar cible est introuvable."
     },
     {
       "key": "小さな傾きを無視する範囲",
@@ -2813,6 +2989,10 @@
       "value": "Retour"
     },
     {
+      "key": "所有シーンを確認できません。",
+      "value": "Impossible d’identifier la scène propriétaire."
+    },
+    {
       "key": "手動で方向を指定",
       "value": "Définir la direction manuellement"
     },
@@ -2823,6 +3003,10 @@
     {
       "key": "手動指定時だけ使用します。アバター正面を基準にした方向です。",
       "value": "Utilisé uniquement avec une direction de flexion définie manuellement, par rapport à l'avant de l'avatar."
+    },
+    {
+      "key": "手動調整を保存してから、現在のIKの結果を別の調整アニメーションに保存します。既存のファイルは残ります。",
+      "value": "Enregistre les ajustements manuels, puis le résultat IK actuel dans une animation d’ajustement distincte. Les fichiers existants sont conservés."
     },
     {
       "key": "手足のIKルールを追加",
@@ -2881,6 +3065,14 @@
       "value": "Garder la tête visible en Mode photo"
     },
     {
+      "key": "撮影中の頭表示にはビルド用FX Controllerの複製が必要です。",
+      "value": "Garder la tête visible pendant la prise de vue nécessite une copie du FX Controller pour le build."
+    },
+    {
+      "key": "撮影中の頭表示に必要なHeadボーンを取得できません。",
+      "value": "Impossible d’obtenir l’os Head nécessaire pour garder la tête visible pendant la prise de vue."
+    },
+    {
       "key": "撮影機能に必要なため、自動で選ばれています。",
       "value": "Sélectionné automatiquement, car le Mode photo le nécessite."
     },
@@ -2891,6 +3083,10 @@
     {
       "key": "斜め座り",
       "value": "Assise de biais"
+    },
+    {
+      "key": "既存のHead Chop設定との重複を避けるため、「撮影モード中は頭を非表示にしない」をオフにするか、既存設定のHead対象を見直してください。耳など別のボーンの設定はそのまま併用できます。",
+      "value": "Pour éviter un conflit avec les réglages Head Chop existants, désactivez « Garder la tête visible en Mode photo » ou vérifiez leur cible Head. Les réglages d’autres os, comme les oreilles, restent compatibles."
     },
     {
       "key": "旧unitypackage版の「{0}」フォルダがプロジェクトに残っています。新版と競合する可能性があります。削除する前に移行手順とバックアップを確認してください。",
@@ -2923,6 +3119,10 @@
     {
       "key": "晴天寝",
       "value": "Sieste au soleil"
+    },
+    {
+      "key": "更新する",
+      "value": "Actualiser"
     },
     {
       "key": "最低膝曲げ角度（°）",
@@ -2961,6 +3161,10 @@
       "value": "Sieste perchée"
     },
     {
+      "key": "未使用の生成ファイルをごみ箱へ移動しました: {0}",
+      "value": "Le fichier généré inutilisé a été déplacé dans la corbeille : {0}"
+    },
+    {
       "key": "未保存の手動調整があります",
       "value": "Ajustements manuels non enregistrés"
     },
@@ -2997,6 +3201,22 @@
       "value": "Paradis"
     },
     {
+      "key": "標準Controllerの元姿勢が見つかりません: {0}",
+      "value": "La pose d’origine est introuvable dans le Controller standard : {0}"
+    },
+    {
+      "key": "標準のPosingSystemLocomotion.controllerが見つからず、参照を復元できません。",
+      "value": "Le fichier standard PosingSystemLocomotion.controller est introuvable ; sa référence ne peut pas être restaurée."
+    },
+    {
+      "key": "標準の揺れの無効化にはビルド用Controllerの複製が必要です: {0}",
+      "value": "La désactivation du balancement au repos par défaut nécessite une copie du Controller de compilation : {0}"
+    },
+    {
+      "key": "標準の揺れを無効化するAdditive Controllerが生成されていません。",
+      "value": "L’Additive Controller permettant de désactiver le balancement au repos par défaut n’a pas été généré."
+    },
+    {
       "key": "横を向くまでの頭の傾き",
       "value": "Inclinaison de tête pour un retournement complet"
     },
@@ -3023,6 +3243,10 @@
     {
       "key": "照れ",
       "value": "Timide"
+    },
+    {
+      "key": "状態「{0}」の {1} を生成できません。",
+      "value": "Impossible de créer {1} pour l’état « {0} »."
     },
     {
       "key": "猫のポーズ（右）",
@@ -3065,8 +3289,32 @@
       "value": "En cours de création. Les anciennes animations d'ajustement restent utilisées même si un prefab de produit référence ce catalogue."
     },
     {
+      "key": "生成ファイルをごみ箱へ移動できません: {0}",
+      "value": "Impossible de déplacer le fichier généré dans la corbeille : {0}"
+    },
+    {
+      "key": "生成先のシーンまたはPrefabを識別できません。",
+      "value": "Impossible d’identifier la scène ou le Prefab de destination."
+    },
+    {
       "key": "生成時にアバターのBaseからモーションを検出します。取り込み設定の一覧には追加しません。手動設定がある種類は手動指定を優先します。",
       "value": "Détecte les mouvements de la couche Base de l'avatar lors de la génération, sans les ajouter à la liste d'importation. Les choix manuels sont prioritaires."
+    },
+    {
+      "key": "生成済みの画像ファイルを削除します。削除後は「アイコンを撮り直す」で再生成できます。",
+      "value": "Supprime le fichier image généré. Vous pouvez ensuite le recréer avec « Reprendre les icônes »."
+    },
+    {
+      "key": "生成物の所有情報の更新を保留しました: {0}",
+      "value": "La mise à jour des informations de propriété des éléments générés a été reportée : {0}"
+    },
+    {
+      "key": "生成物の整理を保留しました: {0}",
+      "value": "Le nettoyage des éléments générés a été reporté : {0}"
+    },
+    {
+      "key": "生成物の移動を保留しました: {0}",
+      "value": "Le déplacement des éléments générés a été reporté : {0}"
     },
     {
       "key": "画像でポーズを見分けやすくできます。アバターのビルド時間は少し長くなります。",
@@ -3151,6 +3399,10 @@
     {
       "key": "立ち止まっているときに自動で入る、VRChat標準の身体の揺れを止められます。ポーズツールで設定した呼吸の動きはそのまま使えます。",
       "value": "Désactive le balancement automatique au repos de VRChat tout en conservant l'animation de respiration de cet outil."
+    },
+    {
+      "key": "管理対象外の生成物です。",
+      "value": "Cet élément généré ne fait pas partie des éléments gérés."
     },
     {
       "key": "終了",
@@ -3585,6 +3837,10 @@
       "value": "À la sélection"
     },
     {
+      "key": "配布元Controllerへ取り込み結果を書き込めません。",
+      "value": "Impossible d’écrire les résultats importés dans le Controller source distribué."
+    },
+    {
       "key": "配置対象のアバターPrefab/FBXのファイル名",
       "value": "Noms des fichiers prefab / FBX des avatars cibles"
     },
@@ -3633,6 +3889,10 @@
       "value": "La référence pour mesurer le placement des mains ou des pieds, par exemple Head, Hips, un genou ou ViewPosition (position des yeux). ViewPosition suit les mouvements de la tête."
     },
     {
+      "key": "頭のボーンには既にVRC Head Chopが設定されています。",
+      "value": "VRC Head Chop est déjà configuré pour l’os de la tête."
+    },
+    {
       "key": "頭のボーン（Head）を取得できません。姿勢の高さを計算できません。",
       "value": "Le bone Head est introuvable : la hauteur de la posture ne peut pas être calculée."
     },
@@ -3659,6 +3919,10 @@
     {
       "key": "頭も含めた身体全体の高さを変えられます。VRChatの「床の高さ」で、50%を元の高さとして上下3mまで調整できます。",
       "value": "Déplace tout le corps, tête comprise, de 3 m maximum vers le haut ou le bas. Hauteur sol est neutre à 50 %."
+    },
+    {
+      "key": "顔の正面補正にはHumanoidと元のAnimationが必要です。",
+      "value": "La correction de l’orientation du visage nécessite un Humanoid et l’Animation d’origine."
     },
     {
       "key": "首の向きの違いによる姿勢崩れを抑制",

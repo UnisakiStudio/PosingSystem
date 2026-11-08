@@ -65,12 +65,24 @@
       "value": "Tarkista Consolen tuontivirheet, kuten Missing Prefab. Avaa kohdescene uudelleen ja yritä uudelleen."
     },
     {
+      "key": "ConsoleにコンパイルエラーやMissing Scriptがないか確認してください。",
+      "value": "Tarkista Console-ikkunasta käännösvirheet ja Missing Script -komponentit."
+    },
+    {
       "key": "Consoleのエラー\n",
       "value": "Consolen virheet\n"
     },
     {
       "key": "Consoleの最初のコンパイルエラーを修正し、再コンパイルが完了してから実行してください。",
       "value": "Korjaa Consolen ensimmäinen käännösvirhe, odota kääntämisen valmistumista ja yritä uudelleen."
+    },
+    {
+      "key": "Consoleの直前のエラーとVRChat Avatars SDKのバージョンを確認してください。",
+      "value": "Tarkista Console-ikkunan edeltävät virheet ja VRChat Avatars SDK:n versio."
+    },
+    {
+      "key": "Consoleの直前のエラーと、Unity・VRChat Avatars SDK・ポーズシステムのバージョンを確認してください。",
+      "value": "Tarkista Console-ikkunan edeltävät virheet sekä Unityn, VRChat Avatars SDK:n ja Posing Systemin versiot."
     },
     {
       "key": "HeadとViewpointの前後差を測定できません。View Positionとアバターのスケールを確認してください。",
@@ -143,6 +155,10 @@
     {
       "key": "IKルールを適用できませんでした。",
       "value": "IK-sääntöjä ei voitu käyttää."
+    },
+    {
+      "key": "Inspectorの「プレビルドを更新」で復元を試してください。",
+      "value": "Yritä palauttaa viite Inspectorin toiminnolla ”Päivitä esikoonti”."
     },
     {
       "key": "Inspectorの「設定の確認」で対象を選択し、表示された項目を直して再実行してください。",
@@ -221,6 +237,10 @@
       "value": "Lisää Projectissa valitut tiedostonimet"
     },
     {
+      "key": "Project内のPrefabを直接変更できません。シーン内のアバター、またはPrefab編集モードでプレビルドしてください。",
+      "value": "Project-näkymän Prefabia ei voi muokata suoraan. Tee esikoonti scenessä olevalle avatarille tai käytä Prefab-tilaa."
+    },
+    {
       "key": "Submenu Rootには、このアバター内のメニュー生成先を指定してください。",
       "value": "Määritä Submenu Root -kenttään tämän avatarin sisällä oleva valikkokohde."
     },
@@ -233,12 +253,20 @@
       "value": "Tarkista samalla objektilla kuin VRC Avatar Descriptor oleva Animator ja vertaa sen asetuksia avatarin alkuperäiseen prefabiin."
     },
     {
+      "key": "VRC Head Chopの数がVRChatの上限に達しています。",
+      "value": "VRC Head Chop -komponenttien määrä on saavuttanut VRChatin rajan."
+    },
+    {
       "key": "VRChatのメニューで呼吸をつけたり止めたりできます。ON/OFFは他の人にも反映されます。",
       "value": "Kytkee hengityksen päälle tai pois VRChatissa. Muutkin käyttäjät näkevät muutoksen."
     },
     {
       "key": "VRChatのメニューに切り替え項目を追加します。使いたいときに、ポーズの左右を反転できます。",
       "value": "Lisää valikkoon kytkimen asennon peilaamista varten."
+    },
+    {
+      "key": "VRChat標準の待機アニメーションを特定できません。VRChat SDKを確認してください。",
+      "value": "VRChatin oletusarvoista joutokäyntianimaatiota ei voitu tunnistaa. Tarkista VRChat SDK."
     },
     {
       "key": "VRChat標準の揺れを止める",
@@ -271,6 +299,14 @@
     {
       "key": "ViewPosition（目の位置）",
       "value": "ViewPosition (silmien sijainti)"
+    },
+    {
+      "key": "[PosingSystem] NDMFプレビュー用アバターを有効なSceneに作成できませんでした。",
+      "value": "[PosingSystem] NDMF-esikatseluavataria ei voitu luoda kelvolliseen Scene-kohteeseen."
+    },
+    {
+      "key": "[PosingSystem] 生成Motionの保存先AnimatorControllerが永続アセットではありません。",
+      "value": "[PosingSystem] Luodun Motion-kohteen tallennukseen tarkoitettu AnimatorController ei ole pysyvä asset."
     },
     {
       "key": "[パス]",
@@ -893,6 +929,10 @@
       "value": "Kopioitiin ja tallennettiin {0} säätöanimaatiota."
     },
     {
+      "key": "{0}番",
+      "value": "Nro {0}"
+    },
+    {
       "key": "{0}（{1}行目）",
       "value": "{0} (rivi {1})"
     },
@@ -957,12 +997,28 @@
       "value": "Luokan {0} kohdalla {1} ({2}) on oma kuvake käytössä, mutta sille ei ole määritetty kuvaa."
     },
     {
+      "key": "「{0}」の共通ポージングAnimatorに設定されているAnimatorControllerが不正です。AnimatorOverrideController等は使用できません",
+      "value": "Kohteen ”{0}” yhteiseen asento-Animatoriin määritetty AnimatorController on virheellinen. AnimatorOverrideController ja vastaavat ohjaintyypit eivät ole tuettuja."
+    },
+    {
+      "key": "「{0}」の姿勢メニューオブジェクトが見つかりません",
+      "value": "Kohteen ”{0}” asentovalikon objektia ei löytynyt."
+    },
+    {
+      "key": "「{0}」オブジェクトにMAParametersコンポーネントがありません",
+      "value": "Objektista ”{0}” puuttuu MAParameters-komponentti."
+    },
+    {
       "key": "「{0}」オブジェクトの設定が更新されています。再度プレビルドを行ってください",
       "value": "Objektin {0} asetukset ovat muuttuneet. Päivitä esikoonti."
     },
     {
       "key": "「ポーズ一覧」で対応するポーズの詳細を開き、「寝返りを使う」をオンにしてください。",
       "value": "Avaa tuettu asento Asennot-välilehdeltä ja valitse Ota Käänny käyttöön."
+    },
+    {
+      "key": "「撮影モード中は頭を非表示にしない」をオフにするか、既存のVRC Head Chopをまとめて1個分の空きを作ってください。",
+      "value": "Poista ”Pidä pää näkyvissä Kuvatilassa” käytöstä tai yhdistä nykyisiä VRC Head Chop -komponentteja vapauttaaksesi yhden komponenttipaikan."
     },
     {
       "key": "「現在の手足位置から取得」を一度実行してください。再取得までは元Animationの手足の向きを維持します。",
@@ -1221,6 +1277,10 @@
       "value": "Säären pituus"
     },
     {
+      "key": "すべてのポーズ画像を作り直します。ポーズの数によっては少し時間がかかります。\n更新中はUnityの操作をお待ちください。",
+      "value": "Luo kaikki asentojen pikkukuvat uudelleen. Tämä voi kestää asentojen määrästä riippuen.\nOdota päivityksen valmistumista ennen kuin jatkat Unityn käyttöä."
+    },
+    {
       "key": "すべての姿勢から検索",
       "value": "Hae kaikista asennoista"
     },
@@ -1437,6 +1497,10 @@
       "value": "Määritä avatarin Base-tasolle tavallinen Animator Controller. Animator Override Controlleria ei tueta."
     },
     {
+      "key": "アバターのHumanoid設定とHeadボーンを確認してください。詳細はConsoleの内部例外を確認してください。",
+      "value": "Tarkista avatarin Humanoid-asetukset ja Head-luu. Lisätietoja on Console-ikkunan sisemmässä poikkeuksessa."
+    },
+    {
       "key": "アバターのスケールから有効な固定長を測定できません。",
       "value": "Avatarin mittakaavasta ei voitu mitata kelvollista kiinteää pituutta."
     },
@@ -1447,6 +1511,10 @@
     {
       "key": "アバターのルートにAnimatorがありません。Inspectorの「設定の確認」の対処手順をご確認ください。",
       "value": "Avatarin juuriobjektilta puuttuu Animator. Katso Inspectorin Tarkista asetukset."
+    },
+    {
+      "key": "アバターのルートにあるAnimatorのAvatar欄と、元モデルのRig設定を確認してください。",
+      "value": "Tarkista avatarin juuressa olevan Animator-komponentin Avatar-kenttä ja alkuperäisen mallin Rig-asetukset."
     },
     {
       "key": "アバターの元の立ち・しゃがみ・伏せ姿勢を使う",
@@ -1471,6 +1539,10 @@
     {
       "key": "アバターの設定が必要",
       "value": "Avatarin asetukset tarvitaan"
+    },
+    {
+      "key": "アバターの高さ計算に失敗しました。",
+      "value": "Avatarin korkeuden laskeminen epäonnistui."
     },
     {
       "key": "アバターデータフォルダの自動検出",
@@ -1569,6 +1641,10 @@
       "value": "Cool Posing Tool (BOOTH)"
     },
     {
+      "key": "カテゴリ{0}",
+      "value": "Luokka {0}"
+    },
+    {
       "key": "キック",
       "value": "Potku"
     },
@@ -1643,6 +1719,10 @@
     {
       "key": "ツールに同梱された公式プリセットを一覧と検索結果に表示しません。同じプロジェクト内のアバターで共有する設定です。",
       "value": "Piilottaa mukana tulevat viralliset esiasetukset luettelosta ja hakutuloksista. Asetus on yhteinen tämän projektin avatareille."
+    },
+    {
+      "key": "ツールに同梱される空アニメーションが見つかりません。",
+      "value": "Työkalun mukana toimitettua tyhjää animaatiota ei löytynyt."
     },
     {
       "key": "ツールのルートにMA Parametersがありません。",
@@ -1837,6 +1917,10 @@
       "value": "Asennot: {0} bittiä + lisätoiminnot: {1} bittiä / tämän avatarin asentotyökalut"
     },
     {
+      "key": "ポーズ「{0} / {1}」の変換に失敗しました。",
+      "value": "Asennon ”{0} / {1}” muuntaminen epäonnistui."
+    },
+    {
       "key": "ポーズアイコン生成",
       "value": "Luo asentokuvakkeet"
     },
@@ -1869,6 +1953,10 @@
       "value": "Valitse luokalle yksi aloitusasento."
     },
     {
+      "key": "ポーズ一覧で該当アニメーションと調整クリップを確認してください。切り分ける場合はそのポーズを一時的に無効にして再実行してください。",
+      "value": "Tarkista kyseinen animaatio ja säätöleike asentoluettelosta. Rajaa ongelma poistamalla asento väliaikaisesti käytöstä ja yrittämällä uudelleen."
+    },
+    {
       "key": "ポーズ一覧で該当カテゴリを確認し、プリセットまたはバックアップから復元してください。",
       "value": "Tarkista luokka asentoluettelosta ja palauta se esiasetuksesta tai varmuuskopiosta."
     },
@@ -1883,6 +1971,10 @@
     {
       "key": "ポーズ名",
       "value": "Asennon nimi"
+    },
+    {
+      "key": "ポーズ生成の再入を検出しました。",
+      "value": "Asentojen luontia kutsuttiin uudelleen sen ollessa jo käynnissä."
     },
     {
       "key": "ポーズ画像を更新",
@@ -2125,6 +2217,10 @@
       "value": "Sinulla on tallentamattomia muutoksia. Tallennetaanko ne?"
     },
     {
+      "key": "保存して続ける",
+      "value": "Tallenna ja jatka"
+    },
+    {
       "key": "保存先にはAssets内のフォルダと.animファイルを指定してください。",
       "value": "Valitse Assets-kansion sisäinen kansio ja .anim-päätteinen tiedostonimi."
     },
@@ -2177,6 +2273,10 @@
       "value": "Säilytä lähdeasennon taivutus"
     },
     {
+      "key": "元アバターのAnimatorとAvatar参照を確認してください。",
+      "value": "Tarkista alkuperäisen avatarin Animator ja Avatar-viite."
+    },
+    {
       "key": "元モデルのInspector > RigでHumanoid設定とConfigureの割り当てを確認してください。配布元が指定する設定を優先してください。",
       "value": "Tarkista alkuperäisen mallin Inspector > Rig -asetusten Humanoid ja Configure-määritykset. Noudata avatarin tekijän suosituksia."
     },
@@ -2185,8 +2285,20 @@
       "value": "Tarkista Head alkuperäisen mallin Rig > Configure -asetuksista ja varmista, että pääluu on yhä scenessä."
     },
     {
+      "key": "元モデルのRig > Configureと、シーンの頭ボーンを確認してください。",
+      "value": "Tarkista alkuperäisen mallin Rig > Configure ja näkymän Head-luu."
+    },
+    {
       "key": "元姿勢の読み込み",
       "value": "Tuo alkuperäiset asennot"
+    },
+    {
+      "key": "元姿勢を復元する標準Controllerが見つかりません。",
+      "value": "Alkuperäisten asentojen palauttamiseen tarvittavaa oletus-Controlleria ei löytynyt."
+    },
+    {
+      "key": "先にアバター用Controllerを複製してください。配布元のControllerには追加機能を書き込みません。",
+      "value": "Monista ensin avatarin Controller. Lisätoimintoja ei kirjoiteta mukana toimitettuun Controlleriin."
     },
     {
       "key": "全ての変更された差分を保存しました。",
@@ -2241,6 +2353,14 @@
       "value": "Tuotantokäytössä. Tätä luetteloa käyttävät tuotteet ohittavat vanhat asentokohtaiset säätöanimaatiot ja avatarikorjaukset. Tarkista, että kaikki asennot on määritetty."
     },
     {
+      "key": "共通ControllerにUSSPS_LocomotionTypeレイヤーがありません。",
+      "value": "Yhteisestä Controller-komponentista puuttuu USSPS_LocomotionType-taso."
+    },
+    {
+      "key": "共通ControllerにUSSPS_Locomotionレイヤーがありません。",
+      "value": "Yhteisestä Controller-komponentista puuttuu USSPS_Locomotion-taso."
+    },
+    {
       "key": "共通Controllerに姿勢制御用のレイヤーがありません。",
       "value": "Yhteisestä ohjaimesta puuttuvat asentojen ohjaustasot."
     },
@@ -2275,6 +2395,14 @@
     {
       "key": "共通ポージングAnimatorのAnimator参照が未設定です。",
       "value": "Yhteiselle asento-Animatorille ei ole määritetty Animator Controlleria."
+    },
+    {
+      "key": "共通ポージングAnimatorの参照からAnimator Controllerを読み込めません。",
+      "value": "Yhteisen asento-Animatorin viittaamaa Animator Controlleria ei voida ladata."
+    },
+    {
+      "key": "共通ポージングAnimatorの有効状態・EditorOnlyタグ・MA Merge Animatorの参照を確認してください。調整済みの生成ファイルは保持してください。",
+      "value": "Tarkista, että yhteinen asento-Animator on aktiivinen, sillä ei ole EditorOnly-tunnistetta ja MA Merge Animator -viittaus on oikea. Säilytä muokkaamasi luodut tiedostot."
     },
     {
       "key": "共通ポージングAnimatorへ別のControllerを指定していないか確認してください。",
@@ -2355,6 +2483,10 @@
     {
       "key": "動かす手足",
       "value": "Liikutettava raaja"
+    },
+    {
+      "key": "取り込みモーションの調整に有効なHumanoidアバターが必要です。",
+      "value": "Tuotujen liikkeiden säätäminen vaatii kelvollisen Humanoid-avatarin."
     },
     {
       "key": "取り込むアニメーションを個別に指定",
@@ -2493,6 +2625,14 @@
       "value": "Hengitysasetukset"
     },
     {
+      "key": "呼吸用Controllerを生成用コピーへ分離できませんでした。",
+      "value": "Hengityksen Controlleria ei voitu erottaa luonnissa käytettävään kopioon."
+    },
+    {
+      "key": "呼吸用ポージングAnimatorが見つかりません。",
+      "value": "Hengityksen asento-Animatoria ei löytynyt."
+    },
+    {
       "key": "和室",
       "value": "Japanilainen huone"
     },
@@ -2565,6 +2705,14 @@
       "value": "Seinään nojaten"
     },
     {
+      "key": "変換用アバターに有効なHumanoid Animatorがありません。",
+      "value": "Muunnosavatarissa ei ole kelvollista Humanoid Animator -komponenttia."
+    },
+    {
+      "key": "変換用アバターのHeadボーンが見つかりません。",
+      "value": "Muunnosavatarin Head-luuta ei löytynyt."
+    },
+    {
       "key": "変更のあるアニメーションの調整値を保存します。",
       "value": "Tallentaa niiden animaatioiden säädöt, joissa on muutoksia."
     },
@@ -2591,6 +2739,10 @@
     {
       "key": "姿勢 {0}",
       "value": "Asento {0}"
+    },
+    {
+      "key": "姿勢「{0}」にSDKの {1} を追加できません。",
+      "value": "SDK:n kohdetta {1} ei voitu lisätä asentoon ”{0}”."
     },
     {
       "key": "姿勢のプレビュー",
@@ -2633,6 +2785,10 @@
       "value": "Asentokohtaiset IK-asetukset ({0})"
     },
     {
+      "key": "姿勢変換に必要なHumanoid Animatorを取得できません。",
+      "value": "Asentojen muuntamiseen tarvittavaa Humanoid Animator -komponenttia ei saatu."
+    },
+    {
       "key": "姿勢設定を追加",
       "value": "Lisää asennon asetukset"
     },
@@ -2661,8 +2817,24 @@
       "value": "Käänny"
     },
     {
+      "key": "寝返りの中央と横向きにはHumanoid AnimationClipが必要です。",
+      "value": "Kääntymisen keski- ja sivuasennot vaativat Humanoid-AnimationClipit."
+    },
+    {
+      "key": "寝返りの生成には有効なHumanoidアバターが必要です。",
+      "value": "Kääntymisen luominen vaatii kelvollisen Humanoid-avatarin."
+    },
+    {
       "key": "寝返りの設定",
       "value": "Käänny-asetukset"
+    },
+    {
+      "key": "寝返りの頭位置補正で、RootTの移動量を計測できませんでした。",
+      "value": "RootT-siirtymää pään keskittämiseksi kääntyessä ei voitu mitata."
+    },
+    {
+      "key": "寝返りの頭位置補正には、有効なHumanoidとHeadボーンが必要です。",
+      "value": "Pään keskitys kääntyessä vaatii kelvollisen Humanoidin ja Head-luun."
     },
     {
       "key": "寝返りを使う",
@@ -2687,6 +2859,10 @@
     {
       "key": "対象を選択（{0}）",
       "value": "Valitse kyseinen objekti ({0})"
+    },
+    {
+      "key": "導入先アバターが見つかりません。",
+      "value": "Kohdeavataria ei löytynyt."
     },
     {
       "key": "小さな傾きを無視する範囲",
@@ -2813,6 +2989,10 @@
       "value": "Takaisin"
     },
     {
+      "key": "所有シーンを確認できません。",
+      "value": "Omistavaa kohtausta ei voitu tunnistaa."
+    },
+    {
       "key": "手動で方向を指定",
       "value": "Määritä suunta käsin"
     },
@@ -2823,6 +3003,10 @@
     {
       "key": "手動指定時だけ使用します。アバター正面を基準にした方向です。",
       "value": "Käytetään vain käsin määritetyn taivutussuunnan kanssa suhteessa avatarin etusuuntaan."
+    },
+    {
+      "key": "手動調整を保存してから、現在のIKの結果を別の調整アニメーションに保存します。既存のファイルは残ります。",
+      "value": "Tallentaa manuaaliset säädöt ja sitten nykyisen IK-tuloksen erilliseen säätöanimaatioon. Nykyiset tiedostot säilytetään."
     },
     {
       "key": "手足のIKルールを追加",
@@ -2881,6 +3065,14 @@
       "value": "Pidä pää näkyvissä Kuvatilassa"
     },
     {
+      "key": "撮影中の頭表示にはビルド用FX Controllerの複製が必要です。",
+      "value": "Pään pitäminen näkyvissä kuvaamisen aikana vaatii koontia varten tehdyn FX Controller -kopion."
+    },
+    {
+      "key": "撮影中の頭表示に必要なHeadボーンを取得できません。",
+      "value": "Kuvaamisen aikana näkyvän pään edellyttämää Head-luuta ei voida hakea."
+    },
+    {
       "key": "撮影機能に必要なため、自動で選ばれています。",
       "value": "Valittu automaattisesti, koska Kuvatila tarvitsee sen."
     },
@@ -2891,6 +3083,10 @@
     {
       "key": "斜め座り",
       "value": "Vinosti istuen"
+    },
+    {
+      "key": "既存のHead Chop設定との重複を避けるため、「撮影モード中は頭を非表示にしない」をオフにするか、既存設定のHead対象を見直してください。耳など別のボーンの設定はそのまま併用できます。",
+      "value": "Poista ”Pidä pää näkyvissä Kuvatilassa” käytöstä tai tarkista nykyisten asetusten Head-kohde, jotta Head Chop -asetukset eivät mene päällekkäin. Muiden luiden, kuten korvien, asetuksia voi edelleen käyttää yhdessä."
     },
     {
       "key": "旧unitypackage版の「{0}」フォルダがプロジェクトに残っています。新版と競合する可能性があります。削除する前に移行手順とバックアップを確認してください。",
@@ -2923,6 +3119,10 @@
     {
       "key": "晴天寝",
       "value": "Torkut auringossa"
+    },
+    {
+      "key": "更新する",
+      "value": "Päivitä"
     },
     {
       "key": "最低膝曲げ角度（°）",
@@ -2961,6 +3161,10 @@
       "value": "Torkut puussa"
     },
     {
+      "key": "未使用の生成ファイルをごみ箱へ移動しました: {0}",
+      "value": "Käyttämätön luotu tiedosto siirrettiin roskakoriin: {0}"
+    },
+    {
       "key": "未保存の手動調整があります",
       "value": "Tallentamattomia manuaalisia säätöjä"
     },
@@ -2997,6 +3201,22 @@
       "value": "Paratiisi"
     },
     {
+      "key": "標準Controllerの元姿勢が見つかりません: {0}",
+      "value": "Alkuperäistä asentoa ei löytynyt oletus-Controllerista: {0}"
+    },
+    {
+      "key": "標準のPosingSystemLocomotion.controllerが見つからず、参照を復元できません。",
+      "value": "Oletustiedostoa PosingSystemLocomotion.controller ei löytynyt, joten sen viitettä ei voi palauttaa."
+    },
+    {
+      "key": "標準の揺れの無効化にはビルド用Controllerの複製が必要です: {0}",
+      "value": "Oletushuojunnan poistaminen vaatii kopion koontiin käytettävästä Controllerista: {0}"
+    },
+    {
+      "key": "標準の揺れを無効化するAdditive Controllerが生成されていません。",
+      "value": "Oletushuojunnan poistamiseen tarvittavaa Additive Controlleria ei ole luotu."
+    },
+    {
       "key": "横を向くまでの頭の傾き",
       "value": "Pään kallistus täyteen kierrokseen"
     },
@@ -3023,6 +3243,10 @@
     {
       "key": "照れ",
       "value": "Ujo"
+    },
+    {
+      "key": "状態「{0}」の {1} を生成できません。",
+      "value": "Kohdetta {1} ei voitu luoda tilalle ”{0}”."
     },
     {
       "key": "猫のポーズ（右）",
@@ -3065,8 +3289,32 @@
       "value": "Työn alla. Vanhat säätöanimaatiot pysyvät käytössä, vaikka tuoteprefab viittaisi tähän luetteloon."
     },
     {
+      "key": "生成ファイルをごみ箱へ移動できません: {0}",
+      "value": "Luotua tiedostoa ei voitu siirtää roskakoriin: {0}"
+    },
+    {
+      "key": "生成先のシーンまたはPrefabを識別できません。",
+      "value": "Kohdesceneä tai Prefabia ei voida tunnistaa."
+    },
+    {
       "key": "生成時にアバターのBaseからモーションを検出します。取り込み設定の一覧には追加しません。手動設定がある種類は手動指定を優先します。",
       "value": "Tunnistaa liikkeet avatarin Base-tasolta luonnin aikana. Niitä ei lisätä tuontiluetteloon. Manuaaliset valinnat ovat etusijalla."
+    },
+    {
+      "key": "生成済みの画像ファイルを削除します。削除後は「アイコンを撮り直す」で再生成できます。",
+      "value": "Poistaa luodun kuvatiedoston. Voit luoda sen uudelleen toiminnolla ”Ota kuvakkeet uudelleen”."
+    },
+    {
+      "key": "生成物の所有情報の更新を保留しました: {0}",
+      "value": "Luotujen resurssien omistajuustietojen päivitystä lykättiin: {0}"
+    },
+    {
+      "key": "生成物の整理を保留しました: {0}",
+      "value": "Luotujen resurssien siivousta lykättiin: {0}"
+    },
+    {
+      "key": "生成物の移動を保留しました: {0}",
+      "value": "Luotujen resurssien siirtämistä lykättiin: {0}"
     },
     {
       "key": "画像でポーズを見分けやすくできます。アバターのビルド時間は少し長くなります。",
@@ -3151,6 +3399,10 @@
     {
       "key": "立ち止まっているときに自動で入る、VRChat標準の身体の揺れを止められます。ポーズツールで設定した呼吸の動きはそのまま使えます。",
       "value": "Poistaa VRChatin oletusarvoisen huojunnan paikallaan, mutta säilyttää tämän työkalun hengitysanimaation."
+    },
+    {
+      "key": "管理対象外の生成物です。",
+      "value": "Tämä luotu resurssi ei kuulu hallittaviin resursseihin."
     },
     {
       "key": "終了",
@@ -3585,6 +3837,10 @@
       "value": "Valittaessa"
     },
     {
+      "key": "配布元Controllerへ取り込み結果を書き込めません。",
+      "value": "Tuonnin tuloksia ei voi kirjoittaa mukana toimitettuun lähde-Controlleriin."
+    },
+    {
       "key": "配置対象のアバターPrefab/FBXのファイル名",
       "value": "Kohdeavatarin prefabien / FBX-tiedostojen nimet"
     },
@@ -3633,6 +3889,10 @@
       "value": "Käden tai jalan sijainnin mittausvertailu, kuten Head, Hips, polvi tai ViewPosition (silmien sijainti). ViewPosition seuraa pään liikettä."
     },
     {
+      "key": "頭のボーンには既にVRC Head Chopが設定されています。",
+      "value": "Pään luulle on jo määritetty VRC Head Chop."
+    },
+    {
       "key": "頭のボーン（Head）を取得できません。姿勢の高さを計算できません。",
       "value": "Head-luuta ei löytynyt, joten asennon korkeutta ei voi laskea."
     },
@@ -3659,6 +3919,10 @@
     {
       "key": "頭も含めた身体全体の高さを変えられます。VRChatの「床の高さ」で、50%を元の高さとして上下3mまで調整できます。",
       "value": "Siirtää koko kehoa päätä myöten enintään 3 m ylös tai alas. Lattian kork. -säädön 50 % vastaa alkuperäistä korkeutta."
+    },
+    {
+      "key": "顔の正面補正にはHumanoidと元のAnimationが必要です。",
+      "value": "Kasvojen suunnan korjaus vaatii Humanoidin ja alkuperäisen Animationin."
     },
     {
       "key": "首の向きの違いによる姿勢崩れを抑制",

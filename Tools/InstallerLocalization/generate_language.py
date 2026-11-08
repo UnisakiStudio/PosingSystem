@@ -22,9 +22,11 @@ def render():
     for locale,entries in data['translations'].items():translations.setdefault(locale,{}).update(entries)
     for locale, entries in translations.items():
         for source, model in data.get('message_models', {}).items():
-            # Preserve the full original Japanese wording where it already exists.
-            if locale == 'ja' and source in entries: continue
-            entries[source] = '\n'.join(entries.get(line, line) for line in model.split('\n'))
+            # Reviewed complete phrases take precedence in EVERY language. These
+            # models were originally a fallback while only basic setup terms were
+            # translated. Overwriting completed license captions with a multiline
+            # model also put newlines inside native menu paths.
+            entries.setdefault(source, '\n'.join(entries.get(line, line) for line in model.split('\n')))
     for locale, entries in translations.items():
         if locale == 'ja': continue
         for product in ['Kawaii Posing', 'Cool Posing', 'Posing System']:
@@ -38,6 +40,18 @@ def render():
     for entries in translations.values():
         for key,value in entries.items():
             if value.strip():aliases.setdefault(value.strip(),key)
+    # Older builds installed multiline native license captions and stored paths
+    # with newline delimiters. Retain their exact captions as migration aliases so
+    # the registrar can recognize and remove all old-language copies on upgrade.
+    # Prefer the native status key over the synonymous plural dialog title.
+    for product in ['Kawaii Posing', 'Cool Posing']:
+        for caption in ['license status', 'license removal']:
+            canonical = product + ' ' + caption
+            model = data.get('message_models', {}).get(canonical)
+            if not model: continue
+            for entries in [dict(), *translations.values()]:
+                old_caption = '\n'.join(entries.get(line, line) for line in model.split('\n'))
+                aliases[old_caption] = canonical
     rendered=(HERE/'SetupLanguage.cs.in').read_text(encoding='utf-8-sig').replace('__CODES__',codes).replace('__NAMES__',names).replace('__ALIASES__','BuildAliases()')
     factories='        private static Dictionary<string, string> BuildAliases() => '+dictionary(aliases)+';\n'
     literal='new Dictionary<string, Dictionary<string, string>> {\n'

@@ -29,12 +29,14 @@
       "předvol"
     ],
     "Roll Over": [
-      "přetoč"
+      "přetoč",
+      "přetáčení"
     ]
   },
   "notes": [
     "Proper product names and APIs intentionally unchanged.",
-    "Czech noun inflections reviewed across related labels and descriptions."
+    "Czech noun inflections reviewed across related labels and descriptions.",
+    "Reviewed maintenance diagnostics: přetáčení is the deverbal noun (and genitive form) for the repeated/in-progress action přetáčet se, naturally corresponding to the menu imperative Přetočit se. This is grammatical aspect/inflection, not a different feature term."
   ],
   "intentional_unchanged_labels": [
     "Tatami",
@@ -70,5 +72,15 @@
     "code_points": true,
     "longest": 21,
     "fixed_limit": "not specified; rendered width check remains pending"
+  },
+  "term_form_reviews": {
+    "maintenance-diagnostics-parts-2026-11-09": {
+      "term": "Roll Over",
+      "approved_additional_forms": [
+        "přetáčení"
+      ],
+      "reason": "Reviewed maintenance diagnostics: přetáčení is the deverbal noun (and genitive form) for the repeated/in-progress action přetáčet se, naturally corresponding to the menu imperative Přetočit se. This is grammatical aspect/inflection, not a different feature term.",
+      "review": "AI contextual/grammar review; native-speaker review not performed"
+    }
   }
 }

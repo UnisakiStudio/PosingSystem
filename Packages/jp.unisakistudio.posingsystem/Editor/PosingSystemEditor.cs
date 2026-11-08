@@ -611,7 +611,7 @@ namespace jp.unisakistudio.posingsystemeditor
             selectedIndex = EditorGUILayout.Popup(
                 new GUIContent(displayName.Value),
                 selectedIndex,
-                BreathingLevelLabels);
+                BreathingLevelLabels.Select(PosingSystemLocalization.Text).ToArray());
             levelProperty.intValue = (int)BreathingLevels[selectedIndex];
 
             if (BreathingLevels[selectedIndex] != PosingSystem.BreathingLevel.Custom)

@@ -133,7 +133,7 @@ namespace jp.unisakistudio.posingsystemeditor
                         if (HasAnyChanges())
                         {
                             if (!PosingSystemLocalization.Dialog(PosingSystemLocalization.Text("未保存の手動調整があります"),
-                                "手動調整を保存してから、現在のIKの結果を別の調整アニメーションに保存します。既存のファイルは残ります。", "保存して続ける", "キャンセル")) return;
+                                PosingSystemLocalization.Text("手動調整を保存してから、現在のIKの結果を別の調整アニメーションに保存します。既存のファイルは残ります。"), PosingSystemLocalization.Text("保存して続ける"), "キャンセル")) return;
                             SaveAdjustmentClip();
                         }
                         EnsureAdjustmentFolderExists();

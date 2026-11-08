@@ -19,7 +19,7 @@ namespace jp.unisakistudio.posingsystemeditor
             var animator = workingAvatar != null ? workingAvatar.GetComponent<Animator>() : null;
             var head = animator != null && animator.isHuman ? animator.GetBoneTransform(HumanBodyBones.Head) : null;
             if (head == null || clip == null)
-                throw new InvalidOperationException("寝返りの頭位置補正には、有効なHumanoidとHeadボーンが必要です。");
+                throw new InvalidOperationException(PosingSystemLocalization.TextMessage("寝返りの頭位置補正には、有効なHumanoidとHeadボーンが必要です。"));
 
             var transforms = workingAvatar.GetComponentsInChildren<Transform>(true);
             var positions = transforms.Select(t => t.localPosition).ToArray();
@@ -60,7 +60,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 var zAxis = Sample(probe, 0) - origin;
                 var determinant = xAxis.x * zAxis.z - xAxis.z * zAxis.x;
                 if (float.IsNaN(determinant) || float.IsInfinity(determinant) || Mathf.Abs(determinant) < .00000001f)
-                    throw new InvalidOperationException("寝返りの頭位置補正で、RootTの移動量を計測できませんでした。");
+                    throw new InvalidOperationException(PosingSystemLocalization.TextMessage("寝返りの頭位置補正で、RootTの移動量を計測できませんでした。"));
 
                 var values = new Dictionary<float, Vector2>();
                 Vector2 Evaluate(float time)

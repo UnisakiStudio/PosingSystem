@@ -51,7 +51,7 @@ namespace jp.unisakistudio.posingsystemeditor
                         {
                             var entry = ps.overrideDefines[i];
                             if (category >= 0 && category != (int)entry.stateType) continue;
-                            var title = entry.animationClip != null ? entry.animationClip.name : "アニメーション未設定";
+                            var title = entry.animationClip != null ? entry.animationClip.name : PosingSystemLocalization.Text("未指定");
                             if (category < 0 && !PosingSystemPoseListUtility.Matches(search, title, entry.animationClip)) continue;
                             var label = names[Mathf.Clamp((int)entry.stateType, 0, names.Length - 1)];
                             DrawRow(serialized, ps, serialized.FindProperty("overrideDefines").GetArrayElementAtIndex(i), -1, i, title, label, entry, true);
@@ -134,7 +134,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 var enabled = property.FindPropertyRelative("enabled");
                 var checkRect = new Rect(rect.xMax - 23, rect.y + 5, 21, 21);
                 EditorGUI.BeginProperty(checkRect, new GUIContent(PosingSystemLocalization.Text("このポーズを使う")), enabled);
-                enabled.boolValue = PosingSystemInspectorGUI.Check(checkRect, enabled.boolValue, new GUIContent("", "このポーズを使う"));
+                enabled.boolValue = PosingSystemInspectorGUI.Check(checkRect, enabled.boolValue, new GUIContent("", PosingSystemLocalization.Text("このポーズを使う")));
                 EditorGUI.EndProperty();
                 var previewing = PosingSystemQuickPreview.IsPreviewing(ps, entry);
                 using (new EditorGUI.DisabledScope(!(entry.animationClip is AnimationClip) || ps.GetAvatar() == null || Application.isPlaying))
@@ -210,7 +210,7 @@ namespace jp.unisakistudio.posingsystemeditor
                     }
                 }
                 var array = imports ? serialized.FindProperty("overrideDefines") : serialized.FindProperty("defines").GetArrayElementAtIndex(layer).FindPropertyRelative("animations");
-                var positions = Enumerable.Range(1, array.arraySize).Select(i => i + "番").ToArray();
+                var positions = Enumerable.Range(1, array.arraySize).Select(i => PosingSystemLocalization.Format("{0}番", i)).ToArray();
                 var nextIndex = EditorGUILayout.Popup(new GUIContent(PosingSystemLocalization.Text("順番"), PosingSystemLocalization.Text("この分類の中で移動先の順番を選べます。")), index, positions);
                 if (nextIndex != index) Move(nextIndex);
                 using (new EditorGUILayout.HorizontalScope())

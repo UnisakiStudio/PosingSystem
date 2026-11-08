@@ -1,0 +1,68 @@
+{
+  "author": "AI-authored by Codex, no external translation service",
+  "keys_per_language": 19,
+  "languages": [
+    "en",
+    "fr",
+    "it",
+    "zh-Hans",
+    "zh-Hant",
+    "ko",
+    "th",
+    "de",
+    "es",
+    "pt",
+    "pt-BR",
+    "ru",
+    "uk",
+    "pl",
+    "nl",
+    "sv",
+    "da",
+    "fi",
+    "nb",
+    "cs",
+    "tr",
+    "id",
+    "vi",
+    "hi",
+    "bn",
+    "ta",
+    "te",
+    "ar",
+    "he"
+  ],
+  "total_values": 551,
+  "source_files": [
+    "PosingSystemConverter.AutoImport.cs",
+    "PosingSystemConverter.DefaultIdle.cs",
+    "PosingSystemConverter.ImportedMotion.cs",
+    "PosingSystemConverter.RolloverCentering.cs",
+    "PosingSystemFaceForwardUtility.cs",
+    "PosingSystemGeneratedCleanup.cs",
+    "PosingSystemHeadSensorUtility.cs",
+    "PosingSystemRolloverGenerator.cs"
+  ],
+  "reused_key": {
+    "Humanoidが必要です。": "Humanoid Animatorが必要です。"
+  },
+  "new_console_keys": [
+    "生成物の整理を保留しました: {0}",
+    "生成物の所有情報の更新を保留しました: {0}",
+    "生成物の移動を保留しました: {0}",
+    "未使用の生成ファイルをごみ箱へ移動しました: {0}"
+  ],
+  "non_display_internal_values": "GeneratedCleanup.GuardReason and Decision.Reason have no display callers; retained unchanged. ArgumentOutOfRangeException(nameof(contactStrength)) remains an API diagnostic.",
+  "context": "All 17 normal exceptions explicitly use TextMessage before escaping. Three dynamic exception suffixes use Japanese string.Format templates inside TextMessage. AutoImport.ResetImportedMotionStates, ImportedMotion.ApplyClipAdjustments/PrepareImportedMotion use ForInspector(ps). DefaultIdle selects the same active disableDefaultIdle feature owner used when enabling the later NDMF pass and uses ForInspector(owner). Other utilities inherit their caller scope or default user preference. Four Console lines use Localization.Format; nested exception/error messages use TextMessage. No throw conditions or algorithm changes.",
+  "terminology": "Existing Roll Over menu forms and idle-sway terms were consulted in all 28 non-English catalogs. Inflected action nouns are used for diagnostics (e.g. fr retournement, sv vändrörelsen, fi kääntyminen). Preserve Controller/Additive Controller/Humanoid/Head/RootT/Animation/AnimationClip API identifiers. pt/PT and pt-BR file/trash vocabulary intentionally differ.",
+  "verified": [
+    "29 non-Japanese selectable catalog languages have exactly 19 values",
+    "nonempty strings",
+    "exact placeholder multiset",
+    "no duplicate authoritative keys",
+    "no Japanese kana copies"
+  ],
+  "linguistic_review": "AI context and consistency review completed; native speaker review not performed",
+  "visual_review": "not performed; parent owns Unity visual QA",
+  "tests": "Four permanent Unity test cases: direct HeadSensor argument exception localized in all 30 target scopes, plus three dynamic templates preserving an opaque custom path/braces and JA round-trip in all 30 languages. Execution deferred to parent integration."
+}

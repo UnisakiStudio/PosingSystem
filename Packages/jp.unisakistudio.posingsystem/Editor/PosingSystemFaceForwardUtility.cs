@@ -16,7 +16,7 @@ namespace jp.unisakistudio.posingsystemeditor
         public static AnimationClip Create(Animator animator, AnimationClip source)
         {
             if (animator == null || !animator.isHuman || source == null)
-                throw new ArgumentException("顔の正面補正にはHumanoidと元のAnimationが必要です。");
+                throw new ArgumentException(PosingSystemLocalization.TextMessage("顔の正面補正にはHumanoidと元のAnimationが必要です。"));
             var head = animator.GetBoneTransform(HumanBodyBones.Head);
             var transform = animator.transform;
             var position = transform.position;

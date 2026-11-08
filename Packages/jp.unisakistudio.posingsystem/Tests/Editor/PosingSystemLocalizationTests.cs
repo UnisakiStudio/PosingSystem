@@ -120,6 +120,99 @@ namespace jp.unisakistudio.posingsystemeditor.tests
         }
 
         [Test]
+        public void TargetFormattedFailurePreservesNamesAndRestoresOuterLanguage()
+        {
+            const string preference = "jp.unisakistudio.posingsystem.language";
+            const string template = "「{0}」オブジェクトにMAParametersコンポーネントがありません";
+            const string customName = "Custom / 対象 {0} 😀";
+            var existed = EditorPrefs.HasKey(preference); var previous = EditorPrefs.GetString(preference);
+            var go = new UnityEngine.GameObject(customName);
+            try
+            {
+                var ps = go.AddComponent<jp.unisakistudio.posingsystem.PosingSystem>();
+                PosingSystemLocalization.Select("en");
+                ps.menuLanguage = "fr";
+                var french = PosingSystemLocalization.FormatFor(ps, template, customName);
+                Assert.That(french, Is.EqualTo(string.Format(PosingSystemLocalization.Translate("fr", template, template), customName)));
+                Assert.That(french, Does.Contain(customName));
+                Assert.That(french, Does.Not.Contain("コンポーネントがありません"));
+                Assert.That(PosingSystemLocalization.Language, Is.EqualTo("en"), "target scope must not leak into other tools");
+                ps.menuLanguage = "ja";
+                Assert.That(PosingSystemLocalization.FormatFor(ps, template, customName), Is.EqualTo(string.Format(template, customName)));
+                Assert.That(PosingSystemLocalization.Language, Is.EqualTo("en"));
+                Assert.That(go.name, Is.EqualTo(customName));
+            }
+            finally
+            {
+                UnityEngine.Object.DestroyImmediate(go);
+                if (existed) EditorPrefs.SetString(preference, previous); else EditorPrefs.DeleteKey(preference);
+            }
+        }
+
+        [Test]
+        public void FailureTranslatesFormattedSummaryAndBothRemedyParagraphs()
+        {
+            const string preference = "jp.unisakistudio.posingsystem.language";
+            const string template = "ポーズ「{0} / {1}」の変換に失敗しました。";
+            const string firstRemedy = "ConsoleにコンパイルエラーやMissing Scriptがないか確認してください。";
+            const string customCategory = "Original / 対象";
+            const string customPose = "My Pose {1}";
+            var existed = EditorPrefs.HasKey(preference); var previous = EditorPrefs.GetString(preference);
+            var go = new UnityEngine.GameObject("failure target");
+            try
+            {
+                var ps = go.AddComponent<jp.unisakistudio.posingsystem.PosingSystem>();
+                PosingSystemLocalization.Select("en");
+                foreach (var language in new[] { "fr", "ja", "en" })
+                {
+                    ps.menuLanguage = language;
+                    var exception = PosingSystemDiagnostics.Failure("PS035", string.Format(template, customCategory, customPose),
+                        firstRemedy + "\n" + PosingSystemDiagnostics.RestoreTool, ps);
+                    var expected = string.Format(PosingSystemLocalization.Translate(language, template, template), customCategory, customPose);
+                    Assert.That(exception.Message, Does.Contain(expected), language);
+                    Assert.That(exception.Message, Does.Contain(customCategory).And.Contain(customPose), language);
+                    Assert.That(exception.Message, Does.Contain(PosingSystemLocalization.Translate(language, firstRemedy, firstRemedy)), language);
+                    Assert.That(exception.Message, Does.Contain(PosingSystemLocalization.Translate(language, PosingSystemDiagnostics.RestoreTool, PosingSystemDiagnostics.RestoreTool)), language);
+                    if (language != "ja") Assert.That(exception.Message, Does.Not.Contain("変換に失敗しました").And.Not.Contain("ないか確認してください"), language);
+                    Assert.That(PosingSystemLocalization.Language, Is.EqualTo("en"));
+                }
+            }
+            finally
+            {
+                UnityEngine.Object.DestroyImmediate(go);
+                if (existed) EditorPrefs.SetString(preference, previous); else EditorPrefs.DeleteKey(preference);
+            }
+        }
+
+        [Test]
+        public void ContextlessFailureInheritsTheEnclosingTargetLanguage()
+        {
+            const string preference = "jp.unisakistudio.posingsystem.language";
+            const string summary = "ツールに同梱される空アニメーションが見つかりません。";
+            var existed = EditorPrefs.HasKey(preference); var previous = EditorPrefs.GetString(preference);
+            var go = new UnityEngine.GameObject("target scope");
+            try
+            {
+                var ps = go.AddComponent<jp.unisakistudio.posingsystem.PosingSystem>();
+                ps.menuLanguage = "fr";
+                PosingSystemLocalization.Select("en");
+                using (PosingSystemLocalization.ForInspector(ps))
+                {
+                    var failure = PosingSystemDiagnostics.Failure("PS031", summary, PosingSystemDiagnostics.RestoreTool, null);
+                    Assert.That(failure.Message, Does.Contain(PosingSystemLocalization.Translate("fr", summary, summary)));
+                    Assert.That(PosingSystemLocalization.Language, Is.EqualTo("fr"));
+                }
+                Assert.That(PosingSystemLocalization.Language, Is.EqualTo("en"));
+                using (PosingSystemLocalization.ForInspector(null)) Assert.That(PosingSystemLocalization.Language, Is.EqualTo("en"));
+            }
+            finally
+            {
+                UnityEngine.Object.DestroyImmediate(go);
+                if (existed) EditorPrefs.SetString(preference, previous); else EditorPrefs.DeleteKey(preference);
+            }
+        }
+
+        [Test]
         public void SelectionAndFallbackDoNotDependOnUnityLanguage()
         {
             const string key = "jp.unisakistudio.posingsystem.language";

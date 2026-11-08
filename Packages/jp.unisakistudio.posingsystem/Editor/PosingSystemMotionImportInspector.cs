@@ -25,7 +25,7 @@ namespace jp.unisakistudio.posingsystemeditor
         public static int SetMotion(PosingSystem ps, StateType type, Motion motion)
         {
             if (motion != null && !PosingSystemConverter.IsValidOverrideMotion(type, motion))
-                throw new ArgumentException("この種類には移動を含むBlendTreeを指定してください。", nameof(motion));
+                throw new ArgumentException(PosingSystemLocalization.Text("この種類には移動を含むBlendTreeを指定してください。"), nameof(motion));
             Undo.RegisterCompleteObjectUndo(ps, "Set imported motion");
             ps.overrideDefines ??= new List<PosingSystem.OverrideAnimationDefine>();
             var index = SelectedIndex(ps, type);
@@ -98,7 +98,7 @@ namespace jp.unisakistudio.posingsystemeditor
                     {
                         using (new EditorGUILayout.HorizontalScope())
                         {
-                            GUILayout.Label(Labels[(int)type], PosingSystemInspectorGUI.Text(12, true));
+                            GUILayout.Label(PosingSystemLocalization.Text(Labels[(int)type]), PosingSystemInspectorGUI.Text(12, true));
                             if (definition != null && GUILayout.Button(new GUIContent(PosingSystemLocalization.Text("手動指定を解除"), PosingSystemLocalization.Text("この種類の手動設定と調整を解除します。自動取り込みがONなら次回生成時に再検出します。Undoで戻せます。")), EditorStyles.miniButton, GUILayout.Width(96)))
                             {
                                 PosingSystemEditorChangeUtility.Commit(serialized);
