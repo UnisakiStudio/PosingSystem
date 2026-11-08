@@ -60,7 +60,7 @@ namespace jp.unisakistudio.posingsystemeditor
         public static bool AvatarUsesBreathingControl(PosingSystem ps)
         {
             var avatar = ps.GetAvatar();
-            return avatar == null ? UsesBreathingControl(ps) : avatar.GetComponentsInChildren<PosingSystem>()
+            return avatar == null ? UsesBreathingControl(ps) : avatar.GetActiveAvatarChildren<PosingSystem>()
                 .Any(p => p.tag != "EditorOnly" && UsesBreathingControl(p));
         }
 
@@ -76,10 +76,10 @@ namespace jp.unisakistudio.posingsystemeditor
         /// <summary>Bit difference between on and off, with all other feature selections held constant.</summary>
         public static int SharedHeadFeatureToggleBits(PosingSystem ps, bool rollover)
         {
-            if (ps == null || ps.isEightBitVersion || ps.tag == "EditorOnly" || !ps.gameObject.activeInHierarchy) return 0;
+            if (ps == null || ps.isEightBitVersion || ps.tag == "EditorOnly" || PosingSystemHierarchy.InactiveChild(ps.transform, ps.GetAvatar()?.transform) != null) return 0;
             var f = ps.features ?? new PosingSystemFeatureSettings();
             var avatar = ps.GetAvatar();
-            var others = avatar == null ? Array.Empty<PosingSystemFeatureSettings>() : avatar.GetComponentsInChildren<PosingSystem>()
+            var others = avatar == null ? Array.Empty<PosingSystemFeatureSettings>() : avatar.GetActiveAvatarChildren<PosingSystem>()
                 .Where(p => p != ps && p.tag != "EditorOnly" && !p.isEightBitVersion)
                 .Select(p => p.features ?? new PosingSystemFeatureSettings()).ToArray();
             var headAlreadyUsed = (rollover ? f.faceForward : f.rollover) || others.Any(p => p.faceForward || p.rollover);
@@ -90,7 +90,7 @@ namespace jp.unisakistudio.posingsystemeditor
         public static int PoseBits(PosingSystem ps)
         {
             var avatar = ps.GetAvatar();
-            var systems = avatar != null ? avatar.GetComponentsInChildren<PosingSystem>() : new[] { ps };
+            var systems = avatar != null ? avatar.GetActiveAvatarChildren<PosingSystem>() : new[] { ps };
             // The allocation reserves four common poses. Match SplitSyncParameters, including expansion.
             var count = 3 + systems.Where(p => p.tag != "EditorOnly")
                 .Sum(p => p.defines?.Sum(d => d.animations?.Count(a => a.enabled) ?? 0) ?? 0);
@@ -102,7 +102,7 @@ namespace jp.unisakistudio.posingsystemeditor
         {
             var avatar = ps.GetAvatar();
             if (avatar == null) return OptionalBits(ps);
-            var systems = avatar.GetComponentsInChildren<PosingSystem>().Where(p => p.tag != "EditorOnly" && !p.isEightBitVersion).ToArray();
+            var systems = avatar.GetActiveAvatarChildren<PosingSystem>().Where(p => p.tag != "EditorOnly" && !p.isEightBitVersion).ToArray();
             var features = systems.Select(p => p.features ?? new PosingSystemFeatureSettings()).ToArray();
             return (features.Any(f => f.mirror) ? 1 : 0) + (features.Any(f => f.footHeight) ? 8 : 0) +
                 (systems.Any(UsesBreathingControl) ? 1 : 0) + (features.Any(f => f.fingerGestureControl) ? 1 : 0) +
@@ -124,7 +124,7 @@ namespace jp.unisakistudio.posingsystemeditor
             SetParameter(parameters, "USSPS_Breathing", ParameterSyncType.Bool, UsesBreathingControl(ps), false, 1, true);
             // Existing local neck-lock control becomes synced only for the correction feature.
             var avatar = ps.GetAvatar();
-            var syncHead = f.faceForward || f.rollover || (avatar != null && avatar.GetComponentsInChildren<PosingSystem>()
+            var syncHead = f.faceForward || f.rollover || (avatar != null && avatar.GetActiveAvatarChildren<PosingSystem>()
                 .Any(p => p.tag != "EditorOnly" && p.features != null && (p.features.faceForward || p.features.rollover)));
             SetParameter(parameters, "HeadTrackingLock", ParameterSyncType.Bool, true, !syncHead, 0, true);
             SetParameter(parameters, PhotoActive, ParameterSyncType.Bool, f.photography, true, 0, false);

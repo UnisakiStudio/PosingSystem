@@ -987,7 +987,7 @@ namespace jp.unisakistudio.posingsystemeditor
         private static AnimatorController FindDefaultLocomotionController()
         {
             return AssetDatabase.LoadAssetAtPath<AnimatorController>(
-                AssetDatabase.GUIDToAssetPath(PosingSystemControllerGeneration.TemplateGuid));
+                PosingSystemControllerGeneration.TemplatePath);
         }
 
         private static void ReportAnimatorRepair(string code, Component source, string message)
@@ -1087,8 +1087,8 @@ namespace jp.unisakistudio.posingsystemeditor
                 return null;
             }
             // まずはプレビルド済みAnimatorを探す
-            foreach (var animatorDuplicateErase in avatar.GetComponentsInChildren<DuplicateEraser>()
-                         .Where(d => PosingSystemDiagnostics.ActiveCommonMarker(d) && d.GetComponentInParent<VRCAvatarDescriptor>() == avatar)
+            foreach (var animatorDuplicateErase in avatar.GetActiveAvatarChildren<DuplicateEraser>()
+                         .Where(d => PosingSystemDiagnostics.ActiveCommonMarker(d) && d.GetComponentInParent<VRCAvatarDescriptor>(true) == avatar)
                          .Where(d => d.ID == PosingSystemDiagnostics.CommonAnimatorId))
             {
                 var maMergeAnimator = animatorDuplicateErase.GetComponent<ModularAvatarMergeAnimator>();
@@ -1108,7 +1108,8 @@ namespace jp.unisakistudio.posingsystemeditor
                 {
                     continue;
                 }
-                if (!animatorController.layers.Any(l => l.name == "USSPS_IsDefault"))
+                if (!animatorController.layers.Any(l => l.name == "USSPS_IsDefault") &&
+                    !PosingSystemControllerGeneration.IsStandardTemplate(animatorController))
                 {
                     return maMergeAnimator;
                 }
@@ -1508,7 +1509,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 return;
             }
             // SubmenuRoot内の姿勢グループのサブメニューを列挙
-            foreach (var submenu in posingSystem.SubmenuRoot.GetComponentsInChildren<ModularAvatarMenuItem>().Where(menu => menu.Control != null && menu.Control.type == VRC.SDK3.Avatars.ScriptableObjects.VRCExpressionsMenu.Control.ControlType.SubMenu))
+            foreach (var submenu in posingSystem.SubmenuRoot.GetActiveAvatarChildren<ModularAvatarMenuItem>().Where(menu => menu.Control != null && menu.Control.type == VRC.SDK3.Avatars.ScriptableObjects.VRCExpressionsMenu.Control.ControlType.SubMenu))
             {
                 // 削除しちゃう
                 Object.DestroyImmediate(submenu.gameObject);
@@ -1533,7 +1534,7 @@ namespace jp.unisakistudio.posingsystemeditor
             }
 
             // アバターの全PosingSystem（今設定したものは除く）の使用しているtypeParameterを記録する
-            foreach (var otherPosingSystem in avatar.GetComponentsInChildren<PosingSystem>())
+            foreach (var otherPosingSystem in avatar.GetActiveAvatarChildren<PosingSystem>())
             {
                 if (otherPosingSystem == posingSystem)
                 {
@@ -1674,7 +1675,7 @@ namespace jp.unisakistudio.posingsystemeditor
 
             // initialが設定されている姿勢があったら、その姿勢のパラメータの数値を記録
             var initialParamValues = new Dictionary<string, int>();
-            foreach (var otherPosingSystem in avatar.GetComponentsInChildren<PosingSystem>())
+            foreach (var otherPosingSystem in avatar.GetActiveAvatarChildren<PosingSystem>())
             {
                 foreach (var define in otherPosingSystem.defines)
                 {
@@ -1691,7 +1692,7 @@ namespace jp.unisakistudio.posingsystemeditor
                     }
                 }
             }
-            foreach (var otherPosingSystem in avatar.GetComponentsInChildren<PosingSystem>())
+            foreach (var otherPosingSystem in avatar.GetActiveAvatarChildren<PosingSystem>())
             {
                 var otherMaParameter = otherPosingSystem.GetComponent<ModularAvatarParameters>();
                 otherMaParameter.parameters = otherMaParameter.parameters.Select(param => {
@@ -1725,12 +1726,12 @@ namespace jp.unisakistudio.posingsystemeditor
                 // もし設定されていなかったら「姿勢メニュー」という名前のメニューグループオブジェクトを探す
                 if (submenuRoot == null)
                 {
-                    submenuRoot = posingSystem.transform.GetComponentsInChildren<ModularAvatarMenuGroup>().FirstOrDefault(group => group.gameObject.name == "姿勢メニュー")?.transform;
+                    submenuRoot = posingSystem.transform.GetActiveAvatarChildren<ModularAvatarMenuGroup>().FirstOrDefault(group => group.gameObject.name == "姿勢メニュー")?.transform;
                 }
                 // もしそれでもなかったらメニューグループオブジェクトならなんでもいい
                 if (submenuRoot == null)
                 {
-                    submenuRoot = posingSystem.transform.GetComponentsInChildren<ModularAvatarMenuGroup>().FirstOrDefault()?.transform;
+                    submenuRoot = posingSystem.transform.GetActiveAvatarChildren<ModularAvatarMenuGroup>().FirstOrDefault()?.transform;
                 }
                 // 姿勢メニューオブジェクトが見つからなかったらエラー
                 if (submenuRoot == null)
@@ -1755,7 +1756,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 // 親のPosingSystemが別のオブジェクトだったら、このPosingSystemのExメニューは消しちゃう
                 if (outOfPosingSystem)
                 {
-                    foreach (var menuGroup in posingSystem.GetComponentsInChildren<ModularAvatarMenuGroup>())
+                    foreach (var menuGroup in posingSystem.GetActiveAvatarChildren<ModularAvatarMenuGroup>())
                     {
                         Object.DestroyImmediate(menuGroup);
                     }
@@ -1763,7 +1764,7 @@ namespace jp.unisakistudio.posingsystemeditor
                     Object.DestroyImmediate(posingSystem.GetComponent<ModularAvatarMenuItem>());
                 }
                 // この姿勢グループ用のメニューアイテム（例えば「立ち姿勢用」など）を取得
-                var menu = submenuRoot.GetComponentsInChildren<ModularAvatarMenuItem>().FirstOrDefault((submenu) =>
+                var menu = submenuRoot.GetActiveAvatarChildren<ModularAvatarMenuItem>().FirstOrDefault((submenu) =>
                 {
                     return submenu.Control.type == VRC.SDK3.Avatars.ScriptableObjects.VRCExpressionsMenu.Control.ControlType.SubMenu
                         && submenu.name == define.menuName;
@@ -2347,7 +2348,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 AssetDatabase.SaveAssets();
 
                 // The comparison backend retains one pose and supplies height from a separate layer.
-                var additiveFootHeight = UsesAdditiveFootHeight(avatar.GetComponentsInChildren<PosingSystem>());
+                var additiveFootHeight = UsesAdditiveFootHeight(avatar.GetActiveAvatarChildren<PosingSystem>());
                 // FootHeight用のBlendTreeを作る
                 var skipBlendTree = new List<BlendTree>();
                 void addFootHeightBlendtree(AnimatorStateMachine stateMachine)
@@ -3708,7 +3709,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 }
             }
 
-            foreach (var menuItem in posingSystem.GetComponentsInChildren<ModularAvatarMenuItem>())
+            foreach (var menuItem in posingSystem.GetActiveAvatarChildren<ModularAvatarMenuItem>())
             {
                 controlHash[(menuItem.Control.parameter.name, (int)menuItem.Control.value)] = menuItem.Control;
             }

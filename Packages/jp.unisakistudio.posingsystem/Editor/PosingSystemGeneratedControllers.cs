@@ -136,7 +136,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 var mainMerges = systems.Select(p => PosingSystemConverter.GetCommonMergeAnimator(p, true))
                     .Where(m => BelongsTo(m, avatar)).Distinct().ToArray();
                 mainSource = mainMerges.Select(m => m.animator as AnimatorController)
-                    .FirstOrDefault(c => c != null && !c.layers.Any(l => l.name == "USSPS_IsDefault")) ??
+                    .FirstOrDefault(c => c != null && !c.layers.Any(l => l.name == "USSPS_IsDefault") && !PosingSystemControllerGeneration.IsStandardTemplate(c)) ??
                     mainMerges.Select(m => m.animator as AnimatorController).FirstOrDefault(c => c != null);
                 if (mainSource == null)
                     throw PosingSystemDiagnostics.Failure(mainMerges.Length == 0 ? "PS010" : "PS013",
@@ -162,7 +162,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 if (existing != null && existing.controllers != null) sources.AddRange(existing.controllers.Where(c => c != null));
                 using var compiled = PosingSystemControllerGeneration.TryCreate(avatar, mainSource);
                 preserveCustomController = existing != null ? existing.preserveCustomController :
-                    compiled == null && AssetDatabase.AssetPathToGUID(AssetDatabase.GetAssetPath(mainSource)) != PosingSystemControllerGeneration.TemplateGuid;
+                    compiled == null && !PosingSystemControllerGeneration.IsStandardTemplate(mainSource);
                 var cloneSources = compiled == null ? sources : sources.Where(c => c != mainSource).ToList();
                 foreach (var pair in PosingSystemControllerGraph.Clone(cloneSources))
                 { copies.Add(pair.Key, pair.Value); temporary.Add(pair.Value); }

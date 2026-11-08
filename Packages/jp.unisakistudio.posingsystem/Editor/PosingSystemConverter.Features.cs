@@ -35,7 +35,7 @@ namespace jp.unisakistudio.posingsystemeditor
             if (AssetDatabase.GetAssetPath(controller).StartsWith("Packages/") &&
                 !(saver?.IsTemporaryAsset(controller) ?? false))
                 throw new System.InvalidOperationException("先にアバター用Controllerを複製してください。配布元のControllerには追加機能を書き込みません。");
-            var systems = ps.GetAvatar().GetComponentsInChildren<PosingSystem>()
+            var systems = ps.GetAvatar().GetActiveAvatarChildren<PosingSystem>()
                 .Where(p => p.tag != "EditorOnly").ToArray();
             foreach (var system in systems) PosingSystemFeatureUtility.Migrate(system);
             var main = controller.layers.FirstOrDefault(l => l.name == "USSPS_Locomotion");

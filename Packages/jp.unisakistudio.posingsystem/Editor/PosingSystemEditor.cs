@@ -1194,7 +1194,7 @@ namespace jp.unisakistudio.posingsystemeditor
             var posingSystem = target as PosingSystem;
             var avatar = posingSystem.GetAvatar();
 
-            var posingSystems = avatar.GetComponentsInChildren<PosingSystem>().ToList();
+            var posingSystems = avatar.GetActiveAvatarChildren<PosingSystem>().ToList();
             var animatorController = avatar.baseAnimationLayers[(int)VRC.SDK3.Avatars.Components.VRCAvatarDescriptor.AnimLayerType.Base];
             if (animatorController.animatorController == null)
             {

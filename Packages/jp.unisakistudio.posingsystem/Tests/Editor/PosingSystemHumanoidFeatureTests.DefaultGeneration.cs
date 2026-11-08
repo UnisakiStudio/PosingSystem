@@ -49,6 +49,28 @@ namespace jp.unisakistudio.posingsystemeditor.tests
             }
         }
 
+        [Test]
+        public void DefaultGeneration_HiddenAvatarCanPrebuildButDisabledToolChildIsDiagnosed()
+        {
+            var ps = DefaultGenerationSettings();
+            var marker = PosingSystemConverter.GetCommonMergeAnimator(ps).gameObject;
+            root.SetActive(false);
+            PrebuildPersistedSettings(ps);
+            Assert.That(root.activeSelf, Is.False);
+            var controller = (AnimatorController)PosingSystemConverter.GetCommonMergeAnimator(ps).animator;
+            Assert.That(controller.parameters.Any(p => p.name == PosingSystemOneFrameSelection.Guard), Is.True);
+
+            marker.SetActive(false);
+            var issue = PosingSystemDiagnostics.Collect(ps).Single(i => i.Code == "PS010");
+            Assert.That(issue.Context, Is.EqualTo(marker));
+            Assert.That(issue.Severity, Is.EqualTo(MessageType.Error));
+            marker.SetActive(true);
+            root.tag = "EditorOnly";
+            issue = PosingSystemDiagnostics.Collect(ps).Single(i => i.Code == "PS010");
+            Assert.That(issue.Context, Is.EqualTo(root));
+            Assert.That(issue.Summary, Does.Contain(root.name).And.Contain("EditorOnly"));
+        }
+
         // 0=fresh, 1=current prebuild, 2=alpha.3 cache, 3=changed prebuild.
         [TestCase(0, false)] [TestCase(1, false)] [TestCase(2, false)] [TestCase(3, false)]
         [TestCase(0, true)] [TestCase(1, true)] [TestCase(2, true)] [TestCase(3, true)]
