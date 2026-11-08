@@ -1,8 +1,8 @@
 # ไทย — Unisaki Posing System / คู่มือ
 
-> Quick reference generated from existing interface translations. This is not a complete translated manual. The full guide is available in English.
+> เอกสารอ้างอิงด่วน 30 ภาษา ครอบคลุมคำอธิบายฟังก์ชันและตารางชื่อท่ามาตรฐาน เป็นเอกสารสั้นสำหรับอ้างอิง ใช้สารบัญภาษาเพื่ออ่านเอกสารเต็ม
 
-[Language / 言語](index.md) · [English — คู่มือ](../UserGuide.en.md)
+[🌐](../Localization/index.md) · [คู่มือ](../Localization/th/UserGuide.md)
 
 ## ฟังก์ชัน
 
@@ -241,4 +241,4 @@
 | 騎士 | อัศวิน |
 | 魔王降臨 | จอมมารมาเยือน |
 
-[English — คู่มือ](../UserGuide.en.md)
+[คู่มือ](../Localization/th/UserGuide.md)

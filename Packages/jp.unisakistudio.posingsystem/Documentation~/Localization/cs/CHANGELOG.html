@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="cs" dir="ltr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Historie změn</title><style>:root { color-scheme: light dark; font-family: system-ui, -apple-system, "Segoe UI", sans-serif; line-height: 1.7; }
+body { margin: auto; max-width: 70rem; padding: 1.5rem; overflow-wrap: anywhere; }
+nav { display: flex; flex-wrap: wrap; gap: .6rem 1.2rem; padding-block: 1rem; border-block-end: 1px solid #8887; }
+h1,h2,h3 { line-height: 1.4; } h2 { margin-block-start: 2.4rem; }
+table { border-collapse: collapse; width: 100%; } th,td { text-align: start; vertical-align: top; padding: .5rem; border: 1px solid #8887; }
+thead { background: #8882; } .table-scroll { overflow-x: auto; }
+code,pre { direction: ltr; unicode-bidi: isolate; } code { background: #8882; padding: .1em .25em; } pre { white-space: pre-wrap; }
+a { color: #2269b8; } a:visited { color: #7952ad; } li { margin-block: .35rem; }
+@media(prefers-color-scheme:dark) { a { color: #8ec5ff; } a:visited { color: #cfacff; } }
+@media print { nav { display: none; } body { max-width: none; padding: 0; } a { color: inherit; } }</style></head><body>
+<nav aria-label="Documentation"><a href="../index.html">Čeština · 🌐</a><a href="README.html">README</a><a href="CHANGELOG.html">Historie změn</a><a href="UserGuide.html">Unisaki Posing System 3.2.0 — český návod</a></nav>
+<main><h1>Historie změn</h1>
+<h2>[3.2.0] - Nevydáno</h2>
+<h3>Přidáno</h3>
+<ul>
+<li>Zobrazení Inspectoru, úprav, instalačních dialogů, standardních názvů póz a generované nabídky VRChat ve 30 jazycích.</li>
+<li>Sjednocen výběr jazyka Inspectoru a herní nabídky. Výchozí je jazyk počítače a poslední volba platí i pro další projekty stejného uživatele OS.</li>
+<li>README, historie změn a offline návod se otevírají ve vybraném jazyce.</li>
+<li>Připraveny názvy všech 128 standardních póz a popisy funkcí podle stávající terminologie.</li>
+</ul>
+<h3>Kompatibilita</h3>
+<ul>
+<li>Zachovávají se existující nastavení avatara, vlastní názvy, odkazy na prostředky, identifikátory parametrů a způsob ukládání licencí.</li>
+</ul>
+<h2>[3.1.2] - 2026-11-09</h2>
+<ul>
+<li>Opraveno přetrvávající natočení obličeje vzhůru po zvednutí z lehu na břiše při zapnutém omezení deformace pózy podle otočení hlavy.</li>
+<li>Zamykání hlavy lze přepínat v „Nastavení → Automaticky zamknout hlavu na zádech“ v nabídce EX i při vypnuté výšce chodidel. Položka zmizelá ve 3.1.0 nebo 3.1.1 se vrátí po sestavení aktualizovaného avatara.</li>
+<li>Aktualizovat předgenerování funguje i při odškrtnutém hlavním objektu avatara v Unity.</li>
+<li>Opravena nemožnost generovat pózy po aktualizaci, pokud v Assets zůstal starý společný Controller póz. Zachovávají se i vlastní úpravy Controlleru.</li>
+<li>Pokud vypnutý nástroj nebo jeho rodič znemožní použití společného Animatoru póz, zobrazí se název cíle. Otevřete jej přes „Kontrola nastavení → Vybrat cíl“.</li>
+<li>Při oznámení změny nastavení předgenerování lze rozdíly zjistit v „Podrobnosti → Zobrazit změny od předgenerování“.</li>
+<li>Když sestavení zastaví chyba skriptu (PS050), zobrazí se až 5 původních chyb Unity. Zeptat se na tuto chybu otevře koncept s verzemi Unity a podporovaných nástrojů a číslem chyby, který lze zkontrolovat, upravit a odeslat.</li>
+</ul>
+<p>Pokud jste používali předgenerování, po aktualizaci stiskněte Aktualizovat předgenerování, uložte scénu a avatara znovu sestavte a nahrajte.</p>
+<h2>[3.1.1] - 2026-11-08</h2>
+<ul>
+<li>Zapnuté Výška podlahy a Přetočit se jsou nyní v Nastavení nabídky EX ve VRChat viditelné i při vypnutém zrcadlení.</li>
+<li>Po seřazení, odstranění či přejmenování póz ve staré verzi se zachovávají správná přetočení pro Nohy vpřed, Uvolnění a Jedno koleno vzhůru. Platí to i po úplném Unpack, pokud lze původní pózu rozpoznat. Vlastní pózy, ručně vypnutá přetočení a nahrazené boční pohyby zůstávají.</li>
+<li>Opravena krátká póza na břiše při výběru avatara ve VRChat. Opraven i krátký leh na zádech při skoku, pokud je vybrán pouze leh na břiše. Přepínání skokem lze vypnout v „Funkce → Usnadnění → Měnit ležící pózy skokem“. Ve výchozím stavu je zapnuté.</li>
+<li>Pokud se po aktualizaci ztratí odkaz společného Animator Controlleru póz a lze jej obnovit, zobrazí se varování a Controller se vytvoří z nastavení. Zachovávají se i odkazy Controlleru sdíleného více avatary.</li>
+<li>Chyby kompilace zastaví sestavení hned na začátku s vysvětlením příčiny. Dokud chyba skriptu brání kontrole odkazů, automatický úklid vytvořených Controllerů se odloží.</li>
+<li>Při přidání nástroje se vybírá oficiální Prefab, i když projekt obsahuje jiný stejného názvu. Předgenerování pokračuje i tehdy, když se společný Controller liší jen konci řádků.</li>
+<li>Write Defaults vrstev FX přidávaných nástrojem, například výšky podlahy, se přizpůsobuje nastavení avatara.</li>
+</ul>
+<p>Pokud jste používali předgenerování, po aktualizaci stiskněte Aktualizovat předgenerování na nástroji ve scéně, uložte scénu a avatara znovu sestavte a nahrajte.</p>
+<h2>[3.1.0] - 2026-11-07</h2>
+<ul>
+<li>Přidána automatická korekce končetin (IK) podporovaných póz podle proporcí, korekce avatara a zabránění ohybu kolen dozadu.</li>
+<li>Režim focení umožňuje upravit polohu a směr avatara. Lze zvolit synchronizaci polohy a směru i zobrazení vlastní hlavy při focení.</li>
+<li>Výška podlahy posouvá celé tělo až 3m nahoru či dolů a doplňuje výšku chodidel.</li>
+<li>Přidáno dýchání, vypnutí výchozího pohupování v klidu a omezení deformace pózy podle směru hlavy.</li>
+<li>Používané funkce a spotřeba parametrů jsou viditelné v Inspectoru. Přidáno hledání póz, hromadné přidání, řazení a lehký náhled v Scene.</li>
+<li>Zrychleno přepínání stoje, podřepu a sedu v režimu plochy.</li>
+<li>Zlepšena varování předgenerování po změně nastavení, zátěž posouvání Inspectoru a dlouhá zastavení při úklidu prostředků.</li>
+<li>Opraveno varování na nezměněné předgenerování a opakované vytváření při nahrávání se zapnutým automatickým importem. Výsledek importu se používá na vytvářeného avatara, nemění nastavení importu původního objektu.</li>
+<li>Přidáno přetočení podle náklonu hlavy a nastavení odpovídajících pohybů jednotlivých póz.</li>
+<li>Zlepšeno převzetí přetočení starých předvoleb, import vlastních pohybů a správa vytvořených prostředků.</li>
+</ul>
+<h2>[3.1.0-beta.2] - Otevřená beta (2026-11-05)</h2>
+<ul>
+<li>Do referencí délky polohy IK přidána pevná délka a výškový rozdíl (Y) i rozdíl vpřed/vzad (Z) mezi Head a Viewpoint.</li>
+<li>Varování Inspectoru se zobrazují i vlevo od názvu objektu v Hierarchy. Kromě chybějícího předgenerování a změn nastavení zahrnují také varování importu pohybů a operací předvoleb.</li>
+<li>Opraveno dlouhé zastavení Unity při automatickém úklidu například po otevření scény, způsobené načítáním vytvořených Controllerů jiných scén.</li>
+<li>Opraveno mizení historie předgenerování po změně seznamu póz či funkcí. Místo neprovedeného předgenerování se zobrazí změna nastavení po něm a Hierarchy upozorní na nutnost aktualizace.</li>
+<li>Inspector a Hierarchy sdílejí výsledky porovnání předgenerování, čímž snižují zátěž posouvání, dokud se nastavení a odkazované prostředky nezmění. Při sestavení se porovnání nadále provádí pokaždé.</li>
+</ul>
+<h2>[3.1.0-beta.1] - Otevřená beta (2026-11-04)</h2>
+<ul>
+<li>Běžné přepínání póz v režimu plochy převedeno na jedno vyhodnocení. Funguje při běžném sestavení i předgenerování, VR a zvláštní podmínky zachovávají dosavadní cestu.</li>
+<li>Předgenerování z alpha.3 a starších verzí se rozpoznává jako vyžadující aktualizaci.</li>
+<li>Při změně výšky podlahy během focení se zachovává pohled a po ukončení se obnoví poslední výška podlahy.</li>
+</ul>
+<ul>
+<li>Automatický import nyní zjišťuje pohyby pouze při generování. Předgenerování a sestavení nepřidávají ani nemění ruční nastavení importu.</li>
+<li>Přepnutí automatického importu, změny Base a vymazání ručních nastavení se použijí při novém generování. Zachovávají se ruční přiřazení a korekce sdílené produkty, staré importované pohyby se vracejí k výchozím pózám.</li>
+<li>Vytvořené Controllery předgenerování jsou v jednom souboru na avatara s rozdělením podle GUID scény. Sdílené odkazy kopií, jiných scén a Prefabů se před aktualizací oddělují.</li>
+<li>Při sestavení se používá správa dočasných prostředků NDMF a nepřibývají vytvořené soubory pro úpravy.</li>
+<li>Prostředky se kontrolují při otevření a uložení scény. Při neuložených úpravách, Undo/Redo nebo externích odkazech se zachovávají. Do koše se přesunují jen nepoužívané soubory s jasným vlastnictvím.</li>
+<li>Uplatňuje se otočení importovaných pohybů, korekční animace a poloha přehrávání. Zpracování otočení, RootT/RootQ a korekce Humanoid je společné s běžnými pózami.</li>
+<li>Úpravy vnořených BlendTree se kopírují pro konkrétní cíl při zachování původního pohybu a nastavení prolínání chůze.</li>
+<li>Poloha přehrávání pro Pouze stoj se převádí na nehybnou pózu při původní snímkové frekvenci, aniž se zastaví přehrávání chůze.</li>
+</ul>
+<h2>[3.1.0-alpha.2] - Uzavřená testovací verze (2026-10-26)</h2>
+<h3>Opravy a změny</h3>
+<ul>
+<li>Korekce režimu focení a výšky podlahy se používají i na výchozí a vlastní pohyby bez vybrané pózy nástroje.</li>
+<li>Rozsah výšky podlahy rozšířen na 3m nahoru i dolů. 50% je původní výška a počáteční hodnota, 0% o 3m níže a 100% o 3m výše.</li>
+<li>Opraveno změnění zdrojového BlendTree při přepsání Pouze stoj.</li>
+<li>U póz bez pravidla IK se používá ruční korekce a potlačují zbytečná varování generování.</li>
+<li>Opraveno směšování konceptů korekcí stejnojmenných póz a přehlížení změn pohybu v jednom prostředku.</li>
+<li>Opraven výběr jiné počáteční pózy podle čísla neplatné pózy.</li>
+<li>Import nepodporovaného AnimatorOverrideController zobrazí pokyny místo výjimky.</li>
+<li>Použití starých předvoleb zachovává výslovně vypnuté přetočení.</li>
+<li>Zlepšena viditelnost ikon funkcí ve světlém motivu Editoru.</li>
+</ul>
+<p>Kontrola pohledu a chování po nahrazení výchozích pohybů v klientu VRChat pokračuje.</p>
+<h2>[3.1.0-alpha.1] - Před zveřejněním</h2>
+<h3>Přidáno</h3>
+<ul>
+<li>Přidány přepínače jednotlivých funkcí a zobrazení spotřeby ExpressionParameters.</li>
+<li>Přidán režim focení pro posun avatara vpřed a otáčení.</li>
+<li>Přidána volba synchronizace režimu focení: pouze lokálně 0 bit, se synchronizací 16 bit.</li>
+<li>Přidáno ponechání vlastní hlavy viditelné v režimu focení.</li>
+<li>Přidána Výška podlahy, která posouvá celé tělo včetně hlavy o 3m nahoru či dolů. 50% je původní výška a počáteční hodnota, 0% o 3m níže a 100% o 3m výše.</li>
+<li>Přidáno přetočení podle náklonu hlavy a nastavení odpovídajících animací jednotlivých póz.</li>
+<li>Přidán pohyb dýchání s volbami Slabé, Střední, Silné, Rychlé a Vlastní.</li>
+<li>Přidána samostatná volba pohybu dýchání a herního přepínače. Samotný pohyb 0 bit, synchronizace přepínače 1 bit.</li>
+<li>Přidáno vypnutí výchozího pohupování VRChat v klidu.</li>
+<li>Přidáno omezení deformace pózy kvůli rozdílnému směru hlavy.</li>
+<li>Přidána automatická korekce končetin (IK) podporovaných póz podle proporcí s celkovým i samostatným přepínačem.</li>
+<li>Přidáno Zapéct IK do korekcí pro uložení výsledku IK do korekční animace.</li>
+<li>Přidána korekce konkrétního avatara, zabránění ohybu kolen dozadu a minimální úhel ohybu.</li>
+<li>Přidán lehký náhled pózy ze seznamu v Scene.</li>
+<li>Přidány karty kategorií, hledání napříč kategoriemi, hromadné přidání animací a volba cílového pořadí.</li>
+<li>Přidáno zobrazení historie změn produktu a společného systému v Inspectoru.</li>
+</ul>
+<h3>Změněno</h3>
+<ul>
+<li>Zrychleno načítání předvoleb a zkráceno čekání při přidávání nástroje a zobrazení seznamu.</li>
+<li>Přidání, úpravy a mazání předvoleb se automaticky odrážejí v seznamu.</li>
+<li>Inspector rozdělen na 3 karty: Funkce, Pózy a Nastavení avatara.</li>
+<li>Přidány popisy a ikony nastavení a sjednoceno rozbalování podrobností.</li>
+<li>Podrobnosti dýchání přesunuty do funkcí, předvolby na konec Nastavení avatara.</li>
+<li>Odděleno jednotlivé přiřazování vlastních pohybů a automatický import původních póz avatara.</li>
+<li>Omezeny duplicity animací celého těla vytvářených pro výšku chodidel.</li>
+<li>Obnova obrázků póz změněna na tlačítko s potvrzením.</li>
+<li>Nastavení varování soustředěno do Kontroly nastavení.</li>
+<li>Odstraněno nové přidávání 8bit Prefabu, nahrazeno volbou funkcí běžného Prefabu. Existující odkazy zůstávají.</li>
+<li>Minimální verze VRChat Avatars SDK změněna na 3.10.4.</li>
+</ul>
+<h3>Opraveno</h3>
+<ul>
+<li>Výchozí a vlastní pohyby bez vybrané pózy nástroje také spadají do korekce režimu focení a výšky podlahy.</li>
+<li>Opraveno změnění zdrojového BlendTree při přepsání Pouze stoj.</li>
+<li>Bez platného pravidla IK se používá ruční korekce a potlačují zbytečná varování generování IK.</li>
+<li>Opraveno směšování úprav stejnojmenných póz a nepromítnutí náhrady pohybu uvnitř stejného prostředku do nového generování.</li>
+<li>Číslo vypnuté počáteční pózy znovu použité jinou pózou ji již nevybere jako počáteční.</li>
+<li>Nalezení nepodporovaného AnimatorOverrideController při importu původních póz zobrazí pokyny místo výjimky.</li>
+<li>Použití staré předvolby zachovává výslovně vypnuté přetočení.</li>
+<li>Zlepšeno pozadí ikon Inspectoru, aby byly funkce rozpoznatelné i ve světlém motivu Editoru.</li>
+</ul>
+<ul>
+<li>Opraveny chybějící ikony přetočení, výšky podlahy a režimu focení při přidání k avatarovi.</li>
+<li>Opravena ztráta nastavení přetočení podporovaných póz při použití předvolby staré verze.</li>
+<li>Opraven přesun zadávaného názvu na jinou pózu po otevření jiných podrobností při úpravě.</li>
+<li>Opraveno zavírání podrobností při řazení i Undo/Redo změn nastavení.</li>
+<li>Opraven překryv původního avatara v náhledu a dvojí přičítání polohy.</li>
+<li>Opravena chyba náhledu avatarů s chybějícími komponentami.</li>
+<li>Opraveny odchylky směru a polohy končetin IK způsobené rozdílnou orientací a měřítkem kostí.</li>
+<li>Opraveno neaktualizování varování a stavu předgenerování hned po změně nastavení.</li>
+<li>Opraveno znovupoužití starého předgenerování po změně IK.</li>
+<li>Opraveny chyby sestavení bránící generování doplňkových funkcí v některých konfiguracích.</li>
+</ul>
+<h2>[3.0.16] - 2026-09-14</h2>
+<ul>
+<li>Minimální závislost NDMF zvýšena na 1.14.0 kvůli použití API <code dir="ltr">VirtualAnimatorController.SetParameter</code></li>
+</ul>
+<h2>[3.0.15] - 2026-09-13</h2>
+<ul>
+<li>Opraveny velké změny polohy těla a ohybu kolen při přepnutí zámku hlavy na zádech u avatarů se změnou měřítka Hips a FloorAdjuster</li>
+</ul>
+<h2>[3.0.14] - 2026-09-09</h2>
+<ul>
+<li>Opraveno mizení položky Gesta vyp. druhého a dalších nástrojů pro pózy na stejném avatarovi</li>
+<li>Opraven návrat vrstvy USSPS_Locomotion do Standing navzdory vybrané póze jako SleepDown</li>
+<li>Opraveny odchylky výšky a X/Z při použití FloorAdjuster a podpořeno pořadí zpracování verzí MA i AAO</li>
+<li>Po smazání předgenerovaného AnimatorController z Generated se automaticky obnoví standardní PosingSystem_Locomotion</li>
+<li>Opravena chyba sestavení po odstranění všech póz ve stoje</li>
+<li>Seznam předvoleb se řadí podle názvu avatara</li>
+</ul>
+<h2>[3.0.13] - 2026-09-04</h2>
+<ul>
+<li>Opraven přechod pózy ve stoje do sebe sama při návratu do stoje hned po zahájení přikrčení ve VR, který způsoboval nestabilní obnovu pózy</li>
+</ul>
+<h2>[3.0.12] - 2026-09-04</h2>
+<ul>
+<li>Opraveno chybné označení nástroje bez předgenerování jako změněného při sestavení NDMF</li>
+<li>Opravena chyba <code dir="ltr">AddAssetToSameFile</code> při přidávání vytvořených prostředků do dočasného AnimatorController během sestavení NDMF</li>
+</ul>
+<h2>[3.0.11] - 2026-08-31</h2>
+<ul>
+<li>Opravena neplatná Scene avatara pro předgenerování a selhání zpracování v NDMF 1.14.7 a novějším</li>
+<li>Opraveno <code dir="ltr">MissingReferenceException</code> při odkazu chybové obrazovky NDMF na zničený LocalizationAsset</li>
+</ul>
+<h2>[3.0.10] - 2026-08-29</h2>
+<ul>
+<li>Skutečné prostředky předvoleb se načítají až při otevření výběru předvolby; pokud se katalog GUID nezměnil, znovu se použije mezipaměť</li>
+<li>Varovné a chybové ikony Hierarchy se vyhodnocují jen při změně a hledání prostředků nabídky produktů používá společnou mezipaměť. Omezeno zamrzání Editoru každých několik sekund ve scénách s mnoha nástroji pro pózy</li>
+<li>Opraveno <code dir="ltr">ArgumentException</code> při registraci duplicitních hodnot parametrů během předgenerování více nástrojů na stejném avatarovi</li>
+</ul>
+<h2>[3.0.9] - 2026-08-26</h2>
+<ul>
+<li>Pokud při převodu nelze z PosingSystem získat VRCAvatarDescriptor, zabrání se NullReferenceException a zobrazí se pokyny k potřebnému protokolu sestavení</li>
+<li>Opravena chyba <code dir="ltr">Avatar is null</code>, když pozdější předgenerování nebo sestavení znovu použilo náhled s dočasným Avatar vytvořeným a smazaným NDMF. Převod oddělen od mezipaměti náhledu a zabráněno kolizím názvů dočasných prostředků NDMF mezi náhledy</li>
+<li>Opraveno neukládání odkazu náhledu Prefabu 可愛いポーズ (Kawaii Posing) do scény, které množilo skryté náhledové avatary. Náhledy vyloučeny z ukládání scény a staré náhledy se uklízejí při načtení scény, vstupu do Play a znovunačtení skriptů</li>
+</ul>
+<h2>[3.0.8] - 2026-08-18</h2>
+<ul>
+<li>Opraven Unity Assertion a možné poškození dat póz předgenerovaných pohybů při opakované korekci výšky FloorAdjuster a podobnými nástroji</li>
+<li>Zlepšena bezpečnost měření výšky, aby neovlivňovalo původního avatara ani AnimationMode dalších nástrojů</li>
+</ul>
+<h2>[3.0.7] - 2026-08-12</h2>
+<ul>
+<li>Opraven posun pohledu a abnormální ohyb kolen na zádech s FloorAdjuster a dalšími nástroji výšky</li>
+<li>Opravena chyba, pokud je PosingSystem mimo avatara (děkujeme PancakeTorto1se)</li>
+<li>Opravena chyba způsobená pokračováním po neúspěšném nahrání avatara</li>
+<li>Opraveno občasné chybné rozpoznání změn nastavení hned po předgenerování</li>
+<li>Zlepšen automatický import pohybových animací</li>
+<li>Přidána varování pro některé avatary se zvláštními rigy</li>
+<li>Do okna úpravy animace přidáno potvrzení změn a zrcadlení hodnot korekcí (děkujeme kraihd)</li>
+<li>Přidány pokyny při chybách jiných nástrojů a kontroly míst náchylných k chybám</li>
+</ul>
+<h2>[3.0.6] - 2026-03-17</h2>
+<ul>
+<li>Opraveno výrazné narušení póz některých avatarů s původním vlastním řízením póz</li>
+</ul>
+<h2>[3.0.5] - 2026-01-31</h2>
+<ul>
+<li>Opraven pád Unity s některými ExpressionMenus</li>
+<li>Opraveny problémy avatara při použití integračního Prefabu ごろ寝EX (děkujeme あずき)</li>
+<li>Opraveno nesprávné otočení při spojování korekčních animací</li>
+</ul>
+<h2>[3.0.4] - 2026-01-11</h2>
+<ul>
+<li>Částečně zlepšeno chování avatara při vložení do Prefabs</li>
+<li>Přidáno odstranění licencí</li>
+<li>Opravena nesprávná poloha krku v mnoha pózách</li>
+<li>Mírně zrychleno otevírání Inspectoru</li>
+<li>Ikony se vytvářejí i při předgenerování; změněn text tlačítka aktualizace avatara</li>
+<li>Varování se skrývají, pokud předgenerování ještě nikdy neproběhlo (protože ho mnoho uživatelů zřejmě nepoužívá)</li>
+<li>Odstraněny nepotřebné prostředky</li>
+<li>Opravena nemožnost upravit prsty</li>
+</ul>
+<h2>[3.0.3] - 2026-01-04</h2>
+<ul>
+<li>Opraveno použití jiné předvolby než vybrané (děkujeme あずき)</li>
+</ul>
+<h2>[3.0.2] - 2026-01-02</h2>
+<ul>
+<li>Přidána podpora tmavého motivu Unity</li>
+<li>Opravena deformace pózy při otáčení během úpravy animace</li>
+<li>Změněna velikost generovaných ikon nabídky, zapnuta komprese a přidána volba ještě menších ikon</li>
+<li>Obnoveno propojení zámků sledování a automatický import pohybů avatara odstraněné ve 3.0.0</li>
+</ul>
+<h2>[3.0.1] - 2025-12-29</h2>
+<ul>
+<li>Opraveny problémy nastavení výchozích pohybů</li>
+<li>Opravena samovolná deformace pózy avatara</li>
+</ul>
+<h2>[3.0.0] - 2025-12-28</h2>
+<ul>
+<li>Přidáno předgenerování</li>
+<li>Přidána úprava animace</li>
+<li>Přidány předvolby</li>
+</ul>
+<h2>[2.2.5] - 2025-05-08</h2>
+<ul>
+<li>Vyřešeny problémy kompatibility s některými funkcemi avatara</li>
+</ul>
+<h2>[2.2.4] - 2025-04-04</h2>
+<ul>
+<li>Opraveno nepřepínání póz u některých avatarů a verzí ModularAvatar</li>
+</ul>
+<h2>[2.2.3] - 2025-03-13</h2>
+<ul>
+<li>Opraveny nesprávné pohyby některých avatarů, například skok 森羅</li>
+<li>Opravena občasná nesprávná počáteční hodnota Gesta vyp.</li>
+</ul>
+<h2>[2.2.2] - 2025-03-06</h2>
+<ul>
+<li>Opravena chyba v některých prostředích</li>
+</ul>
+<h2>[2.2.1] - 2025-02-05</h2>
+<ul>
+<li>Opraven pád Unity</li>
+<li>K názvu nástroje v NDMF Console přidána verze</li>
+</ul>
+<h2>[2.2.0] - 2025-02-02</h2>
+<ul>
+<li>Přidána volba vypnout gesta a použít tvar rukou z animace</li>
+</ul>
+<h2>[2.1.6] - 2025-02-02</h2>
+<ul>
+<li>Opraveno poškození póz s některými nástroji</li>
+<li>Opraveny chyby závislé na nastavení</li>
+</ul>
+<h2>[2.1.5] - 2024-12-10</h2>
+<ul>
+<li>Vyřešeny konflikty s některými funkcemi avatara</li>
+<li>Přidáno tlačítko pro odstranění verze Unitypackage</li>
+</ul>
+<h2>[2.1.4] - 2024-12-08</h2>
+<ul>
+<li>Opravena chyba závislá na avatarovi</li>
+<li>Opraveno nefunkční zamykání nohou kvůli konfliktům s funkcemi nebo avatarem</li>
+<li>Opraven návrat pózy avatara na výchozí VRC v režimu plochy</li>
+</ul>
+<h2>[2.1.3] - 2024-12-01</h2>
+<ul>
+<li>Opraveno nepřepínání póz s avatary nebo funkcemi používajícími nesprávný typ VRMode</li>
+<li>Přidáno zobrazení konfliktů různých typů parametrů mezi funkcemi v NDMF-Console</li>
+</ul>
+<h2>[2.1.2] - 2024-12-01</h2>
+<ul>
+<li>Do NDMF-Console přidáno vysvětlení chyby Unisaki Posing System při sestavení avatara s chybou jiného nástroje</li>
+<li>Opravena chyba sestavení některých avatarů</li>
+<li>Zlepšeno chování hned po načtení avatara</li>
+<li>Původní zpracování pohybu avatara se nyní odstraňuje, protože některým avatarům bránilo ve fungování</li>
+</ul>
+<h2>[2.1.1] - 2024-11-20</h2>
+<ul>
+<li>Opraven problém MergeAnimator v PosingOverride</li>
+</ul>
+<h2>[2.1.0] - 2024-11-20</h2>
+<ul>
+<li>Vyřešeno zabořování chodidel a boků do země v režimu plochy, aby všechny pózy vypadaly správně</li>
+<li>Přidána změna pózy nezávislá na výšce hlavy</li>
+<li>Přidán režim bez generování ikon pro nahrávání avatarů Quest</li>
+<li>Přidána upozornění na některé problémy avatara</li>
+<li>Vyřešeny konflikty zámků s AFK, zamykáním paží jiných nástrojů a podobnými funkcemi</li>
+<li>Přidáno automatické zamykání hlavy na zádech</li>
+</ul>
+<h2>[2.0.0] - 2024-11-12</h2>
+<ul>
+<li>Vydána verze s podporou VPM/VCC</li>
+<li>Změněn zobrazovaný název nástroje při chybách #1</li>
+<li>Přidány podmínky použití #5</li>
+</ul></main>
+</body></html>

@@ -1,8 +1,8 @@
 # Українська — Unisaki Posing System / Посібник
 
-> Quick reference generated from existing interface translations. This is not a complete translated manual. The full guide is available in English.
+> Короткі довідники 30 мовами містять описи функцій і таблиці стандартних назв поз. Це стислий довідковий матеріал; повну документацію відкривайте через список мов.
 
-[Language / 言語](index.md) · [English — Посібник](../UserGuide.en.md)
+[🌐](../Localization/index.md) · [Посібник](../Localization/uk/UserGuide.md)
 
 ## Функції
 
@@ -241,4 +241,4 @@
 | 騎士 | Лицар |
 | 魔王降臨 | Володар демонів |
 
-[English — Посібник](../UserGuide.en.md)
+[Посібник](../Localization/uk/UserGuide.md)

@@ -1,15 +1,45 @@
-# Scegliere la lingua — v3.2.0
+# Unisaki Posing System 3.2.0 — Guida in italiano
 
-La lingua predefinita segue quella del computer, indipendentemente da Unity; per le lingue non supportate viene usato l’inglese. Puoi cambiarla con Language / 言語 in alto nell’Inspector. La scelta viene ricordata negli altri progetti Unity dello stesso utente su questo computer. Anche le conferme di installazione offrono il pulsante Language....
+Unisaki Posing System è il sistema comune di Kawaii Posing, Cool Posing e degli strumenti correlati.
+Installa insieme il prodotto acquistato e questo sistema con VCC o ALCOM. Usa Unity 2022.3,
+VRChat Avatars SDK 3.10.4+, Modular Avatar 1.15.1+ e NDMF 1.14.0+.
 
-## Lingua del menu VRChat
+## Lingua
 
-La lingua scelta nella parte superiore dell’Inspector si applica sia all’interfaccia sia al menu in gioco. La scelta viene salvata sullo strumento nell’avatar. Carica di nuovo l’avatar per applicare la modifica in VRChat.
+Scegli **Language / 言語** in alto nell’Inspector. Un’unica scelta controlla
+l’Inspector e il menu VRChat generato. Ricarica l’avatar dopo il cambio di lingua.
+L’ultima scelta viene ricordata per gli altri progetti dello stesso utente del sistema su questo
+computer. Senza preferenze salvate, lo strumento segue la lingua del sistema e usa l’inglese se necessario.
+La scelta esplicita di un avatar esistente è conservata. Le preferenze non si sincronizzano tra PC.
 
-## Nomi delle pose
+## Configurare un avatar
 
-L’elenco mostra i nomi tradotti. Puoi cercare il nome giapponese o la traduzione. I nomi originali, le animazioni e i parametri interni restano invariati. I nomi personalizzati senza traduzione mantengono il testo originale.
+Seleziona nella Hierarchy un avatar della scena con VRC Avatar Descriptor, quindi scegli
+**Unisaki Studio > Aggiungi Kawaii Posing** o **Aggiungi Cool Posing**. Applica un preset
+compatibile quando proposto. L’Inspector ha le schede **Funzioni**, **Pose** e **Configurazione avatar**.
+Scegli pose e comandi facoltativi, adatta la posizione e carica normalmente.
+Usa **Aggiorna precalcolo** dopo le modifiche se riutilizzi dati precalcolati.
 
-## Lingue disponibili
+## Manuali dettagliati
 
-La versione v3.2.0 include i testi standard e tutti i 128 nomi delle pose per 30 lingue. L’Inspector, le finestre di installazione e il menu generato nel gioco usano la stessa lingua. I nomi personalizzati restano invariati. Il manuale completo offline è disponibile in inglese.
+Apri **Guida** nell’Inspector del prodotto acquistato per leggere la guida offline nella lingua scelta.
+Il file `Documentation~/UserGuide.en.html` del prodotto descrive installazione, adattamento dell’avatar,
+comandi VRChat, modifica delle pose, memoria dei parametri, aggiornamenti e risoluzione dei problemi.
+I nomi delle pose standard sono tradotti nella visualizzazione; nomi personali, nomi degli avatar e dei file,
+nomi degli oggetti salvati e identificatori dei parametri mantengono la grafia originale.
+Sono selezionabili trenta lingue. Inspector, dialoghi d’installazione, nomi delle pose standard
+e menu generati hanno cataloghi completi per ogni lingua. La documentazione offline è fornita in tutte le lingue selezionabili.
+
+I [riferimenti rapidi in 30 lingue](../QuickReference/index.html) contengono descrizioni delle funzioni e tabelle dei nomi delle pose standard. Sono riferimenti sintetici; usa l’indice delle lingue per la documentazione completa.
+
+## Licenza e assistenza
+
+Usa l’installatore scaricato dal negozio dove hai acquistato il prodotto. Le licenze
+conservano l’archiviazione esistente per utente nel registro o nei file, separata da EditorPrefs.
+Leggi gli accordi originali inclusi nel pacchetto. L’accordo inglese esistente del sistema comune
+è una traduzione di riferimento; anche l’accordo di ogni prodotto è fornito separatamente.
+
+Assistenza: https://help.unisakistudio.jp/
+Manuali illustrati (giapponese): https://docs.unisakistudio.jp/
+
+[🌐](index.md)

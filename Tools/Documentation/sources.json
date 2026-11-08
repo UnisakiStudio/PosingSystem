@@ -1,0 +1,3897 @@
+{
+  "schema": 1,
+  "locales": [
+    "ja",
+    "en",
+    "fr",
+    "it",
+    "zh-Hans",
+    "zh-Hant",
+    "ko",
+    "th",
+    "de",
+    "es",
+    "pt",
+    "pt-BR",
+    "ru",
+    "uk",
+    "pl",
+    "nl",
+    "sv",
+    "da",
+    "fi",
+    "nb",
+    "cs",
+    "tr",
+    "id",
+    "vi",
+    "hi",
+    "bn",
+    "ta",
+    "te",
+    "ar",
+    "he"
+  ],
+  "documents": {
+    "PosingSystem/repository": {
+      "product": "PosingSystem",
+      "kind": "repository",
+      "source": "PosingSystem/README.md",
+      "source_sha256": "4d4d4625c01a84f034c3989b8422776a7c97cf4660c3399c4b199f1cdd821287",
+      "blocks": [
+        "400f9d61ba8fe81c",
+        "7d2464280b86943d",
+        "8d1a87061e3c580f",
+        "ea2dce3a4072081a",
+        "c040aee682c09a53",
+        "5deb981a6d80df41",
+        "b333e3f69aa43084",
+        "88d9253fa14db58d"
+      ]
+    },
+    "PosingSystem/readme": {
+      "product": "PosingSystem",
+      "kind": "readme",
+      "source": "PosingSystem/Packages/jp.unisakistudio.posingsystem/README.md",
+      "source_sha256": "7b3644f9b4242ecd30c2a6625ff374a7c4c17ab455688b7315bdf09cf4da3279",
+      "blocks": [
+        "400f9d61ba8fe81c",
+        "3384667be43ce486",
+        "37b1b586e6f00193",
+        "dddcc5e2fa2e62d6",
+        "f057ec94623ab83e",
+        "6c7e34186b56734a",
+        "ef58b910342a4f74",
+        "ca655f870ce7db19",
+        "3240210502334b10",
+        "29b7574e70527eea",
+        "0eb826cefdff818a",
+        "a9c8afa886a35fa3",
+        "aa0e93c49ca876d3",
+        "fc547ae5cc8c18cd",
+        "064a37c64aaa4128",
+        "bd5e80df85691664",
+        "810eb63597d533a4",
+        "868cf18738a90d19",
+        "b7314ce3548dc2e7",
+        "6ef562436dd6f663",
+        "db11f5b7a2a1a0d7",
+        "3c03db36ebfa6a46",
+        "ef7802d53ffe53c1",
+        "953ac2385dc6fc80",
+        "7abe60caa96b545e",
+        "bddece415aadd3f2",
+        "86be79bc5a102629",
+        "7496dd3b030e5bc0",
+        "9606e00d3187d305",
+        "4e2acdd51f81bc24",
+        "8ce73c604a564659",
+        "9bcdf69a52e1b232",
+        "2579d2e4e1d5ded1",
+        "769f88ffabb12209",
+        "2d309b91454d5538",
+        "1e2828b934ad2d60",
+        "1b90aa9d1fa69a30",
+        "81f470a45fcbcdc8",
+        "3bf87336a1832ccd",
+        "106dc56595373d52",
+        "ce8d6b30dc0f88ec",
+        "1aeced6549aa7ed2",
+        "fc8c30d978b98027",
+        "7378ada9fd45ff21",
+        "035eb41021567955",
+        "73d6b9fa21a58416",
+        "edd1b2ff7c7133d3",
+        "ebc17b91aa6199bd",
+        "bcd2fffdde5b82e8",
+        "a5ac9813282e3d14",
+        "b23ef4c10cebd6f6",
+        "972ae159d42c5165",
+        "a3b85fa920925ea4",
+        "27562d3eaa2e3c50",
+        "678ba0d2101fa329",
+        "7c14e655c29a3ace",
+        "a026d8bf14122ea5",
+        "650b99fac5995dcc",
+        "3c79f05aae20a26e",
+        "f1b4cb7aa3381e0d",
+        "fd662974ae23df47",
+        "cdaa337a7b96a497",
+        "96491da66613749b",
+        "d50fef0dce536f27",
+        "a6a7c99cb75f58bc",
+        "49ada2ae37af40ea",
+        "446593edb3966c9b",
+        "4a5b5b615ce12e70",
+        "e3e06f99b48bdc04",
+        "64e90697af81f8c9",
+        "6e04bd642c205db8",
+        "0c801e40c7f213c8",
+        "13047efed776d740",
+        "f517692ddf9c2c61",
+        "aaf3a878e9816116",
+        "bc8b80681785c165",
+        "62dafc8edf1a6c2c",
+        "fb6cd08fc751a6dd",
+        "25f02b6adf903f3e",
+        "3f86d01d52453bac",
+        "f29d73b590b61596",
+        "02ed399a8dfddbfe",
+        "5a741fefa8413484",
+        "e8ae46c0808b3167"
+      ]
+    },
+    "PosingSystem/changelog": {
+      "product": "PosingSystem",
+      "kind": "changelog",
+      "source": "PosingSystem/Packages/jp.unisakistudio.posingsystem/CHANGELOG.md",
+      "source_sha256": "6e379d9a51a8ab3f72d9082cc91f52eda5d13b8f51707101801600e54733319c",
+      "blocks": [
+        "3e9e4ae5e303de21",
+        "1fea13aed5680b51",
+        "545755f8035c08c9",
+        "79fec8d04d3cf763",
+        "25b732bdda1bb358",
+        "25d84bc9d3caff87",
+        "e4cba598410c7048",
+        "26e3fc73d9977c89",
+        "5b848fae7ca7403a",
+        "6adc78fab2490474",
+        "8e9e9b2a682e7cca",
+        "bb3e9468e4514bac",
+        "0d3bc8247be4c5a3",
+        "09cfa86c5703dce4",
+        "b953e3ee8f31f39b",
+        "97ee69044f86beb5",
+        "0b2ff0b532ec82c8",
+        "f0d251c991ceb466",
+        "aa6273b5dac43a49",
+        "4830d07616b88adb",
+        "76cce2e4b295cddb",
+        "6127d86dd7618c9a",
+        "03d001b7e48d8f6c",
+        "9c036f794e2f9b53",
+        "545755f8035c08c9",
+        "ffbd42873d123ec1",
+        "5ec0c3c554aaceac",
+        "f26bc41975798f76",
+        "f392dae87abb9ca4",
+        "e5a1c621cea8b787",
+        "70022d27ececae44",
+        "25370ce74f52fa32",
+        "2bceec03b2601f37",
+        "bde03f8de5a5c0e9",
+        "8d787c3df8e46130",
+        "f9093a84a80b4164",
+        "21c3434aaa4ba4e4",
+        "eb355a78e25501c0",
+        "1b6157b723b34a7d",
+        "656f22eca956398e",
+        "de4125e309b83ad3",
+        "bcea1ee021dabde9",
+        "23d206aa897bd2b9",
+        "171e05f6d47eaabd",
+        "7826c9c8c6f70658",
+        "d929047db8f5431a",
+        "eb4595e04a5ae5f2",
+        "4e3729e0fd2bcc97",
+        "b1a0e3e520af8d20",
+        "a809cdb81e85e201",
+        "17a145621fe5e3fc",
+        "bd72ce08592ea896",
+        "00742625fcc5857e",
+        "220c6bc2cdff715a",
+        "35fa4c92b2c2a187",
+        "762bbe46e9a5b917",
+        "a79bd16aadc88b3c",
+        "d5f0559042861206",
+        "b65e402b2baba00e",
+        "6146926a3f068ec4",
+        "aefc40a42c6322fa",
+        "1b6a2ca0b8e6c8c6"
+      ]
+    },
+    "PosingSystem/guide": {
+      "product": "PosingSystem",
+      "kind": "guide",
+      "source": "PosingSystem/Packages/jp.unisakistudio.posingsystem/Documentation~/UserGuide.en.md",
+      "source_sha256": "6a219aa7ccce56d0f91a61ce64d18e3d962707f529eb66292aba5a2644fd683d",
+      "blocks": [
+        "2bae13658c19ab69",
+        "971cb3537679cb36",
+        "e10754d0edc79b73",
+        "f203323936fba1f9",
+        "d767800351bcbf7b",
+        "3f9604cf6da66cae",
+        "08512c6e6adcdc3e",
+        "0637127174ccc9da",
+        "463ce37a6d02f440",
+        "1bd2d4011bf793c4",
+        "6a97756f3327245d",
+        "2c019172cdf9086e"
+      ]
+    },
+    "KawaiiPosing/repository": {
+      "product": "KawaiiPosing",
+      "kind": "repository",
+      "source": "KawaiiPosing/README.md",
+      "source_sha256": "51a0f3ca649c5d7c8263c51b54484a1e811127c2e00fd769660b6c64dd7215af",
+      "blocks": [
+        "c6f4f4db27e61f12",
+        "08fb10070f13b3d8",
+        "8d1a87061e3c580f",
+        "c59e2d0b14d7e241",
+        "c040aee682c09a53",
+        "5deb981a6d80df41",
+        "b333e3f69aa43084",
+        "c4b186f0246b7020"
+      ]
+    },
+    "KawaiiPosing/readme": {
+      "product": "KawaiiPosing",
+      "kind": "readme",
+      "source": "KawaiiPosing/Packages/jp.unisakistudio.kawaiiposing/README.md",
+      "source_sha256": "6e39577c5093a1b7048271aa519bcf60c381d8b3703ac8570c1ab408c5a4a9a9",
+      "blocks": [
+        "c6f4f4db27e61f12",
+        "63ac3178b7280bc1",
+        "359f541ee33a4bb9",
+        "c777006c3059a301",
+        "dddcc5e2fa2e62d6",
+        "f057ec94623ab83e",
+        "6c7e34186b56734a",
+        "ef58b910342a4f74",
+        "2b2491db11188ac9",
+        "f9631a2ac8eb42c9",
+        "783af266ca7af2e4",
+        "ed136af5b95f5dab",
+        "98c6c7d3235fc9a5",
+        "7fedec56ab7874fd",
+        "be2a739200d22f0f",
+        "0329cc3d401cb095",
+        "0fd74bbc9d26400b",
+        "784d00cc1b3d2440",
+        "8424f6e3d41f09e5",
+        "e365c0379b008026",
+        "c64a834af3a8c6bd",
+        "76cf9e2237b960ba",
+        "014aae827a3bded4",
+        "c91b6d99606092e8",
+        "b9fa3c428fac6fc0",
+        "da57c8d9b89f44a0",
+        "19e6f9b458d1faeb",
+        "757a29b3ac37af67",
+        "e2c8de02a6eeef27",
+        "6c231898ffae9e9d",
+        "c7aa544668eeafda",
+        "a2e123d42dc1cb54",
+        "b4e1669a45146eed",
+        "f50f947135c16b8b",
+        "3f5dab4b0ae24c6b",
+        "0c2a28e088fdb629",
+        "e356f6a7e5c9fabf",
+        "783a82bb9e37b58a",
+        "ab3a5a8167494d37",
+        "db02fc0d045f480f",
+        "bdaa7964fc60d9df",
+        "6e04bd642c205db8",
+        "5b950682eeed0aea",
+        "0da54afec7637c49",
+        "25f02b6adf903f3e",
+        "bca0bc4fddf6f3f5",
+        "6eba228694e41167",
+        "f13b06b409ed39ae",
+        "032e36115f2c004c",
+        "2a0e551dedd4bf5a",
+        "e253458e404fc481",
+        "53cc68de3d14d0a8",
+        "f4ef9376ed9cd551",
+        "ba382276ae9f85bc",
+        "b950e8b85376edeb",
+        "06199ef6659abdd6",
+        "f3cabd1a27727efb",
+        "982263fc8aef1ea5",
+        "494db904a61d12f3",
+        "ea5c179dc93c0964",
+        "d348b83f3263a191",
+        "79fe530ae7a9ba8d",
+        "db0d66ed5299cb77",
+        "f1c21fb9aa7f5a69",
+        "ad8366f04ff98ffe"
+      ]
+    },
+    "KawaiiPosing/changelog": {
+      "product": "KawaiiPosing",
+      "kind": "changelog",
+      "source": "KawaiiPosing/Packages/jp.unisakistudio.kawaiiposing/CHANGELOG.md",
+      "source_sha256": "09044ad9157fddc1f622455e2d2ed449ef4658bc74320d3a520ca7cc308f9c3e",
+      "blocks": [
+        "3e9e4ae5e303de21",
+        "1fea13aed5680b51",
+        "545755f8035c08c9",
+        "79fec8d04d3cf763",
+        "25b732bdda1bb358",
+        "25d84bc9d3caff87",
+        "e4cba598410c7048",
+        "ecbfefbc2b3860bc",
+        "1c839c535d20999a",
+        "6adc78fab2490474",
+        "c3d8ee8ffa13b352",
+        "1c79917fd142561e",
+        "0d3bc8247be4c5a3",
+        "db6f357e97ecc913",
+        "b953e3ee8f31f39b",
+        "76bfaa95282b57e3",
+        "0b2ff0b532ec82c8",
+        "4d858f22302d73dc",
+        "4830d07616b88adb",
+        "76cce2e4b295cddb",
+        "291d1d74c39bffb5",
+        "9c036f794e2f9b53",
+        "545755f8035c08c9",
+        "484688c3532e6830",
+        "5ec0c3c554aaceac",
+        "bd9f7766cc7b65cb",
+        "f392dae87abb9ca4",
+        "7744a854849c8475",
+        "a032c23d4810910f",
+        "0166baa4bb9ea96c",
+        "570ad9caaad01a73",
+        "3e2def2cf8fd3400",
+        "1be74d7183a6c627",
+        "ede3e1e844943345",
+        "0464b44f2b089940",
+        "ebfc27e90cc934a0",
+        "1188c238737ceac2",
+        "5cb09125555200c6",
+        "184a86be747b0834",
+        "580417e0bc487648",
+        "8fb960812e1ba8c1",
+        "cadb17f83ed32918",
+        "b1a0e3e520af8d20",
+        "a809cdb81e85e201",
+        "17a145621fe5e3fc",
+        "bd72ce08592ea896",
+        "00742625fcc5857e",
+        "175c6268127cccfb",
+        "35fa4c92b2c2a187",
+        "31bae5886f32dd49",
+        "a79bd16aadc88b3c",
+        "d5f0559042861206",
+        "b65e402b2baba00e",
+        "80959be98f278b3e",
+        "3c5369d8a529b7b9",
+        "7b90ddc8d12967c8",
+        "4daf03e6bb0f47d7",
+        "b0b3d9a33ca8d39f",
+        "cd150a1739a58e9d",
+        "1a63544e77fd5553",
+        "082f64854acf6ce5",
+        "bef02a5569d70d4c",
+        "90eb90ee33da5359",
+        "a31f8f583c3a9f07",
+        "4b1d18e53be315d7",
+        "57121fd7cc1e894a",
+        "35136f219dda09d9",
+        "8d45a1ec89c96a6f",
+        "5beac4239102556a",
+        "5412e53889e52600",
+        "038a0e4961071ef8",
+        "d3e51d2ed0f22787"
+      ]
+    },
+    "KawaiiPosing/guide": {
+      "product": "KawaiiPosing",
+      "kind": "guide",
+      "source": "KawaiiPosing/Packages/jp.unisakistudio.kawaiiposing/Documentation~/UserGuide.en.md",
+      "source_sha256": "5301c10d58fe9b2df5cc73ff459a6f9c98d9ea269bcafd634c3ba9140c122381",
+      "blocks": [
+        "f675a3d502bd6e37",
+        "240461debb7fb962",
+        "4b4ce8f2136c0a4d",
+        "f0994b5bc6eab153",
+        "6ae60319e9c41d31",
+        "b58d5efb219e0955",
+        "07d7ee924d86344a",
+        "3c27365bd82f8dab",
+        "952ab3fb036b1c5b",
+        "a511a3ab974162c1",
+        "6a4140f9fcf8696a",
+        "9b067be04670a030",
+        "5db6d754ccbe01f8",
+        "cc1a83bb12c33553",
+        "0ad9612c7a673560",
+        "f4db826aab55aa89",
+        "eb8cc3b5b69abc5a",
+        "86ed83d79915f37d",
+        "03b70764465e7f92",
+        "e413390613039b45",
+        "9df7843e8496a38b",
+        "be9c9eff2128305e",
+        "668fae5793d40c01",
+        "dac66ae03d2f290d",
+        "8b5a14e1b9abc7f5",
+        "67e242f06ec825c5",
+        "9175b123d4e1a515",
+        "e15da49d2794570c",
+        "8f4c3b4f6fb1333f",
+        "e69fbde91fce7241",
+        "e607ff56efa41bdf",
+        "7059f0ed49756023",
+        "a2abdeb7b81b4ecc",
+        "54fa51383a04a1d2",
+        "510c742262d679e6",
+        "4e5d1ed242d317ca",
+        "3c9d2ca82ea9281b",
+        "8b441cc13491f816",
+        "c7067b8f4e3f7447",
+        "4b1071cdbb63c703",
+        "52ab85a1ae376835",
+        "c226cdb39c8c1fb3",
+        "56d27e2f6c98b9e9",
+        "f899f207728e8ee9",
+        "60bb283b1da0925f",
+        "9c1d9eae0539ad04",
+        "2c4cd60737c88005",
+        "bad68e5c4e0ca386",
+        "a0005b4a60905702",
+        "f5e8d80375e8baf8",
+        "126ad096501b9c5b",
+        "94ad60ac38d64519",
+        "8e38def749eacdd0",
+        "f1fe1a80e2e195b5",
+        "6821114682ad2934",
+        "c43f66aca5cc509d",
+        "499b3bf6280b5942",
+        "baa72162db9180d7",
+        "928c7b1cca8d969b",
+        "89fcad025f1817fd",
+        "2fc528595583778a",
+        "49bf131434354287",
+        "33c86cfe55e40a99",
+        "9868cc425d603a0f",
+        "1c8959f783fe7ffe"
+      ]
+    },
+    "CoolPosing/repository": {
+      "product": "CoolPosing",
+      "kind": "repository",
+      "source": "CoolPosing/README.md",
+      "source_sha256": "7df22298065bff175f6bcd4fad78c0c552a8d453575e5728f39b1fd5cc334b05",
+      "blocks": [
+        "9ec15b083830389e",
+        "86c91b6fc025424f",
+        "8d1a87061e3c580f",
+        "a075589a9c6249cc",
+        "c040aee682c09a53",
+        "5deb981a6d80df41",
+        "b333e3f69aa43084",
+        "9d1437111811bc6f"
+      ]
+    },
+    "CoolPosing/readme": {
+      "product": "CoolPosing",
+      "kind": "readme",
+      "source": "CoolPosing/Packages/jp.unisakistudio.coolposing/README.md",
+      "source_sha256": "822f344f89a62376046edea9a899657c5e65409a1821f8b310137dd5b0b8ce77",
+      "blocks": [
+        "9ec15b083830389e",
+        "c2493654393fac07",
+        "ef9a7f895c6e482e",
+        "42d11daea3442e03",
+        "dddcc5e2fa2e62d6",
+        "f057ec94623ab83e",
+        "6c7e34186b56734a",
+        "ef58b910342a4f74",
+        "2b2491db11188ac9",
+        "51f028bd02b8dece",
+        "b1b3e5bceff0a199",
+        "c2701f328fe2cae9",
+        "7c498ebeef28b23c",
+        "3f6959796c4886ba",
+        "e0b5ec43fcbb30b1",
+        "7cfcd3bc6c58bd59",
+        "b28495671138e6a0",
+        "e34b262b52bfcb31",
+        "93464ae028e1a8fa",
+        "573bec6044bc7d05",
+        "e365c0379b008026",
+        "8a4c9170dc7c119f",
+        "76cf9e2237b960ba",
+        "014aae827a3bded4",
+        "c91b6d99606092e8",
+        "4d5171a70112c334",
+        "da57c8d9b89f44a0",
+        "19e6f9b458d1faeb",
+        "757a29b3ac37af67",
+        "e2c8de02a6eeef27",
+        "6c231898ffae9e9d",
+        "c7aa544668eeafda",
+        "a2e123d42dc1cb54",
+        "4c66fbb298e8e9c2",
+        "f50f947135c16b8b",
+        "3f5dab4b0ae24c6b",
+        "0c2a28e088fdb629",
+        "e356f6a7e5c9fabf",
+        "783a82bb9e37b58a",
+        "ab3a5a8167494d37",
+        "db02fc0d045f480f",
+        "52daca6e247fc4ad",
+        "6e04bd642c205db8",
+        "5b950682eeed0aea",
+        "0da54afec7637c49",
+        "25f02b6adf903f3e",
+        "6295b7b8bed5c017",
+        "6eba228694e41167",
+        "f13b06b409ed39ae",
+        "0356308cd195e268",
+        "2a0e551dedd4bf5a",
+        "d348b83f3263a191",
+        "5f9edc2e6e78c4b1",
+        "2fa250c4ec0851c1"
+      ]
+    },
+    "CoolPosing/changelog": {
+      "product": "CoolPosing",
+      "kind": "changelog",
+      "source": "CoolPosing/Packages/jp.unisakistudio.coolposing/CHANGELOG.md",
+      "source_sha256": "36373ccd98242308783275cee42905131028a596d2e43526f0132d6444c33a49",
+      "blocks": [
+        "3e9e4ae5e303de21",
+        "62431d8d88608efa",
+        "545755f8035c08c9",
+        "79fec8d04d3cf763",
+        "25b732bdda1bb358",
+        "25d84bc9d3caff87",
+        "e28646fa3f9dff66",
+        "9c2d314c256c9291",
+        "e54c29f7f1ba8dc5",
+        "5cc5f9cf1ce29361",
+        "52238d0762c5e131",
+        "4d858f22302d73dc",
+        "0240d176c026d4fb",
+        "545755f8035c08c9",
+        "778bdea7493e830d",
+        "5ec0c3c554aaceac",
+        "bd9f7766cc7b65cb",
+        "f392dae87abb9ca4",
+        "7744a854849c8475",
+        "c72d1bf2e1e6cd7b",
+        "3d70a32e5ec8535f",
+        "9175cd807e82185d",
+        "8bfbd61fb0919bf4"
+      ]
+    },
+    "CoolPosing/guide": {
+      "product": "CoolPosing",
+      "kind": "guide",
+      "source": "CoolPosing/Packages/jp.unisakistudio.coolposing/Documentation~/UserGuide.en.md",
+      "source_sha256": "e06f6bd35c4814004654f6307506255f5f409d7b5dfebd0367d4a9329434848c",
+      "blocks": [
+        "9b3438889c475907",
+        "759fd79caf261f73",
+        "4b4ce8f2136c0a4d",
+        "f0994b5bc6eab153",
+        "6ae60319e9c41d31",
+        "b58d5efb219e0955",
+        "7888738c09012544",
+        "3c27365bd82f8dab",
+        "790187b65aa5e389",
+        "cd35a97066714f25",
+        "6a4140f9fcf8696a",
+        "9b067be04670a030",
+        "a7db8e8593d27872",
+        "cc1a83bb12c33553",
+        "0ad9612c7a673560",
+        "f4db826aab55aa89",
+        "eb8cc3b5b69abc5a",
+        "86ed83d79915f37d",
+        "03b70764465e7f92",
+        "e413390613039b45",
+        "9df7843e8496a38b",
+        "be9c9eff2128305e",
+        "668fae5793d40c01",
+        "893f4ac7db85a756",
+        "8b5a14e1b9abc7f5",
+        "67e242f06ec825c5",
+        "9175b123d4e1a515",
+        "e15da49d2794570c",
+        "8f4c3b4f6fb1333f",
+        "e69fbde91fce7241",
+        "e607ff56efa41bdf",
+        "7059f0ed49756023",
+        "37d7ce5459ec7863",
+        "54fa51383a04a1d2",
+        "510c742262d679e6",
+        "4e5d1ed242d317ca",
+        "3c9d2ca82ea9281b",
+        "8b441cc13491f816",
+        "c7067b8f4e3f7447",
+        "4b1071cdbb63c703",
+        "52ab85a1ae376835",
+        "c226cdb39c8c1fb3",
+        "56d27e2f6c98b9e9",
+        "a551cc9a490836e6",
+        "60bb283b1da0925f",
+        "9c1d9eae0539ad04",
+        "2c4cd60737c88005",
+        "bad68e5c4e0ca386",
+        "a0005b4a60905702",
+        "f5e8d80375e8baf8",
+        "126ad096501b9c5b",
+        "94ad60ac38d64519",
+        "8e38def749eacdd0",
+        "f1fe1a80e2e195b5",
+        "fb5bf1d1e9e8a40c",
+        "c43f66aca5cc509d",
+        "499b3bf6280b5942",
+        "baa72162db9180d7",
+        "b55e87f4f36596e5",
+        "89fcad025f1817fd",
+        "15861714eb6995df",
+        "49bf131434354287",
+        "33c86cfe55e40a99",
+        "9868cc425d603a0f",
+        "1c8959f783fe7ffe"
+      ]
+    }
+  },
+  "blocks": {
+    "400f9d61ba8fe81c": {
+      "language": "ja",
+      "text": "# ゆにさきポーズシステム",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/repository",
+        "PosingSystem/readme"
+      ]
+    },
+    "7d2464280b86943d": {
+      "language": "ja",
+      "text": "ゆにさきスタジオのポーズツールで使う共通システムのソースコードとリソースです。",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/repository"
+      ]
+    },
+    "8d1a87061e3c580f": {
+      "language": "ja",
+      "text": "## 使い方・変更履歴",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/repository",
+        "KawaiiPosing/repository",
+        "CoolPosing/repository"
+      ]
+    },
+    "ea2dce3a4072081a": {
+      "language": "ja",
+      "text": "- [README：導入・更新・設定方法](Packages/jp.unisakistudio.posingsystem/README.md)\n- [変更履歴](Packages/jp.unisakistudio.posingsystem/CHANGELOG.md)\n- [BOOTH商品ページ](https://yunisaki.booth.pm/items/5479202)",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/repository"
+      ]
+    },
+    "c040aee682c09a53": {
+      "language": "ja",
+      "text": "導入済みのバージョンは、Unityでポーズツールを選んだときのInspector上部で確認できます。使い方はパッケージ内のREADMEにまとめています。",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/repository",
+        "KawaiiPosing/repository",
+        "CoolPosing/repository"
+      ]
+    },
+    "5deb981a6d80df41": {
+      "language": "ja",
+      "text": "## このリポジトリと利用規約",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/repository",
+        "KawaiiPosing/repository",
+        "CoolPosing/repository"
+      ]
+    },
+    "b333e3f69aa43084": {
+      "language": "ja",
+      "text": "本リポジトリのソースコード、リソースはオープンソースではありません。利用にはBOOTHでの商品購入と利用規約への同意が必要です。",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/repository",
+        "KawaiiPosing/repository",
+        "CoolPosing/repository"
+      ]
+    },
+    "88d9253fa14db58d": {
+      "language": "ja",
+      "text": "[利用規約](Packages/jp.unisakistudio.posingsystem/ゆにさきポーズシステム利用規約（日本語版）.pdf)",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/repository"
+      ]
+    },
+    "3384667be43ce486": {
+      "language": "ja",
+      "text": "「可愛いポーズツール」「カッコいいポーズツール」などで使う共通のポーズシステムです。Modular AvatarとNDMFを使用し、アバターのアップロード時に必要なメニューやアニメーションを生成します。",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/readme"
+      ]
+    },
+    "37b1b586e6f00193": {
+      "language": "ja",
+      "text": "このREADMEは開発中のv3.2.0向けです。正式リリース日は未定です。導入済みのバージョンは、ポーズツールのInspector上部で確認できます。[追加機能・変更履歴](CHANGELOG.md)もご覧ください。",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/readme"
+      ]
+    },
+    "dddcc5e2fa2e62d6": {
+      "language": "ja",
+      "text": "## 表示言語とオフライン文書",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/readme",
+        "KawaiiPosing/readme",
+        "CoolPosing/readme"
+      ]
+    },
+    "f057ec94623ab83e": {
+      "language": "ja",
+      "text": "Inspector最上部の「Language / 言語」で表示言語を選びます。一つの選択がInspectorと生成するVRChatメニューの両方に適用されます。ゲーム内の表示を変更するにはアバターを再アップロードしてください。",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/readme",
+        "KawaiiPosing/readme",
+        "CoolPosing/readme"
+      ]
+    },
+    "6c7e34186b56734a": {
+      "language": "ja",
+      "text": "未選択の場合はパソコンの言語を使い、対応していない言語では英語を使います。Windows・macOS・Linuxに対応します。最後に選んだ言語はEditorPrefsに保存し、このパソコンの同じOSユーザーの別プロジェクトでも使用します。アバターに保存済みの明示的な選択は維持します。他のパソコンには同期しません。ライセンスの保存方法は変更しません。",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/readme",
+        "KawaiiPosing/readme",
+        "CoolPosing/readme"
+      ]
+    },
+    "ef58b910342a4f74": {
+      "language": "ja",
+      "text": "README・変更履歴・使い方は同梱の[言語一覧](Documentation~/Localization/index.html)から選べます。Inspectorの「使い方」と「変更履歴」も選択言語に従います。元の利用規約と参照翻訳は従来どおり別に用意しています。",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/readme",
+        "KawaiiPosing/readme",
+        "CoolPosing/readme"
+      ]
+    },
+    "ca655f870ce7db19": {
+      "language": "ja",
+      "text": "## デスクトップモードの姿勢切り替え",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/readme"
+      ]
+    },
+    "3240210502334b10": {
+      "language": "ja",
+      "text": "デスクトップモードで立ち・中腰・座りを切り替えたとき、指定ポーズが反映されるまでの遅延を短縮しました。通常のビルドとプレビルドで有効になり、専用コマンドや追加設定は不要です。VRモードや特殊な状態では従来の処理を維持します。旧版のプレビルドは更新してからアップロードしてください。",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/readme"
+      ]
+    },
+    "29b7574e70527eea": {
+      "language": "ja",
+      "text": "## 導入とバージョンアップ",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/readme"
+      ]
+    },
+    "0eb826cefdff818a": {
+      "language": "ja",
+      "text": "各商品の購入ファイルと導入手順に従い、VCCまたはALCOMからポーズツールを追加してください。このシステムはポーズツールの依存パッケージとして導入されます。",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/readme"
+      ]
+    },
+    "a9c8afa886a35fa3": {
+      "language": "ja",
+      "text": "v3.2.0の必要環境は次のとおりです。",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/readme"
+      ]
+    },
+    "aa0e93c49ca876d3": {
+      "language": "ja",
+      "text": "- Unity 2022.3のVRChatアバタープロジェクト\n- VRChat Avatars SDK 3.10.4以上\n- Modular Avatar 1.15.1以上の1.x系\n- NDMF（Non-Destructive Modular Framework）1.14.0以上の1.x系",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/readme"
+      ]
+    },
+    "fc547ae5cc8c18cd": {
+      "language": "ja",
+      "text": "可愛いポーズツールをお使いの方は、ALCOM / VCCで可愛いポーズツールを3.2.0に更新し、ゆにさきポーズシステムも3.2.0になったことを確認してください。プレビルドを使っていた場合は「プレビルドを更新」を押し、シーンを保存してからアバターをアップロードします。",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/readme"
+      ]
+    },
+    "064a37c64aaa4128": {
+      "language": "ja",
+      "text": "カッコいいポーズツール1.2.0は共通3.2.0を使用します。商品と共通システムを対応する版へ併せて更新してください。",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/readme"
+      ]
+    },
+    "bd5e80df85691664": {
+      "language": "ja",
+      "text": "### 8bit版を使っていた方へ",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/readme"
+      ]
+    },
+    "810eb63597d533a4": {
+      "language": "ja",
+      "text": "新規追加は通常のPrefabに統一しました。「機能」で不要な項目をオフにすると、使用量を抑えられます。姿勢選択だけなら基本の使用量は8 bitです。",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/readme"
+      ]
+    },
+    "868cf18738a90d19": {
+      "language": "ja",
+      "text": "旧8bit版Prefabは、配置済みのアバターやプリセットの参照を保つため、各商品の「Editor/Legacy」に残しています。既存の8bit版を使うために、Prefabを削除したり置き換えたりする必要はありません。Unityの新規追加メニューから8bit版を選ぶ手順は廃止しています。",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/readme"
+      ]
+    },
+    "b7314ce3548dc2e7": {
+      "language": "ja",
+      "text": "## 設定画面の見方",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/readme"
+      ]
+    },
+    "6ef562436dd6f663": {
+      "language": "ja",
+      "text": "Hierarchyでアバター内の「可愛いポーズ」「カッコいいポーズ」などを選ぶと設定できます。",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/readme"
+      ]
+    },
+    "db11f5b7a2a1a0d7": {
+      "language": "ja",
+      "text": "| タブ | 設定する内容 |\n| --- | --- |\n| 機能 | ゲーム内メニューに追加する項目、便利機能、アイコン画像、ExpressionParametersの使用量 |\n| ポーズ一覧 | ポーズの選択・追加・順番変更、Sceneでのプレビュー、ポーズごとの詳細、アニメーション調整 |\n| アバター調整 | 体格に合わせた補正、膝の補正、元の姿勢や自作モーションの取り込み、プリセット |",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/readme"
+      ]
+    },
+    "3c03db36ebfa6a46": {
+      "language": "ja",
+      "text": "詳しい設定がある項目は「設定を開く」を押すと、その下に設定欄が開きます。呼吸の設定も「機能」にあります。",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/readme"
+      ]
+    },
+    "ef7802d53ffe53c1": {
+      "language": "ja",
+      "text": "上部の「ヘルプ・変更履歴」から、使い方・お問い合わせ・変更履歴を開けます。変更履歴は商品とゆにさきポーズシステムを切り替えて読めます。",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/readme"
+      ]
+    },
+    "953ac2385dc6fc80": {
+      "language": "ja",
+      "text": "## 機能とExpressionParametersの使用量",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/readme"
+      ]
+    },
+    "7abe60caa96b545e": {
+      "language": "ja",
+      "text": "「機能」の「メニュー追加」で選んだ項目がゲーム内メニューに表示されます。たとえば「左右反転」を選ぶと、ゲーム内で反転を切り替えられるようになります。Inspectorで選んだだけで、常に全ポーズが反転する設定ではありません。",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/readme"
+      ]
+    },
+    "bddece415aadd3f2": {
+      "language": "ja",
+      "text": "| 機能 | 追加で使うbit数 |\n| --- | ---: |\n| 左右反転 | 1 bit |\n| ジェスチャー無効 | 1 bit |\n| 呼吸の動きをつける | 0 bit |\n| 呼吸（ゲーム内でのON/OFF） | 1 bit |\n| 足の高さ | 8 bit |\n| 床の高さ | 8 bit |\n| 撮影モード（自分の画面だけ） | 0 bit |\n| 撮影モードを同期する | 16 bit |\n| 撮影モード中は頭を非表示にしない | 0 bit |\n| VRChat標準の揺れを止める | 0 bit |\n| 首の向きの違いによる姿勢崩れを抑制 | 1 bit（寝返りと共用） |\n| 寝返り | 10 bit（うち1 bitを姿勢崩れ抑制と共用） |",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/readme"
+      ]
+    },
+    "86be79bc5a102629": {
+      "language": "ja",
+      "text": "寝返りの内訳は、ON/OFFに1 bit、頭の傾きに8 bit、首固定に1 bitです。姿勢崩れ抑制をすでに有効にしている場合、寝返りを追加したときに増える量は9 bitになります。共用分は重複して数えず、チェックを変えると表示も更新されます。",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/readme"
+      ]
+    },
+    "7496dd3b030e5bc0": {
+      "language": "ja",
+      "text": "表示する合計は、そのアバターに導入したポーズツールの分です。衣装やほかのギミックを含むアバター全体の合計ではありません。複数のポーズツールを併用したときも共通の設定は重複して数えません。姿勢数が基本の番号範囲を超える構成では、姿勢選択にも追加のbitが必要になります。",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/readme"
+      ]
+    },
+    "9606e00d3187d305": {
+      "language": "ja",
+      "text": "### 足の高さと床の高さ",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/readme"
+      ]
+    },
+    "4e2acdd51f81bc24": {
+      "language": "ja",
+      "text": "- 「足の高さ」：頭の位置を保ちながら、足側の高さを調整します。足を床やベッドに合わせたいときに使います。\n- 「床の高さ」：頭を含む身体全体を上下へ移動します。50%が元の高さ、0%が3m下、100%が3m上です。初期値は50%です。",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/readme"
+      ]
+    },
+    "8ce73c604a564659": {
+      "language": "ja",
+      "text": "どちらもゲーム内の「設定」にあり、「床の高さ」は「足の高さ」の次に並びます。「床の高さ」を中央から動かすと上下へ移動し、50%付近へ戻すと元の高さへ戻って補正を終了します。別の浮遊ON/OFFスイッチはありません。視点の補正は浮遊開始時と床の高さの操作中に行います。",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/readme"
+      ]
+    },
+    "9bcdf69a52e1b232": {
+      "language": "ja",
+      "text": "足の高さは、通常のアニメーションでは高さ調整のために全身の動きを重複して生成しない方式に変更しました。生成するアニメーションのデータ量を抑えられますが、アバター全体の容量が一律で3分の1になるわけではありません。",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/readme"
+      ]
+    },
+    "2579d2e4e1d5ded1": {
+      "language": "ja",
+      "text": "### 撮影モード",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/readme"
+      ]
+    },
+    "769f88ffabb12209": {
+      "language": "ja",
+      "text": "1. 「機能 > メニュー追加 > 撮影モード」をオンにします。\n2. VRChatで「撮影モード」を開き、「姿勢選択」でポーズを選びます。\n3. 「距離」で前方へ最大3mまで移動し、「向き」で回転させます。距離を0より大きくすると、アバターはこちらを向きます。\n4. 必要に応じて「足固定」をオンにします。開始時には足固定を強制しないため、固定前に位置を調整できます。「ジェスチャー無効」をメニューに追加している場合は、同じ画面で手の形も切り替えられます。\n5. 「撮影モードを終了」で距離と向きを戻し、足固定を解除します。",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/readme"
+      ]
+    },
+    "2d309b91454d5538": {
+      "language": "ja",
+      "text": "撮影モードの移動・回転は、自分の画面だけで使う場合は0 bitです。他の人にも位置と向きを見せたい場合は「便利機能 > 撮影モードを同期する」をオンにします。距離と向きに合計16 bitを使用します。",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/readme"
+      ]
+    },
+    "1e2828b934ad2d60": {
+      "language": "ja",
+      "text": "近くにいる自分のアバターの頭が見えなくなる場合は、「便利機能 > 撮影モード中は頭を非表示にしない」をオンにしてください。撮影中の自分の画面だけに適用し、終了すると通常の表示へ戻ります。",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/readme"
+      ]
+    },
+    "1b90aa9d1fa69a30": {
+      "language": "ja",
+      "text": "### ジャンプで寝姿勢を切り替える",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/readme"
+      ]
+    },
+    "81f470a45fcbcdc8": {
+      "language": "ja",
+      "text": "仰向けとうつ伏せの両方を選ぶと、その場でジャンプして切り替えられます。片方だけを選んだ場合はその姿勢を保ちます。ジャンプで切り替えたくない場合は、Unityの「機能 → 便利機能」で「ジャンプで寝姿勢を切り替える」をオフにしてください。同期パラメーターの追加消費は0 bitです。複数のポーズツールを使うアバターでは、いずれかでオフにするとアバター全体に適用されます。",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/readme"
+      ]
+    },
+    "3bf87336a1832ccd": {
+      "language": "ja",
+      "text": "### 寝返り",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/readme"
+      ]
+    },
+    "106dc56595373d52": {
+      "language": "ja",
+      "text": "対応する寝姿勢で、頭を左右に傾けると身体も滑らかに寝返りします。すべての寝姿勢が自動で対応する機能ではありません。",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/readme"
+      ]
+    },
+    "ce8d6b30dc0f88ec": {
+      "language": "ja",
+      "text": "1. 「機能 > メニュー追加 > 寝返り」をオンにします。\n2. 「ポーズ一覧」で使いたい寝姿勢の「詳細」を開き、「寝返りを使う」をオンにします。\n3. 「寝返り時の横向き」に横向きのアニメーションを設定します。元の姿勢と横向きの姿勢から、左右への寝返りを作成します。必要に応じて「接地補正の強さ」を調整してください。\n4. VRChatで対応する姿勢を選び、「寝返り」をオンにします。首固定は解除して使用してください。",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/readme"
+      ]
+    },
+    "1aeced6549aa7ed2": {
+      "language": "ja",
+      "text": "寝返りを使うポーズでは、頭の傾きでアニメーションの再生位置を決めるため、通常のMotionTime設定は使えなくなります。完成済みの寝返りアニメーションを使う場合は、通常のアニメーション欄へ指定して「寝返り時の横向き」を空にします。再生位置0が左、0.5が仰向け、1が右になるアニメーションを用意してください。",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/readme"
+      ]
+    },
+    "fc8c30d978b98027": {
+      "language": "ja",
+      "text": "### 呼吸と標準の揺れ",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/readme"
+      ]
+    },
+    "7378ada9fd45ff21": {
+      "language": "ja",
+      "text": "「機能 > 便利機能 > 呼吸の動きをつける」で、胸などが呼吸に合わせて動くようになります。「設定を開く」から、姿勢の分類ごとに「なし・弱・中・強・急・カスタム」を選べます。「急」は動きの速い呼吸です。「カスタム」では自分で用意した呼吸アニメーションを指定できます。",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/readme"
+      ]
+    },
+    "035eb41021567955": {
+      "language": "ja",
+      "text": "呼吸の動きだけなら0 bitです。VRChatで呼吸を止めたり再開したりする場合は、「メニュー追加 > 呼吸」もオンにしてください。ON/OFFの同期に1 bitを使用します。強さを変えてもbit数は増えません。",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/readme"
+      ]
+    },
+    "73d6b9fa21a58416": {
+      "language": "ja",
+      "text": "胸に合わせて首・肩・腕なども動かし、頭や手の移動を抑えています。完全な位置固定ではないため、体型やポーズに合わせて強さを選んでください。",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/readme"
+      ]
+    },
+    "edd1b2ff7c7133d3": {
+      "language": "ja",
+      "text": "「便利機能 > VRChat標準の揺れを止める」は、VRChatが標準で付ける待機中の身体の揺れを抑える設定です。初期値はオフで、ポーズツール独自の呼吸やほかのカスタム動作を維持します。呼吸の動きを使わない場合も選択でき、bit数は増えません。標準の待機動作以外が原因の揺れは、この設定では止まりません。",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/readme"
+      ]
+    },
+    "ebc17b91aa6199bd": {
+      "language": "ja",
+      "text": "複数のポーズツールを併用している場合、いずれかで標準の揺れを止めるとアバター全体に適用されます。元に戻す場合は、すべてのツールでこの設定をオフにして再アップロードしてください。",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/readme"
+      ]
+    },
+    "bcd2fffdde5b82e8": {
+      "language": "ja",
+      "text": "### 首の向きの違いによる姿勢崩れを抑制",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/readme"
+      ]
+    },
+    "a5ac9813282e3d14": {
+      "language": "ja",
+      "text": "元のポーズと首の向きが違うことで、首固定を解除したときに姿勢が崩れる場合に使います。「機能 > 便利機能」にあり、ゲーム内に専用メニューは追加されません。首固定中は元のポーズの向きを使います。仰向け寝は元の上向きを保つため、補正対象から除いています。",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/readme"
+      ]
+    },
+    "b23ef4c10cebd6f6": {
+      "language": "ja",
+      "text": "### メニューのアイコン画像",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/readme"
+      ]
+    },
+    "972ae159d42c5165": {
+      "language": "ja",
+      "text": "- 「ポーズアイコン生成」：アバターが各ポーズを取った画像を生成し、メニューに表示します。ポーズを見分けやすくなりますが、画像生成の分だけビルドに時間がかかります。\n- 「アイコン画像の容量を減らす」：画像の解像度を下げ、アバターの容量を抑えます。",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/readme"
+      ]
+    },
+    "a3b85fa920925ea4": {
+      "language": "ja",
+      "text": "Android向けのビルドではポーズアイコンを生成しません。衣装などを変更した後は「アイコンを撮り直す」を使用してください。ポーズ一覧用の画像は「ポーズ画像を更新」で更新します。時間のかかる処理なので、確認ダイアログを読んでから実行してください。",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/readme"
+      ]
+    },
+    "27562d3eaa2e3c50": {
+      "language": "ja",
+      "text": "## ポーズの追加・並べ替え・プレビュー",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/readme"
+      ]
+    },
+    "678ba0d2101fa329": {
+      "language": "ja",
+      "text": "「ポーズ一覧」の左側で姿勢の分類を選びます。一番上の虫眼鏡のタブでは、分類をまたいでポーズ名を検索できます。「詳細」を開くとアニメーション、アイコン、MotionTimeなどをまとめて設定できます。",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/readme"
+      ]
+    },
+    "7c14e655c29a3ace": {
+      "language": "ja",
+      "text": "複数のアニメーションは、追加欄へドラッグ＆ドロップするか、Projectで選択して「Projectで選択中のクリップを読み込む」を押してまとめて追加できます。同じクリップの重複は除かれます。",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/readme"
+      ]
+    },
+    "a026d8bf14122ea5": {
+      "language": "ja",
+      "text": "順番を変えるには「詳細」の「順番」で移動先を選びます。上下の移動ボタンも使用でき、移動しても詳細の開閉状態を保持します。",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/readme"
+      ]
+    },
+    "650b99fac5995dcc": {
+      "language": "ja",
+      "text": "各ポーズの「プレビュー」を押すと、調整ウィンドウを開かずSceneで姿勢を確認できます。プレビューを終了すると元の表示に戻ります。この簡易プレビューはMAやNDMFのビルド処理を実行しないため、ビルド時に組み込まれる衣装やFloorAdjusterなどの最終結果とは異なることがあります。最終的な衣装・接地はアバタービルド後にも確認してください。",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/readme"
+      ]
+    },
+    "3c79f05aae20a26e": {
+      "language": "ja",
+      "text": "## アニメーション調整と手足の自動調整（IK）",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/readme"
+      ]
+    },
+    "f1b4cb7aa3381e0d": {
+      "language": "ja",
+      "text": "「ポーズ一覧」の「アニメーション調整」を開くと、プレビューしながら身体や手足を細かく調整できます。調整後はウィンドウの保存操作で調整アニメーションを保存してください。",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/readme"
+      ]
+    },
+    "fd662974ae23df47": {
+      "language": "ja",
+      "text": "手足の自動調整に対応する商品・ポーズでは、アバターの体格に合わせて手足の位置を調整します。アニメーション調整画面の「手足の自動調整を使う」で全体を切り替え、「このポーズのIKを使う」で個別に切り替えられます。自動調整が用意されていないポーズには、その旨を表示します。",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/readme"
+      ]
+    },
+    "cdaa337a7b96a497": {
+      "language": "ja",
+      "text": "自動調整をもとに手作業で仕上げたい場合は、「IKを調整に反映」を押します。その時点のIKの結果を新しい調整アニメーションへ書き込み、そのアバターの対象ポーズのIKをオフにします。元のアニメーションは保持します。このボタンは、全体と対象ポーズの自動調整が有効で、適用できるIK設定がある場合に使用できます。",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/readme"
+      ]
+    },
+    "96491da66613749b": {
+      "language": "ja",
+      "text": "「アバター調整」の「膝が逆向きに曲がるのを防ぐ」では、膝の補正を切り替えられます。詳細の「最低膝曲げ角度（°）」で曲げ角度を設定します。「アバター固有補正を使う」は対応する補正データがある場合に使用できます。手足の自動調整と重なる補正は併用できない場合があります。",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/readme"
+      ]
+    },
+    "d50fef0dce536f27": {
+      "language": "ja",
+      "text": "## 元の姿勢・自作モーション・プリセット",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/readme"
+      ]
+    },
+    "a6a7c99cb75f58bc": {
+      "language": "ja",
+      "text": "これらは「アバター調整」で設定します。",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/readme"
+      ]
+    },
+    "49ada2ae37af40ea": {
+      "language": "ja",
+      "text": "- 「アバターの元の立ち・しゃがみ・伏せ姿勢を使う」：アバターに元から設定されていた姿勢を自動で取り込みます。\n- 「自分で用意したモーションを使う」：取り込み設定を開いて、立ち・しゃがみ（Crouching）・伏せ（Prone）など、種類ごとに使うモーションを個別に指定します。原則として一つの種類に一つのモーションを設定します。\n- 「各固定機能の他ギミックとの統合」：ほかのギミックとの併用で固定機能がうまく動かない場合にオンにします。",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/readme"
+      ]
+    },
+    "446593edb3966c9b": {
+      "language": "ja",
+      "text": "自分でモーションを指定する取り込み設定は、元の姿勢を自動で取り込む設定とは別の機能です。",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/readme"
+      ]
+    },
+    "4a5b5b615ce12e70": {
+      "language": "ja",
+      "text": "プリセットはタブの一番下にあります。名前で検索し、「このプリセットに変更する」でポーズの設定を切り替えます。主に導入時の初期設定に使うもので、現在の設定を置き換えるため、調整済みの内容がある場合は保存してから切り替えてください。",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/readme"
+      ]
+    },
+    "e3e06f99b48bdc04": {
+      "language": "ja",
+      "text": "プリセット一覧を表示するときは名前や対応アバターの情報だけを読み込み、調整アニメーションは選んだプリセットを適用するときに読み込みます。初回の一覧作成でも、全アバター分のアニメーションを先読みしません。",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/readme"
+      ]
+    },
+    "64e90697af81f8c9": {
+      "language": "ja",
+      "text": "一覧は「アバターに適合」「ユーザー作成」「ゆにさきスタジオ公式」に分かれています。「同梱プリセットを表示しない」は同じプロジェクトで共通の表示設定です。プリセットを追加・編集・削除すると一覧が更新されます。表示が変わらない場合は「再読込」を押してください。",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/readme"
+      ]
+    },
+    "6e04bd642c205db8": {
+      "language": "ja",
+      "text": "## プレビルドと警告",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/readme",
+        "KawaiiPosing/readme",
+        "CoolPosing/readme"
+      ]
+    },
+    "0c801e40c7f213c8": {
+      "language": "ja",
+      "text": "「アバターの元の立ち・しゃがみ・伏せ姿勢を使う」がONの場合、生成するたびにアバターのBaseからモーションを検出します。検出結果を手動の取り込み設定へ書き戻さないため、自動取り込みだけなら一覧は未指定のままです。Baseのモーション変更や自動取り込みのON/OFFは次の生成へ反映されます。",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/readme"
+      ]
+    },
+    "13047efed776d740": {
+      "language": "ja",
+      "text": "アップロード時の自動取り込みはビルド用コピーに反映します。シーン上の元オブジェクト、取り込み設定、取り込み元のControllerやモーションを書き換えません。プレビルド済みで入力に変更がなければ、その結果を再利用します。",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/readme"
+      ]
+    },
+    "f517692ddf9c2c61": {
+      "language": "ja",
+      "text": "手動指定がある種類は手動設定を優先し、回転・調整アニメーション・再生位置指定も反映します。「使用」をOFFにした設定や、指定済みモーションを外した設定は、その種類の自動取り込みを止めます。「手動指定を解除」でその種類の設定と調整を外すと、自動取り込みがONなら次の生成で再検出します。この操作はUndoで戻せます。同じ種類に旧設定が複数ある場合は、Inspectorで選ばれた有効な設定を優先します。",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/readme"
+      ]
+    },
+    "aaf3a878e9816116": {
+      "language": "ja",
+      "text": "旧版の自動取り込みで一覧に追加された設定は、手動登録・調整済みの設定と区別できないため、自動削除しません。自動取り込みへ戻したい種類だけ「手動指定を解除」を使ってください。複数製品を同じアバターへ導入している場合は、他の製品にある手動設定も共通の元姿勢に反映されます。",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/readme"
+      ]
+    },
+    "bc8b80681785c165": {
+      "language": "ja",
+      "text": "プレビルドは、生成したデータを再利用してアバターのビルド時間を短くする機能です。「プレビルドを更新」で作成・更新できます。通常のアバタービルドでも必要なデータは生成されるため、毎回手動でプレビルドする必要はありません。",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/readme"
+      ]
+    },
+    "62dafc8edf1a6c2c": {
+      "language": "ja",
+      "text": "設定を変えると更新が必要な状態になり、Inspector上部の「設定の確認」やHierarchyのマークでお知らせします。ポーズやIK設定を変更した後は、プレビルドを更新すると次回以降のビルド時間を抑えられます。",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/readme"
+      ]
+    },
+    "fb6cd08fc751a6dd": {
+      "language": "ja",
+      "text": "「警告の表示設定」は「設定の確認」の枠内にあります。警告の種類ごと、またはHierarchyのマークを非表示にできます。非表示にしても設定の問題が解消されたり、生成データが更新されたりするわけではありません。エラーや必要な生成処理はそのままです。",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/readme"
+      ]
+    },
+    "25f02b6adf903f3e": {
+      "language": "ja",
+      "text": "## 使用上の注意",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/readme",
+        "KawaiiPosing/readme",
+        "CoolPosing/readme"
+      ]
+    },
+    "3f86d01d52453bac": {
+      "language": "ja",
+      "text": "- 3点トラッキングとデスクトップでの使用を想定しています。フルボディトラッキング中の姿勢固定には対応していません。\n- 体格や改変内容によって、手足の接地や衣装の見え方に追加調整が必要になることがあります。\n- 特殊なBaseレイヤーやほかの姿勢変更ギミックとの組み合わせでは、意図どおりにならない場合があります。\n- 撮影モードの移動・回転と床の高さは、ツールポーズと未選択時の標準・独自モーションを補正対象にします。VRChat内で置換される標準モーションや視点の挙動は、実機で確認してください。",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/readme"
+      ]
+    },
+    "f29d73b590b61596": {
+      "language": "ja",
+      "text": "## 利用規約・サポート",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/readme"
+      ]
+    },
+    "02ed399a8dfddbfe": {
+      "language": "ja",
+      "text": "本リポジトリのソースコード、リソースはオープンソースではありません。利用には商品の正規購入と、[同梱の利用規約](ゆにさきポーズシステム利用規約（日本語版）.pdf)への同意が必要です。",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/readme"
+      ]
+    },
+    "5a741fefa8413484": {
+      "language": "ja",
+      "text": "- [可愛いポーズツールのマニュアル](https://docs.unisakistudio.jp/kawaiiposing/manual/)\n- [カッコいいポーズツールのマニュアル](https://docs.unisakistudio.jp/coolposing/manual/)\n- [お問い合わせ](https://help.unisakistudio.jp/)",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/readme"
+      ]
+    },
+    "e8ae46c0808b3167": {
+      "language": "ja",
+      "text": "不具合の報告には、商品とゆにさきポーズシステムのバージョン、Unity・VRChat SDK・Modular Avatar・NDMFの各バージョン、使用アバター、再現手順、Consoleのエラー内容を添えてください。",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/readme"
+      ]
+    },
+    "3e9e4ae5e303de21": {
+      "language": "ja",
+      "text": "# 変更履歴",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/changelog",
+        "KawaiiPosing/changelog",
+        "CoolPosing/changelog"
+      ]
+    },
+    "1fea13aed5680b51": {
+      "language": "ja",
+      "text": "## [3.2.0] - 未リリース",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/changelog",
+        "KawaiiPosing/changelog"
+      ]
+    },
+    "545755f8035c08c9": {
+      "language": "ja",
+      "text": "### 追加",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/changelog",
+        "PosingSystem/changelog",
+        "KawaiiPosing/changelog",
+        "KawaiiPosing/changelog",
+        "CoolPosing/changelog",
+        "CoolPosing/changelog"
+      ]
+    },
+    "79fec8d04d3cf763": {
+      "language": "ja",
+      "text": "- Inspector、編集操作、導入ダイアログ、標準姿勢名、生成するVRChatメニューを30言語で表示できるようにしました。\n- Inspectorとゲーム内メニューの言語選択を統一しました。初期値はパソコンの言語を使い、最後の選択を同じOSユーザーの別プロジェクトでも使用します。\n- README・変更履歴・オフラインの使い方を選択言語で開けるようにしました。\n- 標準姿勢128件の表示名と各機能の説明を、既存の用語に合わせて用意しました。",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/changelog",
+        "KawaiiPosing/changelog",
+        "CoolPosing/changelog"
+      ]
+    },
+    "25b732bdda1bb358": {
+      "language": "ja",
+      "text": "### 互換性",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/changelog",
+        "KawaiiPosing/changelog",
+        "CoolPosing/changelog"
+      ]
+    },
+    "25d84bc9d3caff87": {
+      "language": "ja",
+      "text": "- アバターの既存設定、独自の名前、アセット参照、パラメーター識別子、ライセンスの保存方法を維持します。",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/changelog",
+        "KawaiiPosing/changelog",
+        "CoolPosing/changelog"
+      ]
+    },
+    "e4cba598410c7048": {
+      "language": "ja",
+      "text": "## [3.1.2] - 2026-11-09",
+      "invariant": true,
+      "contexts": [
+        "PosingSystem/changelog",
+        "KawaiiPosing/changelog"
+      ]
+    },
+    "26e3fc73d9977c89": {
+      "language": "ja",
+      "text": "- 「首の向きの違いによる姿勢崩れを抑制」をオンにしていると、伏せから立ち上がったあとも顔が上を向いたままになる問題を修正しました。\n- 「足の高さ」をオフにしても、EXメニューの「設定 → あおむけ時自動頭固定」で頭の固定を切り替えられるようになりました。3.1.0・3.1.1で項目が消えたアバターも、更新後にビルドすると項目が戻ります。\n- Unityでアバター本体のチェックを外していても、「プレビルドを更新」できるようになりました。\n- 旧版の共通ポージングControllerがAssetsに残っていると、更新後にポーズを生成できないことがある問題を修正しました。ご自身で編集したControllerの設定も引き継ぎます。\n- ツールやその親が無効で共通ポージングAnimatorを使えないときは、対象の名前を表示します。「設定の確認 → 対象を選択」からその場所を開けます。\n- プレビルドに「設定の更新あり」と表示されたとき、「詳細 → 保存時から変わった項目を確認」で、前回と違う設定を確認できるようになりました。\n- スクリプトのエラーでビルドが止まったとき（PS050）は、Unityが検出した元のエラーを最大5件表示します。「このエラーについて相談する」から、Unityや対応ツールのバージョンとエラー番号が入った下書きを確認・編集して送信できます。",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/changelog"
+      ]
+    },
+    "5b848fae7ca7403a": {
+      "language": "ja",
+      "text": "プレビルドを使っていた場合は、更新後に「プレビルドを更新」を押してシーンを保存し、アバターを再度ビルド・アップロードしてください。",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/changelog"
+      ]
+    },
+    "6adc78fab2490474": {
+      "language": "ja",
+      "text": "## [3.1.1] - 2026-11-08",
+      "invariant": true,
+      "contexts": [
+        "PosingSystem/changelog",
+        "KawaiiPosing/changelog"
+      ]
+    },
+    "8e9e9b2a682e7cca": {
+      "language": "ja",
+      "text": "- 「左右反転」をオフにしても、有効にした「床の高さ」と「寝返り」がVRChatのEXメニューの「設定」に表示されるようになりました。\n- 旧版でポーズを並べ替えたり、削除・改名したりしても、「足伸ばし」「リラックス」「膝立て」にそれぞれ正しい寝返りを引き継ぎます。完全にUnpackした場合も、元のポーズを特定できれば引き継ぎます。自作ポーズや、ご自身でオフにした寝返り、差し替えた横向きモーションは保持されます。\n- VRChatのアバター選択時に、一瞬うつ伏せになる問題を修正しました。うつ伏せだけを選んだ状態でジャンプすると一瞬仰向けになる問題も修正しました。ジャンプでの切り替えは「機能 → 便利機能 → ジャンプで寝姿勢を切り替える」でオフにできます。初期設定はオンです。\n- 更新後に共通ポージング用のAnimator Controllerの参照が外れた場合、復元できるときは警告を表示して設定から作り直します。複数のアバターで共有しているControllerの参照も保持します。\n- プロジェクトにコンパイルエラーがあるときは、ビルドの最初に原因を案内して停止します。スクリプトのエラーで参照を確認できない間は、生成済みControllerの自動整理を見合わせます。\n- プロジェクト内に商品と同名のPrefabがあっても、ツール追加時に正式なPrefabを優先します。共通Controllerの改行だけが違う場合もプレビルドを続行できます。\n- ポーズツールが追加するFXレイヤー（床の高さなど）のWrite Defaultsを、アバター側の設定に合わせるようにしました。",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/changelog"
+      ]
+    },
+    "bb3e9468e4514bac": {
+      "language": "ja",
+      "text": "プレビルドを使っていた場合は、更新後にシーン上のツールで「プレビルドを更新」を押してシーンを保存し、アバターを再度ビルド・アップロードしてください。",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/changelog"
+      ]
+    },
+    "0d3bc8247be4c5a3": {
+      "language": "ja",
+      "text": "## [3.1.0] - 2026-11-07",
+      "invariant": true,
+      "contexts": [
+        "PosingSystem/changelog",
+        "KawaiiPosing/changelog"
+      ]
+    },
+    "09cfa86c5703dce4": {
+      "language": "ja",
+      "text": "- 対応ポーズの手足を体格に合わせる自動調整（IK）と、アバター固有補正・膝の逆曲がり防止に対応しました。\n- 撮影モードでアバターの位置と向きを調整できます。位置・向きの同期と、撮影中の自分の頭の表示も選べます。\n- 「床の高さ」で身体全体を上下3mまで移動できます。「足の高さ」と使い分けられます。\n- 呼吸の動き、標準の待機中の揺れを止める設定、首の向きによる姿勢崩れを抑える設定を追加しました。\n- 使用する機能とパラメーター使用量をInspectorで確認できます。ポーズ検索・一括追加・並べ替え・Sceneでの簡易プレビューにも対応しました。\n- デスクトップモードの立ち・中腰・座りの切り替えを高速化しました。\n- 設定変更後のプレビルド警告、Inspectorのスクロール負荷、生成物整理時の長時間停止を改善しました。\n- 自動取り込みがONのとき、設定を変えていないプレビルドに更新警告が出て、アップロード時に再生成する問題を修正しました。取り込み結果は生成するアバターへ反映し、元オブジェクトの取り込み設定は変更しません。\n- 頭の傾きによる寝返りと、ポーズごとの対応モーション設定を追加しました。\n- 旧プリセットの寝返り設定の引き継ぎ、自作モーションの取り込み、生成アセットの管理を改善しました。",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/changelog"
+      ]
+    },
+    "b953e3ee8f31f39b": {
+      "language": "ja",
+      "text": "## [3.1.0-beta.2] - オープンベータ版（2026-11-05）",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/changelog",
+        "KawaiiPosing/changelog"
+      ]
+    },
+    "97ee69044f86beb5": {
+      "language": "ja",
+      "text": "- IKの「位置の長さの基準」に、固定長と、HeadからViewpointまでの高低差（Y）・前後差（Z）を追加。\n- Inspectorの警告をHierarchyのオブジェクト名の左にも表示。プレビルド未実行・設定変更のほか、モーション取り込みやプリセット操作で表示中の警告にも対応。\n- シーンを開いたときなどの生成物の自動整理で、別シーンの生成Controllerを読み込んでUnityが長時間止まる問題を修正。\n- ポーズ一覧や機能を変更したときにプレビルド履歴が消える問題を修正。「未実行」ではなく「プレビルド後に設定が変更されています」と表示し、Hierarchyにも更新が必要な警告を表示。\n- Inspector・Hierarchy表示用のプレビルド比較結果を共有し、設定や参照アセットが変わっていない間のスクロール負荷を軽減。ビルド時の比較は従来どおり毎回実行。",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/changelog"
+      ]
+    },
+    "0b2ff0b532ec82c8": {
+      "language": "ja",
+      "text": "## [3.1.0-beta.1] - オープンベータ版（2026-11-04）",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/changelog",
+        "KawaiiPosing/changelog"
+      ]
+    },
+    "f0d251c991ceb466": {
+      "language": "ja",
+      "text": "- デスクトップモードの通常姿勢切り替えを1評価方式へ変更。通常のビルドとプレビルドで有効になり、VRや特殊条件は従来の経路を維持。\n- alpha.3以前のプレビルドを更新対象として認識。\n- 撮影中に床の高さを変えたときの視点を保持し、撮影終了後に最新の床の高さへ復帰。",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/changelog"
+      ]
+    },
+    "aa6273b5dac43a49": {
+      "language": "ja",
+      "text": "- 自動取り込みを生成時だけの検出に変更し、プレビルド／ビルドで手動の取り込み設定を追加・変更しないよう修正。\n- 自動取り込みのON/OFF、Baseの変更、手動設定の解除を再生成へ反映。複数製品で共有する手動指定と調整を保持し、古い取り込みモーションを標準姿勢へ戻す。\n- プレビルドの生成ControllerをシーンGUID別・アバターごとの1ファイルで管理。複製・別シーン・Prefabからの共有参照は更新前に分離。\n- ビルド時はNDMFの一時アセット管理を使用し、編集用の生成ファイルを増やさない。\n- シーンを開いた時と保存時に生成物を確認。未保存編集・Undo/Redo・外部参照がある場合は保持し、所有が明確な未使用ファイルだけをごみ箱へ移動。\n- 取り込みモーションの回転・調整アニメーション・再生位置指定を反映。回転・RootT/RootQ・Humanoid調整の処理を通常ポーズと共通化。\n- 入れ子BlendTreeの調整は取り込み先専用に複製し、元モーションと歩行用のブレンド設定を保持。\n- 「立ちのみ」の再生位置指定は元フレームレートで静止姿勢へ展開し、歩行側の再生を停止しない。",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/changelog"
+      ]
+    },
+    "4830d07616b88adb": {
+      "language": "ja",
+      "text": "## [3.1.0-alpha.2] - クローズドテスト版（2026-10-26）",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/changelog",
+        "KawaiiPosing/changelog"
+      ]
+    },
+    "76cce2e4b295cddb": {
+      "language": "ja",
+      "text": "### 修正・変更",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/changelog",
+        "KawaiiPosing/changelog"
+      ]
+    },
+    "6127d86dd7618c9a": {
+      "language": "ja",
+      "text": "- ツールポーズ未選択時の標準・独自モーションにも撮影モードと床の高さの補正を適用。\n- 床の高さを上下3mへ拡張。50%を元の高さと初期値、0%を3m下、100%を3m上に変更。\n- 「立ちのみ」の上書きで取り込み元BlendTreeを変更する問題を修正。\n- IKルールのない姿勢では手動補正を使用し、不要な生成警告を抑制。\n- 同名ポーズの調整下書きの混同、同一アセット内のモーション変更の見落としを修正。\n- 無効な初期ポーズの番号が別ポーズを初期選択する問題を修正。\n- 非対応AnimatorOverrideControllerの取込み時に例外の代わりに案内を表示。\n- 旧プリセット適用時に明示的な寝返りOFFを保持。\n- 明るいEditorテーマで機能アイコンを見やすく改善。",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/changelog"
+      ]
+    },
+    "03d001b7e48d8f6c": {
+      "language": "ja",
+      "text": "VRChatクライアントでの視点・標準モーション置換後の確認は継続中です。",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/changelog"
+      ]
+    },
+    "9c036f794e2f9b53": {
+      "language": "ja",
+      "text": "## [3.1.0-alpha.1] - 公開前",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/changelog",
+        "KawaiiPosing/changelog"
+      ]
+    },
+    "ffbd42873d123ec1": {
+      "language": "ja",
+      "text": "- 機能ごとのON/OFFと、ExpressionParameters使用量の表示を追加。\n- アバターを前方へ移動・回転できる撮影モードを追加。\n- 撮影モードの同期を選択する設定を追加。ローカルのみは0 bit、同期時は16 bit。\n- 撮影モード中、自分のアバターの頭を非表示にしない設定を追加。\n- 頭を含む身体全体を上下3m移動する「床の高さ」を追加。50%が元の高さと初期値、0%が3m下、100%が3m上。\n- 頭の傾きに合わせた寝返りと、ポーズごとの対応アニメーション設定を追加。\n- 呼吸の動きと、弱・中・強・急・カスタムの設定を追加。\n- 呼吸の動きとゲーム内ON/OFFメニューを個別に選択する設定を追加。動きのみは0 bit、ON/OFFの同期は1 bit。\n- VRChat標準の待機動作による揺れを止める設定を追加。\n- 首の向きの違いによる姿勢崩れを抑制する設定を追加。\n- 対応ポーズを体格に合わせる手足の自動調整（IK）と、アバター全体・ポーズごとのON/OFFを追加。\n- IKの結果を調整アニメーションへ保存する「IKを調整に反映」を追加。\n- アバター固有の姿勢補正と、膝の逆曲がり防止・最低曲げ角度の設定を追加。\n- ポーズ一覧からSceneで姿勢を確認する簡易プレビューを追加。\n- ポーズの分類別タブ、横断検索、複数アニメーションの一括追加、移動先の順番指定を追加。\n- Inspector内で商品・共通システムの変更履歴を表示する機能を追加。",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/changelog"
+      ]
+    },
+    "5ec0c3c554aaceac": {
+      "language": "ja",
+      "text": "### 変更",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/changelog",
+        "KawaiiPosing/changelog",
+        "CoolPosing/changelog"
+      ]
+    },
+    "f26bc41975798f76": {
+      "language": "ja",
+      "text": "- プリセットの読み込みを高速化し、ツール追加時やプリセット一覧表示時の待ち時間を短縮。\n- プリセットの追加・編集・削除を一覧へ自動反映するよう改善。\n- Inspectorを「機能」「ポーズ一覧」「アバター調整」の3タブに整理。\n- 設定項目に説明とアイコンを追加し、詳細設定の開閉表示を統一。\n- 呼吸の詳細を機能設定内へ、プリセットをアバター調整の末尾へ移動。\n- 自作モーションの個別指定と、アバターの元の姿勢の自動取り込みを別の設定に整理。\n- 足の高さ調整で生成する全身アニメーションの重複を削減。\n- ポーズ画像更新を確認ダイアログ付きのボタンに変更。\n- 警告の表示設定を「設定の確認」内に集約。\n- 8bit専用Prefabの新規追加を廃止し、通常Prefabの機能選択に統一。既存の参照は維持。\n- VRChat Avatars SDKの最低バージョンを3.10.4へ変更。",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/changelog"
+      ]
+    },
+    "f392dae87abb9ca4": {
+      "language": "ja",
+      "text": "### 修正",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/changelog",
+        "KawaiiPosing/changelog",
+        "CoolPosing/changelog"
+      ]
+    },
+    "e5a1c621cea8b787": {
+      "language": "ja",
+      "text": "- ツールポーズ未選択時の標準・独自モーションも、撮影モードと床の高さの補正対象に変更。\n- 「立ちのみ」の上書き時に、取り込み元のBlendTreeを変更してしまう問題を修正。\n- 有効なIKルールがない姿勢では手動調整を使用し、不要なIK生成警告を抑制。\n- 同名ポーズの調整内容が混ざる問題と、同じアセット内のモーション差し替えが再生成に反映されない問題を修正。\n- 無効化した初期ポーズの番号が別のポーズに再利用されても、初期選択されないよう修正。\n- 元の姿勢の取り込みで非対応のAnimatorOverrideControllerを検出した場合、例外の代わりに案内を表示。\n- 旧プリセットの適用時に、明示的にOFFにした寝返り設定を保持。\n- 明るいEditorテーマでも機能アイコンを識別できるよう、Inspectorのアイコン背景を改善。",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/changelog"
+      ]
+    },
+    "70022d27ececae44": {
+      "language": "ja",
+      "text": "- アバターへの追加時に「寝返り」「床の高さ」「撮影モード」のアイコンが表示されない問題を修正。\n- 旧バージョンのプリセットを適用すると、対応ポーズの寝返り設定が失われる問題を修正。\n- ポーズ名の編集中に別の詳細を開くと、入力が別のポーズへ移る問題を修正。\n- ポーズの並べ替えで詳細が閉じる問題と、設定変更のUndo・Redo処理を修正。\n- プレビューで元のアバターが重なる問題と、配置位置が二重に加算される問題を修正。\n- 欠けたコンポーネントを持つアバターのプレビューでエラーになる問題を修正。\n- アバターの骨の向き・スケールの違いによる、IKの手足の向きや位置のずれを修正。\n- 設定変更直後に警告やプレビルドの状態が更新されない問題を修正。\n- IK設定の変更後に古いプレビルド結果を再利用する問題を修正。\n- 一部の構成で追加機能の生成に失敗するビルドエラーを修正。",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/changelog"
+      ]
+    },
+    "25370ce74f52fa32": {
+      "language": "ja",
+      "text": "## [3.0.16] - 2026-09-14\n- `VirtualAnimatorController.SetParameter` APIを使用しているため、NDMFの最低依存バージョンを1.14.0へ更新",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/changelog"
+      ]
+    },
+    "2bceec03b2601f37": {
+      "language": "ja",
+      "text": "## [3.0.15] - 2026-09-13\n- Hipsのスケール変更とFloorAdjusterを併用したアバターで、仰向け姿勢の首固定を切り替えると身体位置や膝の曲がり方が大きく変わる不具合を修正",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/changelog"
+      ]
+    },
+    "bde03f8de5a5c0e9": {
+      "language": "ja",
+      "text": "## [3.0.14] - 2026-09-09\n- 同一アバターに複数のポーズツールを導入した際、2つ目以降の「ジェスチャー無効」メニュー項目が消える不具合を修正\n- SleepDownなどの姿勢を指定しても、USSPS_LocomotionレイヤーがStandingへ戻る場合がある不具合を修正\n- FloorAdjusterとの併用時に、ポーズの高さやX/Z位置がずれる不具合を修正し、MA版とAAO版の処理順に対応\n- Generated内のプレビルド済みAnimatorControllerが削除された場合、標準のPosingSystem_Locomotionへ自動復旧するよう改善\n- 立ちポーズをすべて削除した構成でビルドエラーになる不具合を修正\n- プリセット一覧をアバター名順に表示するよう改善",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/changelog"
+      ]
+    },
+    "8d787c3df8e46130": {
+      "language": "ja",
+      "text": "## [3.0.13] - 2026-09-04\n- VRモードでしゃがみ始めた直後に立ちへ戻すと、立ち姿勢への自己遷移が発生して姿勢復帰が不安定になる不具合を修正",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/changelog"
+      ]
+    },
+    "f9093a84a80b4164": {
+      "language": "ja",
+      "text": "## [3.0.12] - 2026-09-04\n- 未プレビルドのポーズツールをNDMFでビルドした際、設定変更済みと誤判定される不具合を修正\n- NDMFビルド中の一時AnimatorControllerへ生成アセットを追加して、`AddAssetToSameFile`エラーで処理に失敗する不具合を修正",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/changelog"
+      ]
+    },
+    "21c3434aaa4ba4e4": {
+      "language": "ja",
+      "text": "## [3.0.11] - 2026-08-31\n- NDMF 1.14.7以降でプレビルド用アバターのSceneが無効になり、処理に失敗する不具合を修正\n- NDMFのエラー画面が破棄済みのLocalizationAssetを参照し、`MissingReferenceException`が発生する不具合を修正",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/changelog"
+      ]
+    },
+    "eb355a78e25501c0": {
+      "language": "ja",
+      "text": "## [3.0.10] - 2026-08-29\n- プリセット定義の実アセットをプリセット選択UIを開くまで遅延読込し、GUID目録が変わっていない場合はキャッシュを再利用するよう改善\n- Hierarchyの警告・エラーアイコン判定を変更時のみ再評価するようにし、商品メニューのアセット検索を共有キャッシュ化。ポーズツールを多数配置したシーンで数秒ごとにEditorがフリーズする問題を改善\n- 同一アバター内に複数のポーズツールを配置した状態でプレビルドすると、重複したパラメータ値の登録時に`ArgumentException`が発生する不具合を修正",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/changelog"
+      ]
+    },
+    "1b6157b723b34a7d": {
+      "language": "ja",
+      "text": "## [3.0.9] - 2026-08-26\n- 変換中にPosingSystemからVRCAvatarDescriptorを取得できない場合、NullReferenceExceptionを防止し、調査に必要なビルドログを案内するよう改善\n- NDMFが生成・削除する一時Avatarを参照したプレビューを、後続のプレビルド・ビルド処理が再利用して`Avatar is null`で失敗する不具合を修正。変換処理をプレビューキャッシュから分離し、複数プレビュー間のNDMF一時アセット名衝突も防止\n- 可愛いポーズPrefabのプレビュー参照がシーンに保存されず、非表示のプレビューアバターだけが増え続ける不具合を修正。プレビューをシーン保存対象外にし、シーン読込・Play移行・スクリプト再読込時に旧プレビューも回収するよう改善",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/changelog"
+      ]
+    },
+    "656f22eca956398e": {
+      "language": "ja",
+      "text": "## [3.0.8] - 2026-08-18\n- FloorAdjuster等による高さ再補正時、プレビルド済みの姿勢モーションでUnity Assertionが発生し、姿勢データが不正になる可能性がある不具合を修正\n- 高さ計測が元アバターや他ツールのAnimationMode状態へ干渉しないよう安全性を改善",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/changelog"
+      ]
+    },
+    "de4125e309b83ad3": {
+      "language": "ja",
+      "text": "## [3.0.7] - 2026-08-12\n- FloorAdjuster等の高さ調整ツールとの併用時に、視点位置がズレる・仰向けで膝が異常に曲がる不具合を修正\n- PosingSystemがアバター外にある場合にエラーが発生する不具合を修正（PancakeTorto1seさんありがとうございます）\n- アバターのアップロード失敗時に処理を継続してエラーになる不具合を修正\n- プレビルド直後でも設定が更新されたと誤判定される場合がある不具合を修正\n- 移動モーションの自動インポート機能を改善\n- 一部の特殊なリグを使用しているアバターに警告を表示するよう変更\n- アニメーション調整ウィンドウに変更確認ダイアログと調整値のミラー機能を追加（kraihdさんありがとうございます）\n- 別のツールでエラーが発生している場合の案内と、エラーが発生しやすい箇所のチェックを追加",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/changelog"
+      ]
+    },
+    "bcea1ee021dabde9": {
+      "language": "ja",
+      "text": "## [3.0.6] - 2026-03-17\n- 元からアバター独自の姿勢制御のある一部のアバターで姿勢がめちゃくちゃになる不具合を修正",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/changelog"
+      ]
+    },
+    "23d206aa897bd2b9": {
+      "language": "ja",
+      "text": "## [3.0.5] - 2026-01-31\n- ExpressionMenusによってはUnityがクラッシュしてしまう不具合を修正\n- ごろ寝EX連携プレハブ使用時にアバターに不具合が発生するのを修正（あずきさんありがとうございます）\n- 調整アニメーション合成時に回転がおかしくなる不具合を修正",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/changelog"
+      ]
+    },
+    "171e05f6d47eaabd": {
+      "language": "ja",
+      "text": "## [3.0.4] - 2026-01-11\n- アバターをPrefabsに入れた時の挙動を一部改善\n- ライセンスの削除機能を追加\n- 首がおかしくなる姿勢が多かった不具合を修正\n- インスペクター開くのが重いのを若干解消\n- プレビルドの際にアイコンの作成も行うよう変更。アバター更新ボタンのテキストを変更\n- プレビルドを一度も実行していない場合は警告は非表示するよう変更（プレビルドしない人が多そうなので）\n- 不要なリソースの削除\n- 指が調整できない不具合を修正",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/changelog"
+      ]
+    },
+    "7826c9c8c6f70658": {
+      "language": "ja",
+      "text": "## [3.0.3] - 2026-01-04\n- 選んだプリセットと違うプリセットが適用される不具合を修正（あずきさんありがとうございます）",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/changelog"
+      ]
+    },
+    "d929047db8f5431a": {
+      "language": "ja",
+      "text": "## [3.0.2] - 2026-01-02\n- Unityのダークテーマに対応\n- アニメーション調整で回転を行うと姿勢がおかしくなる不具合を修正\n- 生成されるメニューアイコンのサイズを変更し圧縮を有効化、さらに小さいサイズのアイコンにする設定を追加\n- 3.0.0で一度削除されたトラッキング統合機能とアバターのモーション自動インポート機能を再度追加",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/changelog"
+      ]
+    },
+    "eb4595e04a5ae5f2": {
+      "language": "ja",
+      "text": "## [3.0.1] - 2025-12-29\n- デフォルトモーション設定機能の不具合を修正\n- アバターの姿勢が勝手におかしくなる不具合を修正",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/changelog"
+      ]
+    },
+    "4e3729e0fd2bcc97": {
+      "language": "ja",
+      "text": "## [3.0.0] - 2025-12-28\n- プレビルド機能を追加\n- アニメーション調整機能を追加\n- プリセット機能を追加",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/changelog"
+      ]
+    },
+    "b1a0e3e520af8d20": {
+      "language": "ja",
+      "text": "## [2.2.5] - 2025-05-08\n- 一部のギミックとの相性問題を解消",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/changelog",
+        "KawaiiPosing/changelog"
+      ]
+    },
+    "a809cdb81e85e201": {
+      "language": "ja",
+      "text": "## [2.2.4] - 2025-04-04\n- 一部のアバターとModularAvatarのバージョンで姿勢が変わらなくなる不具合を修正",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/changelog",
+        "KawaiiPosing/changelog"
+      ]
+    },
+    "17a145621fe5e3fc": {
+      "language": "ja",
+      "text": "## [2.2.3] - 2025-03-13\n- 森羅のジャンプなど一部のアバターでモーションがおかしくなる不具合を修正\n- ジェスチャー無効の初期値がおかしいことがある不具合を修正",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/changelog",
+        "KawaiiPosing/changelog"
+      ]
+    },
+    "bd72ce08592ea896": {
+      "language": "ja",
+      "text": "## [2.2.2] - 2025-03-06\n- 一部の環境でエラーが発生する不具合を修正",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/changelog",
+        "KawaiiPosing/changelog"
+      ]
+    },
+    "00742625fcc5857e": {
+      "language": "ja",
+      "text": "## [2.2.1] - 2025-02-05\n- Unityがクラッシュする不具合を修正\n- NDMF Consoleに表示するツール名にバージョンを追加",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/changelog",
+        "KawaiiPosing/changelog"
+      ]
+    },
+    "220c6bc2cdff715a": {
+      "language": "ja",
+      "text": "## [2.2.0] - 2025-02-02\n- ジェスチャー無効にしてアニメーションの手の形を使う設定を追加",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/changelog"
+      ]
+    },
+    "35fa4c92b2c2a187": {
+      "language": "ja",
+      "text": "## [2.1.6] - 2025-02-02\n- 一部のツールと併用した際に姿勢が壊れる不具合を修正\n- 設定によってエラーが発生する不具合を修正",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/changelog",
+        "KawaiiPosing/changelog"
+      ]
+    },
+    "762bbe46e9a5b917": {
+      "language": "ja",
+      "text": "## [2.1.5] - 2024-12-10\n- 一部のギミックとの競合する問題を解消\n- Unitypackage版を削除するボタンを追加",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/changelog"
+      ]
+    },
+    "a79bd16aadc88b3c": {
+      "language": "ja",
+      "text": "## [2.1.4] - 2024-12-08\n- アバターによってエラーが出る不具合を修正\n- ギミックやアバターとの競合によって足固定が使えなくなる不具合を修正\n- デスクトップモードでアバターの姿勢がVRCの標準に戻ってしまっていた不具合を修正",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/changelog",
+        "KawaiiPosing/changelog"
+      ]
+    },
+    "d5f0559042861206": {
+      "language": "ja",
+      "text": "## [2.1.3] - 2024-12-01\n- VRModeを誤ったタイプで使用しているアバターやギミックと同時に使うと姿勢が変わらなくなる不具合を修正\n- ギミック同士がパラメータタイプの違いで競合した際にNDMF-Consoleに表示する機能を追加",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/changelog",
+        "KawaiiPosing/changelog"
+      ]
+    },
+    "b65e402b2baba00e": {
+      "language": "ja",
+      "text": "## [2.1.2] - 2024-12-01\n- 別ツールエラーがある時にアバターをビルドするとゆにさきポーズシステムでエラーが発生するのでNDMF-Consoleに説明を追加\n- 一部のアバターでビルドエラーになる不具合を修正\n- アバター読み込み直後の挙動を改善\n- アバターによっては動作しなくなるため、アバターの元の移動処理を削除するように変更",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/changelog",
+        "KawaiiPosing/changelog"
+      ]
+    },
+    "6146926a3f068ec4": {
+      "language": "ja",
+      "text": "## [2.1.1] - 2024-11-20\n- PosingOverrideで発生するMergeAnimator関係の不具合を修正",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/changelog"
+      ]
+    },
+    "aefc40a42c6322fa": {
+      "language": "ja",
+      "text": "## [2.1.0] - 2024-11-20\n- デスクトップモードで足や腰が地面に埋まる問題を解決し、どんな姿勢も綺麗に取れるように変更\n- 頭の高さを無視して姿勢を変更できる機能を追加\n- Quest用アバターをアップロードするためにアイコンを生成しないモードを追加\n- アバターに問題がある場合にいくつか警告を出す機能を追加\n- AFKや別ツールの腕固定ギミックなどと固定機能が競合する問題を解決\n- あおむけ時に自動で首固定する設定を追加",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/changelog"
+      ]
+    },
+    "1b6a2ca0b8e6c8c6": {
+      "language": "ja",
+      "text": "## [2.0.0] - 2024-11-12\n- VPM/VCC対応バージョンリリース\n- エラー時に表示されるツールの表示名を変更 #1\n- 利用規約を追加 #5",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/changelog"
+      ]
+    },
+    "2bae13658c19ab69": {
+      "language": "en",
+      "text": "# Unisaki Posing System 3.2.0 — English guide",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/guide"
+      ]
+    },
+    "971cb3537679cb36": {
+      "language": "en",
+      "text": "Unisaki Posing System is the shared core for Kawaii Posing, Cool Posing, and related tools.\nInstall the purchased product and this core together using VCC or ALCOM. Use Unity 2022.3,\nVRChat Avatars SDK 3.10.4+, Modular Avatar 1.15.1+, and NDMF 1.14.0+.",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/guide"
+      ]
+    },
+    "e10754d0edc79b73": {
+      "language": "en",
+      "text": "## Language",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/guide"
+      ]
+    },
+    "f203323936fba1f9": {
+      "language": "en",
+      "text": "Choose **Language / 言語** at the top of the tool Inspector. One choice controls the\nInspector and generated VRChat menu. Re-upload the avatar after changing its language.\nYour last choice is remembered for other projects belonging to the same OS user on this\ncomputer. Without a saved choice, the tool follows the OS language and falls back to English.\nAn existing avatar's explicit choice is preserved. Language preferences do not sync to other PCs.",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/guide"
+      ]
+    },
+    "d767800351bcbf7b": {
+      "language": "en",
+      "text": "## Set up an avatar",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/guide"
+      ]
+    },
+    "3f9604cf6da66cae": {
+      "language": "en",
+      "text": "Select a scene avatar with a VRC Avatar Descriptor in the Hierarchy, then choose\n**Unisaki Studio > Add Kawaii Posing** or **Add Cool Posing**. Apply a matching avatar\npreset when offered. The tool Inspector has **Features**, **Poses**, and **Avatar Setup**\ntabs. Choose the poses and optional controls you want, adjust the fit, then upload normally.\nUse **Update prebuild** after changing settings if you use cached prebuild data.",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/guide"
+      ]
+    },
+    "08512c6e6adcdc3e": {
+      "language": "en",
+      "text": "## Detailed manuals",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/guide"
+      ]
+    },
+    "0637127174ccc9da": {
+      "language": "en",
+      "text": "Open **Manual** on the purchased product's Inspector for its offline guide in the selected language.\nThe product's `Documentation~/UserGuide.en.html` contains installation, avatar fitting,\nVRChat controls, pose editing, parameter memory, updating, and troubleshooting.\nStandard pose names are translated for display; custom names, avatar names, asset filenames,\nsaved object names, and parameter identifiers preserve their original spelling.\nThirty languages can be selected. The bundled Inspector, setup dialogs, standard pose names\nand generated menus have complete display catalogs for every selection. Offline documentation is provided for each selectable language.",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/guide"
+      ]
+    },
+    "463ce37a6d02f440": {
+      "language": "en",
+      "text": "[30-language quick references](QuickReference/index.html) cover the feature explanations and standard pose-name tables. These are concise references; use the language index for the full documentation.",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/guide"
+      ]
+    },
+    "1bd2d4011bf793c4": {
+      "language": "en",
+      "text": "## Licensing and support",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/guide"
+      ]
+    },
+    "6a97756f3327245d": {
+      "language": "en",
+      "text": "Use the installer downloaded from the store where you purchased the product. Product licenses\nkeep their existing per-user registry/file storage and remain separate from EditorPrefs.\nRead the original agreements included with the package. The existing English shared-system\nagreement is a reference translation; each product's agreement is also supplied separately.",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/guide"
+      ]
+    },
+    "2c019172cdf9086e": {
+      "language": "en",
+      "text": "Support: https://help.unisakistudio.jp/\nIllustrated manuals (Japanese): https://docs.unisakistudio.jp/",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/guide"
+      ]
+    },
+    "c6f4f4db27e61f12": {
+      "language": "ja",
+      "text": "# 可愛いポーズツール",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/repository",
+        "KawaiiPosing/readme"
+      ]
+    },
+    "08fb10070f13b3d8": {
+      "language": "ja",
+      "text": "BOOTHで販売している「可愛いポーズツール」のソースコードとリソースです。",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/repository"
+      ]
+    },
+    "c59e2d0b14d7e241": {
+      "language": "ja",
+      "text": "- [README：導入・更新・設定方法](Packages/jp.unisakistudio.kawaiiposing/README.md)\n- [変更履歴](Packages/jp.unisakistudio.kawaiiposing/CHANGELOG.md)\n- [BOOTH商品ページ](https://yunisaki.booth.pm/items/5479202)",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/repository"
+      ]
+    },
+    "c4b186f0246b7020": {
+      "language": "ja",
+      "text": "[利用規約](Packages/jp.unisakistudio.kawaiiposing/可愛いポーズツール利用規約（日本語版）Ver2.0.0.pdf)",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/repository"
+      ]
+    },
+    "63ac3178b7280bc1": {
+      "language": "ja",
+      "text": "3点トラッキングやデスクトップでも、可愛い座り姿勢や寝姿勢を使えるVRChat向けポーズ固定ツールです。立ち15・中腰20・座り17・うつ伏せ寝16・仰向け寝17の、合計85姿勢を収録しています。",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/readme"
+      ]
+    },
+    "359f541ee33a4bb9": {
+      "language": "ja",
+      "text": "このREADMEは開発中のv3.2.0向けです。正式リリース日は未定です。導入済みのバージョンはInspector上部で確認できます。",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/readme"
+      ]
+    },
+    "c777006c3059a301": {
+      "language": "ja",
+      "text": "- [BOOTH商品ページ](https://yunisaki.booth.pm/items/5479202)\n- [変更履歴](CHANGELOG.md)",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/readme"
+      ]
+    },
+    "2b2491db11188ac9": {
+      "language": "ja",
+      "text": "## 主な機能",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/readme",
+        "CoolPosing/readme"
+      ]
+    },
+    "f9631a2ac8eb42c9": {
+      "language": "ja",
+      "text": "- 撮影モード：アバターを前方へ最大3m動かし、向きを調整できます。自分の画面だけなら0 bit、他の人にも位置と向きを見せる場合は16 bitです。\n- 撮影中の頭の表示：近くにいる自分のアバターの頭が非表示になるのを、撮影モード中だけ防げます。\n- 床の高さ：頭を含む身体全体を上下3m移動できます。50%が元の高さと初期値、0%が3m下、100%が3m上です。頭の位置を保って足側を動かす「足の高さ」と使い分けられます。\n- 寝返り：対応する寝姿勢で、頭の傾きに合わせて左右に寝返りできます。\n- 呼吸：胸などに呼吸の動きを付けられます。姿勢の分類ごとに「なし・弱・中・強・急・カスタム」を選べます。\n- VRChat標準の揺れを止める：標準の待機中の揺れを抑えながら、ポーズツールの呼吸やほかのカスタム動作を使えます。\n- 首の向きの違いによる姿勢崩れを抑制：首固定を解除したとき、元のポーズと首の向きが異なることによる姿勢崩れを抑えます。\n- 機能の選択：必要なゲーム内メニューだけを追加し、ExpressionParametersの使用量をInspectorで確認できます。\n- ポーズ一覧の検索・一括追加・並べ替え：分類をまたいだ検索、複数クリップの読み込み、移動先の順番指定ができます。\n- Sceneでの簡易プレビュー：ポーズ一覧の「プレビュー」から、その場で姿勢を確認できます。",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/readme"
+      ]
+    },
+    "783af266ca7af2e4": {
+      "language": "ja",
+      "text": "- 手足の自動調整（IK）：対応するポーズで、アバターの体格に合わせて手足の位置を調整します。ポーズごとのON/OFFや、結果を調整アニメーションへ反映する操作もできます。",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/readme"
+      ]
+    },
+    "ed136af5b95f5dab": {
+      "language": "ja",
+      "text": "### 付属ポーズで寝返りする",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/readme"
+      ]
+    },
+    "98c6c7d3235fc9a5": {
+      "language": "ja",
+      "text": "仰向け寝の「足伸ばし」「リラックス」「膝立て」に、寝返り用の横向き姿勢を設定しています。それぞれ「横向き寝」「昼寝」「猫寝」をもとにした寝返りです。",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/readme"
+      ]
+    },
+    "7fedec56ab7874fd": {
+      "language": "ja",
+      "text": "「機能 > メニュー追加 > 寝返り」を有効にしてアップロードし、VRChatで対応する姿勢と「寝返り」を選んでください。首固定は解除して使います。",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/readme"
+      ]
+    },
+    "be2a739200d22f0f": {
+      "language": "ja",
+      "text": "自分で対応させる場合は「ポーズ一覧 > 詳細 > 寝返りを使う」をオンにし、「寝返り時の横向き」にアニメーションを指定します。寝返りを使用するポーズでは、通常のMotionTime設定は使えなくなります。",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/readme"
+      ]
+    },
+    "0329cc3d401cb095": {
+      "language": "ja",
+      "text": "### 体格に合わせた調整",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/readme"
+      ]
+    },
+    "0fd74bbc9d26400b": {
+      "language": "ja",
+      "text": "付属の手足の自動調整を使用できますが、全ポーズがIKを必要とするわけではありません。アニメーション調整画面の「手足の自動調整を使う」で全体を、「このポーズのIKを使う」で個別に切り替えられます。",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/readme"
+      ]
+    },
+    "784d00cc1b3d2440": {
+      "language": "ja",
+      "text": "「IKを調整に反映」は、その時点の自動調整の結果を新しい調整アニメーションに書き込み、対象ポーズのIKをオフにします。その後に手作業で仕上げられます。全体と対象ポーズの自動調整が有効で、適用できるIK設定があるときに使用できます。",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/readme"
+      ]
+    },
+    "8424f6e3d41f09e5": {
+      "language": "ja",
+      "text": "「アバター調整」には「膝が逆向きに曲がるのを防ぐ」と、詳細の「最低膝曲げ角度（°）」もあります。",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/readme"
+      ]
+    },
+    "e365c0379b008026": {
+      "language": "ja",
+      "text": "## 導入方法",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/readme",
+        "CoolPosing/readme"
+      ]
+    },
+    "c64a834af3a8c6bd": {
+      "language": "ja",
+      "text": "1. 購入したストアの商品ページからファイルをダウンロードします。\n2. 同梱の「可愛いポーズツール.unitypackage」をUnityへインポートし、ライセンスとパッケージ配布元の登録を行います。\n3. VCCまたはALCOMで、使用するUnityプロジェクトに「可愛いポーズツール」とModular Avatarを追加します。共通の「ゆにさきポーズシステム」とNDMFも依存パッケージとして導入されます。\n4. Hierarchyで対象のアバターを右クリックし、「ゆにさきスタジオ > 可愛いポーズツール追加」を選びます。\n5. アバターの中に追加された「可愛いポーズ」を選び、Inspectorで使いたい機能とポーズを設定します。\n6. 通常どおりアバターをアップロードします。",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/readme"
+      ]
+    },
+    "76cf9e2237b960ba": {
+      "language": "ja",
+      "text": "必要環境はUnity 2022.3、VRChat Avatars SDK 3.10.4以上、Modular Avatar 1.15.1以上の1.x系、NDMF 1.14.0以上の1.x系です。VCCやALCOMで必要なパッケージを併せて更新してください。",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/readme",
+        "CoolPosing/readme"
+      ]
+    },
+    "014aae827a3bded4": {
+      "language": "ja",
+      "text": "## 以前のバージョンから更新する場合",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/readme",
+        "CoolPosing/readme"
+      ]
+    },
+    "c91b6d99606092e8": {
+      "language": "ja",
+      "text": "本商品と「ゆにさきポーズシステム」を併せて更新します。配置済みのツールの設定は引き継がれます。Inspectorで使用する機能とExpressionParametersの使用量を確認し、プレビルドを使っていた場合は「プレビルドを更新」を押してから再アップロードしてください。",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/readme",
+        "CoolPosing/readme"
+      ]
+    },
+    "b9fa3c428fac6fc0": {
+      "language": "ja",
+      "text": "v3.1.0から、新規追加は通常の「可愛いポーズ」Prefabに統一しました。「機能」で不要な項目をオフにすると、姿勢選択のみの最小構成は8 bitになります。姿勢数が多い構成では、姿勢選択に追加のbitが必要になる場合があります。",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/readme"
+      ]
+    },
+    "da57c8d9b89f44a0": {
+      "language": "ja",
+      "text": "旧8bit版Prefabは、既存のアバターやプリセットの参照を保つため「Editor/Legacy」に残しています。既存のPrefabを削除・置き換えする必要はありません。Unityの新規追加メニューに8bit版は表示されません。",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/readme",
+        "CoolPosing/readme"
+      ]
+    },
+    "19e6f9b458d1faeb": {
+      "language": "ja",
+      "text": "## 設定する場所",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/readme",
+        "CoolPosing/readme"
+      ]
+    },
+    "757a29b3ac37af67": {
+      "language": "ja",
+      "text": "| タブ | できること |\n| --- | --- |\n| 機能 | ゲーム内メニューの追加、便利機能、呼吸の設定、アイコン画像とExpressionParametersの使用量の確認 |\n| ポーズ一覧 | 使用するポーズの選択、詳細設定、検索、一括追加、順番変更、プレビュー、アニメーション調整 |\n| アバター調整 | アバター固有の補正、膝の補正、元の姿勢や自作モーションの取り込み、プリセットの変更 |",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/readme",
+        "CoolPosing/readme"
+      ]
+    },
+    "e2c8de02a6eeef27": {
+      "language": "ja",
+      "text": "「設定を開く」を押すと、その項目の下に詳しい設定が開きます。呼吸は「機能 > 便利機能 > 呼吸の動きをつける」から設定します。",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/readme",
+        "CoolPosing/readme"
+      ]
+    },
+    "6c231898ffae9e9d": {
+      "language": "ja",
+      "text": "「アバターの元の立ち・しゃがみ・伏せ姿勢を使う」は、アバターに元からある姿勢の自動取り込みです。自分で用意したモーションを使う場合は、別の「取り込み設定を開く」から、立ち・しゃがみ（Crouching）・伏せ（Prone）などの種類ごとに指定します。",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/readme",
+        "CoolPosing/readme"
+      ]
+    },
+    "c7aa544668eeafda": {
+      "language": "ja",
+      "text": "プリセットは「アバター調整」の一番下にあります。「このプリセットに変更する」で現在のポーズ設定を置き換えるので、調整済みの内容は保存してから切り替えてください。",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/readme",
+        "CoolPosing/readme"
+      ]
+    },
+    "a2e123d42dc1cb54": {
+      "language": "ja",
+      "text": "### 機能ごとの使用量",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/readme",
+        "CoolPosing/readme"
+      ]
+    },
+    "b4e1669a45146eed": {
+      "language": "ja",
+      "text": "- 呼吸の動きは0 bitです。ゲーム内で止めたり再開したりする「メニュー追加 > 呼吸」を使う場合のみ、ON/OFFの同期に1 bitを使用します。\n- 撮影モードは自分の画面だけなら0 bitです。「便利機能 > 撮影モードを同期する」を選ぶと16 bitを使用します。「撮影モード中は頭を非表示にしない」は0 bitです。\n- 「足の高さ」「床の高さ」はそれぞれ8 bitです。床の高さは中央から動かすと上下へ移動し、50%付近へ戻すと補正が終了します。\n- 「寝返り」は単独で10 bitです。「首の向きの違いによる姿勢崩れを抑制」と1 bitを共用するため、両方を使っても合計10 bitです。\n- 「左右反転」「ジェスチャー無効」はそれぞれ1 bitです。",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/readme"
+      ]
+    },
+    "f50f947135c16b8b": {
+      "language": "ja",
+      "text": "Inspectorの合計は、アバターに導入したポーズツールの分です。衣装など、ほかのギミックの分は含みません。複数のポーズツールを併用しても共通の設定は重複して数えません。",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/readme",
+        "CoolPosing/readme"
+      ]
+    },
+    "3f5dab4b0ae24c6b": {
+      "language": "ja",
+      "text": "### プレビュー・ポーズの編集",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/readme",
+        "CoolPosing/readme"
+      ]
+    },
+    "0c2a28e088fdb629": {
+      "language": "ja",
+      "text": "「ポーズ一覧」の各ポーズにある「プレビュー」で、Sceneに姿勢を表示できます。細かく直したい場合は「アニメーション調整」を開き、姿勢を確認しながら調整して保存します。",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/readme",
+        "CoolPosing/readme"
+      ]
+    },
+    "e356f6a7e5c9fabf": {
+      "language": "ja",
+      "text": "簡易プレビューではMAやNDMFのビルド処理を実行しません。ビルド時に組み込まれる衣装や床の位置補正などは、アップロード前のビルド結果でも確認してください。",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/readme",
+        "CoolPosing/readme"
+      ]
+    },
+    "783a82bb9e37b58a": {
+      "language": "ja",
+      "text": "左側の虫眼鏡タブでポーズ名を検索できます。「詳細」の「順番」で移動先を選べるほか、上下の移動ボタンでも並べ替えできます。複数のアニメーションは、追加欄へのドラッグ＆ドロップ、または「Projectで選択中のクリップを読み込む」でまとめて追加できます。",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/readme",
+        "CoolPosing/readme"
+      ]
+    },
+    "ab3a5a8167494d37": {
+      "language": "ja",
+      "text": "「ポーズ画像を更新」は確認ダイアログの後に画像を生成します。「ポーズアイコン生成」はゲーム内メニューで姿勢を見分けやすくする機能で、画像生成の分だけビルドに時間がかかります。容量を抑えたい場合は「アイコン画像の容量を減らす」を選択してください。Android向けではポーズアイコンを生成しません。",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/readme",
+        "CoolPosing/readme"
+      ]
+    },
+    "db02fc0d045f480f": {
+      "language": "ja",
+      "text": "## ゲーム内での基本操作",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/readme",
+        "CoolPosing/readme"
+      ]
+    },
+    "bdaa7964fc60d9df": {
+      "language": "ja",
+      "text": "- Expressionsメニューで、各分類の姿勢を選びます。VRでは頭の高さに応じて立ち・中腰・座り・寝姿勢が切り替わります。\n- 寝姿勢では顔の向きに応じて仰向け・うつ伏せを切り替え、両方のポーズを選んでいるときは、その場でジャンプしても切り替えられます。ジャンプによる切り替えはUnityの「機能 → 便利機能 → ジャンプで寝姿勢を切り替える」でオフにできます（初期設定はオン）。分類が切り替わる高さは、設定メニューの閾値で調整できます。\n- デスクトップではCキー・Zキーで姿勢を切り替えます。Zキーで寝姿勢にならない場合は、設定メニューの「寝の高さ閾値」を上げて調整してください。\n- 「ジェスチャー無効」をオンにすると、コントローラーの指の形に代えて、ポーズに設定された手の形を使います。\n- 「足の高さ」は頭の位置を保ちながら足側を調整します。「床の高さ」は頭を含む身体全体を上下へ移動します。設定メニューではこの順に並んでいます。\n- 「撮影モード」の「距離」で前へ移動すると、アバターがこちらを向きます。「向き」で回転させ、必要なタイミングで「足固定」をオンにしてください。「撮影モードを終了」で距離・向きを戻し、足固定を解除します。\n- 「呼吸」は呼吸の動きが有効な場合に使用できます。強さはUnity側で設定し、ゲーム内ではON/OFFを切り替えます。",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/readme"
+      ]
+    },
+    "5b950682eeed0aea": {
+      "language": "ja",
+      "text": "「プレビルドを更新」は、生成したデータを再利用してアバタービルドを速くする機能です。プレビルドなしでも、通常のビルド時に必要なデータを生成します。",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/readme",
+        "CoolPosing/readme"
+      ]
+    },
+    "0da54afec7637c49": {
+      "language": "ja",
+      "text": "設定変更後は、Inspector上部の「設定の確認」やHierarchyのマークで更新をお知らせします。「警告の表示設定」は「設定の確認」の枠内にあります。表示を消しても設定の問題が解消されたり、生成データが更新されたりするわけではありません。",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/readme",
+        "CoolPosing/readme"
+      ]
+    },
+    "bca0bc4fddf6f3f5": {
+      "language": "ja",
+      "text": "- フルボディトラッキング中の姿勢固定には対応していません。\n- 体格、衣装、アバターの改変内容によって追加調整が必要になることがあります。\n- 特殊なBaseレイヤーやほかの姿勢変更ギミックとは、意図どおりに統合できない場合があります。固定がうまく動かない場合は「アバター調整 > 各固定機能の他ギミックとの統合」も確認してください。\n- 撮影モードの移動・回転と床の高さは、未選択時の標準・独自モーションも補正対象です。VRChat内の視点や標準モーション置換後の挙動は、実機で確認してください。\n- 「VRChat標準の揺れを止める」は標準の待機動作が対象です。ほかの原因による揺れをすべて止める機能ではありません。",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/readme"
+      ]
+    },
+    "6eba228694e41167": {
+      "language": "ja",
+      "text": "## 使い方・サポート",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/readme",
+        "CoolPosing/readme"
+      ]
+    },
+    "f13b06b409ed39ae": {
+      "language": "ja",
+      "text": "Inspector上部の「ヘルプ・変更履歴」から使い方・お問い合わせ・変更履歴を開けます。共通機能の詳しい説明は、UnityのProject内にある「Packages > ゆにさきポーズシステム > README」でも確認できます。",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/readme",
+        "CoolPosing/readme"
+      ]
+    },
+    "032e36115f2c004c": {
+      "language": "ja",
+      "text": "- [公式マニュアル](https://docs.unisakistudio.jp/kawaiiposing/manual/)\n- [お問い合わせ](https://help.unisakistudio.jp/)",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/readme"
+      ]
+    },
+    "2a0e551dedd4bf5a": {
+      "language": "ja",
+      "text": "不具合の報告には、本商品とゆにさきポーズシステムのバージョン、Unity・VRChat SDK・Modular Avatar・NDMFの各バージョン、使用アバター、再現手順、Consoleのエラー内容を添えてください。",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/readme",
+        "CoolPosing/readme"
+      ]
+    },
+    "e253458e404fc481": {
+      "language": "ja",
+      "text": "## プリセットの配布について",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/readme"
+      ]
+    },
+    "53cc68de3d14d0a8": {
+      "language": "ja",
+      "text": "アニメーション調整機能で作成したデータについての案内です。",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/readme"
+      ]
+    },
+    "f4ef9376ed9cd551": {
+      "language": "ja",
+      "text": "この機能を使って作成した調整アニメーションファイル、およびそれを設定した状態で作成したプリセットについては、\nゆにさきスタジオに許諾を得ずご自由に配布、販売することができます。\nご自身の自作アバター配付時や、ツールに同封していないアバターのプリセットなど、是非共有してください。",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/readme"
+      ]
+    },
+    "ba382276ae9f85bc": {
+      "language": "ja",
+      "text": "## 連携設定同封商品",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/readme"
+      ]
+    },
+    "b950e8b85376edeb": {
+      "language": "ja",
+      "text": "※連携設定は一方的に弊ショップが作成しているもので、該当商品の作者からの許可は不要と考えて取っていません。\n連携設定の配布の希望や配布停止の申し出についてはショップのメッセージからお願いします。\n連携設定は連携する商品の購入・ダウンロードが必要です。\n設定に関して問題が生じた場合には各商品の作者ではなく弊ショップへご連絡ください。",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/readme"
+      ]
+    },
+    "06199ef6659abdd6": {
+      "language": "ja",
+      "text": "『可愛い座りツール』\nhttps://yunisaki.booth.pm/items/3611536",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/readme"
+      ]
+    },
+    "f3cabd1a27727efb": {
+      "language": "ja",
+      "text": "『添い寝ツール』\nhttps://yunisaki.booth.pm/items/3670993",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/readme"
+      ]
+    },
+    "982263fc8aef1ea5": {
+      "language": "ja",
+      "text": "『少女モーション集vol.1』 by ゆにみのアトリエ\nhttps://unimirai.booth.pm/items/3512020",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/readme"
+      ]
+    },
+    "494db904a61d12f3": {
+      "language": "ja",
+      "text": "『VRC想定移動モーション（無料配布）』 by カトのVRC道具屋\nhttps://booth.pm/ja/items/1285101",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/readme"
+      ]
+    },
+    "ea5c179dc93c0964": {
+      "language": "ja",
+      "text": "『ごろ寝システムEX』 by minminmart\nhttps://minminmart.booth.pm/items/4233545",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/readme"
+      ]
+    },
+    "d348b83f3263a191": {
+      "language": "ja",
+      "text": "## 利用規約",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/readme",
+        "CoolPosing/readme"
+      ]
+    },
+    "79fe530ae7a9ba8d": {
+      "language": "ja",
+      "text": "このツールはVN3ライセンスで作成された以下の利用規約に同意された方のみご利用いただけます。",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/readme"
+      ]
+    },
+    "db0d66ed5299cb77": {
+      "language": "ja",
+      "text": "[利用規約（日本語）](https://drive.google.com/file/d/1LN2gW2eokOAUarazWuXySI4LFcoINX5S/view?usp=sharing)",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/readme"
+      ]
+    },
+    "f1c21fb9aa7f5a69": {
+      "language": "ja",
+      "text": "本リポジトリのソースコード、リソースはオープンソースではありません。商品の正規購入と利用規約への同意が必要です。",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/readme"
+      ]
+    },
+    "ad8366f04ff98ffe": {
+      "language": "ja",
+      "text": "[Terms of use (English)](https://drive.google.com/file/d/1B0O7Eofp4d5vViMRJ1UYPG2UC110eVGi/view?usp=sharing)",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/readme"
+      ]
+    },
+    "ecbfefbc2b3860bc": {
+      "language": "ja",
+      "text": "- 「足の高さ」をオフにしても、EXメニューの「設定 → あおむけ時自動頭固定」で頭の固定を切り替えられるようになりました。以前の版でこの項目が消えたアバターも、更新後にビルドすると項目が戻ります。\n- ゆにさきポーズシステム 3.1.2 に対応しました。「首の向きの違いによる姿勢崩れを抑制」を使っているとき、伏せから立ち上がったあとも顔が上を向いたままになる問題を修正しました。",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/changelog"
+      ]
+    },
+    "1c839c535d20999a": {
+      "language": "ja",
+      "text": "ALCOM / VCCで「可愛いポーズツール」を3.1.2に更新してください。「ゆにさきポーズシステム」も3.1.2が必要です。以前プレビルドを使っていた場合は「プレビルドを更新」を押してシーンを保存し、アバターを再度ビルド・アップロードしてください。",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/changelog"
+      ]
+    },
+    "c3d8ee8ffa13b352": {
+      "language": "ja",
+      "text": "- 「左右反転」をオフにしても、有効にした「床の高さ」と「寝返り」がVRChatのEXメニューの「設定」に表示されるようになりました。\n- 旧版でポーズを並べ替えたり、削除・改名したりしても、「足伸ばし」「リラックス」「膝立て」にそれぞれ正しい寝返りを引き継ぎます。完全にUnpackした場合も、元のポーズを特定できれば引き継ぎます。自作ポーズや、ご自身でオフにした寝返り、差し替えた横向きモーションは保持されます。\n- VRChatのアバター選択時に、一瞬うつ伏せになる問題を修正しました。うつ伏せだけを選んだ状態でジャンプすると一瞬仰向けになる問題も修正しました。ジャンプでの切り替えは「機能 → 便利機能 → ジャンプで寝姿勢を切り替える」でオフにできます。初期設定はオンです。\n- 更新後に共通ポージング用のAnimator Controllerの参照が外れた場合、復元できるときは警告を表示して設定から作り直します。複数のアバターで共有しているControllerの参照も保持します。\n- 自分で保存した同名の「可愛いポーズ」Prefabがあっても、ツールの追加メニューから正式なPrefabを配置できるようになりました。\n- 「添い寝ツール追加」を選んだとき、連携に必要な添い寝ツールが見つからない場合は、先に導入する商品を案内します。",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/changelog"
+      ]
+    },
+    "1c79917fd142561e": {
+      "language": "ja",
+      "text": "ALCOM / VCCで「可愛いポーズツール」と「ゆにさきポーズシステム」を両方3.1.1に更新してください。以前プレビルドを使っていた場合は、シーン上の「可愛いポーズ」で「プレビルドを更新」を押してシーンを保存します。VRChatに反映するには、アバターを再度ビルド・アップロードしてください。",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/changelog"
+      ]
+    },
+    "db6f357e97ecc913": {
+      "language": "ja",
+      "text": "- 収録85姿勢のうち53姿勢で、アバターの体格に合わせて手足をIKで自動調整します。\n- 仰向け寝の「足伸ばし」「リラックス」「膝立て」が、頭の傾きによる寝返りに対応しました。\n- 撮影モードでアバターの位置と向きを調整できます。位置・向きの同期と、撮影中の自分の頭の表示も選べます。\n- 「床の高さ」で身体全体を上下3mまで移動できます。「足の高さ」と使い分けられます。\n- 呼吸の動き、標準の待機中の揺れを止める設定、首の向きによる姿勢崩れを抑える設定を追加しました。\n- 使用する機能とパラメーター使用量をInspectorで確認できます。ポーズ検索・一括追加・並べ替え・Sceneでの簡易プレビューにも対応しました。\n- デスクトップモードの立ち・中腰・座りの切り替えを高速化しました。\n- 設定変更後のプレビルド警告、Inspectorのスクロール負荷、生成物整理時の長時間停止を改善しました。\n- ゆにさきポーズシステム 3.1.0 に対応しました。",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/changelog"
+      ]
+    },
+    "76bfaa95282b57e3": {
+      "language": "ja",
+      "text": "- GitHub Releases・VPMでのオープンベータ配布を開始。収録85姿勢のうち53姿勢で、体格に合わせて手足をIKで自動調整します。\n- 共通パッケージ3.1.0-beta.2に対応。プレビルド後の変更表示、Inspectorのスクロール負荷、生成物整理時の停止を改善しました。",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/changelog"
+      ]
+    },
+    "4d858f22302d73dc": {
+      "language": "ja",
+      "text": "- ゆにさきポーズシステム3.1.0-beta.1に対応。\n- デスクトップモードの通常姿勢切り替えを1評価方式へ変更。通常のビルドとプレビルドで有効になり、VRや特殊条件は従来の経路を維持。\n- alpha.3以前のプレビルドを更新対象として認識。\n- 撮影中に床の高さを変えたときの視点を保持し、撮影終了後に最新の床の高さへ復帰。\n- 自動取り込み、取り込みモーションの調整、生成Controllerの管理に関するalpha.3までの改善を反映。",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/changelog",
+        "CoolPosing/changelog"
+      ]
+    },
+    "291d1d74c39bffb5": {
+      "language": "ja",
+      "text": "- 共通ポーズシステムを3.1.0-alpha.2へ更新し、デバッグ修正を反映。\n- 床の高さを上下3mへ拡張。50%が元の高さと初期値です。\n- 標準・独自の未選択姿勢も撮影・床高さの補正対象に追加。\n- 手動補正、同名ポーズ、初期ポーズ、旧プリセットの寝返り設定などの問題を修正。",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/changelog"
+      ]
+    },
+    "484688c3532e6830": {
+      "language": "ja",
+      "text": "- 体格に合わせた手足の自動調整（IK）を追加。\n- IKの全体・ポーズ別ON/OFFと、調整アニメーションへの反映を追加。\n- 仰向け寝の「足伸ばし」「リラックス」「膝立て」を、頭の傾きによる寝返りに対応。\n- ポーズごとの寝返り設定と、横向きアニメーションの指定を追加。\n- 前方への移動と回転を調整する撮影モードを追加。\n- 撮影モードの同期設定を追加。ローカルのみは0 bit、同期時は16 bit。\n- 撮影モード中、自分のアバターの頭を非表示にしない設定を追加。\n- 頭を含む身体全体を上げる「床の高さ」を追加。\n- 呼吸の動きと強さの設定、ゲーム内ON/OFFメニューを追加。\n- VRChat標準の揺れを止める設定を追加。\n- 首の向きの違いによる姿勢崩れを抑制する設定を追加。\n- 膝の逆曲がり防止と最低曲げ角度の設定を追加。\n- 機能ごとのON/OFFとExpressionParameters使用量の表示を追加。\n- Sceneでの簡易プレビュー、ポーズ検索、一括追加、移動先の順番指定を追加。\n- Inspector内での変更履歴表示を追加。",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/changelog"
+      ]
+    },
+    "bd9f7766cc7b65cb": {
+      "language": "ja",
+      "text": "- Inspectorを「機能」「ポーズ一覧」「アバター調整」の3タブに整理。\n- 呼吸の詳細、自作モーションの取り込み、プリセットの設定位置を整理。\n- 足の高さ調整で生成するアニメーションの重複を削減。\n- ポーズ画像更新に確認ダイアログを追加し、警告設定を「設定の確認」内に集約。\n- 8bit版の新規追加メニューを廃止し、通常Prefabの機能選択に統一。既存の参照は維持。\n- ゆにさきポーズシステム3.1.0-alpha.1に対応。VRChat Avatars SDKの最低バージョンを3.10.4へ変更。",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/changelog",
+        "CoolPosing/changelog"
+      ]
+    },
+    "7744a854849c8475": {
+      "language": "ja",
+      "text": "- ポーズ名の入力が別のポーズへ移る問題と、並べ替え時に詳細が閉じる問題を修正。\n- プレビューが重なる問題、配置位置がずれる問題、一部アバターでエラーになる問題を修正。\n- 設定変更後の警告・プレビルド状態の更新と、一部のビルドエラーを修正。",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/changelog",
+        "CoolPosing/changelog"
+      ]
+    },
+    "a032c23d4810910f": {
+      "language": "ja",
+      "text": "## [3.0.13] - 2026-09-22\n- PosingSystem 3.0.17に更新し、アバター全体の均等なスケール変更によるポーズの水平位置ずれを修正\n- 自動足踏み・プレビルド未実行・設定変更の警告を個別または一括で無視する設定を追加\n- 移動用モーションの手動インポート時に、不適切な単発アニメーションが取り込まれる問題を修正",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/changelog"
+      ]
+    },
+    "0166baa4bb9ea96c": {
+      "language": "ja",
+      "text": "## [3.0.12] - 2026-09-15\n- アバタープリセットを追加（ルリエ）",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/changelog"
+      ]
+    },
+    "570ad9caaad01a73": {
+      "language": "ja",
+      "text": "## [3.0.11] - 2026-09-09\n- アバタープリセットを追加（メルヴィ、ミダリス）\n- うららのプリセットのモーション置き換えを修正",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/changelog"
+      ]
+    },
+    "3e2def2cf8fd3400": {
+      "language": "ja",
+      "text": "## [3.0.10] - 2026-08-31\n- PosingSystem 3.0.11に更新し、NDMF最新版でプレビルドが失敗する不具合とエラー表示時の例外を修正",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/changelog"
+      ]
+    },
+    "1be74d7183a6c627": {
+      "language": "ja",
+      "text": "## [3.0.9] - 2026-08-29\n- PosingSystem 3.0.10に更新し、プリセット読込とHierarchyアイコン判定の負荷を軽減\n- 同一アバターに複数のポーズシステムがある場合のプレビルドエラーを修正",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/changelog"
+      ]
+    },
+    "ede3e1e844943345": {
+      "language": "ja",
+      "text": "## [3.0.8] - 2026-08-26\n- PosingSystem 3.0.9に更新し、NDMF処理後にプレビュー用Avatarが無効になってPlay時に`Avatar is null`で失敗する不具合を修正",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/changelog"
+      ]
+    },
+    "0464b44f2b089940": {
+      "language": "ja",
+      "text": "## [3.0.7] - 2026-08-18\n- PosingSystem 3.0.8に更新し、高さ再補正時に姿勢データが不正になる可能性がある不具合を修正",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/changelog"
+      ]
+    },
+    "ebfc27e90cc934a0": {
+      "language": "ja",
+      "text": "## [3.0.6] - 2026-08-12\n- アバタープリセットを追加（うらら、ウェンディ、カザリス、カプリィナ、キリサメ、シウシウ、ハンカ、フィユエ、プラム、マヨ、ミサキ、ラシューシャ、ルルネ）",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/changelog"
+      ]
+    },
+    "1188c238737ceac2": {
+      "language": "ja",
+      "text": "## [3.0.5] - 2026-03-17\n- アバタープリセットを追加（アズキ、あのめあ、イメリス、うささき、京狐、ここあ、コロネ、サフィー、しずく、しらつめ、ソフィナ、ソラハ、デルタフレア、トラス、ナナセノワール、ナユ、ネメシス、フレア、プラチナ、真央、真冬、むんき、めいゆん、ヨル、ラスク、リーファ、りりか、竜胆、ルゼブル、ヴェール）",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/changelog"
+      ]
+    },
+    "5cb09125555200c6": {
+      "language": "ja",
+      "text": "## [3.0.4] - 2026-01-31\n- アバタープリセットを追加（クマリ、イチゴ、エルシオン、ラムネ、リルモワ、サバラム、Lapwing）",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/changelog"
+      ]
+    },
+    "184a86be747b0834": {
+      "language": "ja",
+      "text": "## [3.0.3] - 2026-01-11\n- ライセンスのインストール・削除関連の機能を改善",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/changelog"
+      ]
+    },
+    "580417e0bc487648": {
+      "language": "ja",
+      "text": "## [3.0.2] - 2026-01-04\n- Mac, Linux版のライセンス処理の不具合の修正",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/changelog"
+      ]
+    },
+    "8fb960812e1ba8c1": {
+      "language": "ja",
+      "text": "## [3.0.1] - 2025-12-28\n- アバターのプリセットを追加（セレスティア、まめひなた、しお、愛莉、ライム、ショコラ、ミルフィ）",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/changelog"
+      ]
+    },
+    "cadb17f83ed32918": {
+      "language": "ja",
+      "text": "## [3.0.0] - 2025-12-28\n- プレビルド機能を追加\n- アニメーション調整機能を追加\n- プリセット機能を追加\n- unitypackageでプロジェクトに追加できるよう変更\n- アバターのプリセットを追加（マヌカ、しなの、桔梗、萌、ミルティナ、キプフェル、シフォン、ルミナ、エク、みみのこ）",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/changelog"
+      ]
+    },
+    "175c6268127cccfb": {
+      "language": "ja",
+      "text": "## [2.2.0] - 2025-02-02\n- ジェスチャー無効にしてアニメーションの手の形を使う設定を追加\n- 全姿勢に手の形のデータを追加",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/changelog"
+      ]
+    },
+    "31bae5886f32dd49": {
+      "language": "ja",
+      "text": "## [2.1.5] - 2024-12-10\n- 一部のギミックとの競合する問題を解消\n- Unitypackage版を削除するボタンを追加\n- 三点だいしゅきツールはVCC版を公開したので連携用Prefabsは削除",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/changelog"
+      ]
+    },
+    "80959be98f278b3e": {
+      "language": "ja",
+      "text": "## [2.1.1] - 2024-11-20\n- ビルドできなくなる不具合を修正",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/changelog"
+      ]
+    },
+    "3c5369d8a529b7b9": {
+      "language": "ja",
+      "text": "## [2.1.0] - 2024-11-20\n- デスクトップモードで足や腰が地面に埋まる問題を解決し、どんな姿勢も綺麗に取れるように変更\n- 頭の高さを無視して姿勢を変更できる機能を追加\n- Quest用アバターをアップロードするためにアイコンを生成しないモードを追加\n- アバターに問題がある場合にいくつか警告を出す機能を追加\n- AFKや別ツールの腕固定ギミックなどと固定機能が競合する問題を解決\n- あおむけ時に自動で首固定する設定を追加\n- ExpressionsMenuを変更（姿勢選択をフォルダに分離、固定系をトップに移動）",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/changelog"
+      ]
+    },
+    "7b90ddc8d12967c8": {
+      "language": "ja",
+      "text": "## [2.0.0] - 2024-11-14\n### 修正\n- VCCに対応するためVPMパッケージ化\n- 8bit版が17bit使ってしまっている不具合の修正",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/changelog"
+      ]
+    },
+    "4daf03e6bb0f47d7": {
+      "language": "ja",
+      "text": "## [1.15.0] - 2024-11-04\n### 修正\n- エラー、不具合の修正",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/changelog"
+      ]
+    },
+    "b0b3d9a33ca8d39f": {
+      "language": "ja",
+      "text": "## [1.14.0] - 2024-07-05\n### 修正\n- VRCFury使用時の不具合を修正",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/changelog"
+      ]
+    },
+    "cd150a1739a58e9d": {
+      "language": "ja",
+      "text": "## [1.13.0] - 2024-04-11\n### 修正\n- 「ごろ寝システムEX」との連携設定を追加",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/changelog"
+      ]
+    },
+    "1a63544e77fd5553": {
+      "language": "ja",
+      "text": "## [1.12.0] - 2024-03-31\n### 修正\n- ExMenuの状態によってはツールが使えない不具合を修正\n- ミラー機能を設定に追加\n- 猫のポーズを修正\n- 横寝ポーズを５種追加",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/changelog"
+      ]
+    },
+    "082f64854acf6ce5": {
+      "language": "ja",
+      "text": "## [1.11.0] - 2024-03-12\n### 修正\n- 頭の位置が高い時に姿勢がおかしくなる不具合を修正",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/changelog"
+      ]
+    },
+    "bef02a5569d70d4c": {
+      "language": "ja",
+      "text": "## [1.10.0] - 2024-03-10\n### 修正\n- 立ち姿勢機能を追加し15種類の姿勢を追加\n- 一部アバターと環境で足が勝手に動く不具合修正\n- ExpressionParameters8bit版を追加",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/changelog"
+      ]
+    },
+    "90eb90ee33da5359": {
+      "language": "ja",
+      "text": "## [1.9.0] - 2024-03-05\n### 修正\n- 一部アバターで足が勝手に動く不具合修正\n- WriteDefaultsを統一\n- 中腰姿勢を７つ、座り姿勢を８つ追加",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/changelog"
+      ]
+    },
+    "a31f8f583c3a9f07": {
+      "language": "ja",
+      "text": "## [1.8.0] - 2024-02-25\n### 修正\n- ModularAvatar1.9.0以降を使用するとアップロードに失敗する不具合を修正\n- ModualrAvatar1.9.0以降が必須になりました",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/changelog"
+      ]
+    },
+    "4b1d18e53be315d7": {
+      "language": "ja",
+      "text": "## [1.7.0] - 2024-02-23\n### 修正\n- 各姿勢の頭の高さ閾値の変更機能を追加\n- アバターによってジャンプ時などに姿勢や足が変になる不具合を修正\n- 使用するExpressionParameterのビットを54から16bitまで削減",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/changelog"
+      ]
+    },
+    "57121fd7cc1e894a": {
+      "language": "ja",
+      "text": "## [1.6.0] - 2024-02-20\n### 修正\n- VRモードで座り姿勢になれなくなる不具合を修正",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/changelog"
+      ]
+    },
+    "35136f219dda09d9": {
+      "language": "ja",
+      "text": "## [1.5.0] - 2024-02-18\n### 修正\n- デスクトップモードではCキーを押した状態でも座り姿勢が出せるように変更",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/changelog"
+      ]
+    },
+    "8d45a1ec89c96a6f": {
+      "language": "ja",
+      "text": "## [1.4.0] - 2024-02-17\n### 修正\n- 三点だいしゅき連携を使わずに添い寝連携が使えない不具合を修正\n- ジャンプで足が固まる不具合を修正",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/changelog"
+      ]
+    },
+    "5beac4239102556a": {
+      "language": "ja",
+      "text": "## [1.3.0] - 2024-02-16\n### 修正\n- 異常な数のVRCContactSender/Receiverが設定されている不具合を修正",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/changelog"
+      ]
+    },
+    "5412e53889e52600": {
+      "language": "ja",
+      "text": "## [1.2.0] - 2024-02-16\n### 修正\n- アップロード時にビルドエラーが出る不具合を修正",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/changelog"
+      ]
+    },
+    "038a0e4961071ef8": {
+      "language": "ja",
+      "text": "## [1.1.0] - 2024-02-15\n### 修正\n- 複数Prefabs使用時のデフォルトがおかしい不具合を修正\n- 可愛い座り連携の設定が間違っていたのを修正",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/changelog"
+      ]
+    },
+    "d3e51d2ed0f22787": {
+      "language": "ja",
+      "text": "## [1.0.0] - 2024-02-14\n### リリース",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/changelog"
+      ]
+    },
+    "f675a3d502bd6e37": {
+      "language": "en",
+      "text": "# Kawaii Posing Tool — English User Guide",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/guide"
+      ]
+    },
+    "240461debb7fb962": {
+      "language": "en",
+      "text": "Kawaii Posing provides 85 poses for desktop and three-point VR: 15 standing, 20 crouching/chair, 17 floor-sitting, 17 back-lying, and 16 front-lying poses.",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/guide"
+      ]
+    },
+    "4b4ce8f2136c0a4d": {
+      "language": "en",
+      "text": "This guide covers installation, avatar setup, VRChat controls, pose editing, updates, and troubleshooting. The purchased ZIP includes `START_HERE.html` for the quickest route to installation.",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/guide",
+        "CoolPosing/guide"
+      ]
+    },
+    "f0994b5bc6eab153": {
+      "language": "en",
+      "text": "## Before you start",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/guide",
+        "CoolPosing/guide"
+      ]
+    },
+    "6ae60319e9c41d31": {
+      "language": "en",
+      "text": "- Use a Unity 2022.3 VRChat **avatar** project created or managed with VRChat Creator Companion (VCC) or ALCOM.\n- Required packages: VRChat Avatars SDK 3.10.4 or later; Modular Avatar 1.x, version 1.15.1 or later; and NDMF 1.x, version 1.14.0 or later.\n- The tool is for Humanoid avatars in desktop mode and three-point VR (headset and two controllers). Pose locking while full-body tracking is active is unsupported.\n- Back up an existing project before installing or updating. Finish any outstanding Unity compile errors first.\n- The installer downloads the product and dependencies from their package repositories. An internet connection is required. Avatar models, VRChat SDK, Modular Avatar, and NDMF are not included in this ZIP.",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/guide",
+        "CoolPosing/guide"
+      ]
+    },
+    "b58d5efb219e0955": {
+      "language": "en",
+      "text": "## 1. Install the license and product",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/guide",
+        "CoolPosing/guide"
+      ]
+    },
+    "07d7ee924d86344a": {
+      "language": "en",
+      "text": "1. Extract the entire ZIP into a normal folder outside your Unity project.\n2. Open the intended avatar project in Unity. Import `Installer/KawaiiPosing_Installer.unitypackage` using **Assets > Import Package > Custom Package**, or open the file with Unity.\n3. Read the import and installation prompts. The license confirmation explains which product licenses will be installed. Use **Language...** (or **言語...**) in a confirmation dialog to change the installer language.\n4. Confirm license installation. The license also covers the shared Unisaki Posing System used by this product. The installer can offer to remove its own setup files afterward; this cleanup does not remove the installed product license.\n5. Review the automatic package-installer confirmation. It lists the packages and repositories to add and any legacy files or folders it proposes to remove. Continue when these are the intended items.\n6. Allow Unity to finish importing and compiling. If package installation does not finish automatically, open this project in VCC or ALCOM and add **Kawaii Posing Tool** and **Modular Avatar**. The shared **Unisaki Posing System** and **NDMF** are dependencies. `Optional-VCC-Links` contains the original repository shortcuts supplied with the product for Windows VCC users.\n7. If a confirmation was cancelled, import the installer again when ready. You can also use its license-install command in **Tools > Unisaki Studio** while the activator is still present. In older builds this submenu is named **ゆにさきスタジオ**.",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/guide"
+      ]
+    },
+    "3c27365bd82f8dab": {
+      "language": "en",
+      "text": "### What this download installs",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/guide",
+        "CoolPosing/guide"
+      ]
+    },
+    "952ab3fb036b1c5b": {
+      "language": "en",
+      "text": "**Kawaii Posing Tool 3.2.0 with Unisaki Posing System 3.2.0.** This version is in development and has not been released. It adds thirty-language setup dialogs, Unity Inspector and menus, standard pose names, in-game menus, and offline documentation. The release date has not been set. Use the top-of-Inspector language selector to change the tool language. After publication, the installer will download these versions and their compatible dependencies from VPM repositories. Local release preparation does not publish those packages.",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/guide"
+      ]
+    },
+    "a511a3ab974162c1": {
+      "language": "en",
+      "text": "Kawaii Posing Tool includes the pose library, configuration tools, and avatar adjustment presets. The installer activates the product's existing local license; it does not require a new Gumroad license key field. Never post the installer files or license data in a public support request.",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/guide"
+      ]
+    },
+    "6a4140f9fcf8696a": {
+      "language": "en",
+      "text": "Language preferences are stored through Unity EditorPrefs for the current OS user and are shared across Unity projects on this computer. Without a saved preference, the installer follows the OS language; unsupported languages use English. Product licenses retain their existing storage: the current user's `Software/UnisakiStudio` registry key on Windows, and per-user license files on macOS/Linux. Changing a language does not remove a license.",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/guide",
+        "CoolPosing/guide"
+      ]
+    },
+    "9b067be04670a030": {
+      "language": "en",
+      "text": "## 2. Add the tool to an avatar",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/guide",
+        "CoolPosing/guide"
+      ]
+    },
+    "5db6d754ccbe01f8": {
+      "language": "en",
+      "text": "1. In the **Hierarchy**, select the avatar with a **VRC Avatar Descriptor**, or one of its children. Use an avatar placed in a scene, rather than the Project window's prefab asset or Prefab Mode.\n2. Right-click the avatar and choose **Unisaki Studio > Add Kawaii Posing**. If the installed build uses Japanese menus, choose **ゆにさきスタジオ > 可愛いポーズツール追加**.\n3. The tool is added inside the avatar. Its saved object name may remain **可愛いポーズ** even when display labels are translated.\n4. If a matching avatar preset is offered, apply it for a starting fit. Otherwise open **Avatar Setup** and choose a preset or adjust the poses yourself.\n5. The installer may offer to prebuild. Prebuilding is optional; a normal avatar build also generates the required data. Reuse prebuilds to reduce later build times.\n6. Select the tool object, choose the poses and features you want, then upload the avatar normally through the VRChat SDK.",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/guide"
+      ]
+    },
+    "cc1a83bb12c33553": {
+      "language": "en",
+      "text": "### Language selection and familiar labels",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/guide",
+        "CoolPosing/guide"
+      ]
+    },
+    "0ad9612c7a673560": {
+      "language": "en",
+      "text": "This version offers **Language / 言語** at the top of the tool Inspector. That single selection controls the Inspector and generated in-game menu. The avatar stores its selected language, and the last choice is remembered for other tools/projects on this computer. Re-upload the avatar to change the language seen in VRChat.",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/guide",
+        "CoolPosing/guide"
+      ]
+    },
+    "f4db826aab55aa89": {
+      "language": "en",
+      "text": "Use the label table below when following older Japanese tutorials. This version includes the language selector, localized Inspector, translated standard pose names, and in-game menus for all 30 languages.",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/guide",
+        "CoolPosing/guide"
+      ]
+    },
+    "eb8cc3b5b69abc5a": {
+      "language": "en",
+      "text": "| English | Japanese label in older builds |\n| --- | --- |\n| Unisaki Studio | ゆにさきスタジオ |\n| Features | 機能 |\n| Poses | ポーズ一覧 |\n| Avatar Setup | アバター調整 |\n| Open settings | 設定を開く |\n| Update prebuild | プレビルドを更新 |\n| Check settings | 設定の確認 |\n| Preview | プレビュー |\n| Animation Adjustment | アニメーション調整 |\n| Reload | 再読込 |",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/guide",
+        "CoolPosing/guide"
+      ]
+    },
+    "86ed83d79915f37d": {
+      "language": "en",
+      "text": "The bundled Inspector, editor/setup dialogs, standard pose names and generated menus have translations for all 30 selectable languages. The README, changelog and offline manual are provided in each selectable language. Avatar names, saved object names, custom pose names, asset filenames, and internal parameter identifiers may keep their original spelling.",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/guide",
+        "CoolPosing/guide"
+      ]
+    },
+    "03b70764465e7f92": {
+      "language": "en",
+      "text": "[30-language quick references](../../jp.unisakistudio.posingsystem/Documentation~/QuickReference/index.html) cover the feature explanations and standard pose-name tables. These are concise references; use the language index for the full documentation.",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/guide",
+        "CoolPosing/guide"
+      ]
+    },
+    "e413390613039b45": {
+      "language": "en",
+      "text": "## 3. Choose your poses and features",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/guide",
+        "CoolPosing/guide"
+      ]
+    },
+    "9df7843e8496a38b": {
+      "language": "en",
+      "text": "The Inspector has three main tabs:",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/guide",
+        "CoolPosing/guide"
+      ]
+    },
+    "be9c9eff2128305e": {
+      "language": "en",
+      "text": "| Tab | Use it for |\n| --- | --- |\n| **Features** | In-game menu controls, optional behavior, breathing, icon options, and expression-parameter usage. |\n| **Poses** | Enabled poses, category/search, ordering, adding animations, preview, details, and animation adjustment. |\n| **Avatar Setup** | Avatar-specific and knee corrections, original/custom motion import, and presets. |",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/guide",
+        "CoolPosing/guide"
+      ]
+    },
+    "668fae5793d40c01": {
+      "language": "en",
+      "text": "Enable only the menu controls you plan to use. For example, adding **Mirror** to the menu lets you switch mirroring in VRChat; it does not force every pose to stay mirrored.",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/guide",
+        "CoolPosing/guide"
+      ]
+    },
+    "dac66ae03d2f290d": {
+      "language": "en",
+      "text": "Kawaii Posing includes avatar presets and supported-pose IK. Three standard back-lying poses have side-lying motions already assigned: **Legs Out (足伸ばし)**, **Relaxed (リラックス)**, and **One Knee Up (膝立て)**. Use the matching preset and inspect each pose’s roll-over setting if you have edited or replaced these entries.",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/guide"
+      ]
+    },
+    "8b5a14e1b9abc7f5": {
+      "language": "en",
+      "text": "### Presets and fitting",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/guide",
+        "CoolPosing/guide"
+      ]
+    },
+    "67e242f06ec825c5": {
+      "language": "en",
+      "text": "Presets are near the bottom of **Avatar Setup**. Search by avatar name, then apply a preset to replace the current pose settings. Save or back up adjustments before changing presets. A preset is a starting point: body proportions, outfits, and avatar modifications can still require manual corrections.",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/guide",
+        "CoolPosing/guide"
+      ]
+    },
+    "9175b123d4e1a515": {
+      "language": "en",
+      "text": "Use **Animation Adjustment** on a pose to preview and edit body/limb placement. Save the adjustment animation from that window when finished. Where supported, automatic hand and foot adjustment (IK) can be enabled globally and per pose. Baking the current IK result into an adjustment creates an adjustment animation and disables IK for that pose so you can refine it manually; the original source clip is kept.",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/guide",
+        "CoolPosing/guide"
+      ]
+    },
+    "e15da49d2794570c": {
+      "language": "en",
+      "text": "**Prevent knees bending backward** has additional settings such as the minimum knee bend angle. Avatar-specific corrections are available only when corresponding correction data exists, and some corrections cannot be combined with pose IK.",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/guide",
+        "CoolPosing/guide"
+      ]
+    },
+    "8f4c3b4f6fb1333f": {
+      "language": "en",
+      "text": "### Original and custom motions",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/guide",
+        "CoolPosing/guide"
+      ]
+    },
+    "e69fbde91fce7241": {
+      "language": "en",
+      "text": "**Use the avatar's original standing/crouching/prone motions** detects motions from the avatar's Base layer during generation. **Use your own motions** opens separate import settings for each motion type. Choose one motion per type. Manual assignments take priority over automatic import for that type.",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/guide",
+        "CoolPosing/guide"
+      ]
+    },
+    "e607ff56efa41bdf": {
+      "language": "en",
+      "text": "Automatic import applies to the build copy. It does not write detected animations back into the scene's manual-assignment list or modify the original controllers. Clear a manual override for a type if you want automatic detection to handle it again. Custom Base layers and other locomotion systems may require individual adjustments.",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/guide",
+        "CoolPosing/guide"
+      ]
+    },
+    "7059f0ed49756023": {
+      "language": "en",
+      "text": "## 4. Use the tool in VRChat",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/guide",
+        "CoolPosing/guide"
+      ]
+    },
+    "a2abdeb7b81b4ecc": {
+      "language": "en",
+      "text": "Open your avatar's **Expressions** menu and enter **Kawaii Posing**. Choose a pose for each posture category you want to use. Selecting a pose and selecting a feature are separate actions.",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/guide"
+      ]
+    },
+    "54fa51383a04a1d2": {
+      "language": "en",
+      "text": "- **Three-point VR:** lower or raise your head to change between standing, crouching/chair, floor-sitting, and lying postures. Adjust the height thresholds in the tool's settings menu if posture changes happen too early or too late.\n- **Desktop:** use **C** to crouch and **Z** to lie down. If Z leaves you sitting, increase the lying-height threshold in the settings menu.\n- **Lying front/back:** the tool uses face direction to select front- or back-lying. When both are selected, jumping in place can switch between them. Disable jump switching in Unity's **Features > Convenience features** if you prefer; it adds no synced parameter cost.\n- **Locks:** use head, arm, and foot locks as needed. Disable gestures if you want the posed hand shape instead of controller gesture input.\n- **Mirror:** flip a selected pose to face a friend or match a composition.",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/guide",
+        "CoolPosing/guide"
+      ]
+    },
+    "510c742262d679e6": {
+      "language": "en",
+      "text": "### Foot height and floor height",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/guide",
+        "CoolPosing/guide"
+      ]
+    },
+    "4e5d1ed242d317ca": {
+      "language": "en",
+      "text": "**Foot height** adjusts the feet while keeping the head in place. Use it when your feet float or sink while the head is already at the right height.",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/guide",
+        "CoolPosing/guide"
+      ]
+    },
+    "3c9d2ca82ea9281b": {
+      "language": "en",
+      "text": "**Floor height** moves the whole body, including the head. Use it for a sofa, bed, or raised surface, including furniture without a collider. On the shared system's current centered control, **50% is the original height**, 0% is 3 m below, and 100% is 3 m above. Return near 50% to end the offset. Older releases may have different control behavior; check the installed version and update the shared system together with the product.",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/guide",
+        "CoolPosing/guide"
+      ]
+    },
+    "8b441cc13491f816": {
+      "language": "en",
+      "text": "### Photo mode",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/guide",
+        "CoolPosing/guide"
+      ]
+    },
+    "c7067b8f4e3f7447": {
+      "language": "en",
+      "text": "Enable the **Photo mode** menu entry in Unity before uploading. In VRChat, choose a pose, use **Distance** to move up to 3 m forward, and use **Rotation** to turn the avatar. Foot lock is optional while you arrange the shot. **Exit photo mode** resets distance/rotation and releases the foot lock.",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/guide",
+        "CoolPosing/guide"
+      ]
+    },
+    "4b1071cdbb63c703": {
+      "language": "en",
+      "text": "Photo mode is local by default. To show the position and rotation to other people, enable **Sync photo mode** in Unity before uploading; this costs 16 synced bits. **Keep head visible in photo mode** affects your own view and costs no synced bits.",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/guide",
+        "CoolPosing/guide"
+      ]
+    },
+    "52ab85a1ae376835": {
+      "language": "en",
+      "text": "### Breathing and roll over",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/guide",
+        "CoolPosing/guide"
+      ]
+    },
+    "c226cdb39c8c1fb3": {
+      "language": "en",
+      "text": "Breathing can be set per posture category in **Features > Convenience features > Add breathing motion**. Choose none, weak, medium, strong, fast, or a custom breathing animation. The movement itself costs no synced bits. A menu toggle for breathing uses 1 bit.",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/guide",
+        "CoolPosing/guide"
+      ]
+    },
+    "56d27e2f6c98b9e9": {
+      "language": "en",
+      "text": "Roll over requires a supported lying pose and the **Roll Over** menu entry. Enable roll over for the pose and provide its side-lying animation when needed. In VRChat, choose that pose, enable roll over, and release head/neck lock. The head's sideways tilt then controls the roll. Normal MotionTime control is unavailable for that pose while roll over is used.",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/guide",
+        "CoolPosing/guide"
+      ]
+    },
+    "f899f207728e8ee9": {
+      "language": "en",
+      "text": "The three standard back-lying poses listed above include side-lying motions. Other poses require an appropriate motion and pose setting. Imported/custom presets can have different assignments.",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/guide"
+      ]
+    },
+    "60bb283b1da0925f": {
+      "language": "en",
+      "text": "## 5. Edit, add, and preview poses",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/guide",
+        "CoolPosing/guide"
+      ]
+    },
+    "9c1d9eae0539ad04": {
+      "language": "en",
+      "text": "In **Poses**, select a category or use the search tab. Search accepts original Japanese names and available translations. Open a pose's **Details** to edit its animation, icon, ordering, and timing options.",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/guide",
+        "CoolPosing/guide"
+      ]
+    },
+    "2c4cd60737c88005": {
+      "language": "en",
+      "text": "To add several animations, drag clips to the add area or select clips in the Project window and use the selected-clips import command. Duplicate references to the same clip are removed. Change the destination order in Details, or use the up/down controls.",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/guide",
+        "CoolPosing/guide"
+      ]
+    },
+    "bad68e5c4e0ca386": {
+      "language": "en",
+      "text": "**Preview** shows a pose in the Scene view without opening the full adjustment window. This lightweight preview does not run Modular Avatar or NDMF, so check the final avatar build for clothing, floor correction, and other build-time features.",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/guide",
+        "CoolPosing/guide"
+      ]
+    },
+    "a0005b4a60905702": {
+      "language": "en",
+      "text": "Pose icons generated from your avatar help identify poses, but generation takes time and can increase avatar data size. Reduce icon resolution to save space. Android builds do not generate pose icons. Regenerate icons after changing the avatar or outfit when required.",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/guide",
+        "CoolPosing/guide"
+      ]
+    },
+    "f5e8d80375e8baf8": {
+      "language": "en",
+      "text": "## 6. Parameter memory",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/guide",
+        "CoolPosing/guide"
+      ]
+    },
+    "126ad096501b9c5b": {
+      "language": "en",
+      "text": "The Inspector shows the pose tools' contribution, not the entire avatar's total. Clothing and other systems can use additional parameter memory. Common settings shared by multiple pose tools are not counted twice. Custom configurations with many extra poses can need more pose-selection bits.",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/guide",
+        "CoolPosing/guide"
+      ]
+    },
+    "94ad60ac38d64519": {
+      "language": "en",
+      "text": "| Feature | Additional synced bits |\n| --- | ---: |\n| Pose selection, minimum standard configuration | 8 |\n| Mirror | 1 |\n| Disable gestures | 1 |\n| Breathing movement | 0 |\n| Breathing menu toggle | 1 |\n| Foot height | 8 |\n| Floor height | 8 |\n| Photo mode, local only | 0 |\n| Sync photo mode | 16 |\n| Keep head visible during photo mode | 0 |\n| Disable VRChat's default idle sway | 0 |\n| Roll over | 10 |",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/guide",
+        "CoolPosing/guide"
+      ]
+    },
+    "8e38def749eacdd0": {
+      "language": "en",
+      "text": "Roll over shares 1 bit with the neck-direction posture correction: enabling both still uses 10 bits in total for those two features. The displayed usage in your installed version is the practical reference for your selected configuration.",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/guide",
+        "CoolPosing/guide"
+      ]
+    },
+    "f1fe1a80e2e195b5": {
+      "language": "en",
+      "text": "## 7. Update and prebuild",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/guide",
+        "CoolPosing/guide"
+      ]
+    },
+    "6821114682ad2934": {
+      "language": "en",
+      "text": "1. Back up the project and save your working scene.\n2. In VCC or ALCOM, update **Kawaii Posing Tool** and the shared **Unisaki Posing System** together. Also keep required SDK, Modular Avatar, and NDMF versions compatible.\n3. Allow compilation to finish. Select the already-installed tool and review its poses, settings, and parameter usage.\n4. If you use prebuilds, choose **Update prebuild**, then upload the avatar again.",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/guide"
+      ]
+    },
+    "c43f66aca5cc509d": {
+      "language": "en",
+      "text": "Existing tool settings are retained. Legacy 8-bit prefabs are kept for compatibility; existing references do not require deleting/replacing the tool. New installations use the normal prefab, and unused features can be disabled to reduce parameter usage.",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/guide",
+        "CoolPosing/guide"
+      ]
+    },
+    "499b3bf6280b5942": {
+      "language": "en",
+      "text": "A stale-prebuild warning means settings have changed since the cached build data was generated. Updating the prebuild regenerates that data. Hiding a warning does not update the prebuild or solve its underlying issue. Normal avatar builds can generate the required data even when you do not manually prebuild each time.",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/guide",
+        "CoolPosing/guide"
+      ]
+    },
+    "baa72162db9180d7": {
+      "language": "en",
+      "text": "## 8. Troubleshooting",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/guide",
+        "CoolPosing/guide"
+      ]
+    },
+    "928c7b1cca8d969b": {
+      "language": "en",
+      "text": "| Symptom | What to check |\n| --- | --- |\n| No add-tool menu | Check that the product **and** Unisaki Posing System are installed, and resolve Unity Console compile errors. The license installer alone is not the pose library. |\n| Installer cancelled or files removed | Reimport the purchased installer when ready. Read its confirmations again. |\n| License appears missing in another project | Import the purchased installer under the same OS account. If you changed computer/account, install the license there too. Language preferences do not transfer between computers automatically. |\n| No poses in VRChat | Add the tool under the correct scene avatar, enable desired poses, review Inspector warnings, and upload that avatar. Check SDK and other locomotion tools. |\n| Z does not reach lying posture | Increase the lying-height threshold in the tool's in-game settings. |\n| Hands or knees do not line up | Try the matching avatar preset, then use supported IK and/or Animation Adjustment. Check outfit deformation in the final build. |\n| Roll over does not work | Use a supported lying pose, enable both the pose's roll-over setting and menu entry, and release head/neck lock. Check one of the three supported standard poses first. |\n| Friends cannot see photo movement | Enable **Sync photo mode** in Unity, check parameter usage, and upload again. |\n| Language changes in Unity but not VRChat | Re-upload the avatar. Check the single top-of-Inspector language selector in localization-enabled builds. |\n| Build/prebuild errors | Read the **first** relevant Console error. Back up the scene, update/reacquire the product and shared system through VCC/ALCOM, and contact support if the issue continues. Keep adjusted objects and GeneratedResources unless support gives a specific recovery step. |",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/guide"
+      ]
+    },
+    "89fcad025f1817fd": {
+      "language": "en",
+      "text": "For support, include the product/shared-system versions, Unity/SDK/Modular Avatar/NDMF versions, avatar name, exact steps to reproduce, and the relevant Console error. Remove private files, installer contents, license values, and account details from public posts.",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/guide",
+        "CoolPosing/guide"
+      ]
+    },
+    "2fc528595583778a": {
+      "language": "en",
+      "text": "- [Support](https://help.unisakistudio.jp/)\n- [Illustrated online manual (Japanese)](https://docs.unisakistudio.jp/kawaiiposing/manual/)\n- [Gumroad product page](https://unisakistudio.gumroad.com/l/kawaii-posing)",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/guide"
+      ]
+    },
+    "49bf131434354287": {
+      "language": "en",
+      "text": "## Licenses and credits",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/guide",
+        "CoolPosing/guide"
+      ]
+    },
+    "33c86cfe55e40a99": {
+      "language": "en",
+      "text": "An [English reference translation of the product agreement](Terms.en.html) is supplied alongside the original Japanese agreement.",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/guide",
+        "CoolPosing/guide"
+      ]
+    },
+    "9868cc425d603a0f": {
+      "language": "en",
+      "text": "Read the original product agreement and the shared-system agreement beside the package README, or in the `Licenses` folder of the purchased ZIP. The supplied English Unisaki Posing System agreement is an existing reference translation for that system; the product's Japanese agreement remains separately included. The guide does not change the agreements or grant additional rights. Contact support for questions about using or redistributing product data.",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/guide",
+        "CoolPosing/guide"
+      ]
+    },
+    "1c8959f783fe7ffe": {
+      "language": "en",
+      "text": "The installer includes a modified **VPMPackageAutoInstaller** by **anatawa12**, with **SimpleJson** and **semver.net**. Their copyright notices and MIT license texts are in `ThirdPartyNotices.txt` in the purchased ZIP. The pose library and other product resources have their own product licenses.",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/guide",
+        "CoolPosing/guide"
+      ]
+    },
+    "9ec15b083830389e": {
+      "language": "ja",
+      "text": "# カッコいいポーズツール",
+      "invariant": false,
+      "contexts": [
+        "CoolPosing/repository",
+        "CoolPosing/readme"
+      ]
+    },
+    "86c91b6fc025424f": {
+      "language": "ja",
+      "text": "BOOTHで販売している「カッコいいポーズツール」のソースコードとリソースです。",
+      "invariant": false,
+      "contexts": [
+        "CoolPosing/repository"
+      ]
+    },
+    "a075589a9c6249cc": {
+      "language": "ja",
+      "text": "- [README：導入・更新・設定方法](Packages/jp.unisakistudio.coolposing/README.md)\n- [変更履歴](Packages/jp.unisakistudio.coolposing/CHANGELOG.md)\n- [BOOTH商品ページ](https://yunisaki.booth.pm/items/8797334)",
+      "invariant": false,
+      "contexts": [
+        "CoolPosing/repository"
+      ]
+    },
+    "9d1437111811bc6f": {
+      "language": "ja",
+      "text": "[利用規約](Packages/jp.unisakistudio.coolposing/ゆにさきスタジオ販売・配布データ利用規約（日本語版）Ver1.0.0.pdf)",
+      "invariant": false,
+      "contexts": [
+        "CoolPosing/repository"
+      ]
+    },
+    "c2493654393fac07": {
+      "language": "ja",
+      "text": "3点トラッキングやデスクトップでも、カッコいい姿勢に切り替えられるVRChat向けポーズ固定ツールです。立ち11・中腰9・座り14・仰向け寝9・うつ伏せ寝7の、合計50姿勢を収録しています。",
+      "invariant": false,
+      "contexts": [
+        "CoolPosing/readme"
+      ]
+    },
+    "ef9a7f895c6e482e": {
+      "language": "ja",
+      "text": "このREADMEは開発中のv1.2.0向けです。正式リリース日は未定です。導入済みのバージョンはInspector上部で確認できます。",
+      "invariant": false,
+      "contexts": [
+        "CoolPosing/readme"
+      ]
+    },
+    "42d11daea3442e03": {
+      "language": "ja",
+      "text": "- [BOOTH商品ページ](https://yunisaki.booth.pm/items/8797334)\n- [変更履歴](CHANGELOG.md)",
+      "invariant": false,
+      "contexts": [
+        "CoolPosing/readme"
+      ]
+    },
+    "51f028bd02b8dece": {
+      "language": "ja",
+      "text": "- 手足の自動調整（IK）：43姿勢で、アバターの体格に合わせて手足の置き場所と向きを調整します。",
+      "invariant": false,
+      "contexts": [
+        "CoolPosing/readme"
+      ]
+    },
+    "b1b3e5bceff0a199": {
+      "language": "ja",
+      "text": "- 撮影モード：アバターを前方へ最大3m動かし、向きを調整できます。自分の画面だけなら0 bit、他の人にも位置と向きを見せる場合は16 bitです。\n- 撮影中の頭の表示：近くにいる自分のアバターの頭が非表示になるのを、撮影モード中だけ防げます。\n- 床の高さ：頭を含む身体全体を上下3mまで移動できます。頭の位置を保って足側を動かす「足の高さ」と使い分けられます。\n- 寝返り：対応モーションを自分で設定したポーズで使用できます。付属ポーズには寝返りモーションを収録していません。\n- 呼吸：胸などに呼吸の動きを付けられます。姿勢の分類ごとに「なし・弱・中・強・急・カスタム」を選べます。\n- VRChat標準の揺れを止める：標準の待機中の揺れを抑えながら、ポーズツールの呼吸やほかのカスタム動作を使えます。\n- 首の向きの違いによる姿勢崩れを抑制：首固定を解除したとき、元のポーズと首の向きが異なることによる姿勢崩れを抑えます。\n- 機能の選択：必要なゲーム内メニューだけを追加し、ExpressionParametersの使用量をInspectorで確認できます。\n- ポーズ一覧の検索・一括追加・並べ替え：分類をまたいだ検索、複数クリップの読み込み、移動先の順番指定ができます。\n- Sceneでの簡易プレビュー：ポーズ一覧の「プレビュー」から、その場で姿勢を確認できます。",
+      "invariant": false,
+      "contexts": [
+        "CoolPosing/readme"
+      ]
+    },
+    "c2701f328fe2cae9": {
+      "language": "ja",
+      "text": "- 新機能のメニューアイコン：呼吸・寝返り・床の高さ・撮影モードなどに、本商品の既存アイコンに合わせた専用画像を用意しています。",
+      "invariant": false,
+      "contexts": [
+        "CoolPosing/readme"
+      ]
+    },
+    "7c498ebeef28b23c": {
+      "language": "ja",
+      "text": "### 寝返りを設定する",
+      "invariant": false,
+      "contexts": [
+        "CoolPosing/readme"
+      ]
+    },
+    "3f6959796c4886ba": {
+      "language": "ja",
+      "text": "使いたい寝姿勢の「詳細」で「寝返りを使う」をオンにし、「寝返り時の横向き」にアニメーションを指定します。通常のMotionTime設定は使えなくなります。「機能 > メニュー追加 > 寝返り」も有効にしてアップロードし、VRChatで対応する姿勢と「寝返り」を選びます。首固定は解除して使います。",
+      "invariant": false,
+      "contexts": [
+        "CoolPosing/readme"
+      ]
+    },
+    "e0b5ec43fcbb30b1": {
+      "language": "ja",
+      "text": "今回の付属ポーズには寝返り用のモーションを収録していません。使いたい姿勢に対応するアニメーションを設定してください。",
+      "invariant": false,
+      "contexts": [
+        "CoolPosing/readme"
+      ]
+    },
+    "7cfcd3bc6c58bd59": {
+      "language": "ja",
+      "text": "## 対応アバタープリセットと調整",
+      "invariant": false,
+      "contexts": [
+        "CoolPosing/readme"
+      ]
+    },
+    "b28495671138e6a0": {
+      "language": "ja",
+      "text": "トネール・狛乃・士堂・真央向けの調整済みプリセットを同梱しています。",
+      "invariant": false,
+      "contexts": [
+        "CoolPosing/readme"
+      ]
+    },
+    "e34b262b52bfcb31": {
+      "language": "ja",
+      "text": "- [トネール](https://booth.pm/ja/items/5236104)\n- [狛乃](https://booth.pm/ja/items/5260363)\n- [士堂](https://booth.pm/ja/items/8086741)\n- [真央](https://booth.pm/ja/items/6846646)",
+      "invariant": false,
+      "contexts": [
+        "CoolPosing/readme"
+      ]
+    },
+    "93464ae028e1a8fa": {
+      "language": "ja",
+      "text": "それ以外のアバターでも使用できます。体型や改変内容に合わせて「アニメーション調整」で姿勢を整えてください。「アバター調整」には「膝が逆向きに曲がるのを防ぐ」と、詳細の「最低膝曲げ角度（°）」もあります。",
+      "invariant": false,
+      "contexts": [
+        "CoolPosing/readme"
+      ]
+    },
+    "573bec6044bc7d05": {
+      "language": "ja",
+      "text": "手足の自動調整（IK）は初期状態で有効です。収録50姿勢のうち43姿勢でIKを使い、残り7姿勢は従来の姿勢別調整を使います。",
+      "invariant": false,
+      "contexts": [
+        "CoolPosing/readme"
+      ]
+    },
+    "8a4c9170dc7c119f": {
+      "language": "ja",
+      "text": "1. 購入したストアの商品ページからファイルをダウンロードします。\n2. 同梱の「カッコいいポーズツール.unitypackage」をUnityへインポートし、ライセンスとパッケージ配布元の登録を行います。\n3. VCCまたはALCOMで、使用するUnityプロジェクトに「カッコいいポーズツール」とModular Avatarを追加します。共通の「ゆにさきポーズシステム」とNDMFも依存パッケージとして導入されます。\n4. Hierarchyで対象のアバターを右クリックし、「ゆにさきスタジオ > カッコいいポーズツール追加」を選びます。\n5. アバターの中に追加された「カッコいいポーズ」を選び、Inspectorで使いたい機能とポーズを設定します。\n6. 通常どおりアバターをアップロードします。",
+      "invariant": false,
+      "contexts": [
+        "CoolPosing/readme"
+      ]
+    },
+    "4d5171a70112c334": {
+      "language": "ja",
+      "text": "v1.1.0から、新規追加は通常の「カッコいいポーズ」Prefabに統一しました。「機能」で不要な項目をオフにすると、姿勢選択のみの最小構成は8 bitになります。姿勢数が多い構成では、姿勢選択に追加のbitが必要になる場合があります。",
+      "invariant": false,
+      "contexts": [
+        "CoolPosing/readme"
+      ]
+    },
+    "4c66fbb298e8e9c2": {
+      "language": "ja",
+      "text": "- 呼吸の動きは0 bitです。ゲーム内で止めたり再開したりする「メニュー追加 > 呼吸」を使う場合のみ、ON/OFFの同期に1 bitを使用します。\n- 撮影モードは自分の画面だけなら0 bitです。「便利機能 > 撮影モードを同期する」を選ぶと16 bitを使用します。「撮影モード中は頭を非表示にしない」は0 bitです。\n- 「足の高さ」「床の高さ」はそれぞれ8 bitです。床の高さは中央から動かすと身体全体が上下へ移動し、50%付近へ戻すと終了します。\n- 「寝返り」は単独で10 bitです。「首の向きの違いによる姿勢崩れを抑制」と1 bitを共用するため、両方を使っても合計10 bitです。\n- 「左右反転」「ジェスチャー無効」はそれぞれ1 bitです。",
+      "invariant": false,
+      "contexts": [
+        "CoolPosing/readme"
+      ]
+    },
+    "52daca6e247fc4ad": {
+      "language": "ja",
+      "text": "- Expressionsメニューで、各分類の姿勢を選びます。VRでは頭の高さに応じて立ち・中腰・座り・寝姿勢が切り替わります。\n- 寝姿勢では顔の向きに応じて仰向け・うつ伏せを切り替えます。両方を選んだ場合はジャンプでも切り替えられ、「機能 → 便利機能 → ジャンプで寝姿勢を切り替える」でオフにできます。分類が切り替わる高さは、設定メニューの閾値で調整できます。\n- デスクトップではCキー・Zキーで姿勢を切り替えます。Zキーで寝姿勢にならない場合は、設定メニューの「寝の高さ閾値」を上げて調整してください。\n- 「ジェスチャー無効」をオンにすると、コントローラーの指の形に代えて、ポーズに設定された手の形を使います。\n- 「足の高さ」は頭の位置を保ちながら足側を調整します。「床の高さ」は頭を含む身体全体を上下へ移動します。設定メニューではこの順に並んでいます。\n- 「撮影モード」の「距離」で前へ移動すると、アバターがこちらを向きます。「向き」で回転させ、必要なタイミングで「足固定」をオンにしてください。「撮影モードを終了」で距離・向きを戻し、足固定を解除します。\n- 「呼吸」は呼吸の動きが有効な場合に使用できます。強さはUnity側で設定し、ゲーム内ではON/OFFを切り替えます。",
+      "invariant": false,
+      "contexts": [
+        "CoolPosing/readme"
+      ]
+    },
+    "6295b7b8bed5c017": {
+      "language": "ja",
+      "text": "- フルボディトラッキング中の姿勢固定には対応していません。\n- 体格、衣装、アバターの改変内容によって追加調整が必要になることがあります。\n- 特殊なBaseレイヤーやほかの姿勢変更ギミックとは、意図どおりに統合できない場合があります。固定がうまく動かない場合は「アバター調整 > 各固定機能の他ギミックとの統合」も確認してください。\n- 撮影モードの移動・回転と床の高さは、ツールポーズと未選択時の標準・独自モーションを補正します。VRChatクライアントで最終的な視点とモーション置換後の動作を確認してください。\n- 「VRChat標準の揺れを止める」は標準の待機動作が対象です。ほかの原因による揺れをすべて止める機能ではありません。",
+      "invariant": false,
+      "contexts": [
+        "CoolPosing/readme"
+      ]
+    },
+    "0356308cd195e268": {
+      "language": "ja",
+      "text": "- [公式マニュアル](https://docs.unisakistudio.jp/coolposing/manual/)\n- [お問い合わせ](https://help.unisakistudio.jp/)",
+      "invariant": false,
+      "contexts": [
+        "CoolPosing/readme"
+      ]
+    },
+    "5f9edc2e6e78c4b1": {
+      "language": "ja",
+      "text": "本商品には、ゆにさきスタジオが販売・配布するデータに共通で適用されるVN3利用規約「ゆにさきスタジオ販売・配布データ利用規約（日本語版）Ver1.0.0.pdf」を同梱しています。利用前に必ず内容をご確認ください。",
+      "invariant": false,
+      "contexts": [
+        "CoolPosing/readme"
+      ]
+    },
+    "2fa250c4ec0851c1": {
+      "language": "ja",
+      "text": "本リポジトリのソースコードおよびリソースはオープンソースではありません。正規購入者に対し、同梱の利用規約の範囲で使用を許諾します。",
+      "invariant": false,
+      "contexts": [
+        "CoolPosing/readme"
+      ]
+    },
+    "62431d8d88608efa": {
+      "language": "ja",
+      "text": "## [1.2.0] - 未リリース",
+      "invariant": false,
+      "contexts": [
+        "CoolPosing/changelog"
+      ]
+    },
+    "e28646fa3f9dff66": {
+      "language": "ja",
+      "text": "## [1.1.0] - 2026-11-07",
+      "invariant": true,
+      "contexts": [
+        "CoolPosing/changelog"
+      ]
+    },
+    "9c2d314c256c9291": {
+      "language": "ja",
+      "text": "- 収録50姿勢のうち43姿勢で、アバターの体格に合わせて手足をIKで自動調整します。残り7姿勢は従来の姿勢別調整を使用します。\n- 撮影モードでアバターの位置と向きを調整できます。位置・向きの同期と、撮影中の自分の頭の表示も選べます。\n- 「床の高さ」で身体全体を上下3mまで移動できます。「足の高さ」と使い分けられます。\n- 呼吸の動き、標準の待機中の揺れを止める設定、首の向きによる姿勢崩れを抑える設定を追加しました。\n- 使用する機能とパラメーター使用量をInspectorで確認できます。ポーズ検索・一括追加・並べ替え・Sceneでの簡易プレビューにも対応しました。\n- デスクトップモードの立ち・中腰・座りの切り替えを高速化しました。\n- 設定変更後のプレビルド警告、Inspectorのスクロール負荷、生成物整理時の長時間停止を改善しました。\n- ゆにさきポーズシステム 3.1.0 に対応しました。\n- 付属ポーズの寝返りモーションは収録していません。",
+      "invariant": false,
+      "contexts": [
+        "CoolPosing/changelog"
+      ]
+    },
+    "e54c29f7f1ba8dc5": {
+      "language": "ja",
+      "text": "## [1.1.0-beta.2] - オープンベータ版（2026-11-05）",
+      "invariant": false,
+      "contexts": [
+        "CoolPosing/changelog"
+      ]
+    },
+    "5cc5f9cf1ce29361": {
+      "language": "ja",
+      "text": "- 収録50姿勢のうち43姿勢に手足の自動調整（IK）を設定。残り7姿勢は従来の姿勢別調整を使用します。\n- 共通パッケージ3.1.0-beta.2に対応。今回の付属ポーズには寝返り用モーションを収録していません。",
+      "invariant": false,
+      "contexts": [
+        "CoolPosing/changelog"
+      ]
+    },
+    "52238d0762c5e131": {
+      "language": "ja",
+      "text": "## [1.1.0-beta.1] - オープンベータ版（2026-11-04）",
+      "invariant": false,
+      "contexts": [
+        "CoolPosing/changelog"
+      ]
+    },
+    "0240d176c026d4fb": {
+      "language": "ja",
+      "text": "## [1.1.0-alpha.1] - 公開前",
+      "invariant": false,
+      "contexts": [
+        "CoolPosing/changelog"
+      ]
+    },
+    "778bdea7493e830d": {
+      "language": "ja",
+      "text": "- 寝返りと、ポーズごとの対応アニメーション設定を追加。\n- 呼吸・寝返り・床の高さ・撮影モード・距離・向き・撮影終了の専用メニューアイコンを追加。\n- 前方への移動と回転を調整する撮影モードを追加。\n- 撮影モードの同期設定を追加。ローカルのみは0 bit、同期時は16 bit。\n- 撮影モード中、自分のアバターの頭を非表示にしない設定を追加。\n- 頭を含む身体全体を上げる「床の高さ」を追加。\n- 呼吸の動きと強さの設定、ゲーム内ON/OFFメニューを追加。\n- VRChat標準の揺れを止める設定を追加。\n- 首の向きの違いによる姿勢崩れを抑制する設定を追加。\n- 膝の逆曲がり防止と最低曲げ角度の設定を追加。\n- 機能ごとのON/OFFとExpressionParameters使用量の表示を追加。\n- Sceneでの簡易プレビュー、ポーズ検索、一括追加、移動先の順番指定を追加。\n- Inspector内での変更履歴表示を追加。",
+      "invariant": false,
+      "contexts": [
+        "CoolPosing/changelog"
+      ]
+    },
+    "c72d1bf2e1e6cd7b": {
+      "language": "ja",
+      "text": "## [1.0.0] - 2026-09-06",
+      "invariant": true,
+      "contexts": [
+        "CoolPosing/changelog"
+      ]
+    },
+    "3d70a32e5ec8535f": {
+      "language": "ja",
+      "text": "- 正式リリース\n- アバタープリセットを追加（トネール、狛乃、士堂、真央）",
+      "invariant": false,
+      "contexts": [
+        "CoolPosing/changelog"
+      ]
+    },
+    "9175cd807e82185d": {
+      "language": "ja",
+      "text": "## [1.0.0-alpha.1] - 2026-09-06",
+      "invariant": true,
+      "contexts": [
+        "CoolPosing/changelog"
+      ]
+    },
+    "8bfbd61fb0919bf4": {
+      "language": "ja",
+      "text": "- リリース",
+      "invariant": false,
+      "contexts": [
+        "CoolPosing/changelog"
+      ]
+    },
+    "9b3438889c475907": {
+      "language": "en",
+      "text": "# Cool Posing Tool — English User Guide",
+      "invariant": false,
+      "contexts": [
+        "CoolPosing/guide"
+      ]
+    },
+    "759fd79caf261f73": {
+      "language": "en",
+      "text": "Cool Posing provides 50 poses for desktop and three-point VR: 11 standing/crouching, 9 chair/perched-sitting, 14 floor-sitting, 9 back-lying, and 7 front-lying poses.",
+      "invariant": false,
+      "contexts": [
+        "CoolPosing/guide"
+      ]
+    },
+    "7888738c09012544": {
+      "language": "en",
+      "text": "1. Extract the entire ZIP into a normal folder outside your Unity project.\n2. Open the intended avatar project in Unity. Import `Installer/CoolPosing_Installer.unitypackage` using **Assets > Import Package > Custom Package**, or open the file with Unity.\n3. Read the import and installation prompts. The license confirmation explains which product licenses will be installed. Use **Language...** (or **言語...**) in a confirmation dialog to change the installer language.\n4. Confirm license installation. The license also covers the shared Unisaki Posing System used by this product. The installer can offer to remove its own setup files afterward; this cleanup does not remove the installed product license.\n5. Review the automatic package-installer confirmation. It lists the packages and repositories to add and any legacy files or folders it proposes to remove. Continue when these are the intended items.\n6. Allow Unity to finish importing and compiling. If package installation does not finish automatically, open this project in VCC or ALCOM and add **Cool Posing Tool** and **Modular Avatar**. The shared **Unisaki Posing System** and **NDMF** are dependencies. `Optional-VCC-Links` contains the original repository shortcuts supplied with the product for Windows VCC users.\n7. If a confirmation was cancelled, import the installer again when ready. You can also use its license-install command in **Tools > Unisaki Studio** while the activator is still present. In older builds this submenu is named **ゆにさきスタジオ**.",
+      "invariant": false,
+      "contexts": [
+        "CoolPosing/guide"
+      ]
+    },
+    "790187b65aa5e389": {
+      "language": "en",
+      "text": "**Cool Posing Tool 1.2.0 with Unisaki Posing System 3.2.0.** This version is in development and has not been released. It adds thirty-language setup dialogs, Unity Inspector and menus, standard pose names, in-game menus, and offline documentation. The release date has not been set. Use the top-of-Inspector language selector to change the tool language. After publication, the installer will download these versions and their compatible dependencies from VPM repositories. Local release preparation does not publish those packages.",
+      "invariant": false,
+      "contexts": [
+        "CoolPosing/guide"
+      ]
+    },
+    "cd35a97066714f25": {
+      "language": "en",
+      "text": "Cool Posing Tool includes the pose library, configuration tools, and avatar adjustment presets. The installer activates the product's existing local license; it does not require a new Gumroad license key field. Never post the installer files or license data in a public support request.",
+      "invariant": false,
+      "contexts": [
+        "CoolPosing/guide"
+      ]
+    },
+    "a7db8e8593d27872": {
+      "language": "en",
+      "text": "1. In the **Hierarchy**, select the avatar with a **VRC Avatar Descriptor**, or one of its children. Use an avatar placed in a scene, rather than the Project window's prefab asset or Prefab Mode.\n2. Right-click the avatar and choose **Unisaki Studio > Add Cool Posing**. If the installed build uses Japanese menus, choose **ゆにさきスタジオ > カッコいいポーズツール追加**.\n3. The tool is added inside the avatar. Its saved object name may remain **カッコいいポーズ** even when display labels are translated.\n4. If a matching avatar preset is offered, apply it for a starting fit. Otherwise open **Avatar Setup** and choose a preset or adjust the poses yourself.\n5. The installer may offer to prebuild. Prebuilding is optional; a normal avatar build also generates the required data. Reuse prebuilds to reduce later build times.\n6. Select the tool object, choose the poses and features you want, then upload the avatar normally through the VRChat SDK.",
+      "invariant": false,
+      "contexts": [
+        "CoolPosing/guide"
+      ]
+    },
+    "893f4ac7db85a756": {
+      "language": "en",
+      "text": "Cool Posing includes presets for **トネール**, **狛乃**, **士堂**, and **真央**; these are the original avatar names used in the preset picker. Other Humanoid avatars can be adjusted manually. Automatic hand/foot adjustment is provided for 43 of the 50 included poses; the remaining seven use their pose adjustments. The included pose library does **not** include side-lying roll-over motions.",
+      "invariant": false,
+      "contexts": [
+        "CoolPosing/guide"
+      ]
+    },
+    "37d7ce5459ec7863": {
+      "language": "en",
+      "text": "Open your avatar's **Expressions** menu and enter **Cool Posing**. Choose a pose for each posture category you want to use. Selecting a pose and selecting a feature are separate actions.",
+      "invariant": false,
+      "contexts": [
+        "CoolPosing/guide"
+      ]
+    },
+    "a551cc9a490836e6": {
+      "language": "en",
+      "text": "Cool Posing’s included poses have no bundled roll-over motions. Supply suitable animations for the poses you want to use with roll over.",
+      "invariant": false,
+      "contexts": [
+        "CoolPosing/guide"
+      ]
+    },
+    "fb5bf1d1e9e8a40c": {
+      "language": "en",
+      "text": "1. Back up the project and save your working scene.\n2. In VCC or ALCOM, update **Cool Posing Tool** and the shared **Unisaki Posing System** together. Also keep required SDK, Modular Avatar, and NDMF versions compatible.\n3. Allow compilation to finish. Select the already-installed tool and review its poses, settings, and parameter usage.\n4. If you use prebuilds, choose **Update prebuild**, then upload the avatar again.",
+      "invariant": false,
+      "contexts": [
+        "CoolPosing/guide"
+      ]
+    },
+    "b55e87f4f36596e5": {
+      "language": "en",
+      "text": "| Symptom | What to check |\n| --- | --- |\n| No add-tool menu | Check that the product **and** Unisaki Posing System are installed, and resolve Unity Console compile errors. The license installer alone is not the pose library. |\n| Installer cancelled or files removed | Reimport the purchased installer when ready. Read its confirmations again. |\n| License appears missing in another project | Import the purchased installer under the same OS account. If you changed computer/account, install the license there too. Language preferences do not transfer between computers automatically. |\n| No poses in VRChat | Add the tool under the correct scene avatar, enable desired poses, review Inspector warnings, and upload that avatar. Check SDK and other locomotion tools. |\n| Z does not reach lying posture | Increase the lying-height threshold in the tool's in-game settings. |\n| Hands or knees do not line up | Try the matching avatar preset, then use supported IK and/or Animation Adjustment. Check outfit deformation in the final build. |\n| Roll over does not work | Use a supported lying pose, enable both the pose's roll-over setting and menu entry, and release head/neck lock. Cool Posing needs suitable side-lying animations to be supplied separately. |\n| Friends cannot see photo movement | Enable **Sync photo mode** in Unity, check parameter usage, and upload again. |\n| Language changes in Unity but not VRChat | Re-upload the avatar. Check the single top-of-Inspector language selector in localization-enabled builds. |\n| Build/prebuild errors | Read the **first** relevant Console error. Back up the scene, update/reacquire the product and shared system through VCC/ALCOM, and contact support if the issue continues. Keep adjusted objects and GeneratedResources unless support gives a specific recovery step. |",
+      "invariant": false,
+      "contexts": [
+        "CoolPosing/guide"
+      ]
+    },
+    "15861714eb6995df": {
+      "language": "en",
+      "text": "- [Support](https://help.unisakistudio.jp/)\n- [Illustrated online manual (Japanese)](https://docs.unisakistudio.jp/coolposing/manual/)\n- [Gumroad product page](https://unisakistudio.gumroad.com/l/cool-posing)",
+      "invariant": false,
+      "contexts": [
+        "CoolPosing/guide"
+      ]
+    }
+  },
+  "source_sha256": "c9089e57d158be729a9988f04b64395c3d5b4d3764eeee869420cf5b39491b5c"
+}

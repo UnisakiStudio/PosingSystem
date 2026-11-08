@@ -1,8 +1,8 @@
 # 繁體中文 — Unisaki Posing System / 使用說明
 
-> Quick reference generated from existing interface translations. This is not a complete translated manual. The full guide is available in English.
+> 30種語言的快速參考涵蓋功能說明和標準姿勢名表。這是簡明參考；完整文件請從語言清單進入。
 
-[Language / 言語](index.md) · [English — 使用說明](../UserGuide.en.md)
+[🌐](../Localization/index.md) · [使用說明](../Localization/zh-Hant/UserGuide.md)
 
 ## 功能
 
@@ -241,4 +241,4 @@
 | 騎士 | 騎士 |
 | 魔王降臨 | 魔王降臨 |
 
-[English — 使用說明](../UserGuide.en.md)
+[使用說明](../Localization/zh-Hant/UserGuide.md)

@@ -24,3 +24,9 @@ Before release require zero unexplained missing translation keys, fresh generate
 files, language switching and Japanese round-trip checks. Font/wrapping/RTL/Indic
 visual verification is a separate release check and must not be inferred from JSON
 coverage. Do not run unrelated expensive animator compiler suites for text-only work.
+
+README, historical CHANGELOG and offline guides also require every advertised
+language. Read `Tools/Documentation/README.md`, keep current UI terms and standard
+pose names consistent, update the frozen source and affected translation paragraphs,
+then regenerate and run both documentation gates. No prose fallback counts as a
+completed document. Keep upcoming releases marked unreleased until actual publication.

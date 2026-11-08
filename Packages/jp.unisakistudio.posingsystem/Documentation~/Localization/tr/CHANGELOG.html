@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="tr" dir="ltr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Değişiklik geçmişi</title><style>:root { color-scheme: light dark; font-family: system-ui, -apple-system, "Segoe UI", sans-serif; line-height: 1.7; }
+body { margin: auto; max-width: 70rem; padding: 1.5rem; overflow-wrap: anywhere; }
+nav { display: flex; flex-wrap: wrap; gap: .6rem 1.2rem; padding-block: 1rem; border-block-end: 1px solid #8887; }
+h1,h2,h3 { line-height: 1.4; } h2 { margin-block-start: 2.4rem; }
+table { border-collapse: collapse; width: 100%; } th,td { text-align: start; vertical-align: top; padding: .5rem; border: 1px solid #8887; }
+thead { background: #8882; } .table-scroll { overflow-x: auto; }
+code,pre { direction: ltr; unicode-bidi: isolate; } code { background: #8882; padding: .1em .25em; } pre { white-space: pre-wrap; }
+a { color: #2269b8; } a:visited { color: #7952ad; } li { margin-block: .35rem; }
+@media(prefers-color-scheme:dark) { a { color: #8ec5ff; } a:visited { color: #cfacff; } }
+@media print { nav { display: none; } body { max-width: none; padding: 0; } a { color: inherit; } }</style></head><body>
+<nav aria-label="Documentation"><a href="../index.html">Türkçe · 🌐</a><a href="README.html">README</a><a href="CHANGELOG.html">Değişiklik geçmişi</a><a href="UserGuide.html">Unisaki Posing System 3.2.0 — Türkçe kılavuz</a></nav>
+<main><h1>Değişiklik geçmişi</h1>
+<h2>[3.2.0] - Yayınlanmadı</h2>
+<h3>Eklenenler</h3>
+<ul>
+<li>Inspector, düzenleme işlemleri, kurulum iletişimleri, standart poz adları ve oluşturulan VRChat menüleri 30 dilde görüntülenebilir.</li>
+<li>Inspector ve oyun menüsünün dil seçimi birleştirildi. Başlangıçta bilgisayarın dili kullanılır ve son seçim aynı işletim sistemi kullanıcısının diğer projelerinde de uygulanır.</li>
+<li>README, değişiklik geçmişi ve çevrimdışı kılavuz seçilen dilde açılabilir.</li>
+<li>128 standart pozun görüntüleme adları ve özellik açıklamaları mevcut terimlere göre hazırlandı.</li>
+</ul>
+<h3>Uyumluluk</h3>
+<ul>
+<li>Avatarın mevcut ayarları, özel adlar, varlık başvuruları, parametre kimlikleri ve lisans saklama yöntemi korunur.</li>
+</ul>
+<h2>[3.1.2] - 2026-11-09</h2>
+<ul>
+<li>Baş dönüşünden kaynaklanan poz bozulmasını azalt açıkken yüzüstünden kalktıktan sonra yüzün yukarı bakmaya devam etmesi düzeltildi.</li>
+<li>Ayak yüksekliği kapalı olsa da EX menüsündeki “Ayarlar → Sırtüstüyken başı otomatik kilitle” ile baş kilidi değiştirilebilir. 3.1.0 ve 3.1.1’de kaybolan öğe, güncelleme sonrası avatar derlenince geri gelir.</li>
+<li>Unity’de avatarın ana nesnesinin işareti kaldırılmış olsa da Ön oluşturmayı güncelle kullanılabilir.</li>
+<li>Eski ortak poz Controller’ı Assets’te kaldığında güncelleme sonrası poz oluşturulamaması düzeltildi. Kendiniz düzenlediğiniz Controller ayarları da korunur.</li>
+<li>Araç veya üst nesnesi devre dışı olduğundan ortak poz Animator’ı kullanılamıyorsa hedefin adı gösterilir. “Ayarları kontrol et → Hedefi seç” ile konumuna gidebilirsiniz.</li>
+<li>Ön oluşturmada ayar değişikliği bildirildiğinde “Ayrıntılar → Ön oluşturmadan beri değişenleri göster” ile önceki ayarlardan farklar incelenebilir.</li>
+<li>Betik hatası derlemeyi durdurduğunda (PS050), Unity’nin bulduğu en fazla 5 özgün hata gösterilir. Bu hata hakkında sor, Unity ve desteklenen araçların sürümleri ile hata numarasını içeren, kontrol edip düzenleyerek gönderebileceğiniz bir taslak açar.</li>
+</ul>
+<p>Ön oluşturma kullandıysanız güncellemeden sonra Ön oluşturmayı güncelle’ye basın, sahneyi kaydedin, avatarı yeniden derleyip yükleyin.</p>
+<h2>[3.1.1] - 2026-11-08</h2>
+<ul>
+<li>Aynala kapalı olsa da etkin Zemin yüksekliği ve Dön, VRChat EX menüsünün Ayarlar bölümünde görünür.</li>
+<li>Eski sürümde pozlar sıralansa, silinse veya yeniden adlandırılsa da Bacaklar Uzun, Rahat ve Bir Diz Yukarı doğru dönüşlerini korur. Tam Unpack yapılmışsa da özgün poz tanınabildiği sürece korunur. Kendi pozlarınız, elle kapattığınız dönüşler ve değiştirdiğiniz yan hareketler korunur.</li>
+<li>VRChat’te avatar seçildiğinde kısa süre yüzüstü olması düzeltildi. Yalnız yüzüstü seçiliyken zıplayınca kısa süre sırtüstü olması da düzeltildi. Zıplama geçişi “Özellikler → Kolaylıklar → Zıplayarak yatış pozunu değiştir”den kapatılabilir; varsayılan olarak açıktır.</li>
+<li>Güncelleme sonrası ortak poz Animator Controller başvurusu kaybolduysa ve kurtarılabiliyorsa uyarı gösterilip ayarlardan yeniden oluşturulur. Birden fazla avatarın paylaştığı Controller başvuruları da korunur.</li>
+<li>Projede derleme hatası varsa derlemenin başında neden gösterilip durdurulur. Betik hatası başvuruların incelenmesini engellerken oluşturulan Controller’ların otomatik temizliği ertelenir.</li>
+<li>Projede ürünle aynı adlı Prefab olsa da araç eklenirken resmî Prefab önceliklidir. Ortak Controller yalnızca satır sonlarında farklıysa ön oluşturma sürer.</li>
+<li>Aracın eklediği zemin yüksekliği gibi FX katmanlarının Write Defaults değeri avatar ayarlarına uyarlandı.</li>
+</ul>
+<p>Ön oluşturma kullandıysanız güncellemeden sonra sahnedeki araçta Ön oluşturmayı güncelle’ye basın, sahneyi kaydedin ve avatarı yeniden derleyip yükleyin.</p>
+<h2>[3.1.0] - 2026-11-07</h2>
+<ul>
+<li>Desteklenen pozların uzuvlarını vücut yapısına uyduran otomatik düzeltme (IK), avatar düzeltmesi ve dizin ters bükülmesini önleme eklendi.</li>
+<li>Fotoğraf modunda avatarın konumu ve yönü ayarlanabilir. Konum/yön eşitlemesi ve fotoğraf sırasında kendi başınızın görünmesi seçilebilir.</li>
+<li>Zemin yüksekliği tüm vücudu en fazla 3m yukarı veya aşağı taşır; ayak yüksekliğinden ayrı amaçla kullanılabilir.</li>
+<li>Nefes hareketi, varsayılan bekleme sallanmasını kapatma ve baş yönünden kaynaklanan poz bozulmasını azaltma eklendi.</li>
+<li>Kullanılan özellikler ve parametre maliyeti Inspector’da görülebilir. Poz arama, toplu ekleme, sıralama ve Scene’de hafif önizleme eklendi.</li>
+<li>Masaüstünde ayakta, çömelme ve oturma geçişleri hızlandırıldı.</li>
+<li>Ayar değişikliği sonrası ön oluşturma uyarıları, Inspector kaydırma yükü ve oluşturulan verilerin temizliğindeki uzun durmalar iyileştirildi.</li>
+<li>Otomatik içe aktarma açıkken ayarlar değişmediği hâlde ön oluşturmanın uyarı verip yüklemede yeniden oluşturulması düzeltildi. İçe aktarma sonucu üretilen avatara uygulanır; özgün nesnenin içe aktarma ayarları değişmez.</li>
+<li>Baş eğimiyle dönüş ve poz başına ilgili hareket ayarları eklendi.</li>
+<li>Eski ön ayarların dönüş ayarlarını koruma, kendi hareketlerinizi içe aktarma ve oluşturulan varlık yönetimi iyileştirildi.</li>
+</ul>
+<h2>[3.1.0-beta.2] - Açık beta (2026-11-05)</h2>
+<ul>
+<li>IK konum uzunluğu dayanaklarına sabit uzunluk ve Head ile Viewpoint arasındaki yükseklik (Y) ve ileri/geri farkı (Z) eklendi.</li>
+<li>Inspector uyarıları Hierarchy’de nesne adının solunda da görünür. Ön oluşturmanın yapılmaması ve ayar değişikliğine ek olarak hareket içe aktarma ve ön ayar işlemlerinin uyarıları da desteklenir.</li>
+<li>Sahne açılışı gibi otomatik temizliklerde başka sahnelerin oluşturulmuş Controller’larının yüklenmesi yüzünden Unity’nin uzun süre durması düzeltildi.</li>
+<li>Poz listesi veya özellikler değişince ön oluşturma geçmişinin kaybolması düzeltildi. Yapılmadı yerine ön oluşturmadan sonra ayarların değiştiği belirtilir; Hierarchy de güncelleme gerektiğini gösterir.</li>
+<li>Inspector ve Hierarchy, ayarlar ve başvurulan varlıklar değişmediği sürece kaydırma yükünü azaltmak için ön oluşturma karşılaştırmasını paylaşır. Derleme karşılaştırması eskisi gibi her seferinde yapılır.</li>
+</ul>
+<h2>[3.1.0-beta.1] - Açık beta (2026-11-04)</h2>
+<ul>
+<li>Masaüstünün normal poz geçişleri tek değerlendirme yöntemine geçirildi. Normal derlemede ve ön oluşturmada etkindir; VR ve özel koşullar önceki yolu korur.</li>
+<li>alpha.3 ve önceki ön oluşturmalar güncelleme gerektiren olarak tanınır.</li>
+<li>Fotoğraf sırasında zemin yüksekliği değişince bakış noktası korunur; fotoğraf bitince son zemin yüksekliğine dönülür.</li>
+</ul>
+<ul>
+<li>Otomatik içe aktarma yalnızca üretim sırasında algılamaya çevrildi; ön oluşturma ve derleme elle içe aktarma ayarı eklemez veya değiştirmez.</li>
+<li>Otomatik içe aktarmanın açılması/kapanması, Base değişiklikleri ve elle ayarların temizlenmesi yeniden üretime yansır. Ürünler arasında ortak elle atamalar ve düzeltmeler korunur; eski içe aktarılan hareketler standart pozlara döner.</li>
+<li>Ön oluşturmanın Controller’ları sahne GUID’sine göre avatar başına tek dosyada yönetilir. Kopyaların, diğer sahnelerin ve Prefab’ların ortak başvuruları güncellemeden önce ayrılır.</li>
+<li>Derlemede NDMF’nin geçici varlık yönetimi kullanılır; düzenleme için üretilen dosyalar çoğaltılmaz.</li>
+<li>Sahne açılırken ve kaydedilirken veriler incelenir. Kaydedilmemiş düzenleme, Undo/Redo veya dış başvuru varsa korunur; yalnızca sahipliği açıkça belirli kullanılmayan dosyalar çöp kutusuna taşınır.</li>
+<li>İçe aktarılan hareketin dönüşü, düzeltme animasyonu ve oynatma konumu uygulanır. Dönüş, RootT/RootQ ve Humanoid düzeltmesi normal pozlarla ortak işlenir.</li>
+<li>İç içe BlendTree düzeltmeleri hedefe özel kopyalanır; özgün hareket ve yürüme karışım ayarları korunur.</li>
+<li>Yalnız ayakta oynatma konumu özgün kare hızında sabit poza dönüştürülür ve yürüme oynatmasını durdurmaz.</li>
+</ul>
+<h2>[3.1.0-alpha.2] - Kapalı test sürümü (2026-10-26)</h2>
+<h3>Düzeltmeler ve değişiklikler</h3>
+<ul>
+<li>Araç pozu seçilmemişken varsayılan ve özel hareketlere de fotoğraf modu ve zemin yüksekliği düzeltmeleri uygulanır.</li>
+<li>Zemin yüksekliği 3m yukarı/aşağı aralığına genişletildi. 50% özgün yükseklik ve başlangıç değeri, 0% 3m aşağısı, 100% 3m yukarısıdır.</li>
+<li>Yalnız ayakta geçersiz kılmasında kaynak BlendTree’nin değişmesi düzeltildi.</li>
+<li>IK kuralı olmayan pozlarda elle düzeltme kullanılır ve gereksiz üretim uyarıları bastırılır.</li>
+<li>Aynı adlı pozların düzeltme taslaklarının karışması ve aynı varlık içindeki hareket değişikliklerinin atlanması düzeltildi.</li>
+<li>Geçersiz başlangıç pozu numarasının başka bir pozu başlangıçta seçmesi düzeltildi.</li>
+<li>Desteklenmeyen AnimatorOverrideController içe aktarıldığında istisna yerine açıklama gösterilir.</li>
+<li>Eski ön ayarlar uygulanırken açıkça kapatılan dönüş korunur.</li>
+<li>Açık Editor temasında özellik simgelerinin görünürlüğü iyileştirildi.</li>
+</ul>
+<p>VRChat istemcisinde bakış noktası ve varsayılan hareketler değiştirildikten sonraki davranışın kontrolü sürüyor.</p>
+<h2>[3.1.0-alpha.1] - Yayın öncesi</h2>
+<h3>Eklenenler</h3>
+<ul>
+<li>Özellik başına açma/kapatma ve ExpressionParameters kullanım göstergesi eklendi.</li>
+<li>Avatarı öne taşıyıp döndüren fotoğraf modu eklendi.</li>
+<li>Fotoğraf modu eşitleme seçeneği eklendi: yalnızca yerel 0 bit, eşitlemede 16 bit.</li>
+<li>Fotoğraf modunda kendi avatarınızın başını gizlememe ayarı eklendi.</li>
+<li>Baş dâhil tüm vücudu 3m yukarı/aşağı taşıyan Zemin yüksekliği eklendi. 50% özgün yükseklik ve başlangıç değeri, 0% 3m aşağısı, 100% 3m yukarısıdır.</li>
+<li>Baş eğimiyle dönüş ve poz başına ilgili animasyon ayarları eklendi.</li>
+<li>Nefes hareketi ile Hafif, Orta, Güçlü, Hızlı ve Özel seçenekleri eklendi.</li>
+<li>Nefes hareketi ve oyundaki açma/kapatma menüsü ayrı seçilebilir. Yalnız hareket 0 bit, anahtar eşitlemesi 1 bit.</li>
+<li>VRChat’in varsayılan bekleme sallanmasını kapatma eklendi.</li>
+<li>Baş yönü farkından kaynaklanan poz bozulmasını azaltma eklendi.</li>
+<li>Desteklenen pozları vücuda uyduran otomatik uzuv düzeltmesi (IK), genel ve poz başına açma/kapatma eklendi.</li>
+<li>IK sonucunu düzeltme animasyonuna kaydeden IK’yi düzeltmeye işle eklendi.</li>
+<li>Avatar düzeltmesi, dizin ters bükülmesini önleme ve en küçük bükülme açısı eklendi.</li>
+<li>Poz listesinden Scene’de hafif önizleme eklendi.</li>
+<li>Kategori sekmeleri, kategoriler arası arama, birden çok animasyonu toplu ekleme ve hedef sıra seçimi eklendi.</li>
+<li>Inspector’da ürün ve ortak sistemin değişiklik geçmişini gösterme eklendi.</li>
+</ul>
+<h3>Değişenler</h3>
+<ul>
+<li>Ön ayar yüklemesi hızlandırılarak araç ekleme ve ön ayar listesinde bekleme süresi kısaltıldı.</li>
+<li>Ön ayar ekleme, düzenleme ve silme listeye otomatik yansır.</li>
+<li>Inspector, Özellikler, Pozlar ve Avatar Kurulumu adlı 3 sekmeye ayrıldı.</li>
+<li>Ayarlara açıklama ve simgeler eklendi; ayrıntıların açılıp kapanması birleştirildi.</li>
+<li>Nefes ayrıntıları özelliklere, ön ayarlar Avatar Kurulumu’nun sonuna taşındı.</li>
+<li>Kendi hareketlerinizi ayrı ayrı atama ve avatarın özgün pozlarını otomatik içe aktarma ayrı ayarlara ayrıldı.</li>
+<li>Ayak yüksekliği için oluşturulan tüm vücut animasyonlarının yinelenmesi azaltıldı.</li>
+<li>Poz görüntüsü güncellemesi onay iletişimi bulunan düğmeye çevrildi.</li>
+<li>Uyarı ayarları Ayarları kontrol et içinde toplandı.</li>
+<li>Yeni 8bit Prefab ekleme kaldırılıp normal Prefab’ın özellik seçimine geçildi. Mevcut başvurular korunur.</li>
+<li>VRChat Avatars SDK’nın minimum sürümü 3.10.4 oldu.</li>
+</ul>
+<h3>Düzeltilenler</h3>
+<ul>
+<li>Araç pozu seçilmemişken varsayılan ve özel hareketler de fotoğraf modu ve zemin yüksekliği düzeltmesine dâhil edildi.</li>
+<li>Yalnız ayakta geçersiz kılmasının kaynak BlendTree’yi değiştirmesi düzeltildi.</li>
+<li>Geçerli IK kuralı olmayan pozlarda elle düzeltme kullanılır ve gereksiz IK üretim uyarıları bastırılır.</li>
+<li>Aynı adlı pozların düzeltmelerinin karışması ve aynı varlık içinde hareket değişiminin yeniden üretime yansımaması düzeltildi.</li>
+<li>Kapatılmış başlangıç pozunun numarası başka pozda kullanılsa da artık başlangıçta seçilmez.</li>
+<li>Özgün pozları içe aktarırken desteklenmeyen AnimatorOverrideController algılanırsa istisna yerine açıklama gösterilir.</li>
+<li>Eski ön ayarı uygulamak açıkça kapatılmış dönüşü korur.</li>
+<li>Açık Editor temasında da işlev simgelerini ayırt etmek için Inspector simge arka planı iyileştirildi.</li>
+</ul>
+<ul>
+<li>Avatara eklerken Dön, Zemin yüksekliği ve Fotoğraf modu simgelerinin görünmemesi düzeltildi.</li>
+<li>Eski sürüm ön ayarı uygulanınca desteklenen pozların dönüş ayarlarının kaybolması düzeltildi.</li>
+<li>Poz adı düzenlenirken başka ayrıntı açınca girilen adın başka poza geçmesi düzeltildi.</li>
+<li>Poz sıralamada ayrıntıların kapanması ve ayarların Undo/Redo işlemleri düzeltildi.</li>
+<li>Önizlemede özgün avatarın üst üste görünmesi ve yerleştirme konumunun iki kez eklenmesi düzeltildi.</li>
+<li>Eksik bileşenli avatarların önizleme hatası düzeltildi.</li>
+<li>Kemik yönü ve ölçeği farkından kaynaklanan IK uzuv yön ve konum sapmaları düzeltildi.</li>
+<li>Ayar değişir değişmez uyarı ve ön oluşturma durumunun güncellenmemesi düzeltildi.</li>
+<li>IK değişikliğinden sonra eski ön oluşturma sonucunun yeniden kullanılması düzeltildi.</li>
+<li>Bazı yapılarda ek özelliklerin üretilememesine yol açan derleme hataları düzeltildi.</li>
+</ul>
+<h2>[3.0.16] - 2026-09-14</h2>
+<ul>
+<li><code dir="ltr">VirtualAnimatorController.SetParameter</code> API’si kullanıldığı için NDMF minimum bağımlılığı 1.14.0’a yükseltildi</li>
+</ul>
+<h2>[3.0.15] - 2026-09-13</h2>
+<ul>
+<li>Hips ölçeği değiştirilmiş ve FloorAdjuster kullanan avatarlarda sırtüstü baş kilidi değişince vücut konumunun ve diz bükülmesinin aşırı değişmesi düzeltildi</li>
+</ul>
+<h2>[3.0.14] - 2026-09-09</h2>
+<ul>
+<li>Aynı avatara birden fazla poz aracı kurulunca ikinci ve sonrakilerin Jestleri kapat menü öğesinin kaybolması düzeltildi</li>
+<li>SleepDown gibi bir poz atansa da USSPS_Locomotion katmanının Standing’e dönmesi düzeltildi</li>
+<li>FloorAdjuster ile poz yüksekliği ve X/Z konumu sapmaları düzeltildi; MA ve AAO sürümlerinin işlem sırası desteklendi</li>
+<li>Generated’daki ön oluşturulmuş AnimatorController silinirse standart PosingSystem_Locomotion’a otomatik dönülür</li>
+<li>Tüm ayakta pozlar silinmiş yapıda derleme hatası düzeltildi</li>
+<li>Ön ayarlar avatar adına göre sıralanır</li>
+</ul>
+<h2>[3.0.13] - 2026-09-04</h2>
+<ul>
+<li>VR’de çömelmeye başlar başlamaz ayağa dönünce ayakta pozun kendine geçişiyle poz dönüşünün kararsızlaşması düzeltildi</li>
+</ul>
+<h2>[3.0.12] - 2026-09-04</h2>
+<ul>
+<li>Ön oluşturma yapılmamış aracı NDMF derlerken ayarların değiştiğinin sanılması düzeltildi</li>
+<li>NDMF derlemesindeki geçici AnimatorController’a üretilen varlık eklenince oluşan <code dir="ltr">AddAssetToSameFile</code> hatası düzeltildi</li>
+</ul>
+<h2>[3.0.11] - 2026-08-31</h2>
+<ul>
+<li>NDMF 1.14.7 ve sonrasında ön oluşturma avatarının Scene’inin geçersizleşmesiyle işlemin başarısız olması düzeltildi</li>
+<li>NDMF hata ekranının yok edilmiş LocalizationAsset’e başvurmasından doğan <code dir="ltr">MissingReferenceException</code> düzeltildi</li>
+</ul>
+<h2>[3.0.10] - 2026-08-29</h2>
+<ul>
+<li>Ön ayarın gerçek varlıkları seçim arayüzü açılana kadar yüklenmez; GUID kataloğu değişmemişse önbellek yeniden kullanılır</li>
+<li>Hierarchy uyarı/hata simgeleri yalnızca değişiklikte yeniden değerlendirilir, ürün menüsü varlık araması ortak önbelleğe alındı. Çok poz aracı olan sahnelerde Editor’ın birkaç saniyede bir donması azaltıldı</li>
+<li>Aynı avatarda birden fazla poz aracıyla ön oluşturma sırasında yinelenen parametre değerleri kaydedilirken oluşan <code dir="ltr">ArgumentException</code> düzeltildi</li>
+</ul>
+<h2>[3.0.9] - 2026-08-26</h2>
+<ul>
+<li>Dönüştürmede PosingSystem’den VRCAvatarDescriptor alınamazsa NullReferenceException önlenir ve inceleme için gereken derleme günlüğü gösterilir</li>
+<li>NDMF’nin oluşturup sildiği geçici Avatar’a bağlı önizlemenin sonraki ön oluşturma/derlemede kullanılıp <code dir="ltr">Avatar is null</code> ile bozulması düzeltildi. Dönüştürme önizleme önbelleğinden ayrıldı; farklı önizlemelerin geçici NDMF varlık adlarının çakışması da önlendi</li>
+<li>可愛いポーズ (Kawaii Posing) Prefab önizleme başvurusunun sahneye kaydedilmemesiyle gizli önizleme avatarlarının sürekli çoğalması düzeltildi. Önizleme sahne kaydından çıkarıldı; eski önizlemeler sahne yükleme, Play’e geçiş ve betik yenilemede temizlenir</li>
+</ul>
+<h2>[3.0.8] - 2026-08-18</h2>
+<ul>
+<li>FloorAdjuster gibi araçların yüksekliği yeniden düzeltmesi sırasında ön oluşturulmuş poz hareketlerinde Unity Assertion ve poz verisinin bozulma olasılığı düzeltildi</li>
+<li>Yükseklik ölçümünün özgün avatara veya diğer araçların AnimationMode durumuna karışmaması için güvenlik iyileştirildi</li>
+</ul>
+<h2>[3.0.7] - 2026-08-12</h2>
+<ul>
+<li>FloorAdjuster ve diğer yükseklik araçlarıyla bakış noktası sapması ve sırtüstü dizlerin anormal bükülmesi düzeltildi</li>
+<li>PosingSystem avatar dışında olduğunda oluşan hata düzeltildi (PancakeTorto1se’ye teşekkürler)</li>
+<li>Avatar yükleme başarısızlığından sonra işlemin sürmesinden doğan hata düzeltildi</li>
+<li>Ön oluşturma hemen sonrasında ayarların değiştiğinin yanlış sanılması düzeltildi</li>
+<li>Hareket animasyonlarının otomatik içe aktarılması iyileştirildi</li>
+<li>Özel rig kullanan bazı avatarlara uyarı eklendi</li>
+<li>Animasyon Düzeltmesi’ne değişiklik onayı ve düzeltme değerlerini aynalama eklendi (kraihd’e teşekkürler)</li>
+<li>Diğer araçların hataları için açıklamalar ve hata olasılığı yüksek yerlere kontroller eklendi</li>
+</ul>
+<h2>[3.0.6] - 2026-03-17</h2>
+<ul>
+<li>Başlangıçta kendine özgü poz kontrolü olan bazı avatarların pozlarının çok bozulması düzeltildi</li>
+</ul>
+<h2>[3.0.5] - 2026-01-31</h2>
+<ul>
+<li>Bazı ExpressionMenus yapılarının Unity’yi çökertmesi düzeltildi</li>
+<li>ごろ寝EX bütünleştirme Prefab’ıyla avatar sorunları düzeltildi (あずき’ye teşekkürler)</li>
+<li>Düzeltme animasyonlarını birleştirirken dönüşün bozulması düzeltildi</li>
+</ul>
+<h2>[3.0.4] - 2026-01-11</h2>
+<ul>
+<li>Avatar Prefabs’a yerleştirilince davranış kısmen iyileştirildi</li>
+<li>Lisans silme eklendi</li>
+<li>Birçok pozda boynun bozulması düzeltildi</li>
+<li>Inspector açılışı biraz hızlandırıldı</li>
+<li>Ön oluşturmada da simgeler oluşturulur; avatar güncelleme düğmesinin metni değiştirildi</li>
+<li>Ön oluşturma hiç yapılmadıysa uyarı gizlenir (çok kişinin ön oluşturma kullanmadığı düşünüldüğünden)</li>
+<li>Gereksiz kaynaklar kaldırıldı</li>
+<li>Parmakların ayarlanamaması düzeltildi</li>
+</ul>
+<h2>[3.0.3] - 2026-01-04</h2>
+<ul>
+<li>Seçilenden farklı ön ayarın uygulanması düzeltildi (あずき’ye teşekkürler)</li>
+</ul>
+<h2>[3.0.2] - 2026-01-02</h2>
+<ul>
+<li>Unity koyu teması desteklendi</li>
+<li>Animasyon Düzeltmesi’nde dönüş yapınca pozun bozulması düzeltildi</li>
+<li>Üretilen menü simge boyutu değiştirildi, sıkıştırma açıldı ve daha küçük simge ayarı eklendi</li>
+<li>3.0.0’da kaldırılan takip kilidi bütünleştirmesi ve avatar hareketini otomatik içe aktarma yeniden eklendi</li>
+</ul>
+<h2>[3.0.1] - 2025-12-29</h2>
+<ul>
+<li>Varsayılan hareket ayarı işlevinin sorunları düzeltildi</li>
+<li>Avatar pozunun kendi kendine bozulması düzeltildi</li>
+</ul>
+<h2>[3.0.0] - 2025-12-28</h2>
+<ul>
+<li>Ön oluşturma eklendi</li>
+<li>Animasyon Düzeltmesi eklendi</li>
+<li>Ön ayarlar eklendi</li>
+</ul>
+<h2>[2.2.5] - 2025-05-08</h2>
+<ul>
+<li>Bazı avatar özellikleriyle uyumluluk sorunları çözüldü</li>
+</ul>
+<h2>[2.2.4] - 2025-04-04</h2>
+<ul>
+<li>Bazı avatar ve ModularAvatar sürümlerinde pozun değişmemesi düzeltildi</li>
+</ul>
+<h2>[2.2.3] - 2025-03-13</h2>
+<ul>
+<li>森羅’nın zıplaması gibi bazı avatar hareketlerinin bozulması düzeltildi</li>
+<li>Jestleri kapat başlangıç değerinin bazen yanlış olması düzeltildi</li>
+</ul>
+<h2>[2.2.2] - 2025-03-06</h2>
+<ul>
+<li>Bazı ortamlarda oluşan hata düzeltildi</li>
+</ul>
+<h2>[2.2.1] - 2025-02-05</h2>
+<ul>
+<li>Unity çökmesi düzeltildi</li>
+<li>NDMF Console’daki araç adına sürüm eklendi</li>
+</ul>
+<h2>[2.2.0] - 2025-02-02</h2>
+<ul>
+<li>Jestleri kapatıp animasyondaki el şeklini kullanma ayarı eklendi</li>
+</ul>
+<h2>[2.1.6] - 2025-02-02</h2>
+<ul>
+<li>Bazı araçlarla birlikte pozların bozulması düzeltildi</li>
+<li>Ayarlara bağlı hatalar düzeltildi</li>
+</ul>
+<h2>[2.1.5] - 2024-12-10</h2>
+<ul>
+<li>Bazı özelliklerle çakışmalar çözüldü</li>
+<li>Unitypackage sürümünü kaldırma düğmesi eklendi</li>
+</ul>
+<h2>[2.1.4] - 2024-12-08</h2>
+<ul>
+<li>Avatara bağlı hata düzeltildi</li>
+<li>Özellik veya avatar çakışmasıyla ayak kilidinin kullanılamaması düzeltildi</li>
+<li>Masaüstünde avatar pozunun VRC varsayılanına dönmesi düzeltildi</li>
+</ul>
+<h2>[2.1.3] - 2024-12-01</h2>
+<ul>
+<li>VRMode’u yanlış türde kullanan avatar veya özelliklerle pozun değişmemesi düzeltildi</li>
+<li>Farklı parametre türü çakışmalarını NDMF-Console’da gösterme eklendi</li>
+</ul>
+<h2>[2.1.2] - 2024-12-01</h2>
+<ul>
+<li>Diğer araçta hata varken avatar derlemesinde Unisaki Posing System hatası oluştuğunda NDMF-Console’a açıklama eklendi</li>
+<li>Bazı avatarların derleme hatası düzeltildi</li>
+<li>Avatar yüklenir yüklenmez davranış iyileştirildi</li>
+<li>Bazı avatarları çalışamaz hâle getirdiği için avatarın özgün hareket işlemi artık kaldırılır</li>
+</ul>
+<h2>[2.1.1] - 2024-11-20</h2>
+<ul>
+<li>PosingOverride’daki MergeAnimator sorunu düzeltildi</li>
+</ul>
+<h2>[2.1.0] - 2024-11-20</h2>
+<ul>
+<li>Masaüstünde ayakların ve kalçanın zemine gömülmesi giderilerek her pozun düzgün alınması sağlandı</li>
+<li>Baş yüksekliğini dikkate almadan poz değiştirme eklendi</li>
+<li>Quest avatarı yüklemek için simge oluşturmayan mod eklendi</li>
+<li>Avatar sorunları için çeşitli uyarılar eklendi</li>
+<li>AFK ve diğer araçların kol kilidi gibi özelliklerle kilitleme çakışmaları çözüldü</li>
+<li>Sırtüstüyken otomatik baş kilidi ayarı eklendi</li>
+</ul>
+<h2>[2.0.0] - 2024-11-12</h2>
+<ul>
+<li>VPM/VCC destekli sürüm yayınlandı</li>
+<li>Hata sırasında gösterilen araç adı değiştirildi #1</li>
+<li>Kullanım koşulları eklendi #5</li>
+</ul></main>
+</body></html>

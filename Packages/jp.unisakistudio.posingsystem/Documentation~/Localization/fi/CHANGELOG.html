@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="fi" dir="ltr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Muutosloki</title><style>:root { color-scheme: light dark; font-family: system-ui, -apple-system, "Segoe UI", sans-serif; line-height: 1.7; }
+body { margin: auto; max-width: 70rem; padding: 1.5rem; overflow-wrap: anywhere; }
+nav { display: flex; flex-wrap: wrap; gap: .6rem 1.2rem; padding-block: 1rem; border-block-end: 1px solid #8887; }
+h1,h2,h3 { line-height: 1.4; } h2 { margin-block-start: 2.4rem; }
+table { border-collapse: collapse; width: 100%; } th,td { text-align: start; vertical-align: top; padding: .5rem; border: 1px solid #8887; }
+thead { background: #8882; } .table-scroll { overflow-x: auto; }
+code,pre { direction: ltr; unicode-bidi: isolate; } code { background: #8882; padding: .1em .25em; } pre { white-space: pre-wrap; }
+a { color: #2269b8; } a:visited { color: #7952ad; } li { margin-block: .35rem; }
+@media(prefers-color-scheme:dark) { a { color: #8ec5ff; } a:visited { color: #cfacff; } }
+@media print { nav { display: none; } body { max-width: none; padding: 0; } a { color: inherit; } }</style></head><body>
+<nav aria-label="Documentation"><a href="../index.html">Suomi · 🌐</a><a href="README.html">README</a><a href="CHANGELOG.html">Muutosloki</a><a href="UserGuide.html">Unisaki Posing System 3.2.0 — suomenkielinen käyttöohje</a></nav>
+<main><h1>Muutosloki</h1>
+<h2>[3.2.0] - Julkaisematon</h2>
+<h3>Lisätty</h3>
+<ul>
+<li>Inspectorin, muokkaustoimintojen, asennusikkunoiden, vakioasentojen nimien ja luotavan VRChat-valikon näyttö 30 kielellä.</li>
+<li>Inspectorin ja pelivalikon kielivalinnat yhdistetty. Oletuksena käytetään tietokoneen kieltä, ja viimeinen valinta koskee myös saman käyttöjärjestelmäkäyttäjän muita projekteja.</li>
+<li>README, muutosloki ja offline-käyttöohje voidaan avata valitulla kielellä.</li>
+<li>Kaikkien 128 vakioasennon näyttönimet ja toimintojen kuvaukset laadittu olemassa olevien termien mukaisesti.</li>
+</ul>
+<h3>Yhteensopivuus</h3>
+<ul>
+<li>Avatarin nykyiset asetukset, omat nimet, resurssiviittaukset, parametrien tunnisteet ja lisenssin tallennustapa säilyvät.</li>
+</ul>
+<h2>[3.1.2] - 2026-11-09</h2>
+<ul>
+<li>Korjattu ongelma, jossa kasvot jäivät ylöspäin vatsamakuulta noustessa, kun ”Vähennä pään kierrosta aiheutuvaa asennon vääristymää” oli käytössä.</li>
+<li>Pään lukitusta voi nyt vaihtaa EX-valikon kohdassa ”Asetukset → Lukitse pää automaattisesti selällään” myös silloin, kun ”Jalkojen kork.” on pois käytöstä. Myös versioissa 3.1.0 ja 3.1.1 kadonnut kohde palautuu, kun avatar kootaan päivityksen jälkeen.</li>
+<li>”Päivitä esikoonti” toimii nyt myös, kun avatarin pääobjektin valinta on poistettu Unityssa.</li>
+<li>Korjattu ongelma, jossa Assetsiin jäänyt vanha yhteinen asentojen Controller esti asentojen luonnin päivityksen jälkeen. Myös itse muokatun Controllerin asetukset säilyvät.</li>
+<li>Jos työkalun tai sen vanhemman käytöstä poisto estää yhteisen asentojen Animatorin käytön, kohteen nimi näytetään. Voit siirtyä siihen kohdasta ”Tarkista asetukset → Valitse kohde”.</li>
+<li>Kun esikoonti ilmoittaa asetusmuutoksista, voit tarkistaa eron edelliseen kertaan kohdasta ”Lisätiedot → Näytä esikoonnin jälkeen muuttuneet asetukset”.</li>
+<li>Kun skriptivirhe pysäyttää koonnin (PS050), näytetään enintään 5 Unityn havaitsemaa alkuperäistä virhettä. ”Kysy tästä virheestä” avaa tarkistettavan ja muokattavan viestiluonnoksen, jossa ovat Unityn ja tuettujen työkalujen versiot sekä virhenumero.</li>
+</ul>
+<p>Jos käytit esikoontia, paina päivityksen jälkeen ”Päivitä esikoonti”, tallenna kohtaus ja kokoa sekä lataa avatar uudelleen.</p>
+<h2>[3.1.1] - 2026-11-08</h2>
+<ul>
+<li>Käytössä olevat ”Lattian kork.” ja ”Käänny” näkyvät nyt VRChatin EX-valikon Asetuksissa myös, kun ”Peilaa” on pois käytöstä.</li>
+<li>Vanhassa versiossa järjestettyjen, poistettujen tai uudelleennimettyjen asentojen ”Jalat ojossa”, ”Rentona” ja ”Yksi polvi ylös” oikeat kääntymiset säilyvät. Tämä toimii myös täysin Unpackatuille objekteille, jos alkuperäinen asento voidaan tunnistaa. Omat asennot, itse käytöstä poistetut kääntymiset ja vaihdetut sivuttaisliikkeet säilyvät.</li>
+<li>Korjattu ongelma, jossa avatar meni hetkeksi vatsamakuulle sitä VRChatissa valittaessa. Korjattu myös hetkellinen selinmakuu hypätessä, kun vain vatsamakuu oli valittuna. Hypyllä vaihtamisen voi poistaa käytöstä kohdasta ”Toiminnot → Lisätoiminnot → Vaihda makuuasentoa hyppäämällä”. Oletuksena toiminto on käytössä.</li>
+<li>Jos yhteisen asentojen Animator Controllerin viittaus irtoaa päivityksessä ja se voidaan palauttaa, näytetään varoitus ja Controller luodaan uudelleen asetuksista. Usean avatarin jakaman Controllerin viittaukset säilyvät.</li>
+<li>Projektin käännösvirheet pysäyttävät koonnin heti alussa ja näyttävät syyn. Jos skriptivirhe estää viittausten tarkistamisen, luotujen Controllerien automaattinen siivous lykätään.</li>
+<li>Työkalua lisättäessä valitaan virallinen Prefab, vaikka projektissa olisi samanniminen Prefab. Esikoonti jatkuu myös, jos yhteinen Controller eroaa vain rivinvaihdoiltaan.</li>
+<li>Asentotyökalun lisäämien FX-tasojen, kuten lattian korkeuden, Write Defaults mukautetaan avatarin asetuksiin.</li>
+</ul>
+<p>Jos käytit esikoontia, paina päivityksen jälkeen kohtauksessa olevan työkalun ”Päivitä esikoonti” -painiketta, tallenna kohtaus ja kokoa sekä lataa avatar uudelleen.</p>
+<h2>[3.1.0] - 2026-11-07</h2>
+<ul>
+<li>Lisätty tuettujen asentojen raajojen automaattinen säätö (IK) avatarin mittasuhteisiin, avatarikohtainen korjaus ja polvien taakse taittumisen esto.</li>
+<li>Kuvatilassa voi säätää avatarin sijaintia ja suuntaa. Sijainnin ja suunnan synkronoinnin sekä oman pään näkyvyyden kuvauksen aikana voi valita.</li>
+<li>Lattian korkeudella voi siirtää koko kehoa enintään 3m ylös tai alas. Sitä voi käyttää eri tarkoituksiin kuin jalkojen korkeutta.</li>
+<li>Lisätty hengitysliike, oletusarvoisen joutokäyntihuojunnan poisto ja pään suunnan aiheuttaman asennon vääristymän vähentäminen.</li>
+<li>Käytössä olevat toiminnot ja parametrien muistinkulutus näkyvät Inspectorissa. Lisätty myös asentohaku, joukkolisäys, järjestäminen ja kevyt esikatselu Scenessä.</li>
+<li>Nopeutettu seisoma-, kyykky- ja istuma-asentojen vaihtoa työpöytätilassa.</li>
+<li>Parannettu asetusmuutosten jälkeisiä esikoontivaroituksia, Inspectorin vierityksen kuormitusta ja luotujen resurssien siivouksen pitkiä pysähdyksiä.</li>
+<li>Korjattu ongelma, jossa automaattituonti varoitti muuttumattoman esikoonnin päivitystarpeesta ja loi sen uudelleen latauksessa. Tuontitulos kohdistuu luotavaan avatariin eikä muuta alkuperäisen objektin tuontiasetuksia.</li>
+<li>Lisätty pään kallistuksella ohjattu kääntyminen ja sen asentokohtaiset liikeasetukset.</li>
+<li>Parannettu vanhojen esiasetusten kääntymisasetusten säilymistä, omien liikkeiden tuontia ja luotujen resurssien hallintaa.</li>
+</ul>
+<h2>[3.1.0-beta.2] - Avoin beetaversio (2026-11-05)</h2>
+<ul>
+<li>IK:n sijainnin pituusviitteisiin lisätty kiinteä pituus sekä Headin ja Viewpointin korkeusero (Y) ja syvyysero (Z).</li>
+<li>Inspectorin varoitukset näkyvät myös Hierarchyn objektinimen vasemmalla puolella. Esikoonnin puuttumisen ja asetusmuutosten lisäksi tuetaan liikkeiden tuonnin ja esiasetustoimintojen näyttämiä varoituksia.</li>
+<li>Korjattu ongelma, jossa esimerkiksi kohtauksen avaamisen yhteydessä tehtävä automaattinen siivous latasi muiden kohtausten luotuja Controllereita ja pysäytti Unityn pitkäksi aikaa.</li>
+<li>Korjattu esikoontihistorian katoaminen asentoluetteloa tai toimintoja muutettaessa. Esikoontia ei ilmoiteta suorittamattomaksi, vaan ilmoitetaan asetusten muuttuneen esikoonnin jälkeen. Myös Hierarchy näyttää päivitystarpeen.</li>
+<li>Inspector ja Hierarchy käyttävät yhteisiä esikoontivertailun tuloksia, mikä keventää vieritystä asetusten ja viitattujen resurssien pysyessä samoina. Koonnissa vertailu suoritetaan edelleen joka kerta.</li>
+</ul>
+<h2>[3.1.0-beta.1] - Avoin beetaversio (2026-11-04)</h2>
+<ul>
+<li>Työpöytätilan tavallinen asennonvaihto muutettu yhden arvioinnin malliin. Se toimii tavallisessa koonnissa ja esikoonnissa. VR ja erityistilanteet käyttävät aiempaa käsittelyä.</li>
+<li>alpha.3:n ja vanhempien versioiden esikoonnit tunnistetaan päivitettäviksi.</li>
+<li>Näkymä säilyy lattian korkeutta kuvauksen aikana muutettaessa. Kuvauksen jälkeen palataan uusimpaan lattian korkeuteen.</li>
+</ul>
+<ul>
+<li>Automaattituonti muutettu tunnistamaan liikkeet vain luonnin yhteydessä. Esikoonti ja koonti eivät enää lisää tai muuta manuaalisia tuontiasetuksia.</li>
+<li>Automaattituonnin kytkentä, Base-tason muutokset ja manuaalisten asetusten tyhjennys vaikuttavat uudelleenluontiin. Usean tuotteen yhteiset manuaaliset valinnat ja säädöt säilyvät, ja vanhat tuodut liikkeet palautetaan oletusasennoiksi.</li>
+<li>Esikoonnin luodut Controllerit hallitaan kohtauksen GUID:n ja avatarin mukaan yhdessä tiedostossa. Kopioitujen objektien, muiden kohtausten ja Prefabien jaetut viittaukset erotetaan ennen päivitystä.</li>
+<li>Koonnissa käytetään NDMF:n väliaikaisten resurssien hallintaa, eikä muokkauskäyttöön tarkoitettuja luotuja tiedostoja lisätä.</li>
+<li>Luodut resurssit tarkistetaan kohtauksen avaamisessa ja tallennuksessa. Ne säilytetään, jos niihin liittyy tallentamattomia muutoksia, Undo/Redo-historiaa tai ulkoisia viittauksia. Vain varmasti omistetut käyttämättömät tiedostot siirretään roskakoriin.</li>
+<li>Tuotujen liikkeiden kierto, säätöanimaatio ja toistokohdan määritys huomioidaan. Kierron, RootT/RootQ:n ja Humanoid-säädön käsittely on yhteinen tavallisten asentojen kanssa.</li>
+<li>Sisäkkäisten BlendTree-rakenteiden säädöt kopioidaan kohdetta varten säilyttäen alkuperäiset liikkeet ja kävelyn sekoitusasetukset.</li>
+<li>”Vain seisten” -toistokohdan määritys muunnetaan staattiseksi asennoksi alkuperäisellä kuvataajuudella pysäyttämättä kävelyn toistoa.</li>
+</ul>
+<h2>[3.1.0-alpha.2] - Suljettu testiversio (2026-10-26)</h2>
+<h3>Korjaukset ja muutokset</h3>
+<ul>
+<li>Kuvatilaa ja lattian korkeuden korjausta sovelletaan myös oletus- ja omiin liikkeisiin silloin, kun työkalun asentoa ei ole valittu.</li>
+<li>Lattian korkeuden alue laajennettu 3m ylös ja alas. 50% on alkuperäinen korkeus ja oletusarvo, 0% on 3m alempana ja 100% on 3m ylempänä.</li>
+<li>Korjattu ongelma, jossa ”Vain seisten” -korvaus muutti tuonnin lähteen BlendTree-rakennetta.</li>
+<li>Asennoissa ilman IK-sääntöä käytetään manuaalisia korjauksia ja tarpeettomat luontivaroitukset estetään.</li>
+<li>Korjattu samannimisten asentojen säätöluonnosten sekoittuminen ja saman resurssin sisäisten liikevaihtojen jääminen huomaamatta.</li>
+<li>Korjattu ongelma, jossa virheellisen alkuasennon numero valitsi toisen asennon alkuasennoksi.</li>
+<li>Ei-tuetun AnimatorOverrideControllerin tuonti näyttää ohjeen poikkeuksen sijaan.</li>
+<li>Vanhoista esiasetuksista säilytetään erikseen käytöstä poistettu Käänny-asetus.</li>
+<li>Toimintokuvakkeiden näkyvyyttä parannettu Editorin vaaleassa teemassa.</li>
+</ul>
+<p>Näkymän ja oletusliikkeiden korvaamisen jälkeisen toiminnan tarkistus VRChat-asiakasohjelmassa jatkuu.</p>
+<h2>[3.1.0-alpha.1] - Ennen julkaisua</h2>
+<h3>Lisätty</h3>
+<ul>
+<li>Lisätty toimintokohtaiset kytkimet ja ExpressionParameters-kulutuksen näyttö.</li>
+<li>Lisätty Kuvatila avatarin siirtämiseen eteenpäin ja kääntämiseen.</li>
+<li>Lisätty valittava Kuvatilan synkronointi. Vain paikallinen käyttö kuluttaa 0 bit, synkronointi 16 bit.</li>
+<li>Lisätty asetus, jolla oman avatarin pää pidetään näkyvissä Kuvatilassa.</li>
+<li>Lisätty Lattian kork. -toiminto, joka siirtää koko kehoa pää mukaan lukien 3m ylös tai alas. 50% on alkuperäinen korkeus ja oletusarvo, 0% on 3m alempana ja 100% on 3m ylempänä.</li>
+<li>Lisätty pään kallistuksen mukaan tapahtuva kääntyminen ja asentokohtaiset animaatioasetukset.</li>
+<li>Lisätty hengitysliike sekä Heikko-, Keskivahva-, Vahva-, Nopea- ja Oma-asetukset.</li>
+<li>Lisätty hengitysliikkeen ja pelin kytkinvalikon erilliset valinnat. Pelkkä liike kuluttaa 0 bit, kytkimen synkronointi 1 bit.</li>
+<li>Lisätty VRChatin oletusarvoisen joutokäyntihuojunnan poisto.</li>
+<li>Lisätty pään suunnan aiheuttaman asennon vääristymän vähentäminen.</li>
+<li>Lisätty tuettujen asentojen raajojen automaattinen säätö (IK) avatarin mittasuhteisiin sekä yleinen ja asentokohtainen kytkin.</li>
+<li>Lisätty ”Tallenna IK säätöihin” IK-tuloksen tallentamiseksi säätöanimaatioon.</li>
+<li>Lisätty avatarikohtainen asentokorjaus, polvien taakse taittumisen esto ja polven vähimmäistaivutuskulma.</li>
+<li>Lisätty kevyt asennon esikatselu asentoluettelosta Sceneen.</li>
+<li>Lisätty asentoluokkien välilehdet, luokkien yhteinen haku, useiden animaatioiden joukkolisäys ja siirtokohdan järjestysnumeron määritys.</li>
+<li>Lisätty tuotteen ja yhteisen järjestelmän muutoslokin näyttö Inspectorissa.</li>
+</ul>
+<h3>Muutettu</h3>
+<ul>
+<li>Nopeutettu esiasetusten latausta, mikä lyhentää odotusta työkalua lisättäessä ja esiasetusluetteloa avattaessa.</li>
+<li>Esiasetusten lisäys, muokkaus ja poisto päivittyvät automaattisesti luetteloon.</li>
+<li>Inspector järjestetty 3 välilehteen: Toiminnot, Asennot ja Avatarin asetukset.</li>
+<li>Asetuksiin lisätty kuvaukset ja kuvakkeet sekä yhtenäistetty lisäasetusten avaaminen ja sulkeminen.</li>
+<li>Hengityksen lisätiedot siirretty toimintoasetuksiin ja esiasetukset Avatarin asetusten loppuun.</li>
+<li>Omien liikkeiden yksittäiset valinnat ja avatarin alkuperäisten asentojen automaattinen tuonti erotettu omiksi asetuksikseen.</li>
+<li>Vähennetty jalkojen korkeussäädön luomien koko kehon animaatioiden päällekkäisyyttä.</li>
+<li>Asentokuvien päivitys muutettu vahvistusikkunan avaavaksi painikkeeksi.</li>
+<li>Varoitusten näyttöasetukset koottu Tarkista asetukset -kohdan sisälle.</li>
+<li>Uusien 8bit-Prefabien lisääminen poistettu ja korvattu tavallisen Prefabin toimintovalinnoilla. Olemassa olevat viittaukset säilyvät.</li>
+<li>VRChat Avatars SDK:n vähimmäisversio muutettu versioon 3.10.4.</li>
+</ul>
+<h3>Korjattu</h3>
+<ul>
+<li>Myös oletus- ja omat liikkeet ilman valittua työkalun asentoa huomioidaan Kuvatilan ja lattian korkeuden korjauksessa.</li>
+<li>Korjattu ”Vain seisten” -korvauksen aiheuttama muutos tuonnin lähteen BlendTree-rakenteeseen.</li>
+<li>Ilman kelvollista IK-sääntöä käytetään manuaalista säätöä ja estetään tarpeettomat IK-luontivaroitukset.</li>
+<li>Korjattu samannimisten asentojen säätöjen sekoittuminen ja saman resurssin sisäisen liikkeen vaihdon jääminen uudelleenluonnissa huomiotta.</li>
+<li>Käytöstä poistetun alkuasennon numeron siirtyminen toiselle asennolle ei enää valitse sitä alkuasennoksi.</li>
+<li>Alkuperäisten asentojen tuonnissa havaittu ei-tuettu AnimatorOverrideController näyttää ohjeen poikkeuksen sijaan.</li>
+<li>Vanhan esiasetuksen käyttö säilyttää erikseen käytöstä poistetun Käänny-asetuksen.</li>
+<li>Inspectorin kuvakkeiden taustaa parannettu, jotta toimintokuvakkeet erottuvat myös Editorin vaaleassa teemassa.</li>
+</ul>
+<ul>
+<li>Korjattu Käänny-, Lattian kork.- ja Kuvatila-kuvakkeiden puuttuminen avatariin lisättäessä.</li>
+<li>Korjattu tuettujen asentojen kääntymisasetusten katoaminen vanhan version esiasetusta käytettäessä.</li>
+<li>Korjattu asennon nimen muokkauksen siirtyminen toiseen asentoon toista lisätietonäkymää avattaessa.</li>
+<li>Korjattu lisätietojen sulkeutuminen asentoja järjestettäessä sekä asetusmuutosten Undo- ja Redo-käsittely.</li>
+<li>Korjattu alkuperäisen avatarin päällekkäinen näkyminen ja sijainnin lisääminen kahdesti esikatselussa.</li>
+<li>Korjattu esikatseluvirhe avatareissa, joista puuttuu komponentteja.</li>
+<li>Korjattu avatarin luiden suunta- ja mittakaavaerojen aiheuttamat raajojen suunnan ja sijainnin IK-poikkeamat.</li>
+<li>Korjattu varoitusten ja esikoontitilan päivittymättömyys heti asetusmuutoksen jälkeen.</li>
+<li>Korjattu vanhan esikoontituloksen uudelleenkäyttö IK-asetusten muuttamisen jälkeen.</li>
+<li>Korjattu joissakin kokoonpanoissa lisätoimintojen luonnin estävä koontivirhe.</li>
+</ul>
+<h2>[3.0.16] - 2026-09-14</h2>
+<ul>
+<li>NDMF:n vähimmäisriippuvuus päivitetty versioon 1.14.0, koska käytössä on <code dir="ltr">VirtualAnimatorController.SetParameter</code>-API</li>
+</ul>
+<h2>[3.0.15] - 2026-09-13</h2>
+<ul>
+<li>Korjattu kehon sijainnin tai polvien taivutuksen suuri muutos selinmakuun pään lukitusta vaihdettaessa avatareissa, joissa käytetään Hips-mittakaavan muutosta ja FloorAdjusteria</li>
+</ul>
+<h2>[3.0.14] - 2026-09-09</h2>
+<ul>
+<li>Korjattu Eleet pois -valikkokohteen katoaminen toisesta ja myöhemmistä asentotyökaluista samassa avatarissa</li>
+<li>Korjattu USSPS_Locomotion-tason palaaminen Standingiin esimerkiksi SleepDown-asennosta huolimatta</li>
+<li>Korjattu FloorAdjusterin kanssa esiintyvät asennon korkeuden ja X/Z-sijainnin poikkeamat sekä tuettu MA- ja AAO-versioiden suoritusjärjestys</li>
+<li>Parannettu palautusta: Generated-kansiosta poistetun esikootun AnimatorControllerin tilalle palautetaan automaattisesti oletusarvoinen PosingSystem_Locomotion</li>
+<li>Korjattu koontivirhe, kun kaikki seisoma-asennot on poistettu</li>
+<li>Esiasetusluettelo järjestetään avatarin nimen mukaan</li>
+</ul>
+<h2>[3.0.13] - 2026-09-04</h2>
+<ul>
+<li>Korjattu VR-tilassa heti kyykistymisen jälkeen seisomaan palatessa syntyvä seisoma-asennon siirtymä itseensä, joka teki palautumisesta epävakaan</li>
+</ul>
+<h2>[3.0.12] - 2026-09-04</h2>
+<ul>
+<li>Korjattu esikoonnittoman asentotyökalun virheellinen tunnistus muuttuneeksi NDMF-koonnissa</li>
+<li>Korjattu koonnin epäonnistuminen <code dir="ltr">AddAssetToSameFile</code>-virheeseen, kun luotuja resursseja lisättiin NDMF-koonnin väliaikaiseen AnimatorControlleriin</li>
+</ul>
+<h2>[3.0.11] - 2026-08-31</h2>
+<ul>
+<li>Korjattu esikoontiavatarin Scenen muuttuminen virheelliseksi ja käsittelyn epäonnistuminen NDMF 1.14.7:ssä ja uudemmissa</li>
+<li>Korjattu <code dir="ltr">MissingReferenceException</code>, joka syntyi NDMF-virhenäkymän viitatessa jo tuhottuun LocalizationAssetiin</li>
+</ul>
+<h2>[3.0.10] - 2026-08-29</h2>
+<ul>
+<li>Esiasetusten varsinaiset resurssit ladataan vasta esiasetusvalitsinta avattaessa. Välimuistia käytetään uudelleen, jos GUID-luettelo ei ole muuttunut</li>
+<li>Hierarchyn varoitus- ja virhekuvakkeet arvioidaan uudelleen vain muutoksissa, ja tuotevalikon resurssihaku käyttää yhteistä välimuistia. Tämä vähentää Editorin jäätymistä muutaman sekunnin välein kohtauksissa, joissa on paljon asentotyökaluja</li>
+<li>Korjattu <code dir="ltr">ArgumentException</code>, joka syntyi päällekkäisiä parametriarvoja rekisteröitäessä, kun samassa avatarissa oli useita asentotyökaluja esikoontia tehtäessä</li>
+</ul>
+<h2>[3.0.9] - 2026-08-26</h2>
+<ul>
+<li>Jos VRCAvatarDescriptoria ei saada PosingSystemistä muunnoksen aikana, estetään NullReferenceException ja ohjataan tarvittavan koontilokin tarkasteluun</li>
+<li>Korjattu <code dir="ltr">Avatar is null</code> -virhe, kun myöhempi esikoonti tai koonti käytti esikatselua, joka viittasi NDMF:n luomaan ja poistamaan väliaikaiseen Avatariin. Muunnos erotettu esikatseluvälimuistista, ja eri esikatselujen NDMF-väliaikaisresurssien nimiristiriidat estetty</li>
+<li>Korjattu 可愛いポーズ (Kawaii Posing) -Prefabin esikatseluviittausten tallentumattomuus kohtaukseen, joka kasvatti piilotettujen esikatseluavatarien määrää. Esikatselut on rajattu kohtauksen tallennuksen ulkopuolelle, ja vanhat esikatselut kerätään kohtauksen latauksessa, Play-tilaan siirryttäessä ja skriptien uudelleenlatauksessa</li>
+</ul>
+<h2>[3.0.8] - 2026-08-18</h2>
+<ul>
+<li>Korjattu Unity Assertion ja mahdollinen asentodatan vioittuminen esikootuissa asentoliikkeissä, kun FloorAdjuster tai vastaava korjaa korkeutta uudelleen</li>
+<li>Parannettu korkeusmittauksen turvallisuutta: se ei häiritse alkuperäistä avataria tai muiden työkalujen AnimationMode-tilaa</li>
+</ul>
+<h2>[3.0.7] - 2026-08-12</h2>
+<ul>
+<li>Korjattu näkymän sijainnin poikkeama ja polvien poikkeava taipuminen selinmakuulla käytettäessä FloorAdjusteria tai muita korkeussäätötyökaluja</li>
+<li>Korjattu virhe, kun PosingSystem on avatarin ulkopuolella (kiitos PancakeTorto1se)</li>
+<li>Korjattu virhe, joka syntyi käsittelyn jatkuessa avatarin latauksen epäonnistumisen jälkeen</li>
+<li>Korjattu joidenkin asetusten virheellinen tunnistus muuttuneiksi heti esikoonnin jälkeen</li>
+<li>Parannettu liikkumisanimaatioiden automaattituontia</li>
+<li>Lisätty varoitus joillekin erityisiä rigejä käyttäville avatareille</li>
+<li>Animaatiosäätöikkunaan lisätty muutosvahvistus ja säätöarvojen peilaus (kiitos kraihd)</li>
+<li>Lisätty ohjeita muiden työkalujen virhetilanteisiin ja tarkistuksia virhealttiisiin kohtiin</li>
+</ul>
+<h2>[3.0.6] - 2026-03-17</h2>
+<ul>
+<li>Korjattu asentojen voimakas vääristyminen joissakin avatareissa, joissa on ennestään oma asennonhallinta</li>
+</ul>
+<h2>[3.0.5] - 2026-01-31</h2>
+<ul>
+<li>Korjattu joidenkin ExpressionMenus-valikoiden aiheuttama Unityn kaatuminen</li>
+<li>Korjattu avatarin ongelmat ごろ寝EX-yhteensopivuus-Prefabia käytettäessä (kiitos あずき)</li>
+<li>Korjattu kierron virheet säätöanimaatioita yhdistettäessä</li>
+</ul>
+<h2>[3.0.4] - 2026-01-11</h2>
+<ul>
+<li>Parannettu osittain avatarin toimintaa Prefabs-kansioon siirrettäessä</li>
+<li>Lisätty lisenssin poistotoiminto</li>
+<li>Korjattu useiden asentojen poikkeava kaulan asento</li>
+<li>Nopeutettu Inspectorin avaamista hieman</li>
+<li>Kuvakkeet luodaan nyt myös esikoonnissa. Avatarin päivityspainikkeen tekstiä muutettu</li>
+<li>Varoitusta ei näytetä, jos esikoontia ei ole koskaan tehty (koska moni ei näytä käyttävän esikoontia)</li>
+<li>Poistettu tarpeettomia resursseja</li>
+<li>Korjattu sormien säätämisen estävä ongelma</li>
+</ul>
+<h2>[3.0.3] - 2026-01-04</h2>
+<ul>
+<li>Korjattu eri esiasetuksen käyttö kuin valittu esiasetus (kiitos あずき)</li>
+</ul>
+<h2>[3.0.2] - 2026-01-02</h2>
+<ul>
+<li>Lisätty Unityn tumman teeman tuki</li>
+<li>Korjattu asennon vääristyminen kierrossa animaatiosäädön aikana</li>
+<li>Muutettu luotujen valikkokuvakkeiden kokoa, otettu pakkaus käyttöön ja lisätty vielä pienempien kuvakkeiden asetus</li>
+<li>Palautettu versiossa 3.0.0 poistettu seurantalukitusten yhdistämistoiminto ja avatarin liikkeiden automaattituonti</li>
+</ul>
+<h2>[3.0.1] - 2025-12-29</h2>
+<ul>
+<li>Korjattu oletusliikkeiden asetustoiminnon ongelmat</li>
+<li>Korjattu avatarin asennon muuttuminen itsestään virheelliseksi</li>
+</ul>
+<h2>[3.0.0] - 2025-12-28</h2>
+<ul>
+<li>Lisätty esikoonti</li>
+<li>Lisätty animaatiosäätö</li>
+<li>Lisätty esiasetukset</li>
+</ul>
+<h2>[2.2.5] - 2025-05-08</h2>
+<ul>
+<li>Ratkaistu yhteensopivuusongelmia joidenkin avatarin toimintojen kanssa</li>
+</ul>
+<h2>[2.2.4] - 2025-04-04</h2>
+<ul>
+<li>Korjattu asentojen vaihtumisen estävä ongelma joillakin avatarin ja ModularAvatar-version yhdistelmillä</li>
+</ul>
+<h2>[2.2.3] - 2025-03-13</h2>
+<ul>
+<li>Korjattu joidenkin avatarien, kuten 森羅-hahmon hypyn, virheelliset liikkeet</li>
+<li>Korjattu ajoittain väärä Eleet pois -oletusarvo</li>
+</ul>
+<h2>[2.2.2] - 2025-03-06</h2>
+<ul>
+<li>Korjattu tietyissä ympäristöissä ilmenevä virhe</li>
+</ul>
+<h2>[2.2.1] - 2025-02-05</h2>
+<ul>
+<li>Korjattu Unityn kaatuminen</li>
+<li>Lisätty versio NDMF Consolessa näkyvään työkalun nimeen</li>
+</ul>
+<h2>[2.2.0] - 2025-02-02</h2>
+<ul>
+<li>Lisätty asetus eleiden poistamiseen ja animaation kädenmuotojen käyttämiseen</li>
+</ul>
+<h2>[2.1.6] - 2025-02-02</h2>
+<ul>
+<li>Korjattu asentojen rikkoutuminen tiettyjen työkalujen kanssa</li>
+<li>Korjattu asetuksista riippuva virhe</li>
+</ul>
+<h2>[2.1.5] - 2024-12-10</h2>
+<ul>
+<li>Ratkaistu ristiriitoja joidenkin avatarin toimintojen kanssa</li>
+<li>Lisätty painike Unitypackage-version poistamiseen</li>
+</ul>
+<h2>[2.1.4] - 2024-12-08</h2>
+<ul>
+<li>Korjattu avatarista riippuva virhe</li>
+<li>Korjattu jalkojen lukituksen estyminen avatarin tai muiden toimintojen ristiriidassa</li>
+<li>Korjattu avatarin asennon palautuminen VRC:n oletusasentoon työpöytätilassa</li>
+</ul>
+<h2>[2.1.3] - 2024-12-01</h2>
+<ul>
+<li>Korjattu asennon vaihtumisen estyminen käytettäessä avataria tai toimintoa, joka käyttää vääräntyyppistä VRMode-parametria</li>
+<li>Lisätty ilmoitus NDMF-Consoleen toimintojen parametrityyppien välisistä ristiriidoista</li>
+</ul>
+<h2>[2.1.2] - 2024-12-01</h2>
+<ul>
+<li>NDMF-Consoleen lisätty selitys tilanteeseen, jossa toisen työkalun virhe aiheuttaa avatarin koonnissa virheen Unisaki Posing Systemiin</li>
+<li>Korjattu joidenkin avatarien koontivirhe</li>
+<li>Parannettu toimintaa heti avatarin lataamisen jälkeen</li>
+<li>Avatarin alkuperäinen liikkumiskäsittely poistetaan nyt, koska se esti joidenkin avatarien toiminnan</li>
+</ul>
+<h2>[2.1.1] - 2024-11-20</h2>
+<ul>
+<li>Korjattu PosingOverriden MergeAnimatoriin liittyvä ongelma</li>
+</ul>
+<h2>[2.1.0] - 2024-11-20</h2>
+<ul>
+<li>Korjattu jalkojen tai lantion uppoaminen maahan työpöytätilassa, jotta kaikki asennot näkyvät oikein</li>
+<li>Lisätty mahdollisuus vaihtaa asentoa pään korkeudesta riippumatta</li>
+<li>Lisätty kuvakkeiden luonnin poistava tila Quest-avatarien latausta varten</li>
+<li>Lisätty useita varoituksia avatarin ongelmista</li>
+<li>Ratkaistu lukitustoimintojen ristiriidat esimerkiksi AFK:n ja muiden työkalujen käsien lukitusten kanssa</li>
+<li>Lisätty automaattinen pään lukitus selinmakuulla</li>
+</ul>
+<h2>[2.0.0] - 2024-11-12</h2>
+<ul>
+<li>Julkaistu VPM/VCC-tuettu versio</li>
+<li>Muutettu virhetilanteessa näytettävää työkalun nimeä #1</li>
+<li>Lisätty käyttöehdot #5</li>
+</ul></main>
+</body></html>

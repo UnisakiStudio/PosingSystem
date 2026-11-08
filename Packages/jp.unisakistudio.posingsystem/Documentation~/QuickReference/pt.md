@@ -1,8 +1,8 @@
 # Português — Unisaki Posing System / Manual
 
-> Quick reference generated from existing interface translations. This is not a complete translated manual. The full guide is available in English.
+> As referências rápidas em 30 idiomas explicam funções e nomes padrão. São referências resumidas; use o índice de idiomas para documentação completa.
 
-[Language / 言語](index.md) · [English — Manual](../UserGuide.en.md)
+[🌐](../Localization/index.md) · [Manual](../Localization/pt/UserGuide.md)
 
 ## Funções
 
@@ -241,4 +241,4 @@ Limpa as configurações e os ajustes manuais deste tipo de movimento. Se a impo
 | 騎士 | Cavaleiro |
 | 魔王降臨 | Senhor demônio |
 
-[English — Manual](../UserGuide.en.md)
+[Manual](../Localization/pt/UserGuide.md)

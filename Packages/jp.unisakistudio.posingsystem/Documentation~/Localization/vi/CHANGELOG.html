@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="vi" dir="ltr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Lịch sử thay đổi</title><style>:root { color-scheme: light dark; font-family: system-ui, -apple-system, "Segoe UI", sans-serif; line-height: 1.7; }
+body { margin: auto; max-width: 70rem; padding: 1.5rem; overflow-wrap: anywhere; }
+nav { display: flex; flex-wrap: wrap; gap: .6rem 1.2rem; padding-block: 1rem; border-block-end: 1px solid #8887; }
+h1,h2,h3 { line-height: 1.4; } h2 { margin-block-start: 2.4rem; }
+table { border-collapse: collapse; width: 100%; } th,td { text-align: start; vertical-align: top; padding: .5rem; border: 1px solid #8887; }
+thead { background: #8882; } .table-scroll { overflow-x: auto; }
+code,pre { direction: ltr; unicode-bidi: isolate; } code { background: #8882; padding: .1em .25em; } pre { white-space: pre-wrap; }
+a { color: #2269b8; } a:visited { color: #7952ad; } li { margin-block: .35rem; }
+@media(prefers-color-scheme:dark) { a { color: #8ec5ff; } a:visited { color: #cfacff; } }
+@media print { nav { display: none; } body { max-width: none; padding: 0; } a { color: inherit; } }</style></head><body>
+<nav aria-label="Documentation"><a href="../index.html">Tiếng Việt · 🌐</a><a href="README.html">README</a><a href="CHANGELOG.html">Lịch sử thay đổi</a><a href="UserGuide.html">Unisaki Posing System 3.2.0 — Hướng dẫn tiếng Việt</a></nav>
+<main><h1>Lịch sử thay đổi</h1>
+<h2>[3.2.0] - Chưa phát hành</h2>
+<h3>Đã thêm</h3>
+<ul>
+<li>Inspector, thao tác chỉnh sửa, hộp thoại cài đặt, tên tư thế chuẩn và menu VRChat được tạo nay hiển thị bằng 30 ngôn ngữ.</li>
+<li>Thống nhất lựa chọn ngôn ngữ cho Inspector và menu trò chơi. Ban đầu dùng ngôn ngữ máy tính; lựa chọn gần nhất cũng dùng trong các dự án khác của cùng người dùng hệ điều hành.</li>
+<li>Có thể mở README, lịch sử thay đổi và hướng dẫn ngoại tuyến bằng ngôn ngữ đã chọn.</li>
+<li>Cung cấp tên hiển thị của 128 tư thế chuẩn và mô tả từng tính năng theo thuật ngữ hiện có.</li>
+</ul>
+<h3>Tương thích</h3>
+<ul>
+<li>Giữ thiết lập avatar hiện có, tên tùy chỉnh, tham chiếu tài nguyên, mã định danh tham số và phương thức lưu giấy phép.</li>
+</ul>
+<h2>[3.1.2] - 2026-11-09</h2>
+<ul>
+<li>Sửa lỗi khiến mặt vẫn hướng lên sau khi đứng dậy từ nằm sấp khi bật “Giảm méo tư thế do xoay đầu”.</li>
+<li>Có thể bật/tắt khóa đầu qua “Thiết lập → Tự khóa đầu khi nằm ngửa” trong menu EX ngay cả khi “Độ cao chân” tắt. Mục bị mất trên avatar ở 3.1.0 hoặc 3.1.1 cũng trở lại sau cập nhật và dựng.</li>
+<li>“Cập nhật dữ liệu tạo trước” hoạt động ngay cả khi bỏ chọn đối tượng avatar chính trong Unity.</li>
+<li>Sửa lỗi có thể ngăn tạo tư thế sau cập nhật nếu Controller tư thế chung phiên bản cũ còn trong Assets. Thiết lập Controller do bạn tự sửa cũng được giữ.</li>
+<li>Khi công cụ hoặc đối tượng cha tắt khiến không dùng được Animator tư thế chung, tên đối tượng liên quan được hiển thị. Có thể mở vị trí đó từ “Kiểm tra thiết lập → Chọn đối tượng”.</li>
+<li>Khi dữ liệu tạo trước báo có thay đổi thiết lập, có thể xem khác biệt so với lần trước bằng “Chi tiết → Xem thiết lập thay đổi từ lần tạo trước”.</li>
+<li>Khi lỗi mã lệnh chặn dựng (PS050), hiển thị tối đa 5 lỗi gốc Unity phát hiện. Qua “Hỏi về lỗi này”, bạn có thể xem, sửa rồi gửi bản nháp có phiên bản Unity, công cụ được hỗ trợ và mã lỗi.</li>
+</ul>
+<p>Nếu từng dùng tạo trước, sau cập nhật hãy nhấn “Cập nhật dữ liệu tạo trước”, lưu Scene rồi dựng và tải avatar lên lại.</p>
+<h2>[3.1.1] - 2026-11-08</h2>
+<ul>
+<li>“Độ cao sàn” và “Lật người” đã bật nay xuất hiện trong “Thiết lập” của menu EX VRChat ngay cả khi “Lật đối xứng” tắt.</li>
+<li>Dù đã đổi thứ tự, xóa hoặc đổi tên tư thế ở bản cũ, chuyển động lật người đúng vẫn được kế thừa cho “Duỗi chân”, “Thư thái” và “Co một gối”. Cũng kế thừa sau Unpack hoàn toàn nếu nhận diện được tư thế gốc. Giữ tư thế tự tạo, Lật người bạn tự tắt và chuyển động nghiêng thay thế.</li>
+<li>Sửa lỗi avatar thoáng nằm sấp khi được chọn trong VRChat. Cũng sửa lỗi thoáng nằm ngửa khi nhảy mà chỉ chọn nằm sấp. Có thể tắt đổi bằng nhảy qua “Tính năng → Tiện ích → Nhảy để đổi tư thế nằm”. Mặc định bật.</li>
+<li>Nếu tham chiếu Animator Controller tư thế chung bị mất sau cập nhật và có thể khôi phục, hiển thị cảnh báo rồi tạo lại từ thiết lập. Giữ cả tham chiếu Controller dùng chung bởi nhiều avatar.</li>
+<li>Nếu dự án có lỗi biên dịch, dừng ngay đầu quá trình dựng và giải thích nguyên nhân. Hoãn tự dọn Controller được tạo khi lỗi mã lệnh ngăn kiểm tra tham chiếu.</li>
+<li>Ưu tiên Prefab chính thức khi thêm công cụ dù dự án có Prefab cùng tên sản phẩm. Cũng tiếp tục tạo trước nếu Controller chung chỉ khác ký tự xuống dòng.</li>
+<li>Write Defaults của layer FX do công cụ tư thế thêm, như Độ cao sàn, nay theo thiết lập avatar.</li>
+</ul>
+<p>Nếu từng dùng tạo trước, sau cập nhật hãy nhấn “Cập nhật dữ liệu tạo trước” trên công cụ trong Scene, lưu Scene rồi dựng và tải avatar lên lại.</p>
+<h2>[3.1.0] - 2026-11-07</h2>
+<ul>
+<li>Hỗ trợ hiệu chỉnh chi tự động (IK) theo vóc dáng cho tư thế tương thích, hiệu chỉnh riêng avatar và ngăn đầu gối gập ngược.</li>
+<li>Điều chỉnh vị trí và hướng avatar bằng Chế độ chụp. Có thể chọn đồng bộ vị trí/hướng và hiển thị đầu mình khi chụp.</li>
+<li>“Độ cao sàn” di chuyển toàn thân lên xuống tối đa 3m, dùng riêng với “Độ cao chân”.</li>
+<li>Thêm hoạt ảnh thở, thiết lập ngừng đung đưa mặc định khi chờ và giảm méo tư thế do hướng cổ.</li>
+<li>Kiểm tra tính năng dùng và mức tham số trong Inspector. Hỗ trợ tìm tư thế, thêm hàng loạt, sắp xếp và xem trước đơn giản trong Scene.</li>
+<li>Tăng tốc chuyển đứng, khom và ngồi trong chế độ máy tính.</li>
+<li>Cải thiện cảnh báo tạo trước sau đổi thiết lập, tải khi cuộn Inspector và dừng lâu lúc dọn kết quả được tạo.</li>
+<li>Sửa lỗi khi nhập tự động ON khiến dữ liệu tạo trước không đổi thiết lập vẫn báo cần cập nhật và tạo lại khi tải lên. Kết quả nhập áp dụng cho avatar được tạo, không đổi thiết lập nhập đối tượng gốc.</li>
+<li>Thêm Lật người theo nghiêng đầu và thiết lập chuyển động tương thích từng tư thế.</li>
+<li>Cải thiện kế thừa Lật người từ thiết lập sẵn cũ, nhập chuyển động riêng và quản lý tài nguyên được tạo.</li>
+</ul>
+<h2>[3.1.0-beta.2] - Beta mở (2026-11-05)</h2>
+<ul>
+<li>Thêm chiều dài cố định và chênh lệch cao (Y)/trước sau (Z) từ Head đến Viewpoint làm cơ sở chiều dài vị trí IK.</li>
+<li>Cảnh báo Inspector cũng hiển thị bên trái tên đối tượng Hierarchy. Hỗ trợ tạo trước chưa chạy, thay đổi thiết lập và cảnh báo đang hiển thị từ nhập chuyển động hoặc thao tác thiết lập sẵn.</li>
+<li>Sửa lỗi tự dọn kết quả, như khi mở Scene, nạp Controller từ Scene khác khiến Unity dừng lâu.</li>
+<li>Sửa lịch sử tạo trước bị mất khi thay danh sách tư thế hoặc tính năng. Nay báo thiết lập đã đổi sau tạo trước thay vì chưa chạy, và Hierarchy cũng báo cần cập nhật.</li>
+<li>Dùng chung kết quả so sánh tạo trước cho Inspector/Hierarchy để giảm tải cuộn khi thiết lập và tài nguyên tham chiếu không đổi. So sánh lúc dựng vẫn chạy mỗi lần như trước.</li>
+</ul>
+<h2>[3.1.0-beta.1] - Beta mở (2026-11-04)</h2>
+<ul>
+<li>Đổi chuyển tư thế thường trong chế độ máy tính sang một lần đánh giá. Có hiệu lực cho dựng thường và tạo trước; VR và điều kiện đặc biệt giữ đường xử lý cũ.</li>
+<li>Nhận diện dữ liệu tạo trước từ alpha.3 trở về trước là cần cập nhật.</li>
+<li>Giữ góc nhìn khi đổi Độ cao sàn lúc chụp, rồi trở về Độ cao sàn mới nhất khi kết thúc chụp.</li>
+</ul>
+<ul>
+<li>Đổi nhập tự động thành chỉ phát hiện lúc tạo; tạo trước/dựng không thêm hoặc sửa thiết lập nhập thủ công.</li>
+<li>Áp dụng ON/OFF nhập tự động, thay Base và xóa thiết lập thủ công khi tạo lại. Giữ lựa chọn và hiệu chỉnh thủ công dùng chung nhiều sản phẩm, trả chuyển động nhập cũ về tư thế mặc định.</li>
+<li>Quản lý Controller tạo trước trong 1 tệp mỗi avatar theo GUID Scene. Tách tham chiếu dùng chung từ bản sao, Scene khác hoặc Prefab trước cập nhật.</li>
+<li>Dùng quản lý tài nguyên tạm NDMF lúc dựng, không tăng tệp tạo ra cho chỉnh sửa.</li>
+<li>Kiểm tra kết quả khi mở/lưu Scene. Giữ khi có chỉnh sửa chưa lưu, Undo/Redo hoặc tham chiếu ngoài; chỉ đưa tệp không dùng có chủ sở hữu rõ vào thùng rác.</li>
+<li>Áp dụng xoay, hoạt ảnh hiệu chỉnh và vị trí phát của chuyển động nhập. Thống nhất xử lý xoay, RootT/RootQ và hiệu chỉnh Humanoid với tư thế thường.</li>
+<li>Sao chép hiệu chỉnh BlendTree lồng riêng cho đích nhập, giữ chuyển động gốc và thiết lập hòa trộn đi bộ.</li>
+<li>Vị trí phát “chỉ đứng” được triển khai thành tư thế tĩnh theo tốc độ khung hình gốc mà không dừng phát phía đi bộ.</li>
+</ul>
+<h2>[3.1.0-alpha.2] - Bản thử kín (2026-10-26)</h2>
+<h3>Sửa và thay đổi</h3>
+<ul>
+<li>Áp dụng hiệu chỉnh Chế độ chụp và Độ cao sàn cả cho chuyển động mặc định/tùy chỉnh khi chưa chọn tư thế công cụ.</li>
+<li>Mở rộng Độ cao sàn lên xuống 3m. 50% là độ cao gốc và giá trị ban đầu, 0% thấp hơn 3m, 100% cao hơn 3m.</li>
+<li>Sửa ghi đè “chỉ đứng” làm thay BlendTree nguồn nhập.</li>
+<li>Dùng hiệu chỉnh thủ công cho tư thế không có quy tắc IK và giảm cảnh báo tạo không cần thiết.</li>
+<li>Sửa nhầm lẫn bản nháp hiệu chỉnh tư thế trùng tên và bỏ sót thay chuyển động trong cùng tài nguyên.</li>
+<li>Sửa số tư thế ban đầu không hợp lệ chọn nhầm tư thế khác.</li>
+<li>Hiển thị hướng dẫn thay vì ngoại lệ khi nhập AnimatorOverrideController không hỗ trợ.</li>
+<li>Giữ Lật người OFF rõ ràng khi áp dụng thiết lập sẵn cũ.</li>
+<li>Cải thiện độ rõ biểu tượng tính năng trên giao diện Editor sáng.</li>
+</ul>
+<p>Đang tiếp tục kiểm tra góc nhìn và kết quả thay chuyển động mặc định trong ứng dụng VRChat.</p>
+<h2>[3.1.0-alpha.1] - Trước công bố</h2>
+<h3>Đã thêm</h3>
+<ul>
+<li>Thêm ON/OFF từng tính năng và hiển thị mức dùng ExpressionParameters.</li>
+<li>Thêm Chế độ chụp di chuyển avatar về trước và xoay.</li>
+<li>Thêm lựa chọn đồng bộ Chế độ chụp: chỉ cục bộ dùng 0 bit, đồng bộ dùng 16 bit.</li>
+<li>Thêm thiết lập giữ đầu avatar mình hiển thị trong Chế độ chụp.</li>
+<li>Thêm “Độ cao sàn” di chuyển toàn thân gồm đầu lên xuống 3m. 50% là độ cao gốc và ban đầu, 0% thấp hơn 3m, 100% cao hơn 3m.</li>
+<li>Thêm Lật người theo nghiêng đầu và thiết lập hoạt ảnh tương thích từng tư thế.</li>
+<li>Thêm hoạt ảnh thở cùng các mức Nhẹ, Vừa, Mạnh, Nhanh và Tùy chỉnh.</li>
+<li>Thêm lựa chọn riêng cho hoạt ảnh thở và menu ON/OFF trong trò chơi. Chỉ chuyển động dùng 0 bit; đồng bộ ON/OFF dùng 1 bit.</li>
+<li>Thêm thiết lập ngừng đung đưa từ chuyển động chờ mặc định VRChat.</li>
+<li>Thêm thiết lập giảm méo tư thế do khác hướng cổ.</li>
+<li>Thêm hiệu chỉnh chi tự động (IK) khớp tư thế tương thích theo vóc dáng và ON/OFF toàn avatar/từng tư thế.</li>
+<li>Thêm “Ghi IK vào hiệu chỉnh” để lưu kết quả IK thành hoạt ảnh hiệu chỉnh.</li>
+<li>Thêm hiệu chỉnh tư thế riêng avatar, ngăn đầu gối gập ngược và góc gập tối thiểu.</li>
+<li>Thêm xem trước đơn giản từ danh sách tư thế để kiểm tra trong Scene.</li>
+<li>Thêm thẻ loại tư thế, tìm xuyên loại, thêm nhiều hoạt ảnh cùng lúc và chỉ định vị trí đích trong thứ tự.</li>
+<li>Thêm hiển thị lịch sử thay đổi sản phẩm/hệ thống chung trong Inspector.</li>
+</ul>
+<h3>Đã thay đổi</h3>
+<ul>
+<li>Tăng tốc nạp thiết lập sẵn và giảm chờ khi thêm công cụ hoặc hiển thị danh sách.</li>
+<li>Tự cập nhật danh sách khi thêm, sửa hoặc xóa thiết lập sẵn.</li>
+<li>Sắp Inspector thành 3 thẻ “Tính năng”, “Tư thế” và “Thiết lập avatar”.</li>
+<li>Thêm mô tả, biểu tượng và thống nhất cách mở/đóng thiết lập chi tiết.</li>
+<li>Chuyển chi tiết thở vào thiết lập tính năng, thiết lập sẵn xuống cuối Thiết lập avatar.</li>
+<li>Tách chỉ định chuyển động riêng và tự nhập tư thế gốc thành thiết lập riêng.</li>
+<li>Giảm lặp hoạt ảnh toàn thân tạo cho Độ cao chân.</li>
+<li>Đổi cập nhật ảnh tư thế thành nút có hộp thoại xác nhận.</li>
+<li>Gom tùy chọn hiển thị cảnh báo trong “Kiểm tra thiết lập”.</li>
+<li>Bỏ thêm mới Prefab riêng 8bit, thống nhất lựa chọn tính năng trên Prefab thường. Giữ tham chiếu hiện có.</li>
+<li>Đổi phiên bản VRChat Avatars SDK tối thiểu thành 3.10.4.</li>
+</ul>
+<h3>Đã sửa</h3>
+<ul>
+<li>Đưa cả chuyển động mặc định/tùy chỉnh khi chưa chọn tư thế công cụ vào hiệu chỉnh Chế độ chụp và Độ cao sàn.</li>
+<li>Sửa ghi đè “chỉ đứng” làm thay BlendTree nguồn nhập.</li>
+<li>Dùng hiệu chỉnh thủ công cho tư thế không có quy tắc IK hợp lệ và giảm cảnh báo tạo IK không cần thiết.</li>
+<li>Sửa hiệu chỉnh tư thế trùng tên bị lẫn và thay chuyển động trong cùng tài nguyên không có hiệu lực khi tạo lại.</li>
+<li>Ngăn chọn ban đầu khi số của tư thế ban đầu đã tắt được dùng lại cho tư thế khác.</li>
+<li>Hiển thị hướng dẫn thay ngoại lệ khi nhập tư thế gốc gặp AnimatorOverrideController không hỗ trợ.</li>
+<li>Giữ thiết lập Lật người được đặt OFF rõ ràng khi áp dụng thiết lập sẵn cũ.</li>
+<li>Cải thiện nền biểu tượng Inspector để nhận biết tính năng trên giao diện Editor sáng.</li>
+</ul>
+<ul>
+<li>Sửa biểu tượng “Lật người”, “Độ cao sàn” và “Chế độ chụp” không xuất hiện lúc thêm vào avatar.</li>
+<li>Sửa mất thiết lập Lật người của tư thế hỗ trợ khi áp dụng thiết lập sẵn cũ.</li>
+<li>Sửa nhập tên bị chuyển sang tư thế khác khi mở chi tiết khác trong lúc sửa tên.</li>
+<li>Sửa chi tiết bị đóng khi sắp xếp tư thế và xử lý Undo/Redo thay đổi thiết lập.</li>
+<li>Sửa avatar gốc chồng trong xem trước và vị trí đặt bị cộng hai lần.</li>
+<li>Sửa lỗi xem trước avatar thiếu thành phần.</li>
+<li>Sửa hướng/vị trí chi IK lệch do khác hướng và tỷ lệ xương avatar.</li>
+<li>Sửa cảnh báo hoặc trạng thái tạo trước không cập nhật ngay sau đổi thiết lập.</li>
+<li>Sửa tái dùng dữ liệu tạo trước cũ sau đổi IK.</li>
+<li>Sửa lỗi dựng do tạo tính năng bổ sung thất bại ở một số cấu hình.</li>
+</ul>
+<h2>[3.0.16] - 2026-09-14</h2>
+<ul>
+<li>Cập nhật phiên bản phụ thuộc NDMF tối thiểu lên 1.14.0 vì sử dụng API <code dir="ltr">VirtualAnimatorController.SetParameter</code>.</li>
+</ul>
+<h2>[3.0.15] - 2026-09-13</h2>
+<ul>
+<li>Sửa vị trí cơ thể hoặc góc gập gối thay đổi lớn khi bật/tắt khóa cổ tư thế nằm ngửa trên avatar kết hợp thay tỷ lệ Hips với FloorAdjuster.</li>
+</ul>
+<h2>[3.0.14] - 2026-09-09</h2>
+<ul>
+<li>Sửa mục menu “Tắt cử chỉ” của công cụ thứ 2 trở đi bị mất khi cài nhiều công cụ tư thế trên cùng avatar.</li>
+<li>Sửa layer USSPS_Locomotion đôi khi trở về Standing dù đã chỉ định tư thế như SleepDown.</li>
+<li>Sửa lệch độ cao/vị trí X/Z của tư thế khi dùng FloorAdjuster và hỗ trợ thứ tự xử lý của bản MA/AAO.</li>
+<li>Khi AnimatorController tạo trước trong Generated bị xóa, tự khôi phục về PosingSystem_Locomotion mặc định.</li>
+<li>Sửa lỗi dựng khi đã xóa mọi tư thế đứng.</li>
+<li>Hiển thị danh sách thiết lập sẵn theo tên avatar.</li>
+</ul>
+<h2>[3.0.13] - 2026-09-04</h2>
+<ul>
+<li>Sửa tự chuyển vào chính trạng thái đứng khiến khôi phục tư thế thiếu ổn định khi đứng lại ngay sau khi bắt đầu ngồi xổm trong VR.</li>
+</ul>
+<h2>[3.0.12] - 2026-09-04</h2>
+<ul>
+<li>Sửa nhận nhầm thiết lập đã đổi khi dựng bằng NDMF với công cụ chưa tạo trước.</li>
+<li>Sửa thêm tài nguyên được tạo vào AnimatorController tạm trong lúc dựng NDMF gây lỗi <code dir="ltr">AddAssetToSameFile</code>.</li>
+</ul>
+<h2>[3.0.11] - 2026-08-31</h2>
+<ul>
+<li>Sửa Scene của avatar tạo trước trở nên không hợp lệ ở NDMF 1.14.7 trở lên khiến xử lý thất bại.</li>
+<li>Sửa màn hình lỗi NDMF tham chiếu LocalizationAsset đã hủy gây <code dir="ltr">MissingReferenceException</code>.</li>
+</ul>
+<h2>[3.0.10] - 2026-08-29</h2>
+<ul>
+<li>Trì hoãn nạp tài nguyên định nghĩa thiết lập sẵn tới khi mở UI chọn; dùng lại cache nếu danh mục GUID không đổi.</li>
+<li>Chỉ đánh giá lại biểu tượng cảnh báo/lỗi Hierarchy khi có thay đổi và dùng chung cache tìm tài nguyên menu sản phẩm. Giảm Editor bị đứng mỗi vài giây ở Scene có nhiều công cụ tư thế.</li>
+<li>Sửa <code dir="ltr">ArgumentException</code> khi đăng ký giá trị tham số trùng trong tạo trước nhiều công cụ trên cùng avatar.</li>
+</ul>
+<h2>[3.0.9] - 2026-08-26</h2>
+<ul>
+<li>Nếu không lấy được VRCAvatarDescriptor từ PosingSystem khi chuyển đổi, ngăn NullReferenceException và chỉ dẫn log dựng cần để điều tra.</li>
+<li>Sửa lần tạo trước/dựng sau tái dùng xem trước tham chiếu Avatar tạm đã bị NDMF tạo/xóa gây <code dir="ltr">Avatar is null</code>. Tách chuyển đổi khỏi cache xem trước và ngăn trùng tên tài nguyên tạm NDMF giữa các bản xem trước.</li>
+<li>Sửa tham chiếu xem trước của Prefab 可愛いポーズ (Kawaii Posing) không lưu trong Scene khiến avatar xem trước ẩn tăng mãi. Loại xem trước khỏi lưu Scene và thu hồi cả bản cũ khi nạp Scene, chuyển Play hoặc nạp lại mã lệnh.</li>
+</ul>
+<h2>[3.0.8] - 2026-08-18</h2>
+<ul>
+<li>Sửa Unity Assertion trên chuyển động tư thế tạo trước lúc FloorAdjuster hoặc công cụ tương tự hiệu chỉnh lại độ cao, có thể làm hỏng dữ liệu tư thế.</li>
+<li>Cải thiện an toàn để đo chiều cao không can thiệp AnimationMode avatar gốc hoặc công cụ khác.</li>
+</ul>
+<h2>[3.0.7] - 2026-08-12</h2>
+<ul>
+<li>Sửa lệch góc nhìn/gập gối bất thường khi nằm ngửa lúc dùng công cụ độ cao như FloorAdjuster.</li>
+<li>Sửa lỗi khi PosingSystem nằm ngoài avatar (cảm ơn PancakeTorto1se).</li>
+<li>Sửa tiếp tục xử lý gây lỗi sau khi tải avatar lên thất bại.</li>
+<li>Sửa đôi khi nhận nhầm thiết lập đã đổi ngay sau tạo trước.</li>
+<li>Cải thiện tự nhập chuyển động di chuyển.</li>
+<li>Thêm cảnh báo cho một số avatar dùng rig đặc biệt.</li>
+<li>Thêm hộp thoại xác nhận thay đổi và lật đối xứng giá trị hiệu chỉnh trong cửa sổ Hiệu chỉnh hoạt ảnh (cảm ơn kraihd).</li>
+<li>Thêm hướng dẫn khi công cụ khác lỗi và kiểm tra các vị trí dễ lỗi.</li>
+</ul>
+<h2>[3.0.6] - 2026-03-17</h2>
+<ul>
+<li>Sửa tư thế bị rối trên một số avatar vốn có điều khiển tư thế riêng.</li>
+</ul>
+<h2>[3.0.5] - 2026-01-31</h2>
+<ul>
+<li>Sửa Unity bị sập với một số ExpressionMenus.</li>
+<li>Sửa vấn đề avatar khi dùng Prefab tích hợp ごろ寝EX (cảm ơn あずき).</li>
+<li>Sửa góc xoay bất thường khi ghép hoạt ảnh hiệu chỉnh.</li>
+</ul>
+<h2>[3.0.4] - 2026-01-11</h2>
+<ul>
+<li>Cải thiện một phần hành vi avatar khi đặt trong Prefabs.</li>
+<li>Thêm chức năng xóa giấy phép.</li>
+<li>Sửa nhiều tư thế có cổ bất thường.</li>
+<li>Giảm nhẹ độ nặng khi mở Inspector.</li>
+<li>Tạo trước cũng tạo biểu tượng. Đổi chữ nút cập nhật avatar.</li>
+<li>Ẩn cảnh báo nếu chưa từng tạo trước, vì có vẻ nhiều người không dùng tạo trước.</li>
+<li>Xóa tài nguyên không cần.</li>
+<li>Sửa không hiệu chỉnh được ngón tay.</li>
+</ul>
+<h2>[3.0.3] - 2026-01-04</h2>
+<ul>
+<li>Sửa áp dụng thiết lập sẵn khác mục đã chọn (cảm ơn あずき).</li>
+</ul>
+<h2>[3.0.2] - 2026-01-02</h2>
+<ul>
+<li>Hỗ trợ giao diện tối Unity.</li>
+<li>Sửa tư thế sai khi xoay trong Hiệu chỉnh hoạt ảnh.</li>
+<li>Đổi kích thước biểu tượng menu, bật nén và thêm tùy chọn biểu tượng nhỏ hơn.</li>
+<li>Thêm lại tích hợp theo dõi và tự nhập chuyển động avatar từng bị bỏ ở 3.0.0.</li>
+</ul>
+<h2>[3.0.1] - 2025-12-29</h2>
+<ul>
+<li>Sửa tính năng thiết lập chuyển động mặc định.</li>
+<li>Sửa tư thế avatar tự trở nên bất thường.</li>
+</ul>
+<h2>[3.0.0] - 2025-12-28</h2>
+<ul>
+<li>Thêm tính năng tạo trước.</li>
+<li>Thêm Hiệu chỉnh hoạt ảnh.</li>
+<li>Thêm thiết lập sẵn.</li>
+</ul>
+<h2>[2.2.5] - 2025-05-08</h2>
+<ul>
+<li>Giải quyết tương thích với một số công cụ.</li>
+</ul>
+<h2>[2.2.4] - 2025-04-04</h2>
+<ul>
+<li>Sửa tư thế không đổi ở một số avatar và phiên bản ModularAvatar.</li>
+</ul>
+<h2>[2.2.3] - 2025-03-13</h2>
+<ul>
+<li>Sửa chuyển động bất thường ở một số avatar, như nhảy của 森羅.</li>
+<li>Sửa giá trị ban đầu Tắt cử chỉ đôi khi sai.</li>
+</ul>
+<h2>[2.2.2] - 2025-03-06</h2>
+<ul>
+<li>Sửa lỗi ở một số môi trường.</li>
+</ul>
+<h2>[2.2.1] - 2025-02-05</h2>
+<ul>
+<li>Sửa Unity bị sập.</li>
+<li>Thêm phiên bản vào tên công cụ hiển thị trong NDMF Console.</li>
+</ul>
+<h2>[2.2.0] - 2025-02-02</h2>
+<ul>
+<li>Thêm thiết lập tắt cử chỉ và dùng hình bàn tay trong hoạt ảnh.</li>
+</ul>
+<h2>[2.1.6] - 2025-02-02</h2>
+<ul>
+<li>Sửa tư thế hỏng khi dùng cùng một số công cụ.</li>
+<li>Sửa lỗi do một số thiết lập.</li>
+</ul>
+<h2>[2.1.5] - 2024-12-10</h2>
+<ul>
+<li>Giải quyết xung đột với một số công cụ.</li>
+<li>Thêm nút xóa bản Unitypackage.</li>
+</ul>
+<h2>[2.1.4] - 2024-12-08</h2>
+<ul>
+<li>Sửa lỗi ở một số avatar.</li>
+<li>Sửa không dùng được Khóa chân do xung đột công cụ/avatar.</li>
+<li>Sửa tư thế avatar trở lại mặc định VRC trong chế độ máy tính.</li>
+</ul>
+<h2>[2.1.3] - 2024-12-01</h2>
+<ul>
+<li>Sửa không đổi được tư thế khi dùng với avatar/công cụ sử dụng sai kiểu VRMode.</li>
+<li>Thêm hiển thị NDMF-Console khi công cụ xung đột do khác kiểu tham số.</li>
+</ul>
+<h2>[2.1.2] - 2024-12-01</h2>
+<ul>
+<li>Thêm giải thích trong NDMF-Console vì lỗi công cụ khác gây lỗi Unisaki Posing System khi dựng avatar.</li>
+<li>Sửa lỗi dựng ở một số avatar.</li>
+<li>Cải thiện hành vi ngay sau nạp avatar.</li>
+<li>Bỏ xử lý di chuyển gốc avatar vì có thể khiến không hoạt động trên một số avatar.</li>
+</ul>
+<h2>[2.1.1] - 2024-11-20</h2>
+<ul>
+<li>Sửa vấn đề MergeAnimator trong PosingOverride.</li>
+</ul>
+<h2>[2.1.0] - 2024-11-20</h2>
+<ul>
+<li>Giải quyết chân/hông chìm xuống đất trong chế độ máy tính để mọi tư thế hiển thị đẹp.</li>
+<li>Thêm đổi tư thế bỏ qua độ cao đầu.</li>
+<li>Thêm chế độ không tạo biểu tượng để tải avatar Quest lên.</li>
+<li>Thêm một số cảnh báo khi avatar có vấn đề.</li>
+<li>Giải quyết xung đột khóa với AFK hoặc công cụ khóa tay khác.</li>
+<li>Thêm tự khóa cổ khi nằm ngửa.</li>
+</ul>
+<h2>[2.0.0] - 2024-11-12</h2>
+<ul>
+<li>Phát hành bản hỗ trợ VPM/VCC.</li>
+<li>Đổi tên hiển thị công cụ khi lỗi #1.</li>
+<li>Thêm điều khoản sử dụng #5.</li>
+</ul></main>
+</body></html>

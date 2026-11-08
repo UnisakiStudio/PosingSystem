@@ -1,8 +1,8 @@
 # Deutsch — Unisaki Posing System / Anleitung
 
-> Quick reference generated from existing interface translations. This is not a complete translated manual. The full guide is available in English.
+> Die Kurzreferenzen in 30 Sprachen enthalten Funktionserklärungen und Standardposentabellen. Sie sind kompakte Nachschlagewerke; vollständige Dokumente findest du über die Sprachübersicht.
 
-[Language / 言語](index.md) · [English — Anleitung](../UserGuide.en.md)
+[🌐](../Localization/index.md) · [Anleitung](../Localization/de/UserGuide.md)
 
 ## Funktionen
 
@@ -241,4 +241,4 @@ Löscht manuelle Einstellungen und Anpassungen dieses Bewegungstyps. Bei aktiver
 | 騎士 | Ritter |
 | 魔王降臨 | Dämonenfürst |
 
-[English — Anleitung](../UserGuide.en.md)
+[Anleitung](../Localization/de/UserGuide.md)

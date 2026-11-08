@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="it" dir="ltr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Cronologia delle modifiche</title><style>:root { color-scheme: light dark; font-family: system-ui, -apple-system, "Segoe UI", sans-serif; line-height: 1.7; }
+body { margin: auto; max-width: 70rem; padding: 1.5rem; overflow-wrap: anywhere; }
+nav { display: flex; flex-wrap: wrap; gap: .6rem 1.2rem; padding-block: 1rem; border-block-end: 1px solid #8887; }
+h1,h2,h3 { line-height: 1.4; } h2 { margin-block-start: 2.4rem; }
+table { border-collapse: collapse; width: 100%; } th,td { text-align: start; vertical-align: top; padding: .5rem; border: 1px solid #8887; }
+thead { background: #8882; } .table-scroll { overflow-x: auto; }
+code,pre { direction: ltr; unicode-bidi: isolate; } code { background: #8882; padding: .1em .25em; } pre { white-space: pre-wrap; }
+a { color: #2269b8; } a:visited { color: #7952ad; } li { margin-block: .35rem; }
+@media(prefers-color-scheme:dark) { a { color: #8ec5ff; } a:visited { color: #cfacff; } }
+@media print { nav { display: none; } body { max-width: none; padding: 0; } a { color: inherit; } }</style></head><body>
+<nav aria-label="Documentation"><a href="../index.html">Italiano · 🌐</a><a href="README.html">README</a><a href="CHANGELOG.html">Cronologia delle modifiche</a><a href="UserGuide.html">Unisaki Posing System 3.2.0 — Guida in italiano</a></nav>
+<main><h1>Cronologia delle modifiche</h1>
+<h2>[3.2.0] - Non pubblicata</h2>
+<h3>Aggiunte</h3>
+<ul>
+<li>Inspector, comandi di modifica, finestre d’installazione, nomi delle pose standard e menu VRChat generati disponibili in 30 lingue.</li>
+<li>Scelta della lingua unificata per Inspector e menu nel gioco. Inizialmente viene usata la lingua del computer; l’ultima scelta è riutilizzata negli altri progetti dello stesso utente del sistema.</li>
+<li>Apertura di README, cronologia e guida offline nella lingua scelta.</li>
+<li>Preparati i nomi visualizzati delle 128 pose standard e le descrizioni di tutte le funzioni, mantenendo la terminologia esistente.</li>
+</ul>
+<h3>Compatibilità</h3>
+<ul>
+<li>Conservati impostazioni esistenti dell’avatar, nomi personalizzati, riferimenti agli asset, identificatori dei parametri e archiviazione della licenza.</li>
+</ul>
+<h2>[3.1.2] - 2026-11-09</h2>
+<ul>
+<li>Corretto il viso che restava rivolto verso l’alto dopo essersi alzati da proni con «Ridurre le deformazioni dovute alla rotazione della testa» attivo.</li>
+<li>Il blocco della testa è ora modificabile in «Impostazioni → Blocco automatico della testa da supini» nel menu EX anche disattivando «Altezza piedi». Gli avatar che avevano perso la voce in 3.1.0 o 3.1.1 la recuperano dopo aggiornamento e nuova build.</li>
+<li>«Aggiorna precalcolo» funziona anche con l’oggetto principale dell’avatar disattivato in Unity.</li>
+<li>Corretta l’occasionale impossibilità di generare pose dopo un aggiornamento se in Assets rimaneva un vecchio Controller comune delle pose. Conservate anche le impostazioni dei Controller modificati personalmente.</li>
+<li>Quando lo strumento o un suo genitore disattivato impedisce l’uso dell’Animator di posa condiviso, viene mostrato il nome dell’oggetto interessato. Puoi raggiungerlo da «Controlla impostazioni → Seleziona oggetto».</li>
+<li>Quando il precalcolo segnala impostazioni modificate, i dettagli consentono di vedere quali voci differiscono dall’ultimo salvataggio.</li>
+<li>Se un errore di script blocca la build (PS050), vengono mostrati fino a 5 errori originali rilevati da Unity. Il comando per chiedere assistenza apre una bozza con versioni di Unity e degli strumenti compatibili e numero d’errore, che puoi verificare, modificare e inviare.</li>
+</ul>
+<p>Se usavi il precalcolo, dopo l’aggiornamento premi «Aggiorna precalcolo», salva la scena e ricrea e ricarica l’avatar.</p>
+<h2>[3.1.1] - 2026-11-08</h2>
+<ul>
+<li>«Altezza suolo» e «Girarsi», se attivi, compaiono in «Impostazioni» del menu EX di VRChat anche con «Specchio» disattivato.</li>
+<li>Conservati i corretti rotolamenti per «Gambe distese», «Relax» e «Un ginocchio alzato» anche dopo riordino, eliminazione o rinomina nelle vecchie versioni. Funziona anche dopo un Unpack completo se la posa originale è identificabile. Restano invariati pose personali, rotolamenti disattivati esplicitamente e movimenti laterali sostituiti.</li>
+<li>Corretto il breve passaggio alla posa prona selezionando l’avatar in VRChat e quello alla posa supina saltando con sole pose prone selezionate. Disattiva il cambio con salto in «Funzioni → Funzioni pratiche → Cambiare posa sdraiata saltando» se necessario. È attivo inizialmente.</li>
+<li>Se dopo un aggiornamento viene perso il riferimento all’Animator Controller comune e può essere recuperato, un avviso lo segnala e il Controller viene ricreato dalle impostazioni. Conservati anche i riferimenti condivisi da più avatar.</li>
+<li>In presenza di errori di compilazione, la build si ferma subito indicandone la causa. La pulizia automatica dei Controller generati viene sospesa finché gli errori impediscono di verificarne i riferimenti.</li>
+<li>Aggiungendo uno strumento viene preferito il Prefab ufficiale anche se il progetto contiene un altro Prefab con lo stesso nome. Il precalcolo prosegue anche quando nel Controller comune differiscono soltanto le interruzioni di riga.</li>
+<li>I Write Defaults dei livelli FX aggiunti dallo strumento, per esempio Altezza suolo, seguono ora le impostazioni dell’avatar.</li>
+</ul>
+<p>Se usavi il precalcolo, dopo l’aggiornamento premi «Aggiorna precalcolo» sullo strumento nella scena, salva e ricrea e ricarica l’avatar.</p>
+<h2>[3.1.0] - 2026-11-07</h2>
+<ul>
+<li>Aggiunta la regolazione automatica degli arti (IK) secondo la corporatura per le pose compatibili, con correzioni specifiche dell’avatar e prevenzione della piegatura inversa delle ginocchia.</li>
+<li>Posizione e direzione dell’avatar regolabili in Modalità foto. Puoi scegliere la sincronizzazione e la visibilità della tua testa durante le foto.</li>
+<li>«Altezza suolo» sposta tutto il corpo fino a 3m verso l’alto o il basso, separatamente da «Altezza piedi».</li>
+<li>Aggiunti respiro, disattivazione dell’oscillazione standard da fermo e riduzione delle deformazioni dovute alla direzione del collo.</li>
+<li>Funzioni usate e consumo dei parametri visibili nell’Inspector. Aggiunti ricerca delle pose, aggiunta in gruppo, riordino e anteprima semplice nella Scene.</li>
+<li>Cambio tra in piedi, accovacciato e seduto più veloce in desktop.</li>
+<li>Migliorati avvisi di precalcolo dopo modifiche, scorrimento dell’Inspector e lunghe pause durante la pulizia dei dati generati.</li>
+<li>Corretto l’avviso di aggiornamento e la rigenerazione al caricamento con importazione automatica attiva nonostante il precalcolo invariato. I risultati si applicano all’avatar generato senza modificare le impostazioni dell’oggetto originale.</li>
+<li>Aggiunto Girarsi inclinando la testa e impostazioni dei movimenti compatibili per ogni posa.</li>
+<li>Migliorati trasferimento dei vecchi preset di rotolamento, importazione dei movimenti personali e gestione degli asset generati.</li>
+</ul>
+<h2>[3.1.0-beta.2] - Beta aperta (2026-11-05)</h2>
+<ul>
+<li>Aggiunte la lunghezza fissa e le differenze verticale (Y) e avanti/indietro (Z) tra Head e Viewpoint come riferimenti di lunghezza della posizione IK.</li>
+<li>Avvisi dell’Inspector mostrati anche a sinistra dei nomi nella Hierarchy, inclusi precalcolo mancante o superato e avvisi delle operazioni su importazione e preset.</li>
+<li>Corrette le lunghe pause di Unity quando la pulizia automatica, per esempio aprendo una scena, caricava Controller generati di altre scene.</li>
+<li>Corretta la perdita della cronologia del precalcolo modificando pose o funzioni. Ora viene segnalata una modifica successiva al precalcolo invece di un precalcolo mai eseguito, con avviso anche nella Hierarchy.</li>
+<li>Risultati del confronto del precalcolo condivisi tra Inspector e Hierarchy per ridurre il carico dello scorrimento quando impostazioni e asset non cambiano. Il confronto durante la build continua a essere eseguito ogni volta.</li>
+</ul>
+<h2>[3.1.0-beta.1] - Beta aperta (2026-11-04)</h2>
+<ul>
+<li>Cambio di postura normale in desktop passato a una sola valutazione. Si applica a build normali e precalcolo; VR e casi particolari mantengono il percorso precedente.</li>
+<li>Precalcoli alpha.3 e precedenti riconosciuti come da aggiornare.</li>
+<li>Vista mantenuta cambiando l’altezza del suolo durante le foto, con ritorno all’ultima altezza al termine.</li>
+</ul>
+<ul>
+<li>Importazione automatica limitata al rilevamento durante la generazione, senza aggiungere o modificare impostazioni manuali nel precalcolo o nella build.</li>
+<li>Rigenerazione sensibile all’attivazione dell’importazione automatica, alle modifiche di Base e alla cancellazione delle assegnazioni manuali. Conservate assegnazioni e regolazioni condivise tra prodotti e ripristinabili i movimenti standard al posto di quelli vecchi importati.</li>
+<li>Controller generati dal precalcolo gestiti in un file per avatar e GUID di scena. I riferimenti condivisi per duplicazione, tra scene o da Prefab vengono separati prima dell’aggiornamento.</li>
+<li>Uso degli asset temporanei NDMF durante la build, senza aumentare i file generati per l’editing.</li>
+<li>Verifica dei dati generati aprendo o salvando una scena. Modifiche non salvate, Undo/Redo e riferimenti esterni vengono conservati; soltanto i file inutilizzati di proprietà certa vanno nel cestino.</li>
+<li>Applicati rotazione, animazioni di regolazione e posizione di riproduzione dei movimenti importati. Elaborazione di rotazione, RootT/RootQ e regolazioni Humanoid unificata con le pose normali.</li>
+<li>Regolazioni dei BlendTree annidati duplicate appositamente per la destinazione, conservando movimento originale e miscelazione della camminata.</li>
+<li>La posizione di riproduzione «solo in piedi» viene convertita in posa statica alla frequenza originale senza fermare la riproduzione della camminata.</li>
+</ul>
+<h2>[3.1.0-alpha.2] - Test chiuso (2026-10-26)</h2>
+<h3>Correzioni e modifiche</h3>
+<ul>
+<li>Correzioni di Modalità foto e altezza suolo applicate anche ai movimenti standard e personali senza posa dello strumento selezionata.</li>
+<li>Altezza suolo estesa a 3m sopra e sotto. 50% è altezza originale e iniziale, 0% indica 3m sotto e 100% 3m sopra.</li>
+<li>Corretta la modifica del BlendTree sorgente durante la sostituzione «solo in piedi».</li>
+<li>Uso delle correzioni manuali per pose senza regole IK, evitando avvisi di generazione superflui.</li>
+<li>Corretti la confusione tra bozze di pose omonime e il mancato rilevamento di movimenti cambiati nello stesso asset.</li>
+<li>Corretto il numero di una posa iniziale disattivata che selezionava inizialmente un’altra posa.</li>
+<li>Mostrata una spiegazione invece di un’eccezione importando AnimatorOverrideController non supportati.</li>
+<li>Conservato Girarsi esplicitamente disattivato applicando vecchi preset.</li>
+<li>Icone delle funzioni più leggibili nel tema chiaro dell’Editor.</li>
+</ul>
+<p>Proseguono le verifiche nel client VRChat della vista e dei movimenti standard sostituiti.</p>
+<h2>[3.1.0-alpha.1] - Prima della pubblicazione</h2>
+<h3>Aggiunte</h3>
+<ul>
+<li>Aggiunti attivazione per funzione e visualizzazione del consumo di ExpressionParameters.</li>
+<li>Aggiunta Modalità foto con movimento in avanti e rotazione dell’avatar.</li>
+<li>Aggiunta la sincronizzazione opzionale: 0 bit solo locale, 16 bit sincronizzati.</li>
+<li>Aggiunta l’opzione per mantenere visibile la propria testa durante le foto.</li>
+<li>Aggiunta «Altezza suolo», che muove tutto il corpo, testa inclusa, di 3m sopra o sotto. 50% è altezza originale e iniziale, 0% è 3m sotto e 100% 3m sopra.</li>
+<li>Aggiunti Girarsi inclinando la testa e animazioni compatibili per posa.</li>
+<li>Aggiunti movimento del respiro e intensità Debole, Medio, Forte, Rapido e Personalizzato.</li>
+<li>Scelta separata del movimento e del menu di attivazione del respiro: 0 bit per il solo movimento, 1 bit per sincronizzare l’attivazione.</li>
+<li>Aggiunta la disattivazione dell’oscillazione standard da fermo di VRChat.</li>
+<li>Aggiunta la riduzione delle deformazioni dovute alla diversa direzione del collo.</li>
+<li>Aggiunta regolazione automatica degli arti (IK) secondo la corporatura per le pose compatibili, attivabile globalmente o per posa.</li>
+<li>Aggiunto «Integra IK nelle regolazioni» per salvare il risultato nell’animazione di regolazione.</li>
+<li>Aggiunte correzioni dell’avatar, prevenzione della piegatura inversa delle ginocchia e flessione minima.</li>
+<li>Aggiunta anteprima semplice nella Scene dall’elenco delle pose.</li>
+<li>Aggiunti schede per categoria, ricerca trasversale, aggiunta di più animazioni e scelta della destinazione nell’ordine.</li>
+<li>Aggiunta la cronologia del prodotto e del sistema comune nell’Inspector.</li>
+</ul>
+<h3>Modifiche</h3>
+<ul>
+<li>Caricamento dei preset più rapido, con meno attesa aggiungendo lo strumento o aprendo l’elenco.</li>
+<li>Elenco aggiornato automaticamente dopo aggiunta, modifica o eliminazione di preset.</li>
+<li>Inspector organizzato in 3 schede: «Funzioni», «Pose» e «Configurazione avatar».</li>
+<li>Aggiunte descrizioni e icone alle impostazioni e apertura dei dettagli uniformata.</li>
+<li>Dettagli del respiro spostati nelle funzioni e preset in fondo alla configurazione avatar.</li>
+<li>Separati assegnazione dei movimenti personali e importazione automatica delle pose originali.</li>
+<li>Ridotti i duplicati di animazioni dell’intero corpo generati per Altezza piedi.</li>
+<li>Aggiornamento delle immagini delle pose tramite pulsante con conferma.</li>
+<li>Preferenze degli avvisi raccolte in «Controlla impostazioni».</li>
+<li>Eliminata l’aggiunta di nuovi Prefab 8bit dedicati in favore delle opzioni del Prefab normale, conservando i riferimenti esistenti.</li>
+<li>Versione minima di VRChat Avatars SDK portata a 3.10.4.</li>
+</ul>
+<h3>Correzioni</h3>
+<ul>
+<li>Correzioni di Modalità foto e altezza suolo applicate ai movimenti standard o personali senza posa selezionata.</li>
+<li>Corretta la modifica del BlendTree originale sostituendo «solo in piedi».</li>
+<li>Uso delle regolazioni manuali per pose senza regole IK valide, evitando avvisi IK inutili.</li>
+<li>Corretti la mescolanza delle regolazioni tra pose omonime e il movimento sostituito nello stesso asset non recepito dalla rigenerazione.</li>
+<li>Il numero di una posa iniziale disattivata non seleziona più un’altra posa che lo riutilizza.</li>
+<li>Mostrata una spiegazione invece di un’eccezione se l’importazione originale trova un AnimatorOverrideController non supportato.</li>
+<li>Conservate le impostazioni di Girarsi esplicitamente disattivate nei vecchi preset.</li>
+<li>Migliorato lo sfondo delle icone nell’Inspector per riconoscerle anche nel tema chiaro.</li>
+</ul>
+<ul>
+<li>Corrette le icone mancanti di Girarsi, Altezza suolo e Modalità foto aggiungendo lo strumento a un avatar.</li>
+<li>Corretta la perdita delle impostazioni di Girarsi delle pose compatibili applicando vecchi preset.</li>
+<li>Corretto il testo di un nome in modifica trasferito a un’altra posa aprendo i suoi dettagli.</li>
+<li>Corretti chiusura dei dettagli riordinando le pose e Undo/Redo delle impostazioni.</li>
+<li>Corretti sovrapposizione dell’avatar originale nell’anteprima e doppio conteggio della posizione di inserimento.</li>
+<li>Corretti errori nell’anteprima di avatar con componenti mancanti.</li>
+<li>Corretti scostamenti IK di posizione e direzione degli arti causati da assi e scale degli scheletri diversi.</li>
+<li>Corretti avvisi e stato del precalcolo non aggiornati subito dopo una modifica.</li>
+<li>Corretto il riutilizzo di un vecchio precalcolo dopo la modifica delle impostazioni IK.</li>
+<li>Corretti errori di build nella generazione di funzioni aggiuntive in alcune configurazioni.</li>
+</ul>
+<h2>[3.0.16] - 2026-09-14</h2>
+<ul>
+<li>Dipendenza minima da NDMF aggiornata a 1.14.0 per usare l’API <code dir="ltr">VirtualAnimatorController.SetParameter</code>.</li>
+</ul>
+<h2>[3.0.15] - 2026-09-13</h2>
+<ul>
+<li>Corretti i grandi cambiamenti di posizione del corpo e flessione delle ginocchia attivando il blocco del collo da supini su avatar con scala Hips modificata e FloorAdjuster.</li>
+</ul>
+<h2>[3.0.14] - 2026-09-09</h2>
+<ul>
+<li>Corretta la scomparsa delle voci «Blocca gesti» dal secondo strumento in poi quando più strumenti sono installati sullo stesso avatar.</li>
+<li>Corretto il ritorno occasionale del livello USSPS_Locomotion a Standing nonostante una posa come SleepDown selezionata.</li>
+<li>Corretti gli scostamenti di altezza e posizione X/Z con FloorAdjuster, rispettando l’ordine delle versioni MA e AAO.</li>
+<li>Ripristino automatico di PosingSystem_Locomotion standard se viene eliminato l’AnimatorController precalcolato in Generated.</li>
+<li>Corretto l’errore di build quando sono eliminate tutte le pose in piedi.</li>
+<li>Elenco preset ordinato per nome dell’avatar.</li>
+</ul>
+<h2>[3.0.13] - 2026-09-04</h2>
+<ul>
+<li>Corretta l’autotransizione della posa in piedi che rendeva instabile il ripristino tornando in piedi subito dopo aver iniziato ad accovacciarsi in VR.</li>
+</ul>
+<h2>[3.0.12] - 2026-09-04</h2>
+<ul>
+<li>Corretta la falsa segnalazione di impostazioni modificate nella build NDMF di uno strumento senza precalcolo.</li>
+<li>Corretto l’errore <code dir="ltr">AddAssetToSameFile</code> aggiungendo asset generati a un AnimatorController temporaneo durante la build NDMF.</li>
+</ul>
+<h2>[3.0.11] - 2026-08-31</h2>
+<ul>
+<li>Corretto il fallimento con NDMF 1.14.7 o successivo dovuto alla Scene non valida dell’avatar per il precalcolo.</li>
+<li>Corretta <code dir="ltr">MissingReferenceException</code> quando la finestra d’errore NDMF accedeva a un LocalizationAsset già distrutto.</li>
+</ul>
+<h2>[3.0.10] - 2026-08-29</h2>
+<ul>
+<li>Caricamento degli asset delle definizioni preset rinviato fino all’apertura del selettore; cache riutilizzata se l’indice GUID non cambia.</li>
+<li>Rivalutazione delle icone di avviso ed errore nella Hierarchy soltanto dopo modifiche e cache condivisa per la ricerca degli asset del menu prodotto. Ridotti i blocchi dell’Editor ogni pochi secondi nelle scene con molti strumenti.</li>
+<li>Corretta <code dir="ltr">ArgumentException</code> registrando valori di parametri duplicati nel precalcolo con più strumenti sullo stesso avatar.</li>
+</ul>
+<h2>[3.0.9] - 2026-08-26</h2>
+<ul>
+<li>Evitata NullReferenceException se la conversione non ottiene VRCAvatarDescriptor da PosingSystem, indicando i log di build necessari all’indagine.</li>
+<li>Corretto l’errore <code dir="ltr">Avatar is null</code> quando precalcolo o build riutilizzavano l’anteprima di un Avatar temporaneo creato e cancellato da NDMF. Separata la conversione dalla cache di anteprima e prevenuti conflitti di nomi degli asset temporanei tra anteprime.</li>
+<li>Corretto il riferimento di anteprima del Prefab 「可愛いポーズ」 non salvato nella scena, che moltiplicava gli avatar nascosti. Anteprime escluse dal salvataggio e recupero di quelle vecchie al caricamento della scena, al passaggio in Play e al ricaricamento degli script.</li>
+</ul>
+<h2>[3.0.8] - 2026-08-18</h2>
+<ul>
+<li>Corretti Unity Assertion e il rischio di dati di postura non validi durante nuove correzioni di altezza con FloorAdjuster o simili sui movimenti precalcolati.</li>
+<li>Misurazione dell’altezza resa più sicura per non interferire con l’avatar originale o lo stato AnimationMode di altri strumenti.</li>
+</ul>
+<h2>[3.0.7] - 2026-08-12</h2>
+<ul>
+<li>Corretti lo scostamento della vista e la flessione anomala delle ginocchia da supini con strumenti di altezza come FloorAdjuster.</li>
+<li>Corretto l’errore con PosingSystem fuori dall’avatar (grazie a PancakeTorto1se).</li>
+<li>Corretto l’errore causato dal proseguimento dopo il fallimento del caricamento dell’avatar.</li>
+<li>Corretta l’occasionale falsa segnalazione di impostazioni cambiate subito dopo un precalcolo.</li>
+<li>Migliorata l’importazione automatica dei movimenti di spostamento.</li>
+<li>Aggiunti avvisi per avatar con alcuni rig particolari.</li>
+<li>Aggiunti conferma delle modifiche e specchio dei valori alla finestra di regolazione (grazie a kraihd).</li>
+<li>Aggiunti indicazioni quando altri strumenti hanno errori e controlli dei punti soggetti a problemi.</li>
+</ul>
+<h2>[3.0.6] - 2026-03-17</h2>
+<ul>
+<li>Corrette pose gravemente deformate su alcuni avatar con controllo della postura già integrato.</li>
+</ul>
+<h2>[3.0.5] - 2026-01-31</h2>
+<ul>
+<li>Corretto il crash di Unity con alcuni ExpressionMenus.</li>
+<li>Corretti problemi dell’avatar con il Prefab d’integrazione ごろ寝EX (grazie a あずき).</li>
+<li>Corrette rotazioni errate nella fusione delle animazioni di regolazione.</li>
+</ul>
+<h2>[3.0.4] - 2026-01-11</h2>
+<ul>
+<li>Migliorati alcuni comportamenti degli avatar inseriti in Prefabs.</li>
+<li>Aggiunta la rimozione della licenza.</li>
+<li>Corretti problemi del collo in numerose pose.</li>
+<li>Ridotto leggermente il carico di apertura dell’Inspector.</li>
+<li>Creazione delle icone anche durante il precalcolo e modifica del testo del pulsante di aggiornamento avatar.</li>
+<li>Avvisi nascosti se il precalcolo non è mai stato eseguito, dato che molti utenti sembrano non usarlo.</li>
+<li>Eliminate risorse inutili.</li>
+<li>Corretta l’impossibilità di regolare le dita.</li>
+</ul>
+<h2>[3.0.3] - 2026-01-04</h2>
+<ul>
+<li>Corretto il preset applicato diverso da quello scelto (grazie a あずき).</li>
+</ul>
+<h2>[3.0.2] - 2026-01-02</h2>
+<ul>
+<li>Supporto per il tema scuro di Unity.</li>
+<li>Corrette le pose deformate dopo rotazioni nella regolazione animazione.</li>
+<li>Modificate dimensioni e compressione delle icone di menu generate e aggiunta un’opzione per icone ancora più piccole.</li>
+<li>Reintrodotte integrazione del tracciamento e importazione automatica dei movimenti dell’avatar, rimosse in 3.0.0.</li>
+</ul>
+<h2>[3.0.1] - 2025-12-29</h2>
+<ul>
+<li>Corretti problemi della configurazione dei movimenti predefiniti.</li>
+<li>Corrette le pose dell’avatar che si deformavano spontaneamente.</li>
+</ul>
+<h2>[3.0.0] - 2025-12-28</h2>
+<ul>
+<li>Aggiunto il precalcolo.</li>
+<li>Aggiunta la regolazione animazione.</li>
+<li>Aggiunti i preset.</li>
+</ul>
+<h2>[2.2.5] - 2025-05-08</h2>
+<ul>
+<li>Risolti problemi di compatibilità con alcuni sistemi.</li>
+</ul>
+<h2>[2.2.4] - 2025-04-04</h2>
+<ul>
+<li>Corretto il blocco del cambio posa con alcuni avatar e versioni di ModularAvatar.</li>
+</ul>
+<h2>[2.2.3] - 2025-03-13</h2>
+<ul>
+<li>Corretti movimenti anomali di alcuni avatar, come il salto di 森羅.</li>
+<li>Corretti valori iniziali talvolta errati di Blocca gesti.</li>
+</ul>
+<h2>[2.2.2] - 2025-03-06</h2>
+<ul>
+<li>Corretti errori in alcuni ambienti.</li>
+</ul>
+<h2>[2.2.1] - 2025-02-05</h2>
+<ul>
+<li>Corretto un crash di Unity.</li>
+<li>Versione aggiunta al nome dello strumento in NDMF Console.</li>
+</ul>
+<h2>[2.2.0] - 2025-02-02</h2>
+<ul>
+<li>Aggiunta la possibilità di bloccare i gesti e usare le mani dell’animazione.</li>
+</ul>
+<h2>[2.1.6] - 2025-02-02</h2>
+<ul>
+<li>Corrette pose deformate con alcuni altri strumenti.</li>
+<li>Corretti errori dipendenti dalle impostazioni.</li>
+</ul>
+<h2>[2.1.5] - 2024-12-10</h2>
+<ul>
+<li>Risolti conflitti con alcuni sistemi.</li>
+<li>Aggiunto un pulsante per rimuovere la versione Unitypackage.</li>
+</ul>
+<h2>[2.1.4] - 2024-12-08</h2>
+<ul>
+<li>Corretti errori su alcuni avatar.</li>
+<li>Corretto il blocco piedi inutilizzabile per conflitti con sistemi o avatar.</li>
+<li>Corrette le pose che tornavano a quelle standard VRC in desktop.</li>
+</ul>
+<h2>[2.1.3] - 2024-12-01</h2>
+<ul>
+<li>Corretto il mancato cambio posa con avatar o sistemi che usano VRMode con un tipo errato.</li>
+<li>Aggiunta la segnalazione in NDMF-Console dei conflitti tra sistemi causati da tipi di parametri diversi.</li>
+</ul>
+<h2>[2.1.2] - 2024-12-01</h2>
+<ul>
+<li>Aggiunta una spiegazione in NDMF-Console quando errori di altri strumenti causano errori di Unisaki Posing System durante la build dell’avatar.</li>
+<li>Corretti errori di build su alcuni avatar.</li>
+<li>Migliorato il comportamento subito dopo il caricamento dell’avatar.</li>
+<li>Eliminata l’elaborazione originale dello spostamento dell’avatar, che impediva il funzionamento su alcuni avatar.</li>
+</ul>
+<h2>[2.1.1] - 2024-11-20</h2>
+<ul>
+<li>Corretti problemi relativi a MergeAnimator in PosingOverride.</li>
+</ul>
+<h2>[2.1.0] - 2024-11-20</h2>
+<ul>
+<li>Risolti piedi e bacino sotto il terreno in desktop, consentendo pose corrette.</li>
+<li>Aggiunto il cambio posa indipendente dall’altezza della testa.</li>
+<li>Aggiunta una modalità senza icone per caricare avatar Quest.</li>
+<li>Aggiunti alcuni avvisi in caso di problemi dell’avatar.</li>
+<li>Risolti conflitti dei blocchi con AFK e sistemi di blocco braccia di altri strumenti.</li>
+<li>Aggiunto il blocco automatico del collo da supini.</li>
+</ul>
+<h2>[2.0.0] - 2024-11-12</h2>
+<ul>
+<li>Pubblicata la versione compatibile VPM/VCC.</li>
+<li>Modificato il nome dello strumento mostrato in caso di errore #1.</li>
+<li>Aggiunte le condizioni d’uso #5.</li>
+</ul></main>
+</body></html>

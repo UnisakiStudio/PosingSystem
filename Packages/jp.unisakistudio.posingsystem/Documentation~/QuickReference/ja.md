@@ -1,8 +1,8 @@
 # 日本語 — ゆにさきポーズシステム / 使い方
 
-> Quick reference generated from existing interface translations. This is not a complete translated manual. The full guide is available in English.
+> 30言語の簡易リファレンスには、機能の説明と標準姿勢名の対照表があります。簡潔な参照用の文書です。全文書は言語一覧から開いてください。
 
-[Language / 言語](index.md) · [English — 使い方](../UserGuide.en.md)
+[🌐](../Localization/index.md) · [使い方](../Localization/ja/UserGuide.md)
 
 ## 機能
 
@@ -241,4 +241,4 @@ Inspectorの「設定の確認」で対象を選択し、表示された項目�
 | 騎士 | 騎士 |
 | 魔王降臨 | 魔王降臨 |
 
-[English — 使い方](../UserGuide.en.md)
+[使い方](../Localization/ja/UserGuide.md)

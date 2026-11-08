@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="es" dir="ltr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Unisaki Posing System</title><style>:root { color-scheme: light dark; font-family: system-ui, -apple-system, "Segoe UI", sans-serif; line-height: 1.7; }
+body { margin: auto; max-width: 70rem; padding: 1.5rem; overflow-wrap: anywhere; }
+nav { display: flex; flex-wrap: wrap; gap: .6rem 1.2rem; padding-block: 1rem; border-block-end: 1px solid #8887; }
+h1,h2,h3 { line-height: 1.4; } h2 { margin-block-start: 2.4rem; }
+table { border-collapse: collapse; width: 100%; } th,td { text-align: start; vertical-align: top; padding: .5rem; border: 1px solid #8887; }
+thead { background: #8882; } .table-scroll { overflow-x: auto; }
+code,pre { direction: ltr; unicode-bidi: isolate; } code { background: #8882; padding: .1em .25em; } pre { white-space: pre-wrap; }
+a { color: #2269b8; } a:visited { color: #7952ad; } li { margin-block: .35rem; }
+@media(prefers-color-scheme:dark) { a { color: #8ec5ff; } a:visited { color: #cfacff; } }
+@media print { nav { display: none; } body { max-width: none; padding: 0; } a { color: inherit; } }</style></head><body>
+<nav aria-label="Documentation"><a href="../index.html">Español · 🌐</a><a href="README.html">README</a><a href="CHANGELOG.html">Historial de cambios</a><a href="UserGuide.html">Unisaki Posing System 3.2.0 — Manual en español</a></nav>
+<main><h1>Unisaki Posing System</h1>
+<p>Sistema de poses común para Kawaii Posing, Cool Posing y otras herramientas. Utiliza Modular Avatar y NDMF para generar los menús y animaciones necesarios al subir el avatar.</p>
+<p>Este README corresponde a v3.2.0, actualmente en desarrollo. Aún no hay fecha de lanzamiento oficial. La versión instalada aparece arriba en el Inspector. Consulta también las <a href="CHANGELOG.html">novedades y cambios</a>.</p>
+<h2>Idioma de la interfaz y documentación sin conexión</h2>
+<p>Elige el idioma en «Language / 言語», arriba del Inspector. Una sola selección controla el Inspector y los menús VRChat generados. Vuelve a subir el avatar para cambiar el idioma dentro del juego.</p>
+<p>Sin una selección explícita se usa el idioma del ordenador; si no está disponible, se utiliza inglés. Se admiten Windows, macOS y Linux. La última elección se guarda en EditorPrefs y se reutiliza en otros proyectos del mismo usuario del sistema en este ordenador. Se conserva cualquier elección explícita guardada en el avatar. No se sincroniza con otros ordenadores. El almacenamiento de las licencias no cambia.</p>
+<p>Elige el idioma del README, historial y manual en la <a href="../index.html">lista de idiomas</a> incluida. Los enlaces del Inspector al manual y los cambios también siguen esa selección. Las condiciones originales y sus traducciones de referencia siguen disponibles por separado.</p>
+<h2>Cambio de postura en modo escritorio</h2>
+<p>Se ha reducido el retraso al aplicar la pose elegida al pasar entre de pie, agachado y sentado en escritorio. Funciona tanto en compilaciones normales como en el precálculo, sin comandos especiales ni ajustes adicionales. En VR y situaciones especiales se mantiene el procesamiento anterior. Actualiza los precálculos antiguos antes de subir el avatar.</p>
+<h2>Instalación y actualización</h2>
+<p>Añade la herramienta con VCC o ALCOM siguiendo los archivos e instrucciones de tu compra. Este sistema se instala como dependencia de la herramienta de poses.</p>
+<p>Los requisitos de v3.2.0 son los siguientes.</p>
+<ul>
+<li>Proyecto de avatar VRChat con Unity 2022.3</li>
+<li>VRChat Avatars SDK 3.10.4 o posterior</li>
+<li>Modular Avatar de la serie 1.x, versión 1.15.1 o posterior</li>
+<li>NDMF (Non-Destructive Modular Framework) de la serie 1.x, versión 1.14.0 o posterior</li>
+</ul>
+<p>Si usas Kawaii Posing, actualízalo a 3.2.0 desde ALCOM / VCC y comprueba que Unisaki Posing System también sea 3.2.0. Si usabas precálculo, pulsa «Actualizar precálculo», guarda la escena y sube el avatar.</p>
+<p>Cool Posing 1.2.0 utiliza el sistema común 3.2.0. Actualiza juntos el producto y el sistema común a las versiones correspondientes.</p>
+<h3>Para usuarios de la versión 8bit</h3>
+<p>Las nuevas instalaciones usan el Prefab normal. Desactiva las funciones innecesarias para reducir el consumo. La selección de poses sola utiliza 8 bit de base.</p>
+<p>Los antiguos Prefabs 8bit permanecen en «Editor/Legacy» de cada producto para conservar las referencias de avatares y preajustes existentes. No es necesario eliminarlos ni sustituirlos para seguir usándolos. El menú de Unity para añadir herramientas ya no ofrece la versión 8bit.</p>
+<h2>Cómo se organiza la configuración</h2>
+<p>Selecciona 「可愛いポーズ」, 「カッコいいポーズ」 o el objeto equivalente dentro del avatar en la Hierarchy.</p>
+<div class="table-scroll"><table><thead><tr><th>Pestaña</th><th>Contenido</th></tr></thead><tbody>
+<tr><td>Funciones</td><td>Entradas del menú del juego, funciones prácticas, iconos y consumo de ExpressionParameters</td></tr>
+<tr><td>Poses</td><td>Selección, adición y orden de poses, vista previa en Scene, detalles y ajuste de animación</td></tr>
+<tr><td>Configuración del avatar</td><td>Correcciones de proporciones y rodillas, importación de poses originales o movimientos propios y preajustes</td></tr>
+</tbody></table></div>
+<p>Las opciones con detalles disponen de un enlace para abrir sus ajustes debajo de la entrada. La respiración también se configura en «Funciones».</p>
+<p>Desde «Ayuda / Cambios», arriba, puedes abrir el manual, la asistencia y el historial. Puedes alternar el historial del producto y el de Unisaki Posing System.</p>
+<h2>Funciones y consumo de ExpressionParameters</h2>
+<p>Las opciones elegidas en «Funciones &gt; Funciones del menú» aparecen dentro del juego. Por ejemplo, «Reflejar» permite activar o desactivar el reflejo en VRChat; marcarlo en el Inspector no obliga a mantener todas las poses reflejadas.</p>
+<div class="table-scroll"><table><thead><tr><th>Función</th><th>Bits adicionales</th></tr></thead><tbody>
+<tr><td>Reflejar</td><td>1 bit</td></tr>
+<tr><td>Sin gestos</td><td>1 bit</td></tr>
+<tr><td>Animar la respiración</td><td>0 bit</td></tr>
+<tr><td>Respiración (activar en el juego)</td><td>1 bit</td></tr>
+<tr><td>Altura pies</td><td>8 bit</td></tr>
+<tr><td>Altura suelo</td><td>8 bit</td></tr>
+<tr><td>Modo foto solo local</td><td>0 bit</td></tr>
+<tr><td>Sincronizar el Modo foto</td><td>16 bit</td></tr>
+<tr><td>Mantener la cabeza visible en Modo foto</td><td>0 bit</td></tr>
+<tr><td>Desactivar el balanceo en reposo de VRChat</td><td>0 bit</td></tr>
+<tr><td>Reducir deformaciones por la rotación de cabeza</td><td>1 bit (compartido con Darse vuelta)</td></tr>
+<tr><td>Darse vuelta</td><td>10 bit (1 bit compartido con la corrección de deformaciones)</td></tr>
+</tbody></table></div>
+<p>Darse vuelta utiliza 1 bit para activarse, 8 bit para la inclinación de cabeza y 1 bit para el bloqueo de cuello. Si la corrección de deformaciones ya está activa, añadir Darse vuelta aumenta el consumo en 9 bit. La parte compartida no se cuenta dos veces; la cifra cambia con las selecciones.</p>
+<p>El total mostrado corresponde a las herramientas de poses instaladas en el avatar, no al avatar completo con ropa y otros sistemas. Los ajustes comunes de varias herramientas no se cuentan dos veces. Si las poses superan el intervalo básico de numeración, su selección también necesita bits adicionales.</p>
+<h3>Altura pies y Altura suelo</h3>
+<ul>
+<li>«Altura pies»: ajusta la altura del lado de los pies conservando la posición de la cabeza. Sirve para adaptar los pies al suelo o a una cama.</li>
+<li>«Altura suelo»: mueve verticalmente todo el cuerpo, cabeza incluida. 50% es la altura original, 0% son 3m por debajo y 100% son 3m por encima. El valor inicial es 50%.</li>
+</ul>
+<p>Ambas están en «Ajustes» dentro del juego; Altura suelo aparece después de Altura pies. Alejarla del centro desplaza el avatar arriba o abajo. Volver cerca de 50% restaura la altura original y termina la corrección. No hay un interruptor de flotación separado. La vista se corrige al comenzar a flotar y mientras se modifica la altura del suelo.</p>
+<p>La altura de los pies ya no genera movimientos de cuerpo completo duplicados para las animaciones normales. Esto reduce los datos de animación, pero no significa que el tamaño total de todos los avatares pase a ser un tercio.</p>
+<h3>Modo foto</h3>
+<ol>
+<li>Activa «Funciones &gt; Funciones del menú &gt; Modo foto».</li>
+<li>En VRChat abre «Modo foto» y escoge una pose en «Elegir pose».</li>
+<li>«Distancia» mueve hasta 3m hacia delante y «Dirección» gira el avatar. Con distancia mayor que 0, el avatar mira hacia ti.</li>
+<li>Activa «Fijar pies» cuando sea necesario. No se impone al empezar, para permitir ajustar primero la posición. Si añadiste «Sin gestos», también puedes cambiar las manos en esa pantalla.</li>
+<li>«Salir de foto» restablece distancia y dirección y libera los pies.</li>
+</ol>
+<p>El movimiento y giro del Modo foto utilizan 0 bit si solo afectan a tu vista. Para mostrarlos a otras personas, activa «Funciones prácticas &gt; Sincronizar el Modo foto». Distancia y dirección usan 16 bit en total.</p>
+<p>Si la cabeza de tu avatar desaparece cuando está cerca, activa «Funciones prácticas &gt; Mantener la cabeza visible en Modo foto». Solo afecta a tu propia vista durante las fotos y recupera el comportamiento normal al salir.</p>
+<h3>Cambiar poses tumbadas al saltar</h3>
+<p>Si seleccionas poses boca arriba y boca abajo, puedes alternarlas saltando en el sitio. Con una sola orientación seleccionada, se mantiene esa postura. Para impedirlo, desactiva «Cambiar poses tumbadas al saltar» en «Funciones → Funciones prácticas» de Unity. El consumo sincronizado adicional es 0 bit. Con varias herramientas, desactivarlo en una se aplica al avatar completo.</p>
+<h3>Darse vuelta</h3>
+<p>En las poses tumbadas compatibles, inclinar la cabeza a izquierda o derecha hace que el cuerpo ruede suavemente. No todas las poses tumbadas se vuelven compatibles automáticamente.</p>
+<ol>
+<li>Activa «Funciones &gt; Funciones del menú &gt; Darse vuelta».</li>
+<li>Abre los «Detalles» de la pose tumbada deseada en «Poses» y activa «Activar Darse vuelta».</li>
+<li>Asigna una animación lateral a «Pose lateral para darse vuelta». La pose original y la lateral generan los giros a ambos lados. Ajusta la «Intensidad de corrección del suelo» cuando sea necesario.</li>
+<li>En VRChat elige la pose compatible y activa «Darse vuelta». Mantén el cuello desbloqueado.</li>
+</ol>
+<p>Al usar Darse vuelta, la inclinación de cabeza determina la posición de reproducción, por lo que el MotionTime normal queda inhabilitado. Para una animación de giro ya completa, asígnala al campo normal y deja «Pose lateral para darse vuelta» vacío. Prepara una animación con izquierda en 0, boca arriba en 0.5 y derecha en 1.</p>
+<h3>Respiración y balanceo predeterminado</h3>
+<p>«Funciones &gt; Funciones prácticas &gt; Animar la respiración» mueve el pecho y otras partes al respirar. Abre los ajustes para elegir Ninguno, Bajo, Medio, Alto, Rápido o Personalizado por categoría. Rápido es una respiración acelerada; Personalizado permite asignar una animación propia.</p>
+<p>La respiración sola utiliza 0 bit. Activa también «Funciones del menú &gt; Respiración» para detenerla y reanudarla en VRChat. Sincronizar su activación usa 1 bit. Cambiar la intensidad no añade bits.</p>
+<p>Cuello, hombros y brazos acompañan al pecho para limitar el movimiento de cabeza y manos. No bloquea completamente sus posiciones: elige una intensidad adecuada a las proporciones y la pose.</p>
+<p>«Funciones prácticas &gt; Desactivar el balanceo en reposo de VRChat» reduce el movimiento corporal de espera que VRChat añade por defecto. Está desactivado inicialmente y conserva la respiración de la herramienta y los movimientos personalizados. Funciona también sin respiración y no añade bits. No detiene oscilaciones procedentes de otras fuentes.</p>
+<p>Con varias herramientas de poses, desactivar el balanceo estándar en cualquiera se aplica al avatar entero. Para restaurarlo, desactiva esta opción en todas y vuelve a subir el avatar.</p>
+<h3>Reducir deformaciones por la rotación de cabeza</h3>
+<p>Úsalo si al liberar el cuello la postura se deforma porque su dirección difiere de la pose original. Está en «Funciones &gt; Funciones prácticas» y no añade un menú propio. Con el cuello bloqueado se usa la dirección original. Las poses boca arriba están excluidas para conservar su orientación inicial hacia arriba.</p>
+<h3>Iconos del menú</h3>
+<ul>
+<li>«Generar iconos de poses»: crea imágenes del avatar en cada pose y las muestra en el menú. Facilita reconocerlas, pero alarga la compilación por la generación de imágenes.</li>
+<li>«Reducir el tamaño de los iconos»: baja su resolución para reducir el tamaño del avatar.</li>
+</ul>
+<p>Las compilaciones Android no generan iconos. Usa «Volver a capturar iconos» después de cambiar la ropa, por ejemplo. Las imágenes de la lista se actualizan con «Actualizar miniaturas de poses». Lee la confirmación antes de empezar, porque estas operaciones tardan.</p>
+<h2>Añadir, ordenar y previsualizar poses</h2>
+<p>Escoge una categoría a la izquierda de «Poses». La pestaña superior de lupa busca nombres en todas las categorías. «Detalles» permite ajustar animación, icono, MotionTime y otras opciones.</p>
+<p>Añade varias animaciones arrastrándolas a la zona de adición, o selecciónalas en Project y pulsa «Importar clips seleccionados en Project». Se eliminan las referencias duplicadas al mismo clip.</p>
+<p>Para cambiar el orden, selecciona la posición de destino en «Detalles &gt; Orden» o usa los botones de subir y bajar. El estado abierto o cerrado de los detalles se conserva.</p>
+<p>«Vista previa» muestra una pose en Scene sin abrir la ventana de ajuste. Al terminar vuelve el aspecto original. Esta vista sencilla no ejecuta la compilación MA o NDMF, por lo que puede diferir de la ropa añadida después o de FloorAdjuster. Comprueba también ropa y contacto con el suelo tras compilar el avatar.</p>
+<h2>Ajuste de animación y ajuste automático de extremidades (IK)</h2>
+<p>Abre «Poses &gt; Ajuste de animación» para corregir cuerpo y extremidades con vista previa. Al terminar guarda la animación de ajuste con los comandos de esa ventana.</p>
+<p>En los productos y poses compatibles, el ajuste automático adapta las extremidades a las proporciones del avatar. «Activar ajuste automático de extremidades» controla el conjunto; «Activar IK para esta pose» controla cada pose. Un mensaje indica cuándo no hay ajuste automático disponible.</p>
+<p>Para retocar manualmente el resultado automático, pulsa «Integrar IK en los ajustes». Guarda el resultado actual en una nueva animación de ajuste y desactiva IK para esa pose en ese avatar. Conserva la animación original. Requiere ajuste global y de la pose activos y configuración IK aplicable.</p>
+<p>«Evitar la flexión inversa de rodillas» en «Configuración del avatar» permite activar su corrección. Ajusta el ángulo en «Flexión mínima de rodilla (grados)» dentro de los detalles. «Activar la corrección del avatar» requiere datos compatibles. Algunas correcciones no se pueden combinar con el ajuste automático.</p>
+<h2>Poses originales, movimientos propios y preajustes</h2>
+<p>Se configuran en «Configuración del avatar».</p>
+<ul>
+<li>«Usar las poses originales de pie, agachado y boca abajo»: importa automáticamente las posturas del avatar.</li>
+<li>«Usar tus propios movimientos»: abre los ajustes de importación y asigna individualmente cada tipo, como de pie, agachado (Crouching) o boca abajo (Prone). En general, asigna un movimiento por tipo.</li>
+<li>«Integrar bloqueos de seguimiento con otras herramientas»: actívalo si los bloqueos no funcionan bien junto a otros sistemas.</li>
+</ul>
+<p>Asignar movimientos propios es una función separada de importar automáticamente las poses originales.</p>
+<p>Los preajustes están al final de la pestaña. Busca por nombre y usa «Aplicar este preajuste» para sustituir las poses actuales. Sirven principalmente para la configuración inicial; guarda los ajustes que quieras conservar antes de cambiarlos.</p>
+<p>La lista solo carga nombres e información de avatares compatibles. Las animaciones de ajuste se cargan al aplicar el preajuste elegido. Ni siquiera la primera creación de la lista precarga las animaciones de todos los avatares.</p>
+<p>La lista distingue «Compatible con el avatar», «Preajustes de usuario» y «Preajustes oficiales de Unisaki Studio». «Ocultar preajustes incluidos» es común al proyecto. La lista se actualiza al añadir, modificar o eliminar preajustes. Si no cambia, pulsa «Recargar».</p>
+<h2>Precálculo y advertencias</h2>
+<p>Con «Usar las poses originales de pie, agachado y boca abajo» activo se detectan los movimientos de Base en cada generación. No se copian a la configuración manual: si solo usas importación automática, la lista sigue sin asignaciones. Cambiar Base o activar/desactivar la importación se aplica en la siguiente generación.</p>
+<p>Al subir, la importación automática afecta a la copia de compilación. No modifica objetos originales de la escena, ajustes de importación, Controller fuente o movimientos. Reutiliza el precálculo si las entradas no cambian.</p>
+<p>Las asignaciones manuales tienen prioridad por tipo, incluidas rotación, animación de ajuste y posición de reproducción. Desactivar «Usar» o retirar un movimiento asignado impide la importación automática de ese tipo. «Borrar selección manual» retira ajustes y correcciones; si la importación automática está activa, vuelve a detectarlo en la siguiente generación. Undo revierte la operación. Con varias configuraciones antiguas del mismo tipo, se prefiere la activa elegida en el Inspector.</p>
+<p>No se borran automáticamente las entradas añadidas por la importación automática antigua porque no se distinguen de las manuales o retocadas. Usa «Borrar selección manual» solo en los tipos que quieras devolver a la detección automática. Con varios productos en el avatar, sus asignaciones manuales también se aplican a las poses originales comunes.</p>
+<p>El precálculo reduce el tiempo de compilación reutilizando datos generados. Créalo o renuévalo con «Actualizar precálculo». La compilación normal también genera los datos necesarios; no es obligatorio precalcular manualmente cada vez.</p>
+<p>Los cambios de configuración pueden requerir actualización, indicada en «Comprobar configuración» y las marcas de Hierarchy. Actualiza el precálculo tras cambiar poses o IK para reducir el tiempo de futuras compilaciones.</p>
+<p>«Ajustes de visualización de advertencias» está dentro de «Comprobar configuración». Puedes ocultar tipos de avisos o marcas de Hierarchy. Ocultarlos no resuelve problemas ni actualiza datos; los errores y la generación necesaria siguen activos.</p>
+<h2>Notas de uso</h2>
+<ul>
+<li>Diseñado para seguimiento de 3 puntos y escritorio. No admite bloqueo de poses con seguimiento de cuerpo completo activo.</li>
+<li>Las proporciones y modificaciones pueden requerir retoques del contacto de manos/pies y la ropa.</li>
+<li>Capas Base especiales u otros sistemas de postura pueden producir resultados inesperados.</li>
+<li>Movimiento y giro del Modo foto y Altura suelo corrigen poses de la herramienta y movimientos estándar o propios sin pose seleccionada. Verifica en el cliente VRChat los movimientos reemplazados y el punto de vista.</li>
+</ul>
+<h2>Condiciones de uso y asistencia</h2>
+<p>El código y los recursos de este repositorio no son de código abierto. Su uso requiere compra legítima y aceptación de las <a href="../../../%E3%82%86%E3%81%AB%E3%81%95%E3%81%8D%E3%83%9D%E3%83%BC%E3%82%BA%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E5%88%A9%E7%94%A8%E8%A6%8F%E7%B4%84%EF%BC%88%E6%97%A5%E6%9C%AC%E8%AA%9E%E7%89%88%EF%BC%89.pdf">condiciones incluidas</a>.</p>
+<ul>
+<li><a href="https://docs.unisakistudio.jp/kawaiiposing/manual/">Manual de Kawaii Posing</a></li>
+<li><a href="https://docs.unisakistudio.jp/coolposing/manual/">Manual de Cool Posing</a></li>
+<li><a href="https://help.unisakistudio.jp/">Asistencia</a></li>
+</ul>
+<p>Para informar de un fallo, indica versiones del producto y Unisaki Posing System, Unity, VRChat SDK, Modular Avatar y NDMF, el avatar utilizado, los pasos para reproducirlo y el error de Console.</p></main>
+</body></html>

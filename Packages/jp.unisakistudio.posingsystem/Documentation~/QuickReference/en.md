@@ -1,8 +1,8 @@
 # English — Unisaki Posing System / Manual
 
-> Quick reference generated from existing interface translations. This is not a complete translated manual. The full guide is available in English.
+> 30-language quick references cover the feature explanations and standard pose-name tables. These are concise references; use the language index for the full documentation.
 
-[Language / 言語](index.md) · [English — Manual](../UserGuide.en.md)
+[🌐](../Localization/index.md) · [Manual](../Localization/en/UserGuide.md)
 
 ## Features
 
@@ -241,4 +241,4 @@ Clears manual settings and adjustments for this motion type. If automatic import
 | 騎士 | Knight |
 | 魔王降臨 | Demon Lord |
 
-[English — Manual](../UserGuide.en.md)
+[Manual](../Localization/en/UserGuide.md)

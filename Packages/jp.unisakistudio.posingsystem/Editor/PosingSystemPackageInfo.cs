@@ -21,17 +21,20 @@ namespace jp.unisakistudio.posingsystemeditor
             public string displayName;
             public string version;
             [NonSerialized] internal string RootPath;
-            [NonSerialized] internal string Changelog;
+            [NonSerialized] internal readonly Dictionary<string, string> Changelogs = new Dictionary<string, string>();
 
             internal string VersionLabel => string.IsNullOrEmpty(version) ? PosingSystemLocalization.Text("バージョン不明") : "v" + version;
             internal string ManualUrl
             {
                 get
                 {
-                    if (PosingSystemLocalization.Language != "ja" && !string.IsNullOrEmpty(RootPath))
+                    if (!string.IsNullOrEmpty(RootPath))
                     {
-                        var english = Path.Combine(RootPath, "Documentation~", "UserGuide.en.html");
-                        if (File.Exists(english)) return new Uri(Path.GetFullPath(english)).AbsoluteUri;
+                        var localized = DocumentationPath(this, "UserGuide.html");
+                        if (localized != null) return new Uri(Path.GetFullPath(localized)).AbsoluteUri;
+                        var legacyEnglish = Path.Combine(RootPath, "Documentation~", "UserGuide.en.html");
+                        if (PosingSystemLocalization.Language != "ja" && File.Exists(legacyEnglish))
+                            return new Uri(Path.GetFullPath(legacyEnglish)).AbsoluteUri;
                     }
                     switch (name)
                     {
@@ -119,29 +122,45 @@ namespace jp.unisakistudio.posingsystemeditor
             return info;
         }
 
+        // Only known language codes can become a directory name. New packages bundle
+        // every locale; English is a compatibility fallback for older partial installs.
+        internal static string DocumentationPath(Info info, string filename)
+        {
+            if (string.IsNullOrEmpty(info.RootPath)) return null;
+            var language = PosingSystemLocalization.Language;
+            if (Array.IndexOf(PosingSystemLocalization.Codes, language) < 0) language = "en";
+            foreach (var candidate in new[] { language, "en" })
+            {
+                var path = Path.Combine(info.RootPath, "Documentation~", "Localization", candidate, filename);
+                if (File.Exists(path)) return path;
+            }
+            return null;
+        }
+
         internal static string GetChangelog(Info info)
         {
-            if (info.Changelog != null) return info.Changelog;
-            info.Changelog = "変更履歴を読み込めませんでした。";
-            if (string.IsNullOrEmpty(info.RootPath)) return info.Changelog;
+            var language = PosingSystemLocalization.Language;
+            if (info.Changelogs.TryGetValue(language, out var cached)) return cached;
+            var unavailable = PosingSystemLocalization.Text("変更履歴を読み込めませんでした。");
+            if (string.IsNullOrEmpty(info.RootPath)) return unavailable;
 
             try
             {
-                var path = Path.Combine(info.RootPath, "CHANGELOG.md");
+                var path = DocumentationPath(info, "CHANGELOG.md") ?? Path.Combine(info.RootPath, "CHANGELOG.md");
                 if (File.Exists(path))
                 {
                     var text = File.ReadAllText(path).Replace("\r\n", "\n").Trim();
                     // Skip the Keep a Changelog preamble; retain all release entries.
                     var firstRelease = text.IndexOf("\n## ", StringComparison.Ordinal);
                     if (firstRelease >= 0) text = text.Substring(firstRelease + 1);
-                    if (!string.IsNullOrWhiteSpace(text)) info.Changelog = text;
+                    if (!string.IsNullOrWhiteSpace(text)) return info.Changelogs[language] = text;
                 }
             }
             catch (Exception ex) when (ex is IOException || ex is UnauthorizedAccessException)
             {
                 // Missing release notes must never prevent configuring the avatar.
             }
-            return info.Changelog;
+            return unavailable;
         }
     }
 }

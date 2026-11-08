@@ -1,8 +1,8 @@
 # తెలుగు — Unisaki Posing System / మార్గదర్శిని
 
-> Quick reference generated from existing interface translations. This is not a complete translated manual. The full guide is available in English.
+> 30 భాషల త్వరిత సూచనలు ఫీచర్ వివరణలు, ప్రామాణిక భంగిమ పేర్ల పట్టికలను అందిస్తాయి. ఇవి సంక్షిప్త సూచనలు; పూర్తి పత్రాలకు భాషల సూచిక వాడండి.
 
-[Language / 言語](index.md) · [English — మార్గదర్శిని](../UserGuide.en.md)
+[🌐](../Localization/index.md) · [మార్గదర్శిని](../Localization/te/UserGuide.md)
 
 ## ఫీచర్లు
 
@@ -241,4 +241,4 @@ Inspectorలో “సెట్టింగ్‌లను తనిఖీ చ�
 | 騎士 | వీరుడు |
 | 魔王降臨 | రాక్షస రాజు |
 
-[English — మార్గదర్శిని](../UserGuide.en.md)
+[మార్గదర్శిని](../Localization/te/UserGuide.md)

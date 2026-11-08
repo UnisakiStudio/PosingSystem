@@ -1,8 +1,8 @@
 # Čeština — Unisaki Posing System / Návod
 
-> Quick reference generated from existing interface translations. This is not a complete translated manual. The full guide is available in English.
+> Stručné příručky ve 30 jazycích obsahují popisy funkcí a tabulky názvů standardních póz. Jde o krátké referenční materiály; úplnou dokumentaci otevřete přes seznam jazyků.
 
-[Language / 言語](index.md) · [English — Návod](../UserGuide.en.md)
+[🌐](../Localization/index.md) · [Návod](../Localization/cs/UserGuide.md)
 
 ## Funkce
 
@@ -241,4 +241,4 @@ Vymaže ruční nastavení a korekce tohoto typu pohybu. Pokud je zapnutý autom
 | 騎士 | Rytíř |
 | 魔王降臨 | Pán démonů |
 
-[English — Návod](../UserGuide.en.md)
+[Návod](../Localization/cs/UserGuide.md)

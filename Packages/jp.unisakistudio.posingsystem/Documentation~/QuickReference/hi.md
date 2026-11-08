@@ -1,8 +1,8 @@
 # हिन्दी — Unisaki Posing System / मार्गदर्शिका
 
-> Quick reference generated from existing interface translations. This is not a complete translated manual. The full guide is available in English.
+> 30-भाषा त्वरित संदर्भ में सुविधाओं के विवरण और मानक पोज़ नाम की तालिकाएँ हैं। ये संक्षिप्त संदर्भ हैं; पूरे दस्तावेज़ के लिए भाषा सूची इस्तेमाल करें।
 
-[Language / 言語](index.md) · [English — मार्गदर्शिका](../UserGuide.en.md)
+[🌐](../Localization/index.md) · [मार्गदर्शिका](../Localization/hi/UserGuide.md)
 
 ## सुविधाएँ
 
@@ -241,4 +241,4 @@ Inspector के “सेटिंग जाँचें” में प्र
 | 騎士 | शूरवीर |
 | 魔王降臨 | दानव राजा |
 
-[English — मार्गदर्शिका](../UserGuide.en.md)
+[मार्गदर्शिका](../Localization/hi/UserGuide.md)

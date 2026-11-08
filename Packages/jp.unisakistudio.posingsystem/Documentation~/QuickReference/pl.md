@@ -1,8 +1,8 @@
 # Polski — Unisaki Posing System / Instrukcja
 
-> Quick reference generated from existing interface translations. This is not a complete translated manual. The full guide is available in English.
+> Skrócone przewodniki w 30 językach zawierają opisy funkcji i tabele standardowych nazw poz. Są to krótkie materiały pomocnicze; pełna dokumentacja jest dostępna z indeksu języków.
 
-[Language / 言語](index.md) · [English — Instrukcja](../UserGuide.en.md)
+[🌐](../Localization/index.md) · [Instrukcja](../Localization/pl/UserGuide.md)
 
 ## Funkcje
 
@@ -241,4 +241,4 @@ Usuwa ręczne ustawienia i korekcje tego typu ruchu. Gdy automatyczny import jes
 | 騎士 | Rycerz |
 | 魔王降臨 | Władca demonów |
 
-[English — Instrukcja](../UserGuide.en.md)
+[Instrukcja](../Localization/pl/UserGuide.md)

@@ -22,15 +22,15 @@ Use **Update prebuild** after changing settings if you use cached prebuild data.
 
 ## Detailed manuals
 
-Open **Manual** on the purchased product's Inspector for its full English offline guide.
+Open **Manual** on the purchased product's Inspector for its offline guide in the selected language.
 The product's `Documentation~/UserGuide.en.html` contains installation, avatar fitting,
 VRChat controls, pose editing, parameter memory, updating, and troubleshooting.
 Standard pose names are translated for display; custom names, avatar names, asset filenames,
 saved object names, and parameter identifiers preserve their original spelling.
 Thirty languages can be selected. The bundled Inspector, setup dialogs, standard pose names
-and generated menus have complete display catalogs for every selection. This offline guide is in English.
+and generated menus have complete display catalogs for every selection. Offline documentation is provided for each selectable language.
 
-[30-language quick references](QuickReference/index.html) cover the feature explanations and standard pose-name tables. These are concise references; this full manual is in English.
+[30-language quick references](QuickReference/index.html) cover the feature explanations and standard pose-name tables. These are concise references; use the language index for the full documentation.
 
 ## Licensing and support
 

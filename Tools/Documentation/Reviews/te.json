@@ -1,0 +1,23 @@
+{
+  "language": "te",
+  "source_sha256": "c9089e57d158be729a9988f04b64395c3d5b4d3764eeee869420cf5b39491b5c",
+  "translator": "AI contextual translation",
+  "reviewed_blocks": 381,
+  "full_history_preserved": true,
+  "native_speaker_review": false,
+  "rendered_review": false,
+  "term_exceptions": {
+    "eb8cc3b5b69abc5a": {
+      "prebuild": {
+        "source_sha256": "eb8cc3b5b69abc5a0de324d3d2a10d9b196a0a8c70594c83570a3b78213ca3ed",
+        "value_sha256": "0ad140c0ae922297df033c057233ac2e98cad583ddddd4713e98556a0779b483",
+        "reason": "English/Japanese legacy comparison intentionally retains original English UI labels in the English-labelled first column and old Japanese labels in the second column."
+      }
+    }
+  },
+  "notes": [
+    "Complete twelve-document context and existing Telugu UI/pose terminology used. No external translation service.",
+    "All historical entries, original names, identifiers, code, links, dates and numeric values preserved.",
+    "Native logical Unicode preserved; Indic shaping, rendered layout and native-speaker review pending."
+  ]
+}

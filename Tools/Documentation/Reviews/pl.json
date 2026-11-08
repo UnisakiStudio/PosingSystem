@@ -1,0 +1,18 @@
+{
+  "schema": 1,
+  "locale": "pl",
+  "source_sha256": "c9089e57d158be729a9988f04b64395c3d5b4d3764eeee869420cf5b39491b5c",
+  "translator": "AI contextual translation",
+  "native_speaker_review": false,
+  "rendered_visual_review": false,
+  "external_translation_service": false,
+  "blocks_translated": 381,
+  "scope": "All 12 source documents: root/package README, complete historical CHANGELOG, full guides; no prose summarization or English fallback.",
+  "terminology": "Existing UI catalogs and AIReview terms consulted; standard pose names reused. Grammar inflections kept natural. Historical Japanese UI glossary and original avatar/product/file identifiers intentionally retained.",
+  "checks": {
+    "missing": 0,
+    "structure_issues": 0,
+    "terminology_issues": 0,
+    "links_code_versions_dates_tables_lists": "passed"
+  }
+}

@@ -1,8 +1,8 @@
 # 한국어 — Unisaki Posing System / 사용 설명서
 
-> Quick reference generated from existing interface translations. This is not a complete translated manual. The full guide is available in English.
+> 30개 언어 빠른 참조는 기능 설명과 표준 포즈 이름 대조표를 제공합니다. 간결한 참조 문서이며 전체 문서는 언어 목록에서 열어 주세요.
 
-[Language / 言語](index.md) · [English — 사용 설명서](../UserGuide.en.md)
+[🌐](../Localization/index.md) · [사용 설명서](../Localization/ko/UserGuide.md)
 
 ## 기능
 
@@ -241,4 +241,4 @@ Inspector의 설정 확인에서 해당 오브젝트를 선택하고 표시된 �
 | 騎士 | 기사 |
 | 魔王降臨 | 마왕 강림 |
 
-[English — 사용 설명서](../UserGuide.en.md)
+[사용 설명서](../Localization/ko/UserGuide.md)

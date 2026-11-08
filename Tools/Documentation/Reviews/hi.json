@@ -1,0 +1,22 @@
+{
+  "language": "hi",
+  "source_sha256": "c9089e57d158be729a9988f04b64395c3d5b4d3764eeee869420cf5b39491b5c",
+  "translator": "AI contextual translation",
+  "reviewed_blocks": 381,
+  "full_history_preserved": true,
+  "native_speaker_review": false,
+  "rendered_review": false,
+  "term_exceptions": {
+    "eb8cc3b5b69abc5a": {
+      "prebuild": {
+        "source_sha256": "eb8cc3b5b69abc5a0de324d3d2a10d9b196a0a8c70594c83570a3b78213ca3ed",
+        "value_sha256": "489d11002a86e9492125503453e6771424628c5ee07b1feb60f6d17227052f01",
+        "reason": "English/Japanese legacy comparison intentionally retains the original English UI labels in the English-labelled first column and the old Japanese labels in the second column."
+      }
+    }
+  },
+  "notes": [
+    "All twelve source documents are translated without omitting historical entries. Original avatar/object/asset names, technical identifiers and link targets remain unchanged.",
+    "Existing target-language UI labels and standard pose display names were checked against the current catalogs."
+  ]
+}

@@ -1,8 +1,8 @@
 # Français — Unisaki Posing System / Guide
 
-> Quick reference generated from existing interface translations. This is not a complete translated manual. The full guide is available in English.
+> Les références rapides en 30 langues présentent les descriptions des fonctions et les tableaux de noms des poses standards. Ce sont des références concises ; utilisez la liste des langues pour accéder à la documentation complète.
 
-[Language / 言語](index.md) · [English — Guide](../UserGuide.en.md)
+[🌐](../Localization/index.md) · [Guide](../Localization/fr/UserGuide.md)
 
 ## Fonctions
 
@@ -241,4 +241,4 @@ Efface les réglages manuels et les ajustements de ce type de mouvement. Si l'im
 | 騎士 | Chevalier |
 | 魔王降臨 | Seigneur démon |
 
-[English — Guide](../UserGuide.en.md)
+[Guide](../Localization/fr/UserGuide.md)

@@ -1,8 +1,8 @@
 # বাংলা — Unisaki Posing System / নির্দেশিকা
 
-> Quick reference generated from existing interface translations. This is not a complete translated manual. The full guide is available in English.
+> 30-ভাষার দ্রুত রেফারেন্স-এ বৈশিষ্ট্যের বিবরণ ও মানক পোজের নামের তালিকা আছে। এগুলো সংক্ষিপ্ত রেফারেন্স; পুরো নথির জন্য ভাষার তালিকা দেখুন।
 
-[Language / 言語](index.md) · [English — নির্দেশিকা](../UserGuide.en.md)
+[🌐](../Localization/index.md) · [নির্দেশিকা](../Localization/bn/UserGuide.md)
 
 ## বৈশিষ্ট্য
 
@@ -241,4 +241,4 @@ Inspector-এর “সেটিংস পরীক্ষা”-য় সংশ
 | 騎士 | নাইট |
 | 魔王降臨 | দানবরাজ |
 
-[English — নির্দেশিকা](../UserGuide.en.md)
+[নির্দেশিকা](../Localization/bn/UserGuide.md)

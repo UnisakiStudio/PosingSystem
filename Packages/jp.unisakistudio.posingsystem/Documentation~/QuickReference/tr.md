@@ -1,8 +1,8 @@
 # Türkçe — Unisaki Posing System / Kılavuz
 
-> Quick reference generated from existing interface translations. This is not a complete translated manual. The full guide is available in English.
+> 30 dilde hızlı başvuru, özellik açıklamalarını ve standart poz adı tablolarını içerir. Bunlar kısa başvuru metinleridir; tam belgeler için dil dizinini kullanın.
 
-[Language / 言語](index.md) · [English — Kılavuz](../UserGuide.en.md)
+[🌐](../Localization/index.md) · [Kılavuz](../Localization/tr/UserGuide.md)
 
 ## Özellikler
 
@@ -241,4 +241,4 @@ Bu hareket türünün elle yapılan ayarlarını ve düzeltmelerini temizler. Ot
 | 騎士 | Şövalye |
 | 魔王降臨 | İblis Kral |
 
-[English — Kılavuz](../UserGuide.en.md)
+[Kılavuz](../Localization/tr/UserGuide.md)

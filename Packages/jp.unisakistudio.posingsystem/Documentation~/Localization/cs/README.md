@@ -1,0 +1,203 @@
+# Unisaki Posing System
+
+Společný systém póz pro Kawaii Posing Tool, Cool Posing Tool a další nástroje. Pomocí Modular Avatar a NDMF vytváří potřebné nabídky a animace při nahrávání avatara.
+
+Tento README je určen pro vyvíjenou verzi v3.2.0. Datum oficiálního vydání zatím nebylo stanoveno. Nainstalovaná verze se zobrazuje nahoře v Inspectoru nástroje pro pózy. Viz také [nové funkce a historii změn](CHANGELOG.md).
+
+## Jazyk rozhraní a offline dokumentace
+
+Vyberte jazyk v poli „Language / 言語“ nahoře v Inspectoru. Jedna volba řídí Inspector i vytvářenou nabídku VRChat. Pro změnu jazyka ve hře avatara znovu nahrajte.
+
+Pokud jazyk není vybrán, použije se jazyk počítače; nepodporované jazyky přejdou na angličtinu. Podporovány jsou Windows, macOS a Linux. Poslední volba se ukládá do EditorPrefs a používá se i v dalších projektech stejného uživatele OS na tomto počítači. Výslovná volba uložená v avatarovi zůstává zachována. Mezi počítači se nesynchronizuje. Způsob ukládání licencí se nemění.
+
+README, historii změn a návod lze vybrat v přiloženém [seznamu jazyků](../index.html). Návod a historie změn v Inspectoru také používají vybraný jazyk. Původní podmínky použití a referenční překlady jsou nadále dodávány samostatně.
+
+## Přepínání póz v režimu plochy
+
+Zkrátila se prodleva mezi přepnutím stoje, podřepu a sedu v režimu plochy a použitím vybrané pózy. Změna funguje při běžném sestavení i předgenerování bez zvláštního příkazu nebo dalšího nastavení. VR a zvláštní stavy zachovávají původní zpracování. Před nahráním avatara aktualizujte předgenerování ze starší verze.
+
+## Instalace a aktualizace
+
+Přidejte nástroj pro pózy přes VCC nebo ALCOM podle zakoupených souborů a pokynů příslušného produktu. Tento systém se instaluje jako závislost nástroje.
+
+Požadavky verze v3.2.0:
+
+- Projekt avatara VRChat v Unity 2022.3
+- VRChat Avatars SDK 3.10.4 nebo novější
+- Modular Avatar řady 1.x, nejméně verze 1.15.1
+- NDMF (Non-Destructive Modular Framework) řady 1.x, nejméně verze 1.14.0
+
+Pokud používáte Kawaii Posing Tool, aktualizujte jej v ALCOM / VCC na 3.2.0 a ověřte, že i Unisaki Posing System má verzi 3.2.0. Pokud jste používali předgenerování, stiskněte Aktualizovat předgenerování, uložte scénu a poté nahrajte avatara.
+
+Cool Posing Tool 1.2.0 používá společný systém 3.2.0. Aktualizujte produkt i společný systém společně na odpovídající verze.
+
+### Pro uživatele původní 8bit verze
+
+Nově přidávané instalace nyní používají běžný Prefab. Vypnutím nepotřebných položek ve Funkcích můžete snížit spotřebu. Samotný výběr póz má základní spotřebu 8 bit.
+
+Původní 8bit Prefab zůstává v Editor/Legacy každého produktu, aby zachoval odkazy již nastavených avatarů a předvoleb. Pro další používání staré 8bit verze nemusíte Prefab mazat ani nahrazovat. Výběr 8bit verze v nabídce přidávání Unity byl odstraněn.
+
+## Přehled nastavení
+
+Vyberte v Hierarchy 可愛いポーズ (Kawaii Posing), カッコいいポーズ (Cool Posing) nebo jiný nástroj uvnitř avatara a otevřete nastavení.
+
+| Karta | Nastavení |
+| --- | --- |
+| Funkce | Položky herní nabídky, usnadnění, ikony a spotřeba ExpressionParameters |
+| Pózy | Výběr, přidávání a pořadí póz, náhled v Scene, podrobnosti póz a úprava animací |
+| Nastavení avatara | Korekce tělesných proporcí a kolen, import původních póz a vlastních pohybů, předvolby |
+
+Pokud má položka další nastavení, stiskněte Otevřít nastavení a pole se rozbalí pod ní. Nastavení dýchání je také ve Funkcích.
+
+Horní panel nápovědy a historie změn otevírá návod, podporu a historii změn. Historii lze přepínat mezi produktem a Unisaki Posing System.
+
+## Funkce a spotřeba ExpressionParameters
+
+Položky vybrané v „Funkce > Funkce nabídky“ se objeví v herní nabídce. Například Zrcadlit umožňuje přepínat zrcadlení ve VRChat. Samotné zaškrtnutí v Inspectoru neznamená, že všechny pózy zůstanou stále zrcadlené.
+
+| Funkce | Dodatečné bity |
+| --- | ---: |
+| Zrcadlit | 1 bit |
+| Gesta vyp. | 1 bit |
+| Animovat dýchání | 0 bit |
+| Dýchání (přepínač ve hře) | 1 bit |
+| Výška chodidel | 8 bit |
+| Výška podlahy | 8 bit |
+| Režim focení (jen na vlastní obrazovce) | 0 bit |
+| Synchronizovat režim focení | 16 bit |
+| Ponechat hlavu viditelnou v režimu focení | 0 bit |
+| Vypnout pohupování VRChat v klidu | 0 bit |
+| Omezit deformaci pózy při otočení hlavy | 1 bit (sdílený s přetočením) |
+| Přetočit se | 10 bit (z toho 1 bit sdílený s omezením deformace) |
+
+Přetočení používá 1 bit pro přepínač, 8 bit pro náklon hlavy a 1 bit pro její zamknutí. Pokud je omezení deformace pózy již zapnuté, přidání přetočení zvýší spotřebu o 9 bit. Sdílená část se nepočítá dvakrát a údaj se mění se zaškrtnutím.
+
+Zobrazený součet se týká pouze nástrojů pro pózy nainstalovaných na tomto avatarovi. Nejde o součet celého avatara s oblečením a ostatními funkcemi. Sdílená nastavení více nástrojů se rovněž nepočítají opakovaně. Pokud počet póz překročí základní rozsah čísel, výběr póz vyžaduje další bity.
+
+### Výška chodidel a výška podlahy
+
+- „Výška chodidel“: upravuje výšku na straně nohou při zachování polohy hlavy. Slouží k zarovnání chodidel s podlahou nebo postelí.
+- „Výška podlahy“: posouvá celé tělo včetně hlavy nahoru a dolů. 50% je původní výška, 0% je o 3m níže a 100% o 3m výše. Počáteční hodnota je 50%.
+
+Obě položky jsou v herní nabídce Nastavení, kde Výška podlahy následuje po Výšce chodidel. Odchýlení výšky podlahy ze středu posouvá tělo svisle. Návrat přibližně k 50% obnoví původní výšku a ukončí korekci. Samostatný přepínač vznášení není. Korekce pohledu probíhá při zahájení vznášení a během úpravy výšky podlahy.
+
+U běžných animací výška chodidel již nevytváří duplicitní pohyb celého těla kvůli úpravě výšky. To snižuje objem vytvářených animací, ale neznamená, že se celý avatar vždy zmenší na 1/3.
+
+### Režim focení
+
+1. Zapněte „Funkce > Funkce nabídky > Režim focení“.
+2. Ve VRChat otevřete Režim focení a zvolte pózu přes Vybrat pózu.
+3. Pomocí Vzdálenosti posuňte avatara až 3m dopředu a pomocí Směru jej otočte. Při vzdálenosti větší než 0 se avatar obrátí k vám.
+4. Podle potřeby zapněte Zamknout nohy. Na začátku se nohy nezamykají nuceně, takže můžete nejprve upravit polohu. Pokud jste do nabídky přidali Gesta vyp., na stejné obrazovce lze přepínat i tvar rukou.
+5. Ukončit focení obnoví vzdálenost a směr a odemkne nohy.
+
+Pohyb a otáčení v režimu focení spotřebují 0 bit, pokud je používáte jen na své obrazovce. Chcete-li polohu a směr ukázat ostatním, zapněte „Usnadnění > Synchronizovat režim focení“. Vzdálenost a směr používají dohromady 16 bit.
+
+Pokud hlava vlastního avatara zblízka mizí, zapněte „Usnadnění > Ponechat hlavu viditelnou v režimu focení“. Ovlivní to pouze váš pohled během focení. Po ukončení se obnoví běžné zobrazení.
+
+### Přepínání ležících póz skokem
+
+Pokud jste vybrali pózu na zádech i na břiše, lze je přepínat skokem na místě. Pokud je vybraná jen jedna, zůstává aktivní. Nechcete-li přepínat skokem, vypněte Měnit ležící pózy skokem v Unity v „Funkce → Usnadnění“. Dodatečná spotřeba synchronizovaných parametrů je 0 bit. U avatara s více nástroji pro pózy se vypnutí v kterémkoli z nich vztahuje na celého avatara.
+
+### Přetočit se
+
+V podporovaných ležících pózách se tělo plynule přetáčí podle náklonu hlavy doleva a doprava. Funkce automaticky nepodporuje všechny ležící pózy.
+
+1. Zapněte „Funkce > Funkce nabídky > Přetočit se“.
+2. Na kartě Pózy otevřete podrobnosti požadované ležící pózy a zapněte Zapnout přetočení.
+3. Přiřaďte boční animaci do Boční pózy přetočení. Z původní a boční pózy se vytvoří přetočení doleva i doprava. Podle potřeby nastavte Sílu korekce podlahy.
+4. Ve VRChat vyberte podporovanou pózu a zapněte Přetočit se. Před použitím odemkněte hlavu.
+
+U póz s přetočením určuje náklon hlavy polohu přehrávání animace, proto běžné MotionTime není dostupné. Používáte-li hotovou animaci přetočení, přiřaďte ji do běžného pole animace a Boční pózu přetočení nechte prázdnou. Připravte animaci, kde 0 znamená levý bok, 0.5 záda a 1 pravý bok.
+
+### Dýchání a výchozí pohupování
+
+„Funkce > Usnadnění > Animovat dýchání“ přidá pohyb v rytmu dechu například na hrudník. Přes Otevřít nastavení lze pro každou kategorii póz zvolit Žádné, Slabé, Střední, Silné, Rychlé nebo Vlastní. Rychlé znamená zrychlené dýchání. Vlastní umožňuje přiřadit vlastní připravenou animaci.
+
+Samotný pohyb dýchání spotřebuje 0 bit. Chcete-li jej ve VRChat zastavovat a znovu spouštět, zapněte také „Funkce nabídky > Dýchání“. Synchronizace přepínače používá 1 bit. Změna intenzity spotřebu nezvyšuje.
+
+Krk, ramena a paže se pohybují společně s hrudníkem, aby se omezil posun hlavy a rukou. Nejde o úplné zamknutí polohy, proto vyberte intenzitu podle těla a pózy.
+
+„Usnadnění > Vypnout pohupování VRChat v klidu“ omezuje výchozí pohupování těla v klidu. Ve výchozím stavu je vypnuté a zachovává dýchání nástroje i další vlastní pohyby. Lze jej zvolit i bez dýchání a nezvyšuje spotřebu bitů. Pohupování z jiných příčin než výchozí klidové animace toto nastavení nezastaví.
+
+Při použití více nástrojů pro pózy se vypnutí výchozího pohupování v kterémkoli z nich vztahuje na celého avatara. Pro návrat nastavení vypněte ve všech nástrojích a avatara znovu nahrajte.
+
+### Omezit deformaci pózy při otočení hlavy
+
+Použijte, pokud se póza po odemknutí hlavy deformuje kvůli jinému směru krku než v původní póze. Nastavení je v „Funkce > Usnadnění“ a nepřidává zvláštní herní nabídku. Při zamknuté hlavě se používá původní směr pózy. Ležení na zádech je z korekce vynecháno, aby se zachovalo původní natočení vzhůru.
+
+### Ikony nabídky
+
+- „Generovat ikony póz“: vytváří obrázky avatara v každé póze a zobrazuje je v nabídce. Usnadní rozpoznání póz, ale tvorba obrázků prodlouží sestavení.
+- „Zmenšit velikost ikon“: snižuje rozlišení obrázků a zmenšuje velikost avatara.
+
+V sestaveních pro Android se ikony póz nevytvářejí. Po změně oblečení či vzhledu použijte Znovu pořídit ikony. Obrázky seznamu póz obnoví Aktualizovat obrázky póz. Operace trvá déle, proto si před spuštěním přečtěte potvrzovací dialog.
+
+## Přidávání, řazení a náhled póz
+
+Vyberte kategorii vlevo na kartě Pózy. Horní karta s lupou hledá názvy napříč kategoriemi. Podrobnosti umožňují společně nastavit animaci, ikonu, MotionTime a další možnosti.
+
+Více animací lze přidat přetažením do přidávací oblasti nebo výběrem v Project a příkazem pro import vybraných klipů. Duplicitní odkazy na stejný klip se vynechávají.
+
+Pořadí změníte výběrem cílového místa v „Podrobnosti > Pořadí“. Lze použít také tlačítka nahoru a dolů. Rozbalení či sbalení podrobností zůstává po přesunu zachováno.
+
+Náhled u každé pózy ji zobrazí v Scene bez otevření okna úprav. Ukončení obnoví původní zobrazení. Tento lehký náhled nespouští sestavení MA ani NDMF, takže se může lišit od konečného oblečení, FloorAdjuster a dalších operací sestavení. Oblečení a kontakt s podlahou ověřte i po sestavení avatara.
+
+## Úprava animace a automatická korekce končetin (IK)
+
+Otevřete Úpravu animace na kartě Pózy pro přesné nastavení těla a končetin s náhledem. Po dokončení uložte korekční animaci příkazem pro uložení v tomto okně.
+
+U podporovaných produktů a póz automatická korekce přizpůsobuje polohu končetin tělesným proporcím avatara. Zapnout automatickou korekci končetin v okně úprav řídí celou funkci, Zapnout IK této pózy jednotlivou pózu. Pokud pro ni automatická korekce není připravena, zobrazí se upozornění.
+
+Chcete-li automatický výsledek dokončit ručně, stiskněte Zapéct IK do korekcí. Aktuální výsledek IK se zapíše do nové korekční animace a IK této pózy u daného avatara se vypne. Původní animace zůstává. Tlačítko je dostupné, když je automatická korekce zapnutá celkově i pro pózu a existuje použitelné nastavení IK.
+
+V Nastavení avatara přepíná Zabránit ohybu kolen dozadu korekci kolen. V podrobnostech nastavte Minimální ohyb kolena (stupně). Zapnout korekci avatara je dostupné s odpovídajícími korekčními daty. Překrývající se korekce nemusí jít použít současně s automatickou korekcí končetin.
+
+## Původní pózy, vlastní pohyby a předvolby
+
+Tyto možnosti jsou v Nastavení avatara.
+
+- „Použít původní pózy ve stoje, v přikrčení a na břiše“: automaticky importuje původně nastavené pózy avatara.
+- „Vlastní pohyby“: otevřete nastavení importu a přiřaďte zvlášť pohyb pro každý typ, například stoj, přikrčení (Crouching) a leh na břiše (Prone). Obvykle se jednomu typu přiřazuje jeden pohyb.
+- „Propojit zámky sledování s dalšími nástroji“: zapněte, pokud zamykání nefunguje správně s dalšími funkcemi avatara.
+
+Nastavení importu vlastních pohybů je samostatná funkce od automatického importu původních póz.
+
+Předvolby jsou na konci karty. Hledejte podle názvu a stiskněte Použít tuto předvolbu pro změnu nastavení póz. Slouží hlavně k počátečnímu nastavení a nahrazují aktuální konfiguraci. Před změnou uložte hotové úpravy.
+
+Při zobrazení seznamu předvoleb se načítají jen názvy a údaje o kompatibilních avatarech. Korekční animace se načtou až při použití zvolené předvolby. Ani první vytvoření seznamu nenačítá animace všech avatarů předem.
+
+Seznam je rozdělen na Kompatibilní avatar, Uživatelské předvolby a Oficiální předvolby Unisaki Studio. Skrýt přibalené předvolby je společná volba zobrazení v projektu. Přidání, úprava nebo smazání předvolby seznam obnoví. Pokud se zobrazení nemění, stiskněte Obnovit.
+
+## Předgenerování a varování
+
+Když je zapnuté Použít původní pózy ve stoje, v přikrčení a na břiše, pohyby se zjišťují z Base avatara při každém generování. Výsledek se nezapisuje do ručního nastavení importu, proto při samotném automatickém importu zůstává seznam nevyplněný. Změny pohybů Base a přepnutí automatického importu se použijí při dalším generování.
+
+Automatický import při nahrávání se používá na kopii pro sestavení. Nemění původní objekt scény, nastavení importu ani zdrojové Controllery či pohyby. Pokud již existuje předgenerování a vstupy se nezměnily, použije se jeho výsledek znovu.
+
+Ruční přiřazení má pro daný typ přednost a zahrnuje otočení, korekční animaci i polohu přehrávání. Vypnutí Použít nebo odebrání přiřazeného pohybu zastaví automatický import tohoto typu. Vymazat ruční výběr odstraní jeho nastavení a korekce, takže zapnutý automatický import pohyb při dalším generování znovu zjistí. Akci lze vrátit pomocí Undo. Pokud pro typ existuje více starých nastavení, přednost má platné nastavení zvolené v Inspectoru.
+
+Nastavení přidaná původním automatickým importem nelze odlišit od ručně uložených a upravených nastavení, proto se nemažou automaticky. Vymazat ruční výběr použijte jen pro typy, které chcete vrátit k automatickému importu. Pokud má avatar více produktů, ruční nastavení ostatních produktů ovlivňují společné původní pózy také.
+
+Předgenerování zkracuje sestavení avatara opětovným použitím vytvořených dat. Vytvoříte či obnovíte je přes Aktualizovat předgenerování. Běžné sestavení avatara také vytváří potřebná data, proto není nutné předgenerovat ručně pokaždé.
+
+Změna nastavení vyžaduje aktualizaci. Upozorní na ni Kontrola nastavení nahoře v Inspectoru a značka v Hierarchy. Po změně póz či IK může aktualizace předgenerování zkrátit další sestavení.
+
+Zobrazení varování je uvnitř rámečku Kontrola nastavení. Lze skrýt jednotlivé druhy varování nebo značku Hierarchy. Skrytí neodstraňuje problém nastavení ani neaktualizuje vytvořená data. Chyby a potřebné generování zůstávají.
+
+## Poznámky k používání
+
+- Určeno pro sledování 3 bodů a režim plochy. Zamykání póz během celotělového sledování není podporováno.
+- Tělesné proporce a úpravy mohou vyžadovat další doladění kontaktu končetin a vzhledu oblečení.
+- Zvláštní vrstvy Base a další systémy změny póz nemusejí fungovat podle očekávání.
+- Pohyb a otáčení režimu focení a výška podlahy korigují pózy nástroje i výchozí a vlastní pohyby bez vybrané pózy. Ověřte ve VRChat pohled a chování po nahrazení výchozích pohybů.
+
+## Podmínky použití a podpora
+
+Zdrojový kód a prostředky tohoto repozitáře nejsou open source. Použití vyžaduje řádné zakoupení produktu a souhlas s [přiloženými podmínkami](../../../%E3%82%86%E3%81%AB%E3%81%95%E3%81%8D%E3%83%9D%E3%83%BC%E3%82%BA%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E5%88%A9%E7%94%A8%E8%A6%8F%E7%B4%84%EF%BC%88%E6%97%A5%E6%9C%AC%E8%AA%9E%E7%89%88%EF%BC%89.pdf).
+
+- [Návod Kawaii Posing Tool](https://docs.unisakistudio.jp/kawaiiposing/manual/)
+- [Návod Cool Posing Tool](https://docs.unisakistudio.jp/coolposing/manual/)
+- [Kontaktovat podporu](https://help.unisakistudio.jp/)
+
+Při hlášení chyby uveďte verze produktu a Unisaki Posing System, Unity, VRChat SDK, Modular Avatar a NDMF, použitého avatara, kroky k reprodukci a text chyby Console.

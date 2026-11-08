@@ -1,8 +1,8 @@
 # தமிழ் — Unisaki Posing System / வழிகாட்டி
 
-> Quick reference generated from existing interface translations. This is not a complete translated manual. The full guide is available in English.
+> 30 மொழி விரைவுக் குறிப்புகள் வசதி விளக்கங்களையும் நிலையான போஸ் பெயர் அட்டவணைகளையும் வழங்குகின்றன. இவை சுருக்கமான குறிப்புகள்; முழு ஆவணங்களுக்கு மொழிக் குறியீட்டைப் பயன்படுத்தவும்.
 
-[Language / 言語](index.md) · [English — வழிகாட்டி](../UserGuide.en.md)
+[🌐](../Localization/index.md) · [வழிகாட்டி](../Localization/ta/UserGuide.md)
 
 ## வசதிகள்
 
@@ -241,4 +241,4 @@ Inspector-இன் “அமைப்புகளைச் சரிபார�
 | 騎士 | வீரன் |
 | 魔王降臨 | அரக்கர் அரசன் |
 
-[English — வழிகாட்டி](../UserGuide.en.md)
+[வழிகாட்டி](../Localization/ta/UserGuide.md)

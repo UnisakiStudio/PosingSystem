@@ -1,8 +1,8 @@
 # Bahasa Indonesia — Unisaki Posing System / Panduan
 
-> Quick reference generated from existing interface translations. This is not a complete translated manual. The full guide is available in English.
+> Referensi singkat 30 bahasa mencakup penjelasan fitur dan tabel nama pose standar. Ini merupakan referensi ringkas; gunakan indeks bahasa untuk dokumentasi lengkap.
 
-[Language / 言語](index.md) · [English — Panduan](../UserGuide.en.md)
+[🌐](../Localization/index.md) · [Panduan](../Localization/id/UserGuide.md)
 
 ## Fitur
 
@@ -241,4 +241,4 @@ Menghapus pengaturan manual dan penyesuaian jenis gerakan ini. Jika impor otomat
 | 騎士 | Kesatria |
 | 魔王降臨 | Raja Iblis |
 
-[English — Panduan](../UserGuide.en.md)
+[Panduan](../Localization/id/UserGuide.md)

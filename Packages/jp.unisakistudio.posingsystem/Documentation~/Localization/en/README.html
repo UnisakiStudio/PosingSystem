@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en" dir="ltr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Unisaki Posing System</title><style>:root { color-scheme: light dark; font-family: system-ui, -apple-system, "Segoe UI", sans-serif; line-height: 1.7; }
+body { margin: auto; max-width: 70rem; padding: 1.5rem; overflow-wrap: anywhere; }
+nav { display: flex; flex-wrap: wrap; gap: .6rem 1.2rem; padding-block: 1rem; border-block-end: 1px solid #8887; }
+h1,h2,h3 { line-height: 1.4; } h2 { margin-block-start: 2.4rem; }
+table { border-collapse: collapse; width: 100%; } th,td { text-align: start; vertical-align: top; padding: .5rem; border: 1px solid #8887; }
+thead { background: #8882; } .table-scroll { overflow-x: auto; }
+code,pre { direction: ltr; unicode-bidi: isolate; } code { background: #8882; padding: .1em .25em; } pre { white-space: pre-wrap; }
+a { color: #2269b8; } a:visited { color: #7952ad; } li { margin-block: .35rem; }
+@media(prefers-color-scheme:dark) { a { color: #8ec5ff; } a:visited { color: #cfacff; } }
+@media print { nav { display: none; } body { max-width: none; padding: 0; } a { color: inherit; } }</style></head><body>
+<nav aria-label="Documentation"><a href="../index.html">English · 🌐</a><a href="README.html">README</a><a href="CHANGELOG.html">Changelog</a><a href="UserGuide.html">Unisaki Posing System 3.2.0 — English guide</a></nav>
+<main><h1>Unisaki Posing System</h1>
+<p>The shared posing system used by Kawaii Posing Tool, Cool Posing Tool and related products. It uses Modular Avatar and NDMF to generate the required menus and animations when you upload an avatar.</p>
+<p>This README covers v3.2.0, currently in development. A release date has not been set. Check the installed version at the top of the posing tool&#x27;s Inspector. See also <a href="CHANGELOG.html">new features and changelog</a>.</p>
+<h2>Display language and offline documentation</h2>
+<p>Choose a display language with Language / 言語 at the top of the Inspector. One selection controls both the Inspector and generated VRChat menu. Re-upload the avatar to change its in-game language.</p>
+<p>Without a saved choice, the tool follows the computer&#x27;s language and uses English for unsupported languages. This works on Windows, macOS and Linux. The last selection is saved in EditorPrefs and reused in other projects belonging to the same OS user on this computer. An explicit selection already saved on an avatar is preserved. Preferences do not sync to other computers. License storage is unchanged.</p>
+<p>Choose a README, changelog or manual from the bundled <a href="../index.html">language index</a>. The Inspector&#x27;s Manual and View changelog also follow the selected language. Original agreements and reference translations remain separately available.</p>
+<h2>Switching posture in desktop mode</h2>
+<p>The delay before the selected pose takes effect when switching between standing, crouching and sitting in desktop mode has been reduced. This applies to normal builds and prebuilds, with no special command or extra setting. Existing behavior is retained in VR mode and special states. Update older prebuilds before uploading.</p>
+<h2>Installation and updates</h2>
+<p>Follow the purchased product&#x27;s installation instructions and add the posing tool using VCC or ALCOM. This system is installed as a dependency of the posing tool.</p>
+<p>Requirements for v3.2.0:</p>
+<ul>
+<li>A Unity 2022.3 VRChat avatar project</li>
+<li>VRChat Avatars SDK 3.10.4 or later</li>
+<li>Modular Avatar 1.x, version 1.15.1 or later</li>
+<li>NDMF (Non-Destructive Modular Framework) 1.x, version 1.14.0 or later</li>
+</ul>
+<p>For Kawaii Posing Tool, update the product to 3.2.0 in ALCOM / VCC and check that Unisaki Posing System is also 3.2.0. If you use prebuilds, click Update prebuild and save the scene before uploading the avatar.</p>
+<p>Cool Posing Tool 1.2.0 uses shared system 3.2.0. Update the product and shared system together to compatible versions.</p>
+<h3>If you used the 8bit edition</h3>
+<p>New installations now use the regular Prefab. Turn off unneeded items under Features to reduce parameter usage. Select Pose alone uses a base of 8 bit.</p>
+<p>The old 8bit Prefabs remain in each product&#x27;s Editor/Legacy folder to preserve references from existing avatars and presets. You can keep using an existing 8bit edition without deleting or replacing its Prefab. The Unity menu no longer offers the 8bit edition for new installations.</p>
+<h2>Understanding the settings</h2>
+<p>In the Hierarchy, select the tool object inside the avatar, such as 可愛いポーズ or カッコいいポーズ, to configure it.</p>
+<div class="table-scroll"><table><thead><tr><th>Tab</th><th>Settings</th></tr></thead><tbody>
+<tr><td>Features</td><td>In-game menu features, convenience features, icon images and ExpressionParameters usage</td></tr>
+<tr><td>Poses</td><td>Select, add and reorder poses; preview in the Scene; pose details and animation adjustment</td></tr>
+<tr><td>Avatar Setup</td><td>Body-specific correction, knee correction, original/custom motion imports and presets</td></tr>
+</tbody></table></div>
+<p>For items with detailed settings, click Open settings to expand the controls below. Breathing settings are also under Features.</p>
+<p>Use Help / Changelog at the top to open the manual, support or changelog. Switch between the product and Unisaki Posing System when reading the changelog.</p>
+<h2>Features and ExpressionParameters usage</h2>
+<p>Items enabled under Features &gt; Menu features appear in the in-game menu. For example, enabling Mirror adds a control to switch mirroring in VRChat. Checking it in the Inspector does not make every pose permanently mirrored.</p>
+<div class="table-scroll"><table><thead><tr><th>Feature</th><th>Additional bit usage</th></tr></thead><tbody>
+<tr><td>Mirror</td><td>1 bit</td></tr>
+<tr><td>Disable Gestures</td><td>1 bit</td></tr>
+<tr><td>Animate breathing</td><td>0 bit</td></tr>
+<tr><td>Breathing (in-game ON/OFF)</td><td>1 bit</td></tr>
+<tr><td>Foot Height</td><td>8 bit</td></tr>
+<tr><td>Floor Height</td><td>8 bit</td></tr>
+<tr><td>Photo Mode (local display only)</td><td>0 bit</td></tr>
+<tr><td>Sync Photo Mode</td><td>16 bit</td></tr>
+<tr><td>Keep your head visible in Photo Mode</td><td>0 bit</td></tr>
+<tr><td>Disable VRChat idle sway</td><td>0 bit</td></tr>
+<tr><td>Reduce pose distortion from head rotation</td><td>1 bit (shared with Roll Over)</td></tr>
+<tr><td>Roll Over</td><td>10 bit (including 1 bit shared with pose-distortion reduction)</td></tr>
+</tbody></table></div>
+<p>Roll Over uses 1 bit for ON/OFF, 8 bit for head tilt and 1 bit for head lock. If pose-distortion reduction is already enabled, adding Roll Over costs an additional 9 bit. Shared parameters are counted once; the display updates as you change the checkboxes.</p>
+<p>The displayed total covers the posing tools installed on that avatar. It is not the avatar&#x27;s overall total including clothing and other gimmicks. Shared settings are counted once even when multiple posing tools are installed. If the pose count exceeds the basic index range, pose selection can also require additional bits.</p>
+<h3>Foot Height and floor height</h3>
+<ul>
+<li>Foot Height adjusts the feet side while keeping the head position. Use it to align the feet with a floor or bed.</li>
+<li>Floor Height moves the whole body, including the head, vertically. 50% is the original height, 0% is 3m below and 100% is 3m above. The default is 50%.</li>
+</ul>
+<p>Both are under Settings in the in-game menu; Floor Height follows Foot Height. Move Floor Height away from the center to move vertically. Return near 50% to restore the original height and end the correction. There is no separate floating ON/OFF switch. Viewpoint correction occurs when floating starts and while adjusting floor height.</p>
+<p>For regular animations, Foot Height no longer duplicates whole-body motion data to adjust height. This reduces generated animation data; it does not reduce every avatar&#x27;s total size to one third.</p>
+<h3>Photo Mode</h3>
+<ol>
+<li>Enable Features &gt; Menu features &gt; Photo Mode.</li>
+<li>In VRChat, open Photo Mode and select a pose under Select Pose.</li>
+<li>Use Distance to move up to 3m forward and Direction to turn the avatar. At distances above 0, the avatar faces you.</li>
+<li>Enable Lock Feet if needed. It is not forced on at startup, so you can position the avatar before locking. If Disable Gestures is included in the menu, you can also change hand shapes on the same screen.</li>
+<li>Exit Photo Mode resets distance and rotation and releases foot lock.</li>
+</ol>
+<p>Photo Mode movement and rotation use 0 bit when visible only on your screen. To show the position and rotation to others, enable Convenience &gt; Sync Photo Mode. Distance and rotation together use 16 bit.</p>
+<p>If your avatar&#x27;s head disappears when it is nearby, enable Convenience &gt; Keep your head visible in Photo Mode. This affects only your local display during Photo Mode and returns to normal when it ends.</p>
+<h3>Switch lying posture by jumping</h3>
+<p>When both back-lying and front-lying poses are selected, jump in place to switch between them. If only one is selected, the avatar keeps that posture. To disable jump switching, turn off Switch lying posture by jumping under Features &gt; Convenience in Unity. This adds 0 bit of synchronized parameter usage. If the avatar has multiple posing tools, disabling it in any one applies to the whole avatar.</p>
+<h3>Roll Over</h3>
+<p>In supported lying poses, tilting your head sideways smoothly rolls the body. Not every lying pose supports this automatically.</p>
+<ol>
+<li>Enable Features &gt; Menu features &gt; Roll Over.</li>
+<li>Under Poses, open Details for the lying pose and enable Enable roll over.</li>
+<li>Assign a side-lying animation to Sideways roll-over pose. The original and side-lying poses are used to generate rolls in both directions. Adjust Ground correction strength if needed.</li>
+<li>In VRChat, select a supported pose and enable Roll Over. Release head lock before using it.</li>
+</ol>
+<p>When Roll Over is enabled for a pose, head tilt determines the animation&#x27;s playback position, so normal MotionTime settings are unavailable. To use a complete roll-over animation, assign it to the regular animation field and leave Sideways roll-over pose empty. Prepare an animation with the left side at playback position 0, back-lying at 0.5 and the right side at 1.</p>
+<h3>Breathing and default idle sway</h3>
+<p>Features &gt; Convenience &gt; Animate breathing adds breathing motion to the chest and other parts. Open settings lets you choose None, Weak, Medium, Strong, Rapid or Custom for each posture category. Rapid uses faster breathing. Custom lets you assign your own breathing animation.</p>
+<p>Breathing animation alone uses 0 bit. To stop or resume it in VRChat, also enable Menu features &gt; Breathing. Synchronizing ON/OFF uses 1 bit. Changing the intensity does not increase bit usage.</p>
+<p>The neck, shoulders and arms move with the chest to reduce head and hand displacement. Their positions are not perfectly fixed, so choose an intensity suited to the body shape and pose.</p>
+<p>Convenience &gt; Disable VRChat idle sway reduces the idle body sway applied by VRChat. It defaults to off and preserves the posing tool&#x27;s breathing and other custom motions. It can be enabled without breathing and uses no additional bits. It does not stop movement caused by something other than the default idle animation.</p>
+<p>With multiple posing tools, enabling idle-sway suppression in any one affects the whole avatar. To restore it, turn this setting off in every tool and re-upload.</p>
+<h3>Reduce pose distortion from head rotation</h3>
+<p>Use this if releasing head lock distorts a pose because the neck orientation differs from the original pose. It is under Features &gt; Convenience and does not add an in-game menu entry. While head lock is active, the original pose&#x27;s orientation is used. Back-lying poses are excluded to preserve their original upward-facing orientation.</p>
+<h3>Menu icon images</h3>
+<ul>
+<li>Generate pose icons creates images of the avatar in each pose for the menu. This makes poses easier to recognize but adds image-generation time to the build.</li>
+<li>Reduce icon size lowers the image resolution to reduce avatar size.</li>
+</ul>
+<p>Pose icons are not generated for Android builds. Use Retake icons after changing clothing or appearance. Use Update pose thumbnails to refresh the pose-list images. These operations take time; read the confirmation dialog before proceeding.</p>
+<h2>Adding, reordering and previewing poses</h2>
+<p>Choose a posture category on the left of Poses. The magnifying-glass tab at the top searches pose names across categories. Details groups the animation, icon, MotionTime and other settings.</p>
+<p>To add multiple animations, drag them into the add area, or select them in the Project window and click Load selected clips from Project. Duplicate clips are excluded.</p>
+<p>To reorder a pose, choose its destination under Details &gt; Order. The up/down buttons are also available. Moving a pose preserves whether its details are expanded.</p>
+<p>Click Preview for a pose to inspect it in the Scene without opening the adjustment window. Ending the preview restores the original display. This quick preview does not run MA or NDMF builds, so it can differ from the final clothing or FloorAdjuster result assembled during a build. Check the final clothing and ground contact after building the avatar as well.</p>
+<h2>Animation adjustment and automatic limb adjustment (IK)</h2>
+<p>Open Animation adjustment under Poses to adjust the body and limbs while previewing. Save the adjustment animation using the window&#x27;s save controls when finished.</p>
+<p>Supported products and poses use automatic limb adjustment to fit limb positions to the avatar&#x27;s body. Use Enable automatic limb adjustment in the animation adjustment window for the overall setting and Enable IK for this pose for individual poses. Poses without automatic adjustment are identified as such.</p>
+<p>To finish the automatic result by hand, click Bake IK into adjustments. This writes the current IK result to a new adjustment animation and disables IK for that pose on that avatar. The original animation is preserved. The button is available when overall and per-pose automatic adjustment are enabled and usable IK settings exist.</p>
+<p>Under Avatar Setup, Prevent reverse knee bending toggles knee correction. Set Minimum knee bend (degrees) in its details. Enable avatar correction is available when compatible correction data exists. Corrections that overlap with automatic limb adjustment may not be usable together.</p>
+<h2>Original poses, custom motions and presets</h2>
+<p>Configure these under Avatar Setup.</p>
+<ul>
+<li>Use original standing, crouching and prone poses automatically imports the poses originally assigned to the avatar.</li>
+<li>Use your own motions opens import settings to assign a motion separately for each type, such as standing, Crouching or Prone. Normally, assign one motion per type.</li>
+<li>Integrate tracking locks with other tools can be enabled if the locking features do not work correctly alongside other gimmicks.</li>
+</ul>
+<p>Manually assigning motions in the import settings is separate from automatically importing the avatar&#x27;s original poses.</p>
+<p>Presets are at the bottom of the tab. Search by name and click Apply this preset to replace the pose settings. Presets are primarily a starting configuration for installation. They replace current settings, so save any existing adjustments before switching.</p>
+<p>Displaying the preset list loads only names and supported-avatar information. Adjustment animations are loaded when the selected preset is applied. Even the first listing does not preload animations for every avatar.</p>
+<p>The list is grouped into Compatible with avatar, User-created and Unisaki Studio official. Hide bundled presets is a shared display preference within the project. Adding, editing or deleting presets refreshes the list. Click Reload if the display has not updated.</p>
+<h2>Prebuilds and warnings</h2>
+<p>With Use original standing, crouching and prone poses enabled, motions are detected from the avatar&#x27;s Base each time data is generated. Detection does not write back to the manual import settings, so automatically imported types remain unassigned in that list. Changes to Base motions or automatic-import ON/OFF take effect at the next generation.</p>
+<p>Automatic imports at upload time apply to the build copy. They do not modify the original scene object, import settings, source Controller or motions. An existing prebuild is reused when its inputs have not changed.</p>
+<p>A type with a manual assignment uses that setting, including rotation, adjustment animation and playback-position settings. Turning Use off or removing an assigned motion stops automatic import for that type. Clear manual selection removes that type&#x27;s settings and adjustments; if automatic import is enabled, the next generation detects it again. This operation supports Undo. If multiple legacy settings exist for one type, the valid setting selected in the Inspector takes precedence.</p>
+<p>Settings added to the list by older automatic-import versions cannot be distinguished from manually registered or adjusted settings and are not automatically deleted. Use Clear manual selection only for types you want to return to automatic import. With multiple products on an avatar, manual settings in the other products also affect the shared original poses.</p>
+<p>Prebuilds reuse generated data to shorten avatar builds. Create or refresh them with Update prebuild. Normal avatar builds also generate the necessary data, so you do not need to prebuild manually every time.</p>
+<p>Changing settings marks the prebuild as needing an update. Check settings at the top of the Inspector and the Hierarchy markers notify you. Refreshing the prebuild after changing poses or IK settings reduces subsequent build time.</p>
+<p>Warning display settings are inside Check settings. You can hide individual warning types or Hierarchy markers. Hiding a warning does not fix its cause or refresh generated data. Errors and required generation still apply.</p>
+<h2>Usage notes</h2>
+<ul>
+<li>Intended for three-point tracking and desktop use. Pose locking during full-body tracking is unsupported.</li>
+<li>Body shape and avatar modifications may require further adjustments to limb contact or clothing.</li>
+<li>Special Base layers or other pose-changing gimmicks may prevent the intended behavior.</li>
+<li>Photo Mode movement/rotation and Floor Height correct tool poses and the default/custom motions used when no tool pose is selected. Check the actual VRChat client for replaced default motions and viewpoint behavior.</li>
+</ul>
+<h2>Terms of use and support</h2>
+<p>The source code and resources in this repository are not open source. Use requires a legitimate product purchase and agreement to the <a href="../../../%E3%82%86%E3%81%AB%E3%81%95%E3%81%8D%E3%83%9D%E3%83%BC%E3%82%BA%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E5%88%A9%E7%94%A8%E8%A6%8F%E7%B4%84%EF%BC%88%E6%97%A5%E6%9C%AC%E8%AA%9E%E7%89%88%EF%BC%89.pdf">bundled terms of use</a>.</p>
+<ul>
+<li><a href="https://docs.unisakistudio.jp/kawaiiposing/manual/">Kawaii Posing Tool manual</a></li>
+<li><a href="https://docs.unisakistudio.jp/coolposing/manual/">Cool Posing Tool manual</a></li>
+<li><a href="https://help.unisakistudio.jp/">Support</a></li>
+</ul>
+<p>When reporting an issue, include the product and Unisaki Posing System versions; Unity, VRChat SDK, Modular Avatar and NDMF versions; avatar used; reproduction steps; and Console error details.</p></main>
+</body></html>

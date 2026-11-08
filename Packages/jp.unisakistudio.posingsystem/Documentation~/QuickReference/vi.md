@@ -1,8 +1,8 @@
 # Tiếng Việt — Unisaki Posing System / Hướng dẫn
 
-> Quick reference generated from existing interface translations. This is not a complete translated manual. The full guide is available in English.
+> Tham khảo nhanh 30 ngôn ngữ gồm giải thích tính năng và bảng tên tư thế chuẩn. Đây là tài liệu ngắn gọn; dùng mục lục ngôn ngữ để đọc tài liệu đầy đủ.
 
-[Language / 言語](index.md) · [English — Hướng dẫn](../UserGuide.en.md)
+[🌐](../Localization/index.md) · [Hướng dẫn](../Localization/vi/UserGuide.md)
 
 ## Tính năng
 
@@ -241,4 +241,4 @@ Xóa thiết lập và phần chỉnh thủ công của loại chuyển động 
 | 騎士 | Hiệp sĩ |
 | 魔王降臨 | Chúa quỷ |
 
-[English — Hướng dẫn](../UserGuide.en.md)
+[Hướng dẫn](../Localization/vi/UserGuide.md)

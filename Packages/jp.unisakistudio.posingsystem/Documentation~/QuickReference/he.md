@@ -1,8 +1,8 @@
 # עברית — Unisaki Posing System / מדריך
 
-> Quick reference generated from existing interface translations. This is not a complete translated manual. The full guide is available in English.
+> מדריכי עזר ב-30 שפות כוללים הסברי תכונות וטבלאות שמות של תנוחות רגילות. אלה מסמכי עזר תמציתיים; את התיעוד המלא פותחים מרשימת השפות.
 
-[Language / 言語](index.md) · [English — מדריך](../UserGuide.en.md)
+[🌐](../Localization/index.md) · [מדריך](../Localization/he/UserGuide.md)
 
 ## תכונות
 
@@ -241,4 +241,4 @@
 | 騎士 | אביר |
 | 魔王降臨 | אדון השדים |
 
-[English — מדריך](../UserGuide.en.md)
+[מדריך](../Localization/he/UserGuide.md)

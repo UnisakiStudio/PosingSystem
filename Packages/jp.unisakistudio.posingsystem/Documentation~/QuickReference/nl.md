@@ -1,8 +1,8 @@
 # Nederlands — Unisaki Posing System / Handleiding
 
-> Quick reference generated from existing interface translations. This is not a complete translated manual. The full guide is available in English.
+> De korte referenties in 30 talen bevatten functies en standaardposetabellen. Het zijn beknopte naslagwerken; de talenindex biedt volledige documentatie.
 
-[Language / 言語](index.md) · [English — Handleiding](../UserGuide.en.md)
+[🌐](../Localization/index.md) · [Handleiding](../Localization/nl/UserGuide.md)
 
 ## Functies
 
@@ -241,4 +241,4 @@ Wist handmatige instellingen en aanpassingen voor dit bewegingstype. Als automat
 | 騎士 | Ridder |
 | 魔王降臨 | Demonenheer |
 
-[English — Handleiding](../UserGuide.en.md)
+[Handleiding](../Localization/nl/UserGuide.md)

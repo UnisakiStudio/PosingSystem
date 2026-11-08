@@ -1,8 +1,8 @@
 # العربية — Unisaki Posing System / الدليل
 
-> Quick reference generated from existing interface translations. This is not a complete translated manual. The full guide is available in English.
+> تغطي المراجع السريعة بـ30 لغة شرح الميزات وجداول أسماء الوضعيات القياسية. هذه مراجع موجزة؛ استخدم فهرس اللغات للوثائق الكاملة.
 
-[Language / 言語](index.md) · [English — الدليل](../UserGuide.en.md)
+[🌐](../Localization/index.md) · [الدليل](../Localization/ar/UserGuide.md)
 
 ## الميزات
 
@@ -241,4 +241,4 @@
 | 騎士 | فارس |
 | 魔王降臨 | سيد الشياطين |
 
-[English — الدليل](../UserGuide.en.md)
+[الدليل](../Localization/ar/UserGuide.md)

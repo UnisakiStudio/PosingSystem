@@ -1,8 +1,8 @@
 # Italiano — Unisaki Posing System / Guida
 
-> Quick reference generated from existing interface translations. This is not a complete translated manual. The full guide is available in English.
+> I riferimenti rapidi in 30 lingue contengono descrizioni delle funzioni e tabelle dei nomi delle pose standard. Sono riferimenti sintetici; usa l’indice delle lingue per la documentazione completa.
 
-[Language / 言語](index.md) · [English — Guida](../UserGuide.en.md)
+[🌐](../Localization/index.md) · [Guida](../Localization/it/UserGuide.md)
 
 ## Funzioni
 
@@ -241,4 +241,4 @@ Cancella le impostazioni e le regolazioni manuali di questo tipo di movimento. S
 | 騎士 | Cavaliere |
 | 魔王降臨 | Re demone |
 
-[English — Guida](../UserGuide.en.md)
+[Guida](../Localization/it/UserGuide.md)

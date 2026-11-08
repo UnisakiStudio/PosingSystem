@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="pl" dir="ltr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Unisaki Posing System</title><style>:root { color-scheme: light dark; font-family: system-ui, -apple-system, "Segoe UI", sans-serif; line-height: 1.7; }
+body { margin: auto; max-width: 70rem; padding: 1.5rem; overflow-wrap: anywhere; }
+nav { display: flex; flex-wrap: wrap; gap: .6rem 1.2rem; padding-block: 1rem; border-block-end: 1px solid #8887; }
+h1,h2,h3 { line-height: 1.4; } h2 { margin-block-start: 2.4rem; }
+table { border-collapse: collapse; width: 100%; } th,td { text-align: start; vertical-align: top; padding: .5rem; border: 1px solid #8887; }
+thead { background: #8882; } .table-scroll { overflow-x: auto; }
+code,pre { direction: ltr; unicode-bidi: isolate; } code { background: #8882; padding: .1em .25em; } pre { white-space: pre-wrap; }
+a { color: #2269b8; } a:visited { color: #7952ad; } li { margin-block: .35rem; }
+@media(prefers-color-scheme:dark) { a { color: #8ec5ff; } a:visited { color: #cfacff; } }
+@media print { nav { display: none; } body { max-width: none; padding: 0; } a { color: inherit; } }</style></head><body>
+<nav aria-label="Documentation"><a href="../index.html">Polski · 🌐</a><a href="README.html">README</a><a href="CHANGELOG.html">Historia zmian</a><a href="UserGuide.html">Unisaki Posing System 3.2.0 — polska instrukcja</a></nav>
+<main><h1>Unisaki Posing System</h1>
+<p>Wspólny system póz dla Kawaii Posing Tool, Cool Posing Tool i innych narzędzi. Za pomocą Modular Avatar i NDMF tworzy potrzebne menu oraz animacje podczas przesyłania awatara.</p>
+<p>Ten README dotyczy tworzonej wersji v3.2.0. Data oficjalnego wydania nie została ustalona. Zainstalowana wersja jest widoczna u góry Inspectora narzędzia póz. Zobacz również <a href="CHANGELOG.html">nowe funkcje i historię zmian</a>.</p>
+<h2>Język interfejsu i dokumentacja offline</h2>
+<p>Wybierz język w polu „Language / 言語” u góry Inspectora. Jeden wybór obejmuje Inspector i generowane menu VRChat. Aby zmienić język w grze, prześlij awatara ponownie.</p>
+<p>Jeżeli nie wybrano języka, używany jest język komputera, a dla nieobsługiwanego języka — angielski. Obsługiwane są Windows, macOS i Linux. Ostatni wybór jest zapisywany w EditorPrefs i używany także w innych projektach tego samego użytkownika systemu na tym komputerze. Jawny wybór zapisany w awatarze zostaje zachowany. Nie jest synchronizowany z innymi komputerami. Sposób przechowywania licencji nie zmienia się.</p>
+<p>README, historię zmian i instrukcję można wybrać z dołączonej <a href="../index.html">listy języków</a>. Przyciski instrukcji i historii zmian w Inspectorze również uwzględniają wybrany język. Oryginalne warunki użytkowania i tłumaczenia pomocnicze nadal są dostarczane osobno.</p>
+<h2>Zmiana póz w trybie pulpitu</h2>
+<p>Skrócono opóźnienie zastosowania wybranej pozy przy przechodzeniu między staniem, kucaniem i siedzeniem w trybie pulpitu. Zmiana działa podczas zwykłego budowania i budowania wstępnego bez specjalnych poleceń ani dodatkowych ustawień. VR i szczególne stany zachowują dotychczasową obsługę. Przed przesłaniem awatara zaktualizuj dane budowania wstępnego ze starej wersji.</p>
+<h2>Instalacja i aktualizacja</h2>
+<p>Dodaj narzędzie póz przez VCC lub ALCOM zgodnie z zakupionymi plikami i instrukcją danego produktu. Ten system jest instalowany jako zależność narzędzia póz.</p>
+<p>Wymagania wersji v3.2.0:</p>
+<ul>
+<li>Projekt awatara VRChat w Unity 2022.3</li>
+<li>VRChat Avatars SDK 3.10.4 lub nowszy</li>
+<li>Modular Avatar z gałęzi 1.x, w wersji co najmniej 1.15.1</li>
+<li>NDMF (Non-Destructive Modular Framework) z gałęzi 1.x, w wersji co najmniej 1.14.0</li>
+</ul>
+<p>Jeżeli używasz Kawaii Posing Tool, zaktualizuj go do 3.2.0 w ALCOM / VCC i sprawdź, czy Unisaki Posing System również ma wersję 3.2.0. Jeśli korzystasz z budowania wstępnego, naciśnij „Aktualizuj budowanie wstępne”, zapisz scenę, a następnie prześlij awatara.</p>
+<p>Cool Posing Tool 1.2.0 korzysta ze wspólnego systemu 3.2.0. Aktualizuj produkt i wspólny system razem do zgodnych wersji.</p>
+<h3>Dla użytkowników dawnej wersji 8bit</h3>
+<p>Nowe instalacje korzystają teraz ze zwykłego Prefabu. Wyłącz niepotrzebne pozycje we Funkcjach, aby zmniejszyć zużycie. Sam wybór póz w podstawowej konfiguracji zużywa 8 bit.</p>
+<p>Dawny Prefab 8bit pozostaje w „Editor/Legacy” każdego produktu, aby zachować odwołania istniejących awatarów i presetów. Dalsze używanie dawnej wersji 8bit nie wymaga usuwania ani zastępowania Prefabu. Wybór wersji 8bit w menu dodawania Unity został usunięty.</p>
+<h2>Okno ustawień</h2>
+<p>Wybierz w Hierarchy „可愛いポーズ (Kawaii Posing)”, „カッコいいポーズ (Cool Posing)” lub inne narzędzie wewnątrz awatara, aby otworzyć ustawienia.</p>
+<div class="table-scroll"><table><thead><tr><th>Karta</th><th>Ustawienia</th></tr></thead><tbody>
+<tr><td>Funkcje</td><td>Pozycje menu w grze, udogodnienia, ikony i zużycie ExpressionParameters</td></tr>
+<tr><td>Pozy</td><td>Wybór, dodawanie i kolejność póz, podgląd w Scene, szczegóły póz i dostosowywanie animacji</td></tr>
+<tr><td>Konfiguracja awatara</td><td>Korekcja proporcji ciała i kolan, import oryginalnych póz i własnych ruchów, presety</td></tr>
+</tbody></table></div>
+<p>Jeśli pozycja ma dodatkowe ustawienia, naciśnij „Otwórz ustawienia”: pola pojawią się pod nią. Ustawienia oddechu również są we Funkcjach.</p>
+<p>Górny panel pomocy i historii zmian otwiera instrukcję, wsparcie i historię zmian. Historię można przełączać między produktem a Unisaki Posing System.</p>
+<h2>Funkcje i zużycie ExpressionParameters</h2>
+<p>Pozycje wybrane w „Funkcje &gt; Funkcje menu” pojawiają się w menu gry. Na przykład „Odbicie” pozwala przełączać odbicie w VRChat. Sam wybór tej pozycji w Inspectorze nie wymusza stałego odbicia wszystkich póz.</p>
+<div class="table-scroll"><table><thead><tr><th>Funkcja</th><th>Dodatkowe bity</th></tr></thead><tbody>
+<tr><td>Odbicie</td><td>1 bit</td></tr>
+<tr><td>Bez gestów</td><td>1 bit</td></tr>
+<tr><td>Animuj oddech</td><td>0 bit</td></tr>
+<tr><td>Oddech (przełącznik w grze)</td><td>1 bit</td></tr>
+<tr><td>Wysokość stóp</td><td>8 bit</td></tr>
+<tr><td>Wysokość ziemi</td><td>8 bit</td></tr>
+<tr><td>Tryb zdjęć (tylko na własnym ekranie)</td><td>0 bit</td></tr>
+<tr><td>Synchronizuj tryb zdjęć</td><td>16 bit</td></tr>
+<tr><td>Pokazuj głowę w trybie zdjęć</td><td>0 bit</td></tr>
+<tr><td>Wyłącz kołysanie w spoczynku VRChat</td><td>0 bit</td></tr>
+<tr><td>Ogranicz deformację pozy przy obrocie głowy</td><td>1 bit (wspólny z obracaniem)</td></tr>
+<tr><td>Obróć się</td><td>10 bit (w tym 1 bit wspólny z ograniczeniem deformacji)</td></tr>
+</tbody></table></div>
+<p>Obracanie używa 1 bit na przełącznik, 8 bit na nachylenie głowy i 1 bit na jej blokadę. Jeśli ograniczenie deformacji pozy już działa, dodanie obracania zwiększa zużycie o 9 bit. Wspólna część nie jest liczona dwa razy, a wynik aktualizuje się po zmianie zaznaczeń.</p>
+<p>Wyświetlana suma dotyczy tylko narzędzi póz zainstalowanych na tym awatarze. Nie obejmuje całego awatara z ubraniami i innymi funkcjami. Wspólne ustawienia kilku narzędzi również nie są liczone ponownie. Gdy liczba póz przekracza podstawowy zakres numeracji, ich wybór wymaga dodatkowych bitów.</p>
+<h3>Wysokość stóp i wysokość ziemi</h3>
+<ul>
+<li>„Wysokość stóp”: reguluje wysokość po stronie stóp, zachowując pozycję głowy. Służy do dopasowania stóp do podłogi lub łóżka.</li>
+<li>„Wysokość ziemi”: przesuwa całe ciało wraz z głową w górę i w dół. 50% to pierwotna wysokość, 0% — o 3m niżej, 100% — o 3m wyżej. Wartość początkowa wynosi 50%.</li>
+</ul>
+<p>Obie pozycje są w menu „Ustawienia” w grze, gdzie Wysokość ziemi następuje po Wysokości stóp. Odsunięcie wysokości ziemi od środka przesuwa ciało w górę lub w dół. Powrót w okolice 50% przywraca pierwotną wysokość i kończy korekcję. Nie ma osobnego przełącznika unoszenia. Korekcja punktu widzenia działa przy rozpoczęciu unoszenia oraz podczas regulacji wysokości ziemi.</p>
+<p>Dla zwykłych animacji regulacja wysokości stóp nie tworzy już powtórnie ruchu całego ciała na potrzeby zmiany wysokości. Zmniejsza to rozmiar tworzonych animacji, ale nie oznacza, że cały awatar zawsze maleje do 1/3.</p>
+<h3>Tryb zdjęć</h3>
+<ol>
+<li>Włącz „Funkcje &gt; Funkcje menu &gt; Tryb zdjęć”.</li>
+<li>Otwórz Tryb zdjęć w VRChat i wybierz pozę przez „Wybierz pozę”.</li>
+<li>Suwakiem „Odległość” przesuń awatara do 3m do przodu, a suwakiem „Kierunek” obróć go. Jeśli odległość jest większa od 0, awatar zwraca się do ciebie.</li>
+<li>W razie potrzeby włącz „Blokuj stopy”. Na początku blokada nie jest wymuszana, więc możesz wcześniej dopasować pozycję. Jeśli dodano „Bez gestów” do menu, na tym samym ekranie można też zmieniać kształt dłoni.</li>
+<li>Wybierz „Zakończ zdjęcia”, aby wyzerować odległość i kierunek oraz zwolnić blokadę stóp.</li>
+</ol>
+<p>Ruch i obrót w trybie zdjęć zużywają 0 bit, gdy działają tylko na własnym ekranie. Aby inni widzieli pozycję i kierunek, włącz „Udogodnienia &gt; Synchronizuj tryb zdjęć”. Odległość i kierunek razem zużywają 16 bit.</p>
+<p>Jeśli głowa własnego awatara znika z bliska, włącz „Udogodnienia &gt; Pokazuj głowę w trybie zdjęć”. Ustawienie wpływa tylko na twój ekran podczas zdjęć. Po zakończeniu wraca zwykła widoczność.</p>
+<h3>Zmiana pozycji leżącej skokiem</h3>
+<p>Jeśli wybrano pozę na plecach i na brzuchu, można je przełączać skokiem w miejscu. Gdy wybrano tylko jedną, pozostaje aktywna. Jeśli nie chcesz przełączania skokiem, wyłącz „Zmieniaj pozycję leżącą skokiem” w Unity, w „Funkcje → Udogodnienia”. Dodatkowe zużycie parametrów synchronizowanych wynosi 0 bit. Przy kilku narzędziach póz wyłączenie w dowolnym z nich obejmuje cały awatar.</p>
+<h3>Obróć się</h3>
+<p>W obsługiwanych pozycjach leżących ciało płynnie obraca się zgodnie z przechyleniem głowy w lewo lub w prawo. Funkcja nie dodaje automatycznej obsługi wszystkich leżących póz.</p>
+<ol>
+<li>Włącz „Funkcje &gt; Funkcje menu &gt; Obróć się”.</li>
+<li>Na karcie Pozy otwórz szczegóły odpowiedniej pozy leżącej i włącz „Włącz obracanie”.</li>
+<li>Przypisz animację na boku w polu „Boczna poza obracania”. Obracanie w lewo i w prawo jest tworzone z oryginalnej i bocznej pozy. W razie potrzeby dopasuj „Siła korekcji podłoża”.</li>
+<li>W VRChat wybierz obsługiwaną pozę i włącz „Obróć się”. Przed użyciem zwolnij blokadę głowy.</li>
+</ol>
+<p>W pozach z obracaniem przechylenie głowy steruje pozycją odtwarzania animacji, więc zwykłe ustawienie MotionTime jest niedostępne. Jeśli używasz gotowej animacji obracania, przypisz ją w zwykłym polu animacji, pozostawiając Boczną pozę obracania pustą. Przygotuj animację, w której 0 oznacza lewy bok, 0.5 — plecy, a 1 — prawy bok.</p>
+<h3>Oddech i standardowe kołysanie</h3>
+<p>„Funkcje &gt; Udogodnienia &gt; Animuj oddech” dodaje ruch zgodny z oddechem, na przykład klatki piersiowej. Przez Otwórz ustawienia można wybrać dla każdej kategorii poz: Brak, Słabe, Średnie, Silne, Szybkie lub Własne. Szybkie oznacza przyspieszony oddech. Własne pozwala przypisać przygotowaną przez siebie animację.</p>
+<p>Sam ruch oddechu zużywa 0 bit. Aby zatrzymywać i wznawiać go w VRChat, włącz też „Funkcje menu &gt; Oddech”. Synchronizacja przełącznika wykorzystuje 1 bit. Zmiana siły nie zwiększa zużycia.</p>
+<p>Szyja, barki i ramiona poruszają się wraz z klatką piersiową, ograniczając przesunięcie głowy i dłoni. Pozycja nie jest całkowicie zablokowana, więc dobierz siłę do budowy ciała i pozy.</p>
+<p>„Udogodnienia &gt; Wyłącz kołysanie w spoczynku VRChat” ogranicza standardowe kołysanie ciała w bezruchu. Domyślnie jest wyłączone i zachowuje oddech narzędzia oraz inne własne ruchy. Można używać tej opcji również bez oddechu; nie zwiększa liczby bitów. Nie zatrzymuje kołysania wynikającego z innych przyczyn niż standardowa animacja spoczynku.</p>
+<p>Przy kilku narzędziach póz wyłączenie standardowego kołysania w dowolnym z nich obejmuje cały awatar. Aby je przywrócić, wyłącz tę opcję we wszystkich narzędziach i prześlij awatara ponownie.</p>
+<h3>Ogranicz deformację pozy przy obrocie głowy</h3>
+<p>Użyj tej opcji, jeśli różnica kierunku szyi względem oryginalnej pozy deformuje ciało po zwolnieniu blokady głowy. Znajduje się w „Funkcje &gt; Udogodnienia” i nie dodaje osobnego menu gry. Przy zablokowanej głowie używa kierunku oryginalnej pozy. Leżenie na plecach jest wyłączone z korekcji, aby zachować pierwotne skierowanie w górę.</p>
+<h3>Ikony menu</h3>
+<ul>
+<li>„Generuj ikony poz”: tworzy obrazy awatara w każdej pozie i pokazuje je w menu. Ułatwia rozpoznawanie póz, ale tworzenie obrazów wydłuża budowanie.</li>
+<li>„Zmniejsz rozmiar ikon”: obniża rozdzielczość obrazów, aby zmniejszyć rozmiar awatara.</li>
+</ul>
+<p>W kompilacjach dla Androida ikony poz nie są tworzone. Po zmianie ubrania lub wyglądu użyj Ponownie zrób ikony. Obrazy listy poz aktualizuje Odśwież miniatury poz. Operacja zajmuje czas, więc przeczytaj potwierdzenie przed uruchomieniem.</p>
+<h2>Dodawanie, porządkowanie i podgląd póz</h2>
+<p>Wybierz kategorię po lewej stronie karty Pozy. Górna karta z lupą wyszukuje nazwy we wszystkich kategoriach. Szczegóły pozwalają razem ustawić animację, ikonę, MotionTime i inne opcje.</p>
+<p>Kilka animacji można dodać, przeciągając je do obszaru dodawania lub wybierając w Project i używając polecenia importowania zaznaczonych klipów. Powtórzone odwołania do tego samego klipu są pomijane.</p>
+<p>Aby zmienić kolejność, wybierz miejsce docelowe w „Szczegóły &gt; Kolejność”. Dostępne są też przyciski w górę i w dół. Stan rozwinięcia szczegółów pozostaje zachowany po przesunięciu.</p>
+<p>Podgląd przy każdej pozie pokazuje ją w Scene bez otwierania okna dostosowania. Zakończenie przywraca pierwotny widok. Uproszczony podgląd nie uruchamia budowania MA ani NDMF, więc może różnić się od ostatecznego ubrania, FloorAdjuster i innych efektów budowania. Sprawdź ubranie i kontakt z podłożem również po zbudowaniu awatara.</p>
+<h2>Dostosowywanie animacji i automatyczna korekcja kończyn (IK)</h2>
+<p>Otwórz Dostosowywanie animacji na karcie Pozy, aby dokładnie ustawić ciało i kończyny z podglądem. Po zakończeniu zapisz animację korekcji poleceniem zapisu w tym oknie.</p>
+<p>W obsługiwanych produktach i pozach automatyczna korekcja dopasowuje pozycje kończyn do budowy awatara. Włącz automatyczną korekcję kończyn w oknie dostosowania animacji steruje całą funkcją, a Włącz IK tej pozy — pojedynczą pozą. Dla pozy bez automatycznej korekcji pojawia się odpowiednia informacja.</p>
+<p>Aby ręcznie dopracować wynik automatyczny, naciśnij Wypal IK do korekcji. Bieżący wynik IK zostanie zapisany w nowej animacji korekcji, a IK tej pozy na danym awatarze zostanie wyłączone. Oryginalna animacja pozostaje. Przycisk jest dostępny, gdy korekcja ogólna i danej pozy są włączone oraz istnieją odpowiednie ustawienia IK.</p>
+<p>W Konfiguracji awatara opcja Zapobiegaj wyginaniu kolan do tyłu przełącza korekcję kolan. W Szczegółach ustaw Minimalne zgięcie kolana (stopnie). Włącz korekcję awatara jest dostępne, gdy istnieją odpowiednie dane korekcji. Nakładające się korekcje nie zawsze mogą działać razem z automatyczną korekcją kończyn.</p>
+<h2>Oryginalne pozy, własne ruchy i presety</h2>
+<p>Te opcje znajdują się na karcie Konfiguracja awatara.</p>
+<ul>
+<li>„Używaj oryginalnych poz stojących, kucających i na brzuchu”: automatycznie importuje pierwotne pozy awatara.</li>
+<li>„Własne ruchy”: otwórz ustawienia importu i osobno przypisz ruch dla każdego typu, np. stania, kucania (Crouching) i leżenia na brzuchu (Prone). Zwykle przypisuje się jeden ruch do typu.</li>
+<li>„Połącz blokady śledzenia z innymi narzędziami”: włącz, jeśli blokady nie działają poprawnie wraz z innymi funkcjami awatara.</li>
+</ul>
+<p>Ustawienia importowania własnych ruchów są osobną funkcją od automatycznego importowania oryginalnych póz.</p>
+<p>Presety są na dole karty. Wyszukaj po nazwie i naciśnij Zastosuj ten preset, aby zastąpić ustawienia poz. Służą przede wszystkim do konfiguracji początkowej i zastępują bieżące ustawienia. Zapisz wykonane korekcje przed zmianą.</p>
+<p>Podczas wyświetlania listy presetów wczytywane są tylko nazwy i informacje o zgodnych awatarach. Animacje korekcji wczytują się dopiero przy zastosowaniu wybranego presetu. Nawet pierwsze utworzenie listy nie wczytuje zawczasu animacji wszystkich awatarów.</p>
+<p>Lista dzieli się na Zgodny awatar, Presety użytkownika i Oficjalne presety Unisaki Studio. Ukryj dołączone presety to wspólna opcja widoku w danym projekcie. Dodanie, zmiana lub usunięcie presetu aktualizuje listę. Jeśli widok się nie zmienił, naciśnij Odśwież.</p>
+<h2>Budowanie wstępne i ostrzeżenia</h2>
+<p>Gdy Używaj oryginalnych poz stojących, kucających i na brzuchu jest włączone, ruchy są wykrywane z Base awatara przy każdym generowaniu. Wyniki nie trafiają do ręcznych ustawień importu, więc przy samym imporcie automatycznym lista pozostaje nieprzypisana. Zmiany ruchów Base i przełączenie automatycznego importu są uwzględniane w następnym generowaniu.</p>
+<p>Automatyczny import podczas przesyłania dotyczy kopii budowania. Nie zmienia oryginalnego obiektu sceny, ustawień importu, źródłowych Controllerów ani ruchów. Jeśli istnieje wynik budowania wstępnego i dane wejściowe się nie zmieniły, jest używany ponownie.</p>
+<p>Ręczne przypisanie ma pierwszeństwo dla danego typu; uwzględnia też obrót, animację korekcji i pozycję odtwarzania. Wyłączenie Użyj lub odpięcie przypisanego ruchu zatrzymuje automatyczny import typu. Wyczyść wybór ręczny usuwa jego ustawienia i korekcje, więc przy włączonym automatycznym imporcie kolejne generowanie wykryje ruch ponownie. Czynność można cofnąć przez Undo. Przy kilku dawnych ustawieniach tego samego typu pierwszeństwo ma poprawne ustawienie wybrane w Inspectorze.</p>
+<p>Ustawień dodanych dawnym automatycznym importem nie da się odróżnić od ręcznie zapisanych i skorygowanych, więc nie są usuwane automatycznie. Użyj Wyczyść wybór ręczny tylko dla typów, które chcesz przywrócić do automatycznego importu. Jeśli kilka produktów jest na tym samym awatarze, ich ręczne ustawienia także wpływają na wspólne oryginalne pozy.</p>
+<p>Budowanie wstępne skraca czas budowania awatara dzięki ponownemu użyciu wygenerowanych danych. Możesz je utworzyć lub odświeżyć przez Aktualizuj budowanie wstępne. Zwykłe budowanie awatara również tworzy potrzebne dane, więc ręczne budowanie wstępne za każdym razem nie jest konieczne.</p>
+<p>Zmiana ustawień wymaga aktualizacji. Informują o tym Sprawdź ustawienia u góry Inspectora oraz znacznik w Hierarchy. Po zmianie poz lub IK aktualizacja budowania wstępnego może skrócić kolejne budowania.</p>
+<p>Wyświetlanie ostrzeżeń jest wewnątrz ramki Sprawdź ustawienia. Można ukryć konkretne rodzaje ostrzeżeń albo znacznik Hierarchy. Ukrycie nie rozwiązuje problemu ustawień ani nie aktualizuje wygenerowanych danych. Błędy i wymagane generowanie pozostają bez zmian.</p>
+<h2>Uwagi dotyczące używania</h2>
+<ul>
+<li>Przeznaczone do śledzenia 3 punktów i trybu pulpitu. Blokada poz podczas pełnego śledzenia ciała nie jest obsługiwana.</li>
+<li>Budowa ciała i modyfikacje mogą wymagać dodatkowego dopasowania kontaktu kończyn oraz wyglądu ubrania.</li>
+<li>Szczególne warstwy Base i inne mechanizmy zmiany poz mogą nie działać zgodnie z oczekiwaniami.</li>
+<li>Ruch i obrót trybu zdjęć oraz wysokość ziemi korygują pozy narzędzia, a także standardowe i własne ruchy bez wybranej pozy. Sprawdź w samym VRChat punkt widzenia i zachowanie po zastąpieniu standardowych ruchów.</li>
+</ul>
+<h2>Warunki użytkowania i wsparcie</h2>
+<p>Kod źródłowy i zasoby tego repozytorium nie są otwartym oprogramowaniem. Używanie wymaga legalnego zakupu produktu i przyjęcia <a href="../../../%E3%82%86%E3%81%AB%E3%81%95%E3%81%8D%E3%83%9D%E3%83%BC%E3%82%BA%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E5%88%A9%E7%94%A8%E8%A6%8F%E7%B4%84%EF%BC%88%E6%97%A5%E6%9C%AC%E8%AA%9E%E7%89%88%EF%BC%89.pdf">dołączonych warunków</a>.</p>
+<ul>
+<li><a href="https://docs.unisakistudio.jp/kawaiiposing/manual/">Instrukcja Kawaii Posing Tool</a></li>
+<li><a href="https://docs.unisakistudio.jp/coolposing/manual/">Instrukcja Cool Posing Tool</a></li>
+<li><a href="https://help.unisakistudio.jp/">Kontakt ze wsparciem</a></li>
+</ul>
+<p>Zgłaszając błąd, podaj wersje produktu i Unisaki Posing System, Unity, VRChat SDK, Modular Avatar i NDMF, używany awatar, kroki odtworzenia i treść błędu Console.</p></main>
+</body></html>

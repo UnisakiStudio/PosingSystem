@@ -1,8 +1,8 @@
 # Norsk — Unisaki Posing System / Brukerveiledning
 
-> Quick reference generated from existing interface translations. This is not a complete translated manual. The full guide is available in English.
+> Hurtigreferanser på 30 språk forklarer funksjoner og standardnavn i tabeller. De er korte referanser; bruk språkindeksen for full dokumentasjon.
 
-[Language / 言語](index.md) · [English — Brukerveiledning](../UserGuide.en.md)
+[🌐](../Localization/index.md) · [Brukerveiledning](../Localization/nb/UserGuide.md)
 
 ## Funksjoner
 
@@ -241,4 +241,4 @@ Fjerner manuelle innstillinger og justeringer for denne bevegelsestypen. Hvis au
 | 騎士 | Ridder |
 | 魔王降臨 | Demonkonge |
 
-[English — Brukerveiledning](../UserGuide.en.md)
+[Brukerveiledning](../Localization/nb/UserGuide.md)

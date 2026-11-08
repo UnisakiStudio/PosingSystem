@@ -1,8 +1,8 @@
 # Svenska — Unisaki Posing System / Handbok
 
-> Quick reference generated from existing interface translations. This is not a complete translated manual. The full guide is available in English.
+> Snabbreferenser på 30 språk innehåller funktionsbeskrivningar och tabeller över standardposnamn. De är korta referenser; använd språkindexet för fullständig dokumentation.
 
-[Language / 言語](index.md) · [English — Handbok](../UserGuide.en.md)
+[🌐](../Localization/index.md) · [Handbok](../Localization/sv/UserGuide.md)
 
 ## Funktioner
 
@@ -241,4 +241,4 @@ Rensar manuella inställningar och justeringar för den här rörelsetypen. Om a
 | 騎士 | Riddare |
 | 魔王降臨 | Demonfurste |
 
-[English — Handbok](../UserGuide.en.md)
+[Handbok](../Localization/sv/UserGuide.md)

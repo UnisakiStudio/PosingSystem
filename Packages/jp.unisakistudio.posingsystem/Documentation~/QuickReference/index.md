@@ -1,8 +1,8 @@
 # Language / 言語 — Quick reference
 
-> Quick reference generated from existing interface translations. This is not a complete translated manual. The full guide is available in English.
+> Quick reference generated from existing interface translations. This is not a complete translated manual. Complete documentation is available in all 30 selectable languages.
 
-[English — Manual](../UserGuide.en.md)
+[🌐](../Localization/index.md)
 
 - [日本語](ja.md)
 - [English](en.md)

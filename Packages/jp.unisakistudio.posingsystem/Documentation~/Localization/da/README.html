@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="da" dir="ltr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Unisaki Posing System</title><style>:root { color-scheme: light dark; font-family: system-ui, -apple-system, "Segoe UI", sans-serif; line-height: 1.7; }
+body { margin: auto; max-width: 70rem; padding: 1.5rem; overflow-wrap: anywhere; }
+nav { display: flex; flex-wrap: wrap; gap: .6rem 1.2rem; padding-block: 1rem; border-block-end: 1px solid #8887; }
+h1,h2,h3 { line-height: 1.4; } h2 { margin-block-start: 2.4rem; }
+table { border-collapse: collapse; width: 100%; } th,td { text-align: start; vertical-align: top; padding: .5rem; border: 1px solid #8887; }
+thead { background: #8882; } .table-scroll { overflow-x: auto; }
+code,pre { direction: ltr; unicode-bidi: isolate; } code { background: #8882; padding: .1em .25em; } pre { white-space: pre-wrap; }
+a { color: #2269b8; } a:visited { color: #7952ad; } li { margin-block: .35rem; }
+@media(prefers-color-scheme:dark) { a { color: #8ec5ff; } a:visited { color: #cfacff; } }
+@media print { nav { display: none; } body { max-width: none; padding: 0; } a { color: inherit; } }</style></head><body>
+<nav aria-label="Documentation"><a href="../index.html">Dansk · 🌐</a><a href="README.html">README</a><a href="CHANGELOG.html">Ændringshistorik</a><a href="UserGuide.html">Unisaki Posing System 3.2.0 — Dansk vejledning</a></nav>
+<main><h1>Unisaki Posing System</h1>
+<p>Det fælles positursystem til blandt andet Kawaii Posing og Cool Posing. Med Modular Avatar og NDMF genererer det de nødvendige menuer og animationer ved avatarupload.</p>
+<p>Denne README gælder v3.2.0 under udvikling. Den endelige udgivelsesdato er ikke fastsat. Den installerede version vises øverst i værktøjets Inspector. Se også <a href="CHANGELOG.html">nye funktioner og ændringshistorik</a>.</p>
+<h2>Visningssprog og offlinedokumentation</h2>
+<p>Vælg visningssprog med ”Language / 言語” øverst i Inspector. Ét valg gælder både Inspector og den genererede VRChat-menu. Upload avataren igen for at ændre sproget i spillet.</p>
+<p>Uden et valg bruges computerens sprog, eller engelsk hvis sproget ikke understøttes. Windows, macOS og Linux understøttes. Det seneste valg gemmes i EditorPrefs og bruges i andre projekter for samme OS-bruger på denne computer. Avatarens udtrykkeligt gemte valg bevares. Valget synkroniseres ikke til andre computere. Licenslagringen ændres ikke.</p>
+<p>README, ændringshistorik og vejledning vælges fra den medfølgende <a href="../index.html">sprogliste</a>. Inspector-knapperne til vejledning og ændringshistorik følger også det valgte sprog. Originale brugsbetingelser og referenceoversættelser leveres fortsat separat.</p>
+<h2>Positurskift i skrivebordstilstand</h2>
+<p>Forsinkelsen fra skift mellem stående, hug og siddende til den valgte positur vises er reduceret i skrivebordstilstand. Det gælder almindelige builds og forberegning uden særlige kommandoer eller ekstra opsætning. VR og særlige tilstande bruger den hidtidige behandling. Opdatér ældre forberegninger før upload.</p>
+<h2>Installation og opdatering</h2>
+<p>Følg den købte fils og produktets installationsvejledning, og tilføj positurværktøjet via VCC eller ALCOM. Systemet installeres som en afhængighed af positurværktøjet.</p>
+<p>v3.2.0 kræver følgende miljø:</p>
+<ul>
+<li>Unity 2022.3-projekt til VRChat-avatarer</li>
+<li>VRChat Avatars SDK 3.10.4 eller nyere</li>
+<li>Modular Avatar 1.x fra 1.15.1</li>
+<li>NDMF (Non-Destructive Modular Framework) 1.x fra 1.14.0</li>
+</ul>
+<p>Bruger du Kawaii Posing, skal du opdatere det til 3.2.0 i ALCOM / VCC og kontrollere, at Unisaki Posing System også er 3.2.0. Bruger du forberegning, skal du trykke ”Opdatér forberegning”, gemme scenen og uploade avataren.</p>
+<p>Cool Posing 1.2.0 bruger det fælles system 3.2.0. Opdatér produkt og fælles system sammen til kompatible versioner.</p>
+<h3>Til brugere af 8bit-versionen</h3>
+<p>Nye tilføjelser bruger det almindelige Prefab. Slå unødvendige muligheder fra under ”Funktioner” for at reducere forbruget. Kun positurvalg bruger som udgangspunkt 8 bit.</p>
+<p>Ældre 8bit-Prefab bevares i hvert produkts ”Editor/Legacy” for eksisterende avatar- og forudindstillingsreferencer. Du behøver ikke slette eller erstatte Prefab for at fortsætte med dem. Valg af 8bit-version i Unitys menu for nye tilføjelser er afskaffet.</p>
+<h2>Sådan læses indstillingerne</h2>
+<p>Vælg ”可愛いポーズ”, ”カッコいいポーズ” eller det tilsvarende objekt inde i avataren i Hierarchy for at konfigurere værktøjet.</p>
+<div class="table-scroll"><table><thead><tr><th>Fane</th><th>Indstillinger</th></tr></thead><tbody>
+<tr><td>Funktioner</td><td>Spilmenuer, praktiske funktioner, ikoner og ExpressionParameters-forbrug</td></tr>
+<tr><td>Positurer</td><td>Valg, tilføjelse og rækkefølge, Scene-forhåndsvisning, detaljer og animationsjustering</td></tr>
+<tr><td>Avataropsætning</td><td>Tilpasning til kropsbygning, knækorrektion, import af oprindelige/egne bevægelser og forudindstillinger</td></tr>
+</tbody></table></div>
+<p>”Åbn indstillinger” åbner detaljer under det aktuelle punkt. Vejrtrækning konfigureres også under ”Funktioner”.</p>
+<p>Via hjælp/ændringshistorik øverst åbner du vejledning, support og ændringshistorik. Du kan skifte mellem produktets og Unisaki Posing Systems historik.</p>
+<h2>Funktioner og ExpressionParameters-forbrug</h2>
+<p>Valg under ”Funktioner &gt; Menufunktioner” vises i spilmenuen. ”Spejlvend” giver for eksempel mulighed for at skifte spejling i spillet; valget i Inspector tvinger ikke alle positurer til altid at være spejlede.</p>
+<div class="table-scroll"><table><thead><tr><th>Funktion</th><th>Ekstra bitforbrug</th></tr></thead><tbody>
+<tr><td>Spejlvend</td><td>1 bit</td></tr>
+<tr><td>Gestus fra</td><td>1 bit</td></tr>
+<tr><td>Animér vejrtrækning</td><td>0 bit</td></tr>
+<tr><td>Vejrtrækning (til/fra i spillet)</td><td>1 bit</td></tr>
+<tr><td>Fodhøjde</td><td>8 bit</td></tr>
+<tr><td>Gulvhøjde</td><td>8 bit</td></tr>
+<tr><td>Fototilstand (kun lokalt)</td><td>0 bit</td></tr>
+<tr><td>Synkronisér Fototilstand</td><td>16 bit</td></tr>
+<tr><td>Hold hovedet synligt i Fototilstand</td><td>0 bit</td></tr>
+<tr><td>Slå VRChats svajen i stilstand fra</td><td>0 bit</td></tr>
+<tr><td>Reducér forvrængning fra hovedrotation</td><td>1 bit (deles med Vend dig)</td></tr>
+<tr><td>Vend dig</td><td>10 bit (1 deles med hovedrotationskorrektion)</td></tr>
+</tbody></table></div>
+<p>Vend dig bruger 1 bit til til/fra, 8 bit til hovedhældning og 1 bit til nakkelås. Hvis hovedrotationskorrektionen allerede er aktiv, øger Vend dig forbruget med 9 bit. Delte bit tælles ikke dobbelt, og visningen opdateres ved ændrede valg.</p>
+<p>Totalen omfatter positurværktøjerne på avataren, ikke hele avataren med tøj og andre værktøjer. Fælles indstillinger tælles ikke dobbelt ved flere positurværktøjer. Hvis antallet af positurer overstiger det normale nummerområde, kræver positurvalg også ekstra bit.</p>
+<h3>Fodhøjde og gulvhøjde</h3>
+<ul>
+<li>”Fodhøjde”: justerer fodsidens højde med hovedet på samme sted. Bruges til at tilpasse fødder til gulv eller seng.</li>
+<li>”Gulvhøjde”: flytter hele kroppen inklusive hovedet op/ned. 50% er oprindelig højde, 0% er 3m ned og 100% er 3m op. Standardværdien er 50%.</li>
+</ul>
+<p>Begge findes under ”Indstillinger” i spillet, med Gulvhøjde efter Fodhøjde. Gulvhøjde flytter op/ned fra midten, og tæt på 50% vender kroppen tilbage, så korrektionen afsluttes. Der er ingen separat svæveknap. Synspunktet korrigeres, når svævningen starter, og mens gulvhøjden betjenes.</p>
+<p>For almindelige animationer genererer Fodhøjde ikke længere dublerede helkropsbevægelser til højdejusteringen. Det reducerer animationsdata, men betyder ikke, at hele avatarens størrelse altid bliver en tredjedel.</p>
+<h3>Fototilstand</h3>
+<ol>
+<li>Aktivér ”Funktioner &gt; Menufunktioner &gt; Fototilstand”.</li>
+<li>Åbn Fototilstand i VRChat og vælg en positur med ”Vælg positur”.</li>
+<li>Flyt op til 3m frem med ”Afstand” og drej med ”Retning”. Ved afstand over 0 vender avataren mod dig.</li>
+<li>Aktivér ”Lås fødder” efter behov. Fødderne låses ikke automatisk ved start, så du kan placere avataren først. Hvis Gestus fra er tilføjet, kan du også skifte håndform her.</li>
+<li>”Afslut foto” nulstiller afstand/retning og låser fødderne op.</li>
+</ol>
+<p>Bevægelse og rotation i Fototilstand bruger 0 bit, når de kun vises lokalt. Aktivér ”Praktiske funktioner &gt; Synkronisér Fototilstand”, hvis andre skal se position og retning. Det bruger i alt 16 bit.</p>
+<p>Aktivér ”Praktiske funktioner &gt; Hold hovedet synligt i Fototilstand”, hvis dit eget avatarhoved forsvinder tæt på kameraet. Det påvirker kun din visning under fotografering og vender tilbage til normal visning bagefter.</p>
+<h3>Skift liggende positurer ved at hoppe</h3>
+<p>Med både ryg- og mavepositur valgt kan du hoppe på stedet for at skifte. Med kun én valgt bevares den. Slå ”Skift liggende positurer ved at hoppe” fra under Unitys ”Funktioner → Praktiske funktioner”, hvis du ikke ønsker hoppeskift. Det bruger 0 ekstra synkroniserede bit. Med flere positurværktøjer på en avatar gælder deaktivering i ét værktøj for hele avataren.</p>
+<h3>Vend dig</h3>
+<p>I understøttede liggende positurer vender kroppen jævnt, når hovedet hældes mod venstre eller højre. Funktionen understøtter ikke automatisk alle liggende positurer.</p>
+<ol>
+<li>Aktivér ”Funktioner &gt; Menufunktioner &gt; Vend dig”.</li>
+<li>Åbn ”Detaljer” for den ønskede liggende positur under ”Positurer” og slå ”Aktivér Vend dig” til.</li>
+<li>Angiv en sidelæns animation under ”Sidepositur til vending”. Vendinger til begge sider dannes ud fra originalposituren og sideposituren. Justér ”Styrke af gulvkorrektion” efter behov.</li>
+<li>Vælg den understøttede positur i VRChat og slå Vend dig til. Nakkelåsen skal være slået fra.</li>
+</ol>
+<p>I positurer med Vend dig bestemmer hovedhældningen animationens afspilningsposition, så almindelig MotionTime ikke kan bruges. Vil du bruge en færdig vendeanimation, skal du angive den i det almindelige animationsfelt og lade ”Sidepositur til vending” stå tomt. Animationens position 0 skal være venstre side, 0.5 rygliggende og 1 højre side.</p>
+<h3>Vejrtrækning og standardsvajen</h3>
+<p>”Funktioner &gt; Praktiske funktioner &gt; Animér vejrtrækning” får blandt andet brystkassen til at bevæge sig med vejrtrækningen. Under ”Åbn indstillinger” kan hver kategori bruge Ingen, Svag, Middel, Stærk, Hurtig eller Egen. Hurtig giver hurtigere vejrtrækning; Egen lader dig angive din egen vejrtrækningsanimation.</p>
+<p>Selve vejrtrækningsbevægelsen bruger 0 bit. Aktivér også ”Menufunktioner &gt; Vejrtrækning” for at stoppe og genstarte den i VRChat. Til/fra-synkronisering bruger 1 bit. Styrken øger ikke bitforbruget.</p>
+<p>Nakke, skuldre og arme følger brystkassen for at begrænse hovedets og hændernes bevægelse. Positionerne er ikke helt låste, så vælg styrke efter kropsbygning og positur.</p>
+<p>”Praktiske funktioner &gt; Slå VRChats svajen i stilstand fra” dæmper den bevægelse, VRChat normalt tilføjer i stilstand. Det er som standard slået fra og bevarer værktøjets egen vejrtrækning og andre tilpassede bevægelser. Det kan vælges uden vejrtrækning og bruger ingen ekstra bit. Det stopper ikke svajen, der skyldes andet end standardanimationen i stilstand.</p>
+<p>Ved flere positurværktøjer gælder standsning af standardsvajen i ét af dem for hele avataren. Slå indstillingen fra i alle værktøjer og upload igen for at gendanne den.</p>
+<h3>Reducér forvrængning fra hovedrotation</h3>
+<p>Brug dette, hvis posituren forvrænges, når nakkelåsen frigives, fordi hovedets retning afviger fra originalposituren. Det findes under ”Funktioner &gt; Praktiske funktioner” og tilføjer ingen særlig spilmenu. Med låst nakke bruges originalpositurens retning. Rygliggende positurer undtages fra korrektionen for at bevare den oprindelige opadretning.</p>
+<h3>Menuikoner</h3>
+<ul>
+<li>”Generér positurikoner”: opretter billeder af avataren i hver positur til menuen. Positurer bliver lettere at kende, men billedgenerering øger byggetiden.</li>
+<li>”Reducér ikonstørrelse”: sænker opløsningen for at mindske avatarens størrelse.</li>
+</ul>
+<p>Der genereres ikke positurikoner til Android. Brug ”Tag ikoner igen” efter ændringer af for eksempel tøj. Positurlistens billeder opdateres med ”Opdatér positurminiaturer”. Læs bekræftelsesdialogen før disse tidskrævende handlinger.</p>
+<h2>Tilføjelse, rækkefølge og forhåndsvisning</h2>
+<p>Vælg kategori til venstre under ”Positurer”. Den øverste fane med forstørrelsesglasset søger efter navne på tværs af kategorier. Under ”Detaljer” samles animation, ikon, MotionTime og andre indstillinger.</p>
+<p>Tilføj flere animationer ved at trække dem til tilføjelsesfeltet, eller vælg dem i Project og tryk ”Importér klip valgt i Project”. Dubletter af samme klip fjernes.</p>
+<p>Vælg en målplacering under ”Detaljer &gt; Rækkefølge” for at omarrangere. Op-/nedknapperne kan også bruges. Detaljernes åbne/lukkede tilstand bevares ved flytning.</p>
+<p>”Forhåndsvisning” viser posituren i Scene uden at åbne justeringsvinduet. Den oprindelige visning vender tilbage bagefter. Denne lette forhåndsvisning kører ikke MA eller NDMF, så tøj og eksempelvis FloorAdjuster, der indarbejdes ved build, kan give et andet slutresultat. Kontrollér også endeligt tøj og gulvkontakt efter avatarbuild.</p>
+<h2>Animationsjustering og automatisk justering af lemmer (IK)</h2>
+<p>Åbn ”Animationsjustering” under ”Positurer” for at finjustere krop og lemmer med forhåndsvisning. Gem derefter justeringsanimationen med vinduets gemmefunktion.</p>
+<p>I understøttede produkter og positurer tilpasses lemmernes position til avatarens kropsbygning. ”Aktivér automatisk justering af lemmer” i animationsjusteringen styrer helheden, og ”Aktivér IK til denne positur” styrer hver positur. Positurer uden automatisk justering viser dette.</p>
+<p>Tryk ”Indarbejd IK i justeringer” for at arbejde manuelt videre fra automatisk justering. Det aktuelle IK-resultat skrives til en ny justeringsanimation, og IK slås fra for denne avatars positur. Originalanimationen bevares. Knappen kræver automatisk justering både globalt og for posituren samt gyldige IK-indstillinger.</p>
+<p>”Forhindr bagudbøjning af knæ” under ”Avataropsætning” styrer knækorrektion. Vinklen angives under ”Mindste knæbøjning (grader)” i detaljerne. ”Aktivér avatarspecifik korrektion” kræver tilsvarende korrektionsdata. Korrektioner, der overlapper automatisk lemjustering, kan være uforenelige.</p>
+<h2>Oprindelige positurer, egne bevægelser og forudindstillinger</h2>
+<p>Disse konfigureres under ”Avataropsætning”.</p>
+<ul>
+<li>”Brug oprindelige stående, hug- og mavepositurer”: importerer automatisk avatarens oprindelige positurer.</li>
+<li>”Brug egne bevægelser”: åbn importindstillinger og angiv bevægelser særskilt for stående, hug (Crouching), maveliggende (Prone) osv. Normalt bruges én bevægelse pr. type.</li>
+<li>”Integrér sporingslåsninger med andre værktøjer”: aktivér, hvis låsningerne ikke fungerer med andre værktøjer.</li>
+</ul>
+<p>Manuel angivelse af bevægelser i importindstillingerne er adskilt fra automatisk import af oprindelige positurer.</p>
+<p>Forudindstillinger findes nederst på fanen. Søg efter navn og skift positurindstillinger med ”Anvend denne forudindstilling”. De bruges primært til startopsætning og erstatter aktuelle indstillinger. Gem derfor egne justeringer før skift.</p>
+<p>Visning af listen læser kun navne og oplysninger om understøttede avatarer. Justeringsanimationer læses først, når den valgte forudindstilling anvendes. Heller ikke første listeoprettelse forudindlæser alle avatarers animationer.</p>
+<p>Listen er opdelt i ”Passer til avataren”, ”Brugerforudindstillinger” og ”Officielle Unisaki Studio-forudindstillinger”. ”Skjul medfølgende forudindstillinger” deles i projektet. Listen opdateres ved tilføjelse, ændring og sletning. Tryk ”Genindlæs”, hvis visningen ikke ændres.</p>
+<h2>Forberegning og advarsler</h2>
+<p>Når ”Brug oprindelige stående, hug- og mavepositurer” er aktiv, registreres bevægelser fra avatarens Base ved hver generering. Resultatet skrives ikke til manuel import, så listen forbliver uden tildelinger, hvis kun automatisk import bruges. Ændringer af Base og automatisk imports til/fra gælder næste generering.</p>
+<p>Automatisk import ved upload gælder buildkopien. Scenens originalobjekt, importindstillinger og oprindelige Controllers og bevægelser ændres ikke. Hvis en forberegning findes og input er uændret, genbruges resultatet.</p>
+<p>Manuelle tildelinger har prioritet for deres type, inklusive rotation, justeringsanimation og afspilningsposition. Hvis ”Brug” slås fra eller den angivne bevægelse fjernes, stoppes automatisk import for typen. ”Ryd manuelt valg” fjerner typens indstillinger og justeringer, så aktiv automatisk import registrerer igen næste gang. Handlingen kan fortrydes med Undo. Ved flere ældre indstillinger for samme type prioriteres den gyldige indstilling valgt i Inspector.</p>
+<p>Ældre automatisk tilføjede indstillinger slettes ikke automatisk, da de ikke kan skelnes fra manuelle og justerede. Brug ”Ryd manuelt valg” kun til de typer, der skal tilbage til automatisk import. Har samme avatar flere produkter, gælder de andre produkters manuelle valg også for de fælles oprindelige positurer.</p>
+<p>Forberegning genbruger genererede data for at forkorte avatarbyggetid. Opret eller opdatér med ”Opdatér forberegning”. Et almindeligt avatarbuild genererer også nødvendige data, så manuel forberegning er ikke nødvendig hver gang.</p>
+<p>Ændringer medfører opdateringsbehov, vist under ”Kontrollér indstillinger” øverst i Inspector og med Hierarchy-markeringer. Opdatér forberegning efter ændrede positurer eller IK for at reducere senere byggetider.</p>
+<p>”Indstillinger for advarselsvisning” findes i ”Kontrollér indstillinger”. Du kan skjule advarselstyper eller Hierarchy-markeringer. Det løser ikke problemer eller opdaterer genererede data; fejl og nødvendig generering består.</p>
+<h2>Bemærkninger om brug</h2>
+<ul>
+<li>Beregnet til 3-punktssporing og skrivebordstilstand. Positurlåsning med fuldkropssporing understøttes ikke.</li>
+<li>Kropsbygning og ændringer kan kræve ekstra justering af gulvkontakt og tøj.</li>
+<li>Særlige Base-lag eller andre positurværktøjer kan give uventede resultater.</li>
+<li>Bevægelse/rotation i Fototilstand og Gulvhøjde korrigerer værktøjspositurer samt standard-/egne bevægelser uden valgt værktøjspositur. Kontrollér synspunkt og standardbevægelser erstattet i VRChat i den faktiske klient.</li>
+</ul>
+<h2>Brugsbetingelser og support</h2>
+<p>Kildekode og ressourcer er ikke open source. Brug kræver et gyldigt produktkøb og accept af <a href="../../../%E3%82%86%E3%81%AB%E3%81%95%E3%81%8D%E3%83%9D%E3%83%BC%E3%82%BA%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E5%88%A9%E7%94%A8%E8%A6%8F%E7%B4%84%EF%BC%88%E6%97%A5%E6%9C%AC%E8%AA%9E%E7%89%88%EF%BC%89.pdf">medfølgende brugsbetingelser</a>.</p>
+<ul>
+<li><a href="https://docs.unisakistudio.jp/kawaiiposing/manual/">Kawaii Posing-vejledning</a></li>
+<li><a href="https://docs.unisakistudio.jp/coolposing/manual/">Cool Posing-vejledning</a></li>
+<li><a href="https://help.unisakistudio.jp/">Kontakt</a></li>
+</ul>
+<p>Ved fejlrapportering skal du oplyse produktets og Unisaki Posing Systems version, versioner af Unity, VRChat SDK, Modular Avatar og NDMF, avatar, trin til at genskabe fejlen og fejlteksten fra Console.</p></main>
+</body></html>

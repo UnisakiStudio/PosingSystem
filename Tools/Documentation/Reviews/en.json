@@ -1,0 +1,13 @@
+{
+  "schema": 1,
+  "locale": "en",
+  "source_sha256": "c9089e57d158be729a9988f04b64395c3d5b4d3764eeee869420cf5b39491b5c",
+  "translator": "AI contextual translation",
+  "native_speaker_review": false,
+  "external_translation_service": false,
+  "rendered_visual_review": false,
+  "authored_blocks": 381,
+  "all_twelve_documents_complete": true,
+  "full_history_preserved": true,
+  "terminology": "Current UI catalogs, full standard pose set and AIReview glossary consulted. Original file/object/avatar/author names retained."
+}

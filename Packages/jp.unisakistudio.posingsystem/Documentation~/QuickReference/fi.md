@@ -1,8 +1,8 @@
 # Suomi — Unisaki Posing System / Käyttöohje
 
-> Quick reference generated from existing interface translations. This is not a complete translated manual. The full guide is available in English.
+> 30 kielen pikaohjeet sisältävät toimintojen kuvaukset ja vakioasentojen nimitaulukot. Nämä ovat tiiviitä viitteitä. Avaa täydelliset ohjeet kielihakemistosta.
 
-[Language / 言語](index.md) · [English — Käyttöohje](../UserGuide.en.md)
+[🌐](../Localization/index.md) · [Käyttöohje](../Localization/fi/UserGuide.md)
 
 ## Toiminnot
 
@@ -241,4 +241,4 @@ Tyhjentää tämän liiketyypin manuaaliset asetukset ja säädöt. Jos automaat
 | 騎士 | Ritari |
 | 魔王降臨 | Demonikuningas |
 
-[English — Käyttöohje](../UserGuide.en.md)
+[Käyttöohje](../Localization/fi/UserGuide.md)

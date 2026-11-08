@@ -1,8 +1,8 @@
 # Dansk — Unisaki Posing System / Vejledning
 
-> Quick reference generated from existing interface translations. This is not a complete translated manual. The full guide is available in English.
+> Hurtigreferencer på 30 sprog indeholder funktionsforklaringer og tabeller med standardpositurnavne. Det er korte referencer; brug sprogindekset til fuld dokumentation.
 
-[Language / 言語](index.md) · [English — Vejledning](../UserGuide.en.md)
+[🌐](../Localization/index.md) · [Vejledning](../Localization/da/UserGuide.md)
 
 ## Funktioner
 
@@ -241,4 +241,4 @@ Rydder manuelle indstillinger og justeringer for denne bevægelsestype. Hvis aut
 | 騎士 | Ridder |
 | 魔王降臨 | Dæmonfyrste |
 
-[English — Vejledning](../UserGuide.en.md)
+[Vejledning](../Localization/da/UserGuide.md)

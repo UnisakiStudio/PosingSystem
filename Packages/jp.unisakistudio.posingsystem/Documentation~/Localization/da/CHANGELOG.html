@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="da" dir="ltr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Ændringshistorik</title><style>:root { color-scheme: light dark; font-family: system-ui, -apple-system, "Segoe UI", sans-serif; line-height: 1.7; }
+body { margin: auto; max-width: 70rem; padding: 1.5rem; overflow-wrap: anywhere; }
+nav { display: flex; flex-wrap: wrap; gap: .6rem 1.2rem; padding-block: 1rem; border-block-end: 1px solid #8887; }
+h1,h2,h3 { line-height: 1.4; } h2 { margin-block-start: 2.4rem; }
+table { border-collapse: collapse; width: 100%; } th,td { text-align: start; vertical-align: top; padding: .5rem; border: 1px solid #8887; }
+thead { background: #8882; } .table-scroll { overflow-x: auto; }
+code,pre { direction: ltr; unicode-bidi: isolate; } code { background: #8882; padding: .1em .25em; } pre { white-space: pre-wrap; }
+a { color: #2269b8; } a:visited { color: #7952ad; } li { margin-block: .35rem; }
+@media(prefers-color-scheme:dark) { a { color: #8ec5ff; } a:visited { color: #cfacff; } }
+@media print { nav { display: none; } body { max-width: none; padding: 0; } a { color: inherit; } }</style></head><body>
+<nav aria-label="Documentation"><a href="../index.html">Dansk · 🌐</a><a href="README.html">README</a><a href="CHANGELOG.html">Ændringshistorik</a><a href="UserGuide.html">Unisaki Posing System 3.2.0 — Dansk vejledning</a></nav>
+<main><h1>Ændringshistorik</h1>
+<h2>[3.2.0] - Ikke udgivet</h2>
+<h3>Tilføjet</h3>
+<ul>
+<li>Inspector, redigeringshandlinger, installationsdialoger, standardpositurnavne og genererede VRChat-menuer kan vises på 30 sprog.</li>
+<li>Inspector og spilmenu bruger fælles sprogvalg. Først bruges computerens sprog, og seneste valg genbruges i andre projekter for samme OS-bruger.</li>
+<li>README, ændringshistorik og offlinevejledning kan åbnes på valgt sprog.</li>
+<li>Visningsnavne for 128 standardpositurer og funktionsbeskrivelser følger eksisterende terminologi.</li>
+</ul>
+<h3>Kompatibilitet</h3>
+<ul>
+<li>Eksisterende avatarindstillinger, egne navne, assetreferencer, parameteridentifikatorer og licenslagring bevares.</li>
+</ul>
+<h2>[3.1.2] - 2026-11-09</h2>
+<ul>
+<li>Rettet, at ansigtet blev ved at vende opad efter oprejsning fra maveliggende med ”Reducér forvrængning fra hovedrotation”.</li>
+<li>Hovedlås kan skiftes via EX-menuens ”Indstillinger → Automatisk hovedlås på ryggen” selv med Fodhøjde fra. Punkter, som forsvandt i 3.1.0/3.1.1, vender tilbage ved build efter opdatering.</li>
+<li>”Opdatér forberegning” virker nu også med selve avataren deaktiveret i Unity.</li>
+<li>Rettet manglende positurgenerering efter opdatering, hvis en ældre fælles positur-Controller lå i Assets. Egne Controller-indstillinger bevares.</li>
+<li>Ved deaktiveret værktøj eller forælder, som hindrer fælles positur-Animator, vises målets navn. Åbn stedet via ”Kontrollér indstillinger → Vælg mål”.</li>
+<li>Ændrede forberegningsindstillinger kan sammenlignes med sidste lagring via ”Detaljer → Se ændringer siden lagring”.</li>
+<li>Ved scriptfejl, som stopper build (PS050), vises op til 5 oprindelige Unity-fejl. Via forespørgsel om fejlen kan du gennemse, redigere og sende et udkast med Unity-/værktøjsversioner og fejlnummer.</li>
+</ul>
+<p>Brugte du forberegning, skal du trykke ”Opdatér forberegning” efter opdateringen, gemme scenen og bygge og uploade avataren igen.</p>
+<h2>[3.1.1] - 2026-11-08</h2>
+<ul>
+<li>Aktive Gulvhøjde og Vend dig vises under Indstillinger i VRChats EX-menu, selv om Spejlvend er fra.</li>
+<li>Korrekte vendinger bevares for Ben strakt ud, Afslappet og Ét knæ op efter omarrangering, sletning eller omdøbning i ældre versioner, også efter fuld Unpack hvis oprindelsen kan identificeres. Egne positurer, bevidst deaktiverede vendinger og erstattede sidebevægelser bevares.</li>
+<li>Rettet kort maveliggende ved avatarvalg i VRChat og kort rygliggende ved hop med kun mavepositurer valgt. Hoppeskift slås fra under ”Funktioner → Praktiske funktioner → Skift liggende positurer ved at hoppe” og er aktivt som standard.</li>
+<li>Mistet reference til fælles positur-Animator Controller giver advarsel og genskabes fra indstillinger, når muligt. Referencer delt mellem avatarer bevares.</li>
+<li>Ved kompileringsfejl stoppes build i begyndelsen med forklaring. Automatisk oprydning af genererede Controllers udsættes, mens scriptfejl forhindrer referencekontrol.</li>
+<li>Officielt Prefab prioriteres ved tilføjelse, selv om et andet produktnavngivet Prefab findes. Forberegning fortsætter også ved forskelle kun i fælles Controllers linjeskift.</li>
+<li>Write Defaults for værktøjets FX-lag, såsom Gulvhøjde, følger avatarens indstillinger.</li>
+</ul>
+<p>Brugte du forberegning, skal du efter opdateringen trykke ”Opdatér forberegning” på scenens værktøj, gemme scenen og bygge og uploade avataren igen.</p>
+<h2>[3.1.0] - 2026-11-07</h2>
+<ul>
+<li>Tilføjet automatisk lemjustering (IK) til kropsbygningen for understøttede positurer, avatarspecifik korrektion og beskyttelse mod bagudbøjede knæ.</li>
+<li>Position og retning kan justeres i Fototilstand med valg af synkronisering og visning af eget hoved.</li>
+<li>Gulvhøjde flytter hele kroppen op til 3m op/ned, separat fra Fodhøjde.</li>
+<li>Tilføjet vejrtrækning, stop af standardsvajen og reduceret forvrængning fra hovedrotation.</li>
+<li>Inspector viser funktioner og parameterforbrug. Søgning, massetilføjelse, omarrangering og let Scene-forhåndsvisning understøttes.</li>
+<li>Hurtigere skift mellem stående, hug og siddende på skrivebordet.</li>
+<li>Forbedrede forberegningsadvarsler efter ændringer, Inspector-rulning og lange stop under genereret oprydning.</li>
+<li>Rettet unødige opdateringsadvarsler og ny generering ved upload med automatisk import og uændret forberegning. Resultater gælder den genererede avatar uden ændring af originalens importindstillinger.</li>
+<li>Tilføjet Vend dig via hovedhældning og bevægelsesvalg pr. positur.</li>
+<li>Forbedret overførsel af ældre forudindstillingers vendinger, import af egne bevægelser og håndtering af genererede assets.</li>
+</ul>
+<h2>[3.1.0-beta.2] - Åben beta (2026-11-05)</h2>
+<ul>
+<li>IK-længdereference har nu fast længde samt højdeforskel (Y) og dybdeforskel (Z) mellem Head og Viewpoint.</li>
+<li>Inspector-advarsler vises også til venstre for objektnavne i Hierarchy: manglende forberegning, ændringer og aktuelle advarsler fra import og forudindstillinger.</li>
+<li>Rettet lange Unity-stop ved automatisk oprydning, eksempelvis ved sceneåbning, når Controllers fra andre scener blev indlæst.</li>
+<li>Positur-/funktionsændringer sletter ikke længere forberegningshistorik. Ændringer efter forberegning vises i stedet for aldrig udført, også som Hierarchy-advarsel.</li>
+<li>Sammenligningsresultater deles mellem Inspector og Hierarchy for lavere rullebelastning ved uændrede indstillinger og refererede assets. Builds sammenligner stadig hver gang.</li>
+</ul>
+<h2>[3.1.0-beta.1] - Åben beta (2026-11-04)</h2>
+<ul>
+<li>Normalt positurskift på skrivebordet bruger nu én evaluering i almindelige builds og forberegninger. VR og særlige forhold bevarer den hidtidige vej.</li>
+<li>Forberegninger fra alpha.3 og før kræver nu opdatering.</li>
+<li>Synspunkt bevares ved gulvhøjdeændring i Fototilstand, og nyeste gulvhøjde gendannes efter afslutning.</li>
+</ul>
+<ul>
+<li>Automatisk import registrerer kun ved generering og ændrer ikke manuelle importindstillinger ved forberegning/build.</li>
+<li>Automatisk imports til/fra, ændret Base og ryddede manuelle valg medtages i ny generering. Delte manuelle valg og justeringer bevares på tværs af produkter, og gamle importerede bevægelser vender tilbage til standardpositurer.</li>
+<li>Genererede forberegnings-Controllers ligger i én fil pr. scene-GUID og avatar. Referencer delt med kopier, andre scener eller Prefab adskilles før opdatering.</li>
+<li>Build bruger NDMF-midlertidige assets og øger ikke antallet af genererede redigeringsfiler.</li>
+<li>Genererede data kontrolleres ved sceneåbning og lagring. Ugemte ændringer, Undo/Redo og eksterne referencer bevares; kun tydeligt ejede ubrugte filer flyttes til papirkurven.</li>
+<li>Rotation, justeringsanimation og afspilningsposition for importerede bevægelser anvendes. Rotation, RootT/RootQ og Humanoid-justering deler behandling med almindelige positurer.</li>
+<li>Indlejrede BlendTree-justeringer kopieres til importmålet, så originalbevægelse og gangblanding bevares.</li>
+<li>Afspilningsposition for kun stående udfoldes til en statisk positur ved original billedfrekvens uden at stoppe gangafspilning.</li>
+</ul>
+<h2>[3.1.0-alpha.2] - Lukket test (2026-10-26)</h2>
+<h3>Rettelser og ændringer</h3>
+<ul>
+<li>Fototilstand og Gulvhøjde korrigerer også standard-/egne bevægelser uden valgt værktøjspositur.</li>
+<li>Gulvhøjde udvidet til 3m op/ned: 50% er oprindelig højde og standard, 0% er 3m ned og 100% er 3m op.</li>
+<li>Rettet ændring af kilde-BlendTree ved overskrivning af kun stående.</li>
+<li>Positurer uden IK-regler bruger manuel korrektion uden unødige genereringsadvarsler.</li>
+<li>Rettet blandede justeringskladder for ens navne og oversete bevægelsesændringer i samme asset.</li>
+<li>Rettet ugyldigt startpositurnummer, som valgte en anden startpositur.</li>
+<li>AnimatorOverrideController uden støtte giver vejledning i stedet for undtagelse ved import.</li>
+<li>Udtrykkeligt deaktiveret Vend dig bevares fra ældre forudindstillinger.</li>
+<li>Funktionsikoner tydeligere i lyst Editor-tema.</li>
+</ul>
+<p>Kontrol af synspunkt og erstattede standardbevægelser i VRChat-klienten pågår.</p>
+<h2>[3.1.0-alpha.1] - Før offentlig udgivelse</h2>
+<h3>Tilføjet</h3>
+<ul>
+<li>Tilføjet til/fra pr. funktion og ExpressionParameters-forbrug.</li>
+<li>Tilføjet Fototilstand til fremadflytning og rotation.</li>
+<li>Tilføjet Fototilstand-synkronisering: kun lokalt 0 bit, synkroniseret 16 bit.</li>
+<li>Tilføjet valg om at holde eget avatarhoved synligt i Fototilstand.</li>
+<li>Tilføjet Gulvhøjde til hele kroppen inklusive hovedet, 3m op/ned. 50% er oprindelig højde og standard, 0% er 3m ned og 100% er 3m op.</li>
+<li>Tilføjet Vend dig via hovedhældning og animation pr. positur.</li>
+<li>Tilføjet vejrtrækning med Svag, Middel, Stærk, Hurtig og Egen.</li>
+<li>Vejrtrækningsbevægelse og til/fra-menu kan vælges separat: bevægelse 0 bit, synkroniseret til/fra 1 bit.</li>
+<li>Tilføjet stop af VRChats svajen i stilstand.</li>
+<li>Tilføjet reduceret forvrængning fra hovedrotation.</li>
+<li>Tilføjet automatisk lemjustering (IK) efter kropsbygning og til/fra for avatar og positur.</li>
+<li>Tilføjet ”Indarbejd IK i justeringer” til at gemme IK-resultat i justeringsanimation.</li>
+<li>Tilføjet avatarspecifik korrektion, beskyttelse mod bagudbøjede knæ og mindste bøjevinkel.</li>
+<li>Tilføjet let Scene-forhåndsvisning fra listen.</li>
+<li>Tilføjet kategorifaner, søgning på tværs, massetilføjelse og målplacering ved omarrangering.</li>
+<li>Produktets og fællessystemets historik kan vises i Inspector.</li>
+</ul>
+<h3>Ændret</h3>
+<ul>
+<li>Hurtigere forudindstillinger forkorter ventetid ved tilføjelse og listevisning.</li>
+<li>Tilføjelse, ændring og sletning af forudindstillinger opdaterer listen automatisk.</li>
+<li>Inspector opdelt i Funktioner, Positurer og Avataropsætning.</li>
+<li>Tilføjet beskrivelser og ikoner med ensartet åbning af detaljer.</li>
+<li>Vejrtrækningsdetaljer flyttet til funktioner og forudindstillinger til bunden af Avataropsætning.</li>
+<li>Egne bevægelser og automatisk import af oprindelige positurer er separate indstillinger.</li>
+<li>Færre dublerede helkropsanimationer til Fodhøjde.</li>
+<li>Positurbilledopdatering er en knap med bekræftelse.</li>
+<li>Advarselsvisning samlet under Kontrollér indstillinger.</li>
+<li>Nye særlige 8bit-Prefab afskaffet til fordel for funktionsvalg i almindelige Prefab; eksisterende referencer bevares.</li>
+<li>Mindste VRChat Avatars SDK-version ændret til 3.10.4.</li>
+</ul>
+<h3>Rettet</h3>
+<ul>
+<li>Standard-/egne bevægelser uden valgt positur korrigeres også af Fototilstand og Gulvhøjde.</li>
+<li>Rettet ændret kilde-BlendTree ved overskrivning af kun stående.</li>
+<li>Uden gyldig IK-regel bruges manuel justering, og unødige IK-advarsler undgås.</li>
+<li>Rettet blandede justeringer for ens navne og manglende ny generering ved bevægelsesskift i samme asset.</li>
+<li>Et deaktiveret startpositurnummer vælger ikke længere en anden positur, der genbruger nummeret.</li>
+<li>Import af oprindelige positurer viser vejledning i stedet for undtagelse for ikke-understøttet AnimatorOverrideController.</li>
+<li>Udtrykkeligt deaktiverede vendinger bevares fra ældre forudindstillinger.</li>
+<li>Bedre ikonbaggrund i Inspector gør funktioner tydelige i lyst Editor-tema.</li>
+</ul>
+<ul>
+<li>Rettet manglende ikoner for Vend dig, Gulvhøjde og Fototilstand ved avatartilføjelse.</li>
+<li>Rettet mistede vendeindstillinger fra ældre forudindstillinger.</li>
+<li>Rettet flytning af navneinput til anden positur ved åbning af andre detaljer.</li>
+<li>Rettet lukkede detaljer ved omarrangering samt Undo/Redo for indstillingsændringer.</li>
+<li>Rettet overlappende originalavatar og dobbelt placering i forhåndsvisning.</li>
+<li>Rettet forhåndsvisningsfejl med manglende komponenter.</li>
+<li>Rettet forkert IK-retning/placering af lemmer ved forskellig knogleretning og skala.</li>
+<li>Rettet advarsler og forberegningsstatus, der ikke opdateredes straks efter ændringer.</li>
+<li>Rettet genbrug af gammel forberegning efter IK-ændring.</li>
+<li>Rettet buildfejl ved generering af ekstra funktioner i visse opsætninger.</li>
+</ul>
+<h2>[3.0.16] - 2026-09-14</h2>
+<ul>
+<li>Mindste NDMF-version hævet til 1.14.0, fordi API’et <code dir="ltr">VirtualAnimatorController.SetParameter</code> bruges.</li>
+</ul>
+<h2>[3.0.15] - 2026-09-13</h2>
+<ul>
+<li>Rettet store ændringer af kropsposition og knæbøjning ved skift af nakkelås i rygliggende på avatarer med ændret Hips-skala og FloorAdjuster.</li>
+</ul>
+<h2>[3.0.14] - 2026-09-09</h2>
+<ul>
+<li>Rettet manglende Gestus fra-menu fra det andet positurværktøj på samme avatar.</li>
+<li>Rettet USSPS_Locomotion, der kunne gå tilbage til Standing trods valgt positur som SleepDown.</li>
+<li>Rettet forkert højde og X/Z-position med FloorAdjuster, inklusive behandlingsrækkefølgen i MA- og AAO-versionerne.</li>
+<li>Automatisk gendannelse til standard-PosingSystem_Locomotion ved slettet forberegnet AnimatorController i Generated.</li>
+<li>Rettet buildfejl uden stående positurer.</li>
+<li>Forudindstillinger sorteres efter avatarnavn.</li>
+</ul>
+<h2>[3.0.13] - 2026-09-04</h2>
+<ul>
+<li>Rettet ustabil tilbagevenden til stående i VR, hvis man rejste sig straks efter begyndende hug, hvilket skabte en selvovergang til stående.</li>
+</ul>
+<h2>[3.0.12] - 2026-09-04</h2>
+<ul>
+<li>Rettet falsk registrering af ændrede indstillinger ved NDMF-build uden tidligere forberegning.</li>
+<li>Rettet <code dir="ltr">AddAssetToSameFile</code>-fejl ved tilføjelse af genererede assets til midlertidig AnimatorController under NDMF-build.</li>
+</ul>
+<h2>[3.0.11] - 2026-08-31</h2>
+<ul>
+<li>Rettet mislykket behandling, når forberegningsavatarens Scene blev ugyldig i NDMF 1.14.7 eller nyere.</li>
+<li>Rettet <code dir="ltr">MissingReferenceException</code>, når NDMF-fejlvisning refererede til en destrueret LocalizationAsset.</li>
+</ul>
+<h2>[3.0.10] - 2026-08-29</h2>
+<ul>
+<li>Forudindstillingsassets indlæses først ved åbning af valgvinduet; cache genbruges ved uændret GUID-fortegnelse.</li>
+<li>Hierarchy-advarsels-/fejlikoner genberegnes kun ved ændring, og produktmenuers assetsøgning bruger fælles cache. Mindsker Editor-frysninger med få sekunders mellemrum i scener med mange værktøjer.</li>
+<li>Rettet <code dir="ltr">ArgumentException</code> ved dobbelte parameterværdier i forberegning af flere positurværktøjer på samme avatar.</li>
+</ul>
+<h2>[3.0.9] - 2026-08-26</h2>
+<ul>
+<li>Forhindret NullReferenceException, når VRCAvatarDescriptor ikke fås fra PosingSystem under konvertering, med vejledning om nødvendige buildlogs.</li>
+<li>Rettet <code dir="ltr">Avatar is null</code>, når senere forberegning/build genbrugte forhåndsvisning af en midlertidig Avatar oprettet/slettet af NDMF. Konvertering adskilt fra forhåndsvisningscache, og navnekonflikter mellem midlertidige NDMF-assets forhindret.</li>
+<li>Rettet en forhåndsvisningsreference, der ikke blev gemt fra Prefab ”可愛いポーズ”, som ophobede skjulte avatarer. Forhåndsvisninger udelukkes fra scenelagring; gamle ryddes ved sceneindlæsning, overgang til Play og scriptgenindlæsning.</li>
+</ul>
+<h2>[3.0.8] - 2026-08-18</h2>
+<ul>
+<li>Rettet Unity Assertion og risiko for ugyldige positurdata ved ny højdekorrigering af forberegnede bevægelser med eksempelvis FloorAdjuster.</li>
+<li>Sikrere højdemåling, som ikke påvirker originalavataren eller andre værktøjers AnimationMode.</li>
+</ul>
+<h2>[3.0.7] - 2026-08-12</h2>
+<ul>
+<li>Rettet forskudt synspunkt og unormal knæbøjning på ryggen sammen med højdeværktøjer som FloorAdjuster.</li>
+<li>Rettet fejl med PosingSystem uden for avataren (tak PancakeTorto1se).</li>
+<li>Rettet fortsat behandling efter mislykket avatarupload, som gav fejl.</li>
+<li>Rettet falsk indstillingsændring straks efter forberegning.</li>
+<li>Forbedret automatisk import af bevægelsesanimationer.</li>
+<li>Advarsel ved visse særlige avatarrigge.</li>
+<li>Tilføjet ændringsbekræftelse og spejling af justeringsværdier i animationsjustering (tak kraihd).</li>
+<li>Tilføjet vejledning ved fejl i andre værktøjer og kontrol af fejlfølsomme steder.</li>
+</ul>
+<h2>[3.0.6] - 2026-03-17</h2>
+<ul>
+<li>Rettet stærkt forvrængede positurer på visse avatarer med egen oprindelig positurstyring.</li>
+</ul>
+<h2>[3.0.5] - 2026-01-31</h2>
+<ul>
+<li>Rettet Unity-nedbrud med visse ExpressionMenus.</li>
+<li>Rettet avatarfejl med integrations-Prefab for ごろ寝EX (tak あずき).</li>
+<li>Rettet forkert rotation ved sammenlægning af justeringsanimationer.</li>
+</ul>
+<h2>[3.0.4] - 2026-01-11</h2>
+<ul>
+<li>Forbedret visse handlinger med avatarer i Prefabs.</li>
+<li>Tilføjet licenssletning.</li>
+<li>Rettet mange positurer med forkert nakke.</li>
+<li>Inspector åbner lidt hurtigere.</li>
+<li>Ikoner genereres også under forberegning; tekst på avataropdateringsknap ændret.</li>
+<li>Advarsel skjules, hvis forberegning aldrig er kørt, da mange sandsynligvis ikke bruger den.</li>
+<li>Unødvendige ressourcer fjernet.</li>
+<li>Rettet fingre, som ikke kunne justeres.</li>
+</ul>
+<h2>[3.0.3] - 2026-01-04</h2>
+<ul>
+<li>Rettet anvendelse af forkert forudindstilling i forhold til valget (tak あずき).</li>
+</ul>
+<h2>[3.0.2] - 2026-01-02</h2>
+<ul>
+<li>Understøttelse af Unitys mørke tema.</li>
+<li>Rettet forvrænget positur ved rotation i animationsjustering.</li>
+<li>Genererede menuikoners størrelse ændret og komprimering aktiveret; tilføjet mulighed for endnu mindre ikoner.</li>
+<li>Genindført sporingsintegration og automatisk import af avatarrørelser, som var fjernet i 3.0.0.</li>
+</ul>
+<h2>[3.0.1] - 2025-12-29</h2>
+<ul>
+<li>Rettet fejl i standardbevægelsesindstillinger.</li>
+<li>Rettet avatarpositurer, som forvrængedes af sig selv.</li>
+</ul>
+<h2>[3.0.0] - 2025-12-28</h2>
+<ul>
+<li>Tilføjet forberegning.</li>
+<li>Tilføjet animationsjustering.</li>
+<li>Tilføjet forudindstillinger.</li>
+</ul>
+<h2>[2.2.5] - 2025-05-08</h2>
+<ul>
+<li>Løst kompatibilitetsproblemer med visse værktøjer.</li>
+</ul>
+<h2>[2.2.4] - 2025-04-04</h2>
+<ul>
+<li>Rettet manglende positurskift med visse avatarer og ModularAvatar-versioner.</li>
+</ul>
+<h2>[2.2.3] - 2025-03-13</h2>
+<ul>
+<li>Rettet forkerte bevægelser på visse avatarer, eksempelvis hop med 森羅.</li>
+<li>Rettet lejlighedsvis forkert standardværdi for Gestus fra.</li>
+</ul>
+<h2>[2.2.2] - 2025-03-06</h2>
+<ul>
+<li>Rettet fejl i visse miljøer.</li>
+</ul>
+<h2>[2.2.1] - 2025-02-05</h2>
+<ul>
+<li>Rettet Unity-nedbrud.</li>
+<li>Version tilføjet til værktøjsnavn i NDMF Console.</li>
+</ul>
+<h2>[2.2.0] - 2025-02-02</h2>
+<ul>
+<li>Tilføjet valg om at slå gestus fra og bruge animationens håndform.</li>
+</ul>
+<h2>[2.1.6] - 2025-02-02</h2>
+<ul>
+<li>Rettet ødelagte positurer med visse andre værktøjer.</li>
+<li>Rettet indstillingsafhængige fejl.</li>
+</ul>
+<h2>[2.1.5] - 2024-12-10</h2>
+<ul>
+<li>Løst konflikter med visse værktøjer.</li>
+<li>Tilføjet knap til fjernelse af Unitypackage-versionen.</li>
+</ul>
+<h2>[2.1.4] - 2024-12-08</h2>
+<ul>
+<li>Rettet fejl på visse avatarer.</li>
+<li>Rettet ubrugelig fodlås ved værktøjs-/avatarkonflikter.</li>
+<li>Rettet avatarpositur, som vendte tilbage til VRC-standard på skrivebordet.</li>
+</ul>
+<h2>[2.1.3] - 2024-12-01</h2>
+<ul>
+<li>Rettet manglende positurskift sammen med avatarer/værktøjer, der bruger forkert VRMode-type.</li>
+<li>Tilføjet NDMF-Console-visning af værktøjskonflikter på grund af forskellige parametertyper.</li>
+</ul>
+<h2>[2.1.2] - 2024-12-01</h2>
+<ul>
+<li>Tilføjet NDMF-Console-forklaring, når andre værktøjers fejl medfører Unisaki Posing System-fejl ved build.</li>
+<li>Rettet buildfejl på visse avatarer.</li>
+<li>Forbedret adfærd lige efter avatarindlæsning.</li>
+<li>Avatarens oprindelige bevægelsesbehandling fjernes, fordi den kan forhindre funktionen på visse avatarer.</li>
+</ul>
+<h2>[2.1.1] - 2024-11-20</h2>
+<ul>
+<li>Rettet MergeAnimator-relaterede fejl i PosingOverride.</li>
+</ul>
+<h2>[2.1.0] - 2024-11-20</h2>
+<ul>
+<li>Løst fødder/hofter under jorden på skrivebordet, så alle positurer kan vises korrekt.</li>
+<li>Tilføjet positurskift uafhængigt af hovedhøjde.</li>
+<li>Tilføjet tilstand uden ikongenerering til Quest-upload.</li>
+<li>Tilføjet flere advarsler ved avatarproblemer.</li>
+<li>Løst konflikter mellem låse og AFK eller andre værktøjers armlås.</li>
+<li>Tilføjet automatisk nakkelås på ryggen.</li>
+</ul>
+<h2>[2.0.0] - 2024-11-12</h2>
+<ul>
+<li>Udgivet VPM/VCC-version.</li>
+<li>Ændret værktøjsnavn ved fejl #1.</li>
+<li>Tilføjet brugsbetingelser #5.</li>
+</ul></main>
+</body></html>

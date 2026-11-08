@@ -1,0 +1,29 @@
+{
+  "locale": "es",
+  "source_sha256": "c9089e57d158be729a9988f04b64395c3d5b4d3764eeee869420cf5b39491b5c",
+  "translated_blocks": 381,
+  "invariant_blocks_preserved_by_generator": 6,
+  "authoring": "AI contextual translation; no external translation service",
+  "scope": "12 complete documents including all historical changelog entries and full English-source guides",
+  "terminology_sources": [
+    "Tools/Localization/AIReview/es.json",
+    "Packages/jp.unisakistudio.posingsystem/Editor/Localization/es.json"
+  ],
+  "terms": {
+    "prebuild": "precálculo",
+    "preset": "preajuste",
+    "Photo Mode": "Modo foto",
+    "Roll Over": "Darse vuelta"
+  },
+  "preserved_japanese": [
+    "Original asset/package filenames and PDF targets",
+    "Avatar and third-party product/author names",
+    "Japanese-label comparison table and legacy-menu instructions",
+    "Original Japanese pose names in parenthesized comparisons"
+  ],
+  "native_speaker_review": false,
+  "rendered_review": false,
+  "local_validation": "381/381 authored, strict document audit and159 terminology checks passing",
+  "rendered_visual_review": false,
+  "external_translation_service": false
+}

@@ -15,3 +15,8 @@
 本リポジトリのソースコード、リソースはオープンソースではありません。利用にはBOOTHでの商品購入と利用規約への同意が必要です。
 
 [利用規約](Packages/jp.unisakistudio.posingsystem/ゆにさきポーズシステム利用規約（日本語版）.pdf)
+<!-- localization-navigation:start -->
+
+🌐 [日本語 · English · Français · Italiano · 简体中文 · 繁體中文 · 한국어 · ไทย · Deutsch · Español · Português · Português (Brasil) · Русский · Українська · Polski · Nederlands · Svenska · Dansk · Suomi · Norsk · Čeština · Türkçe · Bahasa Indonesia · Tiếng Việt · हिन्दी · বাংলা · தமிழ் · తెలుగు · العربية · עברית](Packages/jp.unisakistudio.posingsystem/Documentation~/Localization/index.md)
+
+<!-- localization-navigation:end -->
