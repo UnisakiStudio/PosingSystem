@@ -228,6 +228,7 @@ namespace jp.unisakistudio.posingsystemeditor
 
         private void OnGUI()
         {
+            using var languageScope = PosingSystemLocalization.ForInspector(sourcePosingSystem);
             if (sourcePosingSystem == null)
             {
                 EditorGUILayout.HelpBox(PosingSystemLocalization.Text("ソースとなるPosingSystemが見つかりません。"), MessageType.Error);
@@ -239,7 +240,7 @@ namespace jp.unisakistudio.posingsystemeditor
             EditorGUILayout.LabelField(PosingSystemLocalization.Text("プリセット作成設定"), EditorStyles.boldLabel);
             EditorGUILayout.Space();
 
-            EditorGUILayout.HelpBox("アニメーション調節機能を使用して姿勢をアバターに合わせたデータを、別のアバターデータでも使用したい場合は、プリセットを作成すると便利です。PrefabsやFBXを登録してプリセットを作成すると、そのアバターに" + sourcePosingSystem.name + "を追加した時に自動でプリセットが適用されるようになります。また、作成したプリセットは公開、配付、販売が可能です。", MessageType.None);
+            EditorGUILayout.HelpBox(PosingSystemLocalization.Format("アニメーション調節機能を使用して姿勢をアバターに合わせたデータを、別のアバターデータでも使用したい場合は、プリセットを作成すると便利です。PrefabsやFBXを登録してプリセットを作成すると、そのアバターに{0}を追加した時に自動でプリセットが適用されるようになります。また、作成したプリセットは公開、配付、販売が可能です。", sourcePosingSystem.name), MessageType.None);
             EditorGUILayout.Space();
 
             // アバター名
@@ -354,7 +355,7 @@ namespace jp.unisakistudio.posingsystemeditor
             targetFolderPath = AssetDatabase.GenerateUniqueAssetPath(targetFolderPath);
             if (string.IsNullOrEmpty(targetFolderPath))
             {
-                PosingSystemLocalization.Dialog(PosingSystemLocalization.Text("エラー"), $"保存先フォルダのパスを生成できませんでした。フォルダ「{generatedFolderPath}」がプロジェクトに認識されているか確認してください。", "OK");
+                PosingSystemLocalization.Dialog(PosingSystemLocalization.Text("エラー"), PosingSystemLocalization.Format("保存先フォルダのパスを生成できませんでした。フォルダ「{0}」がプロジェクトに認識されているか確認してください。", generatedFolderPath), "OK");
                 return;
             }
             Directory.CreateDirectory(targetFolderPath);

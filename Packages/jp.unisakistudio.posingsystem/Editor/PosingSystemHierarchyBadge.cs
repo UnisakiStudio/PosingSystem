@@ -188,8 +188,8 @@ namespace jp.unisakistudio.posingsystemeditor
             EnsureIcons();
             var status = GetDisplayStatus(posingSystem);
             var rect = new Rect(selectionRect.x, selectionRect.y, 16, selectionRect.height);
-            if (status.IsError) GUI.Label(rect, new GUIContent(errorIcon, "設定にエラーがあります。Inspectorの「設定の確認」を開いてください。"));
-            else if (status.IsWarning) GUI.Label(rect, new GUIContent(warningIcon, "設定の確認、またはプレビルドの更新が必要です。Inspectorを確認してください。"));
+            if (status.IsError) GUI.Label(rect, new GUIContent(errorIcon, PosingSystemLocalization.Text("設定にエラーがあります。Inspectorの「設定の確認」を開いてください。")));
+            else if (status.IsWarning) GUI.Label(rect, new GUIContent(warningIcon, PosingSystemLocalization.Text("設定の確認、またはプレビルドの更新が必要です。Inspectorを確認してください。")));
         }
 
         internal static (bool IsWarning, bool IsError) GetDisplayStatus(PosingSystem posingSystem)

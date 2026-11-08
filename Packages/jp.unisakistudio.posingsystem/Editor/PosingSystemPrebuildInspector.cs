@@ -57,7 +57,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 {
                     using (new EditorGUI.DisabledScope(state != BuildState.Ready || ps.isIconDisabled || PosingSystemEditor.IsAndroidBuildTarget() || EditorApplication.isPlaying))
                     {
-                        if (GUILayout.Button(new GUIContent(PosingSystemLocalization.Text("アイコンを撮り直す"), "衣装や見た目を変えたときに使います。設定を変えたときはプレビルドしてください。"), GUILayout.Height(20)))
+                        if (GUILayout.Button(new GUIContent(PosingSystemLocalization.Text("アイコンを撮り直す"), PosingSystemLocalization.Text("衣装や見た目を変えたときに使います。設定を変えたときはプレビルドしてください。")), GUILayout.Height(20)))
                         {
                             PosingSystemEditor.TryRenewAvatar(ps);
                             serialized.Update();

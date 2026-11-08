@@ -72,7 +72,7 @@ namespace jp.unisakistudio.posingsystemeditor
             public readonly UnityEngine.Object Context;
             public Issue(string code, string summary, string action, MessageType severity, UnityEngine.Object context)
             { Code = code; Summary = summary; Action = action; Severity = severity; Context = context; }
-            public string Message => "[" + Code + "] " + Summary + "\n対処: " + Action;
+            public string Message => "[" + Code + "] " + PosingSystemLocalization.Text(Summary) + "\n" + PosingSystemLocalization.Text("対処:") + " " + PosingSystemLocalization.Text(Action);
         }
 
         public sealed class DiagnosticException : InvalidOperationException
@@ -80,7 +80,15 @@ namespace jp.unisakistudio.posingsystemeditor
             public readonly string Code;
             public readonly UnityEngine.Object Context;
             public DiagnosticException(string code, string summary, string action, UnityEngine.Object context, Exception inner = null)
-                : base("[PosingSystem / " + code + "] " + summary + "\n対処: " + action, inner) { Context = context; Code = code; }
+                : base(DescribeFailure(code, summary, action, context), inner) { Context = context; Code = code; }
+        }
+
+        private static string DescribeFailure(string code, string summary, string action, UnityEngine.Object context)
+        {
+            var system = context as PosingSystem;
+            if (system == null && context is Component component) system = component.GetComponentInParent<PosingSystem>(true);
+            using var languageScope = PosingSystemLocalization.ForInspector(system);
+            return "[PosingSystem / " + code + "] " + PosingSystemLocalization.Text(summary) + "\n" + PosingSystemLocalization.Text("対処:") + " " + PosingSystemLocalization.Text(action);
         }
 
         public static DiagnosticException Failure(string code, string summary, string action, UnityEngine.Object context, Exception inner = null)

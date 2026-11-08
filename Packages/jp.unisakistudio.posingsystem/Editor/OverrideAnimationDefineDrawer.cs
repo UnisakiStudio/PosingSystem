@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -59,7 +59,7 @@ namespace jp.unisakistudio.posingsystemeditor
             // 2行目: アニメーション
             var animLabelRect = new Rect(contentRect.x, contentRect.y, AnimationLabelWidth, contentRect.height);
             var animFieldRect = new Rect(animLabelRect.xMax, contentRect.y, contentRect.width - AnimationLabelWidth, contentRect.height);
-            EditorGUI.LabelField(animLabelRect, "アニメーション");
+            EditorGUI.LabelField(animLabelRect, PosingSystemLocalization.Text("アニメーション"));
             EditorGUI.ObjectField(animFieldRect, animationClipProperty, typeof(Motion), new GUIContent(""));
             contentRect.y += EditorGUIUtility.singleLineHeight;
 
@@ -80,7 +80,7 @@ namespace jp.unisakistudio.posingsystemeditor
             var rotateLabelRect = new Rect(rotateToggleRect.xMax, contentRect.y, RotateLabelWidth, contentRect.height);
             var rotateFieldRect = new Rect(rotateLabelRect.xMax, contentRect.y, contentRect.width - (rotateLabelRect.xMax - contentRect.x), contentRect.height);
             isRotateProperty.boolValue = EditorGUI.Toggle(rotateToggleRect, isRotateProperty.boolValue);
-            EditorGUI.LabelField(rotateLabelRect, "回転角度(360度)");
+            EditorGUI.LabelField(rotateLabelRect, PosingSystemLocalization.Text("回転角度(360度)"));
             if (isRotateProperty.boolValue)
             {
                 rotateProperty.intValue = EditorGUI.IntField(rotateFieldRect, rotateProperty.intValue);

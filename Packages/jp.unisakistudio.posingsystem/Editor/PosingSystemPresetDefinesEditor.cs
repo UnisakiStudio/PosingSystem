@@ -108,7 +108,7 @@ namespace jp.unisakistudio.posingsystemeditor
             
             if (addedCount > 0)
             {
-                PosingSystemLocalization.Dialog(PosingSystemLocalization.Text("完了"), $"{listName}に{addedCount}個の項目を追加しました。\n（重複する項目は除外されました）", "OK");
+                PosingSystemLocalization.Dialog(PosingSystemLocalization.Text("完了"), PosingSystemLocalization.Format("{0}に{1}個の項目を追加しました。\n（重複する項目は除外されました）", listName, addedCount), "OK");
             }
             else
             {

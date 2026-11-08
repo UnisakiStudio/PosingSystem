@@ -71,7 +71,7 @@ namespace jp.unisakistudio.posingsystemeditor
                             count++;
                         }
                     }
-                    if (count == 0) EditorGUILayout.HelpBox(category < 0 ? "一致するアニメーションがありません。" : "この分類にはアニメーションがありません。", MessageType.None);
+                    if (count == 0) EditorGUILayout.HelpBox(category < 0 ? PosingSystemLocalization.Text("一致するアニメーションがありません。") : PosingSystemLocalization.Text("この分類にはアニメーションがありません。"), MessageType.None);
                     }
                     if (!imports)
                     {
@@ -138,7 +138,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 EditorGUI.EndProperty();
                 var previewing = PosingSystemQuickPreview.IsPreviewing(ps, entry);
                 using (new EditorGUI.DisabledScope(!(entry.animationClip is AnimationClip) || ps.GetAvatar() == null || Application.isPlaying))
-                    if (GUI.Button(new Rect(x, rect.yMax - 23, 80, 21), new GUIContent(previewing ? PosingSystemLocalization.Text("終了") : PosingSystemLocalization.Text("プレビュー"), "最初の姿勢をSceneタブで確認できます。終了すると元の姿勢に戻ります。")))
+                    if (GUI.Button(new Rect(x, rect.yMax - 23, 80, 21), new GUIContent(previewing ? PosingSystemLocalization.Text("終了") : PosingSystemLocalization.Text("プレビュー"), PosingSystemLocalization.Text("最初の姿勢をSceneタブで確認できます。終了すると元の姿勢に戻ります。"))))
                     {
                         PosingSystemEditorChangeUtility.Commit(serialized);
                         if (previewing) PosingSystemQuickPreview.Stop();
@@ -211,7 +211,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 }
                 var array = imports ? serialized.FindProperty("overrideDefines") : serialized.FindProperty("defines").GetArrayElementAtIndex(layer).FindPropertyRelative("animations");
                 var positions = Enumerable.Range(1, array.arraySize).Select(i => i + "番").ToArray();
-                var nextIndex = EditorGUILayout.Popup(new GUIContent(PosingSystemLocalization.Text("順番"), "この分類の中で移動先の順番を選べます。"), index, positions);
+                var nextIndex = EditorGUILayout.Popup(new GUIContent(PosingSystemLocalization.Text("順番"), PosingSystemLocalization.Text("この分類の中で移動先の順番を選べます。")), index, positions);
                 if (nextIndex != index) Move(nextIndex);
                 using (new EditorGUILayout.HorizontalScope())
                 {
@@ -276,7 +276,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 var drop = GUILayoutUtility.GetRect(0, 52, GUILayout.ExpandWidth(true));
                 GUI.Box(drop, GUIContent.none);
                 var style = PosingSystemInspectorGUI.Text(11); style.alignment = TextAnchor.MiddleCenter;
-                GUI.Label(drop, "複数のアニメーションをここにドロップ", style);
+                GUI.Label(drop, PosingSystemLocalization.Text("複数のアニメーションをここにドロップ"), style);
                 var evt = Event.current;
                 if (drop.Contains(evt.mousePosition) && (evt.type == EventType.DragUpdated || evt.type == EventType.DragPerform))
                 {
@@ -298,11 +298,11 @@ namespace jp.unisakistudio.posingsystemeditor
                 var existing = new HashSet<Motion>(ps.defines[destination].animations.Select(a => a.animationClip));
                 var count = pending.Count(clip => !existing.Contains(clip));
                 using (new EditorGUI.DisabledScope(count == 0))
-                    if (GUILayout.Button(count + "件を「" + names[destination] + "」に追加", GUILayout.Height(28)))
+                    if (GUILayout.Button(PosingSystemLocalization.Format("{0}件を「{1}」に追加", count, names[destination]), GUILayout.Height(28)))
                     {
                         PosingSystemEditorChangeUtility.Commit(serialized);
                         var added = PosingSystemPoseListUtility.AddClips(ps, destination, pending);
-                        pending.Clear(); category = destination; notice = added + "件追加しました。"; serialized.Update(); GUIUtility.ExitGUI();
+                        pending.Clear(); category = destination; notice = PosingSystemLocalization.Format("{0}件追加しました。", added); serialized.Update(); GUIUtility.ExitGUI();
                     }
                 if (pending.Count > count) EditorGUILayout.LabelField(PosingSystemLocalization.Text("追加先にあるクリップは重複して追加されません。"), PosingSystemInspectorGUI.Text(11));
             }

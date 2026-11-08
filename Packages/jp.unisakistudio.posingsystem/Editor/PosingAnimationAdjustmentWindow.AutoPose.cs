@@ -91,7 +91,7 @@ namespace jp.unisakistudio.posingsystemeditor
                         PosingSystemEditorChangeUtility.MarkChanged(_posingSystem);
                         ApplyPreviewPose();
                     }
-                    EditorGUILayout.LabelField(enabled ? "調整結果をプレビューしています。" : "元の姿勢と手動調整をプレビューしています。", EditorStyles.wordWrappedMiniLabel);
+                    EditorGUILayout.LabelField(enabled ? PosingSystemLocalization.Text("調整結果をプレビューしています。") : PosingSystemLocalization.Text("元の姿勢と手動調整をプレビューしています。"), EditorStyles.wordWrappedMiniLabel);
                 }
             }
             AdditionalControlsGUI?.Invoke(this);

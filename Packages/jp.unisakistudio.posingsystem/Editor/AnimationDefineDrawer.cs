@@ -54,7 +54,7 @@ namespace jp.unisakistudio.posingsystemeditor
 
             using (new EditorGUI.DisabledScope(initialSetProperty.boolValue))
             {
-                if (GUI.Button(buttonRect, "デフォルト"))
+                if (GUI.Button(buttonRect, PosingSystemLocalization.Text("デフォルト")))
                 {
                     initialSetProperty.boolValue = true;
                 }
@@ -105,7 +105,7 @@ namespace jp.unisakistudio.posingsystemeditor
             // 2行目: アニメーション
             var animLabelRect = new Rect(contentRect.x, contentRect.y, AnimationLabelWidth, contentRect.height);
             var animFieldRect = new Rect(animLabelRect.xMax, contentRect.y, contentRect.width - AnimationLabelWidth, contentRect.height);
-            EditorGUI.LabelField(animLabelRect, "アニメーション");
+            EditorGUI.LabelField(animLabelRect, PosingSystemLocalization.Text("アニメーション"));
             animationClipProperty.objectReferenceValue = EditorGUI.ObjectField(animFieldRect, animationClipProperty.objectReferenceValue, typeof(Motion), false);
             contentRect.y += EditorGUIUtility.singleLineHeight;
 
@@ -138,7 +138,7 @@ namespace jp.unisakistudio.posingsystemeditor
             var rotateLabelRect = new Rect(rotateToggleRect.xMax, contentRect.y, RotateLabelWidth, contentRect.height);
             var rotateFieldRect = new Rect(rotateLabelRect.xMax, contentRect.y, contentRect.width - (rotateLabelRect.xMax - contentRect.x), contentRect.height);
             isRotateProperty.boolValue = EditorGUI.Toggle(rotateToggleRect, isRotateProperty.boolValue);
-            EditorGUI.LabelField(rotateLabelRect, "回転角度(360度)");
+            EditorGUI.LabelField(rotateLabelRect, PosingSystemLocalization.Text("回転角度(360度)"));
             if (isRotateProperty.boolValue)
             {
                 rotateProperty.intValue = EditorGUI.IntField(rotateFieldRect, rotateProperty.intValue);
@@ -150,7 +150,7 @@ namespace jp.unisakistudio.posingsystemeditor
             var customIconLabelRect = new Rect(customIconToggleRect.xMax, contentRect.y, IconLabelWidth, contentRect.height);
             var customIconFieldRect = new Rect(customIconLabelRect.xMax, contentRect.y, contentRect.width - (customIconLabelRect.xMax - contentRect.x), contentRect.height);
             isCustomIconProperty.boolValue = EditorGUI.Toggle(customIconToggleRect, isCustomIconProperty.boolValue);
-            EditorGUI.LabelField(customIconLabelRect, "アイコン画像");
+            EditorGUI.LabelField(customIconLabelRect, PosingSystemLocalization.Text("アイコン画像"));
             if (isCustomIconProperty.boolValue)
             {
                 iconProperty.objectReferenceValue = EditorGUI.ObjectField(customIconFieldRect, iconProperty.objectReferenceValue, typeof(Texture2D), false);
@@ -160,7 +160,7 @@ namespace jp.unisakistudio.posingsystemeditor
             // 6行目: 調整アニメーション
             var adjustmentLabelRect = new Rect(contentRect.x, contentRect.y, AnimationLabelWidth, contentRect.height);
             var adjustmentFieldRect = new Rect(adjustmentLabelRect.xMax, contentRect.y, contentRect.width - AnimationLabelWidth, contentRect.height);
-            EditorGUI.LabelField(adjustmentLabelRect, "調整クリップ");
+            EditorGUI.LabelField(adjustmentLabelRect, PosingSystemLocalization.Text("調整クリップ"));
             adjustmentClipProperty.objectReferenceValue = EditorGUI.ObjectField(adjustmentFieldRect, adjustmentClipProperty.objectReferenceValue, typeof(AnimationClip), false);
             contentRect.y += EditorGUIUtility.singleLineHeight;
 

@@ -26,9 +26,11 @@ namespace jp.unisakistudio.posingsystemeditor
     class PosingAnimationAdjustmentMuscleGroup
     {
         public PosingAnimationAdjustmentMuscleGroupName Name { get; private set; }
-        public string DisplayName { get; private set; }
+        private string displayName;
+        public string DisplayName { get => PosingSystemLocalization.Text(displayName); private set => displayName = value; }
         public PosingAnimationAdjustmentMuscleGroupName OppositeName { get; private set; }
-        public string OppositeDisplayName { get; private set; }
+        private string oppositeDisplayName;
+        public string OppositeDisplayName { get => PosingSystemLocalization.Text(oppositeDisplayName); private set => oppositeDisplayName = value; }
 
         public bool HasOpposite => OppositeName > 0;
 
@@ -292,6 +294,7 @@ namespace jp.unisakistudio.posingsystemeditor
             }
 
             // 日本語翻訳が設定されていない場合は英語名を返す
+            if (PosingSystemLocalization.Language != "ja") return HumanTrait.MuscleName[muscleIndex];
             var japaneseName = _muscleNamesJapanese[muscleIndex];
             return string.IsNullOrEmpty(japaneseName) ? HumanTrait.MuscleName[muscleIndex] : japaneseName;
         }

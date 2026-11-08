@@ -101,7 +101,7 @@ namespace jp.unisakistudio.posingsystemeditor
             // Keep one native button hit area, including the icon and the explanation.
             // Opening the editor is navigation, not a serialized setting change.
             var wasChanged = GUI.changed;
-            var clicked = GUI.Button(rect, new GUIContent(string.Empty, title + "を開きます。" + description), GUIStyle.none);
+            var clicked = GUI.Button(rect, new GUIContent(string.Empty, PosingSystemLocalization.Format("{0}を開きます。{1}", title, description)), GUIStyle.none);
             GUI.changed = wasChanged;
             if (GUI.enabled) EditorGUIUtility.AddCursorRect(rect, MouseCursor.Link);
 

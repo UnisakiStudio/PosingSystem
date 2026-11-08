@@ -458,6 +458,9 @@ namespace jp.unisakistudio.posingsystemeditor
             return false;
         }
 
+        private static string DisplayAnimationLabel(AnimationEntry entry)
+            => PosingSystemLocalization.Text(entry.Layer.menuName) + " / " + PosingSystemLocalization.Text(entry.Animation.displayName);
+
         private GUIContent[] GetDynamicAnimationLabels()
         {
             var labels = new GUIContent[_animationEntries.Count];
@@ -468,11 +471,11 @@ namespace jp.unisakistudio.posingsystemeditor
 
                 if (hasChanges)
                 {
-                    labels[i] = new GUIContent($"{entry.Label} ※");
+                    labels[i] = new GUIContent(DisplayAnimationLabel(entry) + " *");
                 }
                 else
                 {
-                    labels[i] = new GUIContent(entry.Label);
+                    labels[i] = new GUIContent(DisplayAnimationLabel(entry));
                 }
                 AdditionalAnimationListItem?.Invoke(this, GetAnimationKey(entry), entry.Animation.animationClip as AnimationClip, labels[i]);
             }
@@ -765,6 +768,9 @@ namespace jp.unisakistudio.posingsystemeditor
 
         private void OnGUI()
         {
+            using var languageScope = PosingSystemLocalization.ForInspector(_posingSystem);
+            titleContent = new GUIContent(PosingAnimationAdjustmentWindowText.Title);
+            saveChangesMessage = PosingAnimationAdjustmentWindowText.SaveChangesMessage;
             if (!IsOpen)
             {
                 hasUnsavedChanges = false;
@@ -949,7 +955,7 @@ namespace jp.unisakistudio.posingsystemeditor
             using (new EditorGUILayout.VerticalScope(GUI.skin.box))
             {
                 // アニメーション名表示
-                EditorGUILayout.LabelField(PosingAnimationAdjustmentWindowText.Name, entry.Animation.displayName);
+                EditorGUILayout.LabelField(PosingAnimationAdjustmentWindowText.Name, PosingSystemLocalization.Text(entry.Animation.displayName));
 
                 // 調整アニメーションのanimationClipProperty表示・編集
                 using (new EditorGUILayout.HorizontalScope())

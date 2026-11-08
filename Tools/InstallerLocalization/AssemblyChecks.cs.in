@@ -45,6 +45,10 @@ class Program
             Check((string)Call("Translate", "fr", "KawaiiPosing: Enabled") == "KawaiiPosing: Activé", "translated license status");
             Check((string)Call("Translate", "en", "対象: 有効") == "Target: 有効", "metadata must not be translated");
             Check((string)Call("Translate", "ja", "Version Unity requise : 2022.3+") == "必要なUnityバージョン: 2022.3+", "language change preserves version");
+            const string originalWarning = "2件のIKルールを適用しました。\n: LeftArm のHumanoidボーンがありません。";
+            var warning = (string)Call("Translate", "en", originalWarning);
+            Check(warning == "Applied 2 IK rules.\n: Humanoid bones for LeftArm are missing.", "nested multiline message with an empty rule name");
+            Check((string)Call("Translate", "ja", warning) == originalWarning, "nested multiline message returns to Japanese");
             var codes = (string[])type.GetField("Codes", flags).GetValue(null);
             foreach (var code in codes)
                 Check(!string.IsNullOrWhiteSpace((string)Call("Translate", code, "Packages to install")), "setup terms in " + code);

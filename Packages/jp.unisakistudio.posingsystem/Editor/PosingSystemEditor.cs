@@ -78,6 +78,8 @@ namespace jp.unisakistudio.posingsystemeditor
         private bool isPosingSystemLicensed = false;
         private static Transform previewAvatarRoot;
 
+        protected IDisposable UseInspectorLanguage(PosingSystem system) => PosingSystemLocalization.ForInspector(system);
+
         static PosingSystemEditor()
         {
             AssemblyReloadEvents.beforeAssemblyReload += CleanupAllPreviewAvatars;
@@ -330,8 +332,8 @@ namespace jp.unisakistudio.posingsystemeditor
                 {
                     EditorGUILayout.LabelField(PosingSystemLocalization.Text("ゆにさきポーズシステム"), header1Label, GUILayout.Height(30));
 
-                    EditorGUILayout.HelpBox(PosingSystemLocalization.Text("このコンピュータにはゆにさきポーズシステムの使用が許諾されていません。Boothのショップから可愛いポーズツールを購入して、コンピュータにライセンスをインストールしてください"), MessageType.Error);
-                    if (EditorGUILayout.LinkButton("可愛いポーズツール(Booth)"))
+                    EditorGUILayout.HelpBox(PosingSystemLocalization.Text("このユーザーのゆにさきポーズシステムライセンスが見つかりません。正規の購入ページからダウンロードしたインストーラーを、このUnityプロジェクトへインポートしてください。ライセンスは、PCのユーザーごとに一度インストールします。別のPCやユーザーでは再度インストールしてください。"), MessageType.Error);
+                    if (EditorGUILayout.LinkButton(PosingSystemLocalization.Text("可愛いポーズツール(Booth)")))
                     {
                         Application.OpenURL("https://yunisaki.booth.pm/items/5479202");
                     }
@@ -388,9 +390,9 @@ namespace jp.unisakistudio.posingsystemeditor
             {
                 foreach (var existProduct in existProducts)
                 {
-                    EditorGUILayout.HelpBox(existProduct + "の設定がアバターに残っています！ 不具合が発生する可能性があるので、自動で設定を取り除く機能を使用してください。また、アバター購入時にBaseLayerに設定されていたLocomotion用のAnimatorControllerがある場合は、恐れ入りますが手動で復元してお使いください。", MessageType.Error);
-                    if (GUILayout.Button(existProduct + "の設定を取り除く") &&
-                        PosingSystemLocalization.Dialog(PosingSystemLocalization.Text("旧版のアバター設定を取り除きます"), existProduct + "の旧設定を取り除きます。ツールを通常アンインストールするための操作ではありません。調整内容を確認できるよう、先にプロジェクトをバックアップしてください。", "バックアップ済み・取り除く", "キャンセル"))
+                    EditorGUILayout.HelpBox(PosingSystemLocalization.Format("{0}の設定がアバターに残っています！ 不具合が発生する可能性があるので、自動で設定を取り除く機能を使用してください。また、アバター購入時にBaseLayerに設定されていたLocomotion用のAnimatorControllerがある場合は、恐れ入りますが手動で復元してお使いください。", existProduct), MessageType.Error);
+                    if (GUILayout.Button(PosingSystemLocalization.Format("{0}の設定を取り除く", existProduct)) &&
+                        PosingSystemLocalization.Dialog(PosingSystemLocalization.Text("旧版のアバター設定を取り除きます"), PosingSystemLocalization.Format("{0}の旧設定を取り除きます。ツールを通常アンインストールするための操作ではありません。調整内容を確認できるよう、先にプロジェクトをバックアップしてください。", existProduct), "バックアップ済み・取り除く", "キャンセル"))
                     {
                         RemoveExistProduct(avatar, existProduct);
                         existProducts = null;
@@ -408,9 +410,9 @@ namespace jp.unisakistudio.posingsystemeditor
             {
                 foreach (var existFolder in existFolders)
                 {
-                    EditorGUILayout.HelpBox("旧unitypackage版の「" + existFolder + "」フォルダがプロジェクトに残っています。新版と競合する可能性があります。削除する前に移行手順とバックアップを確認してください。", MessageType.Error);
-                    if (GUILayout.Button(existFolder + "のフォルダを取り除く") &&
-                        PosingSystemLocalization.Dialog(PosingSystemLocalization.Text("旧版フォルダの削除を確認"), "削除対象: " + existFolder + "\nこの中のPrefabやアニメーションも削除されます。自作・調整済みデータがある場合はキャンセルし、移行手順に従ってください。バックアップなしでは元に戻せません。", "バックアップ済み・削除する", "キャンセル"))
+                    EditorGUILayout.HelpBox(PosingSystemLocalization.Format("旧unitypackage版の「{0}」フォルダがプロジェクトに残っています。新版と競合する可能性があります。削除する前に移行手順とバックアップを確認してください。", existFolder), MessageType.Error);
+                    if (GUILayout.Button(PosingSystemLocalization.Format("{0}のフォルダを取り除く", existFolder)) &&
+                        PosingSystemLocalization.Dialog(PosingSystemLocalization.Text("旧版フォルダの削除を確認"), PosingSystemLocalization.Format("削除対象: {0}\nこの中のPrefabやアニメーションも削除されます。自作・調整済みデータがある場合はキャンセルし、移行手順に従ってください。バックアップなしでは元に戻せません。", existFolder), "バックアップ済み・削除する", "キャンセル"))
                     {
                         RemoveExistFolder(existFolder);
                         existFolders = null;
@@ -506,13 +508,13 @@ namespace jp.unisakistudio.posingsystemeditor
             catch (ExitGUIException) { throw; }
             catch (Exception ex)
             {
-                var message = stage + "を中止しました。\n" + ex.Message;
+                var message = PosingSystemLocalization.Format("{0}を中止しました。\n{1}", PosingSystemLocalization.Text(stage), PosingSystemLocalization.Text(ex.Message));
                 if (!(ex is PosingSystemDiagnostics.DiagnosticException))
-                    message += "\n対処: Window > General > Consoleで、この操作中に最初に出た赤いエラーを確認してください。設定の確認で問題が解消しない場合は、このエラー番号・詳細とツールのバージョンをお問い合わせに添えてください。";
+                    message += "\n" + PosingSystemLocalization.Text("対処: Window > General > Consoleで、この操作中に最初に出た赤いエラーを確認してください。設定の確認で問題が解消しない場合は、このエラー番号・詳細とツールのバージョンをお問い合わせに添えてください。");
                 PosingSystemDiagnosticsInspector.SetFailure(posingSystem, message);
                 Debug.LogError("[PosingSystem] " + message, posingSystem);
                 Debug.LogException(ex, posingSystem);
-                if (PosingSystemLocalization.Dialog(stage + "を完了できませんでした", message, "公式ヘルプを開く", "閉じる"))
+                if (PosingSystemLocalization.Dialog(PosingSystemLocalization.Format("{0}を完了できませんでした", PosingSystemLocalization.Text(stage)), message, "公式ヘルプを開く", "閉じる"))
                     Application.OpenURL(PosingSystemPackageInfo.SupportUrl);
                 return false;
             }

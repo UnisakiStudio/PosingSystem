@@ -187,7 +187,7 @@ namespace jp.unisakistudio.posingsystemeditor
         {
             get
             {
-                return "ゆにさきポーズシステム" + VersionName;
+                return PosingSystemLocalization.Text("ゆにさきポーズシステム") + VersionName;
             }
         }
 

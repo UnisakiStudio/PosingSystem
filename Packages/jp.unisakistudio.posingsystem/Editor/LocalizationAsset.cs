@@ -30,7 +30,7 @@ public class LocalizationAsset
         return new() { JaJpLocalizationAsset(), };
     }
 
-    static public nadena.dev.ndmf.localization.Localizer ErrorLocalization()
+    static public nadena.dev.ndmf.localization.Localizer ErrorLocalization(string language = null)
     {
         // NDMF retains the Localizer in its error report and may render it after the build's
         // temporary UnityEngine.Objects have been unloaded. Keep the error dictionary entirely
@@ -39,7 +39,8 @@ public class LocalizationAsset
             "ja-jp",
             () => new List<(string, Func<string, string>)>
             {
-                ("ja-jp", key => JaJpStrings.TryGetValue(key, out var value) ? value : null),
+                ("ja-jp", key => JaJpStrings.TryGetValue(key, out var value)
+                    ? jp.unisakistudio.posingsystemeditor.PosingSystemLocalization.Translate(language ?? jp.unisakistudio.posingsystemeditor.PosingSystemLocalization.Language, value, value) : null),
             });
     }
 }

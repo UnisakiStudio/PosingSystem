@@ -99,7 +99,7 @@ namespace jp.unisakistudio.posingsystemeditor
                         using (new EditorGUILayout.HorizontalScope())
                         {
                             GUILayout.Label(Labels[(int)type], PosingSystemInspectorGUI.Text(12, true));
-                            if (definition != null && GUILayout.Button(new GUIContent(PosingSystemLocalization.Text("手動指定を解除"), "この種類の手動設定と調整を解除します。自動取り込みがONなら次回生成時に再検出します。Undoで戻せます。"), EditorStyles.miniButton, GUILayout.Width(96)))
+                            if (definition != null && GUILayout.Button(new GUIContent(PosingSystemLocalization.Text("手動指定を解除"), PosingSystemLocalization.Text("この種類の手動設定と調整を解除します。自動取り込みがONなら次回生成時に再検出します。Undoで戻せます。")), EditorStyles.miniButton, GUILayout.Width(96)))
                             {
                                 PosingSystemEditorChangeUtility.Commit(serialized);
                                 PosingSystemMotionImportUtility.ClearManualChoice(ps, type);
@@ -134,7 +134,7 @@ namespace jp.unisakistudio.posingsystemeditor
                             using (new EditorGUI.DisabledScope(definition?.animationClip == null))
                             {
                                 var active = definition != null && definition.enabled;
-                                var next = GUILayout.Toggle(active, new GUIContent(PosingSystemLocalization.Text("使用"), "この種類のモーションを使う"), GUILayout.Width(47));
+                                var next = GUILayout.Toggle(active, new GUIContent(PosingSystemLocalization.Text("使用"), PosingSystemLocalization.Text("この種類のモーションを使う")), GUILayout.Width(47));
                                 if (active != next) { PosingSystemEditorChangeUtility.Commit(serialized); PosingSystemMotionImportUtility.Select(ps, index, next); serialized.Update(); GUIUtility.ExitGUI(); }
                             }
                         }
@@ -146,7 +146,7 @@ namespace jp.unisakistudio.posingsystemeditor
                             {
                                 EditorGUILayout.LabelField(PosingSystemLocalization.Text("以前の設定から、使う1つを選べます。"), PosingSystemInspectorGUI.Text(11));
                                 var selected = Array.IndexOf(alternatives, index);
-                                var next = EditorGUILayout.Popup(selected, alternatives.Select(i => ps.overrideDefines[i].animationClip != null ? ps.overrideDefines[i].animationClip.name : "未指定").ToArray());
+                                var next = EditorGUILayout.Popup(selected, alternatives.Select(i => ps.overrideDefines[i].animationClip != null ? ps.overrideDefines[i].animationClip.name : PosingSystemLocalization.Text("未指定")).ToArray());
                                 if (next != selected) { PosingSystemEditorChangeUtility.Commit(serialized); PosingSystemMotionImportUtility.Select(ps, alternatives[next]); serialized.Update(); GUIUtility.ExitGUI(); }
                             }
                         }

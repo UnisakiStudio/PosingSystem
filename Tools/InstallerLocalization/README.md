@@ -39,7 +39,7 @@ python build.py --upstream <upstream> --inputs <inputs> --output <build-output> 
 python package.py --input <original.unitypackage> --build <build-output> --output <new-preview.unitypackage>
 ```
 
-ビルドは完成DLLと3OS条件のライセンスコードをコンパイルし、Unity外で184項目を確認します。実行環境のライセンス登録、削除、パッケージ導入は呼び出しません。Windows以外は条件コンパイルと言語マッピングの検証で、実OS上の画面確認は別途必要です。
+ビルドは完成DLLと3OS条件のライセンスコードをコンパイルし、Unity外で192項目を確認します。実行環境のライセンス登録、削除、パッケージ導入は呼び出しません。Windows以外は条件コンパイルと言語マッピングの検証で、実OS上の画面確認は別途必要です。
 
 `package.py` は元の配布物を上書きせず、ActivatorとDLLを差し替え、共通ヘルパーとMIT本文を追加します。共通ヘルパーは両商品で同一のパス・GUIDを使い、本体パッケージとは異なるGUIDです。VPAIの自己削除フォルダ外に置きます。書き出した全ファイルを再読込して一致を検査し、変更箇所・ハッシュをmanifestへ記録します。
 

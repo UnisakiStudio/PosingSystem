@@ -1719,5 +1719,16 @@
     "This tool requires Unity {0}.{1} or later. Upgrade Unity before installing.": "Required Unity version: {0}.{1}+",
     "Licenses removed. Other product licenses and their folder are kept.": "Complete\nOther licenses are kept.",
     "Licenses removed. Other product licenses and their registry key are kept.": "Complete\nOther licenses are kept."
+  },
+  "localized_arguments": {
+    "Applied {0} IK rules.\n{1}": [
+      1
+    ],
+    "{0} was stopped.\n{1}": [
+      1
+    ],
+    "Prefab to find: {0}\nThe purchased license installer alone does not complete product installation. In ALCOM / VCC, make sure the product and Unisaki Posing System are added to this project.\nIf already installed: {1}": [
+      1
+    ]
   }
 }

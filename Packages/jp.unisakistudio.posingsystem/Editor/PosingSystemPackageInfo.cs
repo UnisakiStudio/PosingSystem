@@ -23,11 +23,16 @@ namespace jp.unisakistudio.posingsystemeditor
             [NonSerialized] internal string RootPath;
             [NonSerialized] internal string Changelog;
 
-            internal string VersionLabel => string.IsNullOrEmpty(version) ? "バージョン不明" : "v" + version;
+            internal string VersionLabel => string.IsNullOrEmpty(version) ? PosingSystemLocalization.Text("バージョン不明") : "v" + version;
             internal string ManualUrl
             {
                 get
                 {
+                    if (PosingSystemLocalization.Language != "ja" && !string.IsNullOrEmpty(RootPath))
+                    {
+                        var english = Path.Combine(RootPath, "Documentation~", "UserGuide.en.html");
+                        if (File.Exists(english)) return new Uri(Path.GetFullPath(english)).AbsoluteUri;
+                    }
                     switch (name)
                     {
                         case "jp.unisakistudio.kawaiiposing": return ManualRootUrl + "kawaiiposing/manual/";

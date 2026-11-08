@@ -13,7 +13,7 @@ namespace UnisakiStudio.PosingSystem.Tests
                 .Select(asset => asset.GetInstanceID())
                 .ToHashSet();
 
-            var localizer = LocalizationAsset.ErrorLocalization();
+            var localizer = LocalizationAsset.ErrorLocalization("ja");
             var newlyCreatedAssets = Resources.FindObjectsOfTypeAll<UnityEngine.LocalizationAsset>()
                 .Where(asset => !existingInstanceIds.Contains(asset.GetInstanceID()))
                 .ToArray();

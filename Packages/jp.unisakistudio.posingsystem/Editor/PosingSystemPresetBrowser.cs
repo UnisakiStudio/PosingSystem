@@ -74,7 +74,7 @@ namespace jp.unisakistudio.posingsystemeditor
             {
                 EditorGUI.BeginChangeCheck();
                 var hideBundled = EditorGUILayout.ToggleLeft(new GUIContent(PosingSystemLocalization.Text("同梱プリセットを表示しない"),
-                    "ツールに同梱された公式プリセットを一覧と検索結果に表示しません。同じプロジェクト内のアバターで共有する設定です。"),
+                    PosingSystemLocalization.Text("ツールに同梱された公式プリセットを一覧と検索結果に表示しません。同じプロジェクト内のアバターで共有する設定です。")),
                     catalog.hideBundledPresets);
                 if (EditorGUI.EndChangeCheck())
                 {

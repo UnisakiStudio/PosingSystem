@@ -43,7 +43,8 @@ namespace UnisakiStudio.Setup
         internal static string PathFor(string source, string locale)
         {
             var parts = source.Split('/');
-            for (var i = 1; i < parts.Length; i++)
+            var first = parts.Length > 1 && parts[0] == "Assets" && parts[1] == "Create" ? 2 : 1;
+            for (var i = first; i < parts.Length; i++)
             {
                 parts[i] = locale == "ja" ? parts[i] : Language.Translate(locale, parts[i]);
             }
@@ -52,12 +53,15 @@ namespace UnisakiStudio.Setup
         private sealed class Entry
         {
             internal MethodInfo Execute, Validate;
+            internal Action CreateAsset;
+            internal bool HasAction => Execute != null || CreateAsset != null;
             internal int Priority = 1000;
         }
-        internal static void Rebuild()
+        internal static void Rebuild() => Rebuild(Language.Current);
+        internal static void Rebuild(string locale)
         {
             if (!IsOwner()) return;
-            language = Language.Current;
+            language = locale;
             if (Add == null || Remove == null || Exists == null) return;
             var entries = new Dictionary<string, Entry>();
             foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
@@ -68,6 +72,23 @@ namespace UnisakiStudio.Setup
                 try { types = assembly.GetTypes(); }
                 catch (ReflectionTypeLoadException exception) { types = exception.Types.Where(t => t != null).ToArray(); }
                 foreach (var type in types)
+                {
+                    if (typeof(ScriptableObject).IsAssignableFrom(type))
+                        foreach (var attribute in type.GetCustomAttributesData())
+                        {
+                            if (attribute.AttributeType != typeof(CreateAssetMenuAttribute)) continue;
+                            var menuName = attribute.NamedArguments.FirstOrDefault(a => a.MemberName == "menuName").TypedValue.Value as string;
+                            if (menuName == null || !menuName.Contains("ゆにさきスタジオ/")) continue;
+                            var filename = attribute.NamedArguments.FirstOrDefault(a => a.MemberName == "fileName").TypedValue.Value as string ?? type.Name;
+                            if (!filename.EndsWith(".asset", StringComparison.OrdinalIgnoreCase)) filename += ".asset";
+                            var capturedType = type; var capturedFilename = filename;
+                            var order = attribute.NamedArguments.FirstOrDefault(a => a.MemberName == "order").TypedValue.Value;
+                            entries["Assets/Create/" + menuName] = new Entry
+                            {
+                                Priority = order is int priority ? priority : 1000,
+                                CreateAsset = () => ProjectWindowUtil.CreateAsset(ScriptableObject.CreateInstance(capturedType), capturedFilename)
+                            };
+                        }
                     foreach (var method in type.GetMethods(Flags))
                         foreach (var attribute in method.GetCustomAttributesData())
                         {
@@ -83,16 +104,17 @@ namespace UnisakiStudio.Setup
                                 if (attribute.ConstructorArguments.Count > 2) entry.Priority = (int)attribute.ConstructorArguments[2].Value;
                             }
                         }
+                }
             }
             var oldPaths = SessionState.GetString(SessionKey, "").Split(new[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
-            foreach (var path in oldPaths.Concat(entries.Where(e => e.Value.Execute != null).Select(e => e.Key)).Distinct())
+            foreach (var path in oldPaths.Concat(entries.Where(e => e.Value.HasAction).Select(e => e.Key)).Distinct())
                 if ((bool)Exists.Invoke(null, new object[] { path })) Remove.Invoke(null, new object[] { path });
             var installed = new List<string>();
-            foreach (var pair in entries.Where(e => e.Value.Execute != null))
+            foreach (var pair in entries.Where(e => e.Value.HasAction))
             {
                 var entry = pair.Value;
                 var path = PathFor(pair.Key, language);
-                Action execute = () => Invoke(entry.Execute);
+                Action execute = entry.CreateAsset ?? (() => Invoke(entry.Execute));
                 Func<bool> validate = entry.Validate == null ? (Func<bool>)(() => true) : () => (bool)Invoke(entry.Validate);
                 Add.Invoke(null, new object[] { path, "", false, entry.Priority, execute, validate });
                 installed.Add(path);

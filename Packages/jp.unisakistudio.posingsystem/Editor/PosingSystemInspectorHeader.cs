@@ -51,12 +51,12 @@ namespace jp.unisakistudio.posingsystemeditor
                     EditorGUILayout.Space(6);
                     if (hasSeparateProduct)
                     {
-                        var nextTab = GUILayout.Toolbar(changelogTab, new[] { product.displayName, "ゆにさきポーズシステム" }, GUILayout.Height(28));
+                        var nextTab = GUILayout.Toolbar(changelogTab, new[] { PosingSystemLocalization.Text(product.displayName), PosingSystemLocalization.Text("ゆにさきポーズシステム") }, GUILayout.Height(28));
                         if (nextTab != changelogTab) changelogScroll = Vector2.zero;
                         changelogTab = nextTab;
                     }
                     var selected = hasSeparateProduct && changelogTab == 0 ? product : system;
-                    EditorGUILayout.LabelField(selected.displayName + "  " + selected.VersionLabel, bodyStyle);
+                    EditorGUILayout.LabelField(PosingSystemLocalization.Text(selected.displayName) + "  " + selected.VersionLabel, bodyStyle);
                     using (var scroll = new EditorGUILayout.ScrollViewScope(changelogScroll, GUILayout.Height(240)))
                     {
                         changelogScroll = scroll.scrollPosition;

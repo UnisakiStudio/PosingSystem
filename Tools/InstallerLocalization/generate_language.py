@@ -6,7 +6,9 @@ REPO=HERE.parents[1]
 def quoted(value):return json.dumps(value,ensure_ascii=False)
 def dictionary(values):return 'new Dictionary<string, string> {\n'+''.join('    { '+quoted(k)+', '+quoted(v)+' },\n' for k,v in sorted(values.items()))+'}'
 def render():
-    ui=json.loads((REPO/'Tools/Localization/ui.translations.json').read_text(encoding='utf-8'))
+    ui={'en':{}}
+    for table in sorted((REPO/'Tools/Localization').glob('*.translations.json')):
+        if table.name != 'poses.translations.json': ui['en'].update(json.loads(table.read_text(encoding='utf-8')).get('en',{}))
     catalogs={p.stem:{e['key']:e['value'] for e in json.loads(p.read_text(encoding='utf-8'))['entries']} for p in (REPO/'Packages/jp.unisakistudio.posingsystem/Editor/Localization').glob('*.json')}
     source=(REPO/'Packages/jp.unisakistudio.posingsystem/Editor/PosingSystemLocalization.cs').read_text(encoding='utf-8')
     codes=re.search(r'Codes = (\{[^;]+\})',source)[1];names=re.search(r'Names = (\{[^;]+\})',source)[1]
@@ -44,6 +46,8 @@ def render():
     literal+='}'
     factories+='        private static Dictionary<string, Dictionary<string, string>> BuildCatalogs() => '+literal+';\n'
     rendered=rendered.replace('__CATALOGS__','BuildCatalogs()').replace('__FACTORIES__',factories)
+    arguments='new Dictionary<string, int[]> { '+', '.join('{ '+quoted(key)+', new[] { '+', '.join(map(str,indices))+' } }' for key,indices in data.get('localized_arguments',{}).items())+' }'
+    rendered=rendered.replace('__LOCALIZED_ARGUMENTS__',arguments)
     rendered+='\n'+(HERE/'SetupMenus.cs.in').read_text(encoding='utf-8')
     dest=REPO/'Packages/jp.unisakistudio.posingsystem/Editor/Setup/SetupLanguage.cs';dest.parent.mkdir(exist_ok=True);dest.write_text(rendered,encoding='utf-8')
     for path in [dest.parent,dest]:

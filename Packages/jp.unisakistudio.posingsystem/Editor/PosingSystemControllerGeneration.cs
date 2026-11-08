@@ -86,7 +86,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 if (!PosingSystemControllerEquivalence.Matches(reference, source, out var reason))
                 { scope.Decisions.Add("Preserved differing in-memory controller: " + reason); return null; }
             }
-            if (EditorUtility.IsDirty(reference)) throw new InvalidOperationException("共通Controllerに未保存の変更があります。変更を保存してからやり直してください。\n" + referencePath);
+            if (EditorUtility.IsDirty(reference)) throw new InvalidOperationException(PosingSystemLocalization.Text("共通Controllerに未保存の変更があります。変更を保存してからやり直してください。") + "\n" + referencePath);
             using var sha = SHA256.Create();
             var hash = BitConverter.ToString(sha.ComputeHash(File.ReadAllBytes(referencePath))).Replace("-", "").ToLowerInvariant();
             if (hash != PosingSystemControllerCompiler.ReferenceSha256)
@@ -94,9 +94,9 @@ namespace jp.unisakistudio.posingsystemeditor
                 // Unity can import the same graph from differently serialized YAML (e.g. CRLF).
                 using var definition = PosingSystemControllerCompiler.Create(false);
                 if (!PosingSystemControllerEquivalence.Matches(reference, definition.Controller, out var difference))
-                    throw new InvalidOperationException("共通Controllerの内容が、このバージョンの生成定義と一致しません。"
-                        + "独自の変更は別のControllerに保存し、ALCOM / VCCで同じバージョンの「ゆにさきポーズシステム」を入れ直してください。\n"
-                        + referencePath + "\n差異: " + difference);
+                    throw new InvalidOperationException(PosingSystemLocalization.Text("共通Controllerの内容が、このバージョンの生成定義と一致しません。"
+                        + "独自の変更は別のControllerに保存し、ALCOM / VCCで同じバージョンの「ゆにさきポーズシステム」を入れ直してください。") + "\n"
+                        + referencePath + "\n" + PosingSystemLocalization.Text("差異:") + " " + difference);
             }
             var result = PosingSystemControllerCompiler.Create(scope.Optimize);
             scope.Created++;

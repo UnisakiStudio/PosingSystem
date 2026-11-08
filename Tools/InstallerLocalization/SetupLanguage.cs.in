@@ -18,32 +18,40 @@ namespace UnisakiStudio.Setup
         internal static readonly string[] Names = __NAMES__;
         private static readonly Dictionary<string, string> Aliases = __ALIASES__;
         private static readonly Dictionary<string, Dictionary<string, string>> Catalogs = __CATALOGS__;
+        private static readonly Dictionary<string, int[]> LocalizedArguments = __LOCALIZED_ARGUMENTS__;
 __FACTORIES__
         private sealed class Template
         {
             internal Regex Pattern;
             internal string Canonical;
             internal int[] Indices;
+            internal int[] TextArguments;
         }
         private static readonly List<Template> Templates = BuildTemplates();
         private static List<Template> BuildTemplates()
         {
             var result = new List<Template>();
-            foreach (var pair in Aliases)
+            var patterns = Aliases.Concat(Aliases.Values.Select(value => new KeyValuePair<string, string>(value, value)))
+                .GroupBy(pair => pair.Key).Select(group => group.First());
+            foreach (var pair in patterns.OrderByDescending(pair => Regex.Replace(pair.Key, @"\{\d+\}", "").Length))
             {
                 var matches = Regex.Matches(pair.Key, @"\{(\d+)\}");
-                if (matches.Count == 0) continue;
+                if (matches.Count == 0 || Regex.Replace(pair.Key, @"\{\d+\}", "").Length == 0) continue;
                 var indices = new List<int>();
+                var textArguments = LocalizedArguments.TryGetValue(pair.Value, out var localized) ? localized : Array.Empty<int>();
                 var pattern = "^"; var position = 0;
                 foreach (Match match in matches)
                 {
                     var index = int.Parse(match.Groups[1].Value, CultureInfo.InvariantCulture);
                     indices.Add(index);
-                    pattern += Regex.Escape(pair.Key.Substring(position, match.Index - position)) + "(?<p" + index + ">.+?)";
+                    // Metadata fields are single-line. Only designated explanatory text may
+                    // span lines, so an inner warning cannot consume the enclosing message.
+                    var capture = Array.IndexOf(textArguments, index) >= 0 ? ".*?" : @"[^\r\n]*?";
+                    pattern += Regex.Escape(pair.Key.Substring(position, match.Index - position)) + "(?<p" + index + ">" + capture + ")";
                     position = match.Index + match.Length;
                 }
                 pattern += Regex.Escape(pair.Key.Substring(position)) + "$";
-                result.Add(new Template { Pattern = new Regex(pattern, RegexOptions.Singleline | RegexOptions.CultureInvariant), Canonical = pair.Value, Indices = indices.ToArray() });
+                result.Add(new Template { Pattern = new Regex(pattern, RegexOptions.Singleline | RegexOptions.CultureInvariant), Canonical = pair.Value, Indices = indices.ToArray(), TextArguments = textArguments });
             }
             return result;
         }
@@ -57,6 +65,7 @@ __FACTORIES__
                 foreach (var index in template.Indices) maximum = Math.Max(maximum, index);
                 var arguments = new object[maximum + 1];
                 foreach (var index in template.Indices) arguments[index] = match.Groups["p" + index].Value;
+                foreach (var index in template.TextArguments) arguments[index] = Translate(language, arguments[index] as string);
                 var target = Catalogs.TryGetValue(language, out var catalog) && catalog.TryGetValue(template.Canonical, out var value) ? value : template.Canonical;
                 try { translated = string.Format(CultureInfo.InvariantCulture, target, arguments); return true; }
                 catch (FormatException) { }
@@ -118,6 +127,8 @@ __FACTORIES__
         internal static string Translate(string language, string source)
         {
             if (string.IsNullOrEmpty(source)) return source;
+            var codePrefix = Regex.Match(source, @"^\[(?:PosingSystem / )?PS\d{3}\]\s+");
+            if (codePrefix.Success) return codePrefix.Value + Translate(language, source.Substring(codePrefix.Length));
             var trimmed = source.Trim();
             if (trimmed.Length == 0) return source;
             var canonical = Aliases.TryGetValue(trimmed, out var english) ? english : trimmed;

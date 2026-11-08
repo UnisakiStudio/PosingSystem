@@ -166,7 +166,7 @@ namespace jp.unisakistudio.posingsystemeditor
                     EditorGUILayout.LabelField("ExpressionParameters", summaryStyle);
                     GUILayout.Label((pose + optional) + " bit", PosingSystemInspectorGUI.Text(24, true), GUILayout.Width(95), GUILayout.Height(31));
                 }
-                EditorGUILayout.LabelField($"ポーズ {pose} bit ＋ 追加機能 {optional} bit  ／ このアバターのポーズツール分", descriptionStyle);
+                EditorGUILayout.LabelField(PosingSystemLocalization.Format("ポーズ {0} bit ＋ 追加機能 {1} bit  ／ このアバターのポーズツール分", pose, optional), descriptionStyle);
             }
         }
 
@@ -220,7 +220,7 @@ namespace jp.unisakistudio.posingsystemeditor
                     ? "チェックを付けると増える量／外すと減る量です。\n寝返りON/OFF：1 bit、頭の傾き：8 bit、首固定：1 bit。\nほかの設定で使用中のパラメーターは重複して数えません。"
                     : setting.SharedHead ? "チェックを付けると増える量／外すと減る量です。\n首固定：1 bit（寝返りと共用）。\n寝返りなどで使用中なら0 bitです。" : null;
                 GUI.Label(new Rect(check.x - 49, check.y, 45, check.height),
-                    new GUIContent(displayedBits + " bit" + (setting.SharedHead ? " ※" : ""), bitDetails), badgeStyle);
+                    new GUIContent(displayedBits + " bit" + (setting.SharedHead ? " ※" : ""), PosingSystemLocalization.Text(bitDetails)), badgeStyle);
             }
             var iconRect = new Rect(rect.x + 4, rect.y + 4, CardIconSize, CardIconSize);
             PosingSystemSettingIcons.Draw(iconRect, setting.Path, ps);

@@ -77,7 +77,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 var prefabs = FindInstallPrefab(name, out var paths);
                 if (paths.Length == 0)
                 {
-                    if (UnisakiStudio.Setup.Language.Dialog(PosingSystemLocalization.Text("ツール本体が見つかりません [PS041]"), "探しているPrefab: " + name + "\nBOOTH同梱のライセンス用unitypackageだけでは、ツール本体の導入は完了しません。ALCOM / VCCでこのプロジェクトに商品本体と「ゆにさきポーズシステム」が追加されているか確認してください。\n導入済みの場合: " + UnisakiStudio.Setup.Language.T(PosingSystemDiagnostics.RestoreTool), "公式ヘルプを開く", "閉じる"))
+                    if (UnisakiStudio.Setup.Language.Dialog(PosingSystemLocalization.Text("ツール本体が見つかりません [PS041]"), () => UnisakiStudio.Setup.Language.Format("探しているPrefab: {0}\n購入ファイルのライセンス用unitypackageだけでは、ツール本体の導入は完了しません。ALCOM / VCCでこのプロジェクトに商品本体と「ゆにさきポーズシステム」が追加されているか確認してください。\n導入済みの場合: {1}", name, UnisakiStudio.Setup.Language.T(PosingSystemDiagnostics.RestoreTool)), "公式ヘルプを開く", "閉じる"))
                         Application.OpenURL(PosingSystemPackageInfo.SupportUrl);
                     return;
                 }
