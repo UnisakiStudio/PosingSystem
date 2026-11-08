@@ -41,7 +41,8 @@ namespace jp.unisakistudio.posingsystemeditor
                 d.GetComponentInParent<PosingSystem>(true) == ps && ps.GetAvatar() == d.GetComponentInParent<VRC.SDK3.Avatars.Components.VRCAvatarDescriptor>(true)).ToArray();
 
         internal static bool ActiveCommonMarker(DuplicateEraser marker) =>
-            marker.gameObject.activeInHierarchy && !marker.GetComponentsInParent<Transform>(true).Any(t => t.CompareTag("EditorOnly"));
+            PosingSystemHierarchy.BlockingParent(marker.transform,
+                marker.GetComponentInParent<VRC.SDK3.Avatars.Components.VRCAvatarDescriptor>(true)?.transform) == null;
 
         private static GameObject[] UnmarkedCommonChildren(PosingSystem ps, ModularAvatarMergeAnimator template) =>
             ps.GetComponentsInChildren<Transform>(true).Where(t => t != ps.transform &&
@@ -54,14 +55,15 @@ namespace jp.unisakistudio.posingsystemeditor
         internal static bool CanRecoverCommonChild(PosingSystem ps, DuplicateEraser[] markers, out GameObject child)
         {
             child = null;
-            if (markers.Length != 0 || !ps.gameObject.activeInHierarchy) return false;
+            var avatar = ps.GetAvatar()?.transform;
+            if (markers.Length != 0 || PosingSystemHierarchy.BlockingParent(ps.transform, avatar) != null) return false;
             var template = CommonAnimatorTemplate();
             if (template == null || template.animator == null) return false;
             var candidates = UnmarkedCommonChildren(ps, template);
             if (candidates.Length == 0) return true;
             if (candidates.Length != 1) return false;
             child = candidates[0];
-            return child.activeInHierarchy && !child.GetComponentsInParent<Transform>(true).Any(t => t.CompareTag("EditorOnly")) &&
+            return PosingSystemHierarchy.BlockingParent(child.transform, avatar) == null &&
                 GameObjectUtility.GetMonoBehavioursWithMissingScriptCount(child) == 0;
         }
 
@@ -125,9 +127,20 @@ namespace jp.unisakistudio.posingsystemeditor
             var marker = markers.FirstOrDefault(ActiveCommonMarker);
             if (marker == null)
             {
-                if (CanRecoverCommonChild(ps, markers, out _))
+                if (CanRecoverCommonChild(ps, markers, out var orphan))
                     Add("PS010", "共通ポージングAnimatorがありません。", "プレビルド・ビルド時に標準Prefabから再作成します。", MessageType.Warning);
-                else Add("PS010", "有効な共通ポージングAnimatorが見つかりません。", "ツール内の共通ポージングAnimatorが1つだけ有効か、EditorOnlyタグ・Missing Scriptの有無と標準Prefabの導入状態を確認してください。");
+                else
+                {
+                    var blocked = PosingSystemHierarchy.BlockingParent(markers.FirstOrDefault()?.transform ?? orphan?.transform ?? ps.transform, avatar.transform);
+                    if (blocked != null)
+                    {
+                        var path = AnimationUtility.CalculateTransformPath(blocked, null);
+                        var reason = blocked.CompareTag("EditorOnly") ? "にEditorOnlyタグが設定されています" : "が無効になっています";
+                        Add("PS010", PosingSystemLocalization.Format("共通ポージングAnimatorを使用できません。「{0}」{1}。", path, PosingSystemLocalization.Text(reason)),
+                            "このアバターでポーズを使用する場合は、「対象を選択」で該当オブジェクトのタグと有効状態を確認してください。", context: blocked.gameObject);
+                    }
+                    else Add("PS010", "有効な共通ポージングAnimatorが見つかりません。", "ツール内の共通ポージングAnimatorが1つだけ有効か、EditorOnlyタグ・Missing Scriptの有無と標準Prefabの導入状態を確認してください。");
+                }
             }
             else
             {
@@ -152,7 +165,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 Add("PS015", "ツールのルートにMA Parametersがありません。", RestoreTool);
 
             var hasMenuPoses = ps.defines != null && ps.defines.Any(d => d?.animations != null && d.animations.Any(a => a != null && a.enabled));
-            if (hasMenuPoses && ps.SubmenuRoot == null && ps.GetComponentInChildren<ModularAvatarMenuGroup>() == null)
+            if (hasMenuPoses && ps.SubmenuRoot == null && ps.GetActiveAvatarChildren<ModularAvatarMenuGroup>().Length == 0)
                 Add("PS016", "姿勢メニューの生成先が見つかりません。", "ツール内の姿勢メニューが削除・無効化されていないか確認してください。" + RestoreTool);
             if (ps.SubmenuRoot != null && ps.SubmenuRoot != avatar.transform && !ps.SubmenuRoot.IsChildOf(avatar.transform))
                 Add("PS017", "姿勢メニューの生成先が別のアバター、またはアバターの外にあります。", "Submenu Rootには、このアバター内のメニュー生成先を指定してください。", context: ps.SubmenuRoot);
@@ -217,7 +230,7 @@ namespace jp.unisakistudio.posingsystemeditor
         }
 
         internal static DiagnosticException CompilationFailure(UnityEngine.Object context) =>
-            Failure("PS050", "Unityでスクリプトのコンパイルに失敗したため、ポーズの生成を開始できません。",
+            Failure("PS050", PosingSystemLocalization.Text("Unityでスクリプトのコンパイルに失敗したため、ポーズの生成を開始できません。") + PosingSystemSupportReport.CompilerDetails(),
                 "Consoleの最初のコンパイルエラーを修正し、再コンパイルが完了してから実行してください。", context);
     }
 }

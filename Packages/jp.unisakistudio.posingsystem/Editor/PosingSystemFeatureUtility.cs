@@ -60,7 +60,7 @@ namespace jp.unisakistudio.posingsystemeditor
         public static bool AvatarUsesBreathingControl(PosingSystem ps)
         {
             var avatar = ps.GetAvatar();
-            return avatar == null ? UsesBreathingControl(ps) : avatar.GetComponentsInChildren<PosingSystem>()
+            return avatar == null ? UsesBreathingControl(ps) : avatar.GetActiveAvatarChildren<PosingSystem>()
                 .Any(p => p.tag != "EditorOnly" && UsesBreathingControl(p));
         }
 
@@ -76,10 +76,10 @@ namespace jp.unisakistudio.posingsystemeditor
         /// <summary>Bit difference between on and off, with all other feature selections held constant.</summary>
         public static int SharedHeadFeatureToggleBits(PosingSystem ps, bool rollover)
         {
-            if (ps == null || ps.isEightBitVersion || ps.tag == "EditorOnly" || !ps.gameObject.activeInHierarchy) return 0;
+            if (ps == null || ps.isEightBitVersion || ps.tag == "EditorOnly" || PosingSystemHierarchy.InactiveChild(ps.transform, ps.GetAvatar()?.transform) != null) return 0;
             var f = ps.features ?? new PosingSystemFeatureSettings();
             var avatar = ps.GetAvatar();
-            var others = avatar == null ? Array.Empty<PosingSystemFeatureSettings>() : avatar.GetComponentsInChildren<PosingSystem>()
+            var others = avatar == null ? Array.Empty<PosingSystemFeatureSettings>() : avatar.GetActiveAvatarChildren<PosingSystem>()
                 .Where(p => p != ps && p.tag != "EditorOnly" && !p.isEightBitVersion)
                 .Select(p => p.features ?? new PosingSystemFeatureSettings()).ToArray();
             var headAlreadyUsed = (rollover ? f.faceForward : f.rollover) || others.Any(p => p.faceForward || p.rollover);
@@ -90,7 +90,7 @@ namespace jp.unisakistudio.posingsystemeditor
         public static int PoseBits(PosingSystem ps)
         {
             var avatar = ps.GetAvatar();
-            var systems = avatar != null ? avatar.GetComponentsInChildren<PosingSystem>() : new[] { ps };
+            var systems = avatar != null ? avatar.GetActiveAvatarChildren<PosingSystem>() : new[] { ps };
             // The allocation reserves four common poses. Match SplitSyncParameters, including expansion.
             var count = 3 + systems.Where(p => p.tag != "EditorOnly")
                 .Sum(p => p.defines?.Sum(d => d.animations?.Count(a => a.enabled) ?? 0) ?? 0);
@@ -102,7 +102,7 @@ namespace jp.unisakistudio.posingsystemeditor
         {
             var avatar = ps.GetAvatar();
             if (avatar == null) return OptionalBits(ps);
-            var systems = avatar.GetComponentsInChildren<PosingSystem>().Where(p => p.tag != "EditorOnly" && !p.isEightBitVersion).ToArray();
+            var systems = avatar.GetActiveAvatarChildren<PosingSystem>().Where(p => p.tag != "EditorOnly" && !p.isEightBitVersion).ToArray();
             var features = systems.Select(p => p.features ?? new PosingSystemFeatureSettings()).ToArray();
             return (features.Any(f => f.mirror) ? 1 : 0) + (features.Any(f => f.footHeight) ? 8 : 0) +
                 (systems.Any(UsesBreathingControl) ? 1 : 0) + (features.Any(f => f.fingerGestureControl) ? 1 : 0) +
@@ -115,6 +115,7 @@ namespace jp.unisakistudio.posingsystemeditor
             if (ps == null) return;
             if (recordUndo) Undo.RecordObject(ps, "Change posing features");
             Migrate(ps);
+            RestoreLegacyAutoHeadMenu(ps, recordUndo);
             var f = ps.features;
             var parameters = ps.GetComponent<ModularAvatarParameters>();
             if (parameters == null) return;
@@ -124,7 +125,7 @@ namespace jp.unisakistudio.posingsystemeditor
             SetParameter(parameters, "USSPS_Breathing", ParameterSyncType.Bool, UsesBreathingControl(ps), false, 1, true);
             // Existing local neck-lock control becomes synced only for the correction feature.
             var avatar = ps.GetAvatar();
-            var syncHead = f.faceForward || f.rollover || (avatar != null && avatar.GetComponentsInChildren<PosingSystem>()
+            var syncHead = f.faceForward || f.rollover || (avatar != null && avatar.GetActiveAvatarChildren<PosingSystem>()
                 .Any(p => p.tag != "EditorOnly" && p.features != null && (p.features.faceForward || p.features.rollover)));
             SetParameter(parameters, "HeadTrackingLock", ParameterSyncType.Bool, true, !syncHead, 0, true);
             SetParameter(parameters, PhotoActive, ParameterSyncType.Bool, f.photography, true, 0, false);
@@ -185,9 +186,41 @@ namespace jp.unisakistudio.posingsystemeditor
             else target.parameters.Add(parameter);
         }
 
-        private static bool UsesParameter(ModularAvatarMenuItem item, string parameter) =>
-            item.Control != null && (item.Control.parameter?.name == parameter ||
-            (item.Control.subParameters?.Any(p => p.name == parameter) ?? false));
+        private static bool UsesParameter(ModularAvatarMenuItem item, string parameter)
+        {
+            var control = item.Control;
+            if (control == null) return false;
+            if (control.parameter?.name == parameter) return true;
+            // Unity retains unused axes when a puppet is changed into a toggle.
+            var axes = control.type switch
+            {
+                VRCExpressionsMenu.Control.ControlType.RadialPuppet => 1,
+                VRCExpressionsMenu.Control.ControlType.TwoAxisPuppet => 2,
+                VRCExpressionsMenu.Control.ControlType.FourAxisPuppet => 4,
+                _ => 0
+            };
+            return axes > 0 && (control.subParameters?.Take(axes).Any(p => p?.name == parameter) ?? false);
+        }
+
+        internal static void RestoreLegacyAutoHeadMenu(PosingSystem ps, bool undo)
+        {
+            if (ps.legacyAutoHeadMenuChecked) return;
+            if (undo) Undo.RecordObject(ps, "Check legacy head lock menu");
+            foreach (var item in ps.GetComponentsInChildren<ModularAvatarMenuItem>(true))
+            {
+                if (item.Control?.type != VRCExpressionsMenu.Control.ControlType.Toggle ||
+                    item.Control.parameter?.name != "USSPS_AutoLockHead" || item.gameObject.activeSelf ||
+                    !item.CompareTag("EditorOnly") || item.GetComponentInParent<PosingSystem>(true) != ps) continue;
+                // Unpacked avatars retain the obsolete axis. A linked 3.1 product prefab can
+                // retain just the two visibility overrides after updating the common package.
+                bool obsoleteAxis = item.Control.subParameters?.Any(p => p?.name == "FootHeight") == true;
+                if (!obsoleteAxis && item.name != "あおむけ時自動頭固定") continue;
+                SetIncluded(item.gameObject, true, undo);
+            }
+            ps.legacyAutoHeadMenuChecked = true;
+            EditorUtility.SetDirty(ps);
+            PrefabUtility.RecordPrefabInstancePropertyModifications(ps);
+        }
 
         private static void SetMenuAvailable(PosingSystem ps, string parameter, bool enabled, bool undo)
         {

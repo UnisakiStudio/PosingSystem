@@ -215,7 +215,7 @@ namespace jp.unisakistudio.posingsystemeditor.tests
                 PosingSystemConverter.ConvertOptionalFeatures(ps, context.AssetSaver);
                 var face = controller.layers.Single(l => l.name == PosingSystemConverter.FaceForwardLayer);
                 foreach (var state in states.Take(2)) Assert.That(face.GetOverrideMotion(state), Is.TypeOf<BlendTree>());
-                foreach (var state in states.Skip(2)) Assert.That(face.GetOverrideMotion(state), Is.Null, "Supine must retain original upward head even without manual lock");
+                foreach (var state in states.Skip(2)) Assert.That(face.GetOverrideMotion(state), Is.SameAs(source), "Supine must retain original upward head even without manual lock");
                 var gate = controller.layers.Single(l => l.name == "USSPS_FaceForwardSwitch");
                 var on = gate.stateMachine.states.Single(s => s.state.name == "正面に補正").state;
                 Assert.That(on.transitions.Any(t => t.conditions.Any(c => c.parameter == "LocomotionType" && c.mode == AnimatorConditionMode.Equals && c.threshold == 32)), Is.True);

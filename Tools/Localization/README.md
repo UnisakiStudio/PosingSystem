@@ -2,6 +2,46 @@
 
 This is development work, not a published release. The language list is provisional.
 
+## Required for every feature and fix (2026-11-09)
+
+The user has confirmed **all 30 selectable languages**, including Japanese. A
+feature is not translated just because its English fallback works. Include titles
+and ON/OFF explanations as pairs, tooltips, dialogs, diagnostics, native menus,
+generated menus, standalone license/install UI and affected guide text. Check the
+existing target-language terminology before writing new translations. Preserve
+placeholders, markup, identifiers and custom names. Translate all standard pose
+names together per language, keeping numbering and left/right conventions.
+
+Use AI with the complete feature/pose context and existing terms. Record provenance
+and outstanding linguistic/visual review. Do not silently switch to an external
+translation service. `prepare_translation_batches.py --out <directory>` prepares
+context-rich missing-key batches locally without network access.
+
+After editing authoritative tables run:
+
+```
+python Tools/Localization/build_feature_cards.py
+python Tools/Localization/build_catalogs.py
+python Tools/Localization/validate_catalogs.py
+python Tools/InstallerLocalization/generate_language.py
+python Tools/Localization/audit_coverage.py --report localization-coverage.json
+```
+
+`audit_coverage.py` is the strict release gate. It compares every selectable target
+language with the full English inventory, independently checks feature descriptions,
+standard pose names and setup messages, and detects unregistered literal lookup
+keys, stale generated catalogs and declared terminology violations. Missing or
+fallback text blocks release. `--allow-incomplete` is only for documenting work in
+progress, never a passing release check. The CI workflow runs the strict gate.
+
+Review a diff for user-visible strings that bypass localization or are assembled
+dynamically; the literal scanner cannot prove arbitrary C# data flow. Check switching
+languages and returning to Japanese in Unity. Font coverage, wrapping, RTL and Indic
+shaping still require separate rendered checks; JSON coverage is not visual proof.
+
+The pre-2026-11-09 scope notes below describe earlier checkpoints, not completion
+of the now-confirmed full language scope.
+
 ## Authoritative data
 
 - `ui.translations.json`: Inspector display text. Japanese source text is the lookup key, with a small set of semantic keys for header navigation.

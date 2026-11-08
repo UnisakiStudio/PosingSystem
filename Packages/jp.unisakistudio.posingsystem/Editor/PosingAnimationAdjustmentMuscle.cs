@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
@@ -294,7 +294,7 @@ namespace jp.unisakistudio.posingsystemeditor
             }
 
             // 日本語翻訳が設定されていない場合は英語名を返す
-            if (PosingSystemLocalization.Language != "ja") return HumanTrait.MuscleName[muscleIndex];
+            if (PosingSystemLocalization.Language != "ja") return PosingSystemLocalization.Text("muscle." + muscleIndex, HumanTrait.MuscleName[muscleIndex]);
             var japaneseName = _muscleNamesJapanese[muscleIndex];
             return string.IsNullOrEmpty(japaneseName) ? HumanTrait.MuscleName[muscleIndex] : japaneseName;
         }

@@ -1,6 +1,18 @@
 {
   "entries": [
     {
+      "key": "VRChatのメニューで呼吸をつけたり止めたりできます。ON/OFFは他の人にも反映されます。",
+      "value": "Attiva o disattiva il respiro in VRChat. Il cambiamento è visibile anche agli altri utenti."
+    },
+    {
+      "key": "VRChatのメニューに切り替え項目を追加します。使いたいときに、ポーズの左右を反転できます。",
+      "value": "Aggiunge al menu un comando Specchio per invertire la posa."
+    },
+    {
+      "key": "VRChat標準の揺れを止める",
+      "value": "Disattivare l'oscillazione da fermo di VRChat"
+    },
+    {
       "key": "changelog",
       "value": "Mostra novità"
     },
@@ -149,6 +161,10 @@
       "value": "Sottomissione"
     },
     {
+      "key": "ほかのギミックとの併用によって固定機能がうまく動かない場合はオンにしてください。",
+      "value": "Attiva questa opzione se i blocchi del tracciamento non funzionano correttamente insieme ad altri strumenti."
+    },
+    {
       "key": "むきりょく",
       "value": "Senza energie"
     },
@@ -157,8 +173,28 @@
       "value": "Appoggiato"
     },
     {
+      "key": "アイコン画像の容量を減らす",
+      "value": "Ridurre le dimensioni delle icone"
+    },
+    {
       "key": "アイドル",
       "value": "Idol"
+    },
+    {
+      "key": "アバターごとの関節の向きやひねりの違いを自動で補正します。",
+      "value": "Corregge automaticamente le differenze di direzione e torsione delle articolazioni di ogni avatar."
+    },
+    {
+      "key": "アバターの元の立ち・しゃがみ・伏せ姿勢を使う",
+      "value": "Usare le pose originali in piedi, accovacciate e prone"
+    },
+    {
+      "key": "アバターの容量を抑えたいときに便利です。アイコン画像は少し粗くなります。",
+      "value": "Riduce le dimensioni dell'avatar sacrificando parte dei dettagli delle icone."
+    },
+    {
+      "key": "アバター固有補正を使う",
+      "value": "Attivare la correzione dell'avatar"
     },
     {
       "key": "カエルのポーズ１",
@@ -189,6 +225,10 @@
       "value": "Blocca gesti"
     },
     {
+      "key": "ジャンプで寝姿勢を切り替える",
+      "value": "Cambiare posa sdraiata saltando"
+    },
+    {
       "key": "ゾンビ",
       "value": "Zombie"
     },
@@ -205,8 +245,16 @@
       "value": "Letto"
     },
     {
+      "key": "ポーズアイコン生成",
+      "value": "Generare le icone delle pose"
+    },
+    {
       "key": "マットレス",
       "value": "Materasso"
+    },
+    {
+      "key": "メニューに撮影モードを追加します。前へ最大3m移動したり回転したりして、自分から見える位置を調整できます。",
+      "value": "Aggiunge la Modalità foto per avanzare fino a 3 m e ruotare, così da vederti meglio."
     },
     {
       "key": "モデル",
@@ -251,6 +299,10 @@
     {
       "key": "五体投地",
       "value": "Prostrazione"
+    },
+    {
+      "key": "仰向けとうつ伏せの両方を選んでいるとき、その場でジャンプすると切り替わります。",
+      "value": "Se sono selezionate sia una posa supina sia una prona, salta sul posto per passare dall'una all'altra."
     },
     {
       "key": "仰向け寝",
@@ -301,6 +353,10 @@
       "value": "Pisolino lato D"
     },
     {
+      "key": "各固定機能の他ギミックとの統合",
+      "value": "Integrare i blocchi del tracciamento con altri strumenti"
+    },
+    {
       "key": "合蹠のポーズ",
       "value": "Farfalla"
     },
@@ -311,6 +367,14 @@
     {
       "key": "呼吸",
       "value": "Respiro"
+    },
+    {
+      "key": "呼吸に合わせて胸などが動きます。姿勢ごとに強さを設定でき、同期bitを使わずに利用できます。",
+      "value": "Anima il petto e altre parti con il respiro. L'intensità si imposta per posa, senza bit di sincronizzazione aggiuntivi."
+    },
+    {
+      "key": "呼吸の動きをつける",
+      "value": "Animare il respiro"
     },
     {
       "key": "和室",
@@ -413,12 +477,28 @@
       "value": "Abbraccio"
     },
     {
+      "key": "指の形を固定・解除する切り替えをメニューに追加します。固定中はコントローラーを握っても形を保てます。",
+      "value": "Aggiunge un comando per bloccare i gesti delle dita, anche quando stringi il controller."
+    },
+    {
       "key": "撮影モード",
       "value": "Modalità foto"
     },
     {
+      "key": "撮影モードで動かした位置と向きを他の人にも表示できます。自分の画面だけで撮影する場合は0 bitで使えます。",
+      "value": "Mostra agli altri posizione e rotazione della Modalità foto. L'uso solo locale richiede 0 bit."
+    },
+    {
+      "key": "撮影モードを同期する",
+      "value": "Sincronizzare la Modalità foto"
+    },
+    {
       "key": "撮影モードを終了",
       "value": "Esci da foto"
+    },
+    {
+      "key": "撮影モード中は頭を非表示にしない",
+      "value": "Tenere visibile la testa in Modalità foto"
     },
     {
       "key": "斜め座り",
@@ -465,6 +545,14 @@
       "value": "Pisolino da gatto"
     },
     {
+      "key": "生成時にアバターのBaseからモーションを検出します。取り込み設定の一覧には追加しません。手動設定がある種類は手動指定を優先します。",
+      "value": "Rileva i movimenti dal layer Base dell'avatar durante la generazione, senza aggiungerli all'elenco di importazione. Le scelte manuali hanno priorità."
+    },
+    {
+      "key": "画像でポーズを見分けやすくできます。アバターのビルド時間は少し長くなります。",
+      "value": "Usa miniature per riconoscere le pose. La compilazione dell'avatar richiede un po' più di tempo."
+    },
+    {
       "key": "異変無し",
       "value": "Tutto tranquillo"
     },
@@ -489,6 +577,10 @@
       "value": "In piedi"
     },
     {
+      "key": "立ち止まっているときに自動で入る、VRChat標準の身体の揺れを止められます。ポーズツールで設定した呼吸の動きはそのまま使えます。",
+      "value": "Disattiva l'oscillazione automatica da fermo di VRChat mantenendo l'animazione del respiro di questo strumento."
+    },
+    {
       "key": "絨毯",
       "value": "Tappeto"
     },
@@ -503,6 +595,10 @@
     {
       "key": "肘付き",
       "value": "Sul gomito"
+    },
+    {
+      "key": "脚を伸ばしたときに、膝が逆向きに折れるのを抑えます。",
+      "value": "Impedisce alle ginocchia di piegarsi all'indietro quando le gambe si distendono."
     },
     {
       "key": "脱力寝",
@@ -525,8 +621,16 @@
       "value": "Flessioni"
     },
     {
+      "key": "膝が逆向きに曲がるのを防ぐ",
+      "value": "Impedire la piegatura inversa delle ginocchia"
+    },
+    {
       "key": "膝立て",
       "value": "Un ginocchio alzato"
+    },
+    {
+      "key": "自分の頭が近くにあっても撮影できます。自分の画面だけに反映され、撮影終了後は通常の表示に戻ります。",
+      "value": "Mantiene visibile la testa sul tuo schermo per le foto ravvicinate. La visibilità normale torna uscendo dalla Modalità foto."
     },
     {
       "key": "芝生",
@@ -605,8 +709,28 @@
       "value": "Colloquio"
     },
     {
+      "key": "頭の位置を保ち、足側の高さを変えられます。足が床に埋まる・浮くときに調整できます。",
+      "value": "Regola l'altezza dei piedi senza spostare la testa, per correggere piedi sospesi o affondati nel pavimento."
+    },
+    {
+      "key": "頭の向きに合わせて寝返りできます。一部の寝姿勢のみ対応しています。",
+      "value": "Permette di girarsi inclinando la testa. Disponibile per alcune pose sdraiate."
+    },
+    {
+      "key": "頭も含めた身体全体の高さを変えられます。VRChatの「床の高さ」で、50%を元の高さとして上下3mまで調整できます。",
+      "value": "Sposta tutto il corpo, testa compresa, fino a 3 m in alto o in basso. Altezza suolo è neutra al 50%."
+    },
+    {
+      "key": "首の向きの違いによる姿勢崩れを抑制",
+      "value": "Ridurre le deformazioni dovute alla rotazione della testa"
+    },
+    {
       "key": "首固定",
       "value": "Blocca testa"
+    },
+    {
+      "key": "首固定を解除したとき、元のポーズと首の向きが異なることで起きる姿勢崩れを抑えます。",
+      "value": "Riduce le deformazioni quando la testa guarda in una direzione diversa dalla posa originale e il blocco della testa è disattivato."
     },
     {
       "key": "騎士",

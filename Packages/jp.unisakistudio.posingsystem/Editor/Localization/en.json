@@ -65,6 +65,10 @@
       "value": "Check the Console for import errors such as Missing Prefab. Reopen the destination scene and try again."
     },
     {
+      "key": "Consoleのエラー\n",
+      "value": "Console errors\n"
+    },
+    {
       "key": "Consoleの最初のコンパイルエラーを修正し、再コンパイルが完了してから実行してください。",
       "value": "Fix the first compilation error in the Console, wait for compilation to finish, then try again."
     },
@@ -269,6 +273,14 @@
       "value": "ViewPosition (eye position)"
     },
     {
+      "key": "[パス]",
+      "value": "[path]"
+    },
+    {
+      "key": "[メール]",
+      "value": "[email]"
+    },
+    {
       "key": "changelog",
       "value": "View changelog"
     },
@@ -399,6 +411,10 @@
     {
       "key": "{0}個の調整アニメーションを複製保存しました。",
       "value": "Duplicated and saved {0} adjustment animations."
+    },
+    {
+      "key": "{0}（{1}行目）",
+      "value": "{0} (line {1})"
     },
     {
       "key": "※ 寝返りと姿勢崩れ抑制のbit表示は、今の状態でチェックを変更したときの増減量です。首固定の1 bitは共用します。",
@@ -533,6 +549,10 @@
       "value": "Worn Out"
     },
     {
+      "key": "が無効になっています",
+      "value": "is disabled"
+    },
+    {
       "key": "くずし",
       "value": "Slouch"
     },
@@ -561,12 +581,20 @@
       "value": "The product that uses these IK settings."
     },
     {
+      "key": "このアバターでポーズを使用する場合は、「対象を選択」で該当オブジェクトのタグと有効状態を確認してください。",
+      "value": "To use poses on this avatar, choose Select object and check its tag and active state."
+    },
+    {
       "key": "このアバターの手足の自動調整が無効になっています。",
       "value": "Automatic limb adjustment is disabled for this avatar."
     },
     {
       "key": "このアバターは人型ではありません。アバターのAnimatorにHumanoid型のAvatarが設定されていない場合はこのツールは使えません。",
       "value": "This avatar is not Humanoid. This tool requires a Humanoid Avatar assigned to its Animator."
+    },
+    {
+      "key": "このエラーについて相談する",
+      "value": "Ask about this error"
     },
     {
       "key": "このコンピュータにはゆにさきポーズシステムの使用が許諾されていません。Boothのショップから可愛いポーズツールを購入して、コンピュータにライセンスをインストールしてください",
@@ -669,6 +697,10 @@
       "value": "Clears manual settings and adjustments for this motion type. If automatic import is enabled, the next build detects it again. This can be undone."
     },
     {
+      "key": "この警告について相談する",
+      "value": "Ask about this warning"
+    },
+    {
       "key": "この警告を今後表示しない",
       "value": "Do not show this warning again"
     },
@@ -731,6 +763,10 @@
     {
       "key": "なし",
       "value": "None"
+    },
+    {
+      "key": "にEditorOnlyタグが設定されています",
+      "value": "has the EditorOnly tag"
     },
     {
       "key": "ねころび",
@@ -1077,6 +1113,10 @@
       "value": "In-game menu language"
     },
     {
+      "key": "コンパイルエラー（先頭から最大5件）",
+      "value": "Compilation errors (up to the first 5)"
+    },
+    {
       "key": "コンビニ",
       "value": "Corner Store"
     },
@@ -1091,6 +1131,10 @@
     {
       "key": "ジャンプ",
       "value": "Jump"
+    },
+    {
+      "key": "ジャンプで寝姿勢を切り替える",
+      "value": "Switch lying poses by jumping"
     },
     {
       "key": "スライダーは−1〜1。範囲外の値も数値欄に入力できます。",
@@ -1181,6 +1225,10 @@
       "value": "Unknown version"
     },
     {
+      "key": "パッケージ内の標準Controllerが見つかりません。",
+      "value": "The standard Controller could not be found in the package."
+    },
+    {
       "key": "ファイルに保存されている値に戻します。",
       "value": "Restores the values saved in the file."
     },
@@ -1265,6 +1313,10 @@
       "value": "Prebuild"
     },
     {
+      "key": "プレビルドの更新について相談したいです。",
+      "value": "I need help updating the prebuild."
+    },
+    {
       "key": "プレビルドを実行できません。Inspectorの「設定の確認」で、アバターの配置・Animator・Humanoidの設定を確認してください。",
       "value": "Cannot prebuild. Check avatar placement, Animator and Humanoid settings under Check settings in the Inspector."
     },
@@ -1311,6 +1363,10 @@
     {
       "key": "ポーズシステム",
       "value": "Posing System"
+    },
+    {
+      "key": "ポーズツールで次のエラーが出ました。対処方法を教えてください。",
+      "value": "The pose tool reported the following error. How can I resolve it?"
     },
     {
       "key": "ポーズ・アバター設定の注意を非表示",
@@ -1497,6 +1553,10 @@
       "value": "Choose one of the previous settings."
     },
     {
+      "key": "仰向けとうつ伏せの両方を選んでいるとき、その場でジャンプすると切り替わります。",
+      "value": "When both supine and prone poses are selected, jump in place to switch between them."
+    },
+    {
       "key": "仰向け寝",
       "value": "Supine"
     },
@@ -1577,6 +1637,10 @@
       "value": "Save"
     },
     {
+      "key": "保存された設定の形式・表記",
+      "value": "Saved settings format or notation"
+    },
+    {
       "key": "保存されていない変更があります。保存しますか？",
       "value": "You have unsaved changes. Save them?"
     },
@@ -1587,6 +1651,18 @@
     {
       "key": "保存先フォルダのパスを生成できませんでした。フォルダ「{0}」がプロジェクトに認識されているか確認してください。",
       "value": "Could not determine the destination folder. Make sure Unity recognizes this project folder: {0}"
+    },
+    {
+      "key": "保存時から変わった項目を確認",
+      "value": "Show settings changed since prebuild"
+    },
+    {
+      "key": "保存時と異なるプレビルドの設定項目",
+      "value": "Prebuild settings changed since saving"
+    },
+    {
+      "key": "保存時と異なる項目（最大12件）",
+      "value": "Settings changed since saving (up to 12)"
     },
     {
       "key": "倒され寝",
@@ -1693,6 +1769,10 @@
       "value": "The shared controller has unsaved changes. Save them before trying again."
     },
     {
+      "key": "共通Controllerの内容が、このバージョンの生成定義と一致しません。",
+      "value": "The common Controller does not match the generation definition for this version."
+    },
+    {
       "key": "共通Controllerの内容が、このバージョンの生成定義と一致しません。独自の変更は別のControllerに保存し、ALCOM / VCCで同じバージョンの「ゆにさきポーズシステム」を入れ直してください。",
       "value": "The shared controller does not match this version's generation definition. Save custom changes in a separate controller, then reinstall the same version of Unisaki Posing System using ALCOM or VCC."
     },
@@ -1723,6 +1803,10 @@
     {
       "key": "共通ポージングAnimatorへ別のControllerを指定していないか確認してください。シーンを保存・バックアップしてから、ALCOM / VCCで商品本体と「ゆにさきポーズシステム」を再取得してください。入れ直しても直らない場合は、Inspector上部の「ヘルプ・変更履歴」から公式マニュアル・お問い合わせをご確認ください。調整済みのオブジェクトやGeneratedResourcesは削除しないでください。",
       "value": "Check whether another controller has been assigned to the shared posing Animator.\nSave and back up your scene, then download the product and Unisaki Posing System again using ALCOM / VCC. If the problem continues, open Help / Changelog at the top of the Inspector for the manual and support. Keep your adjusted objects and GeneratedResources."
+    },
+    {
+      "key": "共通ポージングAnimatorを使用できません。「{0}」{1}。",
+      "value": "The common posing Animator is unavailable. \"{0}\" {1}."
     },
     {
       "key": "内股座り",
@@ -2341,6 +2425,10 @@
       "value": "This entry uses the legacy coordinate format. Show the reference avatar in the adjustment window and run Capture current limb positions once. Until recaptured, the source animation’s limb orientation is kept."
     },
     {
+      "key": "旧形式の保存データ（項目を比較できません）",
+      "value": "Legacy saved data (settings cannot be compared)"
+    },
+    {
       "key": "旧版のアバター設定を取り除きます",
       "value": "Remove legacy avatar settings"
     },
@@ -2741,6 +2829,10 @@
       "value": "Collapsed"
     },
     {
+      "key": "行った操作・起きたこと：",
+      "value": "What I did and what happened:"
+    },
+    {
       "key": "衣装や見た目を変えたときに使います。設定を変えたときはプレビルドしてください。",
       "value": "Use this after changing the outfit or appearance. Update the prebuild after changing settings."
     },
@@ -2831,6 +2923,10 @@
     {
       "key": "設定を再確認",
       "value": "Check settings again"
+    },
+    {
+      "key": "診断 ",
+      "value": "Diagnostics "
     },
     {
       "key": "該当するプリセットがありません。",
@@ -3119,6 +3215,14 @@
     {
       "key": "（公式）",
       "value": " (Official)"
+    },
+    {
+      "key": "（廃止されたAPIの使用）",
+      "value": " (obsolete API usage)"
+    },
+    {
+      "key": "（生成方式）",
+      "value": " (generation method)"
     },
     {
       "key": "＋ 1件追加",

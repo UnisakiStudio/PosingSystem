@@ -1,0 +1,28 @@
+name: Localization data
+on:
+  pull_request:
+    paths:
+      - 'Packages/**'
+      - 'Tools/Localization/**'
+      - 'Tools/InstallerLocalization/**'
+      - '.github/workflows/localization.yml'
+  workflow_dispatch:
+jobs:
+  translation-data:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - run: python Tools/Localization/validate_catalogs.py
+      - run: python Tools/Localization/audit_coverage.py --report localization-coverage.json
+      - name: Verify generated setup helper
+        run: |
+          python Tools/InstallerLocalization/generate_language.py
+          git diff --exit-code -- Packages/jp.unisakistudio.posingsystem/Editor/Setup/SetupLanguage.cs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: localization-coverage
+          path: localization-coverage.json

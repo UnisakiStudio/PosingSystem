@@ -75,7 +75,7 @@ namespace jp.unisakistudio.posingsystemeditor
 
         private static string GetJapaneseBoneName(HumanBodyBones bone)
         {
-            if (PosingSystemLocalization.Language != "ja") return ObjectNames.NicifyVariableName(bone.ToString());
+            if (PosingSystemLocalization.Language != "ja") return PosingSystemLocalization.Text("bone." + bone, ObjectNames.NicifyVariableName(bone.ToString()));
             return bone switch
             {
                 HumanBodyBones.Hips => "腰 (Hips)",

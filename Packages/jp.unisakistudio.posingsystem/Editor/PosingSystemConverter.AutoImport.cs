@@ -55,7 +55,7 @@ namespace jp.unisakistudio.posingsystemeditor
             var avatar = ps != null ? ps.GetAvatar() : null;
             if (avatar == null) return ps == null ? Array.Empty<PosingSystem>() : new[] { ps };
             return avatar.GetComponentsInChildren<PosingSystem>(true)
-                .Where(p => p.GetAvatar() == avatar && (p == ps || p.gameObject.activeInHierarchy) &&
+                .Where(p => p.GetAvatar() == avatar && (p == ps || PosingSystemHierarchy.InactiveChild(p.transform, avatar.transform) == null) &&
                     !p.GetComponentsInParent<Transform>(true).Any(t => t.CompareTag("EditorOnly"))).ToArray();
         }
 

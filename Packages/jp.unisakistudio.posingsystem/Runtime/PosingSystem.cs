@@ -207,6 +207,7 @@ namespace jp.unisakistudio.posingsystem
         [HideInInspector] public PosingSystemFeatureSettings features = new();
         [HideInInspector] public bool featureSettingsMigrated;
         [HideInInspector] public bool legacyRolloverPosesMigrated;
+        [HideInInspector] public bool legacyAutoHeadMenuChecked;
 
         [System.Serializable]
         public class BaseAnimationDefine

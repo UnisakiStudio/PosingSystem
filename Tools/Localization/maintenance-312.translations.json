@@ -1,0 +1,31 @@
+{
+  "en": {
+    "このエラーについて相談する": "Ask about this error",
+    "この警告について相談する": "Ask about this warning",
+    "保存時から変わった項目を確認": "Show settings changed since prebuild",
+    "保存時と異なるプレビルドの設定項目": "Prebuild settings changed since saving",
+    "（生成方式）": " (generation method)",
+    "保存された設定の形式・表記": "Saved settings format or notation",
+    "旧形式の保存データ（項目を比較できません）": "Legacy saved data (settings cannot be compared)",
+    "共通ポージングAnimatorを使用できません。「{0}」{1}。": "The common posing Animator is unavailable. \"{0}\" {1}.",
+    "にEditorOnlyタグが設定されています": "has the EditorOnly tag",
+    "が無効になっています": "is disabled",
+    "このアバターでポーズを使用する場合は、「対象を選択」で該当オブジェクトのタグと有効状態を確認してください。": "To use poses on this avatar, choose Select object and check its tag and active state.",
+    "パッケージ内の標準Controllerが見つかりません。": "The standard Controller could not be found in the package.",
+    "コンパイルエラー（先頭から最大5件）": "Compilation errors (up to the first 5)",
+    "[パス]": "[path]",
+    "[メール]": "[email]",
+    "{0}（{1}行目）": "{0} (line {1})",
+    "（廃止されたAPIの使用）": " (obsolete API usage)",
+    "ポーズツールで次のエラーが出ました。対処方法を教えてください。": "The pose tool reported the following error. How can I resolve it?",
+    "行った操作・起きたこと：": "What I did and what happened:",
+    "診断 ": "Diagnostics ",
+    "Consoleのエラー\n": "Console errors\n",
+    "プレビルドの更新について相談したいです。": "I need help updating the prebuild.",
+    "保存時と異なる項目（最大12件）": "Settings changed since saving (up to 12)",
+    "あおむけ時自動頭固定": "Auto-Lock Head When Supine",
+    "ジャンプで寝姿勢を切り替える": "Switch lying poses by jumping",
+    "仰向けとうつ伏せの両方を選んでいるとき、その場でジャンプすると切り替わります。": "When both supine and prone poses are selected, jump in place to switch between them.",
+    "共通Controllerの内容が、このバージョンの生成定義と一致しません。": "The common Controller does not match the generation definition for this version."
+  }
+}

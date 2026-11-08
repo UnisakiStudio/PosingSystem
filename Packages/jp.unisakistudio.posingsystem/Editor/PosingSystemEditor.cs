@@ -514,8 +514,8 @@ namespace jp.unisakistudio.posingsystemeditor
                 PosingSystemDiagnosticsInspector.SetFailure(posingSystem, message);
                 Debug.LogError("[PosingSystem] " + message, posingSystem);
                 Debug.LogException(ex, posingSystem);
-                if (PosingSystemLocalization.Dialog(PosingSystemLocalization.Format("{0}を完了できませんでした", PosingSystemLocalization.Text(stage)), message, "公式ヘルプを開く", "閉じる"))
-                    Application.OpenURL(PosingSystemPackageInfo.SupportUrl);
+                if (PosingSystemLocalization.Dialog(PosingSystemLocalization.Format("{0}を完了できませんでした", PosingSystemLocalization.Text(stage)), message, "このエラーについて相談する", "閉じる"))
+                    PosingSystemSupportReport.Open(message);
                 return false;
             }
         }
@@ -1197,7 +1197,7 @@ namespace jp.unisakistudio.posingsystemeditor
             var posingSystem = target as PosingSystem;
             var avatar = posingSystem.GetAvatar();
 
-            var posingSystems = avatar.GetComponentsInChildren<PosingSystem>().ToList();
+            var posingSystems = avatar.GetActiveAvatarChildren<PosingSystem>().ToList();
             var animatorController = avatar.baseAnimationLayers[(int)VRC.SDK3.Avatars.Components.VRCAvatarDescriptor.AnimLayerType.Base];
             if (animatorController.animatorController == null)
             {

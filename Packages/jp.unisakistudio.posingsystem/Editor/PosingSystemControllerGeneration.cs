@@ -19,6 +19,29 @@ namespace jp.unisakistudio.posingsystemeditor
     internal static class PosingSystemControllerGeneration
     {
         internal const string TemplateGuid = "44c97b69ea5e25340aabee19781f30ad";
+        private const string PackageRoot = "Packages/jp.unisakistudio.posingsystem";
+        internal static string TemplatePath => AssetDatabase.IsValidFolder(PackageRoot)
+            ? PackageRoot + "/Resources/PosingSystem_Locomotion.controller"
+            : AssetDatabase.GUIDToAssetPath(TemplateGuid);
+        private const string LegacyTemplatePath = "Assets/UniSakiStudio/PosingSystem/PosingSystem_Locomotion.controller";
+
+        internal static bool IsStandardTemplate(AnimatorController source)
+        {
+            if (!source) return false;
+            var path = AssetDatabase.GetAssetPath(source);
+            if (string.IsNullOrEmpty(path)) return false;
+            if (path == TemplatePath && path != LegacyTemplatePath) return true;
+            if (path != LegacyTemplatePath || !AssetDatabase.IsMainAsset(source) ||
+                AssetDatabase.LoadAllAssetsAtPath(path).Any(EditorUtility.IsDirty)) return false;
+            // Recognize unchanged distributed files even when Unity reassigned one of the duplicate GUIDs.
+            var yaml = File.ReadAllText(path).Replace("\r\n", "\n");
+            using var sha = SHA256.Create();
+            var hash = BitConverter.ToString(sha.ComputeHash(System.Text.Encoding.UTF8.GetBytes(yaml))).Replace("-", "").ToLowerInvariant();
+            return hash == "7870c38cb2e8a36dc9df5cc96efa56952ed670eb8dcf1ac2e4a7383541233548" || // legacy Assets distribution
+                hash == "5b778843333ba6d883d6ef6e2d56b7241a82fdcec8f4e8971ec5f8e077e53fae" || // 3.0.0
+                hash == "462fa9b486999c6e53727dffa657bc24c80dff31fd4242c06efec92dc8bcd6c7" || // 3.0.18
+                hash == PosingSystemControllerCompiler.ReferenceSha256;
+        }
         private static readonly Dictionary<GameObject, Scope> Scopes = new();
 
         // NDMF owns this state for one build; no static build/merge references survive it.
@@ -78,17 +101,18 @@ namespace jp.unisakistudio.posingsystemeditor
             var path = AssetDatabase.GetAssetPath(source);
             scope.Decisions.Add(source.name + ": " + path + ", default=" + source.layers.Any(l => l.name == "USSPS_IsDefault"));
             // Preserve already generated poses on repeated conversion and arbitrary custom controllers.
-            var referencePath = AssetDatabase.GUIDToAssetPath(TemplateGuid);
+            var referencePath = TemplatePath;
             var reference = AssetDatabase.LoadAssetAtPath<AnimatorController>(referencePath);
-            if (AssetDatabase.AssetPathToGUID(path) != TemplateGuid)
+            if (!IsStandardTemplate(source))
             {
                 if (!string.IsNullOrEmpty(path) || !source.layers.Any(l => l.name == "USSPS_IsDefault")) return null;
                 if (!PosingSystemControllerEquivalence.Matches(reference, source, out var reason))
                 { scope.Decisions.Add("Preserved differing in-memory controller: " + reason); return null; }
             }
+            if (reference == null) throw PosingSystemDiagnostics.Failure("PS030", "パッケージ内の標準Controllerが見つかりません。", PosingSystemDiagnostics.RestoreTool, source);
             if (EditorUtility.IsDirty(reference)) throw new InvalidOperationException(PosingSystemLocalization.Text("共通Controllerに未保存の変更があります。変更を保存してからやり直してください。") + "\n" + referencePath);
             using var sha = SHA256.Create();
-            var hash = BitConverter.ToString(sha.ComputeHash(File.ReadAllBytes(referencePath))).Replace("-", "").ToLowerInvariant();
+            var hash = BitConverter.ToString(sha.ComputeHash(File.ReadAllBytes(FileUtil.GetPhysicalPath(referencePath)))).Replace("-", "").ToLowerInvariant();
             if (hash != PosingSystemControllerCompiler.ReferenceSha256)
             {
                 // Unity can import the same graph from differently serialized YAML (e.g. CRLF).
@@ -120,7 +144,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 if (merge == null) continue;
                 // A recovered template has no generated poses, even when the saved settings signature matches.
                 if (state != null && !string.IsNullOrEmpty(system.data) && merge.animator != null &&
-                    (!previousSource || AssetDatabase.AssetPathToGUID(AssetDatabase.GetAssetPath(merge.animator)) == TemplateGuid))
+                    (!previousSource || IsStandardTemplate(merge.animator as AnimatorController)))
                     state.MissingPrebuilds.Add(system);
                 merges.Add(merge);
             }
@@ -180,12 +204,12 @@ namespace jp.unisakistudio.posingsystemeditor
                     .Where(p => p.GetAvatar()?.gameObject == copy &&
                         !p.GetComponentsInParent<Transform>(true).Any(t => t.CompareTag("EditorOnly"))).ToArray();
                 if (systems.Length == 0) throw new InvalidOperationException("対象アバターにポーズシステムがありません。");
-                var template = AssetDatabase.LoadAssetAtPath<AnimatorController>(AssetDatabase.GUIDToAssetPath(TemplateGuid));
+                var template = AssetDatabase.LoadAssetAtPath<AnimatorController>(TemplatePath);
                 var merges = systems.Select(p => PosingSystemConverter.GetCommonMergeAnimator(p, true)).Distinct().ToArray();
                 foreach (var merge in merges)
                 {
                     var controller = merge.animator as AnimatorController;
-                    if (controller != template && PosingSystemGeneratedControllers.Metadata(controller) == null)
+                    if (!IsStandardTemplate(controller) && PosingSystemGeneratedControllers.Metadata(controller) == null)
                         throw new InvalidOperationException("独自の共通Controllerが設定されています。自動置換せず比較コピーの作成を中止しました。");
                 }
                 // Reset only the comparison copy's tool-owned common controller. Definition data,
