@@ -1,0 +1,34 @@
+{
+  "language": "de",
+  "authoring": "Codex AI, 2026-11-09",
+  "catalog_missing_completed": 751,
+  "setup_missing_completed": 61,
+  "anatomy_completed": 120,
+  "term_forms": {
+    "Photo Mode": [
+      "Fotomodus"
+    ],
+    "prebuild": [
+      "Vorberechnung",
+      "vorberechnet"
+    ],
+    "preset": [
+      "Voreinstellung"
+    ],
+    "Roll Over": [
+      "Umdrehen",
+      "Umdreh"
+    ]
+  },
+  "terminology_exceptions": [
+    "Generic roll orientation is Seitliche Neigung, not Umdrehen. Product/API identifiers retain original spelling."
+  ],
+  "review": [
+    "Existing translations preserved",
+    "128 pose names translated together; R/L are rechts/links",
+    "Placeholders checked",
+    "Anatomy directions and finger indices preserved"
+  ],
+  "native_speaker_review": false,
+  "rendered_visual_review": false
+}

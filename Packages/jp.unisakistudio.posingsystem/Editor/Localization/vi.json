@@ -1,6 +1,386 @@
 {
   "entries": [
     {
+      "key": "(名前なし)",
+      "value": "(Chưa đặt tên)"
+    },
+    {
+      "key": "0〜1の値を指定してください。",
+      "value": "Dùng giá trị từ 0 đến 1."
+    },
+    {
+      "key": "0では回転せず、1で記録した向きへ完全に合わせます。",
+      "value": "0 giữ góc xoay gốc; 1 khớp hoàn toàn hướng đã ghi."
+    },
+    {
+      "key": "0にリセットします",
+      "value": "Đặt về 0."
+    },
+    {
+      "key": "1件のエラー",
+      "value": "1 lỗi"
+    },
+    {
+      "key": "1件の注意",
+      "value": "1 cảnh báo"
+    },
+    {
+      "key": "AddStateMachineBehaviourに失敗しました。多くの場合原因は別のツールなどにエラーが発生していることです。アバタービルド・アップロード前にConsoleウィンドウを確認してエラーを解消してから再度お試しください",
+      "value": "AddStateMachineBehaviour thất bại. Công cụ khác có thể đã gây lỗi trước đó. Sửa lỗi liên quan đầu tiên trong Console trước khi dựng hoặc tải avatar lên lần nữa."
+    },
+    {
+      "key": "Animator Override Controllerはここでは使用できません。ツールの標準Controllerへ戻してください。",
+      "value": "Khôi phục Controller tiêu chuẩn của công cụ. Không hỗ trợ Animator Override Controller tại đây."
+    },
+    {
+      "key": "Animator Override Controllerはここでは使用できません。ツールの標準Controllerへ戻してください。シーンを保存・バックアップしてから、ALCOM / VCCで商品本体と「ゆにさきポーズシステム」を再取得してください。入れ直しても直らない場合は、Inspector上部の「ヘルプ・変更履歴」から公式マニュアル・お問い合わせをご確認ください。調整済みのオブジェクトやGeneratedResourcesは削除しないでください。",
+      "value": "Khôi phục Controller tiêu chuẩn của công cụ. Không hỗ trợ Animator Override Controller tại đây.\nLưu và sao lưu cảnh, rồi tải lại sản phẩm cùng Unisaki Posing System qua ALCOM / VCC. Nếu vẫn lỗi, mở trợ giúp và thay đổi ở đầu Inspector để xem hướng dẫn và hỗ trợ. Giữ lại các đối tượng đã chỉnh và GeneratedResources."
+    },
+    {
+      "key": "Animator を持つアバターが見つかりません。",
+      "value": "Không tìm thấy avatar có Animator."
+    },
+    {
+      "key": "AnimatorにParameterとして登録されていないパラメータが条件式に使われています。「{0}」ファイルの「{1}」というレイヤーで使用されている「{2}」というパラメータが条件式に使われていますが、AnimatorControllerのParametersにはパラメータがありません。使用しているツールやギミックの相性の問題だと思われるため、このパラメータを使用しているツールの開発者に連絡してください",
+      "value": "Điều kiện Animator tham chiếu tham số chưa khai báo. Tệp: {0}, lớp: {1}, tham số: {2}. Được dùng trong điều kiện nhưng không có trong danh sách Parameters của Animator Controller. Liên hệ tác giả công cụ dùng tham số này về tính tương thích."
+    },
+    {
+      "key": "AnimatorのAvatarが有効なHumanoidではありません。",
+      "value": "Animator không tham chiếu Humanoid Avatar hợp lệ."
+    },
+    {
+      "key": "AnimatorのAvatar欄がNoneまたはMissingです。",
+      "value": "Trường Avatar của Animator là None hoặc Missing."
+    },
+    {
+      "key": "AnimatorのAvatar欄が未設定です。Inspectorの「設定の確認」の対処手順をご確認ください。",
+      "value": "Trường Avatar của Animator trống. Xem kiểm tra thiết lập trong Inspector."
+    },
+    {
+      "key": "Auto-Footstepsはオンです。ポーズ中に意図せず足が動く場合は、下のボタンでオフにして比較できます。問題がなければ変更は不要です。",
+      "value": "Auto-Footsteps đang bật. Nếu chân cử động bất ngờ khi tạo dáng, tắt bên dưới rồi so sánh. Giữ nguyên nếu không có vấn đề."
+    },
+    {
+      "key": "ConsoleでMissing Prefabなどのインポートエラーを確認してください。配置先のシーンを開き直して再実行してください。",
+      "value": "Kiểm tra lỗi nhập như Missing Prefab trong Console. Mở lại cảnh đích rồi thử lại."
+    },
+    {
+      "key": "Consoleのエラー\n",
+      "value": "Lỗi Console\n"
+    },
+    {
+      "key": "Consoleの最初のコンパイルエラーを修正し、再コンパイルが完了してから実行してください。",
+      "value": "Sửa lỗi biên dịch đầu tiên trong Console, chờ biên dịch xong rồi thử lại."
+    },
+    {
+      "key": "HeadとViewpointの前後差を測定できません。View Positionとアバターのスケールを確認してください。",
+      "value": "Không đo được chênh lệch độ sâu giữa Head và Viewpoint. Kiểm tra View Position và tỉ lệ avatar."
+    },
+    {
+      "key": "HeadとViewpointの高低差を測定できません。View Positionとアバターのスケールを確認してください。",
+      "value": "Không đo được chênh lệch độ cao giữa Head và Viewpoint. Kiểm tra View Position và tỉ lệ avatar."
+    },
+    {
+      "key": "Hierarchyでアバター内のポーズツールを選択し直してください。",
+      "value": "Chọn lại công cụ tạo dáng bên trong avatar trong Hierarchy."
+    },
+    {
+      "key": "Hierarchyの警告マークを非表示",
+      "value": "Ẩn dấu cảnh báo Hierarchy"
+    },
+    {
+      "key": "Humanoid Animatorが必要です。",
+      "value": "Cần Humanoid Animator."
+    },
+    {
+      "key": "Humanoid AnimatorまたはIKルールがありません。",
+      "value": "Thiếu Humanoid Animator hoặc quy tắc IK."
+    },
+    {
+      "key": "Humanoid の Animator を持つアバターが見つかりません。",
+      "value": "Không tìm thấy avatar có Humanoid Animator."
+    },
+    {
+      "key": "HumanoidのアバターとAnimationClipを指定してください。",
+      "value": "Chọn avatar Humanoid và AnimationClip."
+    },
+    {
+      "key": "Humanoidボーン軸の違いを除いた、基準から見た手首または足首の向きです。",
+      "value": "Hướng cổ tay hoặc cổ chân so với tham chiếu, không tính khác biệt trục xương Humanoid."
+    },
+    {
+      "key": "IKで手足の位置を自動調整しています。手動で調整するには、下の「IKを調整に反映」を押してください。",
+      "value": "IK đang chỉnh các chi. Để sửa thủ công, chọn Ghi IK vào hiệu chỉnh bên dưới."
+    },
+    {
+      "key": "IKで補正する前の基準姿勢です。",
+      "value": "Tư thế tham chiếu trước hiệu chỉnh IK."
+    },
+    {
+      "key": "IKの結果を新しい調整アニメーションに保存して、このポーズのIKをオフにします。その後は下の項目で手動調整できます。",
+      "value": "Lưu kết quả IK vào hoạt ảnh hiệu chỉnh mới rồi tắt IK tư thế này. Sau đó có thể chỉnh thủ công bên dưới."
+    },
+    {
+      "key": "IKの調整を保存できませんでした。",
+      "value": "Không lưu được hiệu chỉnh IK."
+    },
+    {
+      "key": "IKを反映するポーズとアバターを確認してください。",
+      "value": "Kiểm tra tư thế và avatar cần áp dụng IK."
+    },
+    {
+      "key": "IKを反映できませんでした",
+      "value": "Không ghi được IK"
+    },
+    {
+      "key": "IKを調整に反映",
+      "value": "Ghi IK vào hiệu chỉnh"
+    },
+    {
+      "key": "IKルール {0}",
+      "value": "Quy tắc IK {0}"
+    },
+    {
+      "key": "IKルールを適用できませんでした。",
+      "value": "Không áp dụng được quy tắc IK."
+    },
+    {
+      "key": "Inspectorの「設定の確認」で対象を選択し、表示された項目を直して再実行してください。",
+      "value": "Chọn đối tượng liên quan trong phần kiểm tra thiết lập ở Inspector, sửa các lỗi được liệt kê rồi thử lại."
+    },
+    {
+      "key": "Mecanimで使用できるアニメーションを指定してください。元モデル由来ならRigの設定も確認してください。",
+      "value": "Gán hoạt ảnh được Mecanim hỗ trợ. Nếu lấy từ mô hình, kiểm tra thiết lập Rig của mô hình đó."
+    },
+    {
+      "key": "Modular Avatarで追加した衣装などは、アバターのビルド時に撮影し直したアイコンへ反映されます。",
+      "value": "Trang phục thêm bằng Modular Avatar được tính khi chụp lại biểu tượng lúc dựng avatar."
+    },
+    {
+      "key": "Motion Timeのパラメータ名を設定するか、Motion Timeを無効にしてください。",
+      "value": "Đặt tên tham số Motion Time hoặc tắt Motion Time."
+    },
+    {
+      "key": "PosingSystem が見つかりません。対象のコンポーネントを選択した状態で再度開いてください。",
+      "value": "Không tìm thấy PosingSystem. Chọn thành phần đích và mở lại cửa sổ."
+    },
+    {
+      "key": "PrefabsHashesに\nクリップボードから追加",
+      "value": "Thêm vào PrefabsHashes\ntừ bảng nhớ tạm"
+    },
+    {
+      "key": "PrefabsHashesを\nクリア",
+      "value": "Xóa\nPrefabsHashes"
+    },
+    {
+      "key": "PrefabsHashesをすべてクリアしますか？",
+      "value": "Xóa tất cả mục PrefabsHashes?"
+    },
+    {
+      "key": "PrefabsNamesに\nクリップボードから追加",
+      "value": "Thêm vào PrefabsNames\ntừ bảng nhớ tạm"
+    },
+    {
+      "key": "PrefabsNamesを\nクリア",
+      "value": "Xóa\nPrefabsNames"
+    },
+    {
+      "key": "PrefabsNamesをすべてクリアしますか？",
+      "value": "Xóa tất cả mục PrefabsNames?"
+    },
+    {
+      "key": "Prefabが破損しているか、Posing Systemコンポーネントがありません。ConsoleのMissing Script・コンパイルエラーを確認してください。",
+      "value": "Prefab hỏng hoặc không có thành phần Posing System. Kiểm tra Missing Script và lỗi biên dịch trong Console."
+    },
+    {
+      "key": "Prefabを読み込めません [PS042]",
+      "value": "Không tải được prefab [PS042]"
+    },
+    {
+      "key": "Prefabを配置できません [PS043]",
+      "value": "Không đặt được prefab [PS043]"
+    },
+    {
+      "key": "Prefab編集画面を閉じ、HierarchyでVRC Avatar Descriptorが付いたアバターの子にツールを配置してください。Project内のPrefab単体ではプレビルドできません。",
+      "value": "Đóng chế độ Prefab và đặt công cụ vào avatar trong cảnh có VRC Avatar Descriptor. Không thể tạo trước riêng một tài nguyên prefab trong cửa sổ Project."
+    },
+    {
+      "key": "Projectで選ぶときは、Inspector右上の鍵を閉じてから選択してください。",
+      "value": "Khóa Inspector bằng ổ khóa góc trên phải trước khi chọn clip trong Project."
+    },
+    {
+      "key": "Projectで選択中のPrefabを追加",
+      "value": "Thêm prefab đang chọn trong Project"
+    },
+    {
+      "key": "Projectで選択中のクリップを読み込む",
+      "value": "Nhập clip đang chọn trong Project"
+    },
+    {
+      "key": "Projectで選択中のファイル名を追加",
+      "value": "Thêm tên tệp đang chọn trong Project"
+    },
+    {
+      "key": "Submenu Rootには、このアバター内のメニュー生成先を指定してください。",
+      "value": "Gán đích menu bên trong avatar này cho Submenu Root."
+    },
+    {
+      "key": "Unityでスクリプトのコンパイルに失敗したため、ポーズの生成を開始できません。",
+      "value": "Không thể bắt đầu tạo tư thế vì biên dịch tập lệnh Unity thất bại."
+    },
+    {
+      "key": "VRC Avatar Descriptorと同じオブジェクトのAnimatorを確認し、配布元のアバターPrefabの設定と比較してください。",
+      "value": "Kiểm tra Animator trên cùng đối tượng với VRC Avatar Descriptor và so sánh thiết lập với prefab gốc của avatar."
+    },
+    {
+      "key": "VRChatのメニューで呼吸をつけたり止めたりできます。ON/OFFは他の人にも反映されます。",
+      "value": "Bật/tắt thở trong VRChat. Người khác cũng thấy thay đổi."
+    },
+    {
+      "key": "VRChatのメニューに切り替え項目を追加します。使いたいときに、ポーズの左右を反転できます。",
+      "value": "Thêm công tắc lật đối xứng tư thế vào menu."
+    },
+    {
+      "key": "VRChat標準の揺れを止める",
+      "value": "Tắt đung đưa khi đứng yên của VRChat"
+    },
+    {
+      "key": "VRC想定移動モーション(無料配布)追加",
+      "value": "Thêm chuyển động di chuyển VRChat (Miễn phí)"
+    },
+    {
+      "key": "ViewPositionの基準となるHeadの参照姿勢を取得できません。",
+      "value": "Không lấy được tư thế tham chiếu Head cho ViewPosition."
+    },
+    {
+      "key": "ViewPositionの基準となるHeadの回転を取得できません。",
+      "value": "Không lấy được góc xoay Head làm tham chiếu ViewPosition."
+    },
+    {
+      "key": "ViewPositionまたはボーンの座標に無効な値があります。",
+      "value": "ViewPosition hoặc vị trí xương chứa giá trị không hợp lệ."
+    },
+    {
+      "key": "ViewPositionを基準にするには、同じアバターのAvatar DescriptorとHeadボーンが必要です。",
+      "value": "Dùng ViewPosition làm tham chiếu cần Avatar Descriptor và xương Head của cùng avatar."
+    },
+    {
+      "key": "ViewPositionを計算できません。HeadまでのボーンのスケールとHumanoid設定を確認してください。",
+      "value": "Không tính được ViewPosition. Kiểm tra tỉ lệ các xương dẫn tới Head và thiết lập Humanoid."
+    },
+    {
+      "key": "ViewPosition（目の位置）",
+      "value": "ViewPosition (vị trí mắt)"
+    },
+    {
+      "key": "[パス]",
+      "value": "[đường dẫn]"
+    },
+    {
+      "key": "[メール]",
+      "value": "[email]"
+    },
+    {
+      "key": "bone.Chest",
+      "value": "Ngực"
+    },
+    {
+      "key": "bone.Head",
+      "value": "Đầu"
+    },
+    {
+      "key": "bone.Hips",
+      "value": "Hông"
+    },
+    {
+      "key": "bone.Jaw",
+      "value": "Hàm"
+    },
+    {
+      "key": "bone.LeftEye",
+      "value": "Mắt (trái)"
+    },
+    {
+      "key": "bone.LeftFoot",
+      "value": "Bàn chân (trái)"
+    },
+    {
+      "key": "bone.LeftHand",
+      "value": "Bàn tay (trái)"
+    },
+    {
+      "key": "bone.LeftLowerArm",
+      "value": "Cẳng tay (trái)"
+    },
+    {
+      "key": "bone.LeftLowerLeg",
+      "value": "Cẳng chân (trái)"
+    },
+    {
+      "key": "bone.LeftShoulder",
+      "value": "Vai (trái)"
+    },
+    {
+      "key": "bone.LeftToes",
+      "value": "Ngón chân (trái)"
+    },
+    {
+      "key": "bone.LeftUpperArm",
+      "value": "Cánh tay trên (trái)"
+    },
+    {
+      "key": "bone.LeftUpperLeg",
+      "value": "Đùi (trái)"
+    },
+    {
+      "key": "bone.Neck",
+      "value": "Cổ"
+    },
+    {
+      "key": "bone.RightEye",
+      "value": "Mắt (phải)"
+    },
+    {
+      "key": "bone.RightFoot",
+      "value": "Bàn chân (phải)"
+    },
+    {
+      "key": "bone.RightHand",
+      "value": "Bàn tay (phải)"
+    },
+    {
+      "key": "bone.RightLowerArm",
+      "value": "Cẳng tay (phải)"
+    },
+    {
+      "key": "bone.RightLowerLeg",
+      "value": "Cẳng chân (phải)"
+    },
+    {
+      "key": "bone.RightShoulder",
+      "value": "Vai (phải)"
+    },
+    {
+      "key": "bone.RightToes",
+      "value": "Ngón chân (phải)"
+    },
+    {
+      "key": "bone.RightUpperArm",
+      "value": "Cánh tay trên (phải)"
+    },
+    {
+      "key": "bone.RightUpperLeg",
+      "value": "Đùi (phải)"
+    },
+    {
+      "key": "bone.Spine",
+      "value": "Cột sống"
+    },
+    {
+      "key": "bone.UpperChest",
+      "value": "Ngực trên"
+    },
+    {
       "key": "changelog",
       "value": "Xem thay đổi"
     },
@@ -21,88 +401,3316 @@
       "value": "Hướng dẫn"
     },
     {
+      "key": "muscle.0",
+      "value": "Cột sống — Trước/sau"
+    },
+    {
+      "key": "muscle.1",
+      "value": "Cột sống — Trái/phải"
+    },
+    {
+      "key": "muscle.10",
+      "value": "Cổ — Nghiêng trái/phải"
+    },
+    {
+      "key": "muscle.11",
+      "value": "Cổ — Quay trái/phải"
+    },
+    {
+      "key": "muscle.12",
+      "value": "Đầu — Gật xuống/lên"
+    },
+    {
+      "key": "muscle.13",
+      "value": "Đầu — Nghiêng trái/phải"
+    },
+    {
+      "key": "muscle.14",
+      "value": "Đầu — Quay trái/phải"
+    },
+    {
+      "key": "muscle.15",
+      "value": "Mắt (trái) — Xuống/lên"
+    },
+    {
+      "key": "muscle.16",
+      "value": "Mắt (trái) — Vào trong/ra ngoài"
+    },
+    {
+      "key": "muscle.17",
+      "value": "Mắt (phải) — Xuống/lên"
+    },
+    {
+      "key": "muscle.18",
+      "value": "Mắt (phải) — Vào trong/ra ngoài"
+    },
+    {
+      "key": "muscle.19",
+      "value": "Hàm — Khép"
+    },
+    {
+      "key": "muscle.2",
+      "value": "Cột sống — Xoắn trái/phải"
+    },
+    {
+      "key": "muscle.20",
+      "value": "Hàm — Trái/phải"
+    },
+    {
+      "key": "muscle.21",
+      "value": "Đùi (trái) — Trước/sau"
+    },
+    {
+      "key": "muscle.22",
+      "value": "Đùi (trái) — Vào trong/ra ngoài"
+    },
+    {
+      "key": "muscle.23",
+      "value": "Đùi (trái) — Xoắn vào trong/ra ngoài"
+    },
+    {
+      "key": "muscle.24",
+      "value": "Cẳng chân (trái) — Duỗi"
+    },
+    {
+      "key": "muscle.25",
+      "value": "Cẳng chân (trái) — Xoắn vào trong/ra ngoài"
+    },
+    {
+      "key": "muscle.26",
+      "value": "Bàn chân (trái) — Lên/xuống"
+    },
+    {
+      "key": "muscle.27",
+      "value": "Bàn chân (trái) — Xoắn vào trong/ra ngoài"
+    },
+    {
+      "key": "muscle.28",
+      "value": "Ngón chân (trái) — Lên/xuống"
+    },
+    {
+      "key": "muscle.29",
+      "value": "Đùi (phải) — Trước/sau"
+    },
+    {
+      "key": "muscle.3",
+      "value": "Ngực — Trước/sau"
+    },
+    {
+      "key": "muscle.30",
+      "value": "Đùi (phải) — Vào trong/ra ngoài"
+    },
+    {
+      "key": "muscle.31",
+      "value": "Đùi (phải) — Xoắn vào trong/ra ngoài"
+    },
+    {
+      "key": "muscle.32",
+      "value": "Cẳng chân (phải) — Duỗi"
+    },
+    {
+      "key": "muscle.33",
+      "value": "Cẳng chân (phải) — Xoắn vào trong/ra ngoài"
+    },
+    {
+      "key": "muscle.34",
+      "value": "Bàn chân (phải) — Lên/xuống"
+    },
+    {
+      "key": "muscle.35",
+      "value": "Bàn chân (phải) — Xoắn vào trong/ra ngoài"
+    },
+    {
+      "key": "muscle.36",
+      "value": "Ngón chân (phải) — Lên/xuống"
+    },
+    {
+      "key": "muscle.37",
+      "value": "Vai (trái) — Xuống/lên"
+    },
+    {
+      "key": "muscle.38",
+      "value": "Vai (trái) — Trước/sau"
+    },
+    {
+      "key": "muscle.39",
+      "value": "Cánh tay trên (trái) — Xuống/lên"
+    },
+    {
+      "key": "muscle.4",
+      "value": "Ngực — Trái/phải"
+    },
+    {
+      "key": "muscle.40",
+      "value": "Cánh tay trên (trái) — Trước/sau"
+    },
+    {
+      "key": "muscle.41",
+      "value": "Cánh tay trên (trái) — Xoắn vào trong/ra ngoài"
+    },
+    {
+      "key": "muscle.42",
+      "value": "Cẳng tay (trái) — Duỗi"
+    },
+    {
+      "key": "muscle.43",
+      "value": "Cẳng tay (trái) — Xoắn vào trong/ra ngoài"
+    },
+    {
+      "key": "muscle.44",
+      "value": "Bàn tay (trái) — Xuống/lên"
+    },
+    {
+      "key": "muscle.45",
+      "value": "Bàn tay (trái) — Vào trong/ra ngoài"
+    },
+    {
+      "key": "muscle.46",
+      "value": "Vai (phải) — Xuống/lên"
+    },
+    {
+      "key": "muscle.47",
+      "value": "Vai (phải) — Trước/sau"
+    },
+    {
+      "key": "muscle.48",
+      "value": "Cánh tay trên (phải) — Xuống/lên"
+    },
+    {
+      "key": "muscle.49",
+      "value": "Cánh tay trên (phải) — Trước/sau"
+    },
+    {
+      "key": "muscle.5",
+      "value": "Ngực — Xoắn trái/phải"
+    },
+    {
+      "key": "muscle.50",
+      "value": "Cánh tay trên (phải) — Xoắn vào trong/ra ngoài"
+    },
+    {
+      "key": "muscle.51",
+      "value": "Cẳng tay (phải) — Duỗi"
+    },
+    {
+      "key": "muscle.52",
+      "value": "Cẳng tay (phải) — Xoắn vào trong/ra ngoài"
+    },
+    {
+      "key": "muscle.53",
+      "value": "Bàn tay (phải) — Xuống/lên"
+    },
+    {
+      "key": "muscle.54",
+      "value": "Bàn tay (phải) — Vào trong/ra ngoài"
+    },
+    {
+      "key": "muscle.55",
+      "value": "Ngón cái 1 (trái) — Duỗi"
+    },
+    {
+      "key": "muscle.56",
+      "value": "Ngón cái (trái) — Xòe"
+    },
+    {
+      "key": "muscle.57",
+      "value": "Ngón cái 2 (trái) — Duỗi"
+    },
+    {
+      "key": "muscle.58",
+      "value": "Ngón cái 3 (trái) — Duỗi"
+    },
+    {
+      "key": "muscle.59",
+      "value": "Ngón trỏ 1 (trái) — Duỗi"
+    },
+    {
+      "key": "muscle.6",
+      "value": "Ngực trên — Trước/sau"
+    },
+    {
+      "key": "muscle.60",
+      "value": "Ngón trỏ (trái) — Xòe"
+    },
+    {
+      "key": "muscle.61",
+      "value": "Ngón trỏ 2 (trái) — Duỗi"
+    },
+    {
+      "key": "muscle.62",
+      "value": "Ngón trỏ 3 (trái) — Duỗi"
+    },
+    {
+      "key": "muscle.63",
+      "value": "Ngón giữa 1 (trái) — Duỗi"
+    },
+    {
+      "key": "muscle.64",
+      "value": "Ngón giữa (trái) — Xòe"
+    },
+    {
+      "key": "muscle.65",
+      "value": "Ngón giữa 2 (trái) — Duỗi"
+    },
+    {
+      "key": "muscle.66",
+      "value": "Ngón giữa 3 (trái) — Duỗi"
+    },
+    {
+      "key": "muscle.67",
+      "value": "Ngón áp út 1 (trái) — Duỗi"
+    },
+    {
+      "key": "muscle.68",
+      "value": "Ngón áp út (trái) — Xòe"
+    },
+    {
+      "key": "muscle.69",
+      "value": "Ngón áp út 2 (trái) — Duỗi"
+    },
+    {
+      "key": "muscle.7",
+      "value": "Ngực trên — Trái/phải"
+    },
+    {
+      "key": "muscle.70",
+      "value": "Ngón áp út 3 (trái) — Duỗi"
+    },
+    {
+      "key": "muscle.71",
+      "value": "Ngón út 1 (trái) — Duỗi"
+    },
+    {
+      "key": "muscle.72",
+      "value": "Ngón út (trái) — Xòe"
+    },
+    {
+      "key": "muscle.73",
+      "value": "Ngón út 2 (trái) — Duỗi"
+    },
+    {
+      "key": "muscle.74",
+      "value": "Ngón út 3 (trái) — Duỗi"
+    },
+    {
+      "key": "muscle.75",
+      "value": "Ngón cái 1 (phải) — Duỗi"
+    },
+    {
+      "key": "muscle.76",
+      "value": "Ngón cái (phải) — Xòe"
+    },
+    {
+      "key": "muscle.77",
+      "value": "Ngón cái 2 (phải) — Duỗi"
+    },
+    {
+      "key": "muscle.78",
+      "value": "Ngón cái 3 (phải) — Duỗi"
+    },
+    {
+      "key": "muscle.79",
+      "value": "Ngón trỏ 1 (phải) — Duỗi"
+    },
+    {
+      "key": "muscle.8",
+      "value": "Ngực trên — Xoắn trái/phải"
+    },
+    {
+      "key": "muscle.80",
+      "value": "Ngón trỏ (phải) — Xòe"
+    },
+    {
+      "key": "muscle.81",
+      "value": "Ngón trỏ 2 (phải) — Duỗi"
+    },
+    {
+      "key": "muscle.82",
+      "value": "Ngón trỏ 3 (phải) — Duỗi"
+    },
+    {
+      "key": "muscle.83",
+      "value": "Ngón giữa 1 (phải) — Duỗi"
+    },
+    {
+      "key": "muscle.84",
+      "value": "Ngón giữa (phải) — Xòe"
+    },
+    {
+      "key": "muscle.85",
+      "value": "Ngón giữa 2 (phải) — Duỗi"
+    },
+    {
+      "key": "muscle.86",
+      "value": "Ngón giữa 3 (phải) — Duỗi"
+    },
+    {
+      "key": "muscle.87",
+      "value": "Ngón áp út 1 (phải) — Duỗi"
+    },
+    {
+      "key": "muscle.88",
+      "value": "Ngón áp út (phải) — Xòe"
+    },
+    {
+      "key": "muscle.89",
+      "value": "Ngón áp út 2 (phải) — Duỗi"
+    },
+    {
+      "key": "muscle.9",
+      "value": "Cổ — Gật xuống/lên"
+    },
+    {
+      "key": "muscle.90",
+      "value": "Ngón áp út 3 (phải) — Duỗi"
+    },
+    {
+      "key": "muscle.91",
+      "value": "Ngón út 1 (phải) — Duỗi"
+    },
+    {
+      "key": "muscle.92",
+      "value": "Ngón út (phải) — Xòe"
+    },
+    {
+      "key": "muscle.93",
+      "value": "Ngón út 2 (phải) — Duỗi"
+    },
+    {
+      "key": "muscle.94",
+      "value": "Ngón út 3 (phải) — Duỗi"
+    },
+    {
+      "key": "package",
+      "value": "ID gói"
+    },
+    {
       "key": "support",
       "value": "Hỗ trợ"
+    },
+    {
+      "key": "unknown",
+      "value": "Không rõ"
+    },
+    {
+      "key": "version",
+      "value": "Phiên bản"
+    },
+    {
+      "key": "{0} のHumanoid基準軸を取得できません。",
+      "value": "Không lấy được trục tham chiếu Humanoid cho {0}."
+    },
+    {
+      "key": "{0} の基準姿勢を保存しました。",
+      "value": "Đã lưu tư thế tham chiếu cho {0}."
+    },
+    {
+      "key": "{0} 用の補正を生成しました（{1} Muscle）。",
+      "value": "Đã tạo hiệu chỉnh cho {0} ({1} cơ)."
+    },
+    {
+      "key": "{0}: Two-Bone IKを解けませんでした。",
+      "value": "{0}: giải IK hai xương thất bại."
+    },
+    {
+      "key": "{0}: {1} のHumanoidボーンがありません。",
+      "value": "{0}: thiếu xương Humanoid cho {1}."
+    },
+    {
+      "key": "{0}: ターゲットへ届かないため {1}m 手前で制限しました。",
+      "value": "{0}: không với tới đích; kết quả bị giới hạn cách đích {1} m."
+    },
+    {
+      "key": "{0}: 有効なIKルールがありません。",
+      "value": "{0}: không có quy tắc IK bật."
+    },
+    {
+      "key": "{0}からコピー",
+      "value": "Sao chép từ {0}"
+    },
+    {
+      "key": "{0}に{1}個の項目を追加しました。\n（重複する項目は除外されました）",
+      "value": "Đã thêm {1} mục vào {0}.\nBỏ qua các mục trùng lặp."
+    },
+    {
+      "key": "{0}のフォルダを取り除く",
+      "value": "Xóa thư mục {0}"
+    },
+    {
+      "key": "{0}の旧設定を取り除きます。ツールを通常アンインストールするための操作ではありません。調整内容を確認できるよう、先にプロジェクトをバックアップしてください。",
+      "value": "Xóa thiết lập cũ của {0}. Dọn dẹp này dành cho thiết lập avatar cũ. Sao lưu dự án trước để có thể khôi phục và so sánh các chỉnh sửa."
+    },
+    {
+      "key": "{0}の設定がアバターに残っています！ 不具合が発生する可能性があるので、自動で設定を取り除く機能を使用してください。また、アバター購入時にBaseLayerに設定されていたLocomotion用のAnimatorControllerがある場合は、恐れ入りますが手動で復元してお使いください。",
+      "value": "Avatar này còn thiết lập cũ của {0}, có thể gây xung đột. Dùng lệnh dọn dẹp để xóa. Nếu avatar ban đầu có Animator Controller di chuyển riêng ở lớp Base, hãy khôi phục thủ công sau đó."
+    },
+    {
+      "key": "{0}の設定を取り除く",
+      "value": "Xóa thiết lập {0}"
+    },
+    {
+      "key": "{0}を中止しました。\n{1}",
+      "value": "Đã dừng {0}.\n{1}"
+    },
+    {
+      "key": "{0}を完了できませんでした",
+      "value": "Không thể hoàn tất {0}"
+    },
+    {
+      "key": "{0}を開きます。{1}",
+      "value": "Mở {0}. {1}"
+    },
+    {
+      "key": "{0}・{1}から有効な長さを測定できません。",
+      "value": "Không đo được chiều dài hợp lệ giữa {0} và {1}."
+    },
+    {
+      "key": "{0}件のIKルールから自動調整Animationを作成しました。",
+      "value": "Đã tạo hoạt ảnh hiệu chỉnh tự động từ {0} quy tắc IK."
+    },
+    {
+      "key": "{0}件のIKルールを適用しました。\n{1}",
+      "value": "Đã áp dụng {0} quy tắc IK.\n{1}"
+    },
+    {
+      "key": "{0}件のエラー",
+      "value": "{0} lỗi"
+    },
+    {
+      "key": "{0}件の注意",
+      "value": "{0} cảnh báo"
+    },
+    {
+      "key": "{0}件を「{1}」に追加",
+      "value": "Thêm {0} vào {1}"
+    },
+    {
+      "key": "{0}件追加しました。",
+      "value": "Đã thêm {0} mục."
+    },
+    {
+      "key": "{0}個の調整アニメーションを複製保存しました。",
+      "value": "Đã nhân bản và lưu {0} hoạt ảnh hiệu chỉnh."
+    },
+    {
+      "key": "{0}（{1}行目）",
+      "value": "{0} (dòng {1})"
+    },
+    {
+      "key": "※ 寝返りと姿勢崩れ抑制のbit表示は、今の状態でチェックを変更したときの増減量です。首固定の1 bitは共用します。",
+      "value": "Số bit lật người và giảm méo cho biết thay đổi so với thiết lập hiện tại. Cùng dùng khóa đầu 1 bit."
+    },
+    {
+      "key": "▶ 取り込み設定を開く",
+      "value": "▶ Mở thiết lập nhập"
+    },
+    {
+      "key": "▶ 設定を開く",
+      "value": "▶ Mở thiết lập"
+    },
+    {
+      "key": "▼ 取り込み設定を閉じる",
+      "value": "▼ Đóng thiết lập nhập"
+    },
+    {
+      "key": "▼ 設定を閉じる",
+      "value": "▼ Đóng thiết lập"
+    },
+    {
+      "key": "「Use Auto-Footsteps for 3 and 4 point tracking」をオフにする",
+      "value": "Tắt Use Auto-Footsteps for 3 and 4 point tracking"
+    },
+    {
+      "key": "「{0}」で初期ポーズが複数選ばれています。",
+      "value": "Có nhiều tư thế mặc định được chọn trong {0}."
+    },
+    {
+      "key": "「{0}」に有効なポーズがありません。このカテゴリの選択メニューは生成されません。",
+      "value": "Không có tư thế nào bật trong {0}. Menu chọn của danh mục này sẽ không được tạo."
+    },
+    {
+      "key": "「{0}」の{1}番目のポーズデータが欠けています。",
+      "value": "Thiếu dữ liệu tư thế của mục {1} trong {0}."
+    },
+    {
+      "key": "「{0}」の{1}番目（{2}）にアニメーションがありません。",
+      "value": "Mục {1} ({2}) trong {0} không có hoạt ảnh."
+    },
+    {
+      "key": "「{0}」の{1}番目（{2}）のMotion Time用パラメータ名が空です。",
+      "value": "Mục {1} ({2}) trong {0} thiếu tên tham số Motion Time."
+    },
+    {
+      "key": "「{0}」の{1}番目（{2}）の寝返りにはHumanoidのAnimationClipが必要です。",
+      "value": "Lật người cho mục {1} ({2}) trong {0} cần Humanoid AnimationClip."
+    },
+    {
+      "key": "「{0}」の{1}番目（{2}）の接地補正の強さが範囲外です。",
+      "value": "Cường độ hiệu chỉnh tiếp xúc của mục {1} ({2}) trong {0} ngoài phạm vi."
+    },
+    {
+      "key": "「{0}」の{1}番目（{2}）はLegacy形式のアニメーションです。",
+      "value": "Mục {1} ({2}) trong {0} dùng hoạt ảnh Legacy."
+    },
+    {
+      "key": "「{0}」の{1}番目（{2}）は独自アイコンが有効ですが画像がありません。",
+      "value": "Mục {1} ({2}) trong {0} bật biểu tượng riêng nhưng chưa gán ảnh."
+    },
+    {
+      "key": "「{0}」オブジェクトの設定が更新されています。再度プレビルドを行ってください",
+      "value": "Thiết lập của đối tượng {0} đã thay đổi. Cập nhật dữ liệu tạo trước."
+    },
+    {
+      "key": "「ポーズ一覧」で対応するポーズの詳細を開き、「寝返りを使う」をオンにしてください。",
+      "value": "Mở tư thế được hỗ trợ trong Tư thế và bật lật người."
+    },
+    {
+      "key": "「現在の手足位置から取得」を一度実行してください。再取得までは元Animationの手足の向きを維持します。",
+      "value": "ghi vị trí chi hiện tại một lần. Trước khi ghi lại, giữ hướng chi của hoạt ảnh nguồn."
+    },
+    {
+      "key": "「立ち・歩き・走り」「しゃがみ（Crouching）」「伏せ（Prone）」には移動を含むBlendTreeを指定してください。単独の立ち姿勢は「立ちのみ」に指定できます。",
+      "value": "Dùng BlendTree có chuyển động di chuyển cho Đứng / đi / chạy, Ngồi xổm và Nằm sấp. Dùng Chỉ đứng cho một tư thế đứng đơn."
+    },
+    {
+      "key": "あおむけ時自動頭固定",
+      "value": "Tự khóa đầu khi nằm ngửa"
+    },
+    {
+      "key": "あぐら",
+      "value": "Ngồi xếp bằng"
+    },
+    {
+      "key": "あぐら２",
+      "value": "Ngồi xếp bằng 2"
+    },
+    {
+      "key": "いいえ",
+      "value": "Không"
+    },
+    {
+      "key": "いじけ",
+      "value": "Hờn dỗi"
+    },
+    {
+      "key": "うずくまり",
+      "value": "Cuộn mình"
     },
     {
       "key": "うつ伏せ寝",
       "value": "Nằm sấp"
     },
     {
+      "key": "おいで",
+      "value": "Lại đây"
+    },
+    {
+      "key": "おきあがり",
+      "value": "Đứng dậy"
+    },
+    {
+      "key": "おすまし",
+      "value": "Đoan trang"
+    },
+    {
+      "key": "おちこみ",
+      "value": "Buồn bã"
+    },
+    {
+      "key": "お伺いポーズ",
+      "value": "Cho phép nhé?"
+    },
+    {
+      "key": "お姉さん座り",
+      "value": "Ngồi thanh lịch"
+    },
+    {
+      "key": "お疲れ",
+      "value": "Mệt lả"
+    },
+    {
+      "key": "が無効になっています",
+      "value": "đang tắt"
+    },
+    {
+      "key": "くずし",
+      "value": "Ngồi thả lỏng"
+    },
+    {
+      "key": "くつろぎ１",
+      "value": "Thư giãn 1"
+    },
+    {
+      "key": "くつろぎ２",
+      "value": "Thư giãn 2"
+    },
+    {
+      "key": "ぐだり１",
+      "value": "Nằm xoài 1"
+    },
+    {
+      "key": "ぐだり２",
+      "value": "Nằm xoài 2"
+    },
+    {
+      "key": "ぐだり３",
+      "value": "Nằm xoài 3"
+    },
+    {
+      "key": "このIK設定を使用する商品名です。",
+      "value": "Sản phẩm dùng thiết lập IK này."
+    },
+    {
+      "key": "このアバターでポーズを使用する場合は、「対象を選択」で該当オブジェクトのタグと有効状態を確認してください。",
+      "value": "Để dùng tư thế trên avatar này, chọn đối tượng liên quan rồi kiểm tra thẻ và trạng thái hoạt động."
+    },
+    {
+      "key": "このアバターの手足の自動調整が無効になっています。",
+      "value": "Đã tắt hiệu chỉnh chi tự động cho avatar này."
+    },
+    {
+      "key": "このアバターは人型ではありません。アバターのAnimatorにHumanoid型のAvatarが設定されていない場合はこのツールは使えません。",
+      "value": "Avatar này không phải Humanoid. Công cụ cần Humanoid Avatar gán cho Animator."
+    },
+    {
+      "key": "このエラーについて相談する",
+      "value": "Hỏi về lỗi này"
+    },
+    {
+      "key": "このコンピュータにはゆにさきポーズシステムの使用が許諾されていません。Boothのショップから可愛いポーズツールを購入して、コンピュータにライセンスをインストールしてください",
+      "value": "Máy tính này chưa có giấy phép Unisaki Posing System. Mua Kawaii Posing trên BOOTH và cài giấy phép lên máy này."
+    },
+    {
+      "key": "このコンピュータにはカッコいいポーズツールの使用が許諾されていません。Boothのショップからカッコいいポーズツールを購入して、コンピュータにライセンスをインストールしてください。カッコいいポーズツールを購入しているのにこのエラーが表示される場合は、Boothから最新版のZipファイルをダウンロードして、「CoolPosing.unitypackage」をインポートしてください。（この作業は１つのパソコンにつき一回行う必要があります）",
+      "value": "Máy tính này chưa có giấy phép Cool Posing. Mua công cụ trên BOOTH và cài giấy phép. Nếu đã mua, tải ZIP mới nhất từ BOOTH và nhập CoolPosing.unitypackage. Chỉ cần một lần cho mỗi máy."
+    },
+    {
+      "key": "このコンピュータには可愛いポーズツールの使用が許諾されていません。Boothのショップから可愛いポーズツールを購入して、コンピュータにライセンスをインストールしてください。可愛いポーズツールを購入しているのにこのエラーが表示される場合は、Boothから最新版のZipファイルをダウンロードして、「KawaiiPosing.unitypackage」をインポートしてください。（この作業は１つのパソコンにつき一回行う必要があります）",
+      "value": "Máy tính này chưa có giấy phép Kawaii Posing. Mua công cụ trên BOOTH và cài giấy phép. Nếu đã mua, tải ZIP mới nhất từ BOOTH và nhập KawaiiPosing.unitypackage. Chỉ cần một lần cho mỗi máy."
+    },
+    {
+      "key": "このツールにはアバター固有補正用の基準データがありません。",
+      "value": "Công cụ không có dữ liệu tham chiếu để hiệu chỉnh avatar."
+    },
+    {
+      "key": "このプリセットに変更する",
+      "value": "Áp dụng thiết lập sẵn này"
+    },
+    {
+      "key": "このプリセットは削除されたか、現在のツールに適用できません。「再読込」で一覧を更新してください。",
+      "value": "Thiết lập sẵn đã bị xóa hoặc không áp dụng được cho công cụ này. Chọn Tải lại để cập nhật danh sách."
+    },
+    {
+      "key": "このポーズにはIKによる自動調整が設定されていません。元の姿勢と手動調整を使用します。",
+      "value": "Tư thế này không có hiệu chỉnh IK tự động. Dùng tư thế gốc và hiệu chỉnh thủ công."
+    },
+    {
+      "key": "このポーズのIKを使う",
+      "value": "Bật IK tư thế này"
+    },
+    {
+      "key": "このポーズの手足の自動調整（IK）",
+      "value": "Hiệu chỉnh chi (IK) tư thế này"
+    },
+    {
+      "key": "このポーズを使う",
+      "value": "Dùng tư thế này"
+    },
+    {
+      "key": "このポーズツールごとに保存します。エラー表示と、ビルド時に必要な再生成は有効なままです。",
+      "value": "Lưu riêng cho mỗi công cụ tạo dáng. Lỗi và việc tạo lại bắt buộc khi dựng vẫn bật."
+    },
+    {
+      "key": "このユーザーのゆにさきポーズシステムライセンスが見つかりません。正規の購入ページからダウンロードしたインストーラーを、このUnityプロジェクトへインポートしてください。ライセンスは、PCのユーザーごとに一度インストールします。別のPCやユーザーでは再度インストールしてください。",
+      "value": "Không tìm thấy giấy phép Unisaki Posing System cho người dùng hệ điều hành này. Nhập trình cài đặt từ bản tải mua chính thức vào dự án Unity này. Cài giấy phép một lần cho mỗi người dùng hệ điều hành trên mỗi máy tính."
+    },
+    {
+      "key": "このユーザーのカッコいいポーズツールライセンスが見つかりません。正規の購入ページからダウンロードしたインストーラーを、このUnityプロジェクトへインポートしてください。ライセンスは、PCのユーザーごとに一度インストールします。別のPCやユーザーでは再度インストールしてください。",
+      "value": "Không tìm thấy giấy phép Cool Posing Tool cho người dùng hệ điều hành này. Nhập trình cài đặt từ bản tải mua chính thức vào dự án Unity này. Cài giấy phép một lần cho mỗi người dùng hệ điều hành trên mỗi máy tính."
+    },
+    {
+      "key": "このユーザーの可愛いポーズツールライセンスが見つかりません。正規の購入ページからダウンロードしたインストーラーを、このUnityプロジェクトへインポートしてください。ライセンスは、PCのユーザーごとに一度インストールします。別のPCやユーザーでは再度インストールしてください。",
+      "value": "Không tìm thấy giấy phép Kawaii Posing Tool cho người dùng hệ điều hành này. Nhập trình cài đặt từ bản tải mua chính thức vào dự án Unity này. Cài giấy phép một lần cho mỗi người dùng hệ điều hành trên mỗi máy tính."
+    },
+    {
+      "key": "このルールを使用",
+      "value": "Bật quy tắc này"
+    },
+    {
+      "key": "この分類にはアニメーションがありません。",
+      "value": "Không có hoạt ảnh trong danh mục này."
+    },
+    {
+      "key": "この分類の中で移動先の順番を選べます。",
+      "value": "Chọn vị trí đích trong danh mục này."
+    },
+    {
+      "key": "この分類の初期ポーズにする",
+      "value": "Đặt làm mặc định của danh mục"
+    },
+    {
+      "key": "この切り替えは調整ウィンドウのプレビュー専用です。保存・サムネイル・最終出力には影響しません。膝クランプは引き続き有効です。",
+      "value": "Công tắc này chỉ ảnh hưởng xem trước hiệu chỉnh, không đổi dữ liệu đã lưu, ảnh thu nhỏ hay kết quả cuối. Giới hạn đầu gối vẫn bật."
+    },
+    {
+      "key": "この商品には基準アバター姿勢が登録されていません。",
+      "value": "Chưa đăng ký tư thế avatar tham chiếu cho sản phẩm này."
+    },
+    {
+      "key": "この商品には基準データがありません。",
+      "value": "Sản phẩm này không có dữ liệu tham chiếu."
+    },
+    {
+      "key": "この姿勢の自動調整データがありません。",
+      "value": "Không có dữ liệu hiệu chỉnh tự động cho tư thế này."
+    },
+    {
+      "key": "この種類には移動を含むBlendTreeを指定してください。",
+      "value": "Chọn BlendTree chứa chuyển động di chuyển cho loại này."
+    },
+    {
+      "key": "この種類のモーションを使う",
+      "value": "Dùng loại chuyển động này"
+    },
+    {
+      "key": "この種類の手動設定と調整を解除します。自動取り込みがONなら次回生成時に再検出します。Undoで戻せます。",
+      "value": "Xóa thiết lập và phần chỉnh thủ công của loại chuyển động này. Nếu bật nhập tự động, lần dựng sau sẽ phát hiện lại. Có thể hoàn tác."
+    },
+    {
+      "key": "この警告について相談する",
+      "value": "Hỏi về cảnh báo này"
+    },
+    {
+      "key": "この警告を今後表示しない",
+      "value": "Không hiện lại cảnh báo này"
+    },
+    {
+      "key": "ごろ寝システムEX追加",
+      "value": "Thêm Gorone System EX"
+    },
+    {
+      "key": "ざせつ",
+      "value": "Thất bại"
+    },
+    {
+      "key": "しなの",
+      "value": "Shinano"
+    },
+    {
+      "key": "しなの (着せ替え)",
+      "value": "Shinano (Trang phục)"
+    },
+    {
+      "key": "しなの（着せ替え)",
+      "value": "Shinano (Trang phục)"
+    },
+    {
+      "key": "しなの（着せ替え）",
+      "value": "Shinano (Trang phục)"
+    },
+    {
+      "key": "しゃがみ（Crouching）",
+      "value": "Ngồi xổm"
+    },
+    {
+      "key": "じだらく",
+      "value": "Ngày lười biếng"
+    },
+    {
+      "key": "すねの長さ",
+      "value": "Chiều dài cẳng chân"
+    },
+    {
+      "key": "すべての姿勢から検索",
+      "value": "Tìm mọi tư thế"
+    },
+    {
+      "key": "すべての警告・注意を非表示",
+      "value": "Ẩn mọi cảnh báo và ghi chú"
+    },
+    {
+      "key": "すべての項目が既に存在するため、追加されませんでした。",
+      "value": "Tất cả mục đã tồn tại; không thêm gì."
+    },
+    {
+      "key": "その他",
+      "value": "Khác"
+    },
+    {
+      "key": "たたみ",
+      "value": "Tatami"
+    },
+    {
+      "key": "なし",
+      "value": "Không"
+    },
+    {
+      "key": "にEditorOnlyタグが設定されています",
+      "value": "có thẻ EditorOnly"
+    },
+    {
+      "key": "ねころび",
+      "value": "Nằm xuống"
+    },
+    {
+      "key": "ねころび１",
+      "value": "Nằm xuống 1"
+    },
+    {
+      "key": "ねころび２",
+      "value": "Nằm xuống 2"
+    },
+    {
+      "key": "ねころび３",
+      "value": "Nằm xuống 3"
+    },
+    {
+      "key": "のんびり",
+      "value": "Thong thả"
+    },
+    {
+      "key": "のーんびり",
+      "value": "Thật thư thái"
+    },
+    {
+      "key": "はい",
+      "value": "Có"
+    },
+    {
+      "key": "はいずり",
+      "value": "Bò"
+    },
+    {
+      "key": "はりつけ",
+      "value": "Bị ghim"
+    },
+    {
+      "key": "びっくり",
+      "value": "Ngạc nhiên"
+    },
+    {
+      "key": "ふくじゅう",
+      "value": "Quy phục"
+    },
+    {
+      "key": "ほかのギミックとの併用によって固定機能がうまく動かない場合はオンにしてください。",
+      "value": "Bật nếu khóa theo dõi hoạt động sai khi dùng cùng công cụ khác."
+    },
+    {
+      "key": "ほかのプリセットを探す",
+      "value": "Tìm thiết lập sẵn khác"
+    },
+    {
+      "key": "または",
+      "value": "hoặc"
+    },
+    {
+      "key": "まだプレビルドしていません。「プレビルドを更新」で姿勢データを生成できます。",
+      "value": "Chưa tạo trước. Chọn Cập nhật dữ liệu tạo trước để tạo dữ liệu tư thế."
+    },
+    {
+      "key": "むきりょく",
+      "value": "Hết sức"
+    },
+    {
+      "key": "ゆにさきスタジオ",
+      "value": "Unisaki Studio"
+    },
+    {
+      "key": "ゆにさきスタジオ公式",
+      "value": "Thiết lập sẵn chính thức Unisaki Studio"
+    },
+    {
+      "key": "ゆにさきポーズシステム",
+      "value": "Unisaki Posing System"
+    },
+    {
+      "key": "ゆにさきポーズシステムライセンス削除",
+      "value": "Gỡ giấy phép Posing System"
+    },
+    {
+      "key": "ゆにさきポーズシステム設定",
+      "value": "Thiết lập Unisaki Posing System"
+    },
+    {
+      "key": "よりかかり",
+      "value": "Tựa mình"
+    },
+    {
+      "key": "アイコンの更新",
+      "value": "Cập nhật biểu tượng"
+    },
+    {
+      "key": "アイコンを撮り直す",
+      "value": "Chụp lại biểu tượng"
+    },
+    {
+      "key": "アイコン画像",
+      "value": "Ảnh biểu tượng"
+    },
+    {
+      "key": "アイコン画像の容量を減らす",
+      "value": "Giảm kích thước biểu tượng"
+    },
+    {
+      "key": "アイコン画像を指定するか、独自アイコンを無効にして自動生成を使用してください。",
+      "value": "Gán ảnh biểu tượng hoặc tắt biểu tượng riêng để dùng biểu tượng được tạo tự động."
+    },
+    {
+      "key": "アイコン画像ファイルを削除",
+      "value": "Xóa tệp ảnh biểu tượng"
+    },
+    {
+      "key": "アイドル",
+      "value": "Thần tượng"
+    },
+    {
+      "key": "アップロード時に適用します。未翻訳の項目は日本語で表示されます。",
+      "value": "Áp dụng khi tải lên. Mục chưa dịch dùng tiếng Nhật."
+    },
+    {
+      "key": "アニメーション",
+      "value": "Hoạt ảnh"
+    },
+    {
+      "key": "アニメーションが割り当てられていません。",
+      "value": "Chưa gán hoạt ảnh."
+    },
+    {
+      "key": "アニメーションの調整は現在停止中です",
+      "value": "Đã dừng chỉnh hoạt ảnh."
+    },
+    {
+      "key": "アニメーションを合成して保存しました。\n新しいファイル: {0}",
+      "value": "Đã gộp và lưu hoạt ảnh.\nTệp mới: {0}"
+    },
+    {
+      "key": "アニメーションを選択してください。",
+      "value": "Chọn hoạt ảnh."
+    },
+    {
+      "key": "アニメーション情報",
+      "value": "Thông tin hoạt ảnh"
+    },
+    {
+      "key": "アニメーション調整",
+      "value": "Hiệu chỉnh hoạt ảnh"
+    },
+    {
+      "key": "アニメーション調整ウィンドウが表示されています。調整が終わったらウィンドウを閉じてください",
+      "value": "Cửa sổ hiệu chỉnh hoạt ảnh đang mở. Đóng khi chỉnh xong."
+    },
+    {
+      "key": "アニメーション調整ウィンドウを閉じる",
+      "value": "Đóng cửa sổ hiệu chỉnh hoạt ảnh"
+    },
+    {
+      "key": "アニメーション調整画面など、ほかのプレビューを終了してからお試しください。",
+      "value": "Đóng các xem trước hoạt ảnh khác, kể cả Hiệu chỉnh hoạt ảnh, rồi thử lại."
+    },
+    {
+      "key": "アニメーション調節機能を使用して姿勢をアバターに合わせたデータを、別のアバターデータでも使用したい場合は、プリセットを作成すると便利です。PrefabsやFBXを登録してプリセットを作成すると、そのアバターに{0}を追加した時に自動でプリセットが適用されるようになります。また、作成したプリセットは公開、配付、販売が可能です。",
+      "value": "Tạo thiết lập sẵn để dùng lại phần chỉnh tư thế trên bản khác của cùng avatar. Đăng ký prefab hoặc FBX để đề xuất thiết lập sẵn khi thêm {0} vào avatar đó. Bạn có thể công bố, phân phối hoặc bán thiết lập sẵn đã tạo theo giấy phép sản phẩm."
+    },
+    {
+      "key": "アバターごとの設定ではなく、1つの商品につき1ファイルを作成します。",
+      "value": "Tạo một tệp cho mỗi sản phẩm; tách biệt với thiết lập riêng từng avatar."
+    },
+    {
+      "key": "アバターごとの関節の向きやひねりの違いを自動で補正します。",
+      "value": "Tự hiệu chỉnh khác biệt hướng khớp và độ xoắn của từng avatar."
+    },
+    {
+      "key": "アバターとの組み合わせ",
+      "value": "Tích hợp avatar"
+    },
+    {
+      "key": "アバターに合わないときは、このポーズだけIKをオフにできます。ほかのポーズやアバターには影響しません。",
+      "value": "Tắt IK chỉ cho tư thế này nếu không hợp avatar. Không ảnh hưởng tư thế và avatar khác."
+    },
+    {
+      "key": "アバターに適合",
+      "value": "Avatar tương thích"
+    },
+    {
+      "key": "アバターのBaseに通常のAnimatorControllerを設定してください。AnimatorOverrideControllerには対応していません。",
+      "value": "Gán Animator Controller thông thường vào lớp Base của avatar. Không hỗ trợ Animator Override Controller."
+    },
+    {
+      "key": "アバターのスケールから有効な固定長を測定できません。",
+      "value": "Không đo được chiều dài cố định hợp lệ từ tỉ lệ avatar."
+    },
+    {
+      "key": "アバターのルートにAnimatorがありません。",
+      "value": "Đối tượng gốc của avatar không có Animator."
+    },
+    {
+      "key": "アバターのルートにAnimatorがありません。Inspectorの「設定の確認」の対処手順をご確認ください。",
+      "value": "Gốc avatar không có Animator. Xem kiểm tra thiết lập trong Inspector."
+    },
+    {
+      "key": "アバターの元の立ち・しゃがみ・伏せ姿勢を使う",
+      "value": "Dùng tư thế đứng, ngồi xổm và nằm sấp gốc"
+    },
+    {
+      "key": "アバターの元モデルに対応するHumanoid AvatarをAnimatorのAvatar欄に戻してください。別アバターのAvatarは指定しないでください。",
+      "value": "Khôi phục Humanoid Avatar của mô hình gốc vào trường Avatar của Animator. Dùng tài nguyên Avatar của chính mô hình này."
+    },
+    {
+      "key": "アバターの初期姿勢が変わったため、補正を自動更新します。",
+      "value": "Tư thế nghỉ của avatar đã đổi. Hiệu chỉnh sẽ tự cập nhật."
+    },
+    {
+      "key": "アバターの姿勢をリセット（Tポーズに戻す）",
+      "value": "Đặt avatar về tư thế T"
+    },
+    {
+      "key": "アバターの容量を抑えたいときに便利です。アイコン画像は少し粗くなります。",
+      "value": "Giảm dung lượng avatar với việc giảm một ít chi tiết biểu tượng."
+    },
+    {
+      "key": "アバターの設定が必要",
+      "value": "Cần thiết lập avatar"
+    },
+    {
+      "key": "アバターデータフォルダの自動検出",
+      "value": "Phát hiện thư mục dữ liệu avatar"
+    },
+    {
+      "key": "アバター全体を基準",
+      "value": "Avatar"
+    },
+    {
+      "key": "アバター名",
+      "value": "Tên avatar"
+    },
+    {
+      "key": "アバター名を入力してください。",
+      "value": "Nhập tên avatar."
+    },
+    {
+      "key": "アバター固有補正を使う",
+      "value": "Bật hiệu chỉnh avatar"
+    },
+    {
+      "key": "アバター固有補正を使用",
+      "value": "Bật hiệu chỉnh avatar"
+    },
+    {
+      "key": "アバター固有補正アニメーションを保存できませんでした。",
+      "value": "Không lưu được hoạt ảnh hiệu chỉnh riêng cho avatar."
+    },
+    {
+      "key": "アバター調整",
+      "value": "Thiết lập avatar"
+    },
+    {
+      "key": "アバター選択",
+      "value": "Chọn avatar"
+    },
+    {
+      "key": "エラー",
+      "value": "Lỗi"
+    },
+    {
+      "key": "オブジェクトがVRC用のアバターオブジェクトの中に入っていません。このオブジェクトはVRCAvatarDescriptorコンポーネントの付いたオブジェクトの中に配置してください",
+      "value": "Đặt đối tượng này bên trong avatar có thành phần VRCAvatarDescriptor."
+    },
+    {
+      "key": "カエルのポーズ１",
+      "value": "Con ếch 1"
+    },
+    {
+      "key": "カエルのポーズ２",
+      "value": "Con ếch 2"
+    },
+    {
+      "key": "カスタム",
+      "value": "Tùy chỉnh"
+    },
+    {
+      "key": "カスタムアニメーション",
+      "value": "Hoạt ảnh riêng"
+    },
+    {
+      "key": "カッコいいポーズ",
+      "value": "Cool Posing"
+    },
+    {
+      "key": "カッコいいポーズツール",
+      "value": "Cool Posing"
+    },
+    {
+      "key": "カッコいいポーズツール(Gumroad)",
+      "value": "Cool Posing Tool (Gumroad)"
+    },
+    {
+      "key": "カッコいいポーズツールライセンスインストール",
+      "value": "Cài giấy phép Cool Posing"
+    },
+    {
+      "key": "カッコいいポーズツールライセンス削除",
+      "value": "Gỡ giấy phép Cool Posing"
+    },
+    {
+      "key": "カッコいいポーズツールライセンス状態確認",
+      "value": "Trạng thái giấy phép Cool Posing"
+    },
+    {
+      "key": "カッコいいポーズツール設定",
+      "value": "Thiết lập Cool Posing"
+    },
+    {
+      "key": "カッコいいポーズツール追加",
+      "value": "Thêm Cool Posing"
+    },
+    {
+      "key": "カッコいいポーズツール（BOOTH）",
+      "value": "Cool Posing Tool (BOOTH)"
+    },
+    {
+      "key": "キック",
+      "value": "Đá chân"
+    },
+    {
+      "key": "クマ人形",
+      "value": "Gấu bông"
+    },
+    {
+      "key": "クリップボードが空です。",
+      "value": "Bảng nhớ tạm trống."
+    },
+    {
+      "key": "ケンカ",
+      "value": "Sẵn sàng đánh"
+    },
+    {
+      "key": "ゲーム内で使うには「機能」タブの「寝返り」もオンにしてください。",
+      "value": "Để dùng trong VRChat, cũng bật lật người ở thẻ Tính năng."
+    },
+    {
+      "key": "ゲーム内メニューの言語",
+      "value": "Ngôn ngữ menu trong trò chơi"
+    },
+    {
+      "key": "コンパイルエラー（先頭から最大5件）",
+      "value": "Lỗi biên dịch (tối đa 5 lỗi đầu)"
+    },
+    {
+      "key": "コンビニ",
+      "value": "Cửa hàng tiện lợi"
+    },
+    {
+      "key": "シーンを保存・バックアップしてから、ALCOM / VCCで商品本体と「ゆにさきポーズシステム」を再取得してください。入れ直しても直らない場合は、Inspector上部の「ヘルプ・変更履歴」から公式マニュアル・お問い合わせをご確認ください。調整済みのオブジェクトやGeneratedResourcesは削除しないでください。",
+      "value": "Lưu và sao lưu cảnh, rồi tải lại sản phẩm cùng Unisaki Posing System qua ALCOM / VCC. Nếu vẫn lỗi, mở trợ giúp và thay đổi ở đầu Inspector để xem hướng dẫn và hỗ trợ. Giữ lại các đối tượng đã chỉnh và GeneratedResources."
+    },
+    {
       "key": "ジェスチャー無効",
       "value": "Tắt cử chỉ"
+    },
+    {
+      "key": "ジャンプ",
+      "value": "Nhảy"
+    },
+    {
+      "key": "ジャンプで寝姿勢を切り替える",
+      "value": "Nhảy để đổi tư thế nằm"
+    },
+    {
+      "key": "スライダーは−1〜1。範囲外の値も数値欄に入力できます。",
+      "value": "Phạm vi thanh trượt: -1 đến 1. Có thể nhập giá trị ngoài phạm vi này."
+    },
+    {
+      "key": "ソースとなるPosingSystemが見つかりません。",
+      "value": "Không tìm thấy PosingSystem nguồn."
+    },
+    {
+      "key": "ゾンビ",
+      "value": "Thây ma"
+    },
+    {
+      "key": "ターゲットボーン {0} がありません。",
+      "value": "Thiếu xương đích {0}."
+    },
+    {
+      "key": "チェックを付けると増える量／外すと減る量です。\n寝返りON/OFF：1 bit、頭の傾き：8 bit、首固定：1 bit。\nほかの設定で使用中のパラメーターは重複して数えません。",
+      "value": "Thay đổi bộ nhớ khi bật/tắt tùy chọn này.\nCông tắc lật người: 1 bit; nghiêng đầu: 8 bit; khóa đầu: 1 bit.\nTham số đã dùng bởi tùy chọn khác chỉ được tính một lần."
+    },
+    {
+      "key": "チェックを付けると増える量／外すと減る量です。\n首固定：1 bit（寝返りと共用）。\n寝返りなどで使用中なら0 bitです。",
+      "value": "Thay đổi bộ nhớ khi bật/tắt tùy chọn này.\nKhóa đầu: 1 bit, dùng chung với lật người.\nKhông dùng thêm bit nếu lật người đã dùng tham số này."
+    },
+    {
+      "key": "ツールに同梱された公式プリセットを一覧と検索結果に表示しません。同じプロジェクト内のアバターで共有する設定です。",
+      "value": "Ẩn thiết lập sẵn chính thức đi kèm khỏi danh sách và kết quả tìm kiếm. Thiết lập dùng chung cho các avatar trong dự án."
+    },
+    {
+      "key": "ツールのルートにMA Parametersがありません。",
+      "value": "Đối tượng gốc của công cụ không có thành phần MA Parameters."
+    },
+    {
+      "key": "ツールの親にVRC Avatar Descriptorがありません。",
+      "value": "Không tìm thấy VRC Avatar Descriptor ở phía trên công cụ."
+    },
+    {
+      "key": "ツール内の共通ポージングAnimatorが1つだけ有効か、EditorOnlyタグ・Missing Scriptの有無と標準Prefabの導入状態を確認してください。",
+      "value": "Kiểm tra chỉ có một Animator tạo dáng dùng chung hoạt động, không có thẻ EditorOnly hay Missing Script, và đã cài prefab tiêu chuẩn."
+    },
+    {
+      "key": "ツール内の姿勢メニューが削除・無効化されていないか確認してください。",
+      "value": "Kiểm tra menu tư thế trong công cụ có bị xóa hoặc tắt không."
+    },
+    {
+      "key": "ツール内の姿勢メニューが削除・無効化されていないか確認してください。シーンを保存・バックアップしてから、ALCOM / VCCで商品本体と「ゆにさきポーズシステム」を再取得してください。入れ直しても直らない場合は、Inspector上部の「ヘルプ・変更履歴」から公式マニュアル・お問い合わせをご確認ください。調整済みのオブジェクトやGeneratedResourcesは削除しないでください。",
+      "value": "Kiểm tra menu tư thế trong công cụ có bị xóa hoặc tắt không.\nLưu và sao lưu cảnh, rồi tải lại sản phẩm cùng Unisaki Posing System qua ALCOM / VCC. Nếu vẫn lỗi, mở trợ giúp và thay đổi ở đầu Inspector để xem hướng dẫn và hỗ trợ. Giữ lại các đối tượng đã chỉnh và GeneratedResources."
+    },
+    {
+      "key": "ツール本体が見つかりません [PS041]",
+      "value": "Không tìm thấy prefab công cụ [PS041]"
+    },
+    {
+      "key": "デバッグ: アバター固有補正をプレビュー",
+      "value": "Gỡ lỗi: xem trước hiệu chỉnh avatar"
+    },
+    {
+      "key": "デフォルト",
+      "value": "Mặc định"
+    },
+    {
+      "key": "データ形式のバージョン",
+      "value": "Phiên bản định dạng dữ liệu"
+    },
+    {
+      "key": "トラブルシューティング",
+      "value": "Khắc phục sự cố"
+    },
+    {
+      "key": "トラブルシューティングを閉じる",
+      "value": "Đóng khắc phục sự cố"
+    },
+    {
+      "key": "バックアップ済み・削除する",
+      "value": "Đã sao lưu — xóa"
+    },
+    {
+      "key": "バックアップ済み・取り除く",
+      "value": "Đã sao lưu — xóa"
+    },
+    {
+      "key": "バンザイ",
+      "value": "Giơ tay"
+    },
+    {
+      "key": "バージョン不明",
+      "value": "Không rõ phiên bản"
+    },
+    {
+      "key": "パッケージ内の標準Controllerが見つかりません。",
+      "value": "Không tìm thấy Controller tiêu chuẩn trong gói."
+    },
+    {
+      "key": "ファイルに保存されている値に戻します。",
+      "value": "Khôi phục giá trị đã lưu trong tệp."
+    },
+    {
+      "key": "プランク",
+      "value": "Plank"
+    },
+    {
+      "key": "プリセット",
+      "value": "Thiết lập sẵn"
+    },
+    {
+      "key": "プリセットの保存・管理",
+      "value": "Lưu / quản lý thiết lập sẵn"
+    },
+    {
+      "key": "プリセットの保存・管理を閉じる",
+      "value": "Đóng quản lý thiết lập sẵn"
+    },
+    {
+      "key": "プリセットを作成",
+      "value": "Tạo thiết lập sẵn"
+    },
+    {
+      "key": "プリセットを作成しました。プリセット選択の「再読込」で一覧に反映できます。",
+      "value": "Đã tạo thiết lập sẵn. Dùng Tải lại trong bộ chọn để cập nhật danh sách."
+    },
+    {
+      "key": "プリセットを読み込めません",
+      "value": "Không tải được thiết lập sẵn"
+    },
+    {
+      "key": "プリセットを適用し直すか、新しく追加したツールのポーズ一覧と比較してください。",
+      "value": "Áp dụng lại thiết lập sẵn hoặc so sánh danh sách tư thế với một bản công cụ mới thêm."
+    },
+    {
+      "key": "プリセットを適用し直すか、新しく追加したツールのポーズ一覧と比較してください。シーンを保存・バックアップしてから、ALCOM / VCCで商品本体と「ゆにさきポーズシステム」を再取得してください。入れ直しても直らない場合は、Inspector上部の「ヘルプ・変更履歴」から公式マニュアル・お問い合わせをご確認ください。調整済みのオブジェクトやGeneratedResourcesは削除しないでください。",
+      "value": "Áp dụng lại thiết lập sẵn hoặc so sánh danh sách tư thế với một bản công cụ mới thêm.\nLưu và sao lưu cảnh, rồi tải lại sản phẩm cùng Unisaki Posing System qua ALCOM / VCC. Nếu vẫn lỗi, mở trợ giúp và thay đổi ở đầu Inspector để xem hướng dẫn và hỗ trợ. Giữ lại các đối tượng đã chỉnh và GeneratedResources."
+    },
+    {
+      "key": "プリセットを選択してください",
+      "value": "Chọn thiết lập sẵn"
+    },
+    {
+      "key": "プリセット一覧を更新できませんでした:",
+      "value": "Không làm mới được danh sách thiết lập sẵn:"
+    },
+    {
+      "key": "プリセット一覧を読み込めませんでした。「再読込」で再試行できます:",
+      "value": "Không tải được danh sách thiết lập sẵn. Chọn Tải lại để thử lại:"
+    },
+    {
+      "key": "プリセット一覧を閉じる",
+      "value": "Đóng danh sách thiết lập sẵn"
+    },
+    {
+      "key": "プリセット作成中にエラーが発生しました。",
+      "value": "Có lỗi khi tạo thiết lập sẵn."
+    },
+    {
+      "key": "プリセット作成設定",
+      "value": "Thiết lập tạo thiết lập sẵn"
+    },
+    {
+      "key": "プリセット選択",
+      "value": "Chọn thiết lập sẵn"
+    },
+    {
+      "key": "プレビュー",
+      "value": "Xem trước"
+    },
+    {
+      "key": "プレビューを終了（元の姿勢に戻す）",
+      "value": "Dừng xem trước (khôi phục tư thế gốc)"
+    },
+    {
+      "key": "プレビュー中：{0}",
+      "value": "Xem trước: {0}"
+    },
+    {
+      "key": "プレビルド",
+      "value": "Tạo trước"
+    },
+    {
+      "key": "プレビルドの更新について相談したいです。",
+      "value": "Tôi cần giúp cập nhật dữ liệu tạo trước."
+    },
+    {
+      "key": "プレビルドを実行できません。Inspectorの「設定の確認」で、アバターの配置・Animator・Humanoidの設定を確認してください。",
+      "value": "Không thể tạo trước. Kiểm tra vị trí avatar, Animator và Humanoid trong kiểm tra thiết lập của Inspector."
+    },
+    {
+      "key": "プレビルドを更新",
+      "value": "Cập nhật dữ liệu tạo trước"
+    },
+    {
+      "key": "プレビルド・ビルド時に標準Prefabから再作成します。",
+      "value": "Sẽ được tạo lại từ prefab tiêu chuẩn khi tạo trước hoặc dựng avatar."
+    },
+    {
+      "key": "プレビルド・ビルド時に標準設定から再作成します。",
+      "value": "Sẽ được tạo lại từ thiết lập tiêu chuẩn khi tạo trước hoặc dựng avatar."
+    },
+    {
+      "key": "プレビルド後に設定が変更されています。「プレビルドを更新」で現在の設定を反映してください。",
+      "value": "Thiết lập thay đổi từ lần tạo trước. Chọn Cập nhật dữ liệu tạo trước để áp dụng thiết lập hiện tại."
+    },
+    {
+      "key": "プレビルド後の設定変更の警告を非表示",
+      "value": "Ẩn cảnh báo đổi thiết lập"
+    },
+    {
+      "key": "プレビルド時に標準Controllerから復元を試みます。復元できない場合は、ゆにさきポーズシステムのパッケージを再取得してください。",
+      "value": "Tạo trước sẽ thử khôi phục Controller tiêu chuẩn. Nếu không được, tải lại gói Unisaki Posing System."
+    },
+    {
+      "key": "プレビルド未実行の警告を非表示",
+      "value": "Ẩn cảnh báo chưa tạo trước"
+    },
+    {
+      "key": "ベッド",
+      "value": "Giường"
+    },
+    {
+      "key": "ポーズ {0} bit ＋ 追加機能 {1} bit  ／ このアバターのポーズツール分",
+      "value": "Tư thế: {0} bit + tính năng tùy chọn: {1} bit / các công cụ tạo dáng của avatar này"
+    },
+    {
+      "key": "ポーズアイコン生成",
+      "value": "Tạo biểu tượng tư thế"
+    },
+    {
+      "key": "ポーズシステム",
+      "value": "Posing System"
+    },
+    {
+      "key": "ポーズツールで次のエラーが出ました。対処方法を教えてください。",
+      "value": "Công cụ tạo dáng báo lỗi sau. Tôi có thể xử lý thế nào?"
+    },
+    {
+      "key": "ポーズ・アバター設定の注意を非表示",
+      "value": "Ẩn ghi chú tư thế và avatar"
+    },
+    {
+      "key": "ポーズ一覧",
+      "value": "Tư thế"
+    },
+    {
+      "key": "ポーズ一覧でアニメーションを指定するか、その項目を無効にしてください。",
+      "value": "Gán hoạt ảnh trong danh sách tư thế hoặc tắt mục đó."
+    },
+    {
+      "key": "ポーズ一覧で使うポーズを有効にしてください。意図的に空にしている場合は対応不要です。",
+      "value": "Bật tư thế muốn dùng trong danh sách. Không cần đổi nếu cố ý để danh mục trống."
+    },
+    {
+      "key": "ポーズ一覧で初期ポーズを1つにしてください。",
+      "value": "Chọn một tư thế mặc định trong danh mục đó."
+    },
+    {
+      "key": "ポーズ一覧で該当カテゴリを確認し、プリセットまたはバックアップから復元してください。",
+      "value": "Kiểm tra danh mục đó trong danh sách tư thế và khôi phục từ thiết lập sẵn hoặc bản sao lưu."
+    },
+    {
+      "key": "ポーズ一覧のカテゴリ{0}のデータが欠けています。",
+      "value": "Thiếu dữ liệu danh mục {0} trong danh sách tư thế."
+    },
+    {
+      "key": "ポーズ一覧のデータがありません。",
+      "value": "Thiếu dữ liệu danh sách tư thế."
+    },
+    {
+      "key": "ポーズ名",
+      "value": "Tên tư thế"
+    },
+    {
+      "key": "ポーズ画像を更新",
+      "value": "Cập nhật ảnh thu nhỏ tư thế"
+    },
+    {
+      "key": "マットレス",
+      "value": "Nệm"
+    },
+    {
+      "key": "メニューに撮影モードを追加します。前へ最大3m移動したり回転したりして、自分から見える位置を調整できます。",
+      "value": "Thêm chế độ chụp để tiến tối đa 3 m và xoay cho dễ nhìn bản thân."
+    },
+    {
+      "key": "メニューのアイコン画像",
+      "value": "Biểu tượng menu"
+    },
+    {
+      "key": "メニュー追加",
+      "value": "Tính năng menu"
+    },
+    {
+      "key": "モデル",
+      "value": "Người mẫu"
+    },
+    {
+      "key": "ユーザー作成",
+      "value": "Thiết lập sẵn của người dùng"
+    },
+    {
+      "key": "ライセンスの削除",
+      "value": "Gỡ giấy phép"
+    },
+    {
+      "key": "ライセンス削除",
+      "value": "Gỡ giấy phép"
+    },
+    {
+      "key": "ラダー運動",
+      "value": "Bài tập thang"
+    },
+    {
+      "key": "リクライニング",
+      "value": "Ngả lưng"
+    },
+    {
+      "key": "リラックス",
+      "value": "Thư thái"
+    },
+    {
+      "key": "リラックス１",
+      "value": "Thư thái 1"
+    },
+    {
+      "key": "リラックス２",
+      "value": "Thư thái 2"
+    },
+    {
+      "key": "リラックス３",
+      "value": "Thư thái 3"
+    },
+    {
+      "key": "ルール名",
+      "value": "Tên quy tắc"
+    },
+    {
+      "key": "ローカル（基準の向き）",
+      "value": "Cục bộ (hướng tham chiếu)"
+    },
+    {
+      "key": "ワールドの軸に沿って移動します。オフの軸は元の姿勢の位置を保ちます。",
+      "value": "Di chuyển theo trục thế giới. Trục tắt giữ nguyên vị trí tư thế gốc."
+    },
+    {
+      "key": "ワールド（シーンの軸）",
+      "value": "Thế giới (trục cảnh)"
+    },
+    {
+      "key": "一括操作",
+      "value": "Thao tác hàng loạt"
+    },
+    {
+      "key": "一括追加を閉じる",
+      "value": "Đóng thêm hàng loạt"
+    },
+    {
+      "key": "一括追加機能",
+      "value": "Thêm hàng loạt"
+    },
+    {
+      "key": "一致するアニメーションがありません。",
+      "value": "Không có hoạt ảnh phù hợp."
+    },
+    {
+      "key": "一覧から削除",
+      "value": "Xóa khỏi danh sách"
+    },
+    {
+      "key": "一覧は追加・変更時に更新されます。表示が変わらない場合は「再読込」を押してください。",
+      "value": "Danh sách cập nhật khi thêm hoặc đổi mục. Chọn Tải lại nếu hiển thị cũ."
+    },
+    {
+      "key": "三点だいしゅき(女)ツール追加",
+      "value": "Thêm Virtual Love (Nữ)"
+    },
+    {
+      "key": "三点だいしゅき(男)ツール追加",
+      "value": "Thêm Virtual Love (Nam)"
+    },
+    {
+      "key": "上腕の長さ",
+      "value": "Chiều dài bắp tay"
+    },
+    {
+      "key": "不機嫌",
+      "value": "Cáu kỉnh"
+    },
+    {
+      "key": "中",
+      "value": "Vừa"
+    },
+    {
+      "key": "中央と横向きに、Humanoid形式のクリップを指定してください。BlendTree・Legacy・身体カーブのないクリップは使用できません。",
+      "value": "Gán clip Humanoid cho tư thế giữa và hai bên. Không hỗ trợ BlendTree, clip Legacy hay clip không có đường cong cơ thể."
+    },
+    {
+      "key": "中腰の高さ閾値",
+      "value": "Ngưỡng độ cao ngồi xổm"
     },
     {
       "key": "中腰姿勢",
       "value": "Ngồi xổm"
     },
     {
+      "key": "二人分座り",
+      "value": "Chỗ cho hai người"
+    },
+    {
+      "key": "五体投地",
+      "value": "Phủ phục"
+    },
+    {
+      "key": "他商品連携用Prefabs",
+      "value": "Tích hợp sản phẩm"
+    },
+    {
+      "key": "以前の設定から、使う1つを選べます。",
+      "value": "Chọn một thiết lập trước đây."
+    },
+    {
+      "key": "仰向けとうつ伏せの両方を選んでいるとき、その場でジャンプすると切り替わります。",
+      "value": "Khi chọn cả tư thế nằm ngửa và nằm sấp, nhảy tại chỗ để chuyển đổi."
+    },
+    {
       "key": "仰向け寝",
       "value": "Nằm ngửa"
+    },
+    {
+      "key": "伏せ",
+      "value": "Nằm sấp"
+    },
+    {
+      "key": "伏せ（Prone）",
+      "value": "Nằm sấp"
+    },
+    {
+      "key": "休憩中",
+      "value": "Đang nghỉ"
+    },
+    {
+      "key": "位置の座標系",
+      "value": "Không gian tọa độ vị trí"
+    },
+    {
+      "key": "位置の長さの基準",
+      "value": "Tham chiếu chiều dài vị trí"
+    },
+    {
+      "key": "位置を合わせる強さ",
+      "value": "Trọng số vị trí"
+    },
+    {
+      "key": "位置（選んだ長さを1とする比率）",
+      "value": "Vị trí (theo chiều dài đã chọn)"
+    },
+    {
+      "key": "低姿勢",
+      "value": "Hạ thấp người"
+    },
+    {
+      "key": "体幹",
+      "value": "Thân"
+    },
+    {
+      "key": "体格に合わせた手足の自動調整",
+      "value": "Hiệu chỉnh chi tự động"
+    },
+    {
+      "key": "体育座り",
+      "value": "Co gối"
+    },
+    {
+      "key": "使い始めるときの姿勢セットを変更できます。変更すると現在のポーズ設定が置き換わります。",
+      "value": "Chọn tập tư thế ban đầu. Sẽ thay thế thiết lập tư thế hiện tại."
+    },
+    {
+      "key": "使用",
+      "value": "Dùng"
+    },
+    {
+      "key": "使用するにはメニュー追加の「撮影モード」をオンにしてください。",
+      "value": "Bật Chế độ chụp trong Tính năng menu để dùng tính năng này."
+    },
+    {
+      "key": "使用するには便利機能の「呼吸の動きをつける」をオンにしてください。",
+      "value": "Bật Thêm hoạt ảnh thở trong Tiện ích để dùng tính năng này."
+    },
+    {
+      "key": "使用方法:\n1. 追加したい文字列を改行区切りでクリップボードにコピー\n2. 対応するボタンをクリック\n3. 重複する項目は自動的に除外されます",
+      "value": "Hướng dẫn:\n1. Sao chép mỗi mục một dòng vào bảng nhớ tạm.\n2. Nhấn nút tương ứng.\n3. Bỏ qua mục trùng."
+    },
+    {
+      "key": "例: 右手を腰へ、左手を床へ",
+      "value": "Ví dụ: tay phải đặt hông, tay trái đặt sàn"
+    },
+    {
+      "key": "便利機能",
+      "value": "Tiện ích"
+    },
+    {
+      "key": "保存",
+      "value": "Lưu"
+    },
+    {
+      "key": "保存された設定の形式・表記",
+      "value": "Định dạng hoặc cách ghi thiết lập đã lưu"
+    },
+    {
+      "key": "保存されていない変更があります。保存しますか？",
+      "value": "Có thay đổi chưa lưu. Lưu không?"
+    },
+    {
+      "key": "保存先にはAssets内のフォルダと.animファイルを指定してください。",
+      "value": "Chọn thư mục trong Assets và tên tệp .anim."
+    },
+    {
+      "key": "保存先フォルダのパスを生成できませんでした。フォルダ「{0}」がプロジェクトに認識されているか確認してください。",
+      "value": "Không xác định được thư mục đích. Bảo đảm Unity nhận ra thư mục dự án này: {0}"
+    },
+    {
+      "key": "保存時から変わった項目を確認",
+      "value": "Xem thiết lập thay đổi từ lần tạo trước"
+    },
+    {
+      "key": "保存時と異なるプレビルドの設定項目",
+      "value": "Thiết lập tạo trước thay đổi từ lúc lưu"
+    },
+    {
+      "key": "保存時と異なる項目（最大12件）",
+      "value": "Thiết lập thay đổi từ lúc lưu (tối đa 12)"
+    },
+    {
+      "key": "倒され寝",
+      "value": "Bị đánh ngã"
+    },
+    {
+      "key": "傍観者",
+      "value": "Người đứng xem"
+    },
+    {
+      "key": "元の姿勢",
+      "value": "Tư thế gốc"
+    },
+    {
+      "key": "元の姿勢Animation",
+      "value": "Hoạt ảnh tư thế gốc"
+    },
+    {
+      "key": "元の姿勢AnimationClipがありません。",
+      "value": "Thiếu AnimationClip tư thế nguồn."
+    },
+    {
+      "key": "元の姿勢Animationに含まれる肘・膝の曲がり方を、IKを解く前に自動取得します。",
+      "value": "Đọc hướng gập khuỷu tay và đầu gối từ hoạt ảnh tư thế gốc trước khi giải IK."
+    },
+    {
+      "key": "元の姿勢と手動調整をプレビューしています。",
+      "value": "Đang xem trước tư thế gốc và phần chỉnh thủ công."
+    },
+    {
+      "key": "元の姿勢の曲げ方向を維持",
+      "value": "Giữ độ gập tư thế nguồn"
+    },
+    {
+      "key": "元モデルのInspector > RigでHumanoid設定とConfigureの割り当てを確認してください。配布元が指定する設定を優先してください。",
+      "value": "Kiểm tra Humanoid và các gán trong Configure tại Inspector > Rig của mô hình gốc. Làm theo thiết lập được tác giả avatar khuyến nghị."
+    },
+    {
+      "key": "元モデルのRig > ConfigureでHeadを確認し、シーン内で頭のボーンが削除されていないか確認してください。",
+      "value": "Kiểm tra Head trong Rig > Configure của mô hình gốc và bảo đảm xương đầu vẫn còn trong cảnh."
+    },
+    {
+      "key": "元姿勢の読み込み",
+      "value": "Nhập tư thế gốc"
+    },
+    {
+      "key": "全ての変更された差分を保存しました。",
+      "value": "Đã lưu mọi giá trị hiệu chỉnh thay đổi."
+    },
+    {
+      "key": "全ての姿勢の調整値をリセットしますか？",
+      "value": "Đặt lại giá trị hiệu chỉnh của mọi tư thế?"
+    },
+    {
+      "key": "全ての姿勢の調整値を再読み込みしますか？未保存の変更は失われます。",
+      "value": "Tải lại giá trị hiệu chỉnh của mọi tư thế? Thay đổi chưa lưu sẽ mất."
+    },
+    {
+      "key": "全ての調整データを複製保存しますか？\n変更のあるアニメーションの調整アニメーションが複製され、変更が保存されます。",
+      "value": "Nhân bản và lưu tất cả dữ liệu hiệu chỉnh?\nCác hoạt ảnh hiệu chỉnh đã đổi sẽ được nhân bản và lưu."
+    },
+    {
+      "key": "全ての調整値を0にリセットします。",
+      "value": "Đưa tất cả giá trị hiệu chỉnh về 0."
+    },
+    {
+      "key": "全ての調整値をファイルに保存されている値に戻します。",
+      "value": "Tải lại tất cả giá trị hiệu chỉnh từ tệp đã lưu."
+    },
+    {
+      "key": "全姿勢再読込",
+      "value": "Tải lại tất cả"
+    },
+    {
+      "key": "全姿勢初期化",
+      "value": "Đặt lại tất cả"
+    },
+    {
+      "key": "全差分保存",
+      "value": "Lưu phần thay đổi"
+    },
+    {
+      "key": "全調整データ複製保存",
+      "value": "Nhân bản tất cả"
+    },
+    {
+      "key": "全身",
+      "value": "Toàn thân"
+    },
+    {
+      "key": "公開用として有効",
+      "value": "Bật để sử dụng chính thức"
+    },
+    {
+      "key": "公開用として有効です。カタログを参照する商品では、従来の姿勢別調整Animationとアバター固有補正が使用されません。設定漏れの姿勢がないことを確認してください。",
+      "value": "Đã bật để sử dụng chính thức. Sản phẩm dùng danh mục này bỏ qua hoạt ảnh hiệu chỉnh từng tư thế cũ và hiệu chỉnh avatar. Kiểm tra mọi tư thế đã được thiết lập."
+    },
+    {
+      "key": "共通Controllerに姿勢制御用のレイヤーがありません。",
+      "value": "Controller dùng chung không có lớp điều khiển tư thế."
+    },
+    {
+      "key": "共通Controllerに未保存の変更があります。変更を保存してからやり直してください。",
+      "value": "Controller dùng chung có thay đổi chưa lưu. Lưu trước khi thử lại."
+    },
+    {
+      "key": "共通Controllerの内容が、このバージョンの生成定義と一致しません。",
+      "value": "Controller dùng chung không khớp định nghĩa tạo của phiên bản này."
+    },
+    {
+      "key": "共通Controllerの内容が、このバージョンの生成定義と一致しません。独自の変更は別のControllerに保存し、ALCOM / VCCで同じバージョンの「ゆにさきポーズシステム」を入れ直してください。",
+      "value": "Controller dùng chung không khớp định nghĩa tạo của phiên bản này. Lưu thay đổi riêng trong Controller khác, rồi cài lại cùng phiên bản Unisaki Posing System qua ALCOM hoặc VCC."
+    },
+    {
+      "key": "共通アニメーション（従来設定）",
+      "value": "Hoạt ảnh dùng chung (cũ)"
+    },
+    {
+      "key": "共通ポージングAnimatorがありません。",
+      "value": "Thiếu Animator tạo dáng dùng chung."
+    },
+    {
+      "key": "共通ポージングAnimatorにMA Merge Animatorがありません。",
+      "value": "Animator tạo dáng dùng chung không có MA Merge Animator."
+    },
+    {
+      "key": "共通ポージングAnimatorに通常のAnimator Controller以外が設定されています。",
+      "value": "Animator tạo dáng dùng chung cần Animator Controller thông thường."
+    },
+    {
+      "key": "共通ポージングAnimatorのAnimator参照が未設定です。",
+      "value": "Chưa gán Animator Controller cho Animator tạo dáng dùng chung."
+    },
+    {
+      "key": "共通ポージングAnimatorへ別のControllerを指定していないか確認してください。",
+      "value": "Kiểm tra xem có Controller khác được gán cho Animator tạo dáng dùng chung hay không."
+    },
+    {
+      "key": "共通ポージングAnimatorへ別のControllerを指定していないか確認してください。シーンを保存・バックアップしてから、ALCOM / VCCで商品本体と「ゆにさきポーズシステム」を再取得してください。入れ直しても直らない場合は、Inspector上部の「ヘルプ・変更履歴」から公式マニュアル・お問い合わせをご確認ください。調整済みのオブジェクトやGeneratedResourcesは削除しないでください。",
+      "value": "Kiểm tra xem có Controller khác được gán cho Animator tạo dáng dùng chung hay không.\nLưu và sao lưu cảnh, rồi tải lại sản phẩm cùng Unisaki Posing System qua ALCOM / VCC. Nếu vẫn lỗi, mở trợ giúp và thay đổi ở đầu Inspector để xem hướng dẫn và hỗ trợ. Giữ lại các đối tượng đã chỉnh và GeneratedResources."
+    },
+    {
+      "key": "共通ポージングAnimatorを使用できません。「{0}」{1}。",
+      "value": "Không dùng được Animator tạo dáng chung. “{0}” {1}."
+    },
+    {
+      "key": "内股座り",
+      "value": "Mũi chân vào trong"
+    },
+    {
+      "key": "内部的な互換性管理に使います。通常は変更しません。",
+      "value": "Dùng để theo dõi tương thích nội bộ. Thường nên giữ nguyên."
+    },
+    {
+      "key": "再生位置のパラメーター",
+      "value": "Tham số vị trí phát"
+    },
+    {
+      "key": "再生位置を指定する",
+      "value": "Đặt vị trí phát"
+    },
+    {
+      "key": "再読込",
+      "value": "Tải lại"
+    },
+    {
+      "key": "初期ポーズ",
+      "value": "Tư thế mặc định"
+    },
+    {
+      "key": "初期化",
+      "value": "Đặt lại"
+    },
+    {
+      "key": "制止",
+      "value": "Dừng lại"
+    },
+    {
+      "key": "削除",
+      "value": "Xóa"
+    },
+    {
+      "key": "削除対象: {0}\nこの中のPrefabやアニメーションも削除されます。自作・調整済みデータがある場合はキャンセルし、移行手順に従ってください。バックアップなしでは元に戻せません。",
+      "value": "Thư mục sẽ xóa: {0}\nCác prefab và hoạt ảnh bên trong cũng bị xóa. Nếu có dữ liệu riêng hoặc đã chỉnh, hãy hủy và làm theo hướng dẫn chuyển đổi. Cần bản sao lưu để khôi phục tệp bị xóa."
+    },
+    {
+      "key": "前かがみ",
+      "value": "Cúi về trước"
+    },
+    {
+      "key": "前回の処理は完了していません。",
+      "value": "Thao tác trước chưa hoàn tất."
+    },
+    {
+      "key": "前回の失敗内容をコピー",
+      "value": "Sao chép chi tiết lỗi trước"
+    },
+    {
+      "key": "前回の失敗表示を閉じる",
+      "value": "Đóng lỗi trước"
+    },
+    {
+      "key": "前後傾き",
+      "value": "Nghiêng trước/sau"
+    },
+    {
+      "key": "前腕の長さ",
+      "value": "Chiều dài cẳng tay"
+    },
+    {
+      "key": "動かす手足",
+      "value": "Chi cần di chuyển"
+    },
+    {
+      "key": "取り込むアニメーションを個別に指定",
+      "value": "Chọn hoạt ảnh để nhập"
+    },
+    {
+      "key": "可愛いポーズ",
+      "value": "Kawaii Posing"
+    },
+    {
+      "key": "可愛いポーズツール",
+      "value": "Kawaii Posing"
+    },
+    {
+      "key": "可愛いポーズツール(Booth)",
+      "value": "Kawaii Posing Tool (BOOTH)"
+    },
+    {
+      "key": "可愛いポーズツール(Gumroad)",
+      "value": "Kawaii Posing Tool (Gumroad)"
+    },
+    {
+      "key": "可愛いポーズツールライセンスインストール",
+      "value": "Cài giấy phép Kawaii Posing"
+    },
+    {
+      "key": "可愛いポーズツールライセンス削除",
+      "value": "Gỡ giấy phép Kawaii Posing"
+    },
+    {
+      "key": "可愛いポーズツールライセンス状態確認",
+      "value": "Trạng thái giấy phép Kawaii Posing"
+    },
+    {
+      "key": "可愛いポーズツール設定",
+      "value": "Thiết lập Kawaii Posing"
+    },
+    {
+      "key": "可愛いポーズツール追加",
+      "value": "Thêm Kawaii Posing"
+    },
+    {
+      "key": "可愛い座り",
+      "value": "Kawaii Sitting"
+    },
+    {
+      "key": "可愛い座り(女)ツール追加",
+      "value": "Thêm Kawaii Sitting (Nữ)"
+    },
+    {
+      "key": "可愛い座り(男)ツール追加",
+      "value": "Thêm Kawaii Sitting (Nam)"
+    },
+    {
+      "key": "右向き寝",
+      "value": "Ngủ nghiêng phải"
+    },
+    {
+      "key": "右向き昼寝",
+      "value": "Chợp mắt phải"
+    },
+    {
+      "key": "右手指",
+      "value": "Ngón tay phải"
+    },
+    {
+      "key": "右手首",
+      "value": "Cổ tay phải"
+    },
+    {
+      "key": "右脚",
+      "value": "Chân phải"
+    },
+    {
+      "key": "右腕",
+      "value": "Tay phải"
+    },
+    {
+      "key": "各固定機能の他ギミックとの統合",
+      "value": "Tích hợp khóa theo dõi với công cụ khác"
+    },
+    {
+      "key": "合成",
+      "value": "Gộp"
+    },
+    {
+      "key": "合成する調整アニメーションが存在しません。",
+      "value": "Không có hoạt ảnh hiệu chỉnh để gộp."
+    },
+    {
+      "key": "合蹠のポーズ",
+      "value": "Cánh bướm"
+    },
+    {
+      "key": "同梱プリセットを表示しない",
+      "value": "Ẩn thiết lập sẵn đi kèm"
+    },
+    {
+      "key": "名前",
+      "value": "Tên"
+    },
+    {
+      "key": "名前で検索",
+      "value": "Tìm theo tên"
+    },
+    {
+      "key": "名前なし",
+      "value": "Chưa đặt tên"
     },
     {
       "key": "向き",
       "value": "Hướng"
     },
     {
+      "key": "向きを合わせる強さ",
+      "value": "Trọng số góc xoay"
+    },
+    {
+      "key": "向きを回転させる",
+      "value": "Xoay hướng"
+    },
+    {
       "key": "呼吸",
       "value": "Thở"
+    },
+    {
+      "key": "呼吸に合わせて胸などが動きます。姿勢ごとに強さを設定でき、同期bitを使わずに利用できます。",
+      "value": "Hoạt ảnh ngực theo nhịp thở. Đặt cường độ cho từng tư thế mà không thêm bit đồng bộ."
+    },
+    {
+      "key": "呼吸の動きをつける",
+      "value": "Thêm hoạt ảnh thở"
+    },
+    {
+      "key": "呼吸の設定",
+      "value": "Thiết lập thở"
+    },
+    {
+      "key": "和室",
+      "value": "Phòng kiểu Nhật"
+    },
+    {
+      "key": "商品に収録する各姿勢について、手や足をどこへ置くかを記録する開発用データです。",
+      "value": "Dữ liệu biên soạn ghi đích tay và chân của từng tư thế đi kèm. "
+    },
+    {
+      "key": "商品に収録する各姿勢について、手や足をどこへ置くかを記録する開発用データです。アバターごとの設定ではなく、1つの商品につき1ファイルを作成します。",
+      "value": "Dữ liệu biên soạn ghi đích tay và chân của từng tư thế đi kèm. Tạo một tệp cho mỗi sản phẩm; tách biệt với thiết lập riêng từng avatar."
+    },
+    {
+      "key": "商品名",
+      "value": "Tên sản phẩm"
+    },
+    {
+      "key": "商談",
+      "value": "Bàn chuyện làm ăn"
+    },
+    {
+      "key": "回転",
+      "value": "Góc xoay"
+    },
+    {
+      "key": "回転角度",
+      "value": "Góc xoay"
+    },
+    {
+      "key": "回転角度(360度)",
+      "value": "Xoay (vòng)"
+    },
+    {
+      "key": "固定長（アバタースケールのみ）",
+      "value": "Chiều dài cố định (chỉ theo tỉ lệ avatar)"
+    },
+    {
+      "key": "地球寝",
+      "value": "Ôm lấy đất"
+    },
+    {
+      "key": "培養中",
+      "value": "Trong khoang"
+    },
+    {
+      "key": "基準にする身体ボーン",
+      "value": "Xương cơ thể tham chiếu"
+    },
+    {
+      "key": "基準の向きに沿って移動します。オフの軸は元の姿勢の位置を保ちます。",
+      "value": "Di chuyển theo hướng tham chiếu. Trục tắt giữ nguyên vị trí tư thế gốc."
+    },
+    {
+      "key": "基準アバターとの初期関節角度・ひねりの差を補正します。",
+      "value": "Hiệu chỉnh khác biệt góc khớp ban đầu và độ xoắn so với avatar tham chiếu."
+    },
+    {
+      "key": "基準アバターに有効な Humanoid Animator がありません。",
+      "value": "Avatar tham chiếu không có Humanoid Animator hợp lệ."
+    },
+    {
+      "key": "基準姿勢の読み取りに失敗しました: {0}",
+      "value": "Không đọc được tư thế tham chiếu: {0}"
+    },
+    {
+      "key": "堤防",
+      "value": "Bờ đê"
+    },
+    {
+      "key": "壁ドン",
+      "value": "Tựa tường"
+    },
+    {
+      "key": "変更のあるアニメーションの調整値を保存します。",
+      "value": "Lưu hiệu chỉnh của các hoạt ảnh đã đổi."
+    },
+    {
+      "key": "変更のあるアニメーションの調整値を複製して保存します。元々設定されていたファイルは変更されません",
+      "value": "Nhân bản hoạt ảnh hiệu chỉnh và lưu giá trị đã đổi. Giữ nguyên các tệp được gán ban đầu."
+    },
+    {
+      "key": "変更を破棄して保存されていた値に戻します",
+      "value": "Bỏ thay đổi và khôi phục giá trị đã lưu."
+    },
+    {
+      "key": "変更履歴を読み込めませんでした。",
+      "value": "Không tải được danh sách thay đổi."
+    },
+    {
+      "key": "太ももの長さ",
+      "value": "Chiều dài đùi"
+    },
+    {
+      "key": "女の子座り",
+      "value": "Ngồi chữ W"
+    },
+    {
+      "key": "姿勢 {0}",
+      "value": "Tư thế {0}"
+    },
+    {
+      "key": "姿勢のプレビュー",
+      "value": "Xem trước tư thế"
+    },
+    {
+      "key": "姿勢のプレビューや、細かな調整ができます。",
+      "value": "Xem trước và tinh chỉnh tư thế."
+    },
+    {
+      "key": "姿勢の分類",
+      "value": "Danh mục tư thế"
+    },
+    {
+      "key": "姿勢の分類が設定されていません。",
+      "value": "Chưa thiết lập danh mục tư thế."
+    },
+    {
+      "key": "姿勢の識別キー",
+      "value": "Khóa nhận dạng tư thế"
+    },
+    {
+      "key": "姿勢メニューの生成先が別のアバター、またはアバターの外にあります。",
+      "value": "Đích menu tư thế nằm trên avatar khác hoặc ngoài avatar này."
+    },
+    {
+      "key": "姿勢メニューの生成先が見つかりません。",
+      "value": "Không tìm thấy đích tạo menu tư thế."
+    },
+    {
+      "key": "姿勢別IK自動調整が有効です。従来のアバター固有補正と調整Animationは使用しません。",
+      "value": "Đã bật hiệu chỉnh IK từng tư thế. Bỏ qua hiệu chỉnh avatar và hoạt ảnh hiệu chỉnh cũ."
+    },
+    {
+      "key": "姿勢別IK自動調整を使用中です。従来の身体の補正は使用しません。",
+      "value": "Hiệu chỉnh IK từng tư thế đang bật. Không dùng hiệu chỉnh cơ thể cũ."
+    },
+    {
+      "key": "姿勢別IK設定一覧（{0}件）",
+      "value": "Thiết lập IK từng tư thế ({0})"
+    },
+    {
+      "key": "姿勢設定を追加",
+      "value": "Thêm thiết lập tư thế"
     },
     {
       "key": "姿勢選択",
       "value": "Chọn tư thế"
     },
     {
+      "key": "完了",
+      "value": "Xong"
+    },
+    {
+      "key": "実験",
+      "value": "Thử nghiệm"
+    },
+    {
+      "key": "寝の高さ閾値",
+      "value": "Ngưỡng độ cao nằm"
+    },
+    {
+      "key": "寝姿勢",
+      "value": "Nằm"
+    },
+    {
       "key": "寝返り",
       "value": "Lật người"
+    },
+    {
+      "key": "寝返りの設定",
+      "value": "Thiết lập lật người"
+    },
+    {
+      "key": "寝返りを使う",
+      "value": "Bật lật người"
+    },
+    {
+      "key": "寝返り時の横向き",
+      "value": "Tư thế lật người sang bên"
+    },
+    {
+      "key": "対処:",
+      "value": "Cách xử lý:"
+    },
+    {
+      "key": "対処: Window > General > Consoleで、この操作中に最初に出た赤いエラーを確認してください。設定の確認で問題が解消しない場合は、このエラー番号・詳細とツールのバージョンをお問い合わせに添えてください。",
+      "value": "Cách xử lý: trong Window > General > Console, kiểm tra lỗi đỏ đầu tiên của thao tác này. Nếu kiểm tra thiết lập không giải quyết được, hãy kèm mã lỗi, chi tiết và phiên bản công cụ khi liên hệ hỗ trợ."
+    },
+    {
+      "key": "対象の腕または脚のHumanoidボーンが見つかりません。",
+      "value": "Không tìm thấy xương Humanoid của tay hoặc chân đích."
+    },
+    {
+      "key": "対象を選択（{0}）",
+      "value": "Chọn đối tượng liên quan ({0})"
+    },
+    {
+      "key": "小さな傾きを無視する範囲",
+      "value": "Vùng chết nghiêng đầu"
+    },
+    {
+      "key": "少女モーション集追加",
+      "value": "Thêm Girl Motion Collection"
+    },
+    {
+      "key": "左右傾き",
+      "value": "Nghiêng ngang"
+    },
+    {
+      "key": "左右反対側の部位の調整値をこの部位へ適用します",
+      "value": "Áp dụng giá trị hiệu chỉnh phía đối diện cho bộ phận này."
     },
     {
       "key": "左右反転",
       "value": "Lật đối xứng"
     },
     {
+      "key": "左向き寝",
+      "value": "Ngủ nghiêng trái"
+    },
+    {
+      "key": "左向き昼寝",
+      "value": "Chợp mắt trái"
+    },
+    {
+      "key": "左向き昼寝２",
+      "value": "Chợp mắt trái 2"
+    },
+    {
+      "key": "左手指",
+      "value": "Ngón tay trái"
+    },
+    {
+      "key": "左手首",
+      "value": "Cổ tay trái"
+    },
+    {
+      "key": "左脚",
+      "value": "Chân trái"
+    },
+    {
+      "key": "左腕",
+      "value": "Tay trái"
+    },
+    {
+      "key": "差異:",
+      "value": "Khác biệt:"
+    },
+    {
+      "key": "布団",
+      "value": "Futon"
+    },
+    {
       "key": "床の高さ",
       "value": "Độ cao sàn"
+    },
+    {
+      "key": "床を基準",
+      "value": "Sàn"
+    },
+    {
+      "key": "座りの高さ閾値",
+      "value": "Ngưỡng độ cao ngồi"
     },
     {
       "key": "座り姿勢",
       "value": "Ngồi"
     },
     {
+      "key": "座布団",
+      "value": "Đệm ngồi"
+    },
+    {
+      "key": "弱",
+      "value": "Nhẹ"
+    },
+    {
+      "key": "弱・中・強はゆっくりした呼吸、急は速い呼吸です。姿勢ごとに選べます。",
+      "value": "Nhẹ, vừa và mạnh dùng thở chậm; nhanh dùng thở nhanh. Chọn cho từng tư thế."
+    },
+    {
+      "key": "強",
+      "value": "Mạnh"
+    },
+    {
+      "key": "待ちぼうけ",
+      "value": "Vẫn đợi"
+    },
+    {
+      "key": "待ち伏せ",
+      "value": "Phục kích"
+    },
+    {
+      "key": "後方彼氏",
+      "value": "Dõi theo"
+    },
+    {
+      "key": "従者のポーズ",
+      "value": "Người hầu"
+    },
+    {
+      "key": "忍者走り",
+      "value": "Chạy ninja"
+    },
+    {
+      "key": "思考中",
+      "value": "Suy nghĩ"
+    },
+    {
+      "key": "急",
+      "value": "Nhanh"
+    },
+    {
+      "key": "情報",
+      "value": "Thông tin"
+    },
+    {
       "key": "戻る",
       "value": "Quay lại"
+    },
+    {
+      "key": "手動で方向を指定",
+      "value": "Đặt hướng thủ công"
+    },
+    {
+      "key": "手動指定を解除",
+      "value": "Xóa lựa chọn thủ công"
+    },
+    {
+      "key": "手動指定時だけ使用します。アバター正面を基準にした方向です。",
+      "value": "Chỉ dùng với hướng gập chỉ định thủ công, so với phía trước avatar."
+    },
+    {
+      "key": "手足のIKルールを追加",
+      "value": "Thêm quy tắc IK cho chi"
+    },
+    {
+      "key": "手足のIKルール（{0}件）",
+      "value": "Quy tắc IK cho chi ({0})"
+    },
+    {
+      "key": "手足の向きも合わせる",
+      "value": "Khớp góc xoay chi"
+    },
+    {
+      "key": "手足の自動調整を使う",
+      "value": "Bật hiệu chỉnh chi tự động"
+    },
+    {
+      "key": "抱きしめ",
+      "value": "Ôm"
+    },
+    {
+      "key": "指の形を固定・解除する切り替えをメニューに追加します。固定中はコントローラーを握っても形を保てます。",
+      "value": "Thêm công tắc khóa cử chỉ ngón tay, kể cả khi bóp bộ điều khiển."
+    },
+    {
+      "key": "指定した種類にはこのモーションを使います。未指定の種類は元の設定を使います。",
+      "value": "Loại đã chọn dùng các chuyển động này. Các loại khác giữ thiết lập gốc."
+    },
+    {
+      "key": "探しているPrefab: {0}\n購入ファイルのライセンス用unitypackageだけでは、ツール本体の導入は完了しません。ALCOM / VCCでこのプロジェクトに商品本体と「ゆにさきポーズシステム」が追加されているか確認してください。\n導入済みの場合: {1}",
+      "value": "Prefab cần tìm: {0}\nChỉ trình cài giấy phép đã mua chưa hoàn tất việc cài sản phẩm. Trong ALCOM / VCC, bảo đảm sản phẩm và Unisaki Posing System đã được thêm vào dự án.\nNếu đã cài: {1}"
+    },
+    {
+      "key": "接地補正の強さ",
+      "value": "Cường độ hiệu chỉnh sàn"
     },
     {
       "key": "撮影モード",
       "value": "Chế độ chụp"
     },
     {
+      "key": "撮影モードで動かした位置と向きを他の人にも表示できます。自分の画面だけで撮影する場合は0 bitで使えます。",
+      "value": "Chia sẻ vị trí và góc xoay của chế độ chụp với người khác. Chụp chỉ cục bộ dùng 0 bit."
+    },
+    {
+      "key": "撮影モードを同期する",
+      "value": "Đồng bộ chế độ chụp"
+    },
+    {
       "key": "撮影モードを終了",
       "value": "Thoát chụp"
+    },
+    {
+      "key": "撮影モード中は頭を非表示にしない",
+      "value": "Giữ đầu hiển thị trong chế độ chụp"
+    },
+    {
+      "key": "撮影機能に必要なため、自動で選ばれています。",
+      "value": "Tự chọn vì Chế độ chụp yêu cầu."
+    },
+    {
+      "key": "操作対象のポーズツールが見つかりません。",
+      "value": "Không tìm thấy công cụ tạo dáng đích."
+    },
+    {
+      "key": "斜め座り",
+      "value": "Ngồi nghiêng"
+    },
+    {
+      "key": "旧unitypackage版の「{0}」フォルダがプロジェクトに残っています。新版と競合する可能性があります。削除する前に移行手順とバックアップを確認してください。",
+      "value": "Thư mục unitypackage cũ “{0}” vẫn còn trong dự án và có thể xung đột phiên bản hiện tại. Kiểm tra hướng dẫn chuyển đổi và bản sao lưu trước khi xóa."
+    },
+    {
+      "key": "旧座標形式です。調整アニメーションウィンドウで基準アバターを表示し、",
+      "value": "Mục này dùng định dạng tọa độ cũ. Hiện avatar tham chiếu trong cửa sổ hiệu chỉnh và "
+    },
+    {
+      "key": "旧座標形式です。調整アニメーションウィンドウで基準アバターを表示し、「現在の手足位置から取得」を一度実行してください。再取得までは元Animationの手足の向きを維持します。",
+      "value": "Mục này dùng định dạng tọa độ cũ. Hiện avatar tham chiếu trong cửa sổ hiệu chỉnh và ghi vị trí chi hiện tại một lần. Trước khi ghi lại, giữ hướng chi của hoạt ảnh nguồn."
+    },
+    {
+      "key": "旧形式の保存データ（項目を比較できません）",
+      "value": "Dữ liệu lưu cũ (không so sánh được thiết lập)"
+    },
+    {
+      "key": "旧版のアバター設定を取り除きます",
+      "value": "Xóa thiết lập avatar cũ"
+    },
+    {
+      "key": "旧版フォルダの削除を確認",
+      "value": "Xác nhận xóa thư mục cũ"
+    },
+    {
+      "key": "昼寝",
+      "value": "Chợp mắt"
+    },
+    {
+      "key": "晴天寝",
+      "value": "Ngủ dưới nắng"
+    },
+    {
+      "key": "最低膝曲げ角度（°）",
+      "value": "Độ gập đầu gối tối thiểu (độ)"
+    },
+    {
+      "key": "最初の姿勢をSceneタブで確認できます。終了すると元の姿勢に戻ります。",
+      "value": "Xem trước khung đầu trong Scene. Dừng xem trước sẽ khôi phục tư thế gốc."
+    },
+    {
+      "key": "最新",
+      "value": "Mới nhất"
+    },
+    {
+      "key": "有効なHumanoid Animatorがありません。",
+      "value": "Không tìm thấy Humanoid Animator hợp lệ."
+    },
+    {
+      "key": "有効な共通ポージングAnimatorが見つかりません。",
+      "value": "Không tìm thấy Animator tạo dáng dùng chung đang hoạt động."
+    },
+    {
+      "key": "有効な文字列が見つかりませんでした。",
+      "value": "Không tìm thấy mục văn bản hợp lệ."
+    },
+    {
+      "key": "有効にすると従来の調整Animationを無視し、このIK設定から自動調整Animationを生成します。",
+      "value": "Khi bật, hoạt ảnh hiệu chỉnh tự động được tạo từ thiết lập IK này thay vì hoạt ảnh hiệu chỉnh cũ."
+    },
+    {
+      "key": "服従",
+      "value": "Vâng lời"
+    },
+    {
+      "key": "木の上寝",
+      "value": "Ngủ trên cây"
+    },
+    {
+      "key": "未保存の手動調整があります",
+      "value": "Hiệu chỉnh thủ công chưa lưu"
+    },
+    {
+      "key": "未実行",
+      "value": "Chưa tạo"
+    },
+    {
+      "key": "未対応のターゲット空間です: {0}",
+      "value": "Không gian đích không được hỗ trợ: {0}"
+    },
+    {
+      "key": "未対応の長さの基準です: {0}",
+      "value": "Tham chiếu chiều dài không được hỗ trợ: {0}"
+    },
+    {
+      "key": "未指定",
+      "value": "Chưa gán"
+    },
+    {
+      "key": "条件式が間違っているパラメータがあります。「{0}」ファイルの「{1}」というレイヤーで使用されている「{2}」というパラメータは、AnimatorController内では「{3}」という型ですが、条件式に「{4}」が使われているため条件式が正しく動作しません。このためギミックや処理が正しく動作しない可能性があります。使用しているツールやギミックの相性の問題だと思われるため、このパラメータを使用しているツールの開発者に連絡してください",
+      "value": "Điều kiện Animator dùng kiểu tham số không tương thích. Tệp: {0}, lớp: {1}, tham số: {2}, kiểu khai báo: {3}, điều kiện: {4}. Điều này có thể làm tính năng hoạt động sai. Liên hệ tác giả công cụ dùng tham số này về tính tương thích."
+    },
+    {
+      "key": "検出できる設定エラーはありません",
+      "value": "Không phát hiện lỗi thiết lập"
+    },
+    {
+      "key": "検索",
+      "value": "Tìm"
+    },
+    {
+      "key": "楽園",
+      "value": "Thiên đường"
+    },
+    {
+      "key": "横を向くまでの頭の傾き",
+      "value": "Độ nghiêng đầu cho một vòng đầy đủ"
+    },
+    {
+      "key": "横向きのAnimationClipを指定してください。未指定の場合は、従来どおり通常欄の完成済み寝返りアニメーションを使います。",
+      "value": "Gán AnimationClip bên. Nếu trống, dùng hoạt ảnh lật người hoàn chỉnh trong trường thường như trước."
+    },
+    {
+      "key": "機能",
+      "value": "Tính năng"
+    },
+    {
+      "key": "注意・補足を確認（{0}件）",
+      "value": "Xem ghi chú ({0})"
+    },
+    {
+      "key": "海岸",
+      "value": "Bờ biển"
+    },
+    {
+      "key": "添い寝ツール追加",
+      "value": "Thêm công cụ ngủ cùng nhau"
+    },
+    {
+      "key": "照れ",
+      "value": "Ngượng ngùng"
+    },
+    {
+      "key": "猫のポーズ（右）",
+      "value": "Mèo duỗi phải"
+    },
+    {
+      "key": "猫のポーズ（左）",
+      "value": "Mèo duỗi trái"
+    },
+    {
+      "key": "猫寝",
+      "value": "Mèo ngủ"
+    },
+    {
+      "key": "現在のアニメーション",
+      "value": "Hoạt ảnh nguồn"
+    },
+    {
+      "key": "現在のアニメーションに調整アニメーションを合成したものを新しいアニメーションクリップとして保存します。",
+      "value": "Gộp hoạt ảnh nguồn và hiệu chỉnh vào clip mới."
+    },
+    {
+      "key": "現在のアバターから読み込む",
+      "value": "Nhập từ avatar hiện tại"
+    },
+    {
+      "key": "現在のモーションは AnimationClip ではありません。差分調整は AnimationClip のみ対応しています。",
+      "value": "Chuyển động hiện tại không phải AnimationClip. Phần chênh lệch hiệu chỉnh chỉ hỗ trợ AnimationClip."
+    },
+    {
+      "key": "現在の手足位置・見た目の向き・曲げ方向をIKルールへ記録しました。",
+      "value": "Đã ghi vị trí chi, hướng nhìn thấy và hướng gập hiện tại vào quy tắc IK."
+    },
+    {
+      "key": "現在の設定からプリセットを作成",
+      "value": "Tạo thiết lập sẵn từ thiết lập hiện tại"
+    },
+    {
+      "key": "現在は制作中です。商品Prefabから参照されていても、従来の調整Animationが引き続き使用されます。",
+      "value": "Đang thực hiện. Hoạt ảnh hiệu chỉnh cũ vẫn được dùng dù prefab sản phẩm tham chiếu danh mục này."
+    },
+    {
+      "key": "生成時にアバターのBaseからモーションを検出します。取り込み設定の一覧には追加しません。手動設定がある種類は手動指定を優先します。",
+      "value": "Phát hiện chuyển động từ lớp Base của avatar lúc tạo. Không thêm vào danh sách nhập. Ưu tiên lựa chọn thủ công."
+    },
+    {
+      "key": "画像でポーズを見分けやすくできます。アバターのビルド時間は少し長くなります。",
+      "value": "Dùng ảnh thu nhỏ để nhận biết tư thế. Dựng avatar lâu hơn một chút."
+    },
+    {
+      "key": "画像ファイル",
+      "value": "Tệp ảnh"
+    },
+    {
+      "key": "画像ファイル・補足",
+      "value": "Tệp ảnh / ghi chú"
+    },
+    {
+      "key": "画像ファイル・補足を閉じる",
+      "value": "Đóng tệp ảnh / ghi chú"
+    },
+    {
+      "key": "異変無し",
+      "value": "Mọi thứ yên ổn"
+    },
+    {
+      "key": "直立",
+      "value": "Đứng thẳng"
+    },
+    {
+      "key": "着地（短め）",
+      "value": "Tiếp đất ngắn"
+    },
+    {
+      "key": "着地（短）",
+      "value": "Tiếp đất ngắn"
+    },
+    {
+      "key": "着地（長め）",
+      "value": "Tiếp đất dài"
+    },
+    {
+      "key": "着地（長）",
+      "value": "Tiếp đất dài"
+    },
+    {
+      "key": "睡魔",
+      "value": "Buồn ngủ"
+    },
+    {
+      "key": "短い落下",
+      "value": "Rơi ngắn"
+    },
+    {
+      "key": "砂浜",
+      "value": "Bãi cát"
+    },
+    {
+      "key": "確認",
+      "value": "Xác nhận"
+    },
+    {
+      "key": "種類ごとに1つのモーションを指定できます。上の「元の姿勢を使う」とは別に設定できます。",
+      "value": "Chọn một chuyển động cho mỗi loại, độc lập với dùng tư thế gốc ở trên."
+    },
+    {
+      "key": "空気椅子",
+      "value": "Ngồi dựa tường"
+    },
+    {
+      "key": "立ちのみ",
+      "value": "Chỉ đứng"
+    },
+    {
+      "key": "立ち・歩き",
+      "value": "Đứng / đi"
+    },
+    {
+      "key": "立ち・歩き・走り",
+      "value": "Đứng / đi / chạy"
     },
     {
       "key": "立ち姿勢",
       "value": "Đứng"
     },
     {
+      "key": "立ち止まっているときに自動で入る、VRChat標準の身体の揺れを止められます。ポーズツールで設定した呼吸の動きはそのまま使えます。",
+      "value": "Tắt đung đưa mặc định khi đứng yên của VRChat nhưng giữ hoạt ảnh thở của công cụ."
+    },
+    {
+      "key": "終了",
+      "value": "Dừng"
+    },
+    {
+      "key": "絨毯",
+      "value": "Thảm"
+    },
+    {
+      "key": "置き場所の基準",
+      "value": "Tham chiếu đích"
+    },
+    {
+      "key": "考える男",
+      "value": "Người suy tư"
+    },
+    {
+      "key": "肘パンチ",
+      "value": "Đánh chỏ"
+    },
+    {
+      "key": "肘・膝の曲げ方",
+      "value": "Gập khuỷu tay / đầu gối"
+    },
+    {
+      "key": "肘・膝を曲げる方向",
+      "value": "Hướng gập khuỷu tay / đầu gối"
+    },
+    {
+      "key": "肘付き",
+      "value": "Chống khuỷu tay"
+    },
+    {
+      "key": "胸のボーン（Chest）が割り当てられていません。",
+      "value": "Chưa gán xương Chest."
+    },
+    {
+      "key": "胸の姿勢が崩れる場合は元モデルのRig > Configure > BodyのChestを確認してください。Upper Chestとは別の項目です。対応するボーンがない場合は無理に割り当てず、配布元の設定を確認してください。",
+      "value": "Nếu tư thế ngực sai, kiểm tra Chest tại Rig > Configure > Body của mô hình gốc. Chest và Upper Chest được gán riêng. Nếu mô hình không có xương tương ứng, làm theo thiết lập của tác giả."
+    },
+    {
+      "key": "胸の長さ",
+      "value": "Chiều dài ngực"
+    },
+    {
+      "key": "脚を伸ばしたときに、膝が逆向きに折れるのを抑えます。",
+      "value": "Ngăn đầu gối gập ra sau khi duỗi chân."
+    },
+    {
+      "key": "脚全体の長さ（太もも＋すね）",
+      "value": "Chiều dài cả chân (đùi + cẳng chân)"
+    },
+    {
+      "key": "脱力寝",
+      "value": "Ngủ mềm người"
+    },
+    {
+      "key": "腕や脚の長さに合わせて、手足が自然な置き場所へ届くよう調整します。",
+      "value": "Chỉnh chi tới vị trí tự nhiên theo tỉ lệ avatar này."
+    },
+    {
+      "key": "腕固定",
+      "value": "Khóa tay"
+    },
+    {
+      "key": "腕枕寝",
+      "value": "Ngủ gối tay"
+    },
+    {
+      "key": "腕枕（右）",
+      "value": "Gối tay phải"
+    },
+    {
+      "key": "腕枕（左）",
+      "value": "Gối tay trái"
+    },
+    {
+      "key": "腕立て伏せ",
+      "value": "Chống đẩy"
+    },
+    {
+      "key": "膝がこの角度より伸びる前にクランプします。",
+      "value": "Giới hạn duỗi đầu gối trước khi góc gập nhỏ hơn giá trị này."
+    },
+    {
+      "key": "膝が伸びきる手前で止める角度です。",
+      "value": "Dừng đầu gối ngay trước khi duỗi thẳng hoàn toàn."
+    },
+    {
+      "key": "膝が逆向きに曲がるのを防ぐ",
+      "value": "Ngăn đầu gối gập ngược"
+    },
+    {
+      "key": "膝の補正",
+      "value": "Hiệu chỉnh đầu gối"
+    },
+    {
+      "key": "膝の計測に必要なHumanoid Animatorがありません。",
+      "value": "Thiếu Humanoid Animator để đo đầu gối."
+    },
+    {
+      "key": "膝立て",
+      "value": "Co một gối"
+    },
+    {
+      "key": "自分で用意したモーションを使う",
+      "value": "Dùng chuyển động riêng"
+    },
+    {
+      "key": "自分の頭が近くにあっても撮影できます。自分の画面だけに反映され、撮影終了後は通常の表示に戻ります。",
+      "value": "Giữ đầu hiển thị trên màn hình bạn để chụp gần. Hiển thị bình thường trở lại sau chế độ chụp."
+    },
+    {
+      "key": "自動アバター補正",
+      "value": "Hiệu chỉnh avatar tự động"
+    },
+    {
+      "key": "自動取り込みの結果は生成時だけ使い、この一覧には追加しません。手動指定をOFFにした種類や、指定済みモーションを外した種類は自動で補完しません。自動取り込みに戻すには「手動指定を解除」を使います。",
+      "value": "Nhập tự động được dùng lúc tạo và không thêm vào danh sách này. Loại đã tắt hoặc xóa thủ công không được tự điền. Xóa lựa chọn thủ công để khôi phục nhập tự động."
+    },
+    {
+      "key": "自動姿勢IK設定",
+      "value": "Danh mục IK tư thế"
+    },
+    {
+      "key": "自動検出",
+      "value": "Tự phát hiện"
+    },
+    {
+      "key": "自動生成された補正",
+      "value": "Hiệu chỉnh đã tạo"
+    },
+    {
+      "key": "自動調整Animationの作成に失敗しました: {0}",
+      "value": "Không tạo được hoạt ảnh hiệu chỉnh tự động: {0}"
+    },
+    {
+      "key": "自動足踏みに関する案内を非表示",
+      "value": "Ẩn ghi chú Auto-Footsteps"
+    },
+    {
+      "key": "芝生",
+      "value": "Bãi cỏ"
+    },
+    {
+      "key": "落下（短め）",
+      "value": "Rơi ngắn"
+    },
+    {
+      "key": "落下（長め）",
+      "value": "Rơi dài"
+    },
+    {
+      "key": "行き倒れ",
+      "value": "Gục ngã"
+    },
+    {
+      "key": "行った操作・起きたこと：",
+      "value": "Thao tác đã làm và điều xảy ra:"
+    },
+    {
+      "key": "衣装や見た目を変えたときに使います。設定を変えたときはプレビルドしてください。",
+      "value": "Dùng sau khi đổi trang phục hoặc diện mạo. Cập nhật dữ liệu tạo trước sau khi đổi thiết lập."
+    },
+    {
+      "key": "複数のアニメーションをここにドロップ",
+      "value": "Thả clip hoạt ảnh vào đây"
+    },
+    {
+      "key": "複数の手足を解き直す回数です。通常は2回です。",
+      "value": "Số lượt giải nhiều chi. Thường là 2."
+    },
+    {
+      "key": "複製",
+      "value": "Sao chép"
+    },
+    {
+      "key": "複製して保存",
+      "value": "Sao chép/lưu"
+    },
+    {
+      "key": "複製する調整アニメーションが存在しません。",
+      "value": "Không có hoạt ảnh hiệu chỉnh để nhân bản."
+    },
+    {
+      "key": "複製保存する変更はありませんでした。",
+      "value": "Không có thay đổi để nhân bản và lưu."
+    },
+    {
+      "key": "見た目の手足の向き",
+      "value": "Hướng chi nhìn thấy"
+    },
+    {
+      "key": "見下し",
+      "value": "Nhìn xuống"
+    },
+    {
+      "key": "観察中",
+      "value": "Quan sát"
+    },
+    {
+      "key": "角度は度数で指定します。寝姿勢を選び、VRChatのメニューで首固定を解除して使ってください。",
+      "value": "Góc tính bằng độ. Chọn tư thế nằm và mở khóa đầu trong menu VRChat."
+    },
+    {
+      "key": "計測用クローンに有効な Humanoid Animator がありません。",
+      "value": "Bản sao đo lường không có Humanoid Animator hợp lệ."
+    },
+    {
+      "key": "計算する順番",
+      "value": "Thứ tự tính toán"
+    },
+    {
+      "key": "計算の反復回数",
+      "value": "Số vòng giải"
+    },
+    {
+      "key": "訓練場",
+      "value": "Sân tập"
+    },
+    {
       "key": "設定",
       "value": "Cài đặt"
+    },
+    {
+      "key": "設定にエラーがあります。Inspectorの「設定の確認」を開いてください。",
+      "value": "Có lỗi thiết lập. Mở phần kiểm tra thiết lập trong Inspector."
+    },
+    {
+      "key": "設定に問題があるため、ポーズの生成を開始できません。",
+      "value": "Không thể bắt đầu tạo tư thế do lỗi thiết lập."
+    },
+    {
+      "key": "設定の更新あり",
+      "value": "Thiết lập đã đổi"
+    },
+    {
+      "key": "設定の確認",
+      "value": "Kiểm tra thiết lập"
+    },
+    {
+      "key": "設定の確認、またはプレビルドの更新が必要です。Inspectorを確認してください。",
+      "value": "Xem lại thiết lập hoặc cập nhật dữ liệu tạo trước. Kiểm tra Inspector."
+    },
+    {
+      "key": "設定を先に生成して、アバターのビルド時間を短縮します。",
+      "value": "Tạo sẵn thiết lập để rút ngắn thời gian dựng avatar."
+    },
+    {
+      "key": "設定を再確認",
+      "value": "Kiểm tra lại thiết lập"
+    },
+    {
+      "key": "診断 ",
+      "value": "Chẩn đoán "
+    },
+    {
+      "key": "該当するプリセットがありません。",
+      "value": "Không có thiết lập sẵn phù hợp."
+    },
+    {
+      "key": "該当する項目をポーズ一覧から削除し、必要なアニメーションを追加し直してください。",
+      "value": "Xóa mục bị thiếu khỏi danh sách tư thế rồi thêm lại hoạt ảnh cần dùng."
+    },
+    {
+      "key": "詳細",
+      "value": "Chi tiết"
+    },
+    {
+      "key": "調整アニメーション",
+      "value": "Hoạt ảnh hiệu chỉnh"
+    },
+    {
+      "key": "調整アニメーションを複製して保存しました。\n新しいファイル: {0}",
+      "value": "Đã nhân bản và lưu hoạt ảnh hiệu chỉnh.\nTệp mới: {0}"
+    },
+    {
+      "key": "調整アニメーションを複製して保存します。元々設定されていたファイルは変更されません",
+      "value": "Nhân bản và lưu hoạt ảnh hiệu chỉnh. Giữ nguyên tệp được gán ban đầu."
+    },
+    {
+      "key": "調整アニメーションを複製します。",
+      "value": "Nhân bản hoạt ảnh hiệu chỉnh."
+    },
+    {
+      "key": "調整クリップ",
+      "value": "Clip hiệu chỉnh"
+    },
+    {
+      "key": "調整値をすべて0にリセットします。",
+      "value": "Đưa tất cả giá trị hiệu chỉnh về 0."
+    },
+    {
+      "key": "調整値をファイルに保存します。",
+      "value": "Lưu giá trị hiệu chỉnh vào tệp."
+    },
+    {
+      "key": "調整可能なアニメーションが見つかりません。PosingSystem の設定を確認してください。",
+      "value": "Không có hoạt ảnh có thể chỉnh. Kiểm tra thiết lập PosingSystem."
+    },
+    {
+      "key": "調整結果をプレビューしています。",
+      "value": "Đang xem trước kết quả đã chỉnh."
+    },
+    {
+      "key": "警告の表示設定",
+      "value": "Thiết lập hiển thị cảnh báo"
+    },
+    {
+      "key": "警戒",
+      "value": "Cảnh giác"
+    },
+    {
+      "key": "警戒（右）",
+      "value": "Cảnh giác phải"
+    },
+    {
+      "key": "警戒（左）",
+      "value": "Cảnh giác trái"
+    },
+    {
+      "key": "足IKで膝が逆向きに折れることを防止します。",
+      "value": "Ngăn IK chân làm đầu gối gập ra sau."
     },
     {
       "key": "足の高さ",
       "value": "Độ cao chân"
     },
     {
+      "key": "足伸ばし",
+      "value": "Duỗi chân"
+    },
+    {
       "key": "足固定",
       "value": "Khóa chân"
+    },
+    {
+      "key": "足組み",
+      "value": "Vắt chéo chân"
+    },
+    {
+      "key": "足組み２",
+      "value": "Vắt chéo chân 2"
+    },
+    {
+      "key": "足降ろし",
+      "value": "Buông chân"
     },
     {
       "key": "距離",
       "value": "Khoảng cách"
     },
     {
+      "key": "蹲踞",
+      "value": "Ngồi xổm sâu"
+    },
+    {
+      "key": "身体のボーン、アバター全体、床のいずれを基準にするか選びます。",
+      "value": "Chọn xương cơ thể, avatar hoặc sàn làm tham chiếu."
+    },
+    {
+      "key": "身体のボーンを基準",
+      "value": "Xương cơ thể"
+    },
+    {
+      "key": "身体の補正",
+      "value": "Hiệu chỉnh cơ thể"
+    },
+    {
+      "key": "身長",
+      "value": "Chiều cao avatar"
+    },
+    {
+      "key": "追加先にあるクリップは重複して追加されません。",
+      "value": "Không thêm lại clip đã có ở đích."
+    },
+    {
+      "key": "追加先の姿勢",
+      "value": "Tư thế đích"
+    },
+    {
+      "key": "追加先を確認してください [PS040]",
+      "value": "Kiểm tra đích [PS040]"
+    },
+    {
+      "key": "追加先を選択してください [PS040]",
+      "value": "Chọn đích [PS040]"
+    },
+    {
+      "key": "追加機能を外して、ExpressionParametersの使用量を減らす",
+      "value": "Tắt tính năng tùy chọn để giảm dùng ExpressionParameters"
+    },
+    {
+      "key": "逆関節防止機能",
+      "value": "Ngăn đầu gối gập ngược"
+    },
+    {
+      "key": "通常のアニメーションを中央にし、横向きの姿勢と左右反転をビルド時に合成します。各クリップの最初の姿勢を使用します。中央は0.5、左右端は0と1です。接地補正は0で無効、0.25で25％です。",
+      "value": "Khi dựng, kết hợp tư thế thường ở giữa với tư thế bên và bản đối xứng. Dùng khung đầu của mỗi clip. Giữa là 0.5; hai đầu là 0 và 1. Hiệu chỉnh sàn tắt ở 0 và bằng 25% ở 0.25."
+    },
+    {
+      "key": "通常は1です。小さくすると元の姿勢を多く残します。",
+      "value": "Thường là 1. Giá trị thấp giữ nhiều tư thế nguồn hơn."
+    },
+    {
+      "key": "通常は「メニュー名_姿勢名」です。調整ウィンドウから追加すると自動入力されます。",
+      "value": "Thường là menuName_poseName. Thêm mục từ cửa sổ hiệu chỉnh sẽ điền tự động."
+    },
+    {
+      "key": "通常は元の姿勢を維持します。対象アバターへ元Animationを適用した直後と同じ側へ曲げます。",
+      "value": "Thường giữ tư thế nguồn, gập về cùng phía như ngay sau khi áp dụng hoạt ảnh nguồn lên avatar đích."
+    },
+    {
+      "key": "運動会",
+      "value": "Ngày hội thể thao"
+    },
+    {
+      "key": "適用するPrefabs (PosingSystem)",
+      "value": "Prefab PosingSystem để áp dụng"
+    },
+    {
+      "key": "選択アバターの1評価版比較コピーを作成",
+      "value": "Tạo bản sao so sánh đánh giá"
+    },
+    {
+      "key": "選択アバターの最適化比較コピーを作成",
+      "value": "Tạo bản sao so sánh tối ưu hóa"
+    },
+    {
+      "key": "選択時",
+      "value": "Khi chọn"
+    },
+    {
+      "key": "配置対象のアバターPrefab/FBXのファイル名",
+      "value": "Tên tệp prefab / FBX avatar đích"
+    },
+    {
+      "key": "配置対象のアバターPrefabs/FBX",
+      "value": "Prefab / FBX avatar đích"
+    },
+    {
+      "key": "長い落下",
+      "value": "Rơi dài"
+    },
+    {
+      "key": "長さの基準に必要なHumanoidボーン（{0}・{1}）がありません。",
+      "value": "Thiếu xương Humanoid cần cho tham chiếu chiều dài: {0}, {1}."
+    },
+    {
+      "key": "閉じる",
+      "value": "Đóng"
+    },
+    {
+      "key": "開く ›",
+      "value": "Mở ›"
+    },
+    {
+      "key": "閾値設定",
+      "value": "Ngưỡng độ cao"
+    },
+    {
+      "key": "限界突破",
+      "value": "Mở rộng"
+    },
+    {
+      "key": "限界突破をオンにするとパラメータの設定幅が5倍になります",
+      "value": "Bật phạm vi tham số rộng gấp năm lần bình thường."
+    },
+    {
+      "key": "面接",
+      "value": "Phỏng vấn"
+    },
+    {
+      "key": "順番",
+      "value": "Thứ tự"
+    },
+    {
+      "key": "頭、腰、膝、ViewPosition（目の位置）など、手足の置き場所を測る基準です。ViewPositionは頭の動きに追従します。",
+      "value": "Tham chiếu để đo vị trí tay hoặc chân, như Head, Hips, đầu gối hoặc ViewPosition (vị trí mắt). ViewPosition đi theo chuyển động đầu."
+    },
+    {
+      "key": "頭のボーン（Head）を取得できません。姿勢の高さを計算できません。",
+      "value": "Không tìm thấy xương Head nên không thể tính chiều cao tư thế."
+    },
+    {
+      "key": "頭の位置を保ち、足側の高さを変えられます。足が床に埋まる・浮くときに調整できます。",
+      "value": "Chỉnh độ cao chân và giữ đầu tại chỗ để sửa chân nổi hoặc chìm dưới sàn."
+    },
+    {
+      "key": "頭の向きに合わせて寝返りできます。一部の寝姿勢のみ対応しています。",
+      "value": "Lật người bằng cách nghiêng đầu. Chỉ hỗ trợ một số tư thế nằm."
+    },
+    {
+      "key": "頭の大きさ（HeadとViewpointの前後差）",
+      "value": "Kích thước đầu (chênh sâu Head/Viewpoint)"
+    },
+    {
+      "key": "頭の大きさ（HeadとViewpointの高低差）",
+      "value": "Kích thước đầu (chênh cao Head/Viewpoint)"
+    },
+    {
+      "key": "頭の高さ無視",
+      "value": "Bỏ qua độ cao đầu"
+    },
+    {
+      "key": "頭も含めた身体全体の高さを変えられます。VRChatの「床の高さ」で、50%を元の高さとして上下3mまで調整できます。",
+      "value": "Di chuyển cả cơ thể, gồm đầu, lên hoặc xuống tối đa 3 m. Độ cao sàn trung tính ở 50%."
+    },
+    {
+      "key": "首の向きの違いによる姿勢崩れを抑制",
+      "value": "Giảm méo tư thế do xoay đầu"
+    },
+    {
+      "key": "首・頭",
+      "value": "Cổ và đầu"
+    },
+    {
       "key": "首固定",
       "value": "Khóa đầu"
+    },
+    {
+      "key": "首固定を解除したとき、元のポーズと首の向きが異なることで起きる姿勢崩れを抑えます。",
+      "value": "Giảm méo khi đầu quay hướng khác tư thế gốc trong lúc tắt khóa đầu."
+    },
+    {
+      "key": "騎士",
+      "value": "Hiệp sĩ"
+    },
+    {
+      "key": "高さ",
+      "value": "Độ cao"
+    },
+    {
+      "key": "魔王降臨",
+      "value": "Chúa quỷ"
+    },
+    {
+      "key": "（ユーザー作成）",
+      "value": " (Người dùng)"
+    },
+    {
+      "key": "（公式）",
+      "value": " (Chính thức)"
+    },
+    {
+      "key": "（廃止されたAPIの使用）",
+      "value": " (dùng API lỗi thời)"
+    },
+    {
+      "key": "（生成方式）",
+      "value": " (cách tạo)"
+    },
+    {
+      "key": "＋ 1件追加",
+      "value": "+ Thêm tư thế"
+    },
+    {
+      "key": "＋ 複数のアニメーションを追加",
+      "value": "+ Thêm nhiều hoạt ảnh"
     }
   ]
 }

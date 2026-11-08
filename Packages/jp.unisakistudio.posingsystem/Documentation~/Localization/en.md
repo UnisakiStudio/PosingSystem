@@ -10,6 +10,6 @@ The language selected at the top of the Inspector applies to both the tool inter
 
 The pose list shows translated names. Search using either the original Japanese name or the translation. Original pose names, animations and internal parameters stay unchanged. Custom names without a translation keep their original text.
 
-## Translations in progress
+## Language coverage
 
-Translations are being added in the v3.2.0 development build. Missing translations use an available English translation or the original display text. Custom names keep their original text. Coverage varies by language.
+v3.2.0 provides standard display text and all 128 included pose names for 30 language selections. The Inspector, setup dialogs and generated in-game menu use the same language. Custom names keep their original spelling. The full offline manual is available in English.

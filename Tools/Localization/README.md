@@ -1,6 +1,6 @@
 # v3.2.0 localization authoring
 
-This is development work, not a published release. The language list is provisional.
+This is development work, not a published release. The user confirmed all 30 language selections on 2026-11-09.
 
 ## Required for every feature and fix (2026-11-09)
 
@@ -38,6 +38,10 @@ Review a diff for user-visible strings that bypass localization or are assembled
 dynamically; the literal scanner cannot prove arbitrary C# data flow. Check switching
 languages and returning to Japanese in Unity. Font coverage, wrapping, RTL and Indic
 shaping still require separate rendered checks; JSON coverage is not visual proof.
+
+Use `TextMessage` for already formatted/cached diagnostics that can survive a
+language change. It can reverse a previous translation when returning to Japanese;
+ordinary `Text` keeps original/custom-name fallback behavior unchanged.
 
 The pre-2026-11-09 scope notes below describe earlier checkpoints, not completion
 of the now-confirmed full language scope.

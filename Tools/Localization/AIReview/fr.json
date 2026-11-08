@@ -1,0 +1,40 @@
+{
+  "language": "fr",
+  "authoring": "Codex AI, 2026-11-09",
+  "catalog_missing_completed": 623,
+  "setup_missing_completed": 61,
+  "anatomy_completed": 120,
+  "terminology": {
+    "prebuild": "précalcul",
+    "preset": "préréglage",
+    "animation adjustment": "ajustement de l’animation",
+    "roll over": "se retourner / retournement",
+    "photo mode": "Mode photo"
+  },
+  "review": [
+    "Existing translations preserved",
+    "Full related feature and 128-pose references supplied",
+    "Placeholders checked",
+    "Anatomy indices/directions/finger numbering preserved"
+  ],
+  "native_speaker_review": false,
+  "rendered_visual_review": false,
+  "term_forms": {
+    "Photo Mode": [
+      "Mode photo"
+    ],
+    "prebuild": [
+      "précalcul"
+    ],
+    "preset": [
+      "préréglage"
+    ],
+    "Roll Over": [
+      "se retourner",
+      "retournement"
+    ]
+  },
+  "terminology_exceptions": [
+    "API, package and product identifiers retain their original spelling. Generic roll rotation labels are not the Roll Over feature."
+  ]
+}

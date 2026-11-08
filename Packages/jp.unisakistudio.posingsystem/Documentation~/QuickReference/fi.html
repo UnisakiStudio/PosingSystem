@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="fi" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="reference-scope" content="UI quick reference; not a full translated manual">
+<meta name="translation-source" content="Existing product interface catalogs only">
+<title>Suomi — Unisaki Posing System / Käyttöohje</title>
+<style>:root { color-scheme: light dark; font-family: system-ui, -apple-system, "Segoe UI", sans-serif; line-height: 1.65; }
+body { max-width: 64rem; margin: 0 auto; padding: 1.5rem; overflow-wrap: anywhere; }
+h1, h2, h3 { line-height: 1.35; }
+h1 { font-size: 1.9rem; } h2 { margin-top: 2.5rem; }
+h3 { margin: 0 0 .4rem; font-size: 1.1rem; }
+a { color: #2867bb; } a:visited { color: #7355a1; }
+nav { display: flex; flex-wrap: wrap; gap: .5rem 1.2rem; }
+.scope { border-inline-start: .25rem solid #b87918; padding: .6rem 1rem; background: #b8791814; }
+.card { border: 1px solid #8886; border-radius: .5rem; padding: 1rem; margin: 1rem 0; break-inside: avoid; }
+.card p { margin: 0; } table { width: 100%; border-collapse: collapse; }
+th, td { text-align: start; vertical-align: top; padding: .5rem .7rem; border: 1px solid #8886; }
+thead { background: #8882; } tbody tr:nth-child(even) { background: #8881; }
+code { direction: ltr; unicode-bidi: isolate; } .language-list { columns: 3 14rem; }
+.language-list li { break-inside: avoid; margin-block: .4rem; }
+footer { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #8886; }
+@media (prefers-color-scheme: dark) { a { color: #8dc1ff; } a:visited { color: #d3b3ff; } }
+@media print { body { max-width: none; padding: 0; } nav { display: none; } a { color: inherit; } }</style>
+</head>
+<body>
+<header><h1>Suomi — Unisaki Posing System / Käyttöohje</h1>
+<p class="scope" lang="en" dir="ltr">Quick reference generated from existing interface translations. This is not a complete translated manual. The full guide is available in English.</p>
+<nav aria-label="Reference navigation">
+<a href="index.html">Language / 言語</a>
+<a href="../UserGuide.en.html" lang="en" dir="ltr">English — Käyttöohje</a>
+<a href="#features">Toiminnot</a>
+<a href="#actions">Lisätoiminnot</a>
+<a href="#poses">Asennot</a>
+</nav></header>
+<main>
+<section id="features"><h2>Toiminnot</h2>
+<article class="card feature-card"><h3>Peilaa</h3><p>Lisää valikkoon kytkimen asennon peilaamista varten.</p></article>
+<article class="card feature-card"><h3>Eleet pois</h3><p>Lisää kytkimen, jolla sormieleet voi lukita myös ohjainta puristettaessa.</p></article>
+<article class="card feature-card"><h3>Hengitys</h3><p>Kytkee hengityksen päälle tai pois VRChatissa. Muutkin käyttäjät näkevät muutoksen.</p></article>
+<article class="card feature-card"><h3>Käänny</h3><p>Voit kääntyä päätä kallistamalla. Toimii tietyissä makuuasennoissa.</p></article>
+<article class="card feature-card"><h3>Jalkojen kork.</h3><p>Säätää jalkojen korkeutta päätä siirtämättä, jotta jalat eivät leiju tai uppoa lattiaan.</p></article>
+<article class="card feature-card"><h3>Lattian kork.</h3><p>Siirtää koko kehoa päätä myöten enintään 3 m ylös tai alas. Lattian kork. -säädön 50 % vastaa alkuperäistä korkeutta.</p></article>
+<article class="card feature-card"><h3>Kuvatila</h3><p>Lisää Kuvatilan, jossa voit siirtyä enintään 3 m eteenpäin ja kiertyä nähdäksesi itsesi paremmin.</p></article>
+<article class="card feature-card"><h3>Vaihda makuuasentoa hyppäämällä</h3><p>Kun sekä selällään että vatsallaan oleva asento on valittu, voit vaihtaa niiden välillä hyppäämällä paikallasi.</p></article>
+<article class="card feature-card"><h3>Vähennä pään kierrosta aiheutuvaa asennon vääristymää</h3><p>Vähentää vääristymää, kun pää osoittaa eri suuntaan kuin alkuperäisessä asennossa pään lukituksen ollessa pois käytöstä.</p></article>
+<article class="card feature-card"><h3>Synkronoi Kuvatila</h3><p>Näyttää Kuvatilan sijainnin ja kierron myös muille. Vain omalla näytöllä kuvaaminen käyttää 0 bittiä.</p></article>
+<article class="card feature-card"><h3>Pidä pää näkyvissä Kuvatilassa</h3><p>Pitää pään näkyvissä omalla näytöllä lähikuvia varten. Normaali näkyvyys palautuu Kuvatilan päätyttyä.</p></article>
+<article class="card feature-card"><h3>Poista VRChatin oletushuojunta</h3><p>Poistaa VRChatin oletusarvoisen huojunnan paikallaan, mutta säilyttää tämän työkalun hengitysanimaation.</p></article>
+<article class="card feature-card"><h3>Animoi hengitys</h3><p>Animoi rintakehää hengityksen mukana. Voimakkuuden voi asettaa asennolle erikseen ilman lisäsynkronointibittejä.</p></article>
+<article class="card feature-card"><h3>Luo asentokuvakkeet</h3><p>Helpottaa asentojen tunnistamista pikkukuvilla. Avatarin koonti kestää hieman kauemmin.</p></article>
+<article class="card feature-card"><h3>Pienennä kuvakkeita</h3><p>Pienentää avatarin kokoa vähentämällä hieman kuvakkeiden tarkkuutta.</p></article>
+<article class="card feature-card"><h3>Ota avatarikorjaus käyttöön</h3><p>Korjaa automaattisesti avatarikohtaiset nivelten suunta- ja kiertoerot.</p></article>
+<article class="card feature-card"><h3>Estä polvien taittuminen taakse</h3><p>Estää polvia taittumasta taakse jalkojen suoristuessa.</p></article>
+<article class="card feature-card"><h3>Käytä alkuperäisiä seisoma-, kyykky- ja vatsa-asentoja</h3><p>Tunnistaa liikkeet avatarin Base-tasolta luonnin aikana. Niitä ei lisätä tuontiluetteloon. Manuaaliset valinnat ovat etusijalla.</p></article>
+<article class="card feature-card"><h3>Yhdistä seurantalukitukset muihin työkaluihin</h3><p>Ota käyttöön, jos seurantalukitukset eivät toimi oikein muiden työkalujen rinnalla.</p></article>
+</section>
+<section id="actions"><h2>Lisätoiminnot</h2>
+<article class="card action-card"><h3>Tarkista asetukset</h3><p>Valitse kyseinen objekti Inspectorin Tarkista asetukset -kohdasta, korjaa luetellut ongelmat ja yritä uudelleen.</p></article>
+<article class="card action-card"><h3>Päivitä esikoonti</h3><p>Luo asetukset etukäteen nopeuttaaksesi avatarin koontia.</p></article>
+<article class="card action-card"><h3>Käytä tätä esiasetusta</h3><p>Valitse aloitusasentojen joukko. Tämä korvaa nykyiset asentoasetukset.</p></article>
+<article class="card action-card"><h3>Animaatiosäätö</h3><p>Esikatsele ja hienosäädä asentoja.</p></article>
+<article class="card action-card"><h3>Ota kuvakkeet uudelleen</h3><p>Käytä tätä asun tai ulkoasun muuttamisen jälkeen. Päivitä esikoonti asetusten muuttamisen jälkeen.</p></article>
+<article class="card action-card"><h3>Tyhjennä manuaalinen valinta</h3><p>Tyhjentää tämän liiketyypin manuaaliset asetukset ja säädöt. Jos automaattinen tuonti on käytössä, liike tunnistetaan uudelleen seuraavassa koonnissa. Toiminnon voi kumota.</p></article>
+</section>
+<section id="poses"><h2>Asennot</h2>
+<table><thead><tr><th lang="ja" dir="ltr">日本語</th><th>Asennon nimi</th></tr></thead><tbody>
+<tr class="pose-row"><td lang="ja" dir="ltr">あぐら</td><td>Risti-istunta</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">あぐら２</td><td>Risti-istunta 2</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">いじけ</td><td>Mökötys</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">うずくまり</td><td>Kippurassa</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">おいで</td><td>Tule tänne</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">おきあがり</td><td>Nousemassa</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">おすまし</td><td>Valmiina</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">おちこみ</td><td>Alakuloinen</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">お伺いポーズ</td><td>Saanko?</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">お姉さん座り</td><td>Elegantti istunta</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">お疲れ</td><td>Uupunut</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">くずし</td><td>Lysähtänyt</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">くつろぎ１</td><td>Loikoilu 1</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">くつろぎ２</td><td>Loikoilu 2</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">ぐだり１</td><td>Röhnötys 1</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">ぐだり２</td><td>Röhnötys 2</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">ぐだり３</td><td>Röhnötys 3</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">ざせつ</td><td>Lannistunut</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">じだらく</td><td>Laiska päivä</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">たたみ</td><td>Tatami</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">ねころび</td><td>Makuulla</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">ねころび１</td><td>Makuulla 1</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">ねころび２</td><td>Makuulla 2</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">ねころび３</td><td>Makuulla 3</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">のんびり</td><td>Rennosti</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">のーんびり</td><td>Täysin rentona</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">はいずり</td><td>Konttaus</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">はりつけ</td><td>Painettuna alas</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">びっくり</td><td>Yllättynyt</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">ふくじゅう</td><td>Alistuminen</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">むきりょく</td><td>Voimat lopussa</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">よりかかり</td><td>Nojailu</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">アイドル</td><td>Idoli</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">カエルのポーズ１</td><td>Sammakko 1</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">カエルのポーズ２</td><td>Sammakko 2</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">キック</td><td>Potku</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">クマ人形</td><td>Nalle</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">ケンカ</td><td>Taisteluvalmius</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">コンビニ</td><td>Kioski</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">ゾンビ</td><td>Zombi</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">バンザイ</td><td>Kädet ylös</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">プランク</td><td>Lankku</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">ベッド</td><td>Sänky</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">マットレス</td><td>Patja</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">モデル</td><td>Malli</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">ラダー運動</td><td>Ketteryystreeni</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">リクライニング</td><td>Takanoja</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">リラックス</td><td>Rentona</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">リラックス１</td><td>Rentona 1</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">リラックス２</td><td>Rentona 2</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">リラックス３</td><td>Rentona 3</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">不機嫌</td><td>Murjotus</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">二人分座り</td><td>Tilaa kahdelle</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">五体投地</td><td>Kumarrus maahan</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">伏せ</td><td>Vatsallaan</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">休憩中</td><td>Tauolla</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">低姿勢</td><td>Matalana</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">体育座り</td><td>Polvet ylös</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">倒され寝</td><td>Kaatunut</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">傍観者</td><td>Sivustakatsoja</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">内股座り</td><td>Varpaat sisään</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">制止</td><td>Seis</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">前かがみ</td><td>Etunoja</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">右向き寝</td><td>Kylkiuni O</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">右向き昼寝</td><td>Kylkitorkut O</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">合蹠のポーズ</td><td>Perhonen</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">和室</td><td>Japanilainen huone</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">商談</td><td>Liikeneuvottelu</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">地球寝</td><td>Maan halaus</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">培養中</td><td>Kotelossa</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">堤防</td><td>Penger</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">壁ドン</td><td>Seinään nojaten</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">女の子座り</td><td>W-istunta</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">左向き寝</td><td>Kylkiuni V</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">左向き昼寝</td><td>Kylkitorkut V</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">左向き昼寝２</td><td>Kylkitorkut V 2</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">布団</td><td>Futon</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">座布団</td><td>Lattiatyyny</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">待ちぼうけ</td><td>Yhä odottamassa</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">待ち伏せ</td><td>Väijytys</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">後方彼氏</td><td>Vahtimassa</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">従者のポーズ</td><td>Palvelija</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">忍者走り</td><td>Ninjajuoksu</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">思考中</td><td>Mietintä</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">抱きしめ</td><td>Halaus</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">斜め座り</td><td>Vinosti istuen</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">昼寝</td><td>Torkut</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">晴天寝</td><td>Torkut auringossa</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">服従</td><td>Tottelevaisuus</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">木の上寝</td><td>Torkut puussa</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">楽園</td><td>Paratiisi</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">海岸</td><td>Meren äärellä</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">照れ</td><td>Ujo</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">猫のポーズ（右）</td><td>Kissavenytys O</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">猫のポーズ（左）</td><td>Kissavenytys V</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">猫寝</td><td>Kissantorkut</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">異変無し</td><td>Reitti selvä</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">直立</td><td>Seisten</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">睡魔</td><td>Uninen</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">砂浜</td><td>Hiekkaranta</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">空気椅子</td><td>Seinäistunta</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">絨毯</td><td>Matto</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">考える男</td><td>Ajattelija</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">肘パンチ</td><td>Kyynärpääisku</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">肘付き</td><td>Kyynärpäänoja</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">脱力寝</td><td>Lysähtänyt uneen</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">腕枕寝</td><td>Torkut käsivarrella</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">腕枕（右）</td><td>Käsivarsityyny O</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">腕枕（左）</td><td>Käsivarsityyny V</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">腕立て伏せ</td><td>Punnerrus</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">膝立て</td><td>Yksi polvi ylös</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">芝生</td><td>Nurmikko</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">行き倒れ</td><td>Romahtanut</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">見下し</td><td>Katse alas</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">観察中</td><td>Tarkkailu</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">訓練場</td><td>Harjoituskenttä</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">警戒</td><td>Vartiossa</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">警戒（右）</td><td>Vartiossa O</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">警戒（左）</td><td>Vartiossa V</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">足伸ばし</td><td>Jalat ojossa</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">足組み</td><td>Jalat ristissä</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">足組み２</td><td>Jalat ristissä 2</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">足降ろし</td><td>Jalat alas</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">蹲踞</td><td>Syväkyykky</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">運動会</td><td>Urheilupäivä</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">面接</td><td>Haastattelu</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">騎士</td><td>Ritari</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">魔王降臨</td><td>Demonikuningas</td></tr>
+</tbody></table></section>
+</main>
+<footer><a href="../UserGuide.en.html" lang="en" dir="ltr">English — Käyttöohje</a></footer>
+</body>
+</html>

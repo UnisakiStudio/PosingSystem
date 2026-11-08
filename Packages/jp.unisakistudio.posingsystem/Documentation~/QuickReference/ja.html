@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="ja" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="reference-scope" content="UI quick reference; not a full translated manual">
+<meta name="translation-source" content="Existing product interface catalogs only">
+<title>日本語 — ゆにさきポーズシステム / 使い方</title>
+<style>:root { color-scheme: light dark; font-family: system-ui, -apple-system, "Segoe UI", sans-serif; line-height: 1.65; }
+body { max-width: 64rem; margin: 0 auto; padding: 1.5rem; overflow-wrap: anywhere; }
+h1, h2, h3 { line-height: 1.35; }
+h1 { font-size: 1.9rem; } h2 { margin-top: 2.5rem; }
+h3 { margin: 0 0 .4rem; font-size: 1.1rem; }
+a { color: #2867bb; } a:visited { color: #7355a1; }
+nav { display: flex; flex-wrap: wrap; gap: .5rem 1.2rem; }
+.scope { border-inline-start: .25rem solid #b87918; padding: .6rem 1rem; background: #b8791814; }
+.card { border: 1px solid #8886; border-radius: .5rem; padding: 1rem; margin: 1rem 0; break-inside: avoid; }
+.card p { margin: 0; } table { width: 100%; border-collapse: collapse; }
+th, td { text-align: start; vertical-align: top; padding: .5rem .7rem; border: 1px solid #8886; }
+thead { background: #8882; } tbody tr:nth-child(even) { background: #8881; }
+code { direction: ltr; unicode-bidi: isolate; } .language-list { columns: 3 14rem; }
+.language-list li { break-inside: avoid; margin-block: .4rem; }
+footer { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #8886; }
+@media (prefers-color-scheme: dark) { a { color: #8dc1ff; } a:visited { color: #d3b3ff; } }
+@media print { body { max-width: none; padding: 0; } nav { display: none; } a { color: inherit; } }</style>
+</head>
+<body>
+<header><h1>日本語 — ゆにさきポーズシステム / 使い方</h1>
+<p class="scope" lang="en" dir="ltr">Quick reference generated from existing interface translations. This is not a complete translated manual. The full guide is available in English.</p>
+<nav aria-label="Reference navigation">
+<a href="index.html">Language / 言語</a>
+<a href="../UserGuide.en.html" lang="en" dir="ltr">English — 使い方</a>
+<a href="#features">機能</a>
+<a href="#actions">便利機能</a>
+<a href="#poses">ポーズ一覧</a>
+</nav></header>
+<main>
+<section id="features"><h2>機能</h2>
+<article class="card feature-card"><h3>左右反転</h3><p>VRChatのメニューに切り替え項目を追加します。使いたいときに、ポーズの左右を反転できます。</p></article>
+<article class="card feature-card"><h3>ジェスチャー無効</h3><p>指の形を固定・解除する切り替えをメニューに追加します。固定中はコントローラーを握っても形を保てます。</p></article>
+<article class="card feature-card"><h3>呼吸</h3><p>VRChatのメニューで呼吸をつけたり止めたりできます。ON/OFFは他の人にも反映されます。</p></article>
+<article class="card feature-card"><h3>寝返り</h3><p>頭の向きに合わせて寝返りできます。一部の寝姿勢のみ対応しています。</p></article>
+<article class="card feature-card"><h3>足の高さ</h3><p>頭の位置を保ち、足側の高さを変えられます。足が床に埋まる・浮くときに調整できます。</p></article>
+<article class="card feature-card"><h3>床の高さ</h3><p>頭も含めた身体全体の高さを変えられます。VRChatの「床の高さ」で、50%を元の高さとして上下3mまで調整できます。</p></article>
+<article class="card feature-card"><h3>撮影モード</h3><p>メニューに撮影モードを追加します。前へ最大3m移動したり回転したりして、自分から見える位置を調整できます。</p></article>
+<article class="card feature-card"><h3>ジャンプで寝姿勢を切り替える</h3><p>仰向けとうつ伏せの両方を選んでいるとき、その場でジャンプすると切り替わります。</p></article>
+<article class="card feature-card"><h3>首の向きの違いによる姿勢崩れを抑制</h3><p>首固定を解除したとき、元のポーズと首の向きが異なることで起きる姿勢崩れを抑えます。</p></article>
+<article class="card feature-card"><h3>撮影モードを同期する</h3><p>撮影モードで動かした位置と向きを他の人にも表示できます。自分の画面だけで撮影する場合は0 bitで使えます。</p></article>
+<article class="card feature-card"><h3>撮影モード中は頭を非表示にしない</h3><p>自分の頭が近くにあっても撮影できます。自分の画面だけに反映され、撮影終了後は通常の表示に戻ります。</p></article>
+<article class="card feature-card"><h3>VRChat標準の揺れを止める</h3><p>立ち止まっているときに自動で入る、VRChat標準の身体の揺れを止められます。ポーズツールで設定した呼吸の動きはそのまま使えます。</p></article>
+<article class="card feature-card"><h3>呼吸の動きをつける</h3><p>呼吸に合わせて胸などが動きます。姿勢ごとに強さを設定でき、同期bitを使わずに利用できます。</p></article>
+<article class="card feature-card"><h3>ポーズアイコン生成</h3><p>画像でポーズを見分けやすくできます。アバターのビルド時間は少し長くなります。</p></article>
+<article class="card feature-card"><h3>アイコン画像の容量を減らす</h3><p>アバターの容量を抑えたいときに便利です。アイコン画像は少し粗くなります。</p></article>
+<article class="card feature-card"><h3>アバター固有補正を使う</h3><p>アバターごとの関節の向きやひねりの違いを自動で補正します。</p></article>
+<article class="card feature-card"><h3>膝が逆向きに曲がるのを防ぐ</h3><p>脚を伸ばしたときに、膝が逆向きに折れるのを抑えます。</p></article>
+<article class="card feature-card"><h3>アバターの元の立ち・しゃがみ・伏せ姿勢を使う</h3><p>生成時にアバターのBaseからモーションを検出します。取り込み設定の一覧には追加しません。手動設定がある種類は手動指定を優先します。</p></article>
+<article class="card feature-card"><h3>各固定機能の他ギミックとの統合</h3><p>ほかのギミックとの併用によって固定機能がうまく動かない場合はオンにしてください。</p></article>
+</section>
+<section id="actions"><h2>便利機能</h2>
+<article class="card action-card"><h3>設定の確認</h3><p>Inspectorの「設定の確認」で対象を選択し、表示された項目を直して再実行してください。</p></article>
+<article class="card action-card"><h3>プレビルドを更新</h3><p>設定を先に生成して、アバターのビルド時間を短縮します。</p></article>
+<article class="card action-card"><h3>このプリセットに変更する</h3><p>使い始めるときの姿勢セットを変更できます。変更すると現在のポーズ設定が置き換わります。</p></article>
+<article class="card action-card"><h3>アニメーション調整</h3><p>姿勢のプレビューや、細かな調整ができます。</p></article>
+<article class="card action-card"><h3>アイコンを撮り直す</h3><p>衣装や見た目を変えたときに使います。設定を変えたときはプレビルドしてください。</p></article>
+<article class="card action-card"><h3>手動指定を解除</h3><p>この種類の手動設定と調整を解除します。自動取り込みがONなら次回生成時に再検出します。Undoで戻せます。</p></article>
+</section>
+<section id="poses"><h2>ポーズ一覧</h2>
+<table><thead><tr><th lang="ja" dir="ltr">日本語</th><th>ポーズ名</th></tr></thead><tbody>
+<tr class="pose-row"><td lang="ja" dir="ltr">あぐら</td><td>あぐら</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">あぐら２</td><td>あぐら２</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">いじけ</td><td>いじけ</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">うずくまり</td><td>うずくまり</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">おいで</td><td>おいで</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">おきあがり</td><td>おきあがり</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">おすまし</td><td>おすまし</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">おちこみ</td><td>おちこみ</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">お伺いポーズ</td><td>お伺いポーズ</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">お姉さん座り</td><td>お姉さん座り</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">お疲れ</td><td>お疲れ</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">くずし</td><td>くずし</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">くつろぎ１</td><td>くつろぎ１</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">くつろぎ２</td><td>くつろぎ２</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">ぐだり１</td><td>ぐだり１</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">ぐだり２</td><td>ぐだり２</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">ぐだり３</td><td>ぐだり３</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">ざせつ</td><td>ざせつ</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">じだらく</td><td>じだらく</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">たたみ</td><td>たたみ</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">ねころび</td><td>ねころび</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">ねころび１</td><td>ねころび１</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">ねころび２</td><td>ねころび２</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">ねころび３</td><td>ねころび３</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">のんびり</td><td>のんびり</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">のーんびり</td><td>のーんびり</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">はいずり</td><td>はいずり</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">はりつけ</td><td>はりつけ</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">びっくり</td><td>びっくり</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">ふくじゅう</td><td>ふくじゅう</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">むきりょく</td><td>むきりょく</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">よりかかり</td><td>よりかかり</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">アイドル</td><td>アイドル</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">カエルのポーズ１</td><td>カエルのポーズ１</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">カエルのポーズ２</td><td>カエルのポーズ２</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">キック</td><td>キック</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">クマ人形</td><td>クマ人形</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">ケンカ</td><td>ケンカ</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">コンビニ</td><td>コンビニ</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">ゾンビ</td><td>ゾンビ</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">バンザイ</td><td>バンザイ</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">プランク</td><td>プランク</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">ベッド</td><td>ベッド</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">マットレス</td><td>マットレス</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">モデル</td><td>モデル</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">ラダー運動</td><td>ラダー運動</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">リクライニング</td><td>リクライニング</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">リラックス</td><td>リラックス</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">リラックス１</td><td>リラックス１</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">リラックス２</td><td>リラックス２</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">リラックス３</td><td>リラックス３</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">不機嫌</td><td>不機嫌</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">二人分座り</td><td>二人分座り</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">五体投地</td><td>五体投地</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">伏せ</td><td>伏せ</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">休憩中</td><td>休憩中</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">低姿勢</td><td>低姿勢</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">体育座り</td><td>体育座り</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">倒され寝</td><td>倒され寝</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">傍観者</td><td>傍観者</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">内股座り</td><td>内股座り</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">制止</td><td>制止</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">前かがみ</td><td>前かがみ</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">右向き寝</td><td>右向き寝</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">右向き昼寝</td><td>右向き昼寝</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">合蹠のポーズ</td><td>合蹠のポーズ</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">和室</td><td>和室</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">商談</td><td>商談</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">地球寝</td><td>地球寝</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">培養中</td><td>培養中</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">堤防</td><td>堤防</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">壁ドン</td><td>壁ドン</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">女の子座り</td><td>女の子座り</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">左向き寝</td><td>左向き寝</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">左向き昼寝</td><td>左向き昼寝</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">左向き昼寝２</td><td>左向き昼寝２</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">布団</td><td>布団</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">座布団</td><td>座布団</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">待ちぼうけ</td><td>待ちぼうけ</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">待ち伏せ</td><td>待ち伏せ</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">後方彼氏</td><td>後方彼氏</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">従者のポーズ</td><td>従者のポーズ</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">忍者走り</td><td>忍者走り</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">思考中</td><td>思考中</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">抱きしめ</td><td>抱きしめ</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">斜め座り</td><td>斜め座り</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">昼寝</td><td>昼寝</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">晴天寝</td><td>晴天寝</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">服従</td><td>服従</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">木の上寝</td><td>木の上寝</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">楽園</td><td>楽園</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">海岸</td><td>海岸</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">照れ</td><td>照れ</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">猫のポーズ（右）</td><td>猫のポーズ（右）</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">猫のポーズ（左）</td><td>猫のポーズ（左）</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">猫寝</td><td>猫寝</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">異変無し</td><td>異変無し</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">直立</td><td>直立</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">睡魔</td><td>睡魔</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">砂浜</td><td>砂浜</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">空気椅子</td><td>空気椅子</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">絨毯</td><td>絨毯</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">考える男</td><td>考える男</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">肘パンチ</td><td>肘パンチ</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">肘付き</td><td>肘付き</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">脱力寝</td><td>脱力寝</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">腕枕寝</td><td>腕枕寝</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">腕枕（右）</td><td>腕枕（右）</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">腕枕（左）</td><td>腕枕（左）</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">腕立て伏せ</td><td>腕立て伏せ</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">膝立て</td><td>膝立て</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">芝生</td><td>芝生</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">行き倒れ</td><td>行き倒れ</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">見下し</td><td>見下し</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">観察中</td><td>観察中</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">訓練場</td><td>訓練場</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">警戒</td><td>警戒</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">警戒（右）</td><td>警戒（右）</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">警戒（左）</td><td>警戒（左）</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">足伸ばし</td><td>足伸ばし</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">足組み</td><td>足組み</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">足組み２</td><td>足組み２</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">足降ろし</td><td>足降ろし</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">蹲踞</td><td>蹲踞</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">運動会</td><td>運動会</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">面接</td><td>面接</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">騎士</td><td>騎士</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">魔王降臨</td><td>魔王降臨</td></tr>
+</tbody></table></section>
+</main>
+<footer><a href="../UserGuide.en.html" lang="en" dir="ltr">English — 使い方</a></footer>
+</body>
+</html>

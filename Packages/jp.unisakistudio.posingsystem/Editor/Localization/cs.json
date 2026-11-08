@@ -1,6 +1,386 @@
 {
   "entries": [
     {
+      "key": "(名前なし)",
+      "value": "(Bez názvu)"
+    },
+    {
+      "key": "0〜1の値を指定してください。",
+      "value": "Použijte hodnotu od 0 do 1."
+    },
+    {
+      "key": "0では回転せず、1で記録した向きへ完全に合わせます。",
+      "value": "0 zachová původní rotaci; 1 plně odpovídá zaznamenané orientaci."
+    },
+    {
+      "key": "0にリセットします",
+      "value": "Vynuluje hodnotu."
+    },
+    {
+      "key": "1件のエラー",
+      "value": "1 chyba"
+    },
+    {
+      "key": "1件の注意",
+      "value": "1 varování"
+    },
+    {
+      "key": "AddStateMachineBehaviourに失敗しました。多くの場合原因は別のツールなどにエラーが発生していることです。アバタービルド・アップロード前にConsoleウィンドウを確認してエラーを解消してから再度お試しください",
+      "value": "Selhalo AddStateMachineBehaviour. Jiný nástroj mohl dříve vyvolat chybu. Před dalším sestavením nebo nahráním avatara vyřešte první související chybu v Console."
+    },
+    {
+      "key": "Animator Override Controllerはここでは使用できません。ツールの標準Controllerへ戻してください。",
+      "value": "Obnovte standardní Controller nástroje. Animator Override Controller zde není podporován."
+    },
+    {
+      "key": "Animator Override Controllerはここでは使用できません。ツールの標準Controllerへ戻してください。シーンを保存・バックアップしてから、ALCOM / VCCで商品本体と「ゆにさきポーズシステム」を再取得してください。入れ直しても直らない場合は、Inspector上部の「ヘルプ・変更履歴」から公式マニュアル・お問い合わせをご確認ください。調整済みのオブジェクトやGeneratedResourcesは削除しないでください。",
+      "value": "Obnovte standardní Controller nástroje. Animator Override Controller zde není podporován.\nUložte a zazálohujte scénu a poté znovu stáhněte produkt a Unisaki Posing System pomocí ALCOM / VCC. Pokud problém trvá, otevřete nápovědu a změny nahoře v Inspector pro příručku a podporu. Zachovejte upravené objekty a GeneratedResources."
+    },
+    {
+      "key": "Animator を持つアバターが見つかりません。",
+      "value": "Avatar s Animator nebyl nalezen."
+    },
+    {
+      "key": "AnimatorにParameterとして登録されていないパラメータが条件式に使われています。「{0}」ファイルの「{1}」というレイヤーで使用されている「{2}」というパラメータが条件式に使われていますが、AnimatorControllerのParametersにはパラメータがありません。使用しているツールやギミックの相性の問題だと思われるため、このパラメータを使用しているツールの開発者に連絡してください",
+      "value": "Podmínka Animator odkazuje na nedeklarovaný parametr. Soubor: {0}, vrstva: {1}, parametr: {2}. Používá se v podmínce, ale chybí v seznamu Parameters v Animator Controller. Ohledně kompatibility kontaktujte autora nástroje používajícího tento parametr."
+    },
+    {
+      "key": "AnimatorのAvatarが有効なHumanoidではありません。",
+      "value": "Animator neodkazuje na platný Humanoid Avatar."
+    },
+    {
+      "key": "AnimatorのAvatar欄がNoneまたはMissingです。",
+      "value": "Pole Avatar v Animator má hodnotu None nebo Missing."
+    },
+    {
+      "key": "AnimatorのAvatar欄が未設定です。Inspectorの「設定の確認」の対処手順をご確認ください。",
+      "value": "Pole Avatar v Animator je prázdné. Viz kontrola nastavení v Inspector."
+    },
+    {
+      "key": "Auto-Footstepsはオンです。ポーズ中に意図せず足が動く場合は、下のボタンでオフにして比較できます。問題がなければ変更は不要です。",
+      "value": "Auto-Footsteps je zapnuté. Pokud se chodidla v pózách neočekávaně pohybují, vypněte je níže a porovnejte výsledek. Pokud problém nemáte, nic neměňte."
+    },
+    {
+      "key": "ConsoleでMissing Prefabなどのインポートエラーを確認してください。配置先のシーンを開き直して再実行してください。",
+      "value": "Zkontrolujte chyby importu v Console, například Missing Prefab. Znovu otevřete cílovou scénu a zkuste to znovu."
+    },
+    {
+      "key": "Consoleのエラー\n",
+      "value": "Chyby Console\n"
+    },
+    {
+      "key": "Consoleの最初のコンパイルエラーを修正し、再コンパイルが完了してから実行してください。",
+      "value": "Opravte první chybu kompilace v Console, počkejte na dokončení kompilace a zkuste to znovu."
+    },
+    {
+      "key": "HeadとViewpointの前後差を測定できません。View Positionとアバターのスケールを確認してください。",
+      "value": "Nelze změřit rozdíl hloubky Head a Viewpoint. Zkontrolujte View Position a měřítko avatara."
+    },
+    {
+      "key": "HeadとViewpointの高低差を測定できません。View Positionとアバターのスケールを確認してください。",
+      "value": "Nelze změřit rozdíl výšky Head a Viewpoint. Zkontrolujte View Position a měřítko avatara."
+    },
+    {
+      "key": "Hierarchyでアバター内のポーズツールを選択し直してください。",
+      "value": "Znovu vyberte nástroj pro pózy uvnitř avatara v Hierarchy."
+    },
+    {
+      "key": "Hierarchyの警告マークを非表示",
+      "value": "Skrýt varovné značky v Hierarchy"
+    },
+    {
+      "key": "Humanoid Animatorが必要です。",
+      "value": "Je vyžadován Humanoid Animator."
+    },
+    {
+      "key": "Humanoid AnimatorまたはIKルールがありません。",
+      "value": "Chybí Humanoid Animator nebo pravidlo IK."
+    },
+    {
+      "key": "Humanoid の Animator を持つアバターが見つかりません。",
+      "value": "Avatar s Humanoid Animator nebyl nalezen."
+    },
+    {
+      "key": "HumanoidのアバターとAnimationClipを指定してください。",
+      "value": "Vyberte avatara Humanoid a AnimationClip."
+    },
+    {
+      "key": "Humanoidボーン軸の違いを除いた、基準から見た手首または足首の向きです。",
+      "value": "Orientace zápěstí nebo kotníku vůči referenci bez rozdílů os kostí Humanoid."
+    },
+    {
+      "key": "IKで手足の位置を自動調整しています。手動で調整するには、下の「IKを調整に反映」を押してください。",
+      "value": "IK upravuje končetiny. Pro ruční úpravu zvolte níže „Zapéct IK do korekcí“."
+    },
+    {
+      "key": "IKで補正する前の基準姿勢です。",
+      "value": "Referenční póza před korekcí IK."
+    },
+    {
+      "key": "IKの結果を新しい調整アニメーションに保存して、このポーズのIKをオフにします。その後は下の項目で手動調整できます。",
+      "value": "Uloží výsledek IK do nové animace korekce a vypne IK této pózy. Poté ji lze ručně upravit níže."
+    },
+    {
+      "key": "IKの調整を保存できませんでした。",
+      "value": "Nelze uložit korekci IK."
+    },
+    {
+      "key": "IKを反映するポーズとアバターを確認してください。",
+      "value": "Zkontrolujte pózu a avatara, na které chcete použít IK."
+    },
+    {
+      "key": "IKを反映できませんでした",
+      "value": "Nelze zapéct IK"
+    },
+    {
+      "key": "IKを調整に反映",
+      "value": "Zapéct IK do korekcí"
+    },
+    {
+      "key": "IKルール {0}",
+      "value": "Pravidlo IK {0}"
+    },
+    {
+      "key": "IKルールを適用できませんでした。",
+      "value": "Pravidla IK nelze použít."
+    },
+    {
+      "key": "Inspectorの「設定の確認」で対象を選択し、表示された項目を直して再実行してください。",
+      "value": "Vyberte dotčený objekt v kontrole nastavení v Inspector, opravte uvedené problémy a zkuste to znovu."
+    },
+    {
+      "key": "Mecanimで使用できるアニメーションを指定してください。元モデル由来ならRigの設定も確認してください。",
+      "value": "Přiřaďte animaci podporovanou Mecanim. Pokud pochází z modelu, zkontrolujte nastavení Rig tohoto modelu."
+    },
+    {
+      "key": "Modular Avatarで追加した衣装などは、アバターのビルド時に撮影し直したアイコンへ反映されます。",
+      "value": "Oblečení přidané pomocí Modular Avatar se zahrne při opětovném pořizování ikon během sestavení avatara."
+    },
+    {
+      "key": "Motion Timeのパラメータ名を設定するか、Motion Timeを無効にしてください。",
+      "value": "Zadejte název parametru Motion Time nebo Motion Time vypněte."
+    },
+    {
+      "key": "PosingSystem が見つかりません。対象のコンポーネントを選択した状態で再度開いてください。",
+      "value": "PosingSystem nebyl nalezen. Vyberte cílovou komponentu a znovu otevřete okno."
+    },
+    {
+      "key": "PrefabsHashesに\nクリップボードから追加",
+      "value": "Přidat do PrefabsHashes\nze schránky"
+    },
+    {
+      "key": "PrefabsHashesを\nクリア",
+      "value": "Vymazat\nPrefabsHashes"
+    },
+    {
+      "key": "PrefabsHashesをすべてクリアしますか？",
+      "value": "Vymazat všechny položky PrefabsHashes?"
+    },
+    {
+      "key": "PrefabsNamesに\nクリップボードから追加",
+      "value": "Přidat do PrefabsNames\nze schránky"
+    },
+    {
+      "key": "PrefabsNamesを\nクリア",
+      "value": "Vymazat\nPrefabsNames"
+    },
+    {
+      "key": "PrefabsNamesをすべてクリアしますか？",
+      "value": "Vymazat všechny položky PrefabsNames?"
+    },
+    {
+      "key": "Prefabが破損しているか、Posing Systemコンポーネントがありません。ConsoleのMissing Script・コンパイルエラーを確認してください。",
+      "value": "Prefab je poškozený nebo nemá komponentu Posing System. Zkontrolujte Missing Script a chyby kompilace v Console."
+    },
+    {
+      "key": "Prefabを読み込めません [PS042]",
+      "value": "Nelze načíst prefab [PS042]"
+    },
+    {
+      "key": "Prefabを配置できません [PS043]",
+      "value": "Nelze umístit prefab [PS043]"
+    },
+    {
+      "key": "Prefab編集画面を閉じ、HierarchyでVRC Avatar Descriptorが付いたアバターの子にツールを配置してください。Project内のPrefab単体ではプレビルドできません。",
+      "value": "Zavřete režim Prefab a umístěte nástroj do avatara ve scéně s VRC Avatar Descriptor. Samostatný prefab v okně Project nelze předgenerovat."
+    },
+    {
+      "key": "Projectで選ぶときは、Inspector右上の鍵を閉じてから選択してください。",
+      "value": "Před výběrem klipů v Project uzamkněte Inspector zámkem vpravo nahoře."
+    },
+    {
+      "key": "Projectで選択中のPrefabを追加",
+      "value": "Přidat prefaby vybrané v Project"
+    },
+    {
+      "key": "Projectで選択中のクリップを読み込む",
+      "value": "Importovat klipy vybrané v Project"
+    },
+    {
+      "key": "Projectで選択中のファイル名を追加",
+      "value": "Přidat názvy souborů vybraných v Project"
+    },
+    {
+      "key": "Submenu Rootには、このアバター内のメニュー生成先を指定してください。",
+      "value": "Do Submenu Root přiřaďte cíl nabídky uvnitř tohoto avatara."
+    },
+    {
+      "key": "Unityでスクリプトのコンパイルに失敗したため、ポーズの生成を開始できません。",
+      "value": "Generování póz nelze spustit kvůli selhání kompilace skriptů Unity."
+    },
+    {
+      "key": "VRC Avatar Descriptorと同じオブジェクトのAnimatorを確認し、配布元のアバターPrefabの設定と比較してください。",
+      "value": "Zkontrolujte Animator na stejném objektu jako VRC Avatar Descriptor a porovnejte nastavení s původním prefabem avatara."
+    },
+    {
+      "key": "VRChatのメニューで呼吸をつけたり止めたりできます。ON/OFFは他の人にも反映されます。",
+      "value": "Zapíná a vypíná dýchání ve VRChat. Změnu vidí i ostatní."
+    },
+    {
+      "key": "VRChatのメニューに切り替え項目を追加します。使いたいときに、ポーズの左右を反転できます。",
+      "value": "Přidá do nabídky přepínač zrcadlení pózy."
+    },
+    {
+      "key": "VRChat標準の揺れを止める",
+      "value": "Vypnout pohupování VRChat v klidu"
+    },
+    {
+      "key": "VRC想定移動モーション(無料配布)追加",
+      "value": "Přidat pohybové animace VRChat (zdarma)"
+    },
+    {
+      "key": "ViewPositionの基準となるHeadの参照姿勢を取得できません。",
+      "value": "Nelze získat referenční pózu Head pro ViewPosition."
+    },
+    {
+      "key": "ViewPositionの基準となるHeadの回転を取得できません。",
+      "value": "Nelze získat otočení Head pro referenci ViewPosition."
+    },
+    {
+      "key": "ViewPositionまたはボーンの座標に無効な値があります。",
+      "value": "ViewPosition nebo poloha kosti obsahuje neplatnou hodnotu."
+    },
+    {
+      "key": "ViewPositionを基準にするには、同じアバターのAvatar DescriptorとHeadボーンが必要です。",
+      "value": "Reference ViewPosition vyžaduje Avatar Descriptor a kost Head ze stejného avatara."
+    },
+    {
+      "key": "ViewPositionを計算できません。HeadまでのボーンのスケールとHumanoid設定を確認してください。",
+      "value": "Nelze vypočítat ViewPosition. Zkontrolujte měřítka kostí vedoucích k Head a nastavení Humanoid."
+    },
+    {
+      "key": "ViewPosition（目の位置）",
+      "value": "ViewPosition (poloha očí)"
+    },
+    {
+      "key": "[パス]",
+      "value": "[cesta]"
+    },
+    {
+      "key": "[メール]",
+      "value": "[e-mail]"
+    },
+    {
+      "key": "bone.Chest",
+      "value": "Hrudník"
+    },
+    {
+      "key": "bone.Head",
+      "value": "Hlava"
+    },
+    {
+      "key": "bone.Hips",
+      "value": "Pánev"
+    },
+    {
+      "key": "bone.Jaw",
+      "value": "Čelist"
+    },
+    {
+      "key": "bone.LeftEye",
+      "value": "Oko (vlevo)"
+    },
+    {
+      "key": "bone.LeftFoot",
+      "value": "Chodidlo (vlevo)"
+    },
+    {
+      "key": "bone.LeftHand",
+      "value": "Ruka (vlevo)"
+    },
+    {
+      "key": "bone.LeftLowerArm",
+      "value": "Předloktí (vlevo)"
+    },
+    {
+      "key": "bone.LeftLowerLeg",
+      "value": "Bérec (vlevo)"
+    },
+    {
+      "key": "bone.LeftShoulder",
+      "value": "Rameno (vlevo)"
+    },
+    {
+      "key": "bone.LeftToes",
+      "value": "Prsty nohy (vlevo)"
+    },
+    {
+      "key": "bone.LeftUpperArm",
+      "value": "Paže (vlevo)"
+    },
+    {
+      "key": "bone.LeftUpperLeg",
+      "value": "Stehno (vlevo)"
+    },
+    {
+      "key": "bone.Neck",
+      "value": "Krk"
+    },
+    {
+      "key": "bone.RightEye",
+      "value": "Oko (vpravo)"
+    },
+    {
+      "key": "bone.RightFoot",
+      "value": "Chodidlo (vpravo)"
+    },
+    {
+      "key": "bone.RightHand",
+      "value": "Ruka (vpravo)"
+    },
+    {
+      "key": "bone.RightLowerArm",
+      "value": "Předloktí (vpravo)"
+    },
+    {
+      "key": "bone.RightLowerLeg",
+      "value": "Bérec (vpravo)"
+    },
+    {
+      "key": "bone.RightShoulder",
+      "value": "Rameno (vpravo)"
+    },
+    {
+      "key": "bone.RightToes",
+      "value": "Prsty nohy (vpravo)"
+    },
+    {
+      "key": "bone.RightUpperArm",
+      "value": "Paže (vpravo)"
+    },
+    {
+      "key": "bone.RightUpperLeg",
+      "value": "Stehno (vpravo)"
+    },
+    {
+      "key": "bone.Spine",
+      "value": "Páteř"
+    },
+    {
+      "key": "bone.UpperChest",
+      "value": "Horní hrudník"
+    },
+    {
       "key": "changelog",
       "value": "Zobrazit změny"
     },
@@ -21,88 +401,3316 @@
       "value": "Návod"
     },
     {
+      "key": "muscle.0",
+      "value": "Páteř — Vpřed/vzad"
+    },
+    {
+      "key": "muscle.1",
+      "value": "Páteř — Vlevo/vpravo"
+    },
+    {
+      "key": "muscle.10",
+      "value": "Krk — Náklon vlevo/vpravo"
+    },
+    {
+      "key": "muscle.11",
+      "value": "Krk — Otáčení vlevo/vpravo"
+    },
+    {
+      "key": "muscle.12",
+      "value": "Hlava — Kývání dolů/nahoru"
+    },
+    {
+      "key": "muscle.13",
+      "value": "Hlava — Náklon vlevo/vpravo"
+    },
+    {
+      "key": "muscle.14",
+      "value": "Hlava — Otáčení vlevo/vpravo"
+    },
+    {
+      "key": "muscle.15",
+      "value": "Oko (vlevo) — Dolů/nahoru"
+    },
+    {
+      "key": "muscle.16",
+      "value": "Oko (vlevo) — Dovnitř/ven"
+    },
+    {
+      "key": "muscle.17",
+      "value": "Oko (vpravo) — Dolů/nahoru"
+    },
+    {
+      "key": "muscle.18",
+      "value": "Oko (vpravo) — Dovnitř/ven"
+    },
+    {
+      "key": "muscle.19",
+      "value": "Čelist — Zavření"
+    },
+    {
+      "key": "muscle.2",
+      "value": "Páteř — Otočení vlevo/vpravo"
+    },
+    {
+      "key": "muscle.20",
+      "value": "Čelist — Vlevo/vpravo"
+    },
+    {
+      "key": "muscle.21",
+      "value": "Stehno (vlevo) — Vpřed/vzad"
+    },
+    {
+      "key": "muscle.22",
+      "value": "Stehno (vlevo) — Dovnitř/ven"
+    },
+    {
+      "key": "muscle.23",
+      "value": "Stehno (vlevo) — Rotace dovnitř/ven"
+    },
+    {
+      "key": "muscle.24",
+      "value": "Bérec (vlevo) — Natažení"
+    },
+    {
+      "key": "muscle.25",
+      "value": "Bérec (vlevo) — Rotace dovnitř/ven"
+    },
+    {
+      "key": "muscle.26",
+      "value": "Chodidlo (vlevo) — Nahoru/dolů"
+    },
+    {
+      "key": "muscle.27",
+      "value": "Chodidlo (vlevo) — Rotace dovnitř/ven"
+    },
+    {
+      "key": "muscle.28",
+      "value": "Prsty nohy (vlevo) — Nahoru/dolů"
+    },
+    {
+      "key": "muscle.29",
+      "value": "Stehno (vpravo) — Vpřed/vzad"
+    },
+    {
+      "key": "muscle.3",
+      "value": "Hrudník — Vpřed/vzad"
+    },
+    {
+      "key": "muscle.30",
+      "value": "Stehno (vpravo) — Dovnitř/ven"
+    },
+    {
+      "key": "muscle.31",
+      "value": "Stehno (vpravo) — Rotace dovnitř/ven"
+    },
+    {
+      "key": "muscle.32",
+      "value": "Bérec (vpravo) — Natažení"
+    },
+    {
+      "key": "muscle.33",
+      "value": "Bérec (vpravo) — Rotace dovnitř/ven"
+    },
+    {
+      "key": "muscle.34",
+      "value": "Chodidlo (vpravo) — Nahoru/dolů"
+    },
+    {
+      "key": "muscle.35",
+      "value": "Chodidlo (vpravo) — Rotace dovnitř/ven"
+    },
+    {
+      "key": "muscle.36",
+      "value": "Prsty nohy (vpravo) — Nahoru/dolů"
+    },
+    {
+      "key": "muscle.37",
+      "value": "Rameno (vlevo) — Dolů/nahoru"
+    },
+    {
+      "key": "muscle.38",
+      "value": "Rameno (vlevo) — Vpřed/vzad"
+    },
+    {
+      "key": "muscle.39",
+      "value": "Paže (vlevo) — Dolů/nahoru"
+    },
+    {
+      "key": "muscle.4",
+      "value": "Hrudník — Vlevo/vpravo"
+    },
+    {
+      "key": "muscle.40",
+      "value": "Paže (vlevo) — Vpřed/vzad"
+    },
+    {
+      "key": "muscle.41",
+      "value": "Paže (vlevo) — Rotace dovnitř/ven"
+    },
+    {
+      "key": "muscle.42",
+      "value": "Předloktí (vlevo) — Natažení"
+    },
+    {
+      "key": "muscle.43",
+      "value": "Předloktí (vlevo) — Rotace dovnitř/ven"
+    },
+    {
+      "key": "muscle.44",
+      "value": "Ruka (vlevo) — Dolů/nahoru"
+    },
+    {
+      "key": "muscle.45",
+      "value": "Ruka (vlevo) — Dovnitř/ven"
+    },
+    {
+      "key": "muscle.46",
+      "value": "Rameno (vpravo) — Dolů/nahoru"
+    },
+    {
+      "key": "muscle.47",
+      "value": "Rameno (vpravo) — Vpřed/vzad"
+    },
+    {
+      "key": "muscle.48",
+      "value": "Paže (vpravo) — Dolů/nahoru"
+    },
+    {
+      "key": "muscle.49",
+      "value": "Paže (vpravo) — Vpřed/vzad"
+    },
+    {
+      "key": "muscle.5",
+      "value": "Hrudník — Otočení vlevo/vpravo"
+    },
+    {
+      "key": "muscle.50",
+      "value": "Paže (vpravo) — Rotace dovnitř/ven"
+    },
+    {
+      "key": "muscle.51",
+      "value": "Předloktí (vpravo) — Natažení"
+    },
+    {
+      "key": "muscle.52",
+      "value": "Předloktí (vpravo) — Rotace dovnitř/ven"
+    },
+    {
+      "key": "muscle.53",
+      "value": "Ruka (vpravo) — Dolů/nahoru"
+    },
+    {
+      "key": "muscle.54",
+      "value": "Ruka (vpravo) — Dovnitř/ven"
+    },
+    {
+      "key": "muscle.55",
+      "value": "Palec 1 (vlevo) — Natažení"
+    },
+    {
+      "key": "muscle.56",
+      "value": "Palec (vlevo) — Roztažení"
+    },
+    {
+      "key": "muscle.57",
+      "value": "Palec 2 (vlevo) — Natažení"
+    },
+    {
+      "key": "muscle.58",
+      "value": "Palec 3 (vlevo) — Natažení"
+    },
+    {
+      "key": "muscle.59",
+      "value": "Ukazovák 1 (vlevo) — Natažení"
+    },
+    {
+      "key": "muscle.6",
+      "value": "Horní hrudník — Vpřed/vzad"
+    },
+    {
+      "key": "muscle.60",
+      "value": "Ukazovák (vlevo) — Roztažení"
+    },
+    {
+      "key": "muscle.61",
+      "value": "Ukazovák 2 (vlevo) — Natažení"
+    },
+    {
+      "key": "muscle.62",
+      "value": "Ukazovák 3 (vlevo) — Natažení"
+    },
+    {
+      "key": "muscle.63",
+      "value": "Prostředník 1 (vlevo) — Natažení"
+    },
+    {
+      "key": "muscle.64",
+      "value": "Prostředník (vlevo) — Roztažení"
+    },
+    {
+      "key": "muscle.65",
+      "value": "Prostředník 2 (vlevo) — Natažení"
+    },
+    {
+      "key": "muscle.66",
+      "value": "Prostředník 3 (vlevo) — Natažení"
+    },
+    {
+      "key": "muscle.67",
+      "value": "Prsteník 1 (vlevo) — Natažení"
+    },
+    {
+      "key": "muscle.68",
+      "value": "Prsteník (vlevo) — Roztažení"
+    },
+    {
+      "key": "muscle.69",
+      "value": "Prsteník 2 (vlevo) — Natažení"
+    },
+    {
+      "key": "muscle.7",
+      "value": "Horní hrudník — Vlevo/vpravo"
+    },
+    {
+      "key": "muscle.70",
+      "value": "Prsteník 3 (vlevo) — Natažení"
+    },
+    {
+      "key": "muscle.71",
+      "value": "Malíček 1 (vlevo) — Natažení"
+    },
+    {
+      "key": "muscle.72",
+      "value": "Malíček (vlevo) — Roztažení"
+    },
+    {
+      "key": "muscle.73",
+      "value": "Malíček 2 (vlevo) — Natažení"
+    },
+    {
+      "key": "muscle.74",
+      "value": "Malíček 3 (vlevo) — Natažení"
+    },
+    {
+      "key": "muscle.75",
+      "value": "Palec 1 (vpravo) — Natažení"
+    },
+    {
+      "key": "muscle.76",
+      "value": "Palec (vpravo) — Roztažení"
+    },
+    {
+      "key": "muscle.77",
+      "value": "Palec 2 (vpravo) — Natažení"
+    },
+    {
+      "key": "muscle.78",
+      "value": "Palec 3 (vpravo) — Natažení"
+    },
+    {
+      "key": "muscle.79",
+      "value": "Ukazovák 1 (vpravo) — Natažení"
+    },
+    {
+      "key": "muscle.8",
+      "value": "Horní hrudník — Otočení vlevo/vpravo"
+    },
+    {
+      "key": "muscle.80",
+      "value": "Ukazovák (vpravo) — Roztažení"
+    },
+    {
+      "key": "muscle.81",
+      "value": "Ukazovák 2 (vpravo) — Natažení"
+    },
+    {
+      "key": "muscle.82",
+      "value": "Ukazovák 3 (vpravo) — Natažení"
+    },
+    {
+      "key": "muscle.83",
+      "value": "Prostředník 1 (vpravo) — Natažení"
+    },
+    {
+      "key": "muscle.84",
+      "value": "Prostředník (vpravo) — Roztažení"
+    },
+    {
+      "key": "muscle.85",
+      "value": "Prostředník 2 (vpravo) — Natažení"
+    },
+    {
+      "key": "muscle.86",
+      "value": "Prostředník 3 (vpravo) — Natažení"
+    },
+    {
+      "key": "muscle.87",
+      "value": "Prsteník 1 (vpravo) — Natažení"
+    },
+    {
+      "key": "muscle.88",
+      "value": "Prsteník (vpravo) — Roztažení"
+    },
+    {
+      "key": "muscle.89",
+      "value": "Prsteník 2 (vpravo) — Natažení"
+    },
+    {
+      "key": "muscle.9",
+      "value": "Krk — Kývání dolů/nahoru"
+    },
+    {
+      "key": "muscle.90",
+      "value": "Prsteník 3 (vpravo) — Natažení"
+    },
+    {
+      "key": "muscle.91",
+      "value": "Malíček 1 (vpravo) — Natažení"
+    },
+    {
+      "key": "muscle.92",
+      "value": "Malíček (vpravo) — Roztažení"
+    },
+    {
+      "key": "muscle.93",
+      "value": "Malíček 2 (vpravo) — Natažení"
+    },
+    {
+      "key": "muscle.94",
+      "value": "Malíček 3 (vpravo) — Natažení"
+    },
+    {
+      "key": "package",
+      "value": "ID balíčku"
+    },
+    {
       "key": "support",
       "value": "Podpora"
+    },
+    {
+      "key": "unknown",
+      "value": "Neznámé"
+    },
+    {
+      "key": "version",
+      "value": "Verze"
+    },
+    {
+      "key": "{0} のHumanoid基準軸を取得できません。",
+      "value": "Nelze získat referenční osy Humanoid pro {0}."
+    },
+    {
+      "key": "{0} の基準姿勢を保存しました。",
+      "value": "Referenční póza pro {0} byla uložena."
+    },
+    {
+      "key": "{0} 用の補正を生成しました（{1} Muscle）。",
+      "value": "Vygenerovány korekce pro {0} ({1} svalů)."
+    },
+    {
+      "key": "{0}: Two-Bone IKを解けませんでした。",
+      "value": "{0}: řešení dvoukostního IK selhalo."
+    },
+    {
+      "key": "{0}: {1} のHumanoidボーンがありません。",
+      "value": "{0}: chybí kosti Humanoid pro {1}."
+    },
+    {
+      "key": "{0}: ターゲットへ届かないため {1}m 手前で制限しました。",
+      "value": "{0}: cíl je nedosažitelný; výsledek byl omezen {1} m před cílem."
+    },
+    {
+      "key": "{0}: 有効なIKルールがありません。",
+      "value": "{0}: nejsou zapnutá pravidla IK."
+    },
+    {
+      "key": "{0}からコピー",
+      "value": "Kopírovat z {0}"
+    },
+    {
+      "key": "{0}に{1}個の項目を追加しました。\n（重複する項目は除外されました）",
+      "value": "Do {0} přidáno položek: {1}.\nDuplicitní položky byly přeskočeny."
+    },
+    {
+      "key": "{0}のフォルダを取り除く",
+      "value": "Odstranit složku {0}"
+    },
+    {
+      "key": "{0}の旧設定を取り除きます。ツールを通常アンインストールするための操作ではありません。調整内容を確認できるよう、先にプロジェクトをバックアップしてください。",
+      "value": "Odstranit staré nastavení {0}. Toto čištění je určeno starému nastavení avatara. Nejprve zazálohujte projekt, abyste mohli obnovit a porovnat své úpravy."
+    },
+    {
+      "key": "{0}の設定がアバターに残っています！ 不具合が発生する可能性があるので、自動で設定を取り除く機能を使用してください。また、アバター購入時にBaseLayerに設定されていたLocomotion用のAnimatorControllerがある場合は、恐れ入りますが手動で復元してお使いください。",
+      "value": "Na avatarovi zůstává staré nastavení {0}, které může způsobit konflikty. Odstraňte je příkazem čištění. Pokud avatar původně používal vlastní Animator Controller pro pohyb ve vrstvě Base, poté jej ručně obnovte."
+    },
+    {
+      "key": "{0}の設定を取り除く",
+      "value": "Odstranit nastavení {0}"
+    },
+    {
+      "key": "{0}を中止しました。\n{1}",
+      "value": "Akce {0} byla zastavena.\n{1}"
+    },
+    {
+      "key": "{0}を完了できませんでした",
+      "value": "Nelze dokončit: {0}"
+    },
+    {
+      "key": "{0}を開きます。{1}",
+      "value": "Otevřít {0}. {1}"
+    },
+    {
+      "key": "{0}・{1}から有効な長さを測定できません。",
+      "value": "Nelze změřit platnou délku mezi {0} a {1}."
+    },
+    {
+      "key": "{0}件のIKルールから自動調整Animationを作成しました。",
+      "value": "Automatická animace korekce vytvořena z pravidel IK: {0}."
+    },
+    {
+      "key": "{0}件のIKルールを適用しました。\n{1}",
+      "value": "Použito pravidel IK: {0}.\n{1}"
+    },
+    {
+      "key": "{0}件のエラー",
+      "value": "Chyb: {0}"
+    },
+    {
+      "key": "{0}件の注意",
+      "value": "Varování: {0}"
+    },
+    {
+      "key": "{0}件を「{1}」に追加",
+      "value": "Přidat {0} do {1}"
+    },
+    {
+      "key": "{0}件追加しました。",
+      "value": "Přidáno položek: {0}."
+    },
+    {
+      "key": "{0}個の調整アニメーションを複製保存しました。",
+      "value": "Duplikováno a uloženo animací korekce: {0}."
+    },
+    {
+      "key": "{0}（{1}行目）",
+      "value": "{0} (řádek {1})"
+    },
+    {
+      "key": "※ 寝返りと姿勢崩れ抑制のbit表示は、今の状態でチェックを変更したときの増減量です。首固定の1 bitは共用します。",
+      "value": "Bity přetočení a omezení deformace ukazují změnu oproti aktuálnímu nastavení. Sdílejí 1bitový zámek hlavy."
+    },
+    {
+      "key": "▶ 取り込み設定を開く",
+      "value": "▶ Otevřít nastavení importu"
+    },
+    {
+      "key": "▶ 設定を開く",
+      "value": "▶ Otevřít nastavení"
+    },
+    {
+      "key": "▼ 取り込み設定を閉じる",
+      "value": "▼ Zavřít nastavení importu"
+    },
+    {
+      "key": "▼ 設定を閉じる",
+      "value": "▼ Zavřít nastavení"
+    },
+    {
+      "key": "「Use Auto-Footsteps for 3 and 4 point tracking」をオフにする",
+      "value": "Vypnout Use Auto-Footsteps for 3 and 4 point tracking"
+    },
+    {
+      "key": "「{0}」で初期ポーズが複数選ばれています。",
+      "value": "V {0} je vybráno více výchozích póz."
+    },
+    {
+      "key": "「{0}」に有効なポーズがありません。このカテゴリの選択メニューは生成されません。",
+      "value": "V {0} nejsou zapnuté žádné pózy. Nabídka výběru této kategorie se nevytvoří."
+    },
+    {
+      "key": "「{0}」の{1}番目のポーズデータが欠けています。",
+      "value": "Chybí data pózy pro položku {1} v {0}."
+    },
+    {
+      "key": "「{0}」の{1}番目（{2}）にアニメーションがありません。",
+      "value": "Položka {1} ({2}) v {0} nemá animaci."
+    },
+    {
+      "key": "「{0}」の{1}番目（{2}）のMotion Time用パラメータ名が空です。",
+      "value": "Položka {1} ({2}) v {0} nemá název parametru Motion Time."
+    },
+    {
+      "key": "「{0}」の{1}番目（{2}）の寝返りにはHumanoidのAnimationClipが必要です。",
+      "value": "Přetočení položky {1} ({2}) v {0} vyžaduje Humanoid AnimationClip."
+    },
+    {
+      "key": "「{0}」の{1}番目（{2}）の接地補正の強さが範囲外です。",
+      "value": "Síla korekce kontaktu položky {1} ({2}) v {0} je mimo rozsah."
+    },
+    {
+      "key": "「{0}」の{1}番目（{2}）はLegacy形式のアニメーションです。",
+      "value": "Položka {1} ({2}) v {0} používá animaci Legacy."
+    },
+    {
+      "key": "「{0}」の{1}番目（{2}）は独自アイコンが有効ですが画像がありません。",
+      "value": "Pro položku {1} ({2}) v {0} je zapnuta vlastní ikona, ale není přiřazen obrázek."
+    },
+    {
+      "key": "「{0}」オブジェクトの設定が更新されています。再度プレビルドを行ってください",
+      "value": "Nastavení objektu {0} se změnilo. Aktualizujte předgenerování."
+    },
+    {
+      "key": "「ポーズ一覧」で対応するポーズの詳細を開き、「寝返りを使う」をオンにしてください。",
+      "value": "Otevřete podporovanou pózu na kartě póz a zapněte přetočení."
+    },
+    {
+      "key": "「現在の手足位置から取得」を一度実行してください。再取得までは元Animationの手足の向きを維持します。",
+      "value": "jednou zachyťte aktuální polohy končetin. Do opětovného zachycení se zachová orientace končetin zdrojové animace."
+    },
+    {
+      "key": "「立ち・歩き・走り」「しゃがみ（Crouching）」「伏せ（Prone）」には移動を含むBlendTreeを指定してください。単独の立ち姿勢は「立ちのみ」に指定できます。",
+      "value": "Pro stání / chůzi / běh, přikrčení a polohu na břiše použijte BlendTree s pohybem. Pro jednu stojící pózu použijte „Jen stání“."
+    },
+    {
+      "key": "あおむけ時自動頭固定",
+      "value": "Automaticky zamknout hlavu na zádech"
+    },
+    {
+      "key": "あぐら",
+      "value": "Turecký sed"
+    },
+    {
+      "key": "あぐら２",
+      "value": "Turecký sed 2"
+    },
+    {
+      "key": "いいえ",
+      "value": "Ne"
+    },
+    {
+      "key": "いじけ",
+      "value": "Trucování"
+    },
+    {
+      "key": "うずくまり",
+      "value": "Do klubíčka"
     },
     {
       "key": "うつ伏せ寝",
       "value": "Na břiše"
     },
     {
+      "key": "おいで",
+      "value": "Pojď sem"
+    },
+    {
+      "key": "おきあがり",
+      "value": "Vstávání"
+    },
+    {
+      "key": "おすまし",
+      "value": "Důstojně"
+    },
+    {
+      "key": "おちこみ",
+      "value": "Smutek"
+    },
+    {
+      "key": "お伺いポーズ",
+      "value": "Mohu?"
+    },
+    {
+      "key": "お姉さん座り",
+      "value": "Elegantní sed"
+    },
+    {
+      "key": "お疲れ",
+      "value": "Bez sil"
+    },
+    {
+      "key": "が無効になっています",
+      "value": "je vypnutý"
+    },
+    {
+      "key": "くずし",
+      "value": "Shrbení"
+    },
+    {
+      "key": "くつろぎ１",
+      "value": "Odpočinek 1"
+    },
+    {
+      "key": "くつろぎ２",
+      "value": "Odpočinek 2"
+    },
+    {
+      "key": "ぐだり１",
+      "value": "Rozvalení 1"
+    },
+    {
+      "key": "ぐだり２",
+      "value": "Rozvalení 2"
+    },
+    {
+      "key": "ぐだり３",
+      "value": "Rozvalení 3"
+    },
+    {
+      "key": "このIK設定を使用する商品名です。",
+      "value": "Produkt používající toto nastavení IK."
+    },
+    {
+      "key": "このアバターでポーズを使用する場合は、「対象を選択」で該当オブジェクトのタグと有効状態を確認してください。",
+      "value": "Chcete-li na avatarovi používat pózy, vyberte dotčený objekt a zkontrolujte jeho značku a aktivní stav."
+    },
+    {
+      "key": "このアバターの手足の自動調整が無効になっています。",
+      "value": "Automatická korekce končetin je pro tohoto avatara vypnuta."
+    },
+    {
+      "key": "このアバターは人型ではありません。アバターのAnimatorにHumanoid型のAvatarが設定されていない場合はこのツールは使えません。",
+      "value": "Tento avatar není Humanoid. Nástroj vyžaduje Humanoid Avatar přiřazený v Animator."
+    },
+    {
+      "key": "このエラーについて相談する",
+      "value": "Zeptat se na tuto chybu"
+    },
+    {
+      "key": "このコンピュータにはゆにさきポーズシステムの使用が許諾されていません。Boothのショップから可愛いポーズツールを購入して、コンピュータにライセンスをインストールしてください",
+      "value": "Tento počítač nemá licenci Unisaki Posing System. Kupte Kawaii Posing na BOOTH a nainstalujte licenci na tento počítač."
+    },
+    {
+      "key": "このコンピュータにはカッコいいポーズツールの使用が許諾されていません。Boothのショップからカッコいいポーズツールを購入して、コンピュータにライセンスをインストールしてください。カッコいいポーズツールを購入しているのにこのエラーが表示される場合は、Boothから最新版のZipファイルをダウンロードして、「CoolPosing.unitypackage」をインポートしてください。（この作業は１つのパソコンにつき一回行う必要があります）",
+      "value": "Tento počítač nemá licenci Cool Posing. Kupte nástroj na BOOTH a nainstalujte licenci. Pokud jste jej již koupili, stáhněte nejnovější ZIP z BOOTH a importujte CoolPosing.unitypackage. Stačí jednou na počítač."
+    },
+    {
+      "key": "このコンピュータには可愛いポーズツールの使用が許諾されていません。Boothのショップから可愛いポーズツールを購入して、コンピュータにライセンスをインストールしてください。可愛いポーズツールを購入しているのにこのエラーが表示される場合は、Boothから最新版のZipファイルをダウンロードして、「KawaiiPosing.unitypackage」をインポートしてください。（この作業は１つのパソコンにつき一回行う必要があります）",
+      "value": "Tento počítač nemá licenci Kawaii Posing. Kupte nástroj na BOOTH a nainstalujte licenci. Pokud jste jej již koupili, stáhněte nejnovější ZIP z BOOTH a importujte KawaiiPosing.unitypackage. Stačí jednou na počítač."
+    },
+    {
+      "key": "このツールにはアバター固有補正用の基準データがありません。",
+      "value": "Nástroj nemá referenční data pro korekci avatara."
+    },
+    {
+      "key": "このプリセットに変更する",
+      "value": "Použít tuto předvolbu"
+    },
+    {
+      "key": "このプリセットは削除されたか、現在のツールに適用できません。「再読込」で一覧を更新してください。",
+      "value": "Předvolba byla odstraněna nebo ji nelze použít s tímto nástrojem. Zvolte „Obnovit“ pro aktualizaci seznamu."
+    },
+    {
+      "key": "このポーズにはIKによる自動調整が設定されていません。元の姿勢と手動調整を使用します。",
+      "value": "Tato póza nemá automatickou korekci IK. Používá původní pózu a ruční korekce."
+    },
+    {
+      "key": "このポーズのIKを使う",
+      "value": "Zapnout IK této pózy"
+    },
+    {
+      "key": "このポーズの手足の自動調整（IK）",
+      "value": "Korekce končetin (IK) této pózy"
+    },
+    {
+      "key": "このポーズを使う",
+      "value": "Použít tuto pózu"
+    },
+    {
+      "key": "このポーズツールごとに保存します。エラー表示と、ビルド時に必要な再生成は有効なままです。",
+      "value": "Ukládá se pro každý nástroj póz. Chyby a povinné přegenerování při sestavení zůstávají zapnuté."
+    },
+    {
+      "key": "このユーザーのゆにさきポーズシステムライセンスが見つかりません。正規の購入ページからダウンロードしたインストーラーを、このUnityプロジェクトへインポートしてください。ライセンスは、PCのユーザーごとに一度インストールします。別のPCやユーザーでは再度インストールしてください。",
+      "value": "Pro tohoto uživatele OS nebyla nalezena licence Unisaki Posing System. Importujte do projektu Unity instalátor z oficiálního nákupu. Licenci instalujte jednou pro každého uživatele OS na každém počítači."
+    },
+    {
+      "key": "このユーザーのカッコいいポーズツールライセンスが見つかりません。正規の購入ページからダウンロードしたインストーラーを、このUnityプロジェクトへインポートしてください。ライセンスは、PCのユーザーごとに一度インストールします。別のPCやユーザーでは再度インストールしてください。",
+      "value": "Pro tohoto uživatele OS nebyla nalezena licence Cool Posing Tool. Importujte do projektu Unity instalátor z oficiálního nákupu. Licenci instalujte jednou pro každého uživatele OS na každém počítači."
+    },
+    {
+      "key": "このユーザーの可愛いポーズツールライセンスが見つかりません。正規の購入ページからダウンロードしたインストーラーを、このUnityプロジェクトへインポートしてください。ライセンスは、PCのユーザーごとに一度インストールします。別のPCやユーザーでは再度インストールしてください。",
+      "value": "Pro tohoto uživatele OS nebyla nalezena licence Kawaii Posing Tool. Importujte do projektu Unity instalátor z oficiálního nákupu. Licenci instalujte jednou pro každého uživatele OS na každém počítači."
+    },
+    {
+      "key": "このルールを使用",
+      "value": "Zapnout toto pravidlo"
+    },
+    {
+      "key": "この分類にはアニメーションがありません。",
+      "value": "V této kategorii nejsou animace."
+    },
+    {
+      "key": "この分類の中で移動先の順番を選べます。",
+      "value": "Vyberte cílovou pozici v této kategorii."
+    },
+    {
+      "key": "この分類の初期ポーズにする",
+      "value": "Nastavit jako výchozí v kategorii"
+    },
+    {
+      "key": "この切り替えは調整ウィンドウのプレビュー専用です。保存・サムネイル・最終出力には影響しません。膝クランプは引き続き有効です。",
+      "value": "Přepínač ovlivňuje pouze náhled korekce, nikoli uložená data, obrázky či konečný výstup. Omezení kolena zůstává zapnuté."
+    },
+    {
+      "key": "この商品には基準アバター姿勢が登録されていません。",
+      "value": "Pro produkt není zaregistrována póza referenčního avatara."
+    },
+    {
+      "key": "この商品には基準データがありません。",
+      "value": "Tento produkt nemá referenční data."
+    },
+    {
+      "key": "この姿勢の自動調整データがありません。",
+      "value": "Pro tuto pózu nejsou data automatické korekce."
+    },
+    {
+      "key": "この種類には移動を含むBlendTreeを指定してください。",
+      "value": "Vyberte BlendTree s pohybem pro tento typ animace."
+    },
+    {
+      "key": "この種類のモーションを使う",
+      "value": "Použít tento typ pohybu"
+    },
+    {
+      "key": "この種類の手動設定と調整を解除します。自動取り込みがONなら次回生成時に再検出します。Undoで戻せます。",
+      "value": "Vymaže ruční nastavení a korekce tohoto typu pohybu. Pokud je zapnutý automatický import, další sestavení jej znovu rozpozná. Akci lze vrátit zpět."
+    },
+    {
+      "key": "この警告について相談する",
+      "value": "Zeptat se na toto varování"
+    },
+    {
+      "key": "この警告を今後表示しない",
+      "value": "Toto varování již nezobrazovat"
+    },
+    {
+      "key": "ごろ寝システムEX追加",
+      "value": "Přidat Gorone System EX"
+    },
+    {
+      "key": "ざせつ",
+      "value": "Porážka"
+    },
+    {
+      "key": "しなの",
+      "value": "Shinano"
+    },
+    {
+      "key": "しなの (着せ替え)",
+      "value": "Shinano (oblečení)"
+    },
+    {
+      "key": "しなの（着せ替え)",
+      "value": "Shinano (oblečení)"
+    },
+    {
+      "key": "しなの（着せ替え）",
+      "value": "Shinano (oblečení)"
+    },
+    {
+      "key": "しゃがみ（Crouching）",
+      "value": "Přikrčení"
+    },
+    {
+      "key": "じだらく",
+      "value": "Líný den"
+    },
+    {
+      "key": "すねの長さ",
+      "value": "Délka bérce"
+    },
+    {
+      "key": "すべての姿勢から検索",
+      "value": "Hledat ve všech pózách"
+    },
+    {
+      "key": "すべての警告・注意を非表示",
+      "value": "Skrýt všechna varování a poznámky"
+    },
+    {
+      "key": "すべての項目が既に存在するため、追加されませんでした。",
+      "value": "Všechny položky již existují; nic nebylo přidáno."
+    },
+    {
+      "key": "その他",
+      "value": "Ostatní"
+    },
+    {
+      "key": "たたみ",
+      "value": "Tatami"
+    },
+    {
+      "key": "なし",
+      "value": "Žádné"
+    },
+    {
+      "key": "にEditorOnlyタグが設定されています",
+      "value": "má značku EditorOnly"
+    },
+    {
+      "key": "ねころび",
+      "value": "Vleže"
+    },
+    {
+      "key": "ねころび１",
+      "value": "Vleže 1"
+    },
+    {
+      "key": "ねころび２",
+      "value": "Vleže 2"
+    },
+    {
+      "key": "ねころび３",
+      "value": "Vleže 3"
+    },
+    {
+      "key": "のんびり",
+      "value": "Bez spěchu"
+    },
+    {
+      "key": "のーんびり",
+      "value": "Úplný klid"
+    },
+    {
+      "key": "はい",
+      "value": "Ano"
+    },
+    {
+      "key": "はいずり",
+      "value": "Plazení"
+    },
+    {
+      "key": "はりつけ",
+      "value": "Přitisknutí"
+    },
+    {
+      "key": "びっくり",
+      "value": "Překvapení"
+    },
+    {
+      "key": "ふくじゅう",
+      "value": "Podrobení"
+    },
+    {
+      "key": "ほかのギミックとの併用によって固定機能がうまく動かない場合はオンにしてください。",
+      "value": "Zapněte, pokud zámky sledování nefungují správně s dalšími nástroji."
+    },
+    {
+      "key": "ほかのプリセットを探す",
+      "value": "Další předvolby"
+    },
+    {
+      "key": "または",
+      "value": "nebo"
+    },
+    {
+      "key": "まだプレビルドしていません。「プレビルドを更新」で姿勢データを生成できます。",
+      "value": "Zatím nebylo předgenerováno. Zvolte „Aktualizovat předgenerování“ pro vytvoření dat póz."
+    },
+    {
+      "key": "むきりょく",
+      "value": "Bez energie"
+    },
+    {
+      "key": "ゆにさきスタジオ",
+      "value": "Unisaki Studio"
+    },
+    {
+      "key": "ゆにさきスタジオ公式",
+      "value": "Oficiální předvolby Unisaki Studio"
+    },
+    {
+      "key": "ゆにさきポーズシステム",
+      "value": "Unisaki Posing System"
+    },
+    {
+      "key": "ゆにさきポーズシステムライセンス削除",
+      "value": "Odstranit licenci Posing System"
+    },
+    {
+      "key": "ゆにさきポーズシステム設定",
+      "value": "Nastavení Unisaki Posing System"
+    },
+    {
+      "key": "よりかかり",
+      "value": "Opření"
+    },
+    {
+      "key": "アイコンの更新",
+      "value": "Aktualizace ikon"
+    },
+    {
+      "key": "アイコンを撮り直す",
+      "value": "Znovu pořídit ikony"
+    },
+    {
+      "key": "アイコン画像",
+      "value": "Obrázek ikony"
+    },
+    {
+      "key": "アイコン画像の容量を減らす",
+      "value": "Zmenšit velikost ikon"
+    },
+    {
+      "key": "アイコン画像を指定するか、独自アイコンを無効にして自動生成を使用してください。",
+      "value": "Přiřaďte obrázek ikony nebo vypněte vlastní ikonu a použijte generované ikony."
+    },
+    {
+      "key": "アイコン画像ファイルを削除",
+      "value": "Odstranit soubor obrázku ikon"
+    },
+    {
+      "key": "アイドル",
+      "value": "Idol"
+    },
+    {
+      "key": "アップロード時に適用します。未翻訳の項目は日本語で表示されます。",
+      "value": "Použije se při nahrání. Nepřeložené položky se zobrazí japonsky."
+    },
+    {
+      "key": "アニメーション",
+      "value": "Animace"
+    },
+    {
+      "key": "アニメーションが割り当てられていません。",
+      "value": "Není přiřazena animace."
+    },
+    {
+      "key": "アニメーションの調整は現在停止中です",
+      "value": "Úprava animace je zastavena."
+    },
+    {
+      "key": "アニメーションを合成して保存しました。\n新しいファイル: {0}",
+      "value": "Animace byla sloučena a uložena.\nNový soubor: {0}"
+    },
+    {
+      "key": "アニメーションを選択してください。",
+      "value": "Vyberte animaci."
+    },
+    {
+      "key": "アニメーション情報",
+      "value": "Informace o animaci"
+    },
+    {
+      "key": "アニメーション調整",
+      "value": "Úprava animace"
+    },
+    {
+      "key": "アニメーション調整ウィンドウが表示されています。調整が終わったらウィンドウを閉じてください",
+      "value": "Okno úprav animace je otevřené. Po dokončení úprav jej zavřete."
+    },
+    {
+      "key": "アニメーション調整ウィンドウを閉じる",
+      "value": "Zavřít okno úprav animace"
+    },
+    {
+      "key": "アニメーション調整画面など、ほかのプレビューを終了してからお試しください。",
+      "value": "Zavřete ostatní náhledy animace včetně úprav animace a zkuste to znovu."
+    },
+    {
+      "key": "アニメーション調節機能を使用して姿勢をアバターに合わせたデータを、別のアバターデータでも使用したい場合は、プリセットを作成すると便利です。PrefabsやFBXを登録してプリセットを作成すると、そのアバターに{0}を追加した時に自動でプリセットが適用されるようになります。また、作成したプリセットは公開、配付、販売が可能です。",
+      "value": "Vytvořte předvolbu pro použití korekcí póz na jiné kopii stejného avatara. Zaregistrujte prefab nebo FBX, aby byla předvolba nabídnuta při přidání {0} k tomuto avatarovi. Vytvořené předvolby můžete zveřejňovat, distribuovat i prodávat podle licence produktu."
+    },
+    {
+      "key": "アバターごとの設定ではなく、1つの商品につき1ファイルを作成します。",
+      "value": "Vytvořte jeden soubor na produkt; je oddělený od nastavení konkrétního avatara."
+    },
+    {
+      "key": "アバターごとの関節の向きやひねりの違いを自動で補正します。",
+      "value": "Automaticky koriguje rozdíly směru a zkroucení kloubů každého avatara."
+    },
+    {
+      "key": "アバターとの組み合わせ",
+      "value": "Integrace avatara"
+    },
+    {
+      "key": "アバターに合わないときは、このポーズだけIKをオフにできます。ほかのポーズやアバターには影響しません。",
+      "value": "Vypněte IK pouze této pózy, pokud avatarovi nevyhovuje. Ostatní pózy a avataři se nezmění."
+    },
+    {
+      "key": "アバターに適合",
+      "value": "Kompatibilní avatar"
+    },
+    {
+      "key": "アバターのBaseに通常のAnimatorControllerを設定してください。AnimatorOverrideControllerには対応していません。",
+      "value": "Přiřaďte běžný Animator Controller do vrstvy Base avatara. Animator Override Controller není podporován."
+    },
+    {
+      "key": "アバターのスケールから有効な固定長を測定できません。",
+      "value": "Z měřítka avatara nelze změřit platnou pevnou délku."
+    },
+    {
+      "key": "アバターのルートにAnimatorがありません。",
+      "value": "Kořen avatara nemá Animator."
+    },
+    {
+      "key": "アバターのルートにAnimatorがありません。Inspectorの「設定の確認」の対処手順をご確認ください。",
+      "value": "Kořen avatara nemá Animator. Viz kontrola nastavení v Inspector."
+    },
+    {
+      "key": "アバターの元の立ち・しゃがみ・伏せ姿勢を使う",
+      "value": "Použít původní pózy ve stoje, v přikrčení a na břiše"
+    },
+    {
+      "key": "アバターの元モデルに対応するHumanoid AvatarをAnimatorのAvatar欄に戻してください。別アバターのAvatarは指定しないでください。",
+      "value": "Obnovte Humanoid Avatar původního modelu v poli Avatar komponenty Animator. Použijte prostředek Avatar tohoto modelu."
+    },
+    {
+      "key": "アバターの初期姿勢が変わったため、補正を自動更新します。",
+      "value": "Klidová póza avatara se změnila. Korekce se aktualizují automaticky."
+    },
+    {
+      "key": "アバターの姿勢をリセット（Tポーズに戻す）",
+      "value": "Obnovit avatara do T-pózy"
+    },
+    {
+      "key": "アバターの容量を抑えたいときに便利です。アイコン画像は少し粗くなります。",
+      "value": "Zmenší velikost avatara za cenu menšího detailu ikon."
+    },
+    {
+      "key": "アバターの設定が必要",
+      "value": "Je nutné nastavit avatara"
+    },
+    {
+      "key": "アバターデータフォルダの自動検出",
+      "value": "Rozpoznat složku dat avatara"
+    },
+    {
+      "key": "アバター全体を基準",
+      "value": "Avatar"
+    },
+    {
+      "key": "アバター名",
+      "value": "Název avatara"
+    },
+    {
+      "key": "アバター名を入力してください。",
+      "value": "Zadejte název avatara."
+    },
+    {
+      "key": "アバター固有補正を使う",
+      "value": "Zapnout korekci avatara"
+    },
+    {
+      "key": "アバター固有補正を使用",
+      "value": "Zapnout korekci avatara"
+    },
+    {
+      "key": "アバター固有補正アニメーションを保存できませんでした。",
+      "value": "Nelze uložit animaci korekce avatara."
+    },
+    {
+      "key": "アバター調整",
+      "value": "Nastavení avatara"
+    },
+    {
+      "key": "アバター選択",
+      "value": "Výběr avatara"
+    },
+    {
+      "key": "エラー",
+      "value": "Chyba"
+    },
+    {
+      "key": "オブジェクトがVRC用のアバターオブジェクトの中に入っていません。このオブジェクトはVRCAvatarDescriptorコンポーネントの付いたオブジェクトの中に配置してください",
+      "value": "Umístěte objekt dovnitř avatara s komponentou VRCAvatarDescriptor."
+    },
+    {
+      "key": "カエルのポーズ１",
+      "value": "Žába 1"
+    },
+    {
+      "key": "カエルのポーズ２",
+      "value": "Žába 2"
+    },
+    {
+      "key": "カスタム",
+      "value": "Vlastní"
+    },
+    {
+      "key": "カスタムアニメーション",
+      "value": "Vlastní animace"
+    },
+    {
+      "key": "カッコいいポーズ",
+      "value": "Cool Posing"
+    },
+    {
+      "key": "カッコいいポーズツール",
+      "value": "Cool Posing"
+    },
+    {
+      "key": "カッコいいポーズツール(Gumroad)",
+      "value": "Cool Posing Tool (Gumroad)"
+    },
+    {
+      "key": "カッコいいポーズツールライセンスインストール",
+      "value": "Nainstalovat licenci Cool Posing"
+    },
+    {
+      "key": "カッコいいポーズツールライセンス削除",
+      "value": "Odstranit licenci Cool Posing"
+    },
+    {
+      "key": "カッコいいポーズツールライセンス状態確認",
+      "value": "Stav licence Cool Posing"
+    },
+    {
+      "key": "カッコいいポーズツール設定",
+      "value": "Nastavení Cool Posing"
+    },
+    {
+      "key": "カッコいいポーズツール追加",
+      "value": "Přidat Cool Posing"
+    },
+    {
+      "key": "カッコいいポーズツール（BOOTH）",
+      "value": "Cool Posing Tool (BOOTH)"
+    },
+    {
+      "key": "キック",
+      "value": "Kop"
+    },
+    {
+      "key": "クマ人形",
+      "value": "Medvídek"
+    },
+    {
+      "key": "クリップボードが空です。",
+      "value": "Schránka je prázdná."
+    },
+    {
+      "key": "ケンカ",
+      "value": "Připraven k boji"
+    },
+    {
+      "key": "ゲーム内で使うには「機能」タブの「寝返り」もオンにしてください。",
+      "value": "Pro použití ve VRChat také zapněte přetočení na kartě funkcí."
+    },
+    {
+      "key": "ゲーム内メニューの言語",
+      "value": "Jazyk nabídky ve hře"
+    },
+    {
+      "key": "コンパイルエラー（先頭から最大5件）",
+      "value": "Chyby kompilace (až prvních 5)"
+    },
+    {
+      "key": "コンビニ",
+      "value": "Večerka"
+    },
+    {
+      "key": "シーンを保存・バックアップしてから、ALCOM / VCCで商品本体と「ゆにさきポーズシステム」を再取得してください。入れ直しても直らない場合は、Inspector上部の「ヘルプ・変更履歴」から公式マニュアル・お問い合わせをご確認ください。調整済みのオブジェクトやGeneratedResourcesは削除しないでください。",
+      "value": "Uložte a zazálohujte scénu a poté znovu stáhněte produkt a Unisaki Posing System pomocí ALCOM / VCC. Pokud problém trvá, otevřete nápovědu a změny nahoře v Inspector pro příručku a podporu. Zachovejte upravené objekty a GeneratedResources."
+    },
+    {
       "key": "ジェスチャー無効",
       "value": "Gesta vyp."
+    },
+    {
+      "key": "ジャンプ",
+      "value": "Skok"
+    },
+    {
+      "key": "ジャンプで寝姿勢を切り替える",
+      "value": "Měnit ležící pózy skokem"
+    },
+    {
+      "key": "スライダーは−1〜1。範囲外の値も数値欄に入力できます。",
+      "value": "Rozsah posuvníku: -1 až 1. Lze zadat hodnoty mimo tento rozsah."
+    },
+    {
+      "key": "ソースとなるPosingSystemが見つかりません。",
+      "value": "Zdrojový PosingSystem nebyl nalezen."
+    },
+    {
+      "key": "ゾンビ",
+      "value": "Zombie"
+    },
+    {
+      "key": "ターゲットボーン {0} がありません。",
+      "value": "Chybí cílová kost {0}."
+    },
+    {
+      "key": "チェックを付けると増える量／外すと減る量です。\n寝返りON/OFF：1 bit、頭の傾き：8 bit、首固定：1 bit。\nほかの設定で使用中のパラメーターは重複して数えません。",
+      "value": "Změna paměti při zapnutí/vypnutí této možnosti.\nPřepínač přetočení: 1 bit; náklon hlavy: 8 bitů; zámek hlavy: 1 bit.\nParametry již používané jinými možnostmi se počítají jednou."
+    },
+    {
+      "key": "チェックを付けると増える量／外すと減る量です。\n首固定：1 bit（寝返りと共用）。\n寝返りなどで使用中なら0 bitです。",
+      "value": "Změna paměti při zapnutí/vypnutí této možnosti.\nZámek hlavy: 1 bit, sdílený s přetočením.\nNevyžaduje další bity, pokud přetočení již parametr používá."
+    },
+    {
+      "key": "ツールに同梱された公式プリセットを一覧と検索結果に表示しません。同じプロジェクト内のアバターで共有する設定です。",
+      "value": "Skryje oficiální přibalené předvolby ze seznamu a výsledků hledání. Nastavení sdílejí avataři v projektu."
+    },
+    {
+      "key": "ツールのルートにMA Parametersがありません。",
+      "value": "Kořen nástroje nemá komponentu MA Parameters."
+    },
+    {
+      "key": "ツールの親にVRC Avatar Descriptorがありません。",
+      "value": "Nad nástrojem nebyl nalezen VRC Avatar Descriptor."
+    },
+    {
+      "key": "ツール内の共通ポージングAnimatorが1つだけ有効か、EditorOnlyタグ・Missing Scriptの有無と標準Prefabの導入状態を確認してください。",
+      "value": "Ověřte, že je aktivní právě jeden společný Animator póz, nemá značku EditorOnly ani Missing Script a standardní prefab je nainstalován."
+    },
+    {
+      "key": "ツール内の姿勢メニューが削除・無効化されていないか確認してください。",
+      "value": "Zkontrolujte, zda nabídka póz uvnitř nástroje nebyla odstraněna nebo vypnuta."
+    },
+    {
+      "key": "ツール内の姿勢メニューが削除・無効化されていないか確認してください。シーンを保存・バックアップしてから、ALCOM / VCCで商品本体と「ゆにさきポーズシステム」を再取得してください。入れ直しても直らない場合は、Inspector上部の「ヘルプ・変更履歴」から公式マニュアル・お問い合わせをご確認ください。調整済みのオブジェクトやGeneratedResourcesは削除しないでください。",
+      "value": "Zkontrolujte, zda nabídka póz uvnitř nástroje nebyla odstraněna nebo vypnuta.\nUložte a zazálohujte scénu a poté znovu stáhněte produkt a Unisaki Posing System pomocí ALCOM / VCC. Pokud problém trvá, otevřete nápovědu a změny nahoře v Inspector pro příručku a podporu. Zachovejte upravené objekty a GeneratedResources."
+    },
+    {
+      "key": "ツール本体が見つかりません [PS041]",
+      "value": "Prefab nástroje nenalezen [PS041]"
+    },
+    {
+      "key": "デバッグ: アバター固有補正をプレビュー",
+      "value": "Ladění: náhled korekce avatara"
+    },
+    {
+      "key": "デフォルト",
+      "value": "Výchozí"
+    },
+    {
+      "key": "データ形式のバージョン",
+      "value": "Verze formátu dat"
+    },
+    {
+      "key": "トラブルシューティング",
+      "value": "Řešení potíží"
+    },
+    {
+      "key": "トラブルシューティングを閉じる",
+      "value": "Zavřít řešení potíží"
+    },
+    {
+      "key": "バックアップ済み・削除する",
+      "value": "Záloha hotová — odstranit"
+    },
+    {
+      "key": "バックアップ済み・取り除く",
+      "value": "Záloha hotová — odstranit"
+    },
+    {
+      "key": "バンザイ",
+      "value": "Ruce vzhůru"
+    },
+    {
+      "key": "バージョン不明",
+      "value": "Neznámá verze"
+    },
+    {
+      "key": "パッケージ内の標準Controllerが見つかりません。",
+      "value": "Standardní Controller nebyl v balíčku nalezen."
+    },
+    {
+      "key": "ファイルに保存されている値に戻します。",
+      "value": "Obnoví hodnoty uložené v souboru."
+    },
+    {
+      "key": "プランク",
+      "value": "Prkno"
+    },
+    {
+      "key": "プリセット",
+      "value": "Předvolby"
+    },
+    {
+      "key": "プリセットの保存・管理",
+      "value": "Uložení / správa předvoleb"
+    },
+    {
+      "key": "プリセットの保存・管理を閉じる",
+      "value": "Zavřít správu předvoleb"
+    },
+    {
+      "key": "プリセットを作成",
+      "value": "Vytvořit předvolbu"
+    },
+    {
+      "key": "プリセットを作成しました。プリセット選択の「再読込」で一覧に反映できます。",
+      "value": "Předvolba vytvořena. Seznam aktualizujte tlačítkem „Obnovit“ ve výběru předvoleb."
+    },
+    {
+      "key": "プリセットを読み込めません",
+      "value": "Nelze načíst předvolbu"
+    },
+    {
+      "key": "プリセットを適用し直すか、新しく追加したツールのポーズ一覧と比較してください。",
+      "value": "Znovu použijte předvolbu nebo porovnejte seznam póz s nově přidanou kopií nástroje."
+    },
+    {
+      "key": "プリセットを適用し直すか、新しく追加したツールのポーズ一覧と比較してください。シーンを保存・バックアップしてから、ALCOM / VCCで商品本体と「ゆにさきポーズシステム」を再取得してください。入れ直しても直らない場合は、Inspector上部の「ヘルプ・変更履歴」から公式マニュアル・お問い合わせをご確認ください。調整済みのオブジェクトやGeneratedResourcesは削除しないでください。",
+      "value": "Znovu použijte předvolbu nebo porovnejte seznam póz s nově přidanou kopií nástroje.\nUložte a zazálohujte scénu a poté znovu stáhněte produkt a Unisaki Posing System pomocí ALCOM / VCC. Pokud problém trvá, otevřete nápovědu a změny nahoře v Inspector pro příručku a podporu. Zachovejte upravené objekty a GeneratedResources."
+    },
+    {
+      "key": "プリセットを選択してください",
+      "value": "Vyberte předvolbu"
+    },
+    {
+      "key": "プリセット一覧を更新できませんでした:",
+      "value": "Nelze obnovit seznam předvoleb:"
+    },
+    {
+      "key": "プリセット一覧を読み込めませんでした。「再読込」で再試行できます:",
+      "value": "Nelze načíst seznam předvoleb. Zvolte „Obnovit“ pro další pokus:"
+    },
+    {
+      "key": "プリセット一覧を閉じる",
+      "value": "Zavřít seznam předvoleb"
+    },
+    {
+      "key": "プリセット作成中にエラーが発生しました。",
+      "value": "Při vytváření předvolby došlo k chybě."
+    },
+    {
+      "key": "プリセット作成設定",
+      "value": "Nastavení tvorby předvolby"
+    },
+    {
+      "key": "プリセット選択",
+      "value": "Vybrat předvolbu"
+    },
+    {
+      "key": "プレビュー",
+      "value": "Náhled"
+    },
+    {
+      "key": "プレビューを終了（元の姿勢に戻す）",
+      "value": "Ukončit náhled (obnovit pózu)"
+    },
+    {
+      "key": "プレビュー中：{0}",
+      "value": "Náhled: {0}"
+    },
+    {
+      "key": "プレビルド",
+      "value": "Předgenerování"
+    },
+    {
+      "key": "プレビルドの更新について相談したいです。",
+      "value": "Potřebuji pomoc s aktualizací předgenerování."
+    },
+    {
+      "key": "プレビルドを実行できません。Inspectorの「設定の確認」で、アバターの配置・Animator・Humanoidの設定を確認してください。",
+      "value": "Nelze předgenerovat. V kontrole nastavení Inspector zkontrolujte umístění avatara, Animator a Humanoid."
+    },
+    {
+      "key": "プレビルドを更新",
+      "value": "Aktualizovat předgenerování"
+    },
+    {
+      "key": "プレビルド・ビルド時に標準Prefabから再作成します。",
+      "value": "Při předgenerování nebo sestavení avatara bude znovu vytvořen ze standardního prefabu."
+    },
+    {
+      "key": "プレビルド・ビルド時に標準設定から再作成します。",
+      "value": "Při předgenerování nebo sestavení avatara bude znovu vytvořen se standardním nastavením."
+    },
+    {
+      "key": "プレビルド後に設定が変更されています。「プレビルドを更新」で現在の設定を反映してください。",
+      "value": "Nastavení se od posledního předgenerování změnilo. Zvolte „Aktualizovat předgenerování“ pro použití aktuálních hodnot."
+    },
+    {
+      "key": "プレビルド後の設定変更の警告を非表示",
+      "value": "Skrýt varování o změně nastavení"
+    },
+    {
+      "key": "プレビルド時に標準Controllerから復元を試みます。復元できない場合は、ゆにさきポーズシステムのパッケージを再取得してください。",
+      "value": "Předgenerování se pokusí obnovit standardní Controller. Pokud obnova selže, znovu stáhněte balíček Unisaki Posing System."
+    },
+    {
+      "key": "プレビルド未実行の警告を非表示",
+      "value": "Skrýt varování o chybějícím předgenerování"
+    },
+    {
+      "key": "ベッド",
+      "value": "Postel"
+    },
+    {
+      "key": "ポーズ {0} bit ＋ 追加機能 {1} bit  ／ このアバターのポーズツール分",
+      "value": "Pózy: {0} bitů + volitelné funkce: {1} bitů / nástroje póz na tomto avatarovi"
+    },
+    {
+      "key": "ポーズアイコン生成",
+      "value": "Generovat ikony póz"
+    },
+    {
+      "key": "ポーズシステム",
+      "value": "Posing System"
+    },
+    {
+      "key": "ポーズツールで次のエラーが出ました。対処方法を教えてください。",
+      "value": "Nástroj pro pózy ohlásil tuto chybu. Jak ji vyřešit?"
+    },
+    {
+      "key": "ポーズ・アバター設定の注意を非表示",
+      "value": "Skrýt poznámky k pózám a avatarovi"
+    },
+    {
+      "key": "ポーズ一覧",
+      "value": "Pózy"
+    },
+    {
+      "key": "ポーズ一覧でアニメーションを指定するか、その項目を無効にしてください。",
+      "value": "Přiřaďte animaci v seznamu póz nebo položku vypněte."
+    },
+    {
+      "key": "ポーズ一覧で使うポーズを有効にしてください。意図的に空にしている場合は対応不要です。",
+      "value": "Zapněte požadované pózy v seznamu. Pokud je kategorie záměrně prázdná, nic měnit nemusíte."
+    },
+    {
+      "key": "ポーズ一覧で初期ポーズを1つにしてください。",
+      "value": "Vyberte jednu výchozí pózu v této kategorii."
+    },
+    {
+      "key": "ポーズ一覧で該当カテゴリを確認し、プリセットまたはバックアップから復元してください。",
+      "value": "Zkontrolujte tuto kategorii v seznamu póz a obnovte ji z předvolby nebo zálohy."
+    },
+    {
+      "key": "ポーズ一覧のカテゴリ{0}のデータが欠けています。",
+      "value": "Chybí data kategorie {0} v seznamu póz."
+    },
+    {
+      "key": "ポーズ一覧のデータがありません。",
+      "value": "Chybí data seznamu póz."
+    },
+    {
+      "key": "ポーズ名",
+      "value": "Název pózy"
+    },
+    {
+      "key": "ポーズ画像を更新",
+      "value": "Aktualizovat obrázky póz"
+    },
+    {
+      "key": "マットレス",
+      "value": "Matrace"
+    },
+    {
+      "key": "メニューに撮影モードを追加します。前へ最大3m移動したり回転したりして、自分から見える位置を調整できます。",
+      "value": "Přidá režim focení pro posun až o 3 m vpřed a otáčení pro lepší pohled na sebe."
+    },
+    {
+      "key": "メニューのアイコン画像",
+      "value": "Ikony nabídky"
+    },
+    {
+      "key": "メニュー追加",
+      "value": "Funkce nabídky"
+    },
+    {
+      "key": "モデル",
+      "value": "Model"
+    },
+    {
+      "key": "ユーザー作成",
+      "value": "Uživatelské předvolby"
+    },
+    {
+      "key": "ライセンスの削除",
+      "value": "Odstranit licenci"
+    },
+    {
+      "key": "ライセンス削除",
+      "value": "Odstranění licence"
+    },
+    {
+      "key": "ラダー運動",
+      "value": "Žebřík"
+    },
+    {
+      "key": "リクライニング",
+      "value": "Pololeh"
+    },
+    {
+      "key": "リラックス",
+      "value": "Uvolnění"
+    },
+    {
+      "key": "リラックス１",
+      "value": "Uvolnění 1"
+    },
+    {
+      "key": "リラックス２",
+      "value": "Uvolnění 2"
+    },
+    {
+      "key": "リラックス３",
+      "value": "Uvolnění 3"
+    },
+    {
+      "key": "ルール名",
+      "value": "Název pravidla"
+    },
+    {
+      "key": "ローカル（基準の向き）",
+      "value": "Lokálně (referenční orientace)"
+    },
+    {
+      "key": "ワールドの軸に沿って移動します。オフの軸は元の姿勢の位置を保ちます。",
+      "value": "Posouvá podél světových os. Vypnuté osy zachovají původní polohu pózy."
+    },
+    {
+      "key": "ワールド（シーンの軸）",
+      "value": "Globálně (osy scény)"
+    },
+    {
+      "key": "一括操作",
+      "value": "Hromadné akce"
+    },
+    {
+      "key": "一括追加を閉じる",
+      "value": "Zavřít hromadné přidání"
+    },
+    {
+      "key": "一括追加機能",
+      "value": "Hromadné přidání"
+    },
+    {
+      "key": "一致するアニメーションがありません。",
+      "value": "Žádné odpovídající animace."
+    },
+    {
+      "key": "一覧から削除",
+      "value": "Odstranit ze seznamu"
+    },
+    {
+      "key": "一覧は追加・変更時に更新されます。表示が変わらない場合は「再読込」を押してください。",
+      "value": "Seznam se aktualizuje při přidání nebo změně položek. Pokud zobrazuje stará data, zvolte „Obnovit“."
+    },
+    {
+      "key": "三点だいしゅき(女)ツール追加",
+      "value": "Přidat Virtual Love (žena)"
+    },
+    {
+      "key": "三点だいしゅき(男)ツール追加",
+      "value": "Přidat Virtual Love (muž)"
+    },
+    {
+      "key": "上腕の長さ",
+      "value": "Délka paže"
+    },
+    {
+      "key": "不機嫌",
+      "value": "Mrzutost"
+    },
+    {
+      "key": "中",
+      "value": "Střední"
+    },
+    {
+      "key": "中央と横向きに、Humanoid形式のクリップを指定してください。BlendTree・Legacy・身体カーブのないクリップは使用できません。",
+      "value": "Přiřaďte klipy Humanoid pro středovou a boční pózy. BlendTree, klipy Legacy a klipy bez křivek těla nejsou podporovány."
+    },
+    {
+      "key": "中腰の高さ閾値",
+      "value": "Práh výšky přikrčení"
     },
     {
       "key": "中腰姿勢",
       "value": "Podřep"
     },
     {
+      "key": "二人分座り",
+      "value": "Místo pro dva"
+    },
+    {
+      "key": "五体投地",
+      "value": "Poklona k zemi"
+    },
+    {
+      "key": "他商品連携用Prefabs",
+      "value": "Integrace produktů"
+    },
+    {
+      "key": "以前の設定から、使う1つを選べます。",
+      "value": "Vyberte jedno z předchozích nastavení."
+    },
+    {
+      "key": "仰向けとうつ伏せの両方を選んでいるとき、その場でジャンプすると切り替わります。",
+      "value": "Pokud jsou vybrány pózy na zádech i na břiše, přepnete mezi nimi skokem na místě."
+    },
+    {
       "key": "仰向け寝",
       "value": "Na zádech"
+    },
+    {
+      "key": "伏せ",
+      "value": "Na břiše"
+    },
+    {
+      "key": "伏せ（Prone）",
+      "value": "Na břiše"
+    },
+    {
+      "key": "休憩中",
+      "value": "Přestávka"
+    },
+    {
+      "key": "位置の座標系",
+      "value": "Souřadnicový prostor polohy"
+    },
+    {
+      "key": "位置の長さの基準",
+      "value": "Délková reference polohy"
+    },
+    {
+      "key": "位置を合わせる強さ",
+      "value": "Váha polohy"
+    },
+    {
+      "key": "位置（選んだ長さを1とする比率）",
+      "value": "Poloha (vůči vybrané délce)"
+    },
+    {
+      "key": "低姿勢",
+      "value": "Nízký postoj"
+    },
+    {
+      "key": "体幹",
+      "value": "Trup"
+    },
+    {
+      "key": "体格に合わせた手足の自動調整",
+      "value": "Automatická korekce končetin"
+    },
+    {
+      "key": "体育座り",
+      "value": "Kolena k hrudi"
+    },
+    {
+      "key": "使い始めるときの姿勢セットを変更できます。変更すると現在のポーズ設定が置き換わります。",
+      "value": "Vyberte výchozí sadu póz. Nahradí aktuální nastavení póz."
+    },
+    {
+      "key": "使用",
+      "value": "Použít"
+    },
+    {
+      "key": "使用するにはメニュー追加の「撮影モード」をオンにしてください。",
+      "value": "Pro tuto funkci zapněte režim focení ve funkcích nabídky."
+    },
+    {
+      "key": "使用するには便利機能の「呼吸の動きをつける」をオンにしてください。",
+      "value": "Pro tuto funkci zapněte animaci dýchání v usnadnění."
+    },
+    {
+      "key": "使用方法:\n1. 追加したい文字列を改行区切りでクリップボードにコピー\n2. 対応するボタンをクリック\n3. 重複する項目は自動的に除外されます",
+      "value": "Pokyny:\n1. Zkopírujte do schránky jednu položku na řádek.\n2. Klikněte na příslušné tlačítko.\n3. Duplicity se přeskočí."
+    },
+    {
+      "key": "例: 右手を腰へ、左手を床へ",
+      "value": "Příklad: pravá ruka na boku, levá na podlaze"
+    },
+    {
+      "key": "便利機能",
+      "value": "Usnadnění"
+    },
+    {
+      "key": "保存",
+      "value": "Uložit"
+    },
+    {
+      "key": "保存された設定の形式・表記",
+      "value": "Formát nebo zápis uloženého nastavení"
+    },
+    {
+      "key": "保存されていない変更があります。保存しますか？",
+      "value": "Máte neuložené změny. Uložit?"
+    },
+    {
+      "key": "保存先にはAssets内のフォルダと.animファイルを指定してください。",
+      "value": "Vyberte složku uvnitř Assets a název souboru .anim."
+    },
+    {
+      "key": "保存先フォルダのパスを生成できませんでした。フォルダ「{0}」がプロジェクトに認識されているか確認してください。",
+      "value": "Nelze určit cílovou složku. Ověřte, že Unity rozpoznává složku projektu: {0}"
+    },
+    {
+      "key": "保存時から変わった項目を確認",
+      "value": "Zobrazit změny od předgenerování"
+    },
+    {
+      "key": "保存時と異なるプレビルドの設定項目",
+      "value": "Nastavení předgenerování změněná od uložení"
+    },
+    {
+      "key": "保存時と異なる項目（最大12件）",
+      "value": "Nastavení změněná od uložení (až 12)"
+    },
+    {
+      "key": "倒され寝",
+      "value": "Sražení"
+    },
+    {
+      "key": "傍観者",
+      "value": "Pozorovatel"
+    },
+    {
+      "key": "元の姿勢",
+      "value": "Původní pózy"
+    },
+    {
+      "key": "元の姿勢Animation",
+      "value": "Animace původní pózy"
+    },
+    {
+      "key": "元の姿勢AnimationClipがありません。",
+      "value": "Chybí AnimationClip zdrojové pózy."
+    },
+    {
+      "key": "元の姿勢Animationに含まれる肘・膝の曲がり方を、IKを解く前に自動取得します。",
+      "value": "Před řešením IK přečte směry ohybu loktů a kolen z původní animace."
+    },
+    {
+      "key": "元の姿勢と手動調整をプレビューしています。",
+      "value": "Náhled původní pózy a ručních korekcí."
+    },
+    {
+      "key": "元の姿勢の曲げ方向を維持",
+      "value": "Zachovat ohyb zdrojové pózy"
+    },
+    {
+      "key": "元モデルのInspector > RigでHumanoid設定とConfigureの割り当てを確認してください。配布元が指定する設定を優先してください。",
+      "value": "Zkontrolujte Humanoid a přiřazení Configure v Inspector > Rig původního modelu. Dodržujte doporučení autora avatara."
+    },
+    {
+      "key": "元モデルのRig > ConfigureでHeadを確認し、シーン内で頭のボーンが削除されていないか確認してください。",
+      "value": "Zkontrolujte Head v Rig > Configure původního modelu a ověřte, že kost hlavy ve scéně stále existuje."
+    },
+    {
+      "key": "元姿勢の読み込み",
+      "value": "Importovat původní pózy"
+    },
+    {
+      "key": "全ての変更された差分を保存しました。",
+      "value": "Všechny změněné hodnoty korekce byly uloženy."
+    },
+    {
+      "key": "全ての姿勢の調整値をリセットしますか？",
+      "value": "Resetovat hodnoty korekce všech póz?"
+    },
+    {
+      "key": "全ての姿勢の調整値を再読み込みしますか？未保存の変更は失われます。",
+      "value": "Znovu načíst hodnoty korekce všech póz? Neuložené změny budou ztraceny."
+    },
+    {
+      "key": "全ての調整データを複製保存しますか？\n変更のあるアニメーションの調整アニメーションが複製され、変更が保存されます。",
+      "value": "Duplikovat a uložit všechna data korekce?\nZměněné animace korekce budou duplikovány a uloženy."
+    },
+    {
+      "key": "全ての調整値を0にリセットします。",
+      "value": "Vynuluje všechny hodnoty korekce."
+    },
+    {
+      "key": "全ての調整値をファイルに保存されている値に戻します。",
+      "value": "Znovu načte všechny hodnoty korekce z uložených souborů."
+    },
+    {
+      "key": "全姿勢再読込",
+      "value": "Znovu načíst vše"
+    },
+    {
+      "key": "全姿勢初期化",
+      "value": "Resetovat vše"
+    },
+    {
+      "key": "全差分保存",
+      "value": "Uložit změněné"
+    },
+    {
+      "key": "全調整データ複製保存",
+      "value": "Duplikovat vše"
+    },
+    {
+      "key": "全身",
+      "value": "Celé tělo"
+    },
+    {
+      "key": "公開用として有効",
+      "value": "Zapnout pro použití"
+    },
+    {
+      "key": "公開用として有効です。カタログを参照する商品では、従来の姿勢別調整Animationとアバター固有補正が使用されません。設定漏れの姿勢がないことを確認してください。",
+      "value": "Zapnuto pro použití. Produkty s tímto katalogem přeskočí staré animace korekce póz i korekce avatara. Ověřte nastavení všech póz."
+    },
+    {
+      "key": "共通Controllerに姿勢制御用のレイヤーがありません。",
+      "value": "Společný Controller nemá vrstvy pro ovládání póz."
+    },
+    {
+      "key": "共通Controllerに未保存の変更があります。変更を保存してからやり直してください。",
+      "value": "Společný Controller obsahuje neuložené změny. Před dalším pokusem je uložte."
+    },
+    {
+      "key": "共通Controllerの内容が、このバージョンの生成定義と一致しません。",
+      "value": "Společný Controller neodpovídá definici generování této verze."
+    },
+    {
+      "key": "共通Controllerの内容が、このバージョンの生成定義と一致しません。独自の変更は別のControllerに保存し、ALCOM / VCCで同じバージョンの「ゆにさきポーズシステム」を入れ直してください。",
+      "value": "Společný Controller neodpovídá definici generování této verze. Vlastní změny uložte do samostatného Controller a přeinstalujte stejnou verzi Unisaki Posing System přes ALCOM nebo VCC."
+    },
+    {
+      "key": "共通アニメーション（従来設定）",
+      "value": "Společná animace (stará)"
+    },
+    {
+      "key": "共通ポージングAnimatorがありません。",
+      "value": "Chybí společný Animator póz."
+    },
+    {
+      "key": "共通ポージングAnimatorにMA Merge Animatorがありません。",
+      "value": "Společný Animator póz nemá MA Merge Animator."
+    },
+    {
+      "key": "共通ポージングAnimatorに通常のAnimator Controller以外が設定されています。",
+      "value": "Společný Animator póz vyžaduje běžný Animator Controller."
+    },
+    {
+      "key": "共通ポージングAnimatorのAnimator参照が未設定です。",
+      "value": "Společný Animator póz nemá přiřazený Animator Controller."
+    },
+    {
+      "key": "共通ポージングAnimatorへ別のControllerを指定していないか確認してください。",
+      "value": "Zkontrolujte, zda společnému Animator póz nebyl přiřazen jiný Controller."
+    },
+    {
+      "key": "共通ポージングAnimatorへ別のControllerを指定していないか確認してください。シーンを保存・バックアップしてから、ALCOM / VCCで商品本体と「ゆにさきポーズシステム」を再取得してください。入れ直しても直らない場合は、Inspector上部の「ヘルプ・変更履歴」から公式マニュアル・お問い合わせをご確認ください。調整済みのオブジェクトやGeneratedResourcesは削除しないでください。",
+      "value": "Zkontrolujte, zda společnému Animator póz nebyl přiřazen jiný Controller.\nUložte a zazálohujte scénu a poté znovu stáhněte produkt a Unisaki Posing System pomocí ALCOM / VCC. Pokud problém trvá, otevřete nápovědu a změny nahoře v Inspector pro příručku a podporu. Zachovejte upravené objekty a GeneratedResources."
+    },
+    {
+      "key": "共通ポージングAnimatorを使用できません。「{0}」{1}。",
+      "value": "Společný Animator póz je nedostupný. „{0}“ {1}."
+    },
+    {
+      "key": "内股座り",
+      "value": "Špičky dovnitř"
+    },
+    {
+      "key": "内部的な互換性管理に使います。通常は変更しません。",
+      "value": "Slouží k internímu sledování kompatibility. Obvykle ponechte beze změny."
+    },
+    {
+      "key": "再生位置のパラメーター",
+      "value": "Parametr pozice přehrávání"
+    },
+    {
+      "key": "再生位置を指定する",
+      "value": "Nastavit pozici přehrávání"
+    },
+    {
+      "key": "再読込",
+      "value": "Obnovit"
+    },
+    {
+      "key": "初期ポーズ",
+      "value": "Výchozí póza"
+    },
+    {
+      "key": "初期化",
+      "value": "Resetovat"
+    },
+    {
+      "key": "制止",
+      "value": "Stůj"
+    },
+    {
+      "key": "削除",
+      "value": "Odstranit"
+    },
+    {
+      "key": "削除対象: {0}\nこの中のPrefabやアニメーションも削除されます。自作・調整済みデータがある場合はキャンセルし、移行手順に従ってください。バックアップなしでは元に戻せません。",
+      "value": "Složka k odstranění: {0}\nOdstraní se také prefaby a animace uvnitř. Pokud obsahuje vlastní či upravená data, zrušte akci a postupujte podle pokynů k přechodu. Pro obnovu odstraněných souborů je nutná záloha."
+    },
+    {
+      "key": "前かがみ",
+      "value": "Předklon"
+    },
+    {
+      "key": "前回の処理は完了していません。",
+      "value": "Předchozí operace nebyla dokončena."
+    },
+    {
+      "key": "前回の失敗内容をコピー",
+      "value": "Kopírovat podrobnosti minulého selhání"
+    },
+    {
+      "key": "前回の失敗表示を閉じる",
+      "value": "Skrýt minulé selhání"
+    },
+    {
+      "key": "前後傾き",
+      "value": "Náklon vpřed/vzad"
+    },
+    {
+      "key": "前腕の長さ",
+      "value": "Délka předloktí"
+    },
+    {
+      "key": "動かす手足",
+      "value": "Pohybovaná končetina"
+    },
+    {
+      "key": "取り込むアニメーションを個別に指定",
+      "value": "Vybrat animace k importu"
+    },
+    {
+      "key": "可愛いポーズ",
+      "value": "Kawaii Posing"
+    },
+    {
+      "key": "可愛いポーズツール",
+      "value": "Kawaii Posing"
+    },
+    {
+      "key": "可愛いポーズツール(Booth)",
+      "value": "Kawaii Posing Tool (BOOTH)"
+    },
+    {
+      "key": "可愛いポーズツール(Gumroad)",
+      "value": "Kawaii Posing Tool (Gumroad)"
+    },
+    {
+      "key": "可愛いポーズツールライセンスインストール",
+      "value": "Nainstalovat licenci Kawaii Posing"
+    },
+    {
+      "key": "可愛いポーズツールライセンス削除",
+      "value": "Odstranit licenci Kawaii Posing"
+    },
+    {
+      "key": "可愛いポーズツールライセンス状態確認",
+      "value": "Stav licence Kawaii Posing"
+    },
+    {
+      "key": "可愛いポーズツール設定",
+      "value": "Nastavení Kawaii Posing"
+    },
+    {
+      "key": "可愛いポーズツール追加",
+      "value": "Přidat Kawaii Posing"
+    },
+    {
+      "key": "可愛い座り",
+      "value": "Kawaii Sitting"
+    },
+    {
+      "key": "可愛い座り(女)ツール追加",
+      "value": "Přidat Kawaii Sitting (žena)"
+    },
+    {
+      "key": "可愛い座り(男)ツール追加",
+      "value": "Přidat Kawaii Sitting (muž)"
+    },
+    {
+      "key": "右向き寝",
+      "value": "Spánek vpravo"
+    },
+    {
+      "key": "右向き昼寝",
+      "value": "Dřímání vpravo"
+    },
+    {
+      "key": "右手指",
+      "value": "Prsty pravé ruky"
+    },
+    {
+      "key": "右手首",
+      "value": "Pravé zápěstí"
+    },
+    {
+      "key": "右脚",
+      "value": "Pravá noha"
+    },
+    {
+      "key": "右腕",
+      "value": "Pravá paže"
+    },
+    {
+      "key": "各固定機能の他ギミックとの統合",
+      "value": "Propojit zámky sledování s dalšími nástroji"
+    },
+    {
+      "key": "合成",
+      "value": "Sloučit"
+    },
+    {
+      "key": "合成する調整アニメーションが存在しません。",
+      "value": "Není animace korekce ke sloučení."
+    },
+    {
+      "key": "合蹠のポーズ",
+      "value": "Motýl"
+    },
+    {
+      "key": "同梱プリセットを表示しない",
+      "value": "Skrýt přibalené předvolby"
+    },
+    {
+      "key": "名前",
+      "value": "Název"
+    },
+    {
+      "key": "名前で検索",
+      "value": "Hledat podle názvu"
+    },
+    {
+      "key": "名前なし",
+      "value": "Bez názvu"
     },
     {
       "key": "向き",
       "value": "Směr"
     },
     {
+      "key": "向きを合わせる強さ",
+      "value": "Váha otáčení"
+    },
+    {
+      "key": "向きを回転させる",
+      "value": "Otočit směr"
+    },
+    {
       "key": "呼吸",
       "value": "Dýchání"
+    },
+    {
+      "key": "呼吸に合わせて胸などが動きます。姿勢ごとに強さを設定でき、同期bitを使わずに利用できます。",
+      "value": "Animuje hrudník při dýchání. Síla se nastavuje pro každou pózu bez dalších synchronizačních bitů."
+    },
+    {
+      "key": "呼吸の動きをつける",
+      "value": "Animovat dýchání"
+    },
+    {
+      "key": "呼吸の設定",
+      "value": "Nastavení dýchání"
+    },
+    {
+      "key": "和室",
+      "value": "Japonský pokoj"
+    },
+    {
+      "key": "商品に収録する各姿勢について、手や足をどこへ置くかを記録する開発用データです。",
+      "value": "Autorská data určující cíle rukou a chodidel pro každou zahrnutou pózu. "
+    },
+    {
+      "key": "商品に収録する各姿勢について、手や足をどこへ置くかを記録する開発用データです。アバターごとの設定ではなく、1つの商品につき1ファイルを作成します。",
+      "value": "Autorská data určující cíle rukou a chodidel pro každou zahrnutou pózu. Vytvořte jeden soubor na produkt; je oddělený od nastavení konkrétního avatara."
+    },
+    {
+      "key": "商品名",
+      "value": "Název produktu"
+    },
+    {
+      "key": "商談",
+      "value": "Obchodní jednání"
+    },
+    {
+      "key": "回転",
+      "value": "Otáčení"
+    },
+    {
+      "key": "回転角度",
+      "value": "Úhel otáčení"
+    },
+    {
+      "key": "回転角度(360度)",
+      "value": "Otáčení (otáčky)"
+    },
+    {
+      "key": "固定長（アバタースケールのみ）",
+      "value": "Pevná délka (jen měřítko avatara)"
+    },
+    {
+      "key": "地球寝",
+      "value": "Obejmout zemi"
+    },
+    {
+      "key": "培養中",
+      "value": "V kapsli"
+    },
+    {
+      "key": "基準にする身体ボーン",
+      "value": "Referenční kost těla"
+    },
+    {
+      "key": "基準の向きに沿って移動します。オフの軸は元の姿勢の位置を保ちます。",
+      "value": "Posouvá podle referenční orientace. Vypnuté osy zachovají původní polohu pózy."
+    },
+    {
+      "key": "基準アバターとの初期関節角度・ひねりの差を補正します。",
+      "value": "Koriguje rozdíly počátečních úhlů kloubů a zkroucení vůči referenčnímu avatarovi."
+    },
+    {
+      "key": "基準アバターに有効な Humanoid Animator がありません。",
+      "value": "Referenční avatar nemá platný Humanoid Animator."
+    },
+    {
+      "key": "基準姿勢の読み取りに失敗しました: {0}",
+      "value": "Nelze načíst referenční pózu: {0}"
+    },
+    {
+      "key": "堤防",
+      "value": "Nábřeží"
+    },
+    {
+      "key": "壁ドン",
+      "value": "U zdi"
+    },
+    {
+      "key": "変更のあるアニメーションの調整値を保存します。",
+      "value": "Uloží korekce změněných animací."
+    },
+    {
+      "key": "変更のあるアニメーションの調整値を複製して保存します。元々設定されていたファイルは変更されません",
+      "value": "Duplikuje animace korekce a uloží změněné hodnoty. Původně přiřazené soubory se zachovají."
+    },
+    {
+      "key": "変更を破棄して保存されていた値に戻します",
+      "value": "Zahodí změny a obnoví uložené hodnoty."
+    },
+    {
+      "key": "変更履歴を読み込めませんでした。",
+      "value": "Nelze načíst seznam změn."
+    },
+    {
+      "key": "太ももの長さ",
+      "value": "Délka stehna"
+    },
+    {
+      "key": "女の子座り",
+      "value": "Sed W"
+    },
+    {
+      "key": "姿勢 {0}",
+      "value": "Póza {0}"
+    },
+    {
+      "key": "姿勢のプレビュー",
+      "value": "Náhled pózy"
+    },
+    {
+      "key": "姿勢のプレビューや、細かな調整ができます。",
+      "value": "Náhled a jemné doladění póz."
+    },
+    {
+      "key": "姿勢の分類",
+      "value": "Kategorie pózy"
+    },
+    {
+      "key": "姿勢の分類が設定されていません。",
+      "value": "Nejsou nastaveny kategorie póz."
+    },
+    {
+      "key": "姿勢の識別キー",
+      "value": "Identifikační klíč pózy"
+    },
+    {
+      "key": "姿勢メニューの生成先が別のアバター、またはアバターの外にあります。",
+      "value": "Cíl nabídky póz je na jiném avatarovi nebo mimo tohoto avatara."
+    },
+    {
+      "key": "姿勢メニューの生成先が見つかりません。",
+      "value": "Cíl pro vytvoření nabídky póz nebyl nalezen."
+    },
+    {
+      "key": "姿勢別IK自動調整が有効です。従来のアバター固有補正と調整Animationは使用しません。",
+      "value": "Korekce IK pro jednotlivé pózy je zapnutá. Staré korekce avatara a animace korekce se nepoužívají."
+    },
+    {
+      "key": "姿勢別IK自動調整を使用中です。従来の身体の補正は使用しません。",
+      "value": "Korekce IK pro jednotlivé pózy je aktivní. Stará korekce těla se nepoužívá."
+    },
+    {
+      "key": "姿勢別IK設定一覧（{0}件）",
+      "value": "Nastavení IK pro jednotlivé pózy ({0})"
+    },
+    {
+      "key": "姿勢設定を追加",
+      "value": "Přidat nastavení pózy"
     },
     {
       "key": "姿勢選択",
       "value": "Vybrat pózu"
     },
     {
+      "key": "完了",
+      "value": "Hotovo"
+    },
+    {
+      "key": "実験",
+      "value": "Experimentální"
+    },
+    {
+      "key": "寝の高さ閾値",
+      "value": "Práh výšky ležení"
+    },
+    {
+      "key": "寝姿勢",
+      "value": "Ležení"
+    },
+    {
       "key": "寝返り",
       "value": "Přetočit se"
+    },
+    {
+      "key": "寝返りの設定",
+      "value": "Nastavení přetočení"
+    },
+    {
+      "key": "寝返りを使う",
+      "value": "Zapnout přetočení"
+    },
+    {
+      "key": "寝返り時の横向き",
+      "value": "Boční póza přetočení"
+    },
+    {
+      "key": "対処:",
+      "value": "Postup:"
+    },
+    {
+      "key": "対処: Window > General > Consoleで、この操作中に最初に出た赤いエラーを確認してください。設定の確認で問題が解消しない場合は、このエラー番号・詳細とツールのバージョンをお問い合わせに添えてください。",
+      "value": "Postup: ve Window > General > Console zkontrolujte první červenou chybu této operace. Pokud kontrola nastavení problém nevyřeší, při kontaktování podpory uveďte kód chyby, podrobnosti a verzi nástroje."
+    },
+    {
+      "key": "対象の腕または脚のHumanoidボーンが見つかりません。",
+      "value": "Kosti Humanoid cílové paže nebo nohy nebyly nalezeny."
+    },
+    {
+      "key": "対象を選択（{0}）",
+      "value": "Vybrat dotčený objekt ({0})"
+    },
+    {
+      "key": "小さな傾きを無視する範囲",
+      "value": "Mrtvá zóna náklonu hlavy"
+    },
+    {
+      "key": "少女モーション集追加",
+      "value": "Přidat Girl Motion Collection"
+    },
+    {
+      "key": "左右傾き",
+      "value": "Boční náklon"
+    },
+    {
+      "key": "左右反対側の部位の調整値をこの部位へ適用します",
+      "value": "Použije hodnoty korekce protější strany na tuto část těla."
     },
     {
       "key": "左右反転",
       "value": "Zrcadlit"
     },
     {
+      "key": "左向き寝",
+      "value": "Spánek vlevo"
+    },
+    {
+      "key": "左向き昼寝",
+      "value": "Dřímání vlevo"
+    },
+    {
+      "key": "左向き昼寝２",
+      "value": "Dřímání vlevo 2"
+    },
+    {
+      "key": "左手指",
+      "value": "Prsty levé ruky"
+    },
+    {
+      "key": "左手首",
+      "value": "Levé zápěstí"
+    },
+    {
+      "key": "左脚",
+      "value": "Levá noha"
+    },
+    {
+      "key": "左腕",
+      "value": "Levá paže"
+    },
+    {
+      "key": "差異:",
+      "value": "Rozdíl:"
+    },
+    {
+      "key": "布団",
+      "value": "Futon"
+    },
+    {
       "key": "床の高さ",
       "value": "Výška podlahy"
+    },
+    {
+      "key": "床を基準",
+      "value": "Podlaha"
+    },
+    {
+      "key": "座りの高さ閾値",
+      "value": "Práh výšky sezení"
     },
     {
       "key": "座り姿勢",
       "value": "Sezení"
     },
     {
+      "key": "座布団",
+      "value": "Podsedák"
+    },
+    {
+      "key": "弱",
+      "value": "Slabé"
+    },
+    {
+      "key": "弱・中・強はゆっくりした呼吸、急は速い呼吸です。姿勢ごとに選べます。",
+      "value": "Slabé, střední a silné znamenají pomalé dýchání; rychlé znamená rychlé. Volte pro každou pózu."
+    },
+    {
+      "key": "強",
+      "value": "Silné"
+    },
+    {
+      "key": "待ちぼうけ",
+      "value": "Stále čeká"
+    },
+    {
+      "key": "待ち伏せ",
+      "value": "Léčka"
+    },
+    {
+      "key": "後方彼氏",
+      "value": "Dohlížení"
+    },
+    {
+      "key": "従者のポーズ",
+      "value": "Sluha"
+    },
+    {
+      "key": "忍者走り",
+      "value": "Běh nindži"
+    },
+    {
+      "key": "思考中",
+      "value": "Přemýšlení"
+    },
+    {
+      "key": "急",
+      "value": "Rychlé"
+    },
+    {
+      "key": "情報",
+      "value": "Informace"
+    },
+    {
       "key": "戻る",
       "value": "Zpět"
+    },
+    {
+      "key": "手動で方向を指定",
+      "value": "Zadat směr ručně"
+    },
+    {
+      "key": "手動指定を解除",
+      "value": "Vymazat ruční výběr"
+    },
+    {
+      "key": "手動指定時だけ使用します。アバター正面を基準にした方向です。",
+      "value": "Používá se jen s ručně zadaným směrem ohybu, relativně k přední straně avatara."
+    },
+    {
+      "key": "手足のIKルールを追加",
+      "value": "Přidat pravidlo IK končetiny"
+    },
+    {
+      "key": "手足のIKルール（{0}件）",
+      "value": "Pravidla IK končetin ({0})"
+    },
+    {
+      "key": "手足の向きも合わせる",
+      "value": "Přizpůsobit otočení končetiny"
+    },
+    {
+      "key": "手足の自動調整を使う",
+      "value": "Zapnout automatickou korekci končetin"
+    },
+    {
+      "key": "抱きしめ",
+      "value": "Objetí"
+    },
+    {
+      "key": "指の形を固定・解除する切り替えをメニューに追加します。固定中はコントローラーを握っても形を保てます。",
+      "value": "Přidá přepínač zámku gest prstů, i při sevření ovladače."
+    },
+    {
+      "key": "指定した種類にはこのモーションを使います。未指定の種類は元の設定を使います。",
+      "value": "Vybrané typy používají tyto pohyby. Ostatní typy zachovají původní nastavení."
+    },
+    {
+      "key": "探しているPrefab: {0}\n購入ファイルのライセンス用unitypackageだけでは、ツール本体の導入は完了しません。ALCOM / VCCでこのプロジェクトに商品本体と「ゆにさきポーズシステム」が追加されているか確認してください。\n導入済みの場合: {1}",
+      "value": "Hledaný prefab: {0}\nSamotný zakoupený instalátor licence nedokončí instalaci produktu. V ALCOM / VCC ověřte, že produkt a Unisaki Posing System jsou přidány do projektu.\nPokud již nainstalováno: {1}"
+    },
+    {
+      "key": "接地補正の強さ",
+      "value": "Síla korekce podlahy"
     },
     {
       "key": "撮影モード",
       "value": "Režim focení"
     },
     {
+      "key": "撮影モードで動かした位置と向きを他の人にも表示できます。自分の画面だけで撮影する場合は0 bitで使えます。",
+      "value": "Sdílí polohu a otočení režimu focení s ostatními. Pouze místní focení používá 0 bitů."
+    },
+    {
+      "key": "撮影モードを同期する",
+      "value": "Synchronizovat režim focení"
+    },
+    {
       "key": "撮影モードを終了",
       "value": "Ukončit focení"
+    },
+    {
+      "key": "撮影モード中は頭を非表示にしない",
+      "value": "Ponechat hlavu viditelnou v režimu focení"
+    },
+    {
+      "key": "撮影機能に必要なため、自動で選ばれています。",
+      "value": "Vybráno automaticky, protože to vyžaduje režim focení."
+    },
+    {
+      "key": "操作対象のポーズツールが見つかりません。",
+      "value": "Cílový nástroj pro pózy nebyl nalezen."
+    },
+    {
+      "key": "斜め座り",
+      "value": "Šikmý sed"
+    },
+    {
+      "key": "旧unitypackage版の「{0}」フォルダがプロジェクトに残っています。新版と競合する可能性があります。削除する前に移行手順とバックアップを確認してください。",
+      "value": "V projektu zůstává složka starého unitypackage „{0}“, která může kolidovat s aktuální verzí. Před odstraněním zkontrolujte pokyny k přechodu a zálohu."
+    },
+    {
+      "key": "旧座標形式です。調整アニメーションウィンドウで基準アバターを表示し、",
+      "value": "Položka používá starý formát souřadnic. Zobrazte referenčního avatara v okně úprav a "
+    },
+    {
+      "key": "旧座標形式です。調整アニメーションウィンドウで基準アバターを表示し、「現在の手足位置から取得」を一度実行してください。再取得までは元Animationの手足の向きを維持します。",
+      "value": "Položka používá starý formát souřadnic. Zobrazte referenčního avatara v okně úprav a jednou zachyťte aktuální polohy končetin. Do opětovného zachycení se zachová orientace končetin zdrojové animace."
+    },
+    {
+      "key": "旧形式の保存データ（項目を比較できません）",
+      "value": "Starší uložená data (nastavení nelze porovnat)"
+    },
+    {
+      "key": "旧版のアバター設定を取り除きます",
+      "value": "Odstranit staré nastavení avatara"
+    },
+    {
+      "key": "旧版フォルダの削除を確認",
+      "value": "Potvrdit odstranění staré složky"
+    },
+    {
+      "key": "昼寝",
+      "value": "Dřímání"
+    },
+    {
+      "key": "晴天寝",
+      "value": "Dřímání na slunci"
+    },
+    {
+      "key": "最低膝曲げ角度（°）",
+      "value": "Minimální ohyb kolena (stupně)"
+    },
+    {
+      "key": "最初の姿勢をSceneタブで確認できます。終了すると元の姿勢に戻ります。",
+      "value": "Zobrazí první snímek v okně Scene. Zastavení náhledu obnoví původní pózu."
+    },
+    {
+      "key": "最新",
+      "value": "Aktuální"
+    },
+    {
+      "key": "有効なHumanoid Animatorがありません。",
+      "value": "Platný Humanoid Animator nebyl nalezen."
+    },
+    {
+      "key": "有効な共通ポージングAnimatorが見つかりません。",
+      "value": "Aktivní společný Animator póz nebyl nalezen."
+    },
+    {
+      "key": "有効な文字列が見つかりませんでした。",
+      "value": "Nenalezeny platné textové položky."
+    },
+    {
+      "key": "有効にすると従来の調整Animationを無視し、このIK設定から自動調整Animationを生成します。",
+      "value": "Při zapnutí se automatické animace korekce generují z tohoto nastavení IK místo starých animací korekce."
+    },
+    {
+      "key": "服従",
+      "value": "Poslušnost"
+    },
+    {
+      "key": "木の上寝",
+      "value": "Spánek na stromě"
+    },
+    {
+      "key": "未保存の手動調整があります",
+      "value": "Neuložené ruční korekce"
+    },
+    {
+      "key": "未実行",
+      "value": "Nevytvořeno"
+    },
+    {
+      "key": "未対応のターゲット空間です: {0}",
+      "value": "Nepodporovaný prostor cíle: {0}"
+    },
+    {
+      "key": "未対応の長さの基準です: {0}",
+      "value": "Nepodporované délkové měřítko: {0}"
+    },
+    {
+      "key": "未指定",
+      "value": "Nepřiřazeno"
+    },
+    {
+      "key": "条件式が間違っているパラメータがあります。「{0}」ファイルの「{1}」というレイヤーで使用されている「{2}」というパラメータは、AnimatorController内では「{3}」という型ですが、条件式に「{4}」が使われているため条件式が正しく動作しません。このためギミックや処理が正しく動作しない可能性があります。使用しているツールやギミックの相性の問題だと思われるため、このパラメータを使用しているツールの開発者に連絡してください",
+      "value": "Podmínka Animator používá nekompatibilní typ parametru. Soubor: {0}, vrstva: {1}, parametr: {2}, deklarovaný typ: {3}, podmínka: {4}. To může narušit funkčnost. Ohledně kompatibility kontaktujte autora nástroje používajícího tento parametr."
+    },
+    {
+      "key": "検出できる設定エラーはありません",
+      "value": "Bez zjistitelných chyb nastavení"
+    },
+    {
+      "key": "検索",
+      "value": "Hledat"
+    },
+    {
+      "key": "楽園",
+      "value": "Ráj"
+    },
+    {
+      "key": "横を向くまでの頭の傾き",
+      "value": "Náklon hlavy pro celou otočku"
+    },
+    {
+      "key": "横向きのAnimationClipを指定してください。未指定の場合は、従来どおり通常欄の完成済み寝返りアニメーションを使います。",
+      "value": "Přiřaďte boční AnimationClip. Pokud je pole prázdné, použije se jako dříve hotová animace přetočení z běžného pole."
+    },
+    {
+      "key": "機能",
+      "value": "Funkce"
+    },
+    {
+      "key": "注意・補足を確認（{0}件）",
+      "value": "Zobrazit poznámky ({0})"
+    },
+    {
+      "key": "海岸",
+      "value": "U moře"
+    },
+    {
+      "key": "添い寝ツール追加",
+      "value": "Přidat nástroj společného spaní"
+    },
+    {
+      "key": "照れ",
+      "value": "Ostych"
+    },
+    {
+      "key": "猫のポーズ（右）",
+      "value": "Kočka vpravo"
+    },
+    {
+      "key": "猫のポーズ（左）",
+      "value": "Kočka vlevo"
+    },
+    {
+      "key": "猫寝",
+      "value": "Kočičí spánek"
+    },
+    {
+      "key": "現在のアニメーション",
+      "value": "Zdrojová animace"
+    },
+    {
+      "key": "現在のアニメーションに調整アニメーションを合成したものを新しいアニメーションクリップとして保存します。",
+      "value": "Sloučí zdrojovou animaci a korekci do nového klipu."
+    },
+    {
+      "key": "現在のアバターから読み込む",
+      "value": "Importovat z aktuálního avatara"
+    },
+    {
+      "key": "現在のモーションは AnimationClip ではありません。差分調整は AnimationClip のみ対応しています。",
+      "value": "Aktuální pohyb není AnimationClip. Korekční rozdíly podporují pouze AnimationClip."
+    },
+    {
+      "key": "現在の手足位置・見た目の向き・曲げ方向をIKルールへ記録しました。",
+      "value": "Aktuální poloha končetiny, viditelná orientace a směr ohybu byly zapsány do pravidla IK."
+    },
+    {
+      "key": "現在の設定からプリセットを作成",
+      "value": "Vytvořit předvolbu z aktuálního nastavení"
+    },
+    {
+      "key": "現在は制作中です。商品Prefabから参照されていても、従来の調整Animationが引き続き使用されます。",
+      "value": "Rozpracováno. Staré animace korekce se používají i tehdy, když prefab produktu odkazuje na tento katalog."
+    },
+    {
+      "key": "生成時にアバターのBaseからモーションを検出します。取り込み設定の一覧には追加しません。手動設定がある種類は手動指定を優先します。",
+      "value": "Při generování rozpozná pohyby z vrstvy Base avatara. Do seznamu importu je nepřidává. Ruční přiřazení mají přednost."
+    },
+    {
+      "key": "画像でポーズを見分けやすくできます。アバターのビルド時間は少し長くなります。",
+      "value": "Náhledové obrázky usnadní rozpoznání póz. Sestavení avatara bude trochu delší."
+    },
+    {
+      "key": "画像ファイル",
+      "value": "Soubor obrázku"
+    },
+    {
+      "key": "画像ファイル・補足",
+      "value": "Soubor obrázku / poznámky"
+    },
+    {
+      "key": "画像ファイル・補足を閉じる",
+      "value": "Zavřít soubor obrázku / poznámky"
+    },
+    {
+      "key": "異変無し",
+      "value": "Vše v pořádku"
+    },
+    {
+      "key": "直立",
+      "value": "Stoj"
+    },
+    {
+      "key": "着地（短め）",
+      "value": "Krátké přistání"
+    },
+    {
+      "key": "着地（短）",
+      "value": "Krátké přistání"
+    },
+    {
+      "key": "着地（長め）",
+      "value": "Dlouhé přistání"
+    },
+    {
+      "key": "着地（長）",
+      "value": "Dlouhé přistání"
+    },
+    {
+      "key": "睡魔",
+      "value": "Ospalost"
+    },
+    {
+      "key": "短い落下",
+      "value": "Krátký pád"
+    },
+    {
+      "key": "砂浜",
+      "value": "Písečná pláž"
+    },
+    {
+      "key": "確認",
+      "value": "Potvrzení"
+    },
+    {
+      "key": "種類ごとに1つのモーションを指定できます。上の「元の姿勢を使う」とは別に設定できます。",
+      "value": "Vyberte jeden pohyb pro každý typ nezávisle na použití původních póz výše."
+    },
+    {
+      "key": "空気椅子",
+      "value": "Sed u zdi"
+    },
+    {
+      "key": "立ちのみ",
+      "value": "Jen stání"
+    },
+    {
+      "key": "立ち・歩き",
+      "value": "Stání / chůze"
+    },
+    {
+      "key": "立ち・歩き・走り",
+      "value": "Stání / chůze / běh"
     },
     {
       "key": "立ち姿勢",
       "value": "Stání"
     },
     {
+      "key": "立ち止まっているときに自動で入る、VRChat標準の身体の揺れを止められます。ポーズツールで設定した呼吸の動きはそのまま使えます。",
+      "value": "Vypne výchozí pohupování VRChat v klidu a zachová animaci dýchání nástroje."
+    },
+    {
+      "key": "終了",
+      "value": "Zastavit"
+    },
+    {
+      "key": "絨毯",
+      "value": "Koberec"
+    },
+    {
+      "key": "置き場所の基準",
+      "value": "Reference cíle"
+    },
+    {
+      "key": "考える男",
+      "value": "Myslitel"
+    },
+    {
+      "key": "肘パンチ",
+      "value": "Úder loktem"
+    },
+    {
+      "key": "肘・膝の曲げ方",
+      "value": "Ohyb lokte / kolena"
+    },
+    {
+      "key": "肘・膝を曲げる方向",
+      "value": "Směr ohybu lokte / kolena"
+    },
+    {
+      "key": "肘付き",
+      "value": "Na lokti"
+    },
+    {
+      "key": "胸のボーン（Chest）が割り当てられていません。",
+      "value": "Kost Chest není přiřazena."
+    },
+    {
+      "key": "胸の姿勢が崩れる場合は元モデルのRig > Configure > BodyのChestを確認してください。Upper Chestとは別の項目です。対応するボーンがない場合は無理に割り当てず、配布元の設定を確認してください。",
+      "value": "Pokud je hrudník v nesprávné poloze, zkontrolujte Chest v Rig > Configure > Body původního modelu. Chest a Upper Chest se přiřazují samostatně. Pokud model odpovídající kost nemá, dodržujte nastavení autora."
+    },
+    {
+      "key": "胸の長さ",
+      "value": "Délka hrudníku"
+    },
+    {
+      "key": "脚を伸ばしたときに、膝が逆向きに折れるのを抑えます。",
+      "value": "Zabraňuje ohnutí kolen dozadu při natažení nohou."
+    },
+    {
+      "key": "脚全体の長さ（太もも＋すね）",
+      "value": "Délka nohy (stehno + bérec)"
+    },
+    {
+      "key": "脱力寝",
+      "value": "Padl a usnul"
+    },
+    {
+      "key": "腕や脚の長さに合わせて、手足が自然な置き場所へ届くよう調整します。",
+      "value": "Upraví končetiny do přirozené polohy pro proporce avatara."
+    },
+    {
+      "key": "腕固定",
+      "value": "Zamknout paže"
+    },
+    {
+      "key": "腕枕寝",
+      "value": "Spánek na paži"
+    },
+    {
+      "key": "腕枕（右）",
+      "value": "Pravá paže pod hlavou"
+    },
+    {
+      "key": "腕枕（左）",
+      "value": "Levá paže pod hlavou"
+    },
+    {
+      "key": "腕立て伏せ",
+      "value": "Klik"
+    },
+    {
+      "key": "膝がこの角度より伸びる前にクランプします。",
+      "value": "Omezuje natažení kolena dříve, než se úhel ohybu zmenší pod tuto hodnotu."
+    },
+    {
+      "key": "膝が伸びきる手前で止める角度です。",
+      "value": "Zastaví koleno těsně před úplným natažením."
+    },
+    {
+      "key": "膝が逆向きに曲がるのを防ぐ",
+      "value": "Zabránit ohybu kolen dozadu"
+    },
+    {
+      "key": "膝の補正",
+      "value": "Korekce kolen"
+    },
+    {
+      "key": "膝の計測に必要なHumanoid Animatorがありません。",
+      "value": "Chybí Humanoid Animator pro měření kolen."
+    },
+    {
+      "key": "膝立て",
+      "value": "Jedno koleno vzhůru"
+    },
+    {
+      "key": "自分で用意したモーションを使う",
+      "value": "Vlastní pohyby"
+    },
+    {
+      "key": "自分の頭が近くにあっても撮影できます。自分の画面だけに反映され、撮影終了後は通常の表示に戻ります。",
+      "value": "Zachová hlavu viditelnou na vaší obrazovce pro detailní fotky. Po režimu focení se obnoví běžná viditelnost."
+    },
+    {
+      "key": "自動アバター補正",
+      "value": "Automatická korekce avatara"
+    },
+    {
+      "key": "自動取り込みの結果は生成時だけ使い、この一覧には追加しません。手動指定をOFFにした種類や、指定済みモーションを外した種類は自動で補完しません。自動取り込みに戻すには「手動指定を解除」を使います。",
+      "value": "Automatické importy se používají při generování a do tohoto seznamu se nepřidávají. Ručně vypnuté nebo vymazané typy se automaticky nedoplní. Pro návrat automatického importu vymažte ruční výběr."
+    },
+    {
+      "key": "自動姿勢IK設定",
+      "value": "Katalog IK póz"
+    },
+    {
+      "key": "自動検出",
+      "value": "Rozpoznat automaticky"
+    },
+    {
+      "key": "自動生成された補正",
+      "value": "Vygenerovaná korekce"
+    },
+    {
+      "key": "自動調整Animationの作成に失敗しました: {0}",
+      "value": "Nelze vytvořit automatickou animaci korekce: {0}"
+    },
+    {
+      "key": "自動足踏みに関する案内を非表示",
+      "value": "Skrýt poznámky Auto-Footsteps"
+    },
+    {
+      "key": "芝生",
+      "value": "Trávník"
+    },
+    {
+      "key": "落下（短め）",
+      "value": "Krátký pád"
+    },
+    {
+      "key": "落下（長め）",
+      "value": "Dlouhý pád"
+    },
+    {
+      "key": "行き倒れ",
+      "value": "Zhroucení"
+    },
+    {
+      "key": "行った操作・起きたこと：",
+      "value": "Co jsem provedl a co se stalo:"
+    },
+    {
+      "key": "衣装や見た目を変えたときに使います。設定を変えたときはプレビルドしてください。",
+      "value": "Použijte po změně oblečení nebo vzhledu. Po změně nastavení aktualizujte předgenerování."
+    },
+    {
+      "key": "複数のアニメーションをここにドロップ",
+      "value": "Přetáhněte sem klipy animace"
+    },
+    {
+      "key": "複数の手足を解き直す回数です。通常は2回です。",
+      "value": "Počet průchodů řešení více končetin. Obvykle 2."
+    },
+    {
+      "key": "複製",
+      "value": "Kopírovat"
+    },
+    {
+      "key": "複製して保存",
+      "value": "Kopírovat a uložit"
+    },
+    {
+      "key": "複製する調整アニメーションが存在しません。",
+      "value": "Není animace korekce k duplikaci."
+    },
+    {
+      "key": "複製保存する変更はありませんでした。",
+      "value": "Nebyly změny k duplikaci a uložení."
+    },
+    {
+      "key": "見た目の手足の向き",
+      "value": "Viditelná orientace končetiny"
+    },
+    {
+      "key": "見下し",
+      "value": "Pohled svrchu"
+    },
+    {
+      "key": "観察中",
+      "value": "Pozorování"
+    },
+    {
+      "key": "角度は度数で指定します。寝姿勢を選び、VRChatのメニューで首固定を解除して使ってください。",
+      "value": "Úhly jsou ve stupních. Vyberte ležící pózu a odemkněte hlavu v nabídce VRChat."
+    },
+    {
+      "key": "計測用クローンに有効な Humanoid Animator がありません。",
+      "value": "Měřicí kopie nemá platný Humanoid Animator."
+    },
+    {
+      "key": "計算する順番",
+      "value": "Pořadí vyhodnocení"
+    },
+    {
+      "key": "計算の反復回数",
+      "value": "Počet iterací řešení"
+    },
+    {
+      "key": "訓練場",
+      "value": "Cvičiště"
+    },
+    {
       "key": "設定",
       "value": "Nastavení"
+    },
+    {
+      "key": "設定にエラーがあります。Inspectorの「設定の確認」を開いてください。",
+      "value": "V nastavení jsou chyby. Otevřete kontrolu nastavení v Inspector."
+    },
+    {
+      "key": "設定に問題があるため、ポーズの生成を開始できません。",
+      "value": "Generování póz nelze spustit kvůli chybám nastavení."
+    },
+    {
+      "key": "設定の更新あり",
+      "value": "Nastavení změněno"
+    },
+    {
+      "key": "設定の確認",
+      "value": "Kontrola nastavení"
+    },
+    {
+      "key": "設定の確認、またはプレビルドの更新が必要です。Inspectorを確認してください。",
+      "value": "Zkontrolujte nastavení nebo aktualizujte předgenerování. Podívejte se do Inspector."
+    },
+    {
+      "key": "設定を先に生成して、アバターのビルド時間を短縮します。",
+      "value": "Vygeneruje nastavení předem pro zkrácení sestavení avatara."
+    },
+    {
+      "key": "設定を再確認",
+      "value": "Znovu zkontrolovat nastavení"
+    },
+    {
+      "key": "診断 ",
+      "value": "Diagnostika "
+    },
+    {
+      "key": "該当するプリセットがありません。",
+      "value": "Žádné odpovídající předvolby."
+    },
+    {
+      "key": "該当する項目をポーズ一覧から削除し、必要なアニメーションを追加し直してください。",
+      "value": "Odstraňte chybějící položku ze seznamu póz a znovu přidejte potřebnou animaci."
+    },
+    {
+      "key": "詳細",
+      "value": "Podrobnosti"
+    },
+    {
+      "key": "調整アニメーション",
+      "value": "Animace korekce"
+    },
+    {
+      "key": "調整アニメーションを複製して保存しました。\n新しいファイル: {0}",
+      "value": "Animace korekce byla duplikována a uložena.\nNový soubor: {0}"
+    },
+    {
+      "key": "調整アニメーションを複製して保存します。元々設定されていたファイルは変更されません",
+      "value": "Duplikuje a uloží animaci korekce. Původně přiřazený soubor se zachová."
+    },
+    {
+      "key": "調整アニメーションを複製します。",
+      "value": "Duplikuje animaci korekce."
+    },
+    {
+      "key": "調整クリップ",
+      "value": "Klip korekce"
+    },
+    {
+      "key": "調整値をすべて0にリセットします。",
+      "value": "Vynuluje všechny hodnoty korekce."
+    },
+    {
+      "key": "調整値をファイルに保存します。",
+      "value": "Uloží hodnoty korekce do souboru."
+    },
+    {
+      "key": "調整可能なアニメーションが見つかりません。PosingSystem の設定を確認してください。",
+      "value": "Nenalezeny animace k úpravě. Zkontrolujte nastavení PosingSystem."
+    },
+    {
+      "key": "調整結果をプレビューしています。",
+      "value": "Náhled upraveného výsledku."
+    },
+    {
+      "key": "警告の表示設定",
+      "value": "Zobrazení varování"
+    },
+    {
+      "key": "警戒",
+      "value": "Ve střehu"
+    },
+    {
+      "key": "警戒（右）",
+      "value": "Střeh vpravo"
+    },
+    {
+      "key": "警戒（左）",
+      "value": "Střeh vlevo"
+    },
+    {
+      "key": "足IKで膝が逆向きに折れることを防止します。",
+      "value": "Zabraňuje IK nohou ohýbat kolena dozadu."
     },
     {
       "key": "足の高さ",
       "value": "Výška chodidel"
     },
     {
+      "key": "足伸ばし",
+      "value": "Nohy vpřed"
+    },
+    {
       "key": "足固定",
       "value": "Zamknout nohy"
+    },
+    {
+      "key": "足組み",
+      "value": "Noha přes nohu"
+    },
+    {
+      "key": "足組み２",
+      "value": "Noha přes nohu 2"
+    },
+    {
+      "key": "足降ろし",
+      "value": "Nohy dolů"
     },
     {
       "key": "距離",
       "value": "Vzdálenost"
     },
     {
+      "key": "蹲踞",
+      "value": "Hluboký dřep"
+    },
+    {
+      "key": "身体のボーン、アバター全体、床のいずれを基準にするか選びます。",
+      "value": "Vyberte kost těla, avatara nebo podlahu jako referenci."
+    },
+    {
+      "key": "身体のボーンを基準",
+      "value": "Kost těla"
+    },
+    {
+      "key": "身体の補正",
+      "value": "Korekce těla"
+    },
+    {
+      "key": "身長",
+      "value": "Výška avatara"
+    },
+    {
+      "key": "追加先にあるクリップは重複して追加されません。",
+      "value": "Klipy již přítomné v cíli se nepřidají znovu."
+    },
+    {
+      "key": "追加先の姿勢",
+      "value": "Cílová póza"
+    },
+    {
+      "key": "追加先を確認してください [PS040]",
+      "value": "Zkontrolujte cílové umístění [PS040]"
+    },
+    {
+      "key": "追加先を選択してください [PS040]",
+      "value": "Vyberte cílové umístění [PS040]"
+    },
+    {
+      "key": "追加機能を外して、ExpressionParametersの使用量を減らす",
+      "value": "Vypnout volitelné funkce pro snížení použití ExpressionParameters"
+    },
+    {
+      "key": "逆関節防止機能",
+      "value": "Zabránit ohybu kolen dozadu"
+    },
+    {
+      "key": "通常のアニメーションを中央にし、横向きの姿勢と左右反転をビルド時に合成します。各クリップの最初の姿勢を使用します。中央は0.5、左右端は0と1です。接地補正は0で無効、0.25で25％です。",
+      "value": "Při sestavení se běžná póza uprostřed zkombinuje s boční pózou a jejím zrcadlením. Použije se první snímek každého klipu. Střed je 0.5; kraje 0 a 1. Korekce podlahy je při 0 vypnutá a při 0.25 činí 25 %."
+    },
+    {
+      "key": "通常は1です。小さくすると元の姿勢を多く残します。",
+      "value": "Obvykle 1. Nižší hodnoty zachovají více zdrojové pózy."
+    },
+    {
+      "key": "通常は「メニュー名_姿勢名」です。調整ウィンドウから追加すると自動入力されます。",
+      "value": "Obvykle menuName_poseName. Přidání položky z okna úprav vyplní hodnotu automaticky."
+    },
+    {
+      "key": "通常は元の姿勢を維持します。対象アバターへ元Animationを適用した直後と同じ側へ曲げます。",
+      "value": "Obvykle zachová zdrojovou pózu a ohýbá na stejnou stranu jako ihned po použití zdrojové animace na cílového avatara."
+    },
+    {
+      "key": "運動会",
+      "value": "Sportovní den"
+    },
+    {
+      "key": "適用するPrefabs (PosingSystem)",
+      "value": "Prefaby PosingSystem k použití"
+    },
+    {
+      "key": "選択アバターの1評価版比較コピーを作成",
+      "value": "Vytvořit kopii pro porovnání vyhodnocení"
+    },
+    {
+      "key": "選択アバターの最適化比較コピーを作成",
+      "value": "Vytvořit kopii pro porovnání optimalizace"
+    },
+    {
+      "key": "選択時",
+      "value": "Při výběru"
+    },
+    {
+      "key": "配置対象のアバターPrefab/FBXのファイル名",
+      "value": "Názvy souborů prefab / FBX cílového avatara"
+    },
+    {
+      "key": "配置対象のアバターPrefabs/FBX",
+      "value": "Cílové prefaby / FBX avatara"
+    },
+    {
+      "key": "長い落下",
+      "value": "Dlouhý pád"
+    },
+    {
+      "key": "長さの基準に必要なHumanoidボーン（{0}・{1}）がありません。",
+      "value": "Chybí kosti Humanoid potřebné pro měření délky: {0}, {1}."
+    },
+    {
+      "key": "閉じる",
+      "value": "Zavřít"
+    },
+    {
+      "key": "開く ›",
+      "value": "Otevřít ›"
+    },
+    {
+      "key": "閾値設定",
+      "value": "Výškové prahy"
+    },
+    {
+      "key": "限界突破",
+      "value": "Rozšířený rozsah"
+    },
+    {
+      "key": "限界突破をオンにするとパラメータの設定幅が5倍になります",
+      "value": "Povolí pětkrát širší rozsah parametru."
+    },
+    {
+      "key": "面接",
+      "value": "Pohovor"
+    },
+    {
+      "key": "順番",
+      "value": "Pořadí"
+    },
+    {
+      "key": "頭、腰、膝、ViewPosition（目の位置）など、手足の置き場所を測る基準です。ViewPositionは頭の動きに追従します。",
+      "value": "Reference polohy ruky či chodidla, například Head, Hips, koleno nebo ViewPosition (poloha očí). ViewPosition sleduje pohyb hlavy."
+    },
+    {
+      "key": "頭のボーン（Head）を取得できません。姿勢の高さを計算できません。",
+      "value": "Kost Head nebyla nalezena, takže nelze spočítat výšku pózy."
+    },
+    {
+      "key": "頭の位置を保ち、足側の高さを変えられます。足が床に埋まる・浮くときに調整できます。",
+      "value": "Upraví výšku chodidel při zachování polohy hlavy a opraví plovoucí či do podlahy zapadlé nohy."
+    },
+    {
+      "key": "頭の向きに合わせて寝返りできます。一部の寝姿勢のみ対応しています。",
+      "value": "Umožní přetočit se náklonem hlavy. Podporují jen některé ležící pózy."
+    },
+    {
+      "key": "頭の大きさ（HeadとViewpointの前後差）",
+      "value": "Velikost hlavy (rozdíl hloubky Head/Viewpoint)"
+    },
+    {
+      "key": "頭の大きさ（HeadとViewpointの高低差）",
+      "value": "Velikost hlavy (rozdíl výšky Head/Viewpoint)"
+    },
+    {
+      "key": "頭の高さ無視",
+      "value": "Ignorovat výšku hlavy"
+    },
+    {
+      "key": "頭も含めた身体全体の高さを変えられます。VRChatの「床の高さ」で、50%を元の高さとして上下3mまで調整できます。",
+      "value": "Posune celé tělo včetně hlavy až o 3 m nahoru nebo dolů. Výška podlahy je neutrální na 50 %."
+    },
+    {
+      "key": "首の向きの違いによる姿勢崩れを抑制",
+      "value": "Omezit deformaci pózy při otočení hlavy"
+    },
+    {
+      "key": "首・頭",
+      "value": "Krk a hlava"
+    },
+    {
       "key": "首固定",
       "value": "Zamknout hlavu"
+    },
+    {
+      "key": "首固定を解除したとき、元のポーズと首の向きが異なることで起きる姿勢崩れを抑えます。",
+      "value": "Omezí deformaci, když hlava při vypnutém zámku míří jinam než v původní póze."
+    },
+    {
+      "key": "騎士",
+      "value": "Rytíř"
+    },
+    {
+      "key": "高さ",
+      "value": "Výška"
+    },
+    {
+      "key": "魔王降臨",
+      "value": "Pán démonů"
+    },
+    {
+      "key": "（ユーザー作成）",
+      "value": " (uživatelská)"
+    },
+    {
+      "key": "（公式）",
+      "value": " (oficiální)"
+    },
+    {
+      "key": "（廃止されたAPIの使用）",
+      "value": " (použití zastaralého API)"
+    },
+    {
+      "key": "（生成方式）",
+      "value": " (způsob generování)"
+    },
+    {
+      "key": "＋ 1件追加",
+      "value": "+ Přidat pózu"
+    },
+    {
+      "key": "＋ 複数のアニメーションを追加",
+      "value": "+ Přidat více animací"
     }
   ]
 }

@@ -64,6 +64,10 @@ namespace jp.unisakistudio.posingsystemeditor
         public static string Format(string japanese, params object[] arguments) => string.Format(Text(japanese), arguments);
         public static string Text(string japanese) => Text(japanese, japanese);
         public static string Text(string key, string japanese) => Translate(Language, key, japanese);
+        // A cached error may already be formatted in a previously selected language.
+        // Use reverse aliases for these messages, including when returning to Japanese.
+        // Ordinary lookup/custom-name fallbacks must keep their original Japanese behavior.
+        public static string TextMessage(string message) => UnisakiStudio.Setup.Language.Translate(Language, message);
         public static string Translate(string language, string key, string fallback)
         {
             language = Normalize(language);

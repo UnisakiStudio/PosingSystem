@@ -10,6 +10,6 @@ La lingua scelta nella parte superiore dell’Inspector si applica sia all’int
 
 L’elenco mostra i nomi tradotti. Puoi cercare il nome giapponese o la traduzione. I nomi originali, le animazioni e i parametri interni restano invariati. I nomi personalizzati senza traduzione mantengono il testo originale.
 
-## Traduzioni in corso
+## Lingue disponibili
 
-Le traduzioni vengono aggiunte gradualmente nella versione di sviluppo v3.2.0. Se manca una traduzione, viene usata quella inglese disponibile oppure il testo originale. I nomi personalizzati restano invariati. La copertura varia secondo la lingua.
+La versione v3.2.0 include i testi standard e tutti i 128 nomi delle pose per 30 lingue. L’Inspector, le finestre di installazione e il menu generato nel gioco usano la stessa lingua. I nomi personalizzati restano invariati. Il manuale completo offline è disponibile in inglese.

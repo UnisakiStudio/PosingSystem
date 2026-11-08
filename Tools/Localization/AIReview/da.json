@@ -1,0 +1,37 @@
+{
+  "language": "da",
+  "authoring": "Codex AI, 2026-11-09",
+  "catalog_missing_completed": 782,
+  "setup_missing_completed": 61,
+  "anatomy_completed": 120,
+  "term_forms": {
+    "Photo Mode": [
+      "Fototilstand"
+    ],
+    "prebuild": [
+      "forberegning",
+      "forberegne",
+      "forberegnet"
+    ],
+    "preset": [
+      "forudindstilling"
+    ],
+    "Roll Over": [
+      "Vend dig",
+      "vende dig",
+      "vending",
+      "vendeanimation"
+    ]
+  },
+  "terminology_exceptions": [
+    "Generic roll orientation is sidehældning. Product/API identifiers retain original spelling."
+  ],
+  "review": [
+    "Existing menu terms preserved",
+    "128 pose names authored together; H/V are højre/venstre",
+    "Placeholders checked",
+    "Anatomy directions and finger numbering preserved"
+  ],
+  "native_speaker_review": false,
+  "rendered_visual_review": false
+}

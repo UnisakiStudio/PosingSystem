@@ -1,0 +1,36 @@
+{
+  "language": "pt",
+  "authoring": "Codex AI, 2026-11-09",
+  "catalog_missing_completed": 782,
+  "setup_missing_completed": 61,
+  "anatomy_completed": 120,
+  "term_forms": {
+    "Photo Mode": [
+      "Modo foto"
+    ],
+    "prebuild": [
+      "pré-cálculo",
+      "pré-calcular",
+      "pré-calculado"
+    ],
+    "preset": [
+      "predefinição",
+      "predefinições"
+    ],
+    "Roll Over": [
+      "virar"
+    ]
+  },
+  "terminology_exceptions": [
+    "Generic roll rotation uses inclinação lateral. Product/API identifiers retain original spelling."
+  ],
+  "review": [
+    "Existing translations preserved",
+    "128 pose names translated together; D/E mark direita/esquerda",
+    "Portuguese variants share neutral terminology; pt uses ficheiro/utilizador/ecrã/descarregar/partilhado and regional pose terms",
+    "Placeholders checked",
+    "Anatomy indices, directions and finger numbering preserved"
+  ],
+  "native_speaker_review": false,
+  "rendered_visual_review": false
+}

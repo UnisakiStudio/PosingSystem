@@ -1,0 +1,37 @@
+{
+  "language": "ko",
+  "author": "Codex AI",
+  "external_translation_service": false,
+  "native_speaker_review": false,
+  "visual_review": false,
+  "anatomy": {
+    "keys": 120,
+    "method": "AI-authored anatomical vocabulary composed consistently across the full 95-muscle and 25-bone set",
+    "numbering_and_directions_preserved": true
+  },
+  "authoring": "Codex AI, 2026-11-09; anatomy by parallel AI, remaining UI/setup by parent",
+  "catalog_missing_completed": 623,
+  "anatomy_completed": 120,
+  "setup_missing_completed": 61,
+  "term_forms": {
+    "Photo Mode": [
+      "촬영 모드"
+    ],
+    "prebuild": [
+      "프리빌드"
+    ],
+    "preset": [
+      "프리셋"
+    ],
+    "Roll Over": [
+      "뒤척"
+    ]
+  },
+  "rendered_visual_review": false,
+  "review": [
+    "Existing pose names and translations preserved; one correction to newly authored crouching title recorded",
+    "All missing catalog/setup keys completed",
+    "Placeholders checked",
+    "Anatomy indices and numbers preserved"
+  ]
+}

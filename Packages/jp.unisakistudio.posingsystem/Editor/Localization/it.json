@@ -1,6 +1,238 @@
 {
   "entries": [
     {
+      "key": "(名前なし)",
+      "value": "(Senza nome)"
+    },
+    {
+      "key": "0〜1の値を指定してください。",
+      "value": "Usa un valore tra 0 e 1."
+    },
+    {
+      "key": "0では回転せず、1で記録した向きへ完全に合わせます。",
+      "value": "0 conserva la rotazione originale; 1 corrisponde interamente all'orientamento registrato."
+    },
+    {
+      "key": "0にリセットします",
+      "value": "Azzera."
+    },
+    {
+      "key": "1件のエラー",
+      "value": "1 errore"
+    },
+    {
+      "key": "1件の注意",
+      "value": "1 avviso"
+    },
+    {
+      "key": "AddStateMachineBehaviourに失敗しました。多くの場合原因は別のツールなどにエラーが発生していることです。アバタービルド・アップロード前にConsoleウィンドウを確認してエラーを解消してから再度お試しください",
+      "value": "AddStateMachineBehaviour non riuscito. Un altro strumento potrebbe aver segnalato un errore precedente. Risolvi il primo errore pertinente nella Console prima di compilare o caricare di nuovo l'avatar."
+    },
+    {
+      "key": "Animator Override Controllerはここでは使用できません。ツールの標準Controllerへ戻してください。",
+      "value": "Ripristina il Controller standard dello strumento. Gli Animator Override Controllers non sono supportati qui."
+    },
+    {
+      "key": "Animator Override Controllerはここでは使用できません。ツールの標準Controllerへ戻してください。シーンを保存・バックアップしてから、ALCOM / VCCで商品本体と「ゆにさきポーズシステム」を再取得してください。入れ直しても直らない場合は、Inspector上部の「ヘルプ・変更履歴」から公式マニュアル・お問い合わせをご確認ください。調整済みのオブジェクトやGeneratedResourcesは削除しないでください。",
+      "value": "Ripristina il Controller standard dello strumento. Gli Animator Override Controllers non sono supportati qui.\nSalva e crea un backup della scena, poi scarica di nuovo il prodotto e Unisaki Posing System con ALCOM / VCC. Se il problema persiste, apri Aiuto / Cronologia in cima all'Inspector per il manuale e l'assistenza. Conserva gli oggetti modificati e GeneratedResources."
+    },
+    {
+      "key": "Animator を持つアバターが見つかりません。",
+      "value": "Nessun avatar con Animator trovato."
+    },
+    {
+      "key": "AnimatorにParameterとして登録されていないパラメータが条件式に使われています。「{0}」ファイルの「{1}」というレイヤーで使用されている「{2}」というパラメータが条件式に使われていますが、AnimatorControllerのParametersにはパラメータがありません。使用しているツールやギミックの相性の問題だと思われるため、このパラメータを使用しているツールの開発者に連絡してください",
+      "value": "Una condizione dell'Animator fa riferimento a un parametro non dichiarato. Nel file {0}, layer {1}, il parametro {2} è usato in una condizione ma manca dall'elenco Parameters dell'Animator Controller. Contatta l'autore dello strumento che usa questo parametro per verificarne la compatibilità."
+    },
+    {
+      "key": "AnimatorのAvatarが有効なHumanoidではありません。",
+      "value": "L'Animator non fa riferimento a un Humanoid Avatar valido."
+    },
+    {
+      "key": "AnimatorのAvatar欄がNoneまたはMissingです。",
+      "value": "Il campo Avatar dell'Animator è None o Missing."
+    },
+    {
+      "key": "AnimatorのAvatar欄が未設定です。Inspectorの「設定の確認」の対処手順をご確認ください。",
+      "value": "Il campo Avatar dell'Animator è vuoto. Consulta Controlla impostazioni nell'Inspector."
+    },
+    {
+      "key": "Auto-Footstepsはオンです。ポーズ中に意図せず足が動く場合は、下のボタンでオフにして比較できます。問題がなければ変更は不要です。",
+      "value": "Auto-Footsteps è attivo. Se i piedi si muovono involontariamente durante le pose, disattivalo qui sotto e confronta. Non modificarlo se non ci sono problemi."
+    },
+    {
+      "key": "ConsoleでMissing Prefabなどのインポートエラーを確認してください。配置先のシーンを開き直して再実行してください。",
+      "value": "Controlla nella Console gli errori di importazione, come Missing Prefab. Riapri la scena di destinazione e riprova."
+    },
+    {
+      "key": "Consoleのエラー\n",
+      "value": "Errori della Console\n"
+    },
+    {
+      "key": "Consoleの最初のコンパイルエラーを修正し、再コンパイルが完了してから実行してください。",
+      "value": "Correggi il primo errore di compilazione nella Console, attendi la fine della compilazione e riprova."
+    },
+    {
+      "key": "HeadとViewpointの前後差を測定できません。View Positionとアバターのスケールを確認してください。",
+      "value": "Impossibile misurare la differenza di profondità tra Head e Viewpoint. Controlla View Position e la scala dell'avatar."
+    },
+    {
+      "key": "HeadとViewpointの高低差を測定できません。View Positionとアバターのスケールを確認してください。",
+      "value": "Impossibile misurare la differenza di altezza tra Head e Viewpoint. Controlla View Position e la scala dell'avatar."
+    },
+    {
+      "key": "Hierarchyでアバター内のポーズツールを選択し直してください。",
+      "value": "Seleziona di nuovo lo strumento di posa nell'avatar nella Hierarchy."
+    },
+    {
+      "key": "Hierarchyの警告マークを非表示",
+      "value": "Nascondi avvisi nella Hierarchy"
+    },
+    {
+      "key": "Humanoid Animatorが必要です。",
+      "value": "Serve un Humanoid Animator."
+    },
+    {
+      "key": "Humanoid AnimatorまたはIKルールがありません。",
+      "value": "Manca un Humanoid Animator o una regola IK."
+    },
+    {
+      "key": "Humanoid の Animator を持つアバターが見つかりません。",
+      "value": "Nessun avatar con Humanoid Animator trovato."
+    },
+    {
+      "key": "HumanoidのアバターとAnimationClipを指定してください。",
+      "value": "Scegli un avatar Humanoid e un AnimationClip."
+    },
+    {
+      "key": "Humanoidボーン軸の違いを除いた、基準から見た手首または足首の向きです。",
+      "value": "Orientamento del polso o della caviglia rispetto al riferimento, escluse le differenze degli assi dei bone Humanoid."
+    },
+    {
+      "key": "IKで手足の位置を自動調整しています。手動で調整するには、下の「IKを調整に反映」を押してください。",
+      "value": "IK sta regolando gli arti. Per modificare manualmente, seleziona Integra IK nelle regolazioni qui sotto."
+    },
+    {
+      "key": "IKで補正する前の基準姿勢です。",
+      "value": "La posa di riferimento prima della correzione IK."
+    },
+    {
+      "key": "IKの結果を新しい調整アニメーションに保存して、このポーズのIKをオフにします。その後は下の項目で手動調整できます。",
+      "value": "Salva il risultato IK in una nuova animazione di regolazione e disattiva IK per questa posa. Poi puoi regolarla manualmente qui sotto."
+    },
+    {
+      "key": "IKの調整を保存できませんでした。",
+      "value": "Impossibile salvare la regolazione IK."
+    },
+    {
+      "key": "IKを反映するポーズとアバターを確認してください。",
+      "value": "Controlla la posa e l'avatar a cui applicare l'IK."
+    },
+    {
+      "key": "IKを反映できませんでした",
+      "value": "Impossibile integrare IK"
+    },
+    {
+      "key": "IKを調整に反映",
+      "value": "Integra IK nelle regolazioni"
+    },
+    {
+      "key": "IKルール {0}",
+      "value": "Regola IK {0}"
+    },
+    {
+      "key": "IKルールを適用できませんでした。",
+      "value": "Impossibile applicare le regole IK."
+    },
+    {
+      "key": "Inspectorの「設定の確認」で対象を選択し、表示された項目を直して再実行してください。",
+      "value": "Seleziona l'oggetto interessato in Controlla impostazioni nell'Inspector, correggi i problemi elencati e riprova."
+    },
+    {
+      "key": "Mecanimで使用できるアニメーションを指定してください。元モデル由来ならRigの設定も確認してください。",
+      "value": "Assegna un'animazione compatibile con Mecanim. Se proviene da un modello, controlla anche le sue impostazioni Rig."
+    },
+    {
+      "key": "Modular Avatarで追加した衣装などは、アバターのビルド時に撮影し直したアイコンへ反映されます。",
+      "value": "Gli abiti aggiunti con Modular Avatar sono inclusi quando le icone vengono ricreate durante la compilazione dell'avatar."
+    },
+    {
+      "key": "Motion Timeのパラメータ名を設定するか、Motion Timeを無効にしてください。",
+      "value": "Imposta il nome del parametro Motion Time o disattiva Motion Time."
+    },
+    {
+      "key": "PosingSystem が見つかりません。対象のコンポーネントを選択した状態で再度開いてください。",
+      "value": "PosingSystem non trovato. Seleziona il componente di destinazione e riapri questa finestra."
+    },
+    {
+      "key": "PrefabsHashesに\nクリップボードから追加",
+      "value": "Aggiungi a PrefabsHashes\ndagli appunti"
+    },
+    {
+      "key": "PrefabsHashesを\nクリア",
+      "value": "Cancella\nPrefabsHashes"
+    },
+    {
+      "key": "PrefabsHashesをすべてクリアしますか？",
+      "value": "Cancellare tutte le voci PrefabsHashes?"
+    },
+    {
+      "key": "PrefabsNamesに\nクリップボードから追加",
+      "value": "Aggiungi a PrefabsNames\ndagli appunti"
+    },
+    {
+      "key": "PrefabsNamesを\nクリア",
+      "value": "Cancella\nPrefabsNames"
+    },
+    {
+      "key": "PrefabsNamesをすべてクリアしますか？",
+      "value": "Cancellare tutte le voci PrefabsNames?"
+    },
+    {
+      "key": "Prefabが破損しているか、Posing Systemコンポーネントがありません。ConsoleのMissing Script・コンパイルエラーを確認してください。",
+      "value": "Il prefab è danneggiato o non ha un componente Posing System. Controlla Missing Script ed errori di compilazione nella Console."
+    },
+    {
+      "key": "Prefabを読み込めません [PS042]",
+      "value": "Impossibile caricare prefab [PS042]"
+    },
+    {
+      "key": "Prefabを配置できません [PS043]",
+      "value": "Impossibile posizionare prefab [PS043]"
+    },
+    {
+      "key": "Prefab編集画面を閉じ、HierarchyでVRC Avatar Descriptorが付いたアバターの子にツールを配置してください。Project内のPrefab単体ではプレビルドできません。",
+      "value": "Chiudi la modalità Prefab e inserisci lo strumento in un avatar della scena con un VRC Avatar Descriptor. Un asset prefab nella finestra Project non può essere precalcolato da solo."
+    },
+    {
+      "key": "Projectで選ぶときは、Inspector右上の鍵を閉じてから選択してください。",
+      "value": "Blocca l'Inspector con il lucchetto in alto a destra prima di selezionare clip in Project."
+    },
+    {
+      "key": "Projectで選択中のPrefabを追加",
+      "value": "Aggiungi prefab selezionati in Project"
+    },
+    {
+      "key": "Projectで選択中のクリップを読み込む",
+      "value": "Importa clip selezionati in Project"
+    },
+    {
+      "key": "Projectで選択中のファイル名を追加",
+      "value": "Aggiungi nomi file selezionati in Project"
+    },
+    {
+      "key": "Submenu Rootには、このアバター内のメニュー生成先を指定してください。",
+      "value": "Assegna a Submenu Root una destinazione del menu all'interno di questo avatar."
+    },
+    {
+      "key": "Unityでスクリプトのコンパイルに失敗したため、ポーズの生成を開始できません。",
+      "value": "La generazione delle pose non può iniziare perché la compilazione degli script Unity è fallita."
+    },
+    {
+      "key": "VRC Avatar Descriptorと同じオブジェクトのAnimatorを確認し、配布元のアバターPrefabの設定と比較してください。",
+      "value": "Controlla l'Animator sullo stesso oggetto del VRC Avatar Descriptor e confrontalo con il prefab originale dell'avatar."
+    },
+    {
       "key": "VRChatのメニューで呼吸をつけたり止めたりできます。ON/OFFは他の人にも反映されます。",
       "value": "Attiva o disattiva il respiro in VRChat. Il cambiamento è visibile anche agli altri utenti."
     },
@@ -11,6 +243,142 @@
     {
       "key": "VRChat標準の揺れを止める",
       "value": "Disattivare l'oscillazione da fermo di VRChat"
+    },
+    {
+      "key": "VRC想定移動モーション(無料配布)追加",
+      "value": "Aggiungi movimenti di locomozione VRChat (gratuiti)"
+    },
+    {
+      "key": "ViewPositionの基準となるHeadの参照姿勢を取得できません。",
+      "value": "Impossibile ottenere la posa di riferimento di Head usata per ViewPosition."
+    },
+    {
+      "key": "ViewPositionの基準となるHeadの回転を取得できません。",
+      "value": "Impossibile ottenere la rotazione di Head usata come riferimento di ViewPosition."
+    },
+    {
+      "key": "ViewPositionまたはボーンの座標に無効な値があります。",
+      "value": "ViewPosition o una posizione di bone contiene un valore non valido."
+    },
+    {
+      "key": "ViewPositionを基準にするには、同じアバターのAvatar DescriptorとHeadボーンが必要です。",
+      "value": "Usare ViewPosition come riferimento richiede un Avatar Descriptor e un bone Head dello stesso avatar."
+    },
+    {
+      "key": "ViewPositionを計算できません。HeadまでのボーンのスケールとHumanoid設定を確認してください。",
+      "value": "Impossibile calcolare ViewPosition. Controlla le scale dei bone fino a Head e le impostazioni Humanoid."
+    },
+    {
+      "key": "ViewPosition（目の位置）",
+      "value": "ViewPosition (posizione degli occhi)"
+    },
+    {
+      "key": "[パス]",
+      "value": "[percorso]"
+    },
+    {
+      "key": "[メール]",
+      "value": "[e-mail]"
+    },
+    {
+      "key": "bone.Chest",
+      "value": "Torace"
+    },
+    {
+      "key": "bone.Head",
+      "value": "Testa"
+    },
+    {
+      "key": "bone.Hips",
+      "value": "Bacino"
+    },
+    {
+      "key": "bone.Jaw",
+      "value": "Mandibola"
+    },
+    {
+      "key": "bone.LeftEye",
+      "value": "Occhio sinistro"
+    },
+    {
+      "key": "bone.LeftFoot",
+      "value": "Piede sinistro"
+    },
+    {
+      "key": "bone.LeftHand",
+      "value": "Mano sinistra"
+    },
+    {
+      "key": "bone.LeftLowerArm",
+      "value": "Avambraccio sinistro"
+    },
+    {
+      "key": "bone.LeftLowerLeg",
+      "value": "Gamba sinistra"
+    },
+    {
+      "key": "bone.LeftShoulder",
+      "value": "Spalla sinistra"
+    },
+    {
+      "key": "bone.LeftToes",
+      "value": "Dita del piede sinistro"
+    },
+    {
+      "key": "bone.LeftUpperArm",
+      "value": "Braccio sinistro"
+    },
+    {
+      "key": "bone.LeftUpperLeg",
+      "value": "Coscia sinistra"
+    },
+    {
+      "key": "bone.Neck",
+      "value": "Collo"
+    },
+    {
+      "key": "bone.RightEye",
+      "value": "Occhio destro"
+    },
+    {
+      "key": "bone.RightFoot",
+      "value": "Piede destro"
+    },
+    {
+      "key": "bone.RightHand",
+      "value": "Mano destra"
+    },
+    {
+      "key": "bone.RightLowerArm",
+      "value": "Avambraccio destro"
+    },
+    {
+      "key": "bone.RightLowerLeg",
+      "value": "Gamba destra"
+    },
+    {
+      "key": "bone.RightShoulder",
+      "value": "Spalla destra"
+    },
+    {
+      "key": "bone.RightToes",
+      "value": "Dita del piede destro"
+    },
+    {
+      "key": "bone.RightUpperArm",
+      "value": "Braccio destro"
+    },
+    {
+      "key": "bone.RightUpperLeg",
+      "value": "Coscia destra"
+    },
+    {
+      "key": "bone.Spine",
+      "value": "Colonna vertebrale"
+    },
+    {
+      "key": "bone.UpperChest",
+      "value": "Torace superiore"
     },
     {
       "key": "changelog",
@@ -33,8 +401,580 @@
       "value": "Guida"
     },
     {
+      "key": "muscle.0",
+      "value": "Colonna vertebrale: avanti-indietro"
+    },
+    {
+      "key": "muscle.1",
+      "value": "Colonna vertebrale: sinistra-destra"
+    },
+    {
+      "key": "muscle.10",
+      "value": "Collo: inclinazione sinistra-destra"
+    },
+    {
+      "key": "muscle.11",
+      "value": "Collo: rotazione sinistra-destra"
+    },
+    {
+      "key": "muscle.12",
+      "value": "Testa: flessione basso-alto"
+    },
+    {
+      "key": "muscle.13",
+      "value": "Testa: inclinazione sinistra-destra"
+    },
+    {
+      "key": "muscle.14",
+      "value": "Testa: rotazione sinistra-destra"
+    },
+    {
+      "key": "muscle.15",
+      "value": "Occhio sinistro: basso-alto"
+    },
+    {
+      "key": "muscle.16",
+      "value": "Occhio sinistro: interno-esterno"
+    },
+    {
+      "key": "muscle.17",
+      "value": "Occhio destro: basso-alto"
+    },
+    {
+      "key": "muscle.18",
+      "value": "Occhio destro: interno-esterno"
+    },
+    {
+      "key": "muscle.19",
+      "value": "Mandibola: chiusura"
+    },
+    {
+      "key": "muscle.2",
+      "value": "Colonna vertebrale: torsione sinistra-destra"
+    },
+    {
+      "key": "muscle.20",
+      "value": "Mandibola: sinistra-destra"
+    },
+    {
+      "key": "muscle.21",
+      "value": "Coscia sinistra: avanti-indietro"
+    },
+    {
+      "key": "muscle.22",
+      "value": "Coscia sinistra: interno-esterno"
+    },
+    {
+      "key": "muscle.23",
+      "value": "Coscia sinistra: torsione interno-esterno"
+    },
+    {
+      "key": "muscle.24",
+      "value": "Gamba sinistra: estensione"
+    },
+    {
+      "key": "muscle.25",
+      "value": "Gamba sinistra: torsione interno-esterno"
+    },
+    {
+      "key": "muscle.26",
+      "value": "Piede sinistro: alto-basso"
+    },
+    {
+      "key": "muscle.27",
+      "value": "Piede sinistro: torsione interno-esterno"
+    },
+    {
+      "key": "muscle.28",
+      "value": "Dita del piede sinistro: alto-basso"
+    },
+    {
+      "key": "muscle.29",
+      "value": "Coscia destra: avanti-indietro"
+    },
+    {
+      "key": "muscle.3",
+      "value": "Torace: avanti-indietro"
+    },
+    {
+      "key": "muscle.30",
+      "value": "Coscia destra: interno-esterno"
+    },
+    {
+      "key": "muscle.31",
+      "value": "Coscia destra: torsione interno-esterno"
+    },
+    {
+      "key": "muscle.32",
+      "value": "Gamba destra: estensione"
+    },
+    {
+      "key": "muscle.33",
+      "value": "Gamba destra: torsione interno-esterno"
+    },
+    {
+      "key": "muscle.34",
+      "value": "Piede destro: alto-basso"
+    },
+    {
+      "key": "muscle.35",
+      "value": "Piede destro: torsione interno-esterno"
+    },
+    {
+      "key": "muscle.36",
+      "value": "Dita del piede destro: alto-basso"
+    },
+    {
+      "key": "muscle.37",
+      "value": "Spalla sinistra: basso-alto"
+    },
+    {
+      "key": "muscle.38",
+      "value": "Spalla sinistra: avanti-indietro"
+    },
+    {
+      "key": "muscle.39",
+      "value": "Braccio sinistro: basso-alto"
+    },
+    {
+      "key": "muscle.4",
+      "value": "Torace: sinistra-destra"
+    },
+    {
+      "key": "muscle.40",
+      "value": "Braccio sinistro: avanti-indietro"
+    },
+    {
+      "key": "muscle.41",
+      "value": "Braccio sinistro: torsione interno-esterno"
+    },
+    {
+      "key": "muscle.42",
+      "value": "Avambraccio sinistro: estensione"
+    },
+    {
+      "key": "muscle.43",
+      "value": "Avambraccio sinistro: torsione interno-esterno"
+    },
+    {
+      "key": "muscle.44",
+      "value": "Mano sinistra: basso-alto"
+    },
+    {
+      "key": "muscle.45",
+      "value": "Mano sinistra: interno-esterno"
+    },
+    {
+      "key": "muscle.46",
+      "value": "Spalla destra: basso-alto"
+    },
+    {
+      "key": "muscle.47",
+      "value": "Spalla destra: avanti-indietro"
+    },
+    {
+      "key": "muscle.48",
+      "value": "Braccio destro: basso-alto"
+    },
+    {
+      "key": "muscle.49",
+      "value": "Braccio destro: avanti-indietro"
+    },
+    {
+      "key": "muscle.5",
+      "value": "Torace: torsione sinistra-destra"
+    },
+    {
+      "key": "muscle.50",
+      "value": "Braccio destro: torsione interno-esterno"
+    },
+    {
+      "key": "muscle.51",
+      "value": "Avambraccio destro: estensione"
+    },
+    {
+      "key": "muscle.52",
+      "value": "Avambraccio destro: torsione interno-esterno"
+    },
+    {
+      "key": "muscle.53",
+      "value": "Mano destra: basso-alto"
+    },
+    {
+      "key": "muscle.54",
+      "value": "Mano destra: interno-esterno"
+    },
+    {
+      "key": "muscle.55",
+      "value": "Pollice sinistro: estensione 1"
+    },
+    {
+      "key": "muscle.56",
+      "value": "Pollice sinistro: divaricazione"
+    },
+    {
+      "key": "muscle.57",
+      "value": "Pollice sinistro: estensione 2"
+    },
+    {
+      "key": "muscle.58",
+      "value": "Pollice sinistro: estensione 3"
+    },
+    {
+      "key": "muscle.59",
+      "value": "Indice sinistro: estensione 1"
+    },
+    {
+      "key": "muscle.6",
+      "value": "Torace superiore: avanti-indietro"
+    },
+    {
+      "key": "muscle.60",
+      "value": "Indice sinistro: divaricazione"
+    },
+    {
+      "key": "muscle.61",
+      "value": "Indice sinistro: estensione 2"
+    },
+    {
+      "key": "muscle.62",
+      "value": "Indice sinistro: estensione 3"
+    },
+    {
+      "key": "muscle.63",
+      "value": "Medio sinistro: estensione 1"
+    },
+    {
+      "key": "muscle.64",
+      "value": "Medio sinistro: divaricazione"
+    },
+    {
+      "key": "muscle.65",
+      "value": "Medio sinistro: estensione 2"
+    },
+    {
+      "key": "muscle.66",
+      "value": "Medio sinistro: estensione 3"
+    },
+    {
+      "key": "muscle.67",
+      "value": "Anulare sinistro: estensione 1"
+    },
+    {
+      "key": "muscle.68",
+      "value": "Anulare sinistro: divaricazione"
+    },
+    {
+      "key": "muscle.69",
+      "value": "Anulare sinistro: estensione 2"
+    },
+    {
+      "key": "muscle.7",
+      "value": "Torace superiore: sinistra-destra"
+    },
+    {
+      "key": "muscle.70",
+      "value": "Anulare sinistro: estensione 3"
+    },
+    {
+      "key": "muscle.71",
+      "value": "Mignolo sinistro: estensione 1"
+    },
+    {
+      "key": "muscle.72",
+      "value": "Mignolo sinistro: divaricazione"
+    },
+    {
+      "key": "muscle.73",
+      "value": "Mignolo sinistro: estensione 2"
+    },
+    {
+      "key": "muscle.74",
+      "value": "Mignolo sinistro: estensione 3"
+    },
+    {
+      "key": "muscle.75",
+      "value": "Pollice destro: estensione 1"
+    },
+    {
+      "key": "muscle.76",
+      "value": "Pollice destro: divaricazione"
+    },
+    {
+      "key": "muscle.77",
+      "value": "Pollice destro: estensione 2"
+    },
+    {
+      "key": "muscle.78",
+      "value": "Pollice destro: estensione 3"
+    },
+    {
+      "key": "muscle.79",
+      "value": "Indice destro: estensione 1"
+    },
+    {
+      "key": "muscle.8",
+      "value": "Torace superiore: torsione sinistra-destra"
+    },
+    {
+      "key": "muscle.80",
+      "value": "Indice destro: divaricazione"
+    },
+    {
+      "key": "muscle.81",
+      "value": "Indice destro: estensione 2"
+    },
+    {
+      "key": "muscle.82",
+      "value": "Indice destro: estensione 3"
+    },
+    {
+      "key": "muscle.83",
+      "value": "Medio destro: estensione 1"
+    },
+    {
+      "key": "muscle.84",
+      "value": "Medio destro: divaricazione"
+    },
+    {
+      "key": "muscle.85",
+      "value": "Medio destro: estensione 2"
+    },
+    {
+      "key": "muscle.86",
+      "value": "Medio destro: estensione 3"
+    },
+    {
+      "key": "muscle.87",
+      "value": "Anulare destro: estensione 1"
+    },
+    {
+      "key": "muscle.88",
+      "value": "Anulare destro: divaricazione"
+    },
+    {
+      "key": "muscle.89",
+      "value": "Anulare destro: estensione 2"
+    },
+    {
+      "key": "muscle.9",
+      "value": "Collo: flessione basso-alto"
+    },
+    {
+      "key": "muscle.90",
+      "value": "Anulare destro: estensione 3"
+    },
+    {
+      "key": "muscle.91",
+      "value": "Mignolo destro: estensione 1"
+    },
+    {
+      "key": "muscle.92",
+      "value": "Mignolo destro: divaricazione"
+    },
+    {
+      "key": "muscle.93",
+      "value": "Mignolo destro: estensione 2"
+    },
+    {
+      "key": "muscle.94",
+      "value": "Mignolo destro: estensione 3"
+    },
+    {
+      "key": "package",
+      "value": "ID pacchetto"
+    },
+    {
       "key": "support",
       "value": "Assistenza"
+    },
+    {
+      "key": "unknown",
+      "value": "Sconosciuta"
+    },
+    {
+      "key": "version",
+      "value": "Versione"
+    },
+    {
+      "key": "{0} のHumanoid基準軸を取得できません。",
+      "value": "Impossibile ottenere gli assi di riferimento Humanoid per {0}."
+    },
+    {
+      "key": "{0} の基準姿勢を保存しました。",
+      "value": "Posa di riferimento salvata per {0}."
+    },
+    {
+      "key": "{0} 用の補正を生成しました（{1} Muscle）。",
+      "value": "Correzioni generate per {0} ({1} muscoli)."
+    },
+    {
+      "key": "{0}: Two-Bone IKを解けませんでした。",
+      "value": "{0}: risoluzione IK a due bone fallita."
+    },
+    {
+      "key": "{0}: {1} のHumanoidボーンがありません。",
+      "value": "{0}: mancano i bone Humanoid per {1}."
+    },
+    {
+      "key": "{0}: ターゲットへ届かないため {1}m 手前で制限しました。",
+      "value": "{0}: destinazione irraggiungibile; il risultato è stato limitato a {1} m dalla destinazione."
+    },
+    {
+      "key": "{0}: 有効なIKルールがありません。",
+      "value": "{0}: nessuna regola IK attiva."
+    },
+    {
+      "key": "{0}からコピー",
+      "value": "Copia da {0}"
+    },
+    {
+      "key": "{0}に{1}個の項目を追加しました。\n（重複する項目は除外されました）",
+      "value": "Aggiunte {1} voci a {0}.\nLe voci duplicate sono state saltate."
+    },
+    {
+      "key": "{0}のフォルダを取り除く",
+      "value": "Elimina la cartella {0}"
+    },
+    {
+      "key": "{0}の旧設定を取り除きます。ツールを通常アンインストールするための操作ではありません。調整内容を確認できるよう、先にプロジェクトをバックアップしてください。",
+      "value": "Rimuove le vecchie impostazioni di {0} dall'avatar. Prima crea un backup del progetto per poter recuperare e confrontare le tue regolazioni."
+    },
+    {
+      "key": "{0}の設定がアバターに残っています！ 不具合が発生する可能性があるので、自動で設定を取り除く機能を使用してください。また、アバター購入時にBaseLayerに設定されていたLocomotion用のAnimatorControllerがある場合は、恐れ入りますが手動で復元してお使いください。",
+      "value": "Sull'avatar restano vecchie impostazioni di {0} che possono creare conflitti. Rimuovile con il comando di pulizia. Se l'avatar usava originariamente un Animator Controller di locomozione personalizzato nel layer Base, ripristinalo manualmente in seguito."
+    },
+    {
+      "key": "{0}の設定を取り除く",
+      "value": "Rimuovi impostazioni di {0}"
+    },
+    {
+      "key": "{0}を中止しました。\n{1}",
+      "value": "{0} è stato interrotto.\n{1}"
+    },
+    {
+      "key": "{0}を完了できませんでした",
+      "value": "Impossibile completare {0}"
+    },
+    {
+      "key": "{0}を開きます。{1}",
+      "value": "Apri {0}. {1}"
+    },
+    {
+      "key": "{0}・{1}から有効な長さを測定できません。",
+      "value": "Impossibile misurare una lunghezza valida tra {0} e {1}."
+    },
+    {
+      "key": "{0}件のIKルールから自動調整Animationを作成しました。",
+      "value": "Creata un'animazione di regolazione automatica da {0} regole IK."
+    },
+    {
+      "key": "{0}件のIKルールを適用しました。\n{1}",
+      "value": "Applicate {0} regole IK.\n{1}"
+    },
+    {
+      "key": "{0}件のエラー",
+      "value": "{0} errori"
+    },
+    {
+      "key": "{0}件の注意",
+      "value": "{0} avvisi"
+    },
+    {
+      "key": "{0}件を「{1}」に追加",
+      "value": "Aggiungi {0} a {1}"
+    },
+    {
+      "key": "{0}件追加しました。",
+      "value": "Aggiunti {0} elementi."
+    },
+    {
+      "key": "{0}個の調整アニメーションを複製保存しました。",
+      "value": "Duplicate e salvate {0} animazioni di regolazione."
+    },
+    {
+      "key": "{0}（{1}行目）",
+      "value": "{0} (riga {1})"
+    },
+    {
+      "key": "※ 寝返りと姿勢崩れ抑制のbit表示は、今の状態でチェックを変更したときの増減量です。首固定の1 bitは共用します。",
+      "value": "I bit di Girarsi e della riduzione delle deformazioni indicano la variazione rispetto alle impostazioni attuali. Condividono il blocco testa da 1 bit."
+    },
+    {
+      "key": "▶ 取り込み設定を開く",
+      "value": "▶ Apri impostazioni di importazione"
+    },
+    {
+      "key": "▶ 設定を開く",
+      "value": "▶ Apri impostazioni"
+    },
+    {
+      "key": "▼ 取り込み設定を閉じる",
+      "value": "▼ Chiudi impostazioni di importazione"
+    },
+    {
+      "key": "▼ 設定を閉じる",
+      "value": "▼ Chiudi impostazioni"
+    },
+    {
+      "key": "「Use Auto-Footsteps for 3 and 4 point tracking」をオフにする",
+      "value": "Disattiva Use Auto-Footsteps for 3 and 4 point tracking"
+    },
+    {
+      "key": "「{0}」で初期ポーズが複数選ばれています。",
+      "value": "In {0} sono selezionate più pose iniziali."
+    },
+    {
+      "key": "「{0}」に有効なポーズがありません。このカテゴリの選択メニューは生成されません。",
+      "value": "Nessuna posa attiva in {0}. Il relativo menu di selezione non verrà generato."
+    },
+    {
+      "key": "「{0}」の{1}番目のポーズデータが欠けています。",
+      "value": "Mancano i dati della posa dell'elemento {1} in {0}."
+    },
+    {
+      "key": "「{0}」の{1}番目（{2}）にアニメーションがありません。",
+      "value": "L'elemento {1} ({2}) in {0} non ha un'animazione."
+    },
+    {
+      "key": "「{0}」の{1}番目（{2}）のMotion Time用パラメータ名が空です。",
+      "value": "L'elemento {1} ({2}) in {0} non ha un nome di parametro Motion Time."
+    },
+    {
+      "key": "「{0}」の{1}番目（{2}）の寝返りにはHumanoidのAnimationClipが必要です。",
+      "value": "Girarsi per l'elemento {1} ({2}) in {0} richiede un AnimationClip Humanoid."
+    },
+    {
+      "key": "「{0}」の{1}番目（{2}）の接地補正の強さが範囲外です。",
+      "value": "L'intensità della correzione del contatto dell'elemento {1} ({2}) in {0} è fuori intervallo."
+    },
+    {
+      "key": "「{0}」の{1}番目（{2}）はLegacy形式のアニメーションです。",
+      "value": "L'elemento {1} ({2}) in {0} usa un'animazione Legacy."
+    },
+    {
+      "key": "「{0}」の{1}番目（{2}）は独自アイコンが有効ですが画像がありません。",
+      "value": "L'icona personalizzata dell'elemento {1} ({2}) in {0} è attiva, ma non è assegnata un'immagine."
+    },
+    {
+      "key": "「{0}」オブジェクトの設定が更新されています。再度プレビルドを行ってください",
+      "value": "Le impostazioni dell'oggetto {0} sono cambiate. Aggiorna il precalcolo."
+    },
+    {
+      "key": "「ポーズ一覧」で対応するポーズの詳細を開き、「寝返りを使う」をオンにしてください。",
+      "value": "Apri una posa supportata in Pose e attiva Abilita Girarsi."
+    },
+    {
+      "key": "「現在の手足位置から取得」を一度実行してください。再取得までは元Animationの手足の向きを維持します。",
+      "value": "esegui una volta Acquisisci posizioni attuali degli arti. Fino alla nuova acquisizione viene mantenuto l'orientamento degli arti dell'animazione sorgente."
+    },
+    {
+      "key": "「立ち・歩き・走り」「しゃがみ（Crouching）」「伏せ（Prone）」には移動を含むBlendTreeを指定してください。単独の立ち姿勢は「立ちのみ」に指定できます。",
+      "value": "Usa un BlendTree di locomozione per In piedi / camminata / corsa, Accovacciato e Prono. Usa Solo in piedi per una singola posa eretta."
+    },
+    {
+      "key": "あおむけ時自動頭固定",
+      "value": "Blocca automaticamente la testa in posizione supina"
     },
     {
       "key": "あぐら",
@@ -43,6 +983,10 @@
     {
       "key": "あぐら２",
       "value": "Gambe incrociate 2"
+    },
+    {
+      "key": "いいえ",
+      "value": "No"
     },
     {
       "key": "いじけ",
@@ -85,6 +1029,10 @@
       "value": "Sfinito"
     },
     {
+      "key": "が無効になっています",
+      "value": "è disattivato"
+    },
+    {
       "key": "くずし",
       "value": "Scomposto"
     },
@@ -109,16 +1057,196 @@
       "value": "Accasciato 3"
     },
     {
+      "key": "このIK設定を使用する商品名です。",
+      "value": "Il prodotto che usa queste impostazioni IK."
+    },
+    {
+      "key": "このアバターでポーズを使用する場合は、「対象を選択」で該当オブジェクトのタグと有効状態を確認してください。",
+      "value": "Per usare le pose su questo avatar, scegli Seleziona oggetto e controllane il tag e lo stato attivo."
+    },
+    {
+      "key": "このアバターの手足の自動調整が無効になっています。",
+      "value": "La regolazione automatica degli arti è disattivata per questo avatar."
+    },
+    {
+      "key": "このアバターは人型ではありません。アバターのAnimatorにHumanoid型のAvatarが設定されていない場合はこのツールは使えません。",
+      "value": "Questo avatar non è Humanoid. Lo strumento richiede un Avatar Humanoid assegnato all'Animator."
+    },
+    {
+      "key": "このエラーについて相談する",
+      "value": "Chiedi aiuto per questo errore"
+    },
+    {
+      "key": "このコンピュータにはゆにさきポーズシステムの使用が許諾されていません。Boothのショップから可愛いポーズツールを購入して、コンピュータにライセンスをインストールしてください",
+      "value": "Questo computer non dispone di una licenza Unisaki Posing System. Acquista Kawaii Posing su BOOTH e installa la licenza sul computer."
+    },
+    {
+      "key": "このコンピュータにはカッコいいポーズツールの使用が許諾されていません。Boothのショップからカッコいいポーズツールを購入して、コンピュータにライセンスをインストールしてください。カッコいいポーズツールを購入しているのにこのエラーが表示される場合は、Boothから最新版のZipファイルをダウンロードして、「CoolPosing.unitypackage」をインポートしてください。（この作業は１つのパソコンにつき一回行う必要があります）",
+      "value": "Questo computer non dispone di una licenza Cool Posing. Acquista lo strumento su BOOTH e installa la licenza. Se l'hai già acquistato, scarica l'ultimo ZIP da BOOTH e importa CoolPosing.unitypackage. Serve una volta per computer."
+    },
+    {
+      "key": "このコンピュータには可愛いポーズツールの使用が許諾されていません。Boothのショップから可愛いポーズツールを購入して、コンピュータにライセンスをインストールしてください。可愛いポーズツールを購入しているのにこのエラーが表示される場合は、Boothから最新版のZipファイルをダウンロードして、「KawaiiPosing.unitypackage」をインポートしてください。（この作業は１つのパソコンにつき一回行う必要があります）",
+      "value": "Questo computer non dispone di una licenza Kawaii Posing. Acquista lo strumento su BOOTH e installa la licenza. Se l'hai già acquistato, scarica l'ultimo ZIP da BOOTH e importa KawaiiPosing.unitypackage. Serve una volta per computer."
+    },
+    {
+      "key": "このツールにはアバター固有補正用の基準データがありません。",
+      "value": "Questo strumento non ha dati di riferimento per la correzione dell'avatar."
+    },
+    {
+      "key": "このプリセットに変更する",
+      "value": "Applica questo preset"
+    },
+    {
+      "key": "このプリセットは削除されたか、現在のツールに適用できません。「再読込」で一覧を更新してください。",
+      "value": "Questo preset è stato eliminato o non può essere applicato allo strumento. Seleziona Ricarica per aggiornare l'elenco."
+    },
+    {
+      "key": "このポーズにはIKによる自動調整が設定されていません。元の姿勢と手動調整を使用します。",
+      "value": "Questa posa non ha regolazione IK automatica. Usa la posa originale e le regolazioni manuali."
+    },
+    {
+      "key": "このポーズのIKを使う",
+      "value": "Abilita IK per questa posa"
+    },
+    {
+      "key": "このポーズの手足の自動調整（IK）",
+      "value": "Regolazione degli arti (IK) per questa posa"
+    },
+    {
+      "key": "このポーズを使う",
+      "value": "Usa questa posa"
+    },
+    {
+      "key": "このポーズツールごとに保存します。エラー表示と、ビルド時に必要な再生成は有効なままです。",
+      "value": "Salvato per ogni strumento di posa. Gli errori e la rigenerazione necessaria in compilazione restano attivi."
+    },
+    {
+      "key": "このユーザーのゆにさきポーズシステムライセンスが見つかりません。正規の購入ページからダウンロードしたインストーラーを、このUnityプロジェクトへインポートしてください。ライセンスは、PCのユーザーごとに一度インストールします。別のPCやユーザーでは再度インストールしてください。",
+      "value": "Nessuna licenza Unisaki Posing System trovata per questo utente del sistema. Importa in questo progetto Unity l'installer dal download ufficiale del tuo acquisto. Installa la licenza una volta per utente del sistema e per computer."
+    },
+    {
+      "key": "このユーザーのカッコいいポーズツールライセンスが見つかりません。正規の購入ページからダウンロードしたインストーラーを、このUnityプロジェクトへインポートしてください。ライセンスは、PCのユーザーごとに一度インストールします。別のPCやユーザーでは再度インストールしてください。",
+      "value": "Nessuna licenza Cool Posing Tool trovata per questo utente del sistema. Importa in questo progetto Unity l'installer dal download ufficiale del tuo acquisto. Installa la licenza una volta per utente del sistema e per computer."
+    },
+    {
+      "key": "このユーザーの可愛いポーズツールライセンスが見つかりません。正規の購入ページからダウンロードしたインストーラーを、このUnityプロジェクトへインポートしてください。ライセンスは、PCのユーザーごとに一度インストールします。別のPCやユーザーでは再度インストールしてください。",
+      "value": "Nessuna licenza Kawaii Posing Tool trovata per questo utente del sistema. Importa in questo progetto Unity l'installer dal download ufficiale del tuo acquisto. Installa la licenza una volta per utente del sistema e per computer."
+    },
+    {
+      "key": "このルールを使用",
+      "value": "Abilita questa regola"
+    },
+    {
+      "key": "この分類にはアニメーションがありません。",
+      "value": "Nessuna animazione in questa categoria."
+    },
+    {
+      "key": "この分類の中で移動先の順番を選べます。",
+      "value": "Scegli la posizione di destinazione nella categoria."
+    },
+    {
+      "key": "この分類の初期ポーズにする",
+      "value": "Imposta come posa iniziale della categoria"
+    },
+    {
+      "key": "この切り替えは調整ウィンドウのプレビュー専用です。保存・サムネイル・最終出力には影響しません。膝クランプは引き続き有効です。",
+      "value": "Questa opzione riguarda solo l'anteprima di regolazione, non i dati salvati, le miniature o il risultato finale. Il limite delle ginocchia resta attivo."
+    },
+    {
+      "key": "この商品には基準アバター姿勢が登録されていません。",
+      "value": "Non è registrata una posa di avatar di riferimento per questo prodotto."
+    },
+    {
+      "key": "この商品には基準データがありません。",
+      "value": "Questo prodotto non ha dati di riferimento."
+    },
+    {
+      "key": "この姿勢の自動調整データがありません。",
+      "value": "Nessun dato di regolazione automatica per questa posa."
+    },
+    {
+      "key": "この種類には移動を含むBlendTreeを指定してください。",
+      "value": "Scegli un BlendTree contenente la locomozione per questo tipo di movimento."
+    },
+    {
+      "key": "この種類のモーションを使う",
+      "value": "Usa questo tipo di movimento"
+    },
+    {
+      "key": "この種類の手動設定と調整を解除します。自動取り込みがONなら次回生成時に再検出します。Undoで戻せます。",
+      "value": "Cancella le impostazioni e le regolazioni manuali di questo tipo di movimento. Se l'importazione automatica è attiva, la prossima compilazione lo rileverà di nuovo. L'azione può essere annullata."
+    },
+    {
+      "key": "この警告について相談する",
+      "value": "Chiedi aiuto per questo avviso"
+    },
+    {
+      "key": "この警告を今後表示しない",
+      "value": "Non mostrare più questo avviso"
+    },
+    {
+      "key": "ごろ寝システムEX追加",
+      "value": "Aggiungi Gorone System EX"
+    },
+    {
       "key": "ざせつ",
       "value": "Sconfitto"
+    },
+    {
+      "key": "しなの",
+      "value": "Shinano"
+    },
+    {
+      "key": "しなの (着せ替え)",
+      "value": "Shinano (abito)"
+    },
+    {
+      "key": "しなの（着せ替え)",
+      "value": "Shinano (abito)"
+    },
+    {
+      "key": "しなの（着せ替え）",
+      "value": "Shinano (abito)"
+    },
+    {
+      "key": "しゃがみ（Crouching）",
+      "value": "Accovacciato"
     },
     {
       "key": "じだらく",
       "value": "Pigrizia"
     },
     {
+      "key": "すねの長さ",
+      "value": "Lunghezza della gamba inferiore"
+    },
+    {
+      "key": "すべての姿勢から検索",
+      "value": "Cerca in tutte le pose"
+    },
+    {
+      "key": "すべての警告・注意を非表示",
+      "value": "Nascondi tutti gli avvisi e le note"
+    },
+    {
+      "key": "すべての項目が既に存在するため、追加されませんでした。",
+      "value": "Tutte le voci esistono già; nessuna aggiunta."
+    },
+    {
+      "key": "その他",
+      "value": "Altro"
+    },
+    {
       "key": "たたみ",
       "value": "Tatami"
+    },
+    {
+      "key": "なし",
+      "value": "Nessuno"
+    },
+    {
+      "key": "にEditorOnlyタグが設定されています",
+      "value": "ha il tag EditorOnly"
     },
     {
       "key": "ねころび",
@@ -145,6 +1273,10 @@
       "value": "Molto tranquillo"
     },
     {
+      "key": "はい",
+      "value": "Sì"
+    },
+    {
       "key": "はいずり",
       "value": "Strisciare"
     },
@@ -165,36 +1297,224 @@
       "value": "Attiva questa opzione se i blocchi del tracciamento non funzionano correttamente insieme ad altri strumenti."
     },
     {
+      "key": "ほかのプリセットを探す",
+      "value": "Sfoglia altri preset"
+    },
+    {
+      "key": "または",
+      "value": "oppure"
+    },
+    {
+      "key": "まだプレビルドしていません。「プレビルドを更新」で姿勢データを生成できます。",
+      "value": "Nessun precalcolo ancora. Seleziona Aggiorna precalcolo per generare i dati delle pose."
+    },
+    {
       "key": "むきりょく",
       "value": "Senza energie"
+    },
+    {
+      "key": "ゆにさきスタジオ",
+      "value": "Unisaki Studio"
+    },
+    {
+      "key": "ゆにさきスタジオ公式",
+      "value": "Preset ufficiali Unisaki Studio"
+    },
+    {
+      "key": "ゆにさきポーズシステム",
+      "value": "Unisaki Posing System"
+    },
+    {
+      "key": "ゆにさきポーズシステムライセンス削除",
+      "value": "Rimuovi licenza Posing System"
+    },
+    {
+      "key": "ゆにさきポーズシステム設定",
+      "value": "Impostazioni Unisaki Posing System"
     },
     {
       "key": "よりかかり",
       "value": "Appoggiato"
     },
     {
+      "key": "アイコンの更新",
+      "value": "Aggiornamento icone"
+    },
+    {
+      "key": "アイコンを撮り直す",
+      "value": "Ricrea icone"
+    },
+    {
+      "key": "アイコン画像",
+      "value": "Immagine dell'icona"
+    },
+    {
       "key": "アイコン画像の容量を減らす",
       "value": "Ridurre le dimensioni delle icone"
+    },
+    {
+      "key": "アイコン画像を指定するか、独自アイコンを無効にして自動生成を使用してください。",
+      "value": "Assegna un'immagine oppure disattiva l'icona personalizzata per usare le icone generate."
+    },
+    {
+      "key": "アイコン画像ファイルを削除",
+      "value": "Elimina file delle icone"
     },
     {
       "key": "アイドル",
       "value": "Idol"
     },
     {
+      "key": "アップロード時に適用します。未翻訳の項目は日本語で表示されます。",
+      "value": "Applicata al caricamento. Le voci non tradotte vengono mostrate in giapponese."
+    },
+    {
+      "key": "アニメーション",
+      "value": "Animazione"
+    },
+    {
+      "key": "アニメーションが割り当てられていません。",
+      "value": "Nessuna animazione assegnata."
+    },
+    {
+      "key": "アニメーションの調整は現在停止中です",
+      "value": "La regolazione dell'animazione è ferma."
+    },
+    {
+      "key": "アニメーションを合成して保存しました。\n新しいファイル: {0}",
+      "value": "Animazione unita e salvata.\nNuovo file: {0}"
+    },
+    {
+      "key": "アニメーションを選択してください。",
+      "value": "Seleziona un'animazione."
+    },
+    {
+      "key": "アニメーション情報",
+      "value": "Informazioni sull'animazione"
+    },
+    {
+      "key": "アニメーション調整",
+      "value": "Regolazione animazione"
+    },
+    {
+      "key": "アニメーション調整ウィンドウが表示されています。調整が終わったらウィンドウを閉じてください",
+      "value": "La finestra di regolazione animazione è aperta. Chiudila quando hai finito."
+    },
+    {
+      "key": "アニメーション調整ウィンドウを閉じる",
+      "value": "Chiudi finestra di regolazione animazione"
+    },
+    {
+      "key": "アニメーション調整画面など、ほかのプレビューを終了してからお試しください。",
+      "value": "Chiudi le altre anteprime di animazione, compresa Regolazione animazione, e riprova."
+    },
+    {
+      "key": "アニメーション調節機能を使用して姿勢をアバターに合わせたデータを、別のアバターデータでも使用したい場合は、プリセットを作成すると便利です。PrefabsやFBXを登録してプリセットを作成すると、そのアバターに{0}を追加した時に自動でプリセットが適用されるようになります。また、作成したプリセットは公開、配付、販売が可能です。",
+      "value": "Crea un preset per riutilizzare le regolazioni su un'altra copia dello stesso avatar. Registra un prefab o FBX per proporre il preset quando aggiungi {0} a quell'avatar. Puoi pubblicare, distribuire o vendere i preset creati secondo la licenza del prodotto."
+    },
+    {
+      "key": "アバターごとの設定ではなく、1つの商品につき1ファイルを作成します。",
+      "value": "Crea un file per prodotto, separato dalle impostazioni per avatar."
+    },
+    {
       "key": "アバターごとの関節の向きやひねりの違いを自動で補正します。",
       "value": "Corregge automaticamente le differenze di direzione e torsione delle articolazioni di ogni avatar."
+    },
+    {
+      "key": "アバターとの組み合わせ",
+      "value": "Integrazione avatar"
+    },
+    {
+      "key": "アバターに合わないときは、このポーズだけIKをオフにできます。ほかのポーズやアバターには影響しません。",
+      "value": "Disattiva IK solo per questa posa se non è adatta al tuo avatar. Le altre pose e gli altri avatar non cambiano."
+    },
+    {
+      "key": "アバターに適合",
+      "value": "Compatibile con l'avatar"
+    },
+    {
+      "key": "アバターのBaseに通常のAnimatorControllerを設定してください。AnimatorOverrideControllerには対応していません。",
+      "value": "Assegna un Animator Controller normale al layer Base dell'avatar. Gli Animator Override Controllers non sono supportati."
+    },
+    {
+      "key": "アバターのスケールから有効な固定長を測定できません。",
+      "value": "Impossibile misurare una lunghezza fissa valida dalla scala dell'avatar."
+    },
+    {
+      "key": "アバターのルートにAnimatorがありません。",
+      "value": "La radice dell'avatar non ha un Animator."
+    },
+    {
+      "key": "アバターのルートにAnimatorがありません。Inspectorの「設定の確認」の対処手順をご確認ください。",
+      "value": "La radice dell'avatar non ha un Animator. Consulta Controlla impostazioni nell'Inspector."
     },
     {
       "key": "アバターの元の立ち・しゃがみ・伏せ姿勢を使う",
       "value": "Usare le pose originali in piedi, accovacciate e prone"
     },
     {
+      "key": "アバターの元モデルに対応するHumanoid AvatarをAnimatorのAvatar欄に戻してください。別アバターのAvatarは指定しないでください。",
+      "value": "Ripristina nel campo Avatar dell'Animator il Humanoid Avatar del modello originale. Usa l'asset Avatar di questo modello."
+    },
+    {
+      "key": "アバターの初期姿勢が変わったため、補正を自動更新します。",
+      "value": "La posa di riposo dell'avatar è cambiata. Le correzioni si aggiorneranno automaticamente."
+    },
+    {
+      "key": "アバターの姿勢をリセット（Tポーズに戻す）",
+      "value": "Ripristina avatar in T-pose"
+    },
+    {
       "key": "アバターの容量を抑えたいときに便利です。アイコン画像は少し粗くなります。",
       "value": "Riduce le dimensioni dell'avatar sacrificando parte dei dettagli delle icone."
     },
     {
+      "key": "アバターの設定が必要",
+      "value": "Serve configurare l'avatar"
+    },
+    {
+      "key": "アバターデータフォルダの自動検出",
+      "value": "Rileva cartella dati dell'avatar"
+    },
+    {
+      "key": "アバター全体を基準",
+      "value": "Avatar"
+    },
+    {
+      "key": "アバター名",
+      "value": "Nome avatar"
+    },
+    {
+      "key": "アバター名を入力してください。",
+      "value": "Inserisci il nome dell'avatar."
+    },
+    {
       "key": "アバター固有補正を使う",
       "value": "Attivare la correzione dell'avatar"
+    },
+    {
+      "key": "アバター固有補正を使用",
+      "value": "Attiva la correzione dell'avatar"
+    },
+    {
+      "key": "アバター固有補正アニメーションを保存できませんでした。",
+      "value": "Impossibile salvare l'animazione di correzione specifica dell'avatar."
+    },
+    {
+      "key": "アバター調整",
+      "value": "Configurazione avatar"
+    },
+    {
+      "key": "アバター選択",
+      "value": "Selezione avatar"
+    },
+    {
+      "key": "エラー",
+      "value": "Errore"
+    },
+    {
+      "key": "オブジェクトがVRC用のアバターオブジェクトの中に入っていません。このオブジェクトはVRCAvatarDescriptorコンポーネントの付いたオブジェクトの中に配置してください",
+      "value": "Inserisci questo oggetto in un avatar dotato di componente VRCAvatarDescriptor."
     },
     {
       "key": "カエルのポーズ１",
@@ -205,6 +1525,50 @@
       "value": "Rana 2"
     },
     {
+      "key": "カスタム",
+      "value": "Personalizzato"
+    },
+    {
+      "key": "カスタムアニメーション",
+      "value": "Animazione personalizzata"
+    },
+    {
+      "key": "カッコいいポーズ",
+      "value": "Cool Posing"
+    },
+    {
+      "key": "カッコいいポーズツール",
+      "value": "Cool Posing"
+    },
+    {
+      "key": "カッコいいポーズツール(Gumroad)",
+      "value": "Cool Posing Tool (Gumroad)"
+    },
+    {
+      "key": "カッコいいポーズツールライセンスインストール",
+      "value": "Installa licenza Cool Posing"
+    },
+    {
+      "key": "カッコいいポーズツールライセンス削除",
+      "value": "Rimuovi licenza Cool Posing"
+    },
+    {
+      "key": "カッコいいポーズツールライセンス状態確認",
+      "value": "Stato licenza Cool Posing"
+    },
+    {
+      "key": "カッコいいポーズツール設定",
+      "value": "Impostazioni Cool Posing"
+    },
+    {
+      "key": "カッコいいポーズツール追加",
+      "value": "Aggiungi Cool Posing"
+    },
+    {
+      "key": "カッコいいポーズツール（BOOTH）",
+      "value": "Cool Posing Tool (BOOTH)"
+    },
+    {
       "key": "キック",
       "value": "Calcio"
     },
@@ -213,40 +1577,316 @@
       "value": "Orsacchiotto"
     },
     {
+      "key": "クリップボードが空です。",
+      "value": "Gli appunti sono vuoti."
+    },
+    {
       "key": "ケンカ",
       "value": "Pronto alla lotta"
+    },
+    {
+      "key": "ゲーム内で使うには「機能」タブの「寝返り」もオンにしてください。",
+      "value": "Abilita anche Girarsi nella scheda Funzioni per usarlo in VRChat."
+    },
+    {
+      "key": "ゲーム内メニューの言語",
+      "value": "Lingua del menu in gioco"
+    },
+    {
+      "key": "コンパイルエラー（先頭から最大5件）",
+      "value": "Errori di compilazione (fino ai primi 5)"
     },
     {
       "key": "コンビニ",
       "value": "Minimarket"
     },
     {
+      "key": "シーンを保存・バックアップしてから、ALCOM / VCCで商品本体と「ゆにさきポーズシステム」を再取得してください。入れ直しても直らない場合は、Inspector上部の「ヘルプ・変更履歴」から公式マニュアル・お問い合わせをご確認ください。調整済みのオブジェクトやGeneratedResourcesは削除しないでください。",
+      "value": "Salva e crea un backup della scena, poi scarica di nuovo il prodotto e Unisaki Posing System con ALCOM / VCC. Se il problema persiste, apri Aiuto / Cronologia in cima all'Inspector per il manuale e l'assistenza. Conserva gli oggetti modificati e GeneratedResources."
+    },
+    {
       "key": "ジェスチャー無効",
       "value": "Blocca gesti"
+    },
+    {
+      "key": "ジャンプ",
+      "value": "Salto"
     },
     {
       "key": "ジャンプで寝姿勢を切り替える",
       "value": "Cambiare posa sdraiata saltando"
     },
     {
+      "key": "スライダーは−1〜1。範囲外の値も数値欄に入力できます。",
+      "value": "Intervallo cursore: da -1 a 1. Puoi digitare valori oltre l'intervallo."
+    },
+    {
+      "key": "ソースとなるPosingSystemが見つかりません。",
+      "value": "PosingSystem sorgente non trovato."
+    },
+    {
       "key": "ゾンビ",
       "value": "Zombie"
+    },
+    {
+      "key": "ターゲットボーン {0} がありません。",
+      "value": "Il bone di destinazione {0} è mancante."
+    },
+    {
+      "key": "チェックを付けると増える量／外すと減る量です。\n寝返りON/OFF：1 bit、頭の傾き：8 bit、首固定：1 bit。\nほかの設定で使用中のパラメーターは重複して数えません。",
+      "value": "Variazione di memoria attivando o disattivando questa opzione.\nInterruttore per girarsi: 1 bit; inclinazione testa: 8 bit; blocco testa: 1 bit.\nI parametri già usati da altre opzioni vengono contati una volta sola."
+    },
+    {
+      "key": "チェックを付けると増える量／外すと減る量です。\n首固定：1 bit（寝返りと共用）。\n寝返りなどで使用中なら0 bitです。",
+      "value": "Variazione di memoria attivando o disattivando questa opzione.\nBlocco testa: 1 bit, condiviso con Girarsi.\nNon usa bit aggiuntivi se Girarsi usa già questo parametro."
+    },
+    {
+      "key": "ツールに同梱された公式プリセットを一覧と検索結果に表示しません。同じプロジェクト内のアバターで共有する設定です。",
+      "value": "Nasconde i preset ufficiali inclusi dall'elenco e dai risultati di ricerca. L'impostazione è condivisa dagli avatar di questo progetto."
+    },
+    {
+      "key": "ツールのルートにMA Parametersがありません。",
+      "value": "La radice dello strumento non ha un componente MA Parameters."
+    },
+    {
+      "key": "ツールの親にVRC Avatar Descriptorがありません。",
+      "value": "Nessun VRC Avatar Descriptor trovato tra i genitori dello strumento."
+    },
+    {
+      "key": "ツール内の共通ポージングAnimatorが1つだけ有効か、EditorOnlyタグ・Missing Scriptの有無と標準Prefabの導入状態を確認してください。",
+      "value": "Verifica che sia attivo un solo Animator di posa condiviso, senza tag EditorOnly o Missing Script, e che il prefab standard sia installato."
+    },
+    {
+      "key": "ツール内の姿勢メニューが削除・無効化されていないか確認してください。",
+      "value": "Verifica se il menu delle pose nello strumento è stato eliminato o disattivato."
+    },
+    {
+      "key": "ツール内の姿勢メニューが削除・無効化されていないか確認してください。シーンを保存・バックアップしてから、ALCOM / VCCで商品本体と「ゆにさきポーズシステム」を再取得してください。入れ直しても直らない場合は、Inspector上部の「ヘルプ・変更履歴」から公式マニュアル・お問い合わせをご確認ください。調整済みのオブジェクトやGeneratedResourcesは削除しないでください。",
+      "value": "Verifica se il menu delle pose nello strumento è stato eliminato o disattivato.\nSalva e crea un backup della scena, poi scarica di nuovo il prodotto e Unisaki Posing System con ALCOM / VCC. Se il problema persiste, apri Aiuto / Cronologia in cima all'Inspector per il manuale e l'assistenza. Conserva gli oggetti modificati e GeneratedResources."
+    },
+    {
+      "key": "ツール本体が見つかりません [PS041]",
+      "value": "Prefab dello strumento non trovato [PS041]"
+    },
+    {
+      "key": "デバッグ: アバター固有補正をプレビュー",
+      "value": "Debug: anteprima correzione avatar"
+    },
+    {
+      "key": "デフォルト",
+      "value": "Predefinito"
+    },
+    {
+      "key": "データ形式のバージョン",
+      "value": "Versione del formato dati"
+    },
+    {
+      "key": "トラブルシューティング",
+      "value": "Risoluzione problemi"
+    },
+    {
+      "key": "トラブルシューティングを閉じる",
+      "value": "Chiudi risoluzione problemi"
+    },
+    {
+      "key": "バックアップ済み・削除する",
+      "value": "Backup effettuato — elimina"
+    },
+    {
+      "key": "バックアップ済み・取り除く",
+      "value": "Backup effettuato — rimuovi"
     },
     {
       "key": "バンザイ",
       "value": "Braccia alzate"
     },
     {
+      "key": "バージョン不明",
+      "value": "Versione sconosciuta"
+    },
+    {
+      "key": "パッケージ内の標準Controllerが見つかりません。",
+      "value": "Controller standard non trovato nel pacchetto."
+    },
+    {
+      "key": "ファイルに保存されている値に戻します。",
+      "value": "Ripristina i valori salvati nel file."
+    },
+    {
       "key": "プランク",
       "value": "Plank"
+    },
+    {
+      "key": "プリセット",
+      "value": "Preset"
+    },
+    {
+      "key": "プリセットの保存・管理",
+      "value": "Salva / gestisci preset"
+    },
+    {
+      "key": "プリセットの保存・管理を閉じる",
+      "value": "Chiudi gestione preset"
+    },
+    {
+      "key": "プリセットを作成",
+      "value": "Crea preset"
+    },
+    {
+      "key": "プリセットを作成しました。プリセット選択の「再読込」で一覧に反映できます。",
+      "value": "Preset creato. Usa Ricarica nella selezione dei preset per aggiornare l'elenco."
+    },
+    {
+      "key": "プリセットを読み込めません",
+      "value": "Impossibile caricare preset"
+    },
+    {
+      "key": "プリセットを適用し直すか、新しく追加したツールのポーズ一覧と比較してください。",
+      "value": "Riapplica un preset o confronta l'elenco delle pose con una copia dello strumento appena aggiunta."
+    },
+    {
+      "key": "プリセットを適用し直すか、新しく追加したツールのポーズ一覧と比較してください。シーンを保存・バックアップしてから、ALCOM / VCCで商品本体と「ゆにさきポーズシステム」を再取得してください。入れ直しても直らない場合は、Inspector上部の「ヘルプ・変更履歴」から公式マニュアル・お問い合わせをご確認ください。調整済みのオブジェクトやGeneratedResourcesは削除しないでください。",
+      "value": "Riapplica un preset o confronta l'elenco delle pose con una copia dello strumento appena aggiunta.\nSalva e crea un backup della scena, poi scarica di nuovo il prodotto e Unisaki Posing System con ALCOM / VCC. Se il problema persiste, apri Aiuto / Cronologia in cima all'Inspector per il manuale e l'assistenza. Conserva gli oggetti modificati e GeneratedResources."
+    },
+    {
+      "key": "プリセットを選択してください",
+      "value": "Seleziona un preset"
+    },
+    {
+      "key": "プリセット一覧を更新できませんでした:",
+      "value": "Impossibile aggiornare l'elenco dei preset:"
+    },
+    {
+      "key": "プリセット一覧を読み込めませんでした。「再読込」で再試行できます:",
+      "value": "Impossibile caricare l'elenco dei preset. Seleziona Ricarica per riprovare:"
+    },
+    {
+      "key": "プリセット一覧を閉じる",
+      "value": "Chiudi elenco preset"
+    },
+    {
+      "key": "プリセット作成中にエラーが発生しました。",
+      "value": "Errore durante la creazione del preset."
+    },
+    {
+      "key": "プリセット作成設定",
+      "value": "Impostazioni di creazione preset"
+    },
+    {
+      "key": "プリセット選択",
+      "value": "Seleziona preset"
+    },
+    {
+      "key": "プレビュー",
+      "value": "Anteprima"
+    },
+    {
+      "key": "プレビューを終了（元の姿勢に戻す）",
+      "value": "Termina anteprima (ripristina posa originale)"
+    },
+    {
+      "key": "プレビュー中：{0}",
+      "value": "Anteprima: {0}"
+    },
+    {
+      "key": "プレビルド",
+      "value": "Precalcolo"
+    },
+    {
+      "key": "プレビルドの更新について相談したいです。",
+      "value": "Ho bisogno di aiuto per aggiornare il precalcolo."
+    },
+    {
+      "key": "プレビルドを実行できません。Inspectorの「設定の確認」で、アバターの配置・Animator・Humanoidの設定を確認してください。",
+      "value": "Precalcolo impossibile. Controlla posizione avatar, Animator e Humanoid in Controlla impostazioni nell'Inspector."
+    },
+    {
+      "key": "プレビルドを更新",
+      "value": "Aggiorna precalcolo"
+    },
+    {
+      "key": "プレビルド・ビルド時に標準Prefabから再作成します。",
+      "value": "Verrà ricreato dal prefab standard durante il precalcolo o la compilazione dell'avatar."
+    },
+    {
+      "key": "プレビルド・ビルド時に標準設定から再作成します。",
+      "value": "Verrà ricreato dalle impostazioni standard durante il precalcolo o la compilazione dell'avatar."
+    },
+    {
+      "key": "プレビルド後に設定が変更されています。「プレビルドを更新」で現在の設定を反映してください。",
+      "value": "Le impostazioni sono cambiate dall'ultimo precalcolo. Seleziona Aggiorna precalcolo per applicare quelle attuali."
+    },
+    {
+      "key": "プレビルド後の設定変更の警告を非表示",
+      "value": "Nascondi avvisi di impostazioni modificate"
+    },
+    {
+      "key": "プレビルド時に標準Controllerから復元を試みます。復元できない場合は、ゆにさきポーズシステムのパッケージを再取得してください。",
+      "value": "Il precalcolo tenterà di ripristinare il Controller standard. Se non riesce, scarica di nuovo il pacchetto Unisaki Posing System."
+    },
+    {
+      "key": "プレビルド未実行の警告を非表示",
+      "value": "Nascondi avvisi di precalcolo mancante"
     },
     {
       "key": "ベッド",
       "value": "Letto"
     },
     {
+      "key": "ポーズ {0} bit ＋ 追加機能 {1} bit  ／ このアバターのポーズツール分",
+      "value": "Pose: {0} bit + funzioni opzionali: {1} bit / strumenti di posa su questo avatar"
+    },
+    {
       "key": "ポーズアイコン生成",
       "value": "Generare le icone delle pose"
+    },
+    {
+      "key": "ポーズシステム",
+      "value": "Posing System"
+    },
+    {
+      "key": "ポーズツールで次のエラーが出ました。対処方法を教えてください。",
+      "value": "Lo strumento di posa ha segnalato il seguente errore. Come posso risolverlo?"
+    },
+    {
+      "key": "ポーズ・アバター設定の注意を非表示",
+      "value": "Nascondi note su pose e avatar"
+    },
+    {
+      "key": "ポーズ一覧",
+      "value": "Pose"
+    },
+    {
+      "key": "ポーズ一覧でアニメーションを指定するか、その項目を無効にしてください。",
+      "value": "Assegna un'animazione nell'elenco delle pose o disattiva l'elemento."
+    },
+    {
+      "key": "ポーズ一覧で使うポーズを有効にしてください。意図的に空にしている場合は対応不要です。",
+      "value": "Attiva le pose desiderate nell'elenco. Se la categoria è vuota intenzionalmente, non occorre intervenire."
+    },
+    {
+      "key": "ポーズ一覧で初期ポーズを1つにしてください。",
+      "value": "Seleziona una sola posa iniziale nella categoria."
+    },
+    {
+      "key": "ポーズ一覧で該当カテゴリを確認し、プリセットまたはバックアップから復元してください。",
+      "value": "Controlla la categoria nell'elenco delle pose e ripristinala da un preset o da un backup."
+    },
+    {
+      "key": "ポーズ一覧のカテゴリ{0}のデータが欠けています。",
+      "value": "Mancano i dati della categoria {0} dell'elenco delle pose."
+    },
+    {
+      "key": "ポーズ一覧のデータがありません。",
+      "value": "I dati dell'elenco delle pose sono mancanti."
+    },
+    {
+      "key": "ポーズ名",
+      "value": "Nome posa"
+    },
+    {
+      "key": "ポーズ画像を更新",
+      "value": "Aggiorna miniature delle pose"
     },
     {
       "key": "マットレス",
@@ -257,8 +1897,28 @@
       "value": "Aggiunge la Modalità foto per avanzare fino a 3 m e ruotare, così da vederti meglio."
     },
     {
+      "key": "メニューのアイコン画像",
+      "value": "Icone del menu"
+    },
+    {
+      "key": "メニュー追加",
+      "value": "Funzioni del menu"
+    },
+    {
       "key": "モデル",
       "value": "Modello"
+    },
+    {
+      "key": "ユーザー作成",
+      "value": "Preset utente"
+    },
+    {
+      "key": "ライセンスの削除",
+      "value": "Rimuovi licenza"
+    },
+    {
+      "key": "ライセンス削除",
+      "value": "Rimozione licenza"
     },
     {
       "key": "ラダー運動",
@@ -285,8 +1945,72 @@
       "value": "Relax 3"
     },
     {
+      "key": "ルール名",
+      "value": "Nome regola"
+    },
+    {
+      "key": "ローカル（基準の向き）",
+      "value": "Locale (orientamento di riferimento)"
+    },
+    {
+      "key": "ワールドの軸に沿って移動します。オフの軸は元の姿勢の位置を保ちます。",
+      "value": "Sposta lungo gli assi del mondo. Gli assi disattivati mantengono la posizione della posa originale."
+    },
+    {
+      "key": "ワールド（シーンの軸）",
+      "value": "Mondo (assi della scena)"
+    },
+    {
+      "key": "一括操作",
+      "value": "Azioni multiple"
+    },
+    {
+      "key": "一括追加を閉じる",
+      "value": "Chiudi aggiunta multipla"
+    },
+    {
+      "key": "一括追加機能",
+      "value": "Aggiunta multipla"
+    },
+    {
+      "key": "一致するアニメーションがありません。",
+      "value": "Nessuna animazione corrispondente."
+    },
+    {
+      "key": "一覧から削除",
+      "value": "Rimuovi dall'elenco"
+    },
+    {
+      "key": "一覧は追加・変更時に更新されます。表示が変わらない場合は「再読込」を押してください。",
+      "value": "L'elenco si aggiorna ad aggiunte o modifiche. Seleziona Ricarica se la visualizzazione non è aggiornata."
+    },
+    {
+      "key": "三点だいしゅき(女)ツール追加",
+      "value": "Aggiungi Virtual Love (donna)"
+    },
+    {
+      "key": "三点だいしゅき(男)ツール追加",
+      "value": "Aggiungi Virtual Love (uomo)"
+    },
+    {
+      "key": "上腕の長さ",
+      "value": "Lunghezza del braccio"
+    },
+    {
       "key": "不機嫌",
       "value": "Imbronciato"
+    },
+    {
+      "key": "中",
+      "value": "Medio"
+    },
+    {
+      "key": "中央と横向きに、Humanoid形式のクリップを指定してください。BlendTree・Legacy・身体カーブのないクリップは使用できません。",
+      "value": "Assegna clip Humanoid per le pose centrale e laterale. BlendTrees, clip Legacy e clip senza curve corporee non sono supportati."
+    },
+    {
+      "key": "中腰の高さ閾値",
+      "value": "Soglia di altezza accovacciati"
     },
     {
       "key": "中腰姿勢",
@@ -301,6 +2025,14 @@
       "value": "Prostrazione"
     },
     {
+      "key": "他商品連携用Prefabs",
+      "value": "Integrazioni con altri prodotti"
+    },
+    {
+      "key": "以前の設定から、使う1つを選べます。",
+      "value": "Scegli una delle impostazioni precedenti."
+    },
+    {
       "key": "仰向けとうつ伏せの両方を選んでいるとき、その場でジャンプすると切り替わります。",
       "value": "Se sono selezionate sia una posa supina sia una prona, salta sul posto per passare dall'una all'altra."
     },
@@ -313,16 +2045,104 @@
       "value": "Prono"
     },
     {
+      "key": "伏せ（Prone）",
+      "value": "Prono"
+    },
+    {
       "key": "休憩中",
       "value": "In pausa"
+    },
+    {
+      "key": "位置の座標系",
+      "value": "Sistema di coordinate della posizione"
+    },
+    {
+      "key": "位置の長さの基準",
+      "value": "Riferimento di lunghezza della posizione"
+    },
+    {
+      "key": "位置を合わせる強さ",
+      "value": "Peso posizione"
+    },
+    {
+      "key": "位置（選んだ長さを1とする比率）",
+      "value": "Posizione (rispetto alla lunghezza selezionata)"
     },
     {
       "key": "低姿勢",
       "value": "Posizione bassa"
     },
     {
+      "key": "体幹",
+      "value": "Torso"
+    },
+    {
+      "key": "体格に合わせた手足の自動調整",
+      "value": "Regolazione automatica degli arti"
+    },
+    {
       "key": "体育座り",
       "value": "Ginocchia al petto"
+    },
+    {
+      "key": "使い始めるときの姿勢セットを変更できます。変更すると現在のポーズ設定が置き換わります。",
+      "value": "Scegli un insieme iniziale di pose. Sostituisce le impostazioni delle pose attuali."
+    },
+    {
+      "key": "使用",
+      "value": "Usa"
+    },
+    {
+      "key": "使用するにはメニュー追加の「撮影モード」をオンにしてください。",
+      "value": "Attiva Modalità foto in Funzioni del menu per usare questa funzione."
+    },
+    {
+      "key": "使用するには便利機能の「呼吸の動きをつける」をオンにしてください。",
+      "value": "Attiva Animare il respiro in Funzioni pratiche per usare questa funzione."
+    },
+    {
+      "key": "使用方法:\n1. 追加したい文字列を改行区切りでクリップボードにコピー\n2. 対応するボタンをクリック\n3. 重複する項目は自動的に除外されます",
+      "value": "Istruzioni:\n1. Copia negli appunti una voce per riga.\n2. Fai clic sul pulsante corrispondente.\n3. I duplicati vengono saltati."
+    },
+    {
+      "key": "例: 右手を腰へ、左手を床へ",
+      "value": "Esempio: mano destra sul fianco, mano sinistra a terra"
+    },
+    {
+      "key": "便利機能",
+      "value": "Funzioni pratiche"
+    },
+    {
+      "key": "保存",
+      "value": "Salva"
+    },
+    {
+      "key": "保存された設定の形式・表記",
+      "value": "Formato o notazione delle impostazioni salvate"
+    },
+    {
+      "key": "保存されていない変更があります。保存しますか？",
+      "value": "Ci sono modifiche non salvate. Salvarle?"
+    },
+    {
+      "key": "保存先にはAssets内のフォルダと.animファイルを指定してください。",
+      "value": "Scegli una cartella in Assets e un nome file .anim."
+    },
+    {
+      "key": "保存先フォルダのパスを生成できませんでした。フォルダ「{0}」がプロジェクトに認識されているか確認してください。",
+      "value": "Impossibile determinare la cartella di destinazione. Verifica che Unity riconosca questa cartella del progetto: {0}"
+    },
+    {
+      "key": "保存時から変わった項目を確認",
+      "value": "Mostra impostazioni cambiate dal precalcolo"
+    },
+    {
+      "key": "保存時と異なるプレビルドの設定項目",
+      "value": "Impostazioni di precalcolo cambiate dal salvataggio"
+    },
+    {
+      "key": "保存時と異なる項目（最大12件）",
+      "value": "Impostazioni cambiate dal salvataggio (massimo 12)"
     },
     {
       "key": "倒され寝",
@@ -333,16 +2153,260 @@
       "value": "Spettatore"
     },
     {
+      "key": "元の姿勢",
+      "value": "Pose originali"
+    },
+    {
+      "key": "元の姿勢Animation",
+      "value": "Animazione originale della posa"
+    },
+    {
+      "key": "元の姿勢AnimationClipがありません。",
+      "value": "L'AnimationClip della posa sorgente è mancante."
+    },
+    {
+      "key": "元の姿勢Animationに含まれる肘・膝の曲がり方を、IKを解く前に自動取得します。",
+      "value": "Legge le direzioni di flessione di gomiti e ginocchia dall'animazione originale della posa prima di risolvere IK."
+    },
+    {
+      "key": "元の姿勢と手動調整をプレビューしています。",
+      "value": "Anteprima della posa originale e delle regolazioni manuali."
+    },
+    {
+      "key": "元の姿勢の曲げ方向を維持",
+      "value": "Mantieni la flessione della posa sorgente"
+    },
+    {
+      "key": "元モデルのInspector > RigでHumanoid設定とConfigureの割り当てを確認してください。配布元が指定する設定を優先してください。",
+      "value": "Controlla Humanoid e le assegnazioni Configure in Inspector > Rig del modello originale. Segui le impostazioni consigliate dall'autore dell'avatar."
+    },
+    {
+      "key": "元モデルのRig > ConfigureでHeadを確認し、シーン内で頭のボーンが削除されていないか確認してください。",
+      "value": "Controlla Head in Rig > Configure del modello originale e verifica che il bone della testa sia ancora nella scena."
+    },
+    {
+      "key": "元姿勢の読み込み",
+      "value": "Importa pose originali"
+    },
+    {
+      "key": "全ての変更された差分を保存しました。",
+      "value": "Salvati tutti i valori di regolazione modificati."
+    },
+    {
+      "key": "全ての姿勢の調整値をリセットしますか？",
+      "value": "Reimpostare i valori di regolazione di tutte le pose?"
+    },
+    {
+      "key": "全ての姿勢の調整値を再読み込みしますか？未保存の変更は失われます。",
+      "value": "Ricaricare i valori di regolazione di tutte le pose? Le modifiche non salvate andranno perse."
+    },
+    {
+      "key": "全ての調整データを複製保存しますか？\n変更のあるアニメーションの調整アニメーションが複製され、変更が保存されます。",
+      "value": "Duplicare e salvare tutti i dati di regolazione?\nLe animazioni di regolazione modificate verranno duplicate e salvate."
+    },
+    {
+      "key": "全ての調整値を0にリセットします。",
+      "value": "Azzera tutti i valori di regolazione."
+    },
+    {
+      "key": "全ての調整値をファイルに保存されている値に戻します。",
+      "value": "Ricarica tutti i valori di regolazione dai file salvati."
+    },
+    {
+      "key": "全姿勢再読込",
+      "value": "Ricarica tutto"
+    },
+    {
+      "key": "全姿勢初期化",
+      "value": "Reimposta tutto"
+    },
+    {
+      "key": "全差分保存",
+      "value": "Salva modifiche"
+    },
+    {
+      "key": "全調整データ複製保存",
+      "value": "Duplica tutto"
+    },
+    {
+      "key": "全身",
+      "value": "Corpo intero"
+    },
+    {
+      "key": "公開用として有効",
+      "value": "Abilita per la produzione"
+    },
+    {
+      "key": "公開用として有効です。カタログを参照する商品では、従来の姿勢別調整Animationとアバター固有補正が使用されません。設定漏れの姿勢がないことを確認してください。",
+      "value": "Abilitato per la produzione. I prodotti che usano questo catalogo ignorano le vecchie animazioni di regolazione per posa e le correzioni dell'avatar. Verifica che tutte le pose siano configurate."
+    },
+    {
+      "key": "共通Controllerに姿勢制御用のレイヤーがありません。",
+      "value": "Il Controller condiviso non ha layer di controllo delle pose."
+    },
+    {
+      "key": "共通Controllerに未保存の変更があります。変更を保存してからやり直してください。",
+      "value": "Il Controller condiviso ha modifiche non salvate. Salvale prima di riprovare."
+    },
+    {
+      "key": "共通Controllerの内容が、このバージョンの生成定義と一致しません。",
+      "value": "Il Controller comune non corrisponde alla definizione di generazione di questa versione."
+    },
+    {
+      "key": "共通Controllerの内容が、このバージョンの生成定義と一致しません。独自の変更は別のControllerに保存し、ALCOM / VCCで同じバージョンの「ゆにさきポーズシステム」を入れ直してください。",
+      "value": "Il Controller condiviso non corrisponde alla definizione di generazione di questa versione. Salva le modifiche personalizzate in un Controller separato, poi reinstalla la stessa versione di Unisaki Posing System con ALCOM o VCC."
+    },
+    {
+      "key": "共通アニメーション（従来設定）",
+      "value": "Animazione condivisa (precedente)"
+    },
+    {
+      "key": "共通ポージングAnimatorがありません。",
+      "value": "L'Animator di posa condiviso è mancante."
+    },
+    {
+      "key": "共通ポージングAnimatorにMA Merge Animatorがありません。",
+      "value": "L'Animator di posa condiviso non ha MA Merge Animator."
+    },
+    {
+      "key": "共通ポージングAnimatorに通常のAnimator Controller以外が設定されています。",
+      "value": "L'Animator di posa condiviso richiede un Animator Controller normale."
+    },
+    {
+      "key": "共通ポージングAnimatorのAnimator参照が未設定です。",
+      "value": "L'Animator di posa condiviso non ha un Animator Controller assegnato."
+    },
+    {
+      "key": "共通ポージングAnimatorへ別のControllerを指定していないか確認してください。",
+      "value": "Verifica se è stato assegnato un altro Controller all'Animator di posa condiviso."
+    },
+    {
+      "key": "共通ポージングAnimatorへ別のControllerを指定していないか確認してください。シーンを保存・バックアップしてから、ALCOM / VCCで商品本体と「ゆにさきポーズシステム」を再取得してください。入れ直しても直らない場合は、Inspector上部の「ヘルプ・変更履歴」から公式マニュアル・お問い合わせをご確認ください。調整済みのオブジェクトやGeneratedResourcesは削除しないでください。",
+      "value": "Verifica se è stato assegnato un altro Controller all'Animator di posa condiviso.\nSalva e crea un backup della scena, poi scarica di nuovo il prodotto e Unisaki Posing System con ALCOM / VCC. Se il problema persiste, apri Aiuto / Cronologia in cima all'Inspector per il manuale e l'assistenza. Conserva gli oggetti modificati e GeneratedResources."
+    },
+    {
+      "key": "共通ポージングAnimatorを使用できません。「{0}」{1}。",
+      "value": "L'Animator di posa comune non è disponibile. «{0}» {1}."
+    },
+    {
       "key": "内股座り",
       "value": "Punte all’interno"
+    },
+    {
+      "key": "内部的な互換性管理に使います。通常は変更しません。",
+      "value": "Usato per il controllo interno della compatibilità. Di solito non va modificato."
+    },
+    {
+      "key": "再生位置のパラメーター",
+      "value": "Parametro della posizione di riproduzione"
+    },
+    {
+      "key": "再生位置を指定する",
+      "value": "Imposta posizione di riproduzione"
+    },
+    {
+      "key": "再読込",
+      "value": "Ricarica"
+    },
+    {
+      "key": "初期ポーズ",
+      "value": "Posa iniziale"
+    },
+    {
+      "key": "初期化",
+      "value": "Reimposta"
     },
     {
       "key": "制止",
       "value": "Fermo"
     },
     {
+      "key": "削除",
+      "value": "Elimina"
+    },
+    {
+      "key": "削除対象: {0}\nこの中のPrefabやアニメーションも削除されます。自作・調整済みデータがある場合はキャンセルし、移行手順に従ってください。バックアップなしでは元に戻せません。",
+      "value": "Cartella da eliminare: {0}\nVerranno eliminati anche i prefab e le animazioni al suo interno. Se contiene dati personalizzati o regolati, annulla e segui le istruzioni di migrazione. Per ripristinare i file eliminati serve un backup."
+    },
+    {
       "key": "前かがみ",
       "value": "Piegato in avanti"
+    },
+    {
+      "key": "前回の処理は完了していません。",
+      "value": "L'operazione precedente non è terminata."
+    },
+    {
+      "key": "前回の失敗内容をコピー",
+      "value": "Copia dettagli dell'ultimo errore"
+    },
+    {
+      "key": "前回の失敗表示を閉じる",
+      "value": "Nascondi ultimo errore"
+    },
+    {
+      "key": "前後傾き",
+      "value": "Beccheggio"
+    },
+    {
+      "key": "前腕の長さ",
+      "value": "Lunghezza dell'avambraccio"
+    },
+    {
+      "key": "動かす手足",
+      "value": "Arto da muovere"
+    },
+    {
+      "key": "取り込むアニメーションを個別に指定",
+      "value": "Scegli animazioni da importare"
+    },
+    {
+      "key": "可愛いポーズ",
+      "value": "Kawaii Posing"
+    },
+    {
+      "key": "可愛いポーズツール",
+      "value": "Kawaii Posing"
+    },
+    {
+      "key": "可愛いポーズツール(Booth)",
+      "value": "Kawaii Posing Tool (BOOTH)"
+    },
+    {
+      "key": "可愛いポーズツール(Gumroad)",
+      "value": "Kawaii Posing Tool (Gumroad)"
+    },
+    {
+      "key": "可愛いポーズツールライセンスインストール",
+      "value": "Installa licenza Kawaii Posing"
+    },
+    {
+      "key": "可愛いポーズツールライセンス削除",
+      "value": "Rimuovi licenza Kawaii Posing"
+    },
+    {
+      "key": "可愛いポーズツールライセンス状態確認",
+      "value": "Stato licenza Kawaii Posing"
+    },
+    {
+      "key": "可愛いポーズツール設定",
+      "value": "Impostazioni Kawaii Posing"
+    },
+    {
+      "key": "可愛いポーズツール追加",
+      "value": "Aggiungi Kawaii Posing"
+    },
+    {
+      "key": "可愛い座り",
+      "value": "Kawaii Sitting"
+    },
+    {
+      "key": "可愛い座り(女)ツール追加",
+      "value": "Aggiungi Kawaii Sitting (donna)"
+    },
+    {
+      "key": "可愛い座り(男)ツール追加",
+      "value": "Aggiungi Kawaii Sitting (uomo)"
     },
     {
       "key": "右向き寝",
@@ -353,16 +2417,64 @@
       "value": "Pisolino lato D"
     },
     {
+      "key": "右手指",
+      "value": "Dita destre"
+    },
+    {
+      "key": "右手首",
+      "value": "Polso destro"
+    },
+    {
+      "key": "右脚",
+      "value": "Gamba destra"
+    },
+    {
+      "key": "右腕",
+      "value": "Braccio destro"
+    },
+    {
       "key": "各固定機能の他ギミックとの統合",
       "value": "Integrare i blocchi del tracciamento con altri strumenti"
+    },
+    {
+      "key": "合成",
+      "value": "Unisci"
+    },
+    {
+      "key": "合成する調整アニメーションが存在しません。",
+      "value": "Nessuna animazione di regolazione da unire."
     },
     {
       "key": "合蹠のポーズ",
       "value": "Farfalla"
     },
     {
+      "key": "同梱プリセットを表示しない",
+      "value": "Nascondi preset inclusi"
+    },
+    {
+      "key": "名前",
+      "value": "Nome"
+    },
+    {
+      "key": "名前で検索",
+      "value": "Cerca per nome"
+    },
+    {
+      "key": "名前なし",
+      "value": "Senza nome"
+    },
+    {
       "key": "向き",
       "value": "Direzione"
+    },
+    {
+      "key": "向きを合わせる強さ",
+      "value": "Peso rotazione"
+    },
+    {
+      "key": "向きを回転させる",
+      "value": "Regola direzione"
     },
     {
       "key": "呼吸",
@@ -377,12 +2489,44 @@
       "value": "Animare il respiro"
     },
     {
+      "key": "呼吸の設定",
+      "value": "Impostazioni del respiro"
+    },
+    {
       "key": "和室",
       "value": "Stanza giapponese"
     },
     {
+      "key": "商品に収録する各姿勢について、手や足をどこへ置くかを記録する開発用データです。",
+      "value": "Dati di creazione che registrano le destinazioni di mani e piedi per ogni posa inclusa. "
+    },
+    {
+      "key": "商品に収録する各姿勢について、手や足をどこへ置くかを記録する開発用データです。アバターごとの設定ではなく、1つの商品につき1ファイルを作成します。",
+      "value": "Dati di creazione che registrano le destinazioni di mani e piedi per ogni posa inclusa. Crea un file per prodotto, separato dalle impostazioni per avatar."
+    },
+    {
+      "key": "商品名",
+      "value": "Nome prodotto"
+    },
+    {
       "key": "商談",
       "value": "Trattativa"
+    },
+    {
+      "key": "回転",
+      "value": "Rotazione"
+    },
+    {
+      "key": "回転角度",
+      "value": "Angolo di rotazione"
+    },
+    {
+      "key": "回転角度(360度)",
+      "value": "Rotazione (giri)"
+    },
+    {
+      "key": "固定長（アバタースケールのみ）",
+      "value": "Lunghezza fissa (solo scala avatar)"
     },
     {
       "key": "地球寝",
@@ -393,6 +2537,26 @@
       "value": "In una capsula"
     },
     {
+      "key": "基準にする身体ボーン",
+      "value": "Bone del corpo di riferimento"
+    },
+    {
+      "key": "基準の向きに沿って移動します。オフの軸は元の姿勢の位置を保ちます。",
+      "value": "Sposta lungo l'orientamento di riferimento. Gli assi disattivati mantengono la posizione della posa originale."
+    },
+    {
+      "key": "基準アバターとの初期関節角度・ひねりの差を補正します。",
+      "value": "Corregge le differenze degli angoli iniziali e della torsione delle articolazioni rispetto all'avatar di riferimento."
+    },
+    {
+      "key": "基準アバターに有効な Humanoid Animator がありません。",
+      "value": "L'avatar di riferimento non ha un Humanoid Animator valido."
+    },
+    {
+      "key": "基準姿勢の読み取りに失敗しました: {0}",
+      "value": "Impossibile leggere la posa di riferimento: {0}"
+    },
+    {
       "key": "堤防",
       "value": "Argine"
     },
@@ -401,16 +2565,144 @@
       "value": "Al muro"
     },
     {
+      "key": "変更のあるアニメーションの調整値を保存します。",
+      "value": "Salva le regolazioni delle animazioni modificate."
+    },
+    {
+      "key": "変更のあるアニメーションの調整値を複製して保存します。元々設定されていたファイルは変更されません",
+      "value": "Duplica le animazioni di regolazione e salva i valori modificati. I file assegnati in origine vengono conservati."
+    },
+    {
+      "key": "変更を破棄して保存されていた値に戻します",
+      "value": "Scarta le modifiche e ripristina i valori salvati."
+    },
+    {
+      "key": "変更履歴を読み込めませんでした。",
+      "value": "Impossibile caricare la cronologia delle modifiche."
+    },
+    {
+      "key": "太ももの長さ",
+      "value": "Lunghezza della coscia"
+    },
+    {
       "key": "女の子座り",
       "value": "Seduta a W"
+    },
+    {
+      "key": "姿勢 {0}",
+      "value": "Posa {0}"
+    },
+    {
+      "key": "姿勢のプレビュー",
+      "value": "Anteprima posa"
+    },
+    {
+      "key": "姿勢のプレビューや、細かな調整ができます。",
+      "value": "Visualizza e perfeziona le tue pose."
+    },
+    {
+      "key": "姿勢の分類",
+      "value": "Categoria posa"
+    },
+    {
+      "key": "姿勢の分類が設定されていません。",
+      "value": "Nessuna categoria di pose configurata."
+    },
+    {
+      "key": "姿勢の識別キー",
+      "value": "Chiave identificativa della posa"
+    },
+    {
+      "key": "姿勢メニューの生成先が別のアバター、またはアバターの外にあります。",
+      "value": "La destinazione del menu delle pose è su un altro avatar o fuori da questo avatar."
+    },
+    {
+      "key": "姿勢メニューの生成先が見つかりません。",
+      "value": "Destinazione di generazione del menu delle pose non trovata."
+    },
+    {
+      "key": "姿勢別IK自動調整が有効です。従来のアバター固有補正と調整Animationは使用しません。",
+      "value": "La regolazione IK per posa è attiva. Le vecchie correzioni dell'avatar e le animazioni di regolazione vengono ignorate."
+    },
+    {
+      "key": "姿勢別IK自動調整を使用中です。従来の身体の補正は使用しません。",
+      "value": "La regolazione IK per posa è attiva. La vecchia correzione del corpo non viene usata."
+    },
+    {
+      "key": "姿勢別IK設定一覧（{0}件）",
+      "value": "Impostazioni IK per posa ({0})"
+    },
+    {
+      "key": "姿勢設定を追加",
+      "value": "Aggiungi impostazioni posa"
     },
     {
       "key": "姿勢選択",
       "value": "Scegli posa"
     },
     {
+      "key": "完了",
+      "value": "Fatto"
+    },
+    {
+      "key": "実験",
+      "value": "Sperimentale"
+    },
+    {
+      "key": "寝の高さ閾値",
+      "value": "Soglia di altezza da sdraiati"
+    },
+    {
+      "key": "寝姿勢",
+      "value": "Sdraiato"
+    },
+    {
       "key": "寝返り",
       "value": "Girarsi"
+    },
+    {
+      "key": "寝返りの設定",
+      "value": "Impostazioni per girarsi"
+    },
+    {
+      "key": "寝返りを使う",
+      "value": "Abilita Girarsi"
+    },
+    {
+      "key": "寝返り時の横向き",
+      "value": "Posa laterale per girarsi"
+    },
+    {
+      "key": "対処:",
+      "value": "Intervento:"
+    },
+    {
+      "key": "対処: Window > General > Consoleで、この操作中に最初に出た赤いエラーを確認してください。設定の確認で問題が解消しない場合は、このエラー番号・詳細とツールのバージョンをお問い合わせに添えてください。",
+      "value": "Intervento: in Window > General > Console, controlla il primo errore rosso di questa operazione. Se il controllo delle impostazioni non risolve il problema, comunica all'assistenza il codice di errore, i dettagli e la versione dello strumento."
+    },
+    {
+      "key": "対象の腕または脚のHumanoidボーンが見つかりません。",
+      "value": "Bone Humanoid del braccio o della gamba di destinazione non trovati."
+    },
+    {
+      "key": "対象を選択（{0}）",
+      "value": "Seleziona oggetto interessato ({0})"
+    },
+    {
+      "key": "小さな傾きを無視する範囲",
+      "value": "Zona morta di inclinazione testa"
+    },
+    {
+      "key": "少女モーション集追加",
+      "value": "Aggiungi Girl Motion Collection"
+    },
+    {
+      "key": "左右傾き",
+      "value": "Rollio"
+    },
+    {
+      "key": "左右反対側の部位の調整値をこの部位へ適用します",
+      "value": "Applica a questa parte del corpo i valori di regolazione del lato opposto."
     },
     {
       "key": "左右反転",
@@ -429,6 +2721,26 @@
       "value": "Pisolino lato S2"
     },
     {
+      "key": "左手指",
+      "value": "Dita sinistre"
+    },
+    {
+      "key": "左手首",
+      "value": "Polso sinistro"
+    },
+    {
+      "key": "左脚",
+      "value": "Gamba sinistra"
+    },
+    {
+      "key": "左腕",
+      "value": "Braccio sinistro"
+    },
+    {
+      "key": "差異:",
+      "value": "Differenza:"
+    },
+    {
       "key": "布団",
       "value": "Futon"
     },
@@ -437,12 +2749,32 @@
       "value": "Altezza suolo"
     },
     {
+      "key": "床を基準",
+      "value": "Suolo"
+    },
+    {
+      "key": "座りの高さ閾値",
+      "value": "Soglia di altezza da seduti"
+    },
+    {
       "key": "座り姿勢",
       "value": "Seduto"
     },
     {
       "key": "座布団",
       "value": "Cuscino da terra"
+    },
+    {
+      "key": "弱",
+      "value": "Debole"
+    },
+    {
+      "key": "弱・中・強はゆっくりした呼吸、急は速い呼吸です。姿勢ごとに選べます。",
+      "value": "Debole, Medio e Forte usano un respiro lento; Rapido usa un respiro veloce. Scegli per ogni posa."
+    },
+    {
+      "key": "強",
+      "value": "Forte"
     },
     {
       "key": "待ちぼうけ",
@@ -469,8 +2801,44 @@
       "value": "Pensieroso"
     },
     {
+      "key": "急",
+      "value": "Rapido"
+    },
+    {
+      "key": "情報",
+      "value": "Informazioni"
+    },
+    {
       "key": "戻る",
       "value": "Indietro"
+    },
+    {
+      "key": "手動で方向を指定",
+      "value": "Imposta la direzione manualmente"
+    },
+    {
+      "key": "手動指定を解除",
+      "value": "Cancella selezione manuale"
+    },
+    {
+      "key": "手動指定時だけ使用します。アバター正面を基準にした方向です。",
+      "value": "Usato solo con una direzione di flessione specificata manualmente, relativa al davanti dell'avatar."
+    },
+    {
+      "key": "手足のIKルールを追加",
+      "value": "Aggiungi regola IK degli arti"
+    },
+    {
+      "key": "手足のIKルール（{0}件）",
+      "value": "Regole IK degli arti ({0})"
+    },
+    {
+      "key": "手足の向きも合わせる",
+      "value": "Allinea rotazione dell'arto"
+    },
+    {
+      "key": "手足の自動調整を使う",
+      "value": "Abilita regolazione automatica degli arti"
     },
     {
       "key": "抱きしめ",
@@ -479,6 +2847,18 @@
     {
       "key": "指の形を固定・解除する切り替えをメニューに追加します。固定中はコントローラーを握っても形を保てます。",
       "value": "Aggiunge un comando per bloccare i gesti delle dita, anche quando stringi il controller."
+    },
+    {
+      "key": "指定した種類にはこのモーションを使います。未指定の種類は元の設定を使います。",
+      "value": "I tipi selezionati usano questi movimenti. Gli altri mantengono le impostazioni originali."
+    },
+    {
+      "key": "探しているPrefab: {0}\n購入ファイルのライセンス用unitypackageだけでは、ツール本体の導入は完了しません。ALCOM / VCCでこのプロジェクトに商品本体と「ゆにさきポーズシステム」が追加されているか確認してください。\n導入済みの場合: {1}",
+      "value": "Prefab da cercare: {0}\nL'installer della licenza acquistata non completa da solo l'installazione del prodotto. In ALCOM / VCC verifica che il prodotto e Unisaki Posing System siano aggiunti al progetto.\nSe già installato: {1}"
+    },
+    {
+      "key": "接地補正の強さ",
+      "value": "Intensità della correzione del contatto a terra"
     },
     {
       "key": "撮影モード",
@@ -501,8 +2881,40 @@
       "value": "Tenere visibile la testa in Modalità foto"
     },
     {
+      "key": "撮影機能に必要なため、自動で選ばれています。",
+      "value": "Selezionato automaticamente perché necessario alla Modalità foto."
+    },
+    {
+      "key": "操作対象のポーズツールが見つかりません。",
+      "value": "Strumento di posa di destinazione non trovato."
+    },
+    {
       "key": "斜め座り",
       "value": "Seduto di sbieco"
+    },
+    {
+      "key": "旧unitypackage版の「{0}」フォルダがプロジェクトに残っています。新版と競合する可能性があります。削除する前に移行手順とバックアップを確認してください。",
+      "value": "La cartella del vecchio unitypackage «{0}» è ancora nel progetto e può entrare in conflitto con la versione attuale. Controlla le istruzioni di migrazione e il backup prima di rimuoverla."
+    },
+    {
+      "key": "旧座標形式です。調整アニメーションウィンドウで基準アバターを表示し、",
+      "value": "Questa voce usa il vecchio formato di coordinate. Mostra l'avatar di riferimento nella finestra di regolazione ed "
+    },
+    {
+      "key": "旧座標形式です。調整アニメーションウィンドウで基準アバターを表示し、「現在の手足位置から取得」を一度実行してください。再取得までは元Animationの手足の向きを維持します。",
+      "value": "Questa voce usa il vecchio formato di coordinate. Mostra l'avatar di riferimento nella finestra di regolazione ed esegui una volta Acquisisci posizioni attuali degli arti. Fino alla nuova acquisizione viene mantenuto l'orientamento degli arti dell'animazione sorgente."
+    },
+    {
+      "key": "旧形式の保存データ（項目を比較できません）",
+      "value": "Vecchi dati salvati (impossibile confrontare le impostazioni)"
+    },
+    {
+      "key": "旧版のアバター設定を取り除きます",
+      "value": "Rimuovi vecchie impostazioni avatar"
+    },
+    {
+      "key": "旧版フォルダの削除を確認",
+      "value": "Conferma eliminazione vecchia cartella"
     },
     {
       "key": "昼寝",
@@ -513,6 +2925,34 @@
       "value": "Pisolino al sole"
     },
     {
+      "key": "最低膝曲げ角度（°）",
+      "value": "Flessione minima del ginocchio (gradi)"
+    },
+    {
+      "key": "最初の姿勢をSceneタブで確認できます。終了すると元の姿勢に戻ります。",
+      "value": "Mostra il primo fotogramma nella vista Scene. Interrompendo l'anteprima si ripristina la posa originale."
+    },
+    {
+      "key": "最新",
+      "value": "Aggiornato"
+    },
+    {
+      "key": "有効なHumanoid Animatorがありません。",
+      "value": "Nessun Humanoid Animator valido trovato."
+    },
+    {
+      "key": "有効な共通ポージングAnimatorが見つかりません。",
+      "value": "Nessun Animator di posa condiviso attivo trovato."
+    },
+    {
+      "key": "有効な文字列が見つかりませんでした。",
+      "value": "Nessuna voce di testo valida trovata."
+    },
+    {
+      "key": "有効にすると従来の調整Animationを無視し、このIK設定から自動調整Animationを生成します。",
+      "value": "Se attivo, genera animazioni di regolazione automatica da queste impostazioni IK anziché dalle vecchie animazioni di regolazione."
+    },
+    {
       "key": "服従",
       "value": "Obbedienza"
     },
@@ -521,12 +2961,64 @@
       "value": "Pisolino sull’albero"
     },
     {
+      "key": "未保存の手動調整があります",
+      "value": "Regolazioni manuali non salvate"
+    },
+    {
+      "key": "未実行",
+      "value": "Non precalcolato"
+    },
+    {
+      "key": "未対応のターゲット空間です: {0}",
+      "value": "Spazio di destinazione non supportato: {0}"
+    },
+    {
+      "key": "未対応の長さの基準です: {0}",
+      "value": "Riferimento di lunghezza non supportato: {0}"
+    },
+    {
+      "key": "未指定",
+      "value": "Non assegnato"
+    },
+    {
+      "key": "条件式が間違っているパラメータがあります。「{0}」ファイルの「{1}」というレイヤーで使用されている「{2}」というパラメータは、AnimatorController内では「{3}」という型ですが、条件式に「{4}」が使われているため条件式が正しく動作しません。このためギミックや処理が正しく動作しない可能性があります。使用しているツールやギミックの相性の問題だと思われるため、このパラメータを使用しているツールの開発者に連絡してください",
+      "value": "Una condizione dell'Animator usa un tipo di parametro incompatibile. Nel file {0}, layer {1}, il parametro {2} è dichiarato come {3}, ma viene usata la condizione {4}. Alcune funzioni potrebbero non funzionare correttamente. Contatta l'autore dello strumento che usa questo parametro per verificarne la compatibilità."
+    },
+    {
+      "key": "検出できる設定エラーはありません",
+      "value": "Nessun errore di configurazione rilevabile"
+    },
+    {
+      "key": "検索",
+      "value": "Cerca"
+    },
+    {
       "key": "楽園",
       "value": "Paradiso"
     },
     {
+      "key": "横を向くまでの頭の傾き",
+      "value": "Inclinazione testa per un giro completo"
+    },
+    {
+      "key": "横向きのAnimationClipを指定してください。未指定の場合は、従来どおり通常欄の完成済み寝返りアニメーションを使います。",
+      "value": "Assegna un AnimationClip laterale. Se vuoto, viene usata come prima l'animazione completa per girarsi nel campo normale."
+    },
+    {
+      "key": "機能",
+      "value": "Funzioni"
+    },
+    {
+      "key": "注意・補足を確認（{0}件）",
+      "value": "Mostra note ({0})"
+    },
+    {
       "key": "海岸",
       "value": "Lungomare"
+    },
+    {
+      "key": "添い寝ツール追加",
+      "value": "Aggiungi strumento Sleep-together"
     },
     {
       "key": "照れ",
@@ -545,12 +3037,52 @@
       "value": "Pisolino da gatto"
     },
     {
+      "key": "現在のアニメーション",
+      "value": "Animazione sorgente"
+    },
+    {
+      "key": "現在のアニメーションに調整アニメーションを合成したものを新しいアニメーションクリップとして保存します。",
+      "value": "Unisce l'animazione sorgente e la regolazione in un nuovo clip di animazione."
+    },
+    {
+      "key": "現在のアバターから読み込む",
+      "value": "Importa dall'avatar attuale"
+    },
+    {
+      "key": "現在のモーションは AnimationClip ではありません。差分調整は AnimationClip のみ対応しています。",
+      "value": "Il movimento attuale non è un AnimationClip. Le differenze di regolazione supportano solo AnimationClips."
+    },
+    {
+      "key": "現在の手足位置・見た目の向き・曲げ方向をIKルールへ記録しました。",
+      "value": "Registrate nella regola IK la posizione attuale dell'arto, l'orientamento visibile e la direzione di flessione."
+    },
+    {
+      "key": "現在の設定からプリセットを作成",
+      "value": "Crea preset dalle impostazioni attuali"
+    },
+    {
+      "key": "現在は制作中です。商品Prefabから参照されていても、従来の調整Animationが引き続き使用されます。",
+      "value": "In lavorazione. Le vecchie animazioni di regolazione restano in uso anche se un prefab del prodotto fa riferimento a questo catalogo."
+    },
+    {
       "key": "生成時にアバターのBaseからモーションを検出します。取り込み設定の一覧には追加しません。手動設定がある種類は手動指定を優先します。",
       "value": "Rileva i movimenti dal layer Base dell'avatar durante la generazione, senza aggiungerli all'elenco di importazione. Le scelte manuali hanno priorità."
     },
     {
       "key": "画像でポーズを見分けやすくできます。アバターのビルド時間は少し長くなります。",
       "value": "Usa miniature per riconoscere le pose. La compilazione dell'avatar richiede un po' più di tempo."
+    },
+    {
+      "key": "画像ファイル",
+      "value": "File immagine"
+    },
+    {
+      "key": "画像ファイル・補足",
+      "value": "File immagine / note"
+    },
+    {
+      "key": "画像ファイル・補足を閉じる",
+      "value": "Chiudi file immagine / note"
     },
     {
       "key": "異変無し",
@@ -561,16 +3093,56 @@
       "value": "In piedi"
     },
     {
+      "key": "着地（短め）",
+      "value": "Atterraggio breve"
+    },
+    {
+      "key": "着地（短）",
+      "value": "Atterraggio breve"
+    },
+    {
+      "key": "着地（長め）",
+      "value": "Atterraggio lungo"
+    },
+    {
+      "key": "着地（長）",
+      "value": "Atterraggio lungo"
+    },
+    {
       "key": "睡魔",
       "value": "Sonnolenza"
+    },
+    {
+      "key": "短い落下",
+      "value": "Caduta breve"
     },
     {
       "key": "砂浜",
       "value": "Spiaggia"
     },
     {
+      "key": "確認",
+      "value": "Conferma"
+    },
+    {
+      "key": "種類ごとに1つのモーションを指定できます。上の「元の姿勢を使う」とは別に設定できます。",
+      "value": "Scegli un movimento per tipo, indipendentemente da Usa pose originali qui sopra."
+    },
+    {
       "key": "空気椅子",
       "value": "Sedia invisibile"
+    },
+    {
+      "key": "立ちのみ",
+      "value": "Solo in piedi"
+    },
+    {
+      "key": "立ち・歩き",
+      "value": "In piedi / camminata"
+    },
+    {
+      "key": "立ち・歩き・走り",
+      "value": "In piedi / camminata / corsa"
     },
     {
       "key": "立ち姿勢",
@@ -581,8 +3153,16 @@
       "value": "Disattiva l'oscillazione automatica da fermo di VRChat mantenendo l'animazione del respiro di questo strumento."
     },
     {
+      "key": "終了",
+      "value": "Ferma"
+    },
+    {
       "key": "絨毯",
       "value": "Tappeto"
+    },
+    {
+      "key": "置き場所の基準",
+      "value": "Riferimento di destinazione"
     },
     {
       "key": "考える男",
@@ -593,16 +3173,48 @@
       "value": "Gomitata"
     },
     {
+      "key": "肘・膝の曲げ方",
+      "value": "Flessione gomito / ginocchio"
+    },
+    {
+      "key": "肘・膝を曲げる方向",
+      "value": "Direzione di flessione gomito / ginocchio"
+    },
+    {
       "key": "肘付き",
       "value": "Sul gomito"
+    },
+    {
+      "key": "胸のボーン（Chest）が割り当てられていません。",
+      "value": "Il bone Chest non è assegnato."
+    },
+    {
+      "key": "胸の姿勢が崩れる場合は元モデルのRig > Configure > BodyのChestを確認してください。Upper Chestとは別の項目です。対応するボーンがない場合は無理に割り当てず、配布元の設定を確認してください。",
+      "value": "Se il torace è deformato, controlla Chest in Rig > Configure > Body del modello originale. Chest e Upper Chest sono assegnazioni distinte. Se manca un bone corrispondente, segui le impostazioni dell'autore."
+    },
+    {
+      "key": "胸の長さ",
+      "value": "Lunghezza del torace"
     },
     {
       "key": "脚を伸ばしたときに、膝が逆向きに折れるのを抑えます。",
       "value": "Impedisce alle ginocchia di piegarsi all'indietro quando le gambe si distendono."
     },
     {
+      "key": "脚全体の長さ（太もも＋すね）",
+      "value": "Lunghezza totale della gamba (superiore + inferiore)"
+    },
+    {
       "key": "脱力寝",
       "value": "Sonno rilassato"
+    },
+    {
+      "key": "腕や脚の長さに合わせて、手足が自然な置き場所へ届くよう調整します。",
+      "value": "Regola gli arti in posizioni naturali per le proporzioni di questo avatar."
+    },
+    {
+      "key": "腕固定",
+      "value": "Blocca braccia"
     },
     {
       "key": "腕枕寝",
@@ -621,24 +3233,116 @@
       "value": "Flessioni"
     },
     {
+      "key": "膝がこの角度より伸びる前にクランプします。",
+      "value": "Limita l'estensione del ginocchio prima che la flessione scenda sotto questo angolo."
+    },
+    {
+      "key": "膝が伸びきる手前で止める角度です。",
+      "value": "Ferma il ginocchio appena prima della completa estensione."
+    },
+    {
       "key": "膝が逆向きに曲がるのを防ぐ",
       "value": "Impedire la piegatura inversa delle ginocchia"
+    },
+    {
+      "key": "膝の補正",
+      "value": "Correzione ginocchia"
+    },
+    {
+      "key": "膝の計測に必要なHumanoid Animatorがありません。",
+      "value": "Manca il Humanoid Animator necessario alla misurazione del ginocchio."
     },
     {
       "key": "膝立て",
       "value": "Un ginocchio alzato"
     },
     {
+      "key": "自分で用意したモーションを使う",
+      "value": "Usa i tuoi movimenti"
+    },
+    {
       "key": "自分の頭が近くにあっても撮影できます。自分の画面だけに反映され、撮影終了後は通常の表示に戻ります。",
       "value": "Mantiene visibile la testa sul tuo schermo per le foto ravvicinate. La visibilità normale torna uscendo dalla Modalità foto."
+    },
+    {
+      "key": "自動アバター補正",
+      "value": "Correzione automatica dell'avatar"
+    },
+    {
+      "key": "自動取り込みの結果は生成時だけ使い、この一覧には追加しません。手動指定をOFFにした種類や、指定済みモーションを外した種類は自動で補完しません。自動取り込みに戻すには「手動指定を解除」を使います。",
+      "value": "Le importazioni automatiche vengono usate durante la generazione e non aggiunte a questo elenco. I tipi disattivati o svuotati manualmente non sono completati automaticamente. Usa Cancella selezione manuale per ripristinare l'importazione automatica."
+    },
+    {
+      "key": "自動姿勢IK設定",
+      "value": "Catalogo IK delle pose"
+    },
+    {
+      "key": "自動検出",
+      "value": "Rileva automaticamente"
+    },
+    {
+      "key": "自動生成された補正",
+      "value": "Correzione generata"
+    },
+    {
+      "key": "自動調整Animationの作成に失敗しました: {0}",
+      "value": "Impossibile creare l'animazione di regolazione automatica: {0}"
+    },
+    {
+      "key": "自動足踏みに関する案内を非表示",
+      "value": "Nascondi note Auto-Footsteps"
     },
     {
       "key": "芝生",
       "value": "Prato"
     },
     {
+      "key": "落下（短め）",
+      "value": "Caduta breve"
+    },
+    {
+      "key": "落下（長め）",
+      "value": "Caduta lunga"
+    },
+    {
       "key": "行き倒れ",
       "value": "Crollato"
+    },
+    {
+      "key": "行った操作・起きたこと：",
+      "value": "Operazioni eseguite e cosa è successo:"
+    },
+    {
+      "key": "衣装や見た目を変えたときに使います。設定を変えたときはプレビルドしてください。",
+      "value": "Usa dopo un cambio di abito o aspetto. Aggiorna il precalcolo dopo aver cambiato le impostazioni."
+    },
+    {
+      "key": "複数のアニメーションをここにドロップ",
+      "value": "Trascina qui i clip di animazione"
+    },
+    {
+      "key": "複数の手足を解き直す回数です。通常は2回です。",
+      "value": "Numero di passaggi per risolvere più arti. Di solito 2."
+    },
+    {
+      "key": "複製",
+      "value": "Copia"
+    },
+    {
+      "key": "複製して保存",
+      "value": "Copia/salva"
+    },
+    {
+      "key": "複製する調整アニメーションが存在しません。",
+      "value": "Nessuna animazione di regolazione da duplicare."
+    },
+    {
+      "key": "複製保存する変更はありませんでした。",
+      "value": "Nessuna modifica da duplicare e salvare."
+    },
+    {
+      "key": "見た目の手足の向き",
+      "value": "Orientamento visibile dell'arto"
     },
     {
       "key": "見下し",
@@ -649,12 +3353,112 @@
       "value": "Osservazione"
     },
     {
+      "key": "角度は度数で指定します。寝姿勢を選び、VRChatのメニューで首固定を解除して使ってください。",
+      "value": "Gli angoli sono in gradi. Seleziona una posa sdraiata e sblocca la testa nel menu VRChat."
+    },
+    {
+      "key": "計測用クローンに有効な Humanoid Animator がありません。",
+      "value": "La copia di misurazione non ha un Humanoid Animator valido."
+    },
+    {
+      "key": "計算する順番",
+      "value": "Ordine di calcolo"
+    },
+    {
+      "key": "計算の反復回数",
+      "value": "Iterazioni del risolutore"
+    },
+    {
       "key": "訓練場",
       "value": "Campo di allenamento"
     },
     {
       "key": "設定",
       "value": "Impostazioni"
+    },
+    {
+      "key": "設定にエラーがあります。Inspectorの「設定の確認」を開いてください。",
+      "value": "Sono presenti errori di configurazione. Apri Controlla impostazioni nell'Inspector."
+    },
+    {
+      "key": "設定に問題があるため、ポーズの生成を開始できません。",
+      "value": "La generazione delle pose non può iniziare per errori di configurazione."
+    },
+    {
+      "key": "設定の更新あり",
+      "value": "Impostazioni modificate"
+    },
+    {
+      "key": "設定の確認",
+      "value": "Controlla impostazioni"
+    },
+    {
+      "key": "設定の確認、またはプレビルドの更新が必要です。Inspectorを確認してください。",
+      "value": "Controlla le impostazioni o aggiorna il precalcolo. Consulta l'Inspector."
+    },
+    {
+      "key": "設定を先に生成して、アバターのビルド時間を短縮します。",
+      "value": "Genera in anticipo le impostazioni per ridurre i tempi di compilazione dell'avatar."
+    },
+    {
+      "key": "設定を再確認",
+      "value": "Ricontrolla impostazioni"
+    },
+    {
+      "key": "診断 ",
+      "value": "Diagnostica "
+    },
+    {
+      "key": "該当するプリセットがありません。",
+      "value": "Nessun preset corrispondente."
+    },
+    {
+      "key": "該当する項目をポーズ一覧から削除し、必要なアニメーションを追加し直してください。",
+      "value": "Rimuovi l'elemento mancante dall'elenco delle pose e aggiungi di nuovo l'animazione necessaria."
+    },
+    {
+      "key": "詳細",
+      "value": "Dettagli"
+    },
+    {
+      "key": "調整アニメーション",
+      "value": "Animazione di regolazione"
+    },
+    {
+      "key": "調整アニメーションを複製して保存しました。\n新しいファイル: {0}",
+      "value": "Animazione di regolazione duplicata e salvata.\nNuovo file: {0}"
+    },
+    {
+      "key": "調整アニメーションを複製して保存します。元々設定されていたファイルは変更されません",
+      "value": "Duplica e salva l'animazione di regolazione. Il file assegnato in origine viene conservato."
+    },
+    {
+      "key": "調整アニメーションを複製します。",
+      "value": "Duplica l'animazione di regolazione."
+    },
+    {
+      "key": "調整クリップ",
+      "value": "Clip di regolazione"
+    },
+    {
+      "key": "調整値をすべて0にリセットします。",
+      "value": "Azzera tutti i valori di regolazione."
+    },
+    {
+      "key": "調整値をファイルに保存します。",
+      "value": "Salva i valori di regolazione nel file."
+    },
+    {
+      "key": "調整可能なアニメーションが見つかりません。PosingSystem の設定を確認してください。",
+      "value": "Nessuna animazione regolabile trovata. Controlla le impostazioni di PosingSystem."
+    },
+    {
+      "key": "調整結果をプレビューしています。",
+      "value": "Anteprima del risultato regolato."
+    },
+    {
+      "key": "警告の表示設定",
+      "value": "Impostazioni di visualizzazione avvisi"
     },
     {
       "key": "警戒",
@@ -667,6 +3471,10 @@
     {
       "key": "警戒（左）",
       "value": "In guardia S"
+    },
+    {
+      "key": "足IKで膝が逆向きに折れることを防止します。",
+      "value": "Impedisce all'IK delle gambe di piegare le ginocchia all'indietro."
     },
     {
       "key": "足の高さ",
@@ -701,12 +3509,132 @@
       "value": "Accovacciato"
     },
     {
+      "key": "身体のボーン、アバター全体、床のいずれを基準にするか選びます。",
+      "value": "Scegli un bone del corpo, l'avatar o il suolo come riferimento."
+    },
+    {
+      "key": "身体のボーンを基準",
+      "value": "Bone del corpo"
+    },
+    {
+      "key": "身体の補正",
+      "value": "Correzione del corpo"
+    },
+    {
+      "key": "身長",
+      "value": "Altezza dell'avatar"
+    },
+    {
+      "key": "追加先にあるクリップは重複して追加されません。",
+      "value": "I clip già presenti nella destinazione non vengono aggiunti di nuovo."
+    },
+    {
+      "key": "追加先の姿勢",
+      "value": "Posa di destinazione"
+    },
+    {
+      "key": "追加先を確認してください [PS040]",
+      "value": "Controlla destinazione [PS040]"
+    },
+    {
+      "key": "追加先を選択してください [PS040]",
+      "value": "Seleziona destinazione [PS040]"
+    },
+    {
+      "key": "追加機能を外して、ExpressionParametersの使用量を減らす",
+      "value": "Disattiva le funzioni opzionali per ridurre l'uso di ExpressionParameters"
+    },
+    {
+      "key": "逆関節防止機能",
+      "value": "Impedire la piegatura inversa delle ginocchia"
+    },
+    {
+      "key": "通常のアニメーションを中央にし、横向きの姿勢と左右反転をビルド時に合成します。各クリップの最初の姿勢を使用します。中央は0.5、左右端は0と1です。接地補正は0で無効、0.25で25％です。",
+      "value": "Durante la compilazione, combina al centro la posa normale con quella laterale e il suo riflesso. Usa il primo fotogramma di ogni clip. Il centro è 0.5, le estremità sono 0 e 1. La correzione a terra è disattivata a 0 e vale il 25% a 0.25."
+    },
+    {
+      "key": "通常は1です。小さくすると元の姿勢を多く残します。",
+      "value": "Di solito 1. Valori più bassi mantengono maggiormente la posa sorgente."
+    },
+    {
+      "key": "通常は「メニュー名_姿勢名」です。調整ウィンドウから追加すると自動入力されます。",
+      "value": "Di solito menuName_poseName. Aggiungendo una voce dalla finestra di regolazione viene compilato automaticamente."
+    },
+    {
+      "key": "通常は元の姿勢を維持します。対象アバターへ元Animationを適用した直後と同じ側へ曲げます。",
+      "value": "Di norma conserva la posa sorgente, piegando dallo stesso lato visto subito dopo l'applicazione dell'animazione sorgente all'avatar di destinazione."
+    },
+    {
       "key": "運動会",
       "value": "Giornata sportiva"
     },
     {
+      "key": "適用するPrefabs (PosingSystem)",
+      "value": "Prefab PosingSystem da applicare"
+    },
+    {
+      "key": "選択アバターの1評価版比較コピーを作成",
+      "value": "Crea copia di confronto valutazione"
+    },
+    {
+      "key": "選択アバターの最適化比較コピーを作成",
+      "value": "Crea copia di confronto ottimizzazione"
+    },
+    {
+      "key": "選択時",
+      "value": "Alla selezione"
+    },
+    {
+      "key": "配置対象のアバターPrefab/FBXのファイル名",
+      "value": "Nomi file prefab / FBX degli avatar di destinazione"
+    },
+    {
+      "key": "配置対象のアバターPrefabs/FBX",
+      "value": "Prefab / FBX degli avatar di destinazione"
+    },
+    {
+      "key": "長い落下",
+      "value": "Caduta lunga"
+    },
+    {
+      "key": "長さの基準に必要なHumanoidボーン（{0}・{1}）がありません。",
+      "value": "Mancano i bone Humanoid necessari al riferimento di lunghezza: {0}, {1}."
+    },
+    {
+      "key": "閉じる",
+      "value": "Chiudi"
+    },
+    {
+      "key": "開く ›",
+      "value": "Apri ›"
+    },
+    {
+      "key": "閾値設定",
+      "value": "Soglie di altezza"
+    },
+    {
+      "key": "限界突破",
+      "value": "Esteso"
+    },
+    {
+      "key": "限界突破をオンにするとパラメータの設定幅が5倍になります",
+      "value": "Abilita un intervallo dei parametri cinque volte più ampio del normale."
+    },
+    {
       "key": "面接",
       "value": "Colloquio"
+    },
+    {
+      "key": "順番",
+      "value": "Ordine"
+    },
+    {
+      "key": "頭、腰、膝、ViewPosition（目の位置）など、手足の置き場所を測る基準です。ViewPositionは頭の動きに追従します。",
+      "value": "Riferimento per misurare la posizione di mani o piedi, per esempio Head, Hips, un ginocchio o ViewPosition (posizione degli occhi). ViewPosition segue il movimento della testa."
+    },
+    {
+      "key": "頭のボーン（Head）を取得できません。姿勢の高さを計算できません。",
+      "value": "Bone Head non trovato: impossibile calcolare l'altezza della postura."
     },
     {
       "key": "頭の位置を保ち、足側の高さを変えられます。足が床に埋まる・浮くときに調整できます。",
@@ -717,12 +3645,28 @@
       "value": "Permette di girarsi inclinando la testa. Disponibile per alcune pose sdraiate."
     },
     {
+      "key": "頭の大きさ（HeadとViewpointの前後差）",
+      "value": "Dimensione testa (differenza di profondità Head/Viewpoint)"
+    },
+    {
+      "key": "頭の大きさ（HeadとViewpointの高低差）",
+      "value": "Dimensione testa (differenza di altezza Head/Viewpoint)"
+    },
+    {
+      "key": "頭の高さ無視",
+      "value": "Ignora altezza della testa"
+    },
+    {
       "key": "頭も含めた身体全体の高さを変えられます。VRChatの「床の高さ」で、50%を元の高さとして上下3mまで調整できます。",
       "value": "Sposta tutto il corpo, testa compresa, fino a 3 m in alto o in basso. Altezza suolo è neutra al 50%."
     },
     {
       "key": "首の向きの違いによる姿勢崩れを抑制",
       "value": "Ridurre le deformazioni dovute alla rotazione della testa"
+    },
+    {
+      "key": "首・頭",
+      "value": "Collo e testa"
     },
     {
       "key": "首固定",
@@ -737,8 +3681,36 @@
       "value": "Cavaliere"
     },
     {
+      "key": "高さ",
+      "value": "Altezza"
+    },
+    {
       "key": "魔王降臨",
       "value": "Re demone"
+    },
+    {
+      "key": "（ユーザー作成）",
+      "value": " (Utente)"
+    },
+    {
+      "key": "（公式）",
+      "value": " (Ufficiale)"
+    },
+    {
+      "key": "（廃止されたAPIの使用）",
+      "value": " (uso di API obsolete)"
+    },
+    {
+      "key": "（生成方式）",
+      "value": " (metodo di generazione)"
+    },
+    {
+      "key": "＋ 1件追加",
+      "value": "+ Aggiungi posa"
+    },
+    {
+      "key": "＋ 複数のアニメーションを追加",
+      "value": "+ Aggiungi più animazioni"
     }
   ]
 }

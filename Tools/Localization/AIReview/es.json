@@ -1,0 +1,33 @@
+{
+  "language": "es",
+  "authoring": "Codex AI, 2026-11-09",
+  "catalog_missing_completed": 751,
+  "setup_missing_completed": 61,
+  "anatomy_completed": 120,
+  "term_forms": {
+    "Photo Mode": [
+      "Modo foto"
+    ],
+    "prebuild": [
+      "precálculo",
+      "precalcular"
+    ],
+    "preset": [
+      "preajuste"
+    ],
+    "Roll Over": [
+      "darse vuelta"
+    ]
+  },
+  "terminology_exceptions": [
+    "Generic roll rotation is alabeo, not the Roll Over feature. Proper product/API identifiers retain their spelling."
+  ],
+  "review": [
+    "Existing translations preserved",
+    "All 128 pose names translated together; D/I are derecha/izquierda markers",
+    "Placeholders checked",
+    "Anatomy numbering, directions and indices preserved"
+  ],
+  "native_speaker_review": false,
+  "rendered_visual_review": false
+}

@@ -1,6 +1,386 @@
 {
   "entries": [
     {
+      "key": "(名前なし)",
+      "value": "(Nimetön)"
+    },
+    {
+      "key": "0〜1の値を指定してください。",
+      "value": "Käytä arvoa väliltä 0–1."
+    },
+    {
+      "key": "0では回転せず、1で記録した向きへ完全に合わせます。",
+      "value": "0 säilyttää alkuperäisen kierron; 1 vastaa täysin tallennettua suuntaa."
+    },
+    {
+      "key": "0にリセットします",
+      "value": "Nollaa arvon."
+    },
+    {
+      "key": "1件のエラー",
+      "value": "1 virhe"
+    },
+    {
+      "key": "1件の注意",
+      "value": "1 varoitus"
+    },
+    {
+      "key": "AddStateMachineBehaviourに失敗しました。多くの場合原因は別のツールなどにエラーが発生していることです。アバタービルド・アップロード前にConsoleウィンドウを確認してエラーを解消してから再度お試しください",
+      "value": "AddStateMachineBehaviour epäonnistui. Toinen työkalu on voinut aiheuttaa aiemman virheen. Korjaa Consolen ensimmäinen asiaan liittyvä virhe ennen avatarin uutta koontia tai latausta."
+    },
+    {
+      "key": "Animator Override Controllerはここでは使用できません。ツールの標準Controllerへ戻してください。",
+      "value": "Palauta työkalun oletusohjain. Animator Override Controlleria ei tueta tässä."
+    },
+    {
+      "key": "Animator Override Controllerはここでは使用できません。ツールの標準Controllerへ戻してください。シーンを保存・バックアップしてから、ALCOM / VCCで商品本体と「ゆにさきポーズシステム」を再取得してください。入れ直しても直らない場合は、Inspector上部の「ヘルプ・変更履歴」から公式マニュアル・お問い合わせをご確認ください。調整済みのオブジェクトやGeneratedResourcesは削除しないでください。",
+      "value": "Palauta työkalun oletusohjain. Animator Override Controlleria ei tueta tässä.\nTallenna scene ja ota siitä varmuuskopio. Lataa tuote ja Unisaki Posing System sitten uudelleen ALCOM / VCC:llä. Jos ongelma jatkuu, avaa Inspectorin yläreunan Ohje / Muutokset, josta löydät käyttöohjeen ja tuen. Säilytä muokatut objektit ja GeneratedResources."
+    },
+    {
+      "key": "Animator を持つアバターが見つかりません。",
+      "value": "Avataria, jolla on Animator, ei löytynyt."
+    },
+    {
+      "key": "AnimatorにParameterとして登録されていないパラメータが条件式に使われています。「{0}」ファイルの「{1}」というレイヤーで使用されている「{2}」というパラメータが条件式に使われていますが、AnimatorControllerのParametersにはパラメータがありません。使用しているツールやギミックの相性の問題だと思われるため、このパラメータを使用しているツールの開発者に連絡してください",
+      "value": "Animator-ehto viittaa määrittämättömään parametriin. Tiedoston {0} tasolla {1} parametria {2} käytetään ehdossa, mutta se puuttuu Animator Controllerin Parameters-luettelosta. Kysy yhteensopivuudesta parametria käyttävän työkalun kehittäjältä."
+    },
+    {
+      "key": "AnimatorのAvatarが有効なHumanoidではありません。",
+      "value": "Animator ei viittaa kelvolliseen Humanoid Avatariin."
+    },
+    {
+      "key": "AnimatorのAvatar欄がNoneまたはMissingです。",
+      "value": "Animatorin Avatar-kentässä on None tai Missing."
+    },
+    {
+      "key": "AnimatorのAvatar欄が未設定です。Inspectorの「設定の確認」の対処手順をご確認ください。",
+      "value": "Animatorin Avatar-kenttä on tyhjä. Katso Inspectorin Tarkista asetukset."
+    },
+    {
+      "key": "Auto-Footstepsはオンです。ポーズ中に意図せず足が動く場合は、下のボタンでオフにして比較できます。問題がなければ変更は不要です。",
+      "value": "Auto-Footsteps on käytössä. Jos jalat liikkuvat odottamatta asentojen aikana, poista se käytöstä alla ja vertaa tulosta. Jos ongelmaa ei ole, asetusta ei tarvitse muuttaa."
+    },
+    {
+      "key": "ConsoleでMissing Prefabなどのインポートエラーを確認してください。配置先のシーンを開き直して再実行してください。",
+      "value": "Tarkista Consolen tuontivirheet, kuten Missing Prefab. Avaa kohdescene uudelleen ja yritä uudelleen."
+    },
+    {
+      "key": "Consoleのエラー\n",
+      "value": "Consolen virheet\n"
+    },
+    {
+      "key": "Consoleの最初のコンパイルエラーを修正し、再コンパイルが完了してから実行してください。",
+      "value": "Korjaa Consolen ensimmäinen käännösvirhe, odota kääntämisen valmistumista ja yritä uudelleen."
+    },
+    {
+      "key": "HeadとViewpointの前後差を測定できません。View Positionとアバターのスケールを確認してください。",
+      "value": "Headin ja Viewpointin syvyyseroa ei voitu mitata. Tarkista View Position ja avatarin mittakaava."
+    },
+    {
+      "key": "HeadとViewpointの高低差を測定できません。View Positionとアバターのスケールを確認してください。",
+      "value": "Headin ja Viewpointin korkeuseroa ei voitu mitata. Tarkista View Position ja avatarin mittakaava."
+    },
+    {
+      "key": "Hierarchyでアバター内のポーズツールを選択し直してください。",
+      "value": "Valitse avatarin sisällä oleva asentotyökalu uudelleen Hierarchy-näkymässä."
+    },
+    {
+      "key": "Hierarchyの警告マークを非表示",
+      "value": "Piilota Hierarchyn varoitusmerkit"
+    },
+    {
+      "key": "Humanoid Animatorが必要です。",
+      "value": "Humanoid Animator tarvitaan."
+    },
+    {
+      "key": "Humanoid AnimatorまたはIKルールがありません。",
+      "value": "Humanoid Animator tai IK-sääntö puuttuu."
+    },
+    {
+      "key": "Humanoid の Animator を持つアバターが見つかりません。",
+      "value": "Avataria, jolla on Humanoid Animator, ei löytynyt."
+    },
+    {
+      "key": "HumanoidのアバターとAnimationClipを指定してください。",
+      "value": "Valitse Humanoid-avatar ja AnimationClip."
+    },
+    {
+      "key": "Humanoidボーン軸の違いを除いた、基準から見た手首または足首の向きです。",
+      "value": "Ranteen tai nilkan suunta suhteessa vertailuun ilman Humanoid-luiden akselieroja."
+    },
+    {
+      "key": "IKで手足の位置を自動調整しています。手動で調整するには、下の「IKを調整に反映」を押してください。",
+      "value": "IK säätää raajoja. Voit säätää käsin valitsemalla alla Tallenna IK säätöihin."
+    },
+    {
+      "key": "IKで補正する前の基準姿勢です。",
+      "value": "Vertailuasento ennen IK-korjausta."
+    },
+    {
+      "key": "IKの結果を新しい調整アニメーションに保存して、このポーズのIKをオフにします。その後は下の項目で手動調整できます。",
+      "value": "Tallenna IK-tulos uuteen säätöanimaatioon ja poista IK käytöstä tältä asennolta. Sen jälkeen voit säätää asentoa käsin alla."
+    },
+    {
+      "key": "IKの調整を保存できませんでした。",
+      "value": "IK-säätöä ei voitu tallentaa."
+    },
+    {
+      "key": "IKを反映するポーズとアバターを確認してください。",
+      "value": "Tarkista asento ja avatar, johon IK:ta käytetään."
+    },
+    {
+      "key": "IKを反映できませんでした",
+      "value": "IK:ta ei voitu tallentaa säätöihin"
+    },
+    {
+      "key": "IKを調整に反映",
+      "value": "Tallenna IK säätöihin"
+    },
+    {
+      "key": "IKルール {0}",
+      "value": "IK-sääntö {0}"
+    },
+    {
+      "key": "IKルールを適用できませんでした。",
+      "value": "IK-sääntöjä ei voitu käyttää."
+    },
+    {
+      "key": "Inspectorの「設定の確認」で対象を選択し、表示された項目を直して再実行してください。",
+      "value": "Valitse kyseinen objekti Inspectorin Tarkista asetukset -kohdasta, korjaa luetellut ongelmat ja yritä uudelleen."
+    },
+    {
+      "key": "Mecanimで使用できるアニメーションを指定してください。元モデル由来ならRigの設定も確認してください。",
+      "value": "Määritä Mecanim-yhteensopiva animaatio. Jos se on peräisin mallista, tarkista myös mallin Rig-asetukset."
+    },
+    {
+      "key": "Modular Avatarで追加した衣装などは、アバターのビルド時に撮影し直したアイコンへ反映されます。",
+      "value": "Modular Avatarilla lisätyt asut tulevat mukaan, kun kuvakkeet otetaan uudelleen avatarin koonnin aikana."
+    },
+    {
+      "key": "Motion Timeのパラメータ名を設定するか、Motion Timeを無効にしてください。",
+      "value": "Määritä Motion Time -parametrin nimi tai poista Motion Time käytöstä."
+    },
+    {
+      "key": "PosingSystem が見つかりません。対象のコンポーネントを選択した状態で再度開いてください。",
+      "value": "PosingSystemiä ei löytynyt. Valitse kohdekomponentti ja avaa tämä ikkuna uudelleen."
+    },
+    {
+      "key": "PrefabsHashesに\nクリップボードから追加",
+      "value": "Lisää PrefabsHashes-kenttään\nleikepöydältä"
+    },
+    {
+      "key": "PrefabsHashesを\nクリア",
+      "value": "Tyhjennä\nPrefabsHashes"
+    },
+    {
+      "key": "PrefabsHashesをすべてクリアしますか？",
+      "value": "Tyhjennetäänkö kaikki PrefabsHashes-kohdat?"
+    },
+    {
+      "key": "PrefabsNamesに\nクリップボードから追加",
+      "value": "Lisää PrefabsNames-kenttään\nleikepöydältä"
+    },
+    {
+      "key": "PrefabsNamesを\nクリア",
+      "value": "Tyhjennä\nPrefabsNames"
+    },
+    {
+      "key": "PrefabsNamesをすべてクリアしますか？",
+      "value": "Tyhjennetäänkö kaikki PrefabsNames-kohdat?"
+    },
+    {
+      "key": "Prefabが破損しているか、Posing Systemコンポーネントがありません。ConsoleのMissing Script・コンパイルエラーを確認してください。",
+      "value": "Prefab on vioittunut tai siitä puuttuu Posing System -komponentti. Tarkista Consolen Missing Script -ilmoitukset ja käännösvirheet."
+    },
+    {
+      "key": "Prefabを読み込めません [PS042]",
+      "value": "Prefabia ei voitu ladata [PS042]"
+    },
+    {
+      "key": "Prefabを配置できません [PS043]",
+      "value": "Prefabia ei voitu sijoittaa [PS043]"
+    },
+    {
+      "key": "Prefab編集画面を閉じ、HierarchyでVRC Avatar Descriptorが付いたアバターの子にツールを配置してください。Project内のPrefab単体ではプレビルドできません。",
+      "value": "Sulje Prefab Mode ja sijoita työkalu scenessä olevaan avatariin, jolla on VRC Avatar Descriptor. Pelkälle Project-ikkunan prefab-resurssille ei voi tehdä esikoontia."
+    },
+    {
+      "key": "Projectで選ぶときは、Inspector右上の鍵を閉じてから選択してください。",
+      "value": "Lukitse Inspector oikean yläkulman lukosta ennen leikkeiden valintaa Projectissa."
+    },
+    {
+      "key": "Projectで選択中のPrefabを追加",
+      "value": "Lisää Projectissa valitut prefabit"
+    },
+    {
+      "key": "Projectで選択中のクリップを読み込む",
+      "value": "Tuo Projectissa valitut leikkeet"
+    },
+    {
+      "key": "Projectで選択中のファイル名を追加",
+      "value": "Lisää Projectissa valitut tiedostonimet"
+    },
+    {
+      "key": "Submenu Rootには、このアバター内のメニュー生成先を指定してください。",
+      "value": "Määritä Submenu Root -kenttään tämän avatarin sisällä oleva valikkokohde."
+    },
+    {
+      "key": "Unityでスクリプトのコンパイルに失敗したため、ポーズの生成を開始できません。",
+      "value": "Asentojen luontia ei voitu aloittaa, koska Unity-skriptien kääntäminen epäonnistui."
+    },
+    {
+      "key": "VRC Avatar Descriptorと同じオブジェクトのAnimatorを確認し、配布元のアバターPrefabの設定と比較してください。",
+      "value": "Tarkista samalla objektilla kuin VRC Avatar Descriptor oleva Animator ja vertaa sen asetuksia avatarin alkuperäiseen prefabiin."
+    },
+    {
+      "key": "VRChatのメニューで呼吸をつけたり止めたりできます。ON/OFFは他の人にも反映されます。",
+      "value": "Kytkee hengityksen päälle tai pois VRChatissa. Muutkin käyttäjät näkevät muutoksen."
+    },
+    {
+      "key": "VRChatのメニューに切り替え項目を追加します。使いたいときに、ポーズの左右を反転できます。",
+      "value": "Lisää valikkoon kytkimen asennon peilaamista varten."
+    },
+    {
+      "key": "VRChat標準の揺れを止める",
+      "value": "Poista VRChatin oletushuojunta"
+    },
+    {
+      "key": "VRC想定移動モーション(無料配布)追加",
+      "value": "Lisää VRChat-liikkumisanimaatiot (ilmainen)"
+    },
+    {
+      "key": "ViewPositionの基準となるHeadの参照姿勢を取得できません。",
+      "value": "ViewPositionia varten käytettävää Headin vertailuasentoa ei voitu hakea."
+    },
+    {
+      "key": "ViewPositionの基準となるHeadの回転を取得できません。",
+      "value": "ViewPositionin vertailuna käytettävää Headin kiertoa ei voitu hakea."
+    },
+    {
+      "key": "ViewPositionまたはボーンの座標に無効な値があります。",
+      "value": "ViewPosition tai luun sijainti sisältää virheellisen arvon."
+    },
+    {
+      "key": "ViewPositionを基準にするには、同じアバターのAvatar DescriptorとHeadボーンが必要です。",
+      "value": "ViewPositionin käyttö vertailuna vaatii saman avatarin Avatar Descriptorin ja Head-luun."
+    },
+    {
+      "key": "ViewPositionを計算できません。HeadまでのボーンのスケールとHumanoid設定を確認してください。",
+      "value": "ViewPositionia ei voitu laskea. Tarkista Head-luuhun johtavan luuketjun mittakaavat ja Humanoid-asetukset."
+    },
+    {
+      "key": "ViewPosition（目の位置）",
+      "value": "ViewPosition (silmien sijainti)"
+    },
+    {
+      "key": "[パス]",
+      "value": "[polku]"
+    },
+    {
+      "key": "[メール]",
+      "value": "[sähköposti]"
+    },
+    {
+      "key": "bone.Chest",
+      "value": "Rintakehä"
+    },
+    {
+      "key": "bone.Head",
+      "value": "Pää"
+    },
+    {
+      "key": "bone.Hips",
+      "value": "Lantio"
+    },
+    {
+      "key": "bone.Jaw",
+      "value": "Leuka"
+    },
+    {
+      "key": "bone.LeftEye",
+      "value": "Vasen silmä"
+    },
+    {
+      "key": "bone.LeftFoot",
+      "value": "Vasen jalkaterä"
+    },
+    {
+      "key": "bone.LeftHand",
+      "value": "Vasen käsi"
+    },
+    {
+      "key": "bone.LeftLowerArm",
+      "value": "Vasen kyynärvarsi"
+    },
+    {
+      "key": "bone.LeftLowerLeg",
+      "value": "Vasen sääri"
+    },
+    {
+      "key": "bone.LeftShoulder",
+      "value": "Vasen olkapää"
+    },
+    {
+      "key": "bone.LeftToes",
+      "value": "Vasen varpaat"
+    },
+    {
+      "key": "bone.LeftUpperArm",
+      "value": "Vasen olkavarsi"
+    },
+    {
+      "key": "bone.LeftUpperLeg",
+      "value": "Vasen reisi"
+    },
+    {
+      "key": "bone.Neck",
+      "value": "Kaula"
+    },
+    {
+      "key": "bone.RightEye",
+      "value": "Oikea silmä"
+    },
+    {
+      "key": "bone.RightFoot",
+      "value": "Oikea jalkaterä"
+    },
+    {
+      "key": "bone.RightHand",
+      "value": "Oikea käsi"
+    },
+    {
+      "key": "bone.RightLowerArm",
+      "value": "Oikea kyynärvarsi"
+    },
+    {
+      "key": "bone.RightLowerLeg",
+      "value": "Oikea sääri"
+    },
+    {
+      "key": "bone.RightShoulder",
+      "value": "Oikea olkapää"
+    },
+    {
+      "key": "bone.RightToes",
+      "value": "Oikea varpaat"
+    },
+    {
+      "key": "bone.RightUpperArm",
+      "value": "Oikea olkavarsi"
+    },
+    {
+      "key": "bone.RightUpperLeg",
+      "value": "Oikea reisi"
+    },
+    {
+      "key": "bone.Spine",
+      "value": "Selkäranka"
+    },
+    {
+      "key": "bone.UpperChest",
+      "value": "Ylärintakehä"
+    },
+    {
       "key": "changelog",
       "value": "Näytä muutokset"
     },
@@ -21,88 +401,3316 @@
       "value": "Käyttöohje"
     },
     {
+      "key": "muscle.0",
+      "value": "Selkäranka: eteen–taakse"
+    },
+    {
+      "key": "muscle.1",
+      "value": "Selkäranka: vasemmalle–oikealle"
+    },
+    {
+      "key": "muscle.10",
+      "value": "Kaula: kallistus vasemmalle–oikealle"
+    },
+    {
+      "key": "muscle.11",
+      "value": "Kaula: kääntö vasemmalle–oikealle"
+    },
+    {
+      "key": "muscle.12",
+      "value": "Pää: nyökkäys alas–ylös"
+    },
+    {
+      "key": "muscle.13",
+      "value": "Pää: kallistus vasemmalle–oikealle"
+    },
+    {
+      "key": "muscle.14",
+      "value": "Pää: kääntö vasemmalle–oikealle"
+    },
+    {
+      "key": "muscle.15",
+      "value": "Vasen silmä: alas–ylös"
+    },
+    {
+      "key": "muscle.16",
+      "value": "Vasen silmä: sisään–ulos"
+    },
+    {
+      "key": "muscle.17",
+      "value": "Oikea silmä: alas–ylös"
+    },
+    {
+      "key": "muscle.18",
+      "value": "Oikea silmä: sisään–ulos"
+    },
+    {
+      "key": "muscle.19",
+      "value": "Leuka: sulkeminen"
+    },
+    {
+      "key": "muscle.2",
+      "value": "Selkäranka: kierto vasemmalle–oikealle"
+    },
+    {
+      "key": "muscle.20",
+      "value": "Leuka: vasemmalle–oikealle"
+    },
+    {
+      "key": "muscle.21",
+      "value": "Vasen reisi: eteen–taakse"
+    },
+    {
+      "key": "muscle.22",
+      "value": "Vasen reisi: sisään–ulos"
+    },
+    {
+      "key": "muscle.23",
+      "value": "Vasen reisi: kierto sisään–ulos"
+    },
+    {
+      "key": "muscle.24",
+      "value": "Vasen sääri: ojennus"
+    },
+    {
+      "key": "muscle.25",
+      "value": "Vasen sääri: kierto sisään–ulos"
+    },
+    {
+      "key": "muscle.26",
+      "value": "Vasen jalkaterä: ylös–alas"
+    },
+    {
+      "key": "muscle.27",
+      "value": "Vasen jalkaterä: kierto sisään–ulos"
+    },
+    {
+      "key": "muscle.28",
+      "value": "Vasen varpaat: ylös–alas"
+    },
+    {
+      "key": "muscle.29",
+      "value": "Oikea reisi: eteen–taakse"
+    },
+    {
+      "key": "muscle.3",
+      "value": "Rintakehä: eteen–taakse"
+    },
+    {
+      "key": "muscle.30",
+      "value": "Oikea reisi: sisään–ulos"
+    },
+    {
+      "key": "muscle.31",
+      "value": "Oikea reisi: kierto sisään–ulos"
+    },
+    {
+      "key": "muscle.32",
+      "value": "Oikea sääri: ojennus"
+    },
+    {
+      "key": "muscle.33",
+      "value": "Oikea sääri: kierto sisään–ulos"
+    },
+    {
+      "key": "muscle.34",
+      "value": "Oikea jalkaterä: ylös–alas"
+    },
+    {
+      "key": "muscle.35",
+      "value": "Oikea jalkaterä: kierto sisään–ulos"
+    },
+    {
+      "key": "muscle.36",
+      "value": "Oikea varpaat: ylös–alas"
+    },
+    {
+      "key": "muscle.37",
+      "value": "Vasen olkapää: alas–ylös"
+    },
+    {
+      "key": "muscle.38",
+      "value": "Vasen olkapää: eteen–taakse"
+    },
+    {
+      "key": "muscle.39",
+      "value": "Vasen olkavarsi: alas–ylös"
+    },
+    {
+      "key": "muscle.4",
+      "value": "Rintakehä: vasemmalle–oikealle"
+    },
+    {
+      "key": "muscle.40",
+      "value": "Vasen olkavarsi: eteen–taakse"
+    },
+    {
+      "key": "muscle.41",
+      "value": "Vasen olkavarsi: kierto sisään–ulos"
+    },
+    {
+      "key": "muscle.42",
+      "value": "Vasen kyynärvarsi: ojennus"
+    },
+    {
+      "key": "muscle.43",
+      "value": "Vasen kyynärvarsi: kierto sisään–ulos"
+    },
+    {
+      "key": "muscle.44",
+      "value": "Vasen ranne: alas–ylös"
+    },
+    {
+      "key": "muscle.45",
+      "value": "Vasen ranne: sisään–ulos"
+    },
+    {
+      "key": "muscle.46",
+      "value": "Oikea olkapää: alas–ylös"
+    },
+    {
+      "key": "muscle.47",
+      "value": "Oikea olkapää: eteen–taakse"
+    },
+    {
+      "key": "muscle.48",
+      "value": "Oikea olkavarsi: alas–ylös"
+    },
+    {
+      "key": "muscle.49",
+      "value": "Oikea olkavarsi: eteen–taakse"
+    },
+    {
+      "key": "muscle.5",
+      "value": "Rintakehä: kierto vasemmalle–oikealle"
+    },
+    {
+      "key": "muscle.50",
+      "value": "Oikea olkavarsi: kierto sisään–ulos"
+    },
+    {
+      "key": "muscle.51",
+      "value": "Oikea kyynärvarsi: ojennus"
+    },
+    {
+      "key": "muscle.52",
+      "value": "Oikea kyynärvarsi: kierto sisään–ulos"
+    },
+    {
+      "key": "muscle.53",
+      "value": "Oikea ranne: alas–ylös"
+    },
+    {
+      "key": "muscle.54",
+      "value": "Oikea ranne: sisään–ulos"
+    },
+    {
+      "key": "muscle.55",
+      "value": "Vasen peukalo 1: ojennus"
+    },
+    {
+      "key": "muscle.56",
+      "value": "Vasen peukalo: haritus"
+    },
+    {
+      "key": "muscle.57",
+      "value": "Vasen peukalo 2: ojennus"
+    },
+    {
+      "key": "muscle.58",
+      "value": "Vasen peukalo 3: ojennus"
+    },
+    {
+      "key": "muscle.59",
+      "value": "Vasen etusormi 1: ojennus"
+    },
+    {
+      "key": "muscle.6",
+      "value": "Ylärintakehä: eteen–taakse"
+    },
+    {
+      "key": "muscle.60",
+      "value": "Vasen etusormi: haritus"
+    },
+    {
+      "key": "muscle.61",
+      "value": "Vasen etusormi 2: ojennus"
+    },
+    {
+      "key": "muscle.62",
+      "value": "Vasen etusormi 3: ojennus"
+    },
+    {
+      "key": "muscle.63",
+      "value": "Vasen keskisormi 1: ojennus"
+    },
+    {
+      "key": "muscle.64",
+      "value": "Vasen keskisormi: haritus"
+    },
+    {
+      "key": "muscle.65",
+      "value": "Vasen keskisormi 2: ojennus"
+    },
+    {
+      "key": "muscle.66",
+      "value": "Vasen keskisormi 3: ojennus"
+    },
+    {
+      "key": "muscle.67",
+      "value": "Vasen nimetön 1: ojennus"
+    },
+    {
+      "key": "muscle.68",
+      "value": "Vasen nimetön: haritus"
+    },
+    {
+      "key": "muscle.69",
+      "value": "Vasen nimetön 2: ojennus"
+    },
+    {
+      "key": "muscle.7",
+      "value": "Ylärintakehä: vasemmalle–oikealle"
+    },
+    {
+      "key": "muscle.70",
+      "value": "Vasen nimetön 3: ojennus"
+    },
+    {
+      "key": "muscle.71",
+      "value": "Vasen pikkusormi 1: ojennus"
+    },
+    {
+      "key": "muscle.72",
+      "value": "Vasen pikkusormi: haritus"
+    },
+    {
+      "key": "muscle.73",
+      "value": "Vasen pikkusormi 2: ojennus"
+    },
+    {
+      "key": "muscle.74",
+      "value": "Vasen pikkusormi 3: ojennus"
+    },
+    {
+      "key": "muscle.75",
+      "value": "Oikea peukalo 1: ojennus"
+    },
+    {
+      "key": "muscle.76",
+      "value": "Oikea peukalo: haritus"
+    },
+    {
+      "key": "muscle.77",
+      "value": "Oikea peukalo 2: ojennus"
+    },
+    {
+      "key": "muscle.78",
+      "value": "Oikea peukalo 3: ojennus"
+    },
+    {
+      "key": "muscle.79",
+      "value": "Oikea etusormi 1: ojennus"
+    },
+    {
+      "key": "muscle.8",
+      "value": "Ylärintakehä: kierto vasemmalle–oikealle"
+    },
+    {
+      "key": "muscle.80",
+      "value": "Oikea etusormi: haritus"
+    },
+    {
+      "key": "muscle.81",
+      "value": "Oikea etusormi 2: ojennus"
+    },
+    {
+      "key": "muscle.82",
+      "value": "Oikea etusormi 3: ojennus"
+    },
+    {
+      "key": "muscle.83",
+      "value": "Oikea keskisormi 1: ojennus"
+    },
+    {
+      "key": "muscle.84",
+      "value": "Oikea keskisormi: haritus"
+    },
+    {
+      "key": "muscle.85",
+      "value": "Oikea keskisormi 2: ojennus"
+    },
+    {
+      "key": "muscle.86",
+      "value": "Oikea keskisormi 3: ojennus"
+    },
+    {
+      "key": "muscle.87",
+      "value": "Oikea nimetön 1: ojennus"
+    },
+    {
+      "key": "muscle.88",
+      "value": "Oikea nimetön: haritus"
+    },
+    {
+      "key": "muscle.89",
+      "value": "Oikea nimetön 2: ojennus"
+    },
+    {
+      "key": "muscle.9",
+      "value": "Kaula: nyökkäys alas–ylös"
+    },
+    {
+      "key": "muscle.90",
+      "value": "Oikea nimetön 3: ojennus"
+    },
+    {
+      "key": "muscle.91",
+      "value": "Oikea pikkusormi 1: ojennus"
+    },
+    {
+      "key": "muscle.92",
+      "value": "Oikea pikkusormi: haritus"
+    },
+    {
+      "key": "muscle.93",
+      "value": "Oikea pikkusormi 2: ojennus"
+    },
+    {
+      "key": "muscle.94",
+      "value": "Oikea pikkusormi 3: ojennus"
+    },
+    {
+      "key": "package",
+      "value": "Paketin tunnus"
+    },
+    {
       "key": "support",
       "value": "Tuki"
+    },
+    {
+      "key": "unknown",
+      "value": "Tuntematon"
+    },
+    {
+      "key": "version",
+      "value": "Versio"
+    },
+    {
+      "key": "{0} のHumanoid基準軸を取得できません。",
+      "value": "Kohteen {0} Humanoid-vertailuakseleita ei voitu hakea."
+    },
+    {
+      "key": "{0} の基準姿勢を保存しました。",
+      "value": "Kohteen {0} vertailuasento tallennettiin."
+    },
+    {
+      "key": "{0} 用の補正を生成しました（{1} Muscle）。",
+      "value": "Luotiin korjaukset kohteelle {0} ({1} lihasta)."
+    },
+    {
+      "key": "{0}: Two-Bone IKを解けませんでした。",
+      "value": "{0}: kahden luun IK-ratkaisu epäonnistui."
+    },
+    {
+      "key": "{0}: {1} のHumanoidボーンがありません。",
+      "value": "{0}: kohteen {1} Humanoid-luut puuttuvat."
+    },
+    {
+      "key": "{0}: ターゲットへ届かないため {1}m 手前で制限しました。",
+      "value": "{0}: kohteeseen ei yletä; tulos rajattiin {1} metrin päähän siitä."
+    },
+    {
+      "key": "{0}: 有効なIKルールがありません。",
+      "value": "{0}: ei käytössä olevia IK-sääntöjä."
+    },
+    {
+      "key": "{0}からコピー",
+      "value": "Kopioi kohteesta {0}"
+    },
+    {
+      "key": "{0}に{1}個の項目を追加しました。\n（重複する項目は除外されました）",
+      "value": "Lisättiin {1} kohtaa kohteeseen {0}.\nKaksoiskappaleet ohitettiin."
+    },
+    {
+      "key": "{0}のフォルダを取り除く",
+      "value": "Poista kansio {0}"
+    },
+    {
+      "key": "{0}の旧設定を取り除きます。ツールを通常アンインストールするための操作ではありません。調整内容を確認できるよう、先にプロジェクトをバックアップしてください。",
+      "value": "Poista tuotteen {0} vanhat asetukset. Siivous koskee vanhoja avatarasetuksia. Varmuuskopioi projekti ensin, jotta voit palauttaa säädöt ja vertailla niitä."
+    },
+    {
+      "key": "{0}の設定がアバターに残っています！ 不具合が発生する可能性があるので、自動で設定を取り除く機能を使用してください。また、アバター購入時にBaseLayerに設定されていたLocomotion用のAnimatorControllerがある場合は、恐れ入りますが手動で復元してお使いください。",
+      "value": "Avatarissa on yhä tuotteen {0} vanhoja asetuksia, jotka voivat aiheuttaa ristiriitoja. Poista ne siivoustoiminnolla. Jos avatarin Base-tasolla oli alun perin oma liikkumisen Animator Controller, palauta se lopuksi käsin."
+    },
+    {
+      "key": "{0}の設定を取り除く",
+      "value": "Poista tuotteen {0} asetukset"
+    },
+    {
+      "key": "{0}を中止しました。\n{1}",
+      "value": "{0} pysäytettiin.\n{1}"
+    },
+    {
+      "key": "{0}を完了できませんでした",
+      "value": "Toimintoa {0} ei voitu suorittaa loppuun"
+    },
+    {
+      "key": "{0}を開きます。{1}",
+      "value": "Avaa {0}. {1}"
+    },
+    {
+      "key": "{0}・{1}から有効な長さを測定できません。",
+      "value": "Kelvollista pituutta kohteiden {0} ja {1} välillä ei voitu mitata."
+    },
+    {
+      "key": "{0}件のIKルールから自動調整Animationを作成しました。",
+      "value": "Automaattinen säätöanimaatio luotiin {0} IK-säännöstä."
+    },
+    {
+      "key": "{0}件のIKルールを適用しました。\n{1}",
+      "value": "Käytettiin {0} IK-sääntöä.\n{1}"
+    },
+    {
+      "key": "{0}件のエラー",
+      "value": "{0} virhettä"
+    },
+    {
+      "key": "{0}件の注意",
+      "value": "{0} varoitusta"
+    },
+    {
+      "key": "{0}件を「{1}」に追加",
+      "value": "Lisää {0} kohteeseen {1}"
+    },
+    {
+      "key": "{0}件追加しました。",
+      "value": "Lisättiin {0} kohtaa."
+    },
+    {
+      "key": "{0}個の調整アニメーションを複製保存しました。",
+      "value": "Kopioitiin ja tallennettiin {0} säätöanimaatiota."
+    },
+    {
+      "key": "{0}（{1}行目）",
+      "value": "{0} (rivi {1})"
+    },
+    {
+      "key": "※ 寝返りと姿勢崩れ抑制のbit表示は、今の状態でチェックを変更したときの増減量です。首固定の1 bitは共用します。",
+      "value": "Käänny-toiminnon ja vääristymän vähennyksen bittimäärät näyttävät muutoksen nykyasetuksiin verrattuna. Ne käyttävät yhteistä yhden bitin pään lukitusta."
+    },
+    {
+      "key": "▶ 取り込み設定を開く",
+      "value": "▶ Avaa tuontiasetukset"
+    },
+    {
+      "key": "▶ 設定を開く",
+      "value": "▶ Avaa asetukset"
+    },
+    {
+      "key": "▼ 取り込み設定を閉じる",
+      "value": "▼ Sulje tuontiasetukset"
+    },
+    {
+      "key": "▼ 設定を閉じる",
+      "value": "▼ Sulje asetukset"
+    },
+    {
+      "key": "「Use Auto-Footsteps for 3 and 4 point tracking」をオフにする",
+      "value": "Poista Use Auto-Footsteps for 3 and 4 point tracking käytöstä"
+    },
+    {
+      "key": "「{0}」で初期ポーズが複数選ばれています。",
+      "value": "Luokassa {0} on valittu useita aloitusasentoja."
+    },
+    {
+      "key": "「{0}」に有効なポーズがありません。このカテゴリの選択メニューは生成されません。",
+      "value": "Luokassa {0} ei ole käytössä yhtään asentoa. Sen asennonvalintavalikkoa ei luoda."
+    },
+    {
+      "key": "「{0}」の{1}番目のポーズデータが欠けています。",
+      "value": "Luokan {0} kohdan {1} asentotiedot puuttuvat."
+    },
+    {
+      "key": "「{0}」の{1}番目（{2}）にアニメーションがありません。",
+      "value": "Luokan {0} kohdalla {1} ({2}) ei ole animaatiota."
+    },
+    {
+      "key": "「{0}」の{1}番目（{2}）のMotion Time用パラメータ名が空です。",
+      "value": "Luokan {0} kohdalta {1} ({2}) puuttuu Motion Time -parametrin nimi."
+    },
+    {
+      "key": "「{0}」の{1}番目（{2}）の寝返りにはHumanoidのAnimationClipが必要です。",
+      "value": "Luokan {0} kohdan {1} ({2}) Käänny-toiminto vaatii Humanoid AnimationClip -leikkeen."
+    },
+    {
+      "key": "「{0}」の{1}番目（{2}）の接地補正の強さが範囲外です。",
+      "value": "Luokan {0} kohdan {1} ({2}) kosketuskorjauksen voimakkuus on sallitun alueen ulkopuolella."
+    },
+    {
+      "key": "「{0}」の{1}番目（{2}）はLegacy形式のアニメーションです。",
+      "value": "Luokan {0} kohta {1} ({2}) käyttää Legacy-animaatiota."
+    },
+    {
+      "key": "「{0}」の{1}番目（{2}）は独自アイコンが有効ですが画像がありません。",
+      "value": "Luokan {0} kohdalla {1} ({2}) on oma kuvake käytössä, mutta sille ei ole määritetty kuvaa."
+    },
+    {
+      "key": "「{0}」オブジェクトの設定が更新されています。再度プレビルドを行ってください",
+      "value": "Objektin {0} asetukset ovat muuttuneet. Päivitä esikoonti."
+    },
+    {
+      "key": "「ポーズ一覧」で対応するポーズの詳細を開き、「寝返りを使う」をオンにしてください。",
+      "value": "Avaa tuettu asento Asennot-välilehdeltä ja valitse Ota Käänny käyttöön."
+    },
+    {
+      "key": "「現在の手足位置から取得」を一度実行してください。再取得までは元Animationの手足の向きを維持します。",
+      "value": "suorita Tallenna raajojen nykyiset sijainnit kerran. Lähdeanimaation raajojen suunta säilytetään uuteen tallennukseen asti."
+    },
+    {
+      "key": "「立ち・歩き・走り」「しゃがみ（Crouching）」「伏せ（Prone）」には移動を含むBlendTreeを指定してください。単独の立ち姿勢は「立ちのみ」に指定できます。",
+      "value": "Käytä liikkumista sisältävää BlendTree-rakennetta tyypeille Seisonta / kävely / juoksu, Kyykky ja Vatsallaan. Käytä Vain seisonta -tyyppiä yksittäiselle seisoma-asennolle."
+    },
+    {
+      "key": "あおむけ時自動頭固定",
+      "value": "Lukitse pää automaattisesti selällään"
+    },
+    {
+      "key": "あぐら",
+      "value": "Risti-istunta"
+    },
+    {
+      "key": "あぐら２",
+      "value": "Risti-istunta 2"
+    },
+    {
+      "key": "いいえ",
+      "value": "Ei"
+    },
+    {
+      "key": "いじけ",
+      "value": "Mökötys"
+    },
+    {
+      "key": "うずくまり",
+      "value": "Kippurassa"
     },
     {
       "key": "うつ伏せ寝",
       "value": "Vatsallaan"
     },
     {
+      "key": "おいで",
+      "value": "Tule tänne"
+    },
+    {
+      "key": "おきあがり",
+      "value": "Nousemassa"
+    },
+    {
+      "key": "おすまし",
+      "value": "Valmiina"
+    },
+    {
+      "key": "おちこみ",
+      "value": "Alakuloinen"
+    },
+    {
+      "key": "お伺いポーズ",
+      "value": "Saanko?"
+    },
+    {
+      "key": "お姉さん座り",
+      "value": "Elegantti istunta"
+    },
+    {
+      "key": "お疲れ",
+      "value": "Uupunut"
+    },
+    {
+      "key": "が無効になっています",
+      "value": "on poistettu käytöstä"
+    },
+    {
+      "key": "くずし",
+      "value": "Lysähtänyt"
+    },
+    {
+      "key": "くつろぎ１",
+      "value": "Loikoilu 1"
+    },
+    {
+      "key": "くつろぎ２",
+      "value": "Loikoilu 2"
+    },
+    {
+      "key": "ぐだり１",
+      "value": "Röhnötys 1"
+    },
+    {
+      "key": "ぐだり２",
+      "value": "Röhnötys 2"
+    },
+    {
+      "key": "ぐだり３",
+      "value": "Röhnötys 3"
+    },
+    {
+      "key": "このIK設定を使用する商品名です。",
+      "value": "Tuote, joka käyttää näitä IK-asetuksia."
+    },
+    {
+      "key": "このアバターでポーズを使用する場合は、「対象を選択」で該当オブジェクトのタグと有効状態を確認してください。",
+      "value": "Jos haluat käyttää asentoja tällä avatarilla, valitse Valitse objekti ja tarkista sen tunniste ja aktiivisuus."
+    },
+    {
+      "key": "このアバターの手足の自動調整が無効になっています。",
+      "value": "Raajojen automaattinen säätö ei ole käytössä tälle avatarille."
+    },
+    {
+      "key": "このアバターは人型ではありません。アバターのAnimatorにHumanoid型のAvatarが設定されていない場合はこのツールは使えません。",
+      "value": "Avatar ei ole Humanoid. Työkalu vaatii Animatoriin määritetyn Humanoid Avatarin."
+    },
+    {
+      "key": "このエラーについて相談する",
+      "value": "Kysy tästä virheestä"
+    },
+    {
+      "key": "このコンピュータにはゆにさきポーズシステムの使用が許諾されていません。Boothのショップから可愛いポーズツールを購入して、コンピュータにライセンスをインストールしてください",
+      "value": "Tällä tietokoneella ei ole Unisaki Posing System -lisenssiä. Osta Kawaii Posing BOOTHista ja asenna lisenssi tälle tietokoneelle."
+    },
+    {
+      "key": "このコンピュータにはカッコいいポーズツールの使用が許諾されていません。Boothのショップからカッコいいポーズツールを購入して、コンピュータにライセンスをインストールしてください。カッコいいポーズツールを購入しているのにこのエラーが表示される場合は、Boothから最新版のZipファイルをダウンロードして、「CoolPosing.unitypackage」をインポートしてください。（この作業は１つのパソコンにつき一回行う必要があります）",
+      "value": "Tällä tietokoneella ei ole Cool Posing -lisenssiä. Osta työkalu BOOTHista ja asenna lisenssi. Jos olet jo ostanut sen, lataa uusin ZIP BOOTHista ja tuo CoolPosing.unitypackage. Tämä tehdään kerran tietokonetta kohti."
+    },
+    {
+      "key": "このコンピュータには可愛いポーズツールの使用が許諾されていません。Boothのショップから可愛いポーズツールを購入して、コンピュータにライセンスをインストールしてください。可愛いポーズツールを購入しているのにこのエラーが表示される場合は、Boothから最新版のZipファイルをダウンロードして、「KawaiiPosing.unitypackage」をインポートしてください。（この作業は１つのパソコンにつき一回行う必要があります）",
+      "value": "Tällä tietokoneella ei ole Kawaii Posing -lisenssiä. Osta työkalu BOOTHista ja asenna lisenssi. Jos olet jo ostanut sen, lataa uusin ZIP BOOTHista ja tuo KawaiiPosing.unitypackage. Tämä tehdään kerran tietokonetta kohti."
+    },
+    {
+      "key": "このツールにはアバター固有補正用の基準データがありません。",
+      "value": "Tällä työkalulla ei ole avatarikorjauksen vertailutietoja."
+    },
+    {
+      "key": "このプリセットに変更する",
+      "value": "Käytä tätä esiasetusta"
+    },
+    {
+      "key": "このプリセットは削除されたか、現在のツールに適用できません。「再読込」で一覧を更新してください。",
+      "value": "Esiasetus on poistettu tai sitä ei voi käyttää tällä työkalulla. Päivitä luettelo valitsemalla Lataa uudelleen."
+    },
+    {
+      "key": "このポーズにはIKによる自動調整が設定されていません。元の姿勢と手動調整を使用します。",
+      "value": "Tällä asennolla ei ole automaattista IK-säätöä. Käytössä ovat alkuperäinen asento ja manuaaliset säädöt."
+    },
+    {
+      "key": "このポーズのIKを使う",
+      "value": "Ota IK käyttöön tälle asennolle"
+    },
+    {
+      "key": "このポーズの手足の自動調整（IK）",
+      "value": "Tämän asennon raajasäätö (IK)"
+    },
+    {
+      "key": "このポーズを使う",
+      "value": "Käytä tätä asentoa"
+    },
+    {
+      "key": "このポーズツールごとに保存します。エラー表示と、ビルド時に必要な再生成は有効なままです。",
+      "value": "Tallennetaan asentotyökalukohtaisesti. Virheilmoitukset ja tarvittava uudelleenluonti koonnin aikana pysyvät käytössä."
+    },
+    {
+      "key": "このユーザーのゆにさきポーズシステムライセンスが見つかりません。正規の購入ページからダウンロードしたインストーラーを、このUnityプロジェクトへインポートしてください。ライセンスは、PCのユーザーごとに一度インストールします。別のPCやユーザーでは再度インストールしてください。",
+      "value": "Tälle käyttöjärjestelmän käyttäjälle ei löytynyt Unisaki Posing System -lisenssiä. Tuo virallisesta ostoslatauksestasi saatu asennuspaketti tähän Unity-projektiin. Asenna lisenssi kerran kutakin käyttöjärjestelmän käyttäjää ja tietokonetta kohti."
+    },
+    {
+      "key": "このユーザーのカッコいいポーズツールライセンスが見つかりません。正規の購入ページからダウンロードしたインストーラーを、このUnityプロジェクトへインポートしてください。ライセンスは、PCのユーザーごとに一度インストールします。別のPCやユーザーでは再度インストールしてください。",
+      "value": "Tälle käyttöjärjestelmän käyttäjälle ei löytynyt Cool Posing Tool -lisenssiä. Tuo virallisesta ostoslatauksestasi saatu asennuspaketti tähän Unity-projektiin. Asenna lisenssi kerran kutakin käyttöjärjestelmän käyttäjää ja tietokonetta kohti."
+    },
+    {
+      "key": "このユーザーの可愛いポーズツールライセンスが見つかりません。正規の購入ページからダウンロードしたインストーラーを、このUnityプロジェクトへインポートしてください。ライセンスは、PCのユーザーごとに一度インストールします。別のPCやユーザーでは再度インストールしてください。",
+      "value": "Tälle käyttöjärjestelmän käyttäjälle ei löytynyt Kawaii Posing Tool -lisenssiä. Tuo virallisesta ostoslatauksestasi saatu asennuspaketti tähän Unity-projektiin. Asenna lisenssi kerran kutakin käyttöjärjestelmän käyttäjää ja tietokonetta kohti."
+    },
+    {
+      "key": "このルールを使用",
+      "value": "Ota tämä sääntö käyttöön"
+    },
+    {
+      "key": "この分類にはアニメーションがありません。",
+      "value": "Tässä luokassa ei ole animaatioita."
+    },
+    {
+      "key": "この分類の中で移動先の順番を選べます。",
+      "value": "Valitse sijoituskohta tässä luokassa."
+    },
+    {
+      "key": "この分類の初期ポーズにする",
+      "value": "Aseta luokan aloitusasennoksi"
+    },
+    {
+      "key": "この切り替えは調整ウィンドウのプレビュー専用です。保存・サムネイル・最終出力には影響しません。膝クランプは引き続き有効です。",
+      "value": "Tämä kytkin vaikuttaa vain säätöesikatseluun, ei tallennettuihin tietoihin, pikkukuviin tai lopputulokseen. Polven rajoitus pysyy käytössä."
+    },
+    {
+      "key": "この商品には基準アバター姿勢が登録されていません。",
+      "value": "Tuotteelle ei ole rekisteröity avatarin vertailuasentoa."
+    },
+    {
+      "key": "この商品には基準データがありません。",
+      "value": "Tällä tuotteella ei ole vertailutietoja."
+    },
+    {
+      "key": "この姿勢の自動調整データがありません。",
+      "value": "Tälle asennolle ei ole automaattisia säätötietoja."
+    },
+    {
+      "key": "この種類には移動を含むBlendTreeを指定してください。",
+      "value": "Valitse tälle liiketyypille liikkumista sisältävä BlendTree."
+    },
+    {
+      "key": "この種類のモーションを使う",
+      "value": "Käytä tätä liiketyyppiä"
+    },
+    {
+      "key": "この種類の手動設定と調整を解除します。自動取り込みがONなら次回生成時に再検出します。Undoで戻せます。",
+      "value": "Tyhjentää tämän liiketyypin manuaaliset asetukset ja säädöt. Jos automaattinen tuonti on käytössä, liike tunnistetaan uudelleen seuraavassa koonnissa. Toiminnon voi kumota."
+    },
+    {
+      "key": "この警告について相談する",
+      "value": "Kysy tästä varoituksesta"
+    },
+    {
+      "key": "この警告を今後表示しない",
+      "value": "Älä näytä tätä varoitusta uudelleen"
+    },
+    {
+      "key": "ごろ寝システムEX追加",
+      "value": "Lisää Gorone System EX"
+    },
+    {
+      "key": "ざせつ",
+      "value": "Lannistunut"
+    },
+    {
+      "key": "しなの",
+      "value": "Shinano"
+    },
+    {
+      "key": "しなの (着せ替え)",
+      "value": "Shinano (asu)"
+    },
+    {
+      "key": "しなの（着せ替え)",
+      "value": "Shinano (asu)"
+    },
+    {
+      "key": "しなの（着せ替え）",
+      "value": "Shinano (asu)"
+    },
+    {
+      "key": "しゃがみ（Crouching）",
+      "value": "Kyykky"
+    },
+    {
+      "key": "じだらく",
+      "value": "Laiska päivä"
+    },
+    {
+      "key": "すねの長さ",
+      "value": "Säären pituus"
+    },
+    {
+      "key": "すべての姿勢から検索",
+      "value": "Hae kaikista asennoista"
+    },
+    {
+      "key": "すべての警告・注意を非表示",
+      "value": "Piilota kaikki varoitukset ja ilmoitukset"
+    },
+    {
+      "key": "すべての項目が既に存在するため、追加されませんでした。",
+      "value": "Kaikki kohdat ovat jo olemassa; mitään ei lisätty."
+    },
+    {
+      "key": "その他",
+      "value": "Muut"
+    },
+    {
+      "key": "たたみ",
+      "value": "Tatami"
+    },
+    {
+      "key": "なし",
+      "value": "Ei mitään"
+    },
+    {
+      "key": "にEditorOnlyタグが設定されています",
+      "value": "käyttää EditorOnly-tunnistetta"
+    },
+    {
+      "key": "ねころび",
+      "value": "Makuulla"
+    },
+    {
+      "key": "ねころび１",
+      "value": "Makuulla 1"
+    },
+    {
+      "key": "ねころび２",
+      "value": "Makuulla 2"
+    },
+    {
+      "key": "ねころび３",
+      "value": "Makuulla 3"
+    },
+    {
+      "key": "のんびり",
+      "value": "Rennosti"
+    },
+    {
+      "key": "のーんびり",
+      "value": "Täysin rentona"
+    },
+    {
+      "key": "はい",
+      "value": "Kyllä"
+    },
+    {
+      "key": "はいずり",
+      "value": "Konttaus"
+    },
+    {
+      "key": "はりつけ",
+      "value": "Painettuna alas"
+    },
+    {
+      "key": "びっくり",
+      "value": "Yllättynyt"
+    },
+    {
+      "key": "ふくじゅう",
+      "value": "Alistuminen"
+    },
+    {
+      "key": "ほかのギミックとの併用によって固定機能がうまく動かない場合はオンにしてください。",
+      "value": "Ota käyttöön, jos seurantalukitukset eivät toimi oikein muiden työkalujen rinnalla."
+    },
+    {
+      "key": "ほかのプリセットを探す",
+      "value": "Selaa muita esiasetuksia"
+    },
+    {
+      "key": "または",
+      "value": "tai"
+    },
+    {
+      "key": "まだプレビルドしていません。「プレビルドを更新」で姿勢データを生成できます。",
+      "value": "Esikoontia ei ole vielä tehty. Luo asentotiedot valitsemalla Päivitä esikoonti."
+    },
+    {
+      "key": "むきりょく",
+      "value": "Voimat lopussa"
+    },
+    {
+      "key": "ゆにさきスタジオ",
+      "value": "Unisaki Studio"
+    },
+    {
+      "key": "ゆにさきスタジオ公式",
+      "value": "Unisaki Studion viralliset esiasetukset"
+    },
+    {
+      "key": "ゆにさきポーズシステム",
+      "value": "Unisaki Posing System"
+    },
+    {
+      "key": "ゆにさきポーズシステムライセンス削除",
+      "value": "Poista Posing System -lisenssi"
+    },
+    {
+      "key": "ゆにさきポーズシステム設定",
+      "value": "Unisaki Posing System -asetukset"
+    },
+    {
+      "key": "よりかかり",
+      "value": "Nojailu"
+    },
+    {
+      "key": "アイコンの更新",
+      "value": "Kuvakkeiden päivitys"
+    },
+    {
+      "key": "アイコンを撮り直す",
+      "value": "Ota kuvakkeet uudelleen"
+    },
+    {
+      "key": "アイコン画像",
+      "value": "Kuvakekuva"
+    },
+    {
+      "key": "アイコン画像の容量を減らす",
+      "value": "Pienennä kuvakkeita"
+    },
+    {
+      "key": "アイコン画像を指定するか、独自アイコンを無効にして自動生成を使用してください。",
+      "value": "Määritä kuvakekuva tai poista oma kuvake käytöstä, jotta kuvake luodaan automaattisesti."
+    },
+    {
+      "key": "アイコン画像ファイルを削除",
+      "value": "Poista kuvakkeiden kuvatiedosto"
+    },
+    {
+      "key": "アイドル",
+      "value": "Idoli"
+    },
+    {
+      "key": "アップロード時に適用します。未翻訳の項目は日本語で表示されます。",
+      "value": "Tulee voimaan ladattaessa. Kääntämättömät kohdat näytetään japaniksi."
+    },
+    {
+      "key": "アニメーション",
+      "value": "Animaatio"
+    },
+    {
+      "key": "アニメーションが割り当てられていません。",
+      "value": "Animaatiota ei ole määritetty."
+    },
+    {
+      "key": "アニメーションの調整は現在停止中です",
+      "value": "Animaatiosäätö on pysäytetty."
+    },
+    {
+      "key": "アニメーションを合成して保存しました。\n新しいファイル: {0}",
+      "value": "Animaatio yhdistetty ja tallennettu.\nUusi tiedosto: {0}"
+    },
+    {
+      "key": "アニメーションを選択してください。",
+      "value": "Valitse animaatio."
+    },
+    {
+      "key": "アニメーション情報",
+      "value": "Animaation tiedot"
+    },
+    {
+      "key": "アニメーション調整",
+      "value": "Animaatiosäätö"
+    },
+    {
+      "key": "アニメーション調整ウィンドウが表示されています。調整が終わったらウィンドウを閉じてください",
+      "value": "Animaatiosäätöikkuna on auki. Sulje se, kun olet lopettanut säätämisen."
+    },
+    {
+      "key": "アニメーション調整ウィンドウを閉じる",
+      "value": "Sulje animaatiosäätöikkuna"
+    },
+    {
+      "key": "アニメーション調整画面など、ほかのプレビューを終了してからお試しください。",
+      "value": "Sulje muut animaatioesikatselut, myös Animaatiosäätö, ja yritä uudelleen."
+    },
+    {
+      "key": "アニメーション調節機能を使用して姿勢をアバターに合わせたデータを、別のアバターデータでも使用したい場合は、プリセットを作成すると便利です。PrefabsやFBXを登録してプリセットを作成すると、そのアバターに{0}を追加した時に自動でプリセットが適用されるようになります。また、作成したプリセットは公開、配付、販売が可能です。",
+      "value": "Luo esiasetus, jotta voit käyttää asentosäätöjä saman avatarin toisessa kopiossa. Rekisteröi prefab tai FBX, jolloin esiasetusta voidaan tarjota lisättäessä {0} avatariin. Voit julkaista, jakaa tai myydä luomiasi esiasetuksia tuotteen lisenssin mukaisesti."
+    },
+    {
+      "key": "アバターごとの設定ではなく、1つの商品につき1ファイルを作成します。",
+      "value": "Luo yksi tiedosto tuotetta kohti; nämä ovat erillään avatarikohtaisista asetuksista."
+    },
+    {
+      "key": "アバターごとの関節の向きやひねりの違いを自動で補正します。",
+      "value": "Korjaa automaattisesti avatarikohtaiset nivelten suunta- ja kiertoerot."
+    },
+    {
+      "key": "アバターとの組み合わせ",
+      "value": "Avatarin integrointi"
+    },
+    {
+      "key": "アバターに合わないときは、このポーズだけIKをオフにできます。ほかのポーズやアバターには影響しません。",
+      "value": "Poista IK käytöstä vain tältä asennolta, jos se ei sovi avatarillesi. Muihin asentoihin ja avatareihin ei vaikuteta."
+    },
+    {
+      "key": "アバターに適合",
+      "value": "Yhteensopiva avatarin kanssa"
+    },
+    {
+      "key": "アバターのBaseに通常のAnimatorControllerを設定してください。AnimatorOverrideControllerには対応していません。",
+      "value": "Määritä avatarin Base-tasolle tavallinen Animator Controller. Animator Override Controlleria ei tueta."
+    },
+    {
+      "key": "アバターのスケールから有効な固定長を測定できません。",
+      "value": "Avatarin mittakaavasta ei voitu mitata kelvollista kiinteää pituutta."
+    },
+    {
+      "key": "アバターのルートにAnimatorがありません。",
+      "value": "Avatarin juuriobjektilta puuttuu Animator."
+    },
+    {
+      "key": "アバターのルートにAnimatorがありません。Inspectorの「設定の確認」の対処手順をご確認ください。",
+      "value": "Avatarin juuriobjektilta puuttuu Animator. Katso Inspectorin Tarkista asetukset."
+    },
+    {
+      "key": "アバターの元の立ち・しゃがみ・伏せ姿勢を使う",
+      "value": "Käytä alkuperäisiä seisoma-, kyykky- ja vatsa-asentoja"
+    },
+    {
+      "key": "アバターの元モデルに対応するHumanoid AvatarをAnimatorのAvatar欄に戻してください。別アバターのAvatarは指定しないでください。",
+      "value": "Palauta tämän avatarin alkuperäisen mallin Humanoid Avatar Animatorin Avatar-kenttään. Käytä juuri tämän mallin Avatar-resurssia."
+    },
+    {
+      "key": "アバターの初期姿勢が変わったため、補正を自動更新します。",
+      "value": "Avatarin lepoasento on muuttunut. Korjaukset päivitetään automaattisesti."
+    },
+    {
+      "key": "アバターの姿勢をリセット（Tポーズに戻す）",
+      "value": "Palauta avatar T-asentoon"
+    },
+    {
+      "key": "アバターの容量を抑えたいときに便利です。アイコン画像は少し粗くなります。",
+      "value": "Pienentää avatarin kokoa vähentämällä hieman kuvakkeiden tarkkuutta."
+    },
+    {
+      "key": "アバターの設定が必要",
+      "value": "Avatarin asetukset tarvitaan"
+    },
+    {
+      "key": "アバターデータフォルダの自動検出",
+      "value": "Tunnista avatarin datakansio"
+    },
+    {
+      "key": "アバター全体を基準",
+      "value": "Avatar"
+    },
+    {
+      "key": "アバター名",
+      "value": "Avatarin nimi"
+    },
+    {
+      "key": "アバター名を入力してください。",
+      "value": "Anna avatarin nimi."
+    },
+    {
+      "key": "アバター固有補正を使う",
+      "value": "Ota avatarikorjaus käyttöön"
+    },
+    {
+      "key": "アバター固有補正を使用",
+      "value": "Ota avatarikorjaus käyttöön"
+    },
+    {
+      "key": "アバター固有補正アニメーションを保存できませんでした。",
+      "value": "Avatarikohtaista korjausanimaatiota ei voitu tallentaa."
+    },
+    {
+      "key": "アバター調整",
+      "value": "Avatarin asetukset"
+    },
+    {
+      "key": "アバター選択",
+      "value": "Avatarin valinta"
+    },
+    {
+      "key": "エラー",
+      "value": "Virhe"
+    },
+    {
+      "key": "オブジェクトがVRC用のアバターオブジェクトの中に入っていません。このオブジェクトはVRCAvatarDescriptorコンポーネントの付いたオブジェクトの中に配置してください",
+      "value": "Sijoita tämä objekti sellaisen avatarobjektin sisään, jolla on VRCAvatarDescriptor-komponentti."
+    },
+    {
+      "key": "カエルのポーズ１",
+      "value": "Sammakko 1"
+    },
+    {
+      "key": "カエルのポーズ２",
+      "value": "Sammakko 2"
+    },
+    {
+      "key": "カスタム",
+      "value": "Oma"
+    },
+    {
+      "key": "カスタムアニメーション",
+      "value": "Oma animaatio"
+    },
+    {
+      "key": "カッコいいポーズ",
+      "value": "Cool Posing"
+    },
+    {
+      "key": "カッコいいポーズツール",
+      "value": "Cool Posing"
+    },
+    {
+      "key": "カッコいいポーズツール(Gumroad)",
+      "value": "Cool Posing Tool (Gumroad)"
+    },
+    {
+      "key": "カッコいいポーズツールライセンスインストール",
+      "value": "Asenna Cool Posing -lisenssi"
+    },
+    {
+      "key": "カッコいいポーズツールライセンス削除",
+      "value": "Poista Cool Posing -lisenssi"
+    },
+    {
+      "key": "カッコいいポーズツールライセンス状態確認",
+      "value": "Cool Posing -lisenssin tila"
+    },
+    {
+      "key": "カッコいいポーズツール設定",
+      "value": "Cool Posing -asetukset"
+    },
+    {
+      "key": "カッコいいポーズツール追加",
+      "value": "Lisää Cool Posing"
+    },
+    {
+      "key": "カッコいいポーズツール（BOOTH）",
+      "value": "Cool Posing Tool (BOOTH)"
+    },
+    {
+      "key": "キック",
+      "value": "Potku"
+    },
+    {
+      "key": "クマ人形",
+      "value": "Nalle"
+    },
+    {
+      "key": "クリップボードが空です。",
+      "value": "Leikepöytä on tyhjä."
+    },
+    {
+      "key": "ケンカ",
+      "value": "Taisteluvalmius"
+    },
+    {
+      "key": "ゲーム内で使うには「機能」タブの「寝返り」もオンにしてください。",
+      "value": "Ota myös Käänny käyttöön Toiminnot-välilehdeltä, jotta voit käyttää sitä VRChatissa."
+    },
+    {
+      "key": "ゲーム内メニューの言語",
+      "value": "Pelin valikkokieli"
+    },
+    {
+      "key": "コンパイルエラー（先頭から最大5件）",
+      "value": "Käännösvirheet (enintään 5 ensimmäistä)"
+    },
+    {
+      "key": "コンビニ",
+      "value": "Kioski"
+    },
+    {
+      "key": "シーンを保存・バックアップしてから、ALCOM / VCCで商品本体と「ゆにさきポーズシステム」を再取得してください。入れ直しても直らない場合は、Inspector上部の「ヘルプ・変更履歴」から公式マニュアル・お問い合わせをご確認ください。調整済みのオブジェクトやGeneratedResourcesは削除しないでください。",
+      "value": "Tallenna scene ja ota siitä varmuuskopio. Lataa tuote ja Unisaki Posing System sitten uudelleen ALCOM / VCC:llä. Jos ongelma jatkuu, avaa Inspectorin yläreunan Ohje / Muutokset, josta löydät käyttöohjeen ja tuen. Säilytä muokatut objektit ja GeneratedResources."
+    },
+    {
       "key": "ジェスチャー無効",
       "value": "Eleet pois"
+    },
+    {
+      "key": "ジャンプ",
+      "value": "Hyppy"
+    },
+    {
+      "key": "ジャンプで寝姿勢を切り替える",
+      "value": "Vaihda makuuasentoa hyppäämällä"
+    },
+    {
+      "key": "スライダーは−1〜1。範囲外の値も数値欄に入力できます。",
+      "value": "Liukusäätimen alue: -1–1. Voit syöttää myös alueen ulkopuolisia arvoja."
+    },
+    {
+      "key": "ソースとなるPosingSystemが見つかりません。",
+      "value": "Lähteen PosingSystem-komponenttia ei löytynyt."
+    },
+    {
+      "key": "ゾンビ",
+      "value": "Zombi"
+    },
+    {
+      "key": "ターゲットボーン {0} がありません。",
+      "value": "Kohdeluu {0} puuttuu."
+    },
+    {
+      "key": "チェックを付けると増える量／外すと減る量です。\n寝返りON/OFF：1 bit、頭の傾き：8 bit、首固定：1 bit。\nほかの設定で使用中のパラメーターは重複して数えません。",
+      "value": "Muistinkäytön muutos otettaessa tämä valinta käyttöön tai pois käytöstä.\nKäänny-kytkin: 1 bitti; pään kallistus: 8 bittiä; pään lukitus: 1 bitti.\nMuiden valintojen jo käyttämät parametrit lasketaan vain kerran."
+    },
+    {
+      "key": "チェックを付けると増える量／外すと減る量です。\n首固定：1 bit（寝返りと共用）。\n寝返りなどで使用中なら0 bitです。",
+      "value": "Muistinkäytön muutos otettaessa tämä valinta käyttöön tai pois käytöstä.\nPään lukitus: 1 bitti, yhteinen Käänny-toiminnon kanssa.\nKäyttää 0 lisäbittiä, jos Käänny käyttää jo tätä parametria."
+    },
+    {
+      "key": "ツールに同梱された公式プリセットを一覧と検索結果に表示しません。同じプロジェクト内のアバターで共有する設定です。",
+      "value": "Piilottaa mukana tulevat viralliset esiasetukset luettelosta ja hakutuloksista. Asetus on yhteinen tämän projektin avatareille."
+    },
+    {
+      "key": "ツールのルートにMA Parametersがありません。",
+      "value": "Työkalun juuriobjektilta puuttuu MA Parameters -komponentti."
+    },
+    {
+      "key": "ツールの親にVRC Avatar Descriptorがありません。",
+      "value": "Työkalun yläpuolelta ei löytynyt VRC Avatar Descriptor -komponenttia."
+    },
+    {
+      "key": "ツール内の共通ポージングAnimatorが1つだけ有効か、EditorOnlyタグ・Missing Scriptの有無と標準Prefabの導入状態を確認してください。",
+      "value": "Varmista, että vain yksi yhteinen asento-Animator on aktiivinen, ettei siinä ole EditorOnly-tunnistetta tai Missing Script -komponenttia ja että oletusprefab on asennettu."
+    },
+    {
+      "key": "ツール内の姿勢メニューが削除・無効化されていないか確認してください。",
+      "value": "Tarkista, onko työkalun sisällä oleva asentovalikko poistettu tai poistettu käytöstä."
+    },
+    {
+      "key": "ツール内の姿勢メニューが削除・無効化されていないか確認してください。シーンを保存・バックアップしてから、ALCOM / VCCで商品本体と「ゆにさきポーズシステム」を再取得してください。入れ直しても直らない場合は、Inspector上部の「ヘルプ・変更履歴」から公式マニュアル・お問い合わせをご確認ください。調整済みのオブジェクトやGeneratedResourcesは削除しないでください。",
+      "value": "Tarkista, onko työkalun sisällä oleva asentovalikko poistettu tai poistettu käytöstä.\nTallenna scene ja ota siitä varmuuskopio. Lataa tuote ja Unisaki Posing System sitten uudelleen ALCOM / VCC:llä. Jos ongelma jatkuu, avaa Inspectorin yläreunan Ohje / Muutokset, josta löydät käyttöohjeen ja tuen. Säilytä muokatut objektit ja GeneratedResources."
+    },
+    {
+      "key": "ツール本体が見つかりません [PS041]",
+      "value": "Työkalun prefabia ei löytynyt [PS041]"
+    },
+    {
+      "key": "デバッグ: アバター固有補正をプレビュー",
+      "value": "Virheenjäljitys: esikatsele avatarikorjausta"
+    },
+    {
+      "key": "デフォルト",
+      "value": "Oletus"
+    },
+    {
+      "key": "データ形式のバージョン",
+      "value": "Tietomuodon versio"
+    },
+    {
+      "key": "トラブルシューティング",
+      "value": "Vianmääritys"
+    },
+    {
+      "key": "トラブルシューティングを閉じる",
+      "value": "Sulje vianmääritys"
+    },
+    {
+      "key": "バックアップ済み・削除する",
+      "value": "Varmuuskopio tehty — poista"
+    },
+    {
+      "key": "バックアップ済み・取り除く",
+      "value": "Varmuuskopio tehty — poista"
+    },
+    {
+      "key": "バンザイ",
+      "value": "Kädet ylös"
+    },
+    {
+      "key": "バージョン不明",
+      "value": "Tuntematon versio"
+    },
+    {
+      "key": "パッケージ内の標準Controllerが見つかりません。",
+      "value": "Paketin oletus-Controlleria ei löytynyt."
+    },
+    {
+      "key": "ファイルに保存されている値に戻します。",
+      "value": "Palauttaa tiedostoon tallennetut arvot."
+    },
+    {
+      "key": "プランク",
+      "value": "Lankku"
+    },
+    {
+      "key": "プリセット",
+      "value": "Esiasetukset"
+    },
+    {
+      "key": "プリセットの保存・管理",
+      "value": "Tallenna / hallitse esiasetuksia"
+    },
+    {
+      "key": "プリセットの保存・管理を閉じる",
+      "value": "Sulje esiasetusten hallinta"
+    },
+    {
+      "key": "プリセットを作成",
+      "value": "Luo esiasetus"
+    },
+    {
+      "key": "プリセットを作成しました。プリセット選択の「再読込」で一覧に反映できます。",
+      "value": "Esiasetus luotu. Päivitä luettelo esiasetusten valitsimen Lataa uudelleen -toiminnolla."
+    },
+    {
+      "key": "プリセットを読み込めません",
+      "value": "Esiasetusta ei voitu ladata"
+    },
+    {
+      "key": "プリセットを適用し直すか、新しく追加したツールのポーズ一覧と比較してください。",
+      "value": "Käytä esiasetusta uudelleen tai vertaa asentoluetteloa juuri lisättyyn työkalun kopioon."
+    },
+    {
+      "key": "プリセットを適用し直すか、新しく追加したツールのポーズ一覧と比較してください。シーンを保存・バックアップしてから、ALCOM / VCCで商品本体と「ゆにさきポーズシステム」を再取得してください。入れ直しても直らない場合は、Inspector上部の「ヘルプ・変更履歴」から公式マニュアル・お問い合わせをご確認ください。調整済みのオブジェクトやGeneratedResourcesは削除しないでください。",
+      "value": "Käytä esiasetusta uudelleen tai vertaa asentoluetteloa juuri lisättyyn työkalun kopioon.\nTallenna scene ja ota siitä varmuuskopio. Lataa tuote ja Unisaki Posing System sitten uudelleen ALCOM / VCC:llä. Jos ongelma jatkuu, avaa Inspectorin yläreunan Ohje / Muutokset, josta löydät käyttöohjeen ja tuen. Säilytä muokatut objektit ja GeneratedResources."
+    },
+    {
+      "key": "プリセットを選択してください",
+      "value": "Valitse esiasetus"
+    },
+    {
+      "key": "プリセット一覧を更新できませんでした:",
+      "value": "Esiasetusluetteloa ei voitu päivittää:"
+    },
+    {
+      "key": "プリセット一覧を読み込めませんでした。「再読込」で再試行できます:",
+      "value": "Esiasetusluetteloa ei voitu ladata. Yritä uudelleen valitsemalla Lataa uudelleen:"
+    },
+    {
+      "key": "プリセット一覧を閉じる",
+      "value": "Sulje esiasetusluettelo"
+    },
+    {
+      "key": "プリセット作成中にエラーが発生しました。",
+      "value": "Esiasetuksen luonnissa tapahtui virhe."
+    },
+    {
+      "key": "プリセット作成設定",
+      "value": "Esiasetuksen luontiasetukset"
+    },
+    {
+      "key": "プリセット選択",
+      "value": "Valitse esiasetus"
+    },
+    {
+      "key": "プレビュー",
+      "value": "Esikatselu"
+    },
+    {
+      "key": "プレビューを終了（元の姿勢に戻す）",
+      "value": "Lopeta esikatselu (palauta alkuperäinen asento)"
+    },
+    {
+      "key": "プレビュー中：{0}",
+      "value": "Esikatselu: {0}"
+    },
+    {
+      "key": "プレビルド",
+      "value": "Esikoonti"
+    },
+    {
+      "key": "プレビルドの更新について相談したいです。",
+      "value": "Tarvitsen apua esikoonnin päivittämiseen."
+    },
+    {
+      "key": "プレビルドを実行できません。Inspectorの「設定の確認」で、アバターの配置・Animator・Humanoidの設定を確認してください。",
+      "value": "Esikoontia ei voi tehdä. Tarkista avatarin sijoitus, Animator ja Humanoid Inspectorin Tarkista asetukset -kohdasta."
+    },
+    {
+      "key": "プレビルドを更新",
+      "value": "Päivitä esikoonti"
+    },
+    {
+      "key": "プレビルド・ビルド時に標準Prefabから再作成します。",
+      "value": "Se luodaan uudelleen oletusprefabista esikoonnin tai avatarin koonnin aikana."
+    },
+    {
+      "key": "プレビルド・ビルド時に標準設定から再作成します。",
+      "value": "Se luodaan uudelleen oletusasetuksista esikoonnin tai avatarin koonnin aikana."
+    },
+    {
+      "key": "プレビルド後に設定が変更されています。「プレビルドを更新」で現在の設定を反映してください。",
+      "value": "Asetukset ovat muuttuneet viime esikoonnista. Käytä nykyisiä asetuksia valitsemalla Päivitä esikoonti."
+    },
+    {
+      "key": "プレビルド後の設定変更の警告を非表示",
+      "value": "Piilota muuttuneiden asetusten varoitukset"
+    },
+    {
+      "key": "プレビルド時に標準Controllerから復元を試みます。復元できない場合は、ゆにさきポーズシステムのパッケージを再取得してください。",
+      "value": "Esikoonti yrittää palauttaa oletusohjaimen. Jos palautus epäonnistuu, lataa Unisaki Posing System -paketti uudelleen."
+    },
+    {
+      "key": "プレビルド未実行の警告を非表示",
+      "value": "Piilota puuttuvan esikoonnin varoitukset"
+    },
+    {
+      "key": "ベッド",
+      "value": "Sänky"
+    },
+    {
+      "key": "ポーズ {0} bit ＋ 追加機能 {1} bit  ／ このアバターのポーズツール分",
+      "value": "Asennot: {0} bittiä + lisätoiminnot: {1} bittiä / tämän avatarin asentotyökalut"
+    },
+    {
+      "key": "ポーズアイコン生成",
+      "value": "Luo asentokuvakkeet"
+    },
+    {
+      "key": "ポーズシステム",
+      "value": "Posing System"
+    },
+    {
+      "key": "ポーズツールで次のエラーが出ました。対処方法を教えてください。",
+      "value": "Asentotyökalu ilmoitti seuraavan virheen. Miten voin korjata sen?"
+    },
+    {
+      "key": "ポーズ・アバター設定の注意を非表示",
+      "value": "Piilota asento- ja avatarilmoitukset"
+    },
+    {
+      "key": "ポーズ一覧",
+      "value": "Asennot"
+    },
+    {
+      "key": "ポーズ一覧でアニメーションを指定するか、その項目を無効にしてください。",
+      "value": "Määritä animaatio asentoluettelossa tai poista kohta käytöstä."
+    },
+    {
+      "key": "ポーズ一覧で使うポーズを有効にしてください。意図的に空にしている場合は対応不要です。",
+      "value": "Ota halutut asennot käyttöön asentoluettelossa. Jos luokan on tarkoitus olla tyhjä, muutoksia ei tarvita."
+    },
+    {
+      "key": "ポーズ一覧で初期ポーズを1つにしてください。",
+      "value": "Valitse luokalle yksi aloitusasento."
+    },
+    {
+      "key": "ポーズ一覧で該当カテゴリを確認し、プリセットまたはバックアップから復元してください。",
+      "value": "Tarkista luokka asentoluettelosta ja palauta se esiasetuksesta tai varmuuskopiosta."
+    },
+    {
+      "key": "ポーズ一覧のカテゴリ{0}のデータが欠けています。",
+      "value": "Asentoluettelon luokan {0} tiedot puuttuvat."
+    },
+    {
+      "key": "ポーズ一覧のデータがありません。",
+      "value": "Asentoluettelon tiedot puuttuvat."
+    },
+    {
+      "key": "ポーズ名",
+      "value": "Asennon nimi"
+    },
+    {
+      "key": "ポーズ画像を更新",
+      "value": "Päivitä asentojen pikkukuvat"
+    },
+    {
+      "key": "マットレス",
+      "value": "Patja"
+    },
+    {
+      "key": "メニューに撮影モードを追加します。前へ最大3m移動したり回転したりして、自分から見える位置を調整できます。",
+      "value": "Lisää Kuvatilan, jossa voit siirtyä enintään 3 m eteenpäin ja kiertyä nähdäksesi itsesi paremmin."
+    },
+    {
+      "key": "メニューのアイコン画像",
+      "value": "Valikon kuvakkeet"
+    },
+    {
+      "key": "メニュー追加",
+      "value": "Valikkotoiminnot"
+    },
+    {
+      "key": "モデル",
+      "value": "Malli"
+    },
+    {
+      "key": "ユーザー作成",
+      "value": "Käyttäjän esiasetukset"
+    },
+    {
+      "key": "ライセンスの削除",
+      "value": "Poista lisenssi"
+    },
+    {
+      "key": "ライセンス削除",
+      "value": "Lisenssin poisto"
+    },
+    {
+      "key": "ラダー運動",
+      "value": "Ketteryystreeni"
+    },
+    {
+      "key": "リクライニング",
+      "value": "Takanoja"
+    },
+    {
+      "key": "リラックス",
+      "value": "Rentona"
+    },
+    {
+      "key": "リラックス１",
+      "value": "Rentona 1"
+    },
+    {
+      "key": "リラックス２",
+      "value": "Rentona 2"
+    },
+    {
+      "key": "リラックス３",
+      "value": "Rentona 3"
+    },
+    {
+      "key": "ルール名",
+      "value": "Säännön nimi"
+    },
+    {
+      "key": "ローカル（基準の向き）",
+      "value": "Paikallinen (vertailusuunta)"
+    },
+    {
+      "key": "ワールドの軸に沿って移動します。オフの軸は元の姿勢の位置を保ちます。",
+      "value": "Liikuttaa maailman akseleita pitkin. Käytöstä poistetut akselit säilyttävät alkuperäisen asennon sijainnin."
+    },
+    {
+      "key": "ワールド（シーンの軸）",
+      "value": "Maailma (scenen akselit)"
+    },
+    {
+      "key": "一括操作",
+      "value": "Joukkotoiminnot"
+    },
+    {
+      "key": "一括追加を閉じる",
+      "value": "Sulje joukkolisäys"
+    },
+    {
+      "key": "一括追加機能",
+      "value": "Lisää useita"
+    },
+    {
+      "key": "一致するアニメーションがありません。",
+      "value": "Vastaavia animaatioita ei löytynyt."
+    },
+    {
+      "key": "一覧から削除",
+      "value": "Poista luettelosta"
+    },
+    {
+      "key": "一覧は追加・変更時に更新されます。表示が変わらない場合は「再読込」を押してください。",
+      "value": "Luettelo päivittyy, kun kohteita lisätään tai muutetaan. Valitse Lataa uudelleen, jos näkymä on vanhentunut."
+    },
+    {
+      "key": "三点だいしゅき(女)ツール追加",
+      "value": "Lisää Virtual Love (nainen)"
+    },
+    {
+      "key": "三点だいしゅき(男)ツール追加",
+      "value": "Lisää Virtual Love (mies)"
+    },
+    {
+      "key": "上腕の長さ",
+      "value": "Olkavarren pituus"
+    },
+    {
+      "key": "不機嫌",
+      "value": "Murjotus"
+    },
+    {
+      "key": "中",
+      "value": "Keskivahva"
+    },
+    {
+      "key": "中央と横向きに、Humanoid形式のクリップを指定してください。BlendTree・Legacy・身体カーブのないクリップは使用できません。",
+      "value": "Määritä keski- ja sivuasennolle Humanoid-leikkeet. BlendTree-, Legacy- ja kehokäyriä vailla olevia leikkeitä ei tueta."
+    },
+    {
+      "key": "中腰の高さ閾値",
+      "value": "Kyykkyasennon korkeusraja"
     },
     {
       "key": "中腰姿勢",
       "value": "Kyykky"
     },
     {
+      "key": "二人分座り",
+      "value": "Tilaa kahdelle"
+    },
+    {
+      "key": "五体投地",
+      "value": "Kumarrus maahan"
+    },
+    {
+      "key": "他商品連携用Prefabs",
+      "value": "Tuoteintegraatiot"
+    },
+    {
+      "key": "以前の設定から、使う1つを選べます。",
+      "value": "Valitse jokin aiemmista asetuksista."
+    },
+    {
+      "key": "仰向けとうつ伏せの両方を選んでいるとき、その場でジャンプすると切り替わります。",
+      "value": "Kun sekä selällään että vatsallaan oleva asento on valittu, voit vaihtaa niiden välillä hyppäämällä paikallasi."
+    },
+    {
       "key": "仰向け寝",
       "value": "Selällään"
+    },
+    {
+      "key": "伏せ",
+      "value": "Vatsallaan"
+    },
+    {
+      "key": "伏せ（Prone）",
+      "value": "Vatsallaan"
+    },
+    {
+      "key": "休憩中",
+      "value": "Tauolla"
+    },
+    {
+      "key": "位置の座標系",
+      "value": "Sijainnin koordinaatisto"
+    },
+    {
+      "key": "位置の長さの基準",
+      "value": "Sijainnin pituusvertailu"
+    },
+    {
+      "key": "位置を合わせる強さ",
+      "value": "Sijainnin paino"
+    },
+    {
+      "key": "位置（選んだ長さを1とする比率）",
+      "value": "Sijainti (suhteessa valittuun pituuteen)"
+    },
+    {
+      "key": "低姿勢",
+      "value": "Matalana"
+    },
+    {
+      "key": "体幹",
+      "value": "Vartalo"
+    },
+    {
+      "key": "体格に合わせた手足の自動調整",
+      "value": "Raajojen automaattinen säätö"
+    },
+    {
+      "key": "体育座り",
+      "value": "Polvet ylös"
+    },
+    {
+      "key": "使い始めるときの姿勢セットを変更できます。変更すると現在のポーズ設定が置き換わります。",
+      "value": "Valitse aloitusasentojen joukko. Tämä korvaa nykyiset asentoasetukset."
+    },
+    {
+      "key": "使用",
+      "value": "Käytä"
+    },
+    {
+      "key": "使用するにはメニュー追加の「撮影モード」をオンにしてください。",
+      "value": "Ota Kuvatila käyttöön Valikkotoiminnot-kohdasta käyttääksesi tätä toimintoa."
+    },
+    {
+      "key": "使用するには便利機能の「呼吸の動きをつける」をオンにしてください。",
+      "value": "Ota Animoi hengitys käyttöön Lisätoiminnot-kohdasta käyttääksesi tätä toimintoa."
+    },
+    {
+      "key": "使用方法:\n1. 追加したい文字列を改行区切りでクリップボードにコピー\n2. 対応するボタンをクリック\n3. 重複する項目は自動的に除外されます",
+      "value": "Ohjeet:\n1. Kopioi leikepöydälle yksi kohta riviä kohti.\n2. Napsauta vastaavaa painiketta.\n3. Kaksoiskappaleet ohitetaan."
+    },
+    {
+      "key": "例: 右手を腰へ、左手を床へ",
+      "value": "Esimerkki: oikea käsi lantiolla, vasen käsi lattialla"
+    },
+    {
+      "key": "便利機能",
+      "value": "Lisätoiminnot"
+    },
+    {
+      "key": "保存",
+      "value": "Tallenna"
+    },
+    {
+      "key": "保存された設定の形式・表記",
+      "value": "Tallennettujen asetusten muoto tai esitystapa"
+    },
+    {
+      "key": "保存されていない変更があります。保存しますか？",
+      "value": "Sinulla on tallentamattomia muutoksia. Tallennetaanko ne?"
+    },
+    {
+      "key": "保存先にはAssets内のフォルダと.animファイルを指定してください。",
+      "value": "Valitse Assets-kansion sisäinen kansio ja .anim-päätteinen tiedostonimi."
+    },
+    {
+      "key": "保存先フォルダのパスを生成できませんでした。フォルダ「{0}」がプロジェクトに認識されているか確認してください。",
+      "value": "Kohdekansiota ei voitu määrittää. Varmista, että Unity tunnistaa tämän projektikansion: {0}"
+    },
+    {
+      "key": "保存時から変わった項目を確認",
+      "value": "Näytä esikoonnin jälkeen muuttuneet asetukset"
+    },
+    {
+      "key": "保存時と異なるプレビルドの設定項目",
+      "value": "Tallennuksen jälkeen muuttuneet esikoontiasetukset"
+    },
+    {
+      "key": "保存時と異なる項目（最大12件）",
+      "value": "Tallennuksen jälkeen muuttuneet asetukset (enintään 12)"
+    },
+    {
+      "key": "倒され寝",
+      "value": "Kaatunut"
+    },
+    {
+      "key": "傍観者",
+      "value": "Sivustakatsoja"
+    },
+    {
+      "key": "元の姿勢",
+      "value": "Alkuperäiset asennot"
+    },
+    {
+      "key": "元の姿勢Animation",
+      "value": "Alkuperäinen asentoanimaatio"
+    },
+    {
+      "key": "元の姿勢AnimationClipがありません。",
+      "value": "Lähdeasennon AnimationClip puuttuu."
+    },
+    {
+      "key": "元の姿勢Animationに含まれる肘・膝の曲がり方を、IKを解く前に自動取得します。",
+      "value": "Lue kyynärpäiden ja polvien taivutussuunnat alkuperäisestä asentoanimaatiosta ennen IK-ratkaisua."
+    },
+    {
+      "key": "元の姿勢と手動調整をプレビューしています。",
+      "value": "Esikatsellaan alkuperäistä asentoa ja manuaalisia säätöjä."
+    },
+    {
+      "key": "元の姿勢の曲げ方向を維持",
+      "value": "Säilytä lähdeasennon taivutus"
+    },
+    {
+      "key": "元モデルのInspector > RigでHumanoid設定とConfigureの割り当てを確認してください。配布元が指定する設定を優先してください。",
+      "value": "Tarkista alkuperäisen mallin Inspector > Rig -asetusten Humanoid ja Configure-määritykset. Noudata avatarin tekijän suosituksia."
+    },
+    {
+      "key": "元モデルのRig > ConfigureでHeadを確認し、シーン内で頭のボーンが削除されていないか確認してください。",
+      "value": "Tarkista Head alkuperäisen mallin Rig > Configure -asetuksista ja varmista, että pääluu on yhä scenessä."
+    },
+    {
+      "key": "元姿勢の読み込み",
+      "value": "Tuo alkuperäiset asennot"
+    },
+    {
+      "key": "全ての変更された差分を保存しました。",
+      "value": "Kaikki muuttuneet säätöarvot tallennettiin."
+    },
+    {
+      "key": "全ての姿勢の調整値をリセットしますか？",
+      "value": "Nollataanko kaikkien asentojen säätöarvot?"
+    },
+    {
+      "key": "全ての姿勢の調整値を再読み込みしますか？未保存の変更は失われます。",
+      "value": "Ladataanko kaikkien asentojen säätöarvot uudelleen? Tallentamattomat muutokset menetetään."
+    },
+    {
+      "key": "全ての調整データを複製保存しますか？\n変更のあるアニメーションの調整アニメーションが複製され、変更が保存されます。",
+      "value": "Kopioidaanko ja tallennetaanko kaikki säätötiedot?\nMuutoksia sisältävät säätöanimaatiot kopioidaan ja tallennetaan."
+    },
+    {
+      "key": "全ての調整値を0にリセットします。",
+      "value": "Nollaa kaikki säätöarvot."
+    },
+    {
+      "key": "全ての調整値をファイルに保存されている値に戻します。",
+      "value": "Lataa kaikki säätöarvot uudelleen tallennetuista tiedostoista."
+    },
+    {
+      "key": "全姿勢再読込",
+      "value": "Lataa kaikki uudelleen"
+    },
+    {
+      "key": "全姿勢初期化",
+      "value": "Nollaa kaikki"
+    },
+    {
+      "key": "全差分保存",
+      "value": "Tallenna muuttuneet"
+    },
+    {
+      "key": "全調整データ複製保存",
+      "value": "Kopioi kaikki"
+    },
+    {
+      "key": "全身",
+      "value": "Koko keho"
+    },
+    {
+      "key": "公開用として有効",
+      "value": "Ota tuotantokäyttöön"
+    },
+    {
+      "key": "公開用として有効です。カタログを参照する商品では、従来の姿勢別調整Animationとアバター固有補正が使用されません。設定漏れの姿勢がないことを確認してください。",
+      "value": "Tuotantokäytössä. Tätä luetteloa käyttävät tuotteet ohittavat vanhat asentokohtaiset säätöanimaatiot ja avatarikorjaukset. Tarkista, että kaikki asennot on määritetty."
+    },
+    {
+      "key": "共通Controllerに姿勢制御用のレイヤーがありません。",
+      "value": "Yhteisestä ohjaimesta puuttuvat asentojen ohjaustasot."
+    },
+    {
+      "key": "共通Controllerに未保存の変更があります。変更を保存してからやり直してください。",
+      "value": "Yhteisessä ohjaimessa on tallentamattomia muutoksia. Tallenna ne ennen uutta yritystä."
+    },
+    {
+      "key": "共通Controllerの内容が、このバージョンの生成定義と一致しません。",
+      "value": "Yhteinen Controller ei vastaa tämän version luontimääritystä."
+    },
+    {
+      "key": "共通Controllerの内容が、このバージョンの生成定義と一致しません。独自の変更は別のControllerに保存し、ALCOM / VCCで同じバージョンの「ゆにさきポーズシステム」を入れ直してください。",
+      "value": "Yhteinen ohjain ei vastaa tämän version luontimääritystä. Tallenna omat muutokset erilliseen ohjaimeen ja asenna sama Unisaki Posing System -versio uudelleen ALCOMilla tai VCC:llä."
+    },
+    {
+      "key": "共通アニメーション（従来設定）",
+      "value": "Yhteinen animaatio (vanha)"
+    },
+    {
+      "key": "共通ポージングAnimatorがありません。",
+      "value": "Yhteinen asento-Animator puuttuu."
+    },
+    {
+      "key": "共通ポージングAnimatorにMA Merge Animatorがありません。",
+      "value": "Yhteiseltä asento-Animatorilta puuttuu MA Merge Animator."
+    },
+    {
+      "key": "共通ポージングAnimatorに通常のAnimator Controller以外が設定されています。",
+      "value": "Yhteinen asento-Animator vaatii tavallisen Animator Controllerin."
+    },
+    {
+      "key": "共通ポージングAnimatorのAnimator参照が未設定です。",
+      "value": "Yhteiselle asento-Animatorille ei ole määritetty Animator Controlleria."
+    },
+    {
+      "key": "共通ポージングAnimatorへ別のControllerを指定していないか確認してください。",
+      "value": "Tarkista, onko yhteiselle asento-Animatorille määritetty toinen ohjain."
+    },
+    {
+      "key": "共通ポージングAnimatorへ別のControllerを指定していないか確認してください。シーンを保存・バックアップしてから、ALCOM / VCCで商品本体と「ゆにさきポーズシステム」を再取得してください。入れ直しても直らない場合は、Inspector上部の「ヘルプ・変更履歴」から公式マニュアル・お問い合わせをご確認ください。調整済みのオブジェクトやGeneratedResourcesは削除しないでください。",
+      "value": "Tarkista, onko yhteiselle asento-Animatorille määritetty toinen ohjain.\nTallenna scene ja ota siitä varmuuskopio. Lataa tuote ja Unisaki Posing System sitten uudelleen ALCOM / VCC:llä. Jos ongelma jatkuu, avaa Inspectorin yläreunan Ohje / Muutokset, josta löydät käyttöohjeen ja tuen. Säilytä muokatut objektit ja GeneratedResources."
+    },
+    {
+      "key": "共通ポージングAnimatorを使用できません。「{0}」{1}。",
+      "value": "Yhteinen asento-Animator ei ole käytettävissä. «{0}» {1}."
+    },
+    {
+      "key": "内股座り",
+      "value": "Varpaat sisään"
+    },
+    {
+      "key": "内部的な互換性管理に使います。通常は変更しません。",
+      "value": "Käytetään sisäiseen yhteensopivuuden seurantaan. Tätä ei yleensä tarvitse muuttaa."
+    },
+    {
+      "key": "再生位置のパラメーター",
+      "value": "Toistokohdan parametri"
+    },
+    {
+      "key": "再生位置を指定する",
+      "value": "Aseta toistokohta"
+    },
+    {
+      "key": "再読込",
+      "value": "Lataa uudelleen"
+    },
+    {
+      "key": "初期ポーズ",
+      "value": "Aloitusasento"
+    },
+    {
+      "key": "初期化",
+      "value": "Nollaa"
+    },
+    {
+      "key": "制止",
+      "value": "Seis"
+    },
+    {
+      "key": "削除",
+      "value": "Poista"
+    },
+    {
+      "key": "削除対象: {0}\nこの中のPrefabやアニメーションも削除されます。自作・調整済みデータがある場合はキャンセルし、移行手順に従ってください。バックアップなしでは元に戻せません。",
+      "value": "Poistettava kansio: {0}\nMyös sen sisältämät prefabit ja animaatiot poistetaan. Jos kansiossa on omia tai säädettyjä tietoja, peruuta ja noudata siirtymisohjeita. Poistettujen tiedostojen palauttamiseen tarvitaan varmuuskopio."
+    },
+    {
+      "key": "前かがみ",
+      "value": "Etunoja"
+    },
+    {
+      "key": "前回の処理は完了していません。",
+      "value": "Edellinen toiminto ei valmistunut."
+    },
+    {
+      "key": "前回の失敗内容をコピー",
+      "value": "Kopioi edellisen virheen tiedot"
+    },
+    {
+      "key": "前回の失敗表示を閉じる",
+      "value": "Sulje edellinen virheilmoitus"
+    },
+    {
+      "key": "前後傾き",
+      "value": "Pituuskallistus"
+    },
+    {
+      "key": "前腕の長さ",
+      "value": "Kyynärvarren pituus"
+    },
+    {
+      "key": "動かす手足",
+      "value": "Liikutettava raaja"
+    },
+    {
+      "key": "取り込むアニメーションを個別に指定",
+      "value": "Valitse tuotavat animaatiot"
+    },
+    {
+      "key": "可愛いポーズ",
+      "value": "Kawaii Posing"
+    },
+    {
+      "key": "可愛いポーズツール",
+      "value": "Kawaii Posing"
+    },
+    {
+      "key": "可愛いポーズツール(Booth)",
+      "value": "Kawaii Posing Tool (BOOTH)"
+    },
+    {
+      "key": "可愛いポーズツール(Gumroad)",
+      "value": "Kawaii Posing Tool (Gumroad)"
+    },
+    {
+      "key": "可愛いポーズツールライセンスインストール",
+      "value": "Asenna Kawaii Posing -lisenssi"
+    },
+    {
+      "key": "可愛いポーズツールライセンス削除",
+      "value": "Poista Kawaii Posing -lisenssi"
+    },
+    {
+      "key": "可愛いポーズツールライセンス状態確認",
+      "value": "Kawaii Posing -lisenssin tila"
+    },
+    {
+      "key": "可愛いポーズツール設定",
+      "value": "Kawaii Posing -asetukset"
+    },
+    {
+      "key": "可愛いポーズツール追加",
+      "value": "Lisää Kawaii Posing"
+    },
+    {
+      "key": "可愛い座り",
+      "value": "Kawaii Sitting"
+    },
+    {
+      "key": "可愛い座り(女)ツール追加",
+      "value": "Lisää Kawaii Sitting (nainen)"
+    },
+    {
+      "key": "可愛い座り(男)ツール追加",
+      "value": "Lisää Kawaii Sitting (mies)"
+    },
+    {
+      "key": "右向き寝",
+      "value": "Kylkiuni O"
+    },
+    {
+      "key": "右向き昼寝",
+      "value": "Kylkitorkut O"
+    },
+    {
+      "key": "右手指",
+      "value": "Oikean käden sormet"
+    },
+    {
+      "key": "右手首",
+      "value": "Oikea ranne"
+    },
+    {
+      "key": "右脚",
+      "value": "Oikea jalka"
+    },
+    {
+      "key": "右腕",
+      "value": "Oikea käsivarsi"
+    },
+    {
+      "key": "各固定機能の他ギミックとの統合",
+      "value": "Yhdistä seurantalukitukset muihin työkaluihin"
+    },
+    {
+      "key": "合成",
+      "value": "Yhdistä"
+    },
+    {
+      "key": "合成する調整アニメーションが存在しません。",
+      "value": "Yhdistettävää säätöanimaatiota ei ole."
+    },
+    {
+      "key": "合蹠のポーズ",
+      "value": "Perhonen"
+    },
+    {
+      "key": "同梱プリセットを表示しない",
+      "value": "Piilota mukana tulevat esiasetukset"
+    },
+    {
+      "key": "名前",
+      "value": "Nimi"
+    },
+    {
+      "key": "名前で検索",
+      "value": "Hae nimellä"
+    },
+    {
+      "key": "名前なし",
+      "value": "Nimetön"
     },
     {
       "key": "向き",
       "value": "Suunta"
     },
     {
+      "key": "向きを合わせる強さ",
+      "value": "Kierron paino"
+    },
+    {
+      "key": "向きを回転させる",
+      "value": "Säädä suunta"
+    },
+    {
       "key": "呼吸",
       "value": "Hengitys"
+    },
+    {
+      "key": "呼吸に合わせて胸などが動きます。姿勢ごとに強さを設定でき、同期bitを使わずに利用できます。",
+      "value": "Animoi rintakehää hengityksen mukana. Voimakkuuden voi asettaa asennolle erikseen ilman lisäsynkronointibittejä."
+    },
+    {
+      "key": "呼吸の動きをつける",
+      "value": "Animoi hengitys"
+    },
+    {
+      "key": "呼吸の設定",
+      "value": "Hengitysasetukset"
+    },
+    {
+      "key": "和室",
+      "value": "Japanilainen huone"
+    },
+    {
+      "key": "商品に収録する各姿勢について、手や足をどこへ置くかを記録する開発用データです。",
+      "value": "Tekijätiedot tallentavat käsien ja jalkojen kohteet kullekin mukana olevalle asennolle. "
+    },
+    {
+      "key": "商品に収録する各姿勢について、手や足をどこへ置くかを記録する開発用データです。アバターごとの設定ではなく、1つの商品につき1ファイルを作成します。",
+      "value": "Tekijätiedot tallentavat käsien ja jalkojen kohteet kullekin mukana olevalle asennolle. Luo yksi tiedosto tuotetta kohti; nämä ovat erillään avatarikohtaisista asetuksista."
+    },
+    {
+      "key": "商品名",
+      "value": "Tuotteen nimi"
+    },
+    {
+      "key": "商談",
+      "value": "Liikeneuvottelu"
+    },
+    {
+      "key": "回転",
+      "value": "Kierto"
+    },
+    {
+      "key": "回転角度",
+      "value": "Kiertokulma"
+    },
+    {
+      "key": "回転角度(360度)",
+      "value": "Kierto (kierroksina)"
+    },
+    {
+      "key": "固定長（アバタースケールのみ）",
+      "value": "Kiinteä pituus (vain avatarin mittakaava)"
+    },
+    {
+      "key": "地球寝",
+      "value": "Maan halaus"
+    },
+    {
+      "key": "培養中",
+      "value": "Kotelossa"
+    },
+    {
+      "key": "基準にする身体ボーン",
+      "value": "Vertailuna käytettävä kehon luu"
+    },
+    {
+      "key": "基準の向きに沿って移動します。オフの軸は元の姿勢の位置を保ちます。",
+      "value": "Liikuttaa vertailusuunnan akseleita pitkin. Käytöstä poistetut akselit säilyttävät alkuperäisen asennon sijainnin."
+    },
+    {
+      "key": "基準アバターとの初期関節角度・ひねりの差を補正します。",
+      "value": "Korjaa nivelten alkuasentojen kulma- ja kiertoerot suhteessa vertailuavatariin."
+    },
+    {
+      "key": "基準アバターに有効な Humanoid Animator がありません。",
+      "value": "Vertailuavatarilla ei ole kelvollista Humanoid Animator -komponenttia."
+    },
+    {
+      "key": "基準姿勢の読み取りに失敗しました: {0}",
+      "value": "Vertailuasennon luku epäonnistui: {0}"
+    },
+    {
+      "key": "堤防",
+      "value": "Penger"
+    },
+    {
+      "key": "壁ドン",
+      "value": "Seinään nojaten"
+    },
+    {
+      "key": "変更のあるアニメーションの調整値を保存します。",
+      "value": "Tallentaa niiden animaatioiden säädöt, joissa on muutoksia."
+    },
+    {
+      "key": "変更のあるアニメーションの調整値を複製して保存します。元々設定されていたファイルは変更されません",
+      "value": "Kopioi säätöanimaatiot ja tallentaa muuttuneet arvot. Alun perin määritetyt tiedostot säilytetään."
+    },
+    {
+      "key": "変更を破棄して保存されていた値に戻します",
+      "value": "Hylkää muutokset ja palauttaa tallennetut arvot."
+    },
+    {
+      "key": "変更履歴を読み込めませんでした。",
+      "value": "Muutosluetteloa ei voitu ladata."
+    },
+    {
+      "key": "太ももの長さ",
+      "value": "Reiden pituus"
+    },
+    {
+      "key": "女の子座り",
+      "value": "W-istunta"
+    },
+    {
+      "key": "姿勢 {0}",
+      "value": "Asento {0}"
+    },
+    {
+      "key": "姿勢のプレビュー",
+      "value": "Esikatsele asentoa"
+    },
+    {
+      "key": "姿勢のプレビューや、細かな調整ができます。",
+      "value": "Esikatsele ja hienosäädä asentoja."
+    },
+    {
+      "key": "姿勢の分類",
+      "value": "Asentoluokka"
+    },
+    {
+      "key": "姿勢の分類が設定されていません。",
+      "value": "Asentoluokkia ei ole määritetty."
+    },
+    {
+      "key": "姿勢の識別キー",
+      "value": "Asennon tunnisteavain"
+    },
+    {
+      "key": "姿勢メニューの生成先が別のアバター、またはアバターの外にあります。",
+      "value": "Asentovalikon kohde on toisessa avatarissa tai tämän avatarin ulkopuolella."
+    },
+    {
+      "key": "姿勢メニューの生成先が見つかりません。",
+      "value": "Asentovalikon luontikohdetta ei löytynyt."
+    },
+    {
+      "key": "姿勢別IK自動調整が有効です。従来のアバター固有補正と調整Animationは使用しません。",
+      "value": "Asentokohtainen IK-säätö on käytössä. Vanhat avatarikorjaukset ja säätöanimaatiot ohitetaan."
+    },
+    {
+      "key": "姿勢別IK自動調整を使用中です。従来の身体の補正は使用しません。",
+      "value": "Asentokohtainen IK-säätö on käytössä. Vanhaa kehon korjausta ei käytetä."
+    },
+    {
+      "key": "姿勢別IK設定一覧（{0}件）",
+      "value": "Asentokohtaiset IK-asetukset ({0})"
+    },
+    {
+      "key": "姿勢設定を追加",
+      "value": "Lisää asennon asetukset"
     },
     {
       "key": "姿勢選択",
       "value": "Valitse asento"
     },
     {
+      "key": "完了",
+      "value": "Valmis"
+    },
+    {
+      "key": "実験",
+      "value": "Kokeellinen"
+    },
+    {
+      "key": "寝の高さ閾値",
+      "value": "Makuuasennon korkeusraja"
+    },
+    {
+      "key": "寝姿勢",
+      "value": "Makuulla"
+    },
+    {
       "key": "寝返り",
       "value": "Käänny"
+    },
+    {
+      "key": "寝返りの設定",
+      "value": "Käänny-asetukset"
+    },
+    {
+      "key": "寝返りを使う",
+      "value": "Ota Käänny käyttöön"
+    },
+    {
+      "key": "寝返り時の横向き",
+      "value": "Käänny-toiminnon sivuasento"
+    },
+    {
+      "key": "対処:",
+      "value": "Toimi näin:"
+    },
+    {
+      "key": "対処: Window > General > Consoleで、この操作中に最初に出た赤いエラーを確認してください。設定の確認で問題が解消しない場合は、このエラー番号・詳細とツールのバージョンをお問い合わせに添えてください。",
+      "value": "Toimi näin: Tarkista tämän toiminnon ensimmäinen punainen virhe kohdasta Window > General > Console. Jos asetusten tarkistus ei ratkaise ongelmaa, ilmoita tuelle virhekoodi, tiedot ja työkalun versio."
+    },
+    {
+      "key": "対象の腕または脚のHumanoidボーンが見つかりません。",
+      "value": "Kohdekäsivarren tai -jalan Humanoid-luita ei löytynyt."
+    },
+    {
+      "key": "対象を選択（{0}）",
+      "value": "Valitse kyseinen objekti ({0})"
+    },
+    {
+      "key": "小さな傾きを無視する範囲",
+      "value": "Pään kallistuksen kuollut alue"
+    },
+    {
+      "key": "少女モーション集追加",
+      "value": "Lisää Girl Motion Collection"
+    },
+    {
+      "key": "左右傾き",
+      "value": "Sivukallistus"
+    },
+    {
+      "key": "左右反対側の部位の調整値をこの部位へ適用します",
+      "value": "Käyttää vastakkaisen puolen säätöarvoja tähän kehonosaan."
     },
     {
       "key": "左右反転",
       "value": "Peilaa"
     },
     {
+      "key": "左向き寝",
+      "value": "Kylkiuni V"
+    },
+    {
+      "key": "左向き昼寝",
+      "value": "Kylkitorkut V"
+    },
+    {
+      "key": "左向き昼寝２",
+      "value": "Kylkitorkut V 2"
+    },
+    {
+      "key": "左手指",
+      "value": "Vasemman käden sormet"
+    },
+    {
+      "key": "左手首",
+      "value": "Vasen ranne"
+    },
+    {
+      "key": "左脚",
+      "value": "Vasen jalka"
+    },
+    {
+      "key": "左腕",
+      "value": "Vasen käsivarsi"
+    },
+    {
+      "key": "差異:",
+      "value": "Ero:"
+    },
+    {
+      "key": "布団",
+      "value": "Futon"
+    },
+    {
       "key": "床の高さ",
       "value": "Lattian kork."
+    },
+    {
+      "key": "床を基準",
+      "value": "Lattia"
+    },
+    {
+      "key": "座りの高さ閾値",
+      "value": "Istuma-asennon korkeusraja"
     },
     {
       "key": "座り姿勢",
       "value": "Istuma"
     },
     {
+      "key": "座布団",
+      "value": "Lattiatyyny"
+    },
+    {
+      "key": "弱",
+      "value": "Heikko"
+    },
+    {
+      "key": "弱・中・強はゆっくりした呼吸、急は速い呼吸です。姿勢ごとに選べます。",
+      "value": "Heikko, Keskivahva ja Vahva käyttävät hidasta hengitystä; Nopea käyttää nopeaa hengitystä. Valitse asennolle erikseen."
+    },
+    {
+      "key": "強",
+      "value": "Vahva"
+    },
+    {
+      "key": "待ちぼうけ",
+      "value": "Yhä odottamassa"
+    },
+    {
+      "key": "待ち伏せ",
+      "value": "Väijytys"
+    },
+    {
+      "key": "後方彼氏",
+      "value": "Vahtimassa"
+    },
+    {
+      "key": "従者のポーズ",
+      "value": "Palvelija"
+    },
+    {
+      "key": "忍者走り",
+      "value": "Ninjajuoksu"
+    },
+    {
+      "key": "思考中",
+      "value": "Mietintä"
+    },
+    {
+      "key": "急",
+      "value": "Nopea"
+    },
+    {
+      "key": "情報",
+      "value": "Tiedot"
+    },
+    {
       "key": "戻る",
       "value": "Takaisin"
+    },
+    {
+      "key": "手動で方向を指定",
+      "value": "Määritä suunta käsin"
+    },
+    {
+      "key": "手動指定を解除",
+      "value": "Tyhjennä manuaalinen valinta"
+    },
+    {
+      "key": "手動指定時だけ使用します。アバター正面を基準にした方向です。",
+      "value": "Käytetään vain käsin määritetyn taivutussuunnan kanssa suhteessa avatarin etusuuntaan."
+    },
+    {
+      "key": "手足のIKルールを追加",
+      "value": "Lisää raajan IK-sääntö"
+    },
+    {
+      "key": "手足のIKルール（{0}件）",
+      "value": "Raajojen IK-säännöt ({0})"
+    },
+    {
+      "key": "手足の向きも合わせる",
+      "value": "Sovita raajan kierto"
+    },
+    {
+      "key": "手足の自動調整を使う",
+      "value": "Ota raajojen automaattinen säätö käyttöön"
+    },
+    {
+      "key": "抱きしめ",
+      "value": "Halaus"
+    },
+    {
+      "key": "指の形を固定・解除する切り替えをメニューに追加します。固定中はコントローラーを握っても形を保てます。",
+      "value": "Lisää kytkimen, jolla sormieleet voi lukita myös ohjainta puristettaessa."
+    },
+    {
+      "key": "指定した種類にはこのモーションを使います。未指定の種類は元の設定を使います。",
+      "value": "Valitut tyypit käyttävät näitä liikkeitä. Muut tyypit säilyttävät alkuperäiset asetuksensa."
+    },
+    {
+      "key": "探しているPrefab: {0}\n購入ファイルのライセンス用unitypackageだけでは、ツール本体の導入は完了しません。ALCOM / VCCでこのプロジェクトに商品本体と「ゆにさきポーズシステム」が追加されているか確認してください。\n導入済みの場合: {1}",
+      "value": "Etsittävä prefab: {0}\nPelkkä ostettu lisenssin asennuspaketti ei suorita tuotteen asennusta loppuun. Varmista ALCOM / VCC:ssä, että tuote ja Unisaki Posing System on lisätty tähän projektiin.\nJos jo asennettu: {1}"
+    },
+    {
+      "key": "接地補正の強さ",
+      "value": "Kosketuskorjauksen voimakkuus"
     },
     {
       "key": "撮影モード",
       "value": "Kuvatila"
     },
     {
+      "key": "撮影モードで動かした位置と向きを他の人にも表示できます。自分の画面だけで撮影する場合は0 bitで使えます。",
+      "value": "Näyttää Kuvatilan sijainnin ja kierron myös muille. Vain omalla näytöllä kuvaaminen käyttää 0 bittiä."
+    },
+    {
+      "key": "撮影モードを同期する",
+      "value": "Synkronoi Kuvatila"
+    },
+    {
       "key": "撮影モードを終了",
       "value": "Lopeta kuvaus"
+    },
+    {
+      "key": "撮影モード中は頭を非表示にしない",
+      "value": "Pidä pää näkyvissä Kuvatilassa"
+    },
+    {
+      "key": "撮影機能に必要なため、自動で選ばれています。",
+      "value": "Valittu automaattisesti, koska Kuvatila tarvitsee sen."
+    },
+    {
+      "key": "操作対象のポーズツールが見つかりません。",
+      "value": "Valittua asentotyökalua ei löytynyt."
+    },
+    {
+      "key": "斜め座り",
+      "value": "Vinosti istuen"
+    },
+    {
+      "key": "旧unitypackage版の「{0}」フォルダがプロジェクトに残っています。新版と競合する可能性があります。削除する前に移行手順とバックアップを確認してください。",
+      "value": "Vanhan unitypackagen kansio «{0}» on yhä projektissa ja voi olla ristiriidassa nykyversion kanssa. Tarkista siirtymisohjeet ja varmuuskopio ennen sen poistamista."
+    },
+    {
+      "key": "旧座標形式です。調整アニメーションウィンドウで基準アバターを表示し、",
+      "value": "Tämä kohta käyttää vanhaa koordinaattimuotoa. Näytä vertailuavatar säätöikkunassa ja "
+    },
+    {
+      "key": "旧座標形式です。調整アニメーションウィンドウで基準アバターを表示し、「現在の手足位置から取得」を一度実行してください。再取得までは元Animationの手足の向きを維持します。",
+      "value": "Tämä kohta käyttää vanhaa koordinaattimuotoa. Näytä vertailuavatar säätöikkunassa ja suorita Tallenna raajojen nykyiset sijainnit kerran. Lähdeanimaation raajojen suunta säilytetään uuteen tallennukseen asti."
+    },
+    {
+      "key": "旧形式の保存データ（項目を比較できません）",
+      "value": "Vanhat tallennetut tiedot (asetuksia ei voi verrata)"
+    },
+    {
+      "key": "旧版のアバター設定を取り除きます",
+      "value": "Poista vanhat avatarasetukset"
+    },
+    {
+      "key": "旧版フォルダの削除を確認",
+      "value": "Vahvista vanhan kansion poisto"
+    },
+    {
+      "key": "昼寝",
+      "value": "Torkut"
+    },
+    {
+      "key": "晴天寝",
+      "value": "Torkut auringossa"
+    },
+    {
+      "key": "最低膝曲げ角度（°）",
+      "value": "Polven vähimmäistaivutus (asteina)"
+    },
+    {
+      "key": "最初の姿勢をSceneタブで確認できます。終了すると元の姿勢に戻ります。",
+      "value": "Esikatsele ensimmäistä ruutua Scene-näkymässä. Esikatselun lopettaminen palauttaa alkuperäisen asennon."
+    },
+    {
+      "key": "最新",
+      "value": "Ajan tasalla"
+    },
+    {
+      "key": "有効なHumanoid Animatorがありません。",
+      "value": "Kelvollista Humanoid Animator -komponenttia ei löytynyt."
+    },
+    {
+      "key": "有効な共通ポージングAnimatorが見つかりません。",
+      "value": "Aktiivista yhteistä asento-Animatoria ei löytynyt."
+    },
+    {
+      "key": "有効な文字列が見つかりませんでした。",
+      "value": "Kelvollisia tekstikohtia ei löytynyt."
+    },
+    {
+      "key": "有効にすると従来の調整Animationを無視し、このIK設定から自動調整Animationを生成します。",
+      "value": "Kun käytössä, automaattiset säätöanimaatiot luodaan näistä IK-asetuksista vanhojen säätöanimaatioiden sijaan."
+    },
+    {
+      "key": "服従",
+      "value": "Tottelevaisuus"
+    },
+    {
+      "key": "木の上寝",
+      "value": "Torkut puussa"
+    },
+    {
+      "key": "未保存の手動調整があります",
+      "value": "Tallentamattomia manuaalisia säätöjä"
+    },
+    {
+      "key": "未実行",
+      "value": "Ei esikoontia"
+    },
+    {
+      "key": "未対応のターゲット空間です: {0}",
+      "value": "Kohdekoordinaatistoa ei tueta: {0}"
+    },
+    {
+      "key": "未対応の長さの基準です: {0}",
+      "value": "Pituusvertailua ei tueta: {0}"
+    },
+    {
+      "key": "未指定",
+      "value": "Ei määritetty"
+    },
+    {
+      "key": "条件式が間違っているパラメータがあります。「{0}」ファイルの「{1}」というレイヤーで使用されている「{2}」というパラメータは、AnimatorController内では「{3}」という型ですが、条件式に「{4}」が使われているため条件式が正しく動作しません。このためギミックや処理が正しく動作しない可能性があります。使用しているツールやギミックの相性の問題だと思われるため、このパラメータを使用しているツールの開発者に連絡してください",
+      "value": "Animator-ehto käyttää yhteensopimatonta parametrityyppiä. Tiedoston {0} tasolla {1} parametri {2} on määritetty tyypiksi {3}, mutta käytössä on ehto {4}. Tämä voi estää toimintoja toimimasta oikein. Kysy yhteensopivuudesta parametria käyttävän työkalun kehittäjältä."
+    },
+    {
+      "key": "検出できる設定エラーはありません",
+      "value": "Havaittavia asetusvirheitä ei ole"
+    },
+    {
+      "key": "検索",
+      "value": "Haku"
+    },
+    {
+      "key": "楽園",
+      "value": "Paratiisi"
+    },
+    {
+      "key": "横を向くまでの頭の傾き",
+      "value": "Pään kallistus täyteen kierrokseen"
+    },
+    {
+      "key": "横向きのAnimationClipを指定してください。未指定の場合は、従来どおり通常欄の完成済み寝返りアニメーションを使います。",
+      "value": "Määritä sivuasennon AnimationClip. Jos kenttä on tyhjä, tavallisen kentän valmis Käänny-animaatio toimii entiseen tapaan."
+    },
+    {
+      "key": "機能",
+      "value": "Toiminnot"
+    },
+    {
+      "key": "注意・補足を確認（{0}件）",
+      "value": "Näytä ilmoitukset ({0})"
+    },
+    {
+      "key": "海岸",
+      "value": "Meren äärellä"
+    },
+    {
+      "key": "添い寝ツール追加",
+      "value": "Lisää Sleep-together tool"
+    },
+    {
+      "key": "照れ",
+      "value": "Ujo"
+    },
+    {
+      "key": "猫のポーズ（右）",
+      "value": "Kissavenytys O"
+    },
+    {
+      "key": "猫のポーズ（左）",
+      "value": "Kissavenytys V"
+    },
+    {
+      "key": "猫寝",
+      "value": "Kissantorkut"
+    },
+    {
+      "key": "現在のアニメーション",
+      "value": "Lähdeanimaatio"
+    },
+    {
+      "key": "現在のアニメーションに調整アニメーションを合成したものを新しいアニメーションクリップとして保存します。",
+      "value": "Yhdistää lähdeanimaation ja säädön uudeksi animaatioleikkeeksi."
+    },
+    {
+      "key": "現在のアバターから読み込む",
+      "value": "Tuo nykyisestä avatarista"
+    },
+    {
+      "key": "現在のモーションは AnimationClip ではありません。差分調整は AnimationClip のみ対応しています。",
+      "value": "Nykyinen liike ei ole AnimationClip. Säätöerot tukevat vain AnimationClip-leikkeitä."
+    },
+    {
+      "key": "現在の手足位置・見た目の向き・曲げ方向をIKルールへ記録しました。",
+      "value": "Raajan nykyinen sijainti, näkyvä suunta ja taivutussuunta tallennettiin IK-sääntöön."
+    },
+    {
+      "key": "現在の設定からプリセットを作成",
+      "value": "Luo esiasetus nykyisistä asetuksista"
+    },
+    {
+      "key": "現在は制作中です。商品Prefabから参照されていても、従来の調整Animationが引き続き使用されます。",
+      "value": "Työn alla. Vanhat säätöanimaatiot pysyvät käytössä, vaikka tuoteprefab viittaisi tähän luetteloon."
+    },
+    {
+      "key": "生成時にアバターのBaseからモーションを検出します。取り込み設定の一覧には追加しません。手動設定がある種類は手動指定を優先します。",
+      "value": "Tunnistaa liikkeet avatarin Base-tasolta luonnin aikana. Niitä ei lisätä tuontiluetteloon. Manuaaliset valinnat ovat etusijalla."
+    },
+    {
+      "key": "画像でポーズを見分けやすくできます。アバターのビルド時間は少し長くなります。",
+      "value": "Helpottaa asentojen tunnistamista pikkukuvilla. Avatarin koonti kestää hieman kauemmin."
+    },
+    {
+      "key": "画像ファイル",
+      "value": "Kuvatiedosto"
+    },
+    {
+      "key": "画像ファイル・補足",
+      "value": "Kuvatiedosto / lisätiedot"
+    },
+    {
+      "key": "画像ファイル・補足を閉じる",
+      "value": "Sulje kuvatiedosto / lisätiedot"
+    },
+    {
+      "key": "異変無し",
+      "value": "Reitti selvä"
+    },
+    {
+      "key": "直立",
+      "value": "Seisten"
+    },
+    {
+      "key": "着地（短め）",
+      "value": "Lyhyt laskeutuminen"
+    },
+    {
+      "key": "着地（短）",
+      "value": "Lyhyt laskeutuminen"
+    },
+    {
+      "key": "着地（長め）",
+      "value": "Pitkä laskeutuminen"
+    },
+    {
+      "key": "着地（長）",
+      "value": "Pitkä laskeutuminen"
+    },
+    {
+      "key": "睡魔",
+      "value": "Uninen"
+    },
+    {
+      "key": "短い落下",
+      "value": "Lyhyt putoaminen"
+    },
+    {
+      "key": "砂浜",
+      "value": "Hiekkaranta"
+    },
+    {
+      "key": "確認",
+      "value": "Vahvista"
+    },
+    {
+      "key": "種類ごとに1つのモーションを指定できます。上の「元の姿勢を使う」とは別に設定できます。",
+      "value": "Valitse yksi liike tyyppiä kohti riippumatta yllä olevasta Käytä alkuperäisiä asentoja -valinnasta."
+    },
+    {
+      "key": "空気椅子",
+      "value": "Seinäistunta"
+    },
+    {
+      "key": "立ちのみ",
+      "value": "Vain seisonta"
+    },
+    {
+      "key": "立ち・歩き",
+      "value": "Seisonta / kävely"
+    },
+    {
+      "key": "立ち・歩き・走り",
+      "value": "Seisonta / kävely / juoksu"
     },
     {
       "key": "立ち姿勢",
       "value": "Seisoma"
     },
     {
+      "key": "立ち止まっているときに自動で入る、VRChat標準の身体の揺れを止められます。ポーズツールで設定した呼吸の動きはそのまま使えます。",
+      "value": "Poistaa VRChatin oletusarvoisen huojunnan paikallaan, mutta säilyttää tämän työkalun hengitysanimaation."
+    },
+    {
+      "key": "終了",
+      "value": "Pysäytä"
+    },
+    {
+      "key": "絨毯",
+      "value": "Matto"
+    },
+    {
+      "key": "置き場所の基準",
+      "value": "Kohteen vertailu"
+    },
+    {
+      "key": "考える男",
+      "value": "Ajattelija"
+    },
+    {
+      "key": "肘パンチ",
+      "value": "Kyynärpääisku"
+    },
+    {
+      "key": "肘・膝の曲げ方",
+      "value": "Kyynärpään / polven taivutus"
+    },
+    {
+      "key": "肘・膝を曲げる方向",
+      "value": "Kyynärpään / polven taivutussuunta"
+    },
+    {
+      "key": "肘付き",
+      "value": "Kyynärpäänoja"
+    },
+    {
+      "key": "胸のボーン（Chest）が割り当てられていません。",
+      "value": "Chest-luuta ei ole määritetty."
+    },
+    {
+      "key": "胸の姿勢が崩れる場合は元モデルのRig > Configure > BodyのChestを確認してください。Upper Chestとは別の項目です。対応するボーンがない場合は無理に割り当てず、配布元の設定を確認してください。",
+      "value": "Jos rinnan asento on väärä, tarkista alkuperäisen mallin Chest kohdasta Rig > Configure > Body. Chest ja Upper Chest ovat eri määrityksiä. Noudata tekijän asetuksia, jos mallissa ei ole vastaavaa luuta."
+    },
+    {
+      "key": "胸の長さ",
+      "value": "Rintakehän pituus"
+    },
+    {
+      "key": "脚を伸ばしたときに、膝が逆向きに折れるのを抑えます。",
+      "value": "Estää polvia taittumasta taakse jalkojen suoristuessa."
+    },
+    {
+      "key": "脚全体の長さ（太もも＋すね）",
+      "value": "Koko jalan pituus (reisi + sääri)"
+    },
+    {
+      "key": "脱力寝",
+      "value": "Lysähtänyt uneen"
+    },
+    {
+      "key": "腕や脚の長さに合わせて、手足が自然な置き場所へ届くよう調整します。",
+      "value": "Säädä raajat luonnollisiin paikkoihin tämän avatarin mittasuhteiden mukaan."
+    },
+    {
+      "key": "腕固定",
+      "value": "Lukitse käsivarret"
+    },
+    {
+      "key": "腕枕寝",
+      "value": "Torkut käsivarrella"
+    },
+    {
+      "key": "腕枕（右）",
+      "value": "Käsivarsityyny O"
+    },
+    {
+      "key": "腕枕（左）",
+      "value": "Käsivarsityyny V"
+    },
+    {
+      "key": "腕立て伏せ",
+      "value": "Punnerrus"
+    },
+    {
+      "key": "膝がこの角度より伸びる前にクランプします。",
+      "value": "Rajoittaa polven ojennusta ennen kuin taivutuskulma alittaa tämän arvon."
+    },
+    {
+      "key": "膝が伸びきる手前で止める角度です。",
+      "value": "Pysäytä polven ojennus juuri ennen täyttä suoristumista."
+    },
+    {
+      "key": "膝が逆向きに曲がるのを防ぐ",
+      "value": "Estä polvien taittuminen taakse"
+    },
+    {
+      "key": "膝の補正",
+      "value": "Polven korjaus"
+    },
+    {
+      "key": "膝の計測に必要なHumanoid Animatorがありません。",
+      "value": "Polven mittaukseen tarvittava Humanoid Animator puuttuu."
+    },
+    {
+      "key": "膝立て",
+      "value": "Yksi polvi ylös"
+    },
+    {
+      "key": "自分で用意したモーションを使う",
+      "value": "Käytä omia liikkeitä"
+    },
+    {
+      "key": "自分の頭が近くにあっても撮影できます。自分の画面だけに反映され、撮影終了後は通常の表示に戻ります。",
+      "value": "Pitää pään näkyvissä omalla näytöllä lähikuvia varten. Normaali näkyvyys palautuu Kuvatilan päätyttyä."
+    },
+    {
+      "key": "自動アバター補正",
+      "value": "Avatarin automaattinen korjaus"
+    },
+    {
+      "key": "自動取り込みの結果は生成時だけ使い、この一覧には追加しません。手動指定をOFFにした種類や、指定済みモーションを外した種類は自動で補完しません。自動取り込みに戻すには「手動指定を解除」を使います。",
+      "value": "Automaattista tuontia käytetään luonnin aikana, eikä sitä lisätä tähän luetteloon. Käsin käytöstä poistettuja tai tyhjennettyjä tyyppejä ei täytetä automaattisesti. Palauta automaattinen tuonti Tyhjennä manuaalinen valinta -toiminnolla."
+    },
+    {
+      "key": "自動姿勢IK設定",
+      "value": "Asentojen IK-luettelo"
+    },
+    {
+      "key": "自動検出",
+      "value": "Tunnista automaattisesti"
+    },
+    {
+      "key": "自動生成された補正",
+      "value": "Luotu korjaus"
+    },
+    {
+      "key": "自動調整Animationの作成に失敗しました: {0}",
+      "value": "Automaattisen säätöanimaation luonti epäonnistui: {0}"
+    },
+    {
+      "key": "自動足踏みに関する案内を非表示",
+      "value": "Piilota Auto-Footsteps-ilmoitukset"
+    },
+    {
+      "key": "芝生",
+      "value": "Nurmikko"
+    },
+    {
+      "key": "落下（短め）",
+      "value": "Lyhyt putoaminen"
+    },
+    {
+      "key": "落下（長め）",
+      "value": "Pitkä putoaminen"
+    },
+    {
+      "key": "行き倒れ",
+      "value": "Romahtanut"
+    },
+    {
+      "key": "行った操作・起きたこと：",
+      "value": "Mitä tein ja mitä tapahtui:"
+    },
+    {
+      "key": "衣装や見た目を変えたときに使います。設定を変えたときはプレビルドしてください。",
+      "value": "Käytä tätä asun tai ulkoasun muuttamisen jälkeen. Päivitä esikoonti asetusten muuttamisen jälkeen."
+    },
+    {
+      "key": "複数のアニメーションをここにドロップ",
+      "value": "Pudota animaatioleikkeet tähän"
+    },
+    {
+      "key": "複数の手足を解き直す回数です。通常は2回です。",
+      "value": "Usean raajan ratkaisuun käytettävien käsittelykertojen määrä. Tavallisesti 2."
+    },
+    {
+      "key": "複製",
+      "value": "Kopioi"
+    },
+    {
+      "key": "複製して保存",
+      "value": "Kopioi/tallenna"
+    },
+    {
+      "key": "複製する調整アニメーションが存在しません。",
+      "value": "Kopioitavaa säätöanimaatiota ei ole."
+    },
+    {
+      "key": "複製保存する変更はありませんでした。",
+      "value": "Kopioitavia ja tallennettavia muutoksia ei ollut."
+    },
+    {
+      "key": "見た目の手足の向き",
+      "value": "Raajan näkyvä suunta"
+    },
+    {
+      "key": "見下し",
+      "value": "Katse alas"
+    },
+    {
+      "key": "観察中",
+      "value": "Tarkkailu"
+    },
+    {
+      "key": "角度は度数で指定します。寝姿勢を選び、VRChatのメニューで首固定を解除して使ってください。",
+      "value": "Kulmat ovat asteina. Valitse makuuasento ja vapauta pään lukitus VRChat-valikosta."
+    },
+    {
+      "key": "計測用クローンに有効な Humanoid Animator がありません。",
+      "value": "Mittauskopiolla ei ole kelvollista Humanoid Animator -komponenttia."
+    },
+    {
+      "key": "計算する順番",
+      "value": "Käsittelyjärjestys"
+    },
+    {
+      "key": "計算の反復回数",
+      "value": "Ratkaisukierrokset"
+    },
+    {
+      "key": "訓練場",
+      "value": "Harjoituskenttä"
+    },
+    {
       "key": "設定",
       "value": "Asetukset"
+    },
+    {
+      "key": "設定にエラーがあります。Inspectorの「設定の確認」を開いてください。",
+      "value": "Asetuksissa on virheitä. Avaa Inspectorin Tarkista asetukset."
+    },
+    {
+      "key": "設定に問題があるため、ポーズの生成を開始できません。",
+      "value": "Asentojen luontia ei voitu aloittaa asetusvirheiden vuoksi."
+    },
+    {
+      "key": "設定の更新あり",
+      "value": "Asetukset muuttuneet"
+    },
+    {
+      "key": "設定の確認",
+      "value": "Tarkista asetukset"
+    },
+    {
+      "key": "設定の確認、またはプレビルドの更新が必要です。Inspectorを確認してください。",
+      "value": "Tarkista asetukset tai päivitä esikoonti. Katso Inspectoria."
+    },
+    {
+      "key": "設定を先に生成して、アバターのビルド時間を短縮します。",
+      "value": "Luo asetukset etukäteen nopeuttaaksesi avatarin koontia."
+    },
+    {
+      "key": "設定を再確認",
+      "value": "Tarkista asetukset uudelleen"
+    },
+    {
+      "key": "診断 ",
+      "value": "Diagnostiikka "
+    },
+    {
+      "key": "該当するプリセットがありません。",
+      "value": "Vastaavia esiasetuksia ei löytynyt."
+    },
+    {
+      "key": "該当する項目をポーズ一覧から削除し、必要なアニメーションを追加し直してください。",
+      "value": "Poista puuttuva kohta asentoluettelosta ja lisää tarvittava animaatio uudelleen."
+    },
+    {
+      "key": "詳細",
+      "value": "Lisätiedot"
+    },
+    {
+      "key": "調整アニメーション",
+      "value": "Säätöanimaatio"
+    },
+    {
+      "key": "調整アニメーションを複製して保存しました。\n新しいファイル: {0}",
+      "value": "Säätöanimaatio kopioitu ja tallennettu.\nUusi tiedosto: {0}"
+    },
+    {
+      "key": "調整アニメーションを複製して保存します。元々設定されていたファイルは変更されません",
+      "value": "Kopioi ja tallentaa säätöanimaation. Alun perin määritetty tiedosto säilytetään."
+    },
+    {
+      "key": "調整アニメーションを複製します。",
+      "value": "Kopioi säätöanimaation."
+    },
+    {
+      "key": "調整クリップ",
+      "value": "Säätöleike"
+    },
+    {
+      "key": "調整値をすべて0にリセットします。",
+      "value": "Nollaa kaikki säätöarvot."
+    },
+    {
+      "key": "調整値をファイルに保存します。",
+      "value": "Tallentaa säätöarvot tiedostoon."
+    },
+    {
+      "key": "調整可能なアニメーションが見つかりません。PosingSystem の設定を確認してください。",
+      "value": "Säädettäviä animaatioita ei löytynyt. Tarkista PosingSystemin asetukset."
+    },
+    {
+      "key": "調整結果をプレビューしています。",
+      "value": "Esikatsellaan säädettyä tulosta."
+    },
+    {
+      "key": "警告の表示設定",
+      "value": "Varoitusten näyttöasetukset"
+    },
+    {
+      "key": "警戒",
+      "value": "Vartiossa"
+    },
+    {
+      "key": "警戒（右）",
+      "value": "Vartiossa O"
+    },
+    {
+      "key": "警戒（左）",
+      "value": "Vartiossa V"
+    },
+    {
+      "key": "足IKで膝が逆向きに折れることを防止します。",
+      "value": "Estää jalkojen IK:ta taivuttamasta polvia taaksepäin."
     },
     {
       "key": "足の高さ",
       "value": "Jalkojen kork."
     },
     {
+      "key": "足伸ばし",
+      "value": "Jalat ojossa"
+    },
+    {
       "key": "足固定",
       "value": "Lukitse jalat"
+    },
+    {
+      "key": "足組み",
+      "value": "Jalat ristissä"
+    },
+    {
+      "key": "足組み２",
+      "value": "Jalat ristissä 2"
+    },
+    {
+      "key": "足降ろし",
+      "value": "Jalat alas"
     },
     {
       "key": "距離",
       "value": "Etäisyys"
     },
     {
+      "key": "蹲踞",
+      "value": "Syväkyykky"
+    },
+    {
+      "key": "身体のボーン、アバター全体、床のいずれを基準にするか選びます。",
+      "value": "Valitse vertailuksi kehon luu, avatar tai lattia."
+    },
+    {
+      "key": "身体のボーンを基準",
+      "value": "Kehon luu"
+    },
+    {
+      "key": "身体の補正",
+      "value": "Kehon korjaus"
+    },
+    {
+      "key": "身長",
+      "value": "Avatarin korkeus"
+    },
+    {
+      "key": "追加先にあるクリップは重複して追加されません。",
+      "value": "Kohteessa jo olevia leikkeitä ei lisätä uudelleen."
+    },
+    {
+      "key": "追加先の姿勢",
+      "value": "Kohdeasento"
+    },
+    {
+      "key": "追加先を確認してください [PS040]",
+      "value": "Tarkista kohde [PS040]"
+    },
+    {
+      "key": "追加先を選択してください [PS040]",
+      "value": "Valitse kohde [PS040]"
+    },
+    {
+      "key": "追加機能を外して、ExpressionParametersの使用量を減らす",
+      "value": "Poista lisätoimintoja käytöstä vähentääksesi ExpressionParameters-muistin käyttöä"
+    },
+    {
+      "key": "逆関節防止機能",
+      "value": "Estä polvien taittuminen taakse"
+    },
+    {
+      "key": "通常のアニメーションを中央にし、横向きの姿勢と左右反転をビルド時に合成します。各クリップの最初の姿勢を使用します。中央は0.5、左右端は0と1です。接地補正は0で無効、0.25で25％です。",
+      "value": "Koontivaiheessa keskellä oleva tavallinen asento yhdistetään sivuasentoon ja sen peilikuvaan. Kustakin leikkeestä käytetään ensimmäistä ruutua. Keskikohta on 0,5 ja päätepisteet 0 ja 1. Kosketuskorjaus on pois arvolla 0 ja 25 % arvolla 0,25."
+    },
+    {
+      "key": "通常は1です。小さくすると元の姿勢を多く残します。",
+      "value": "Tavallisesti 1. Pienemmät arvot säilyttävät enemmän lähdeasentoa."
+    },
+    {
+      "key": "通常は「メニュー名_姿勢名」です。調整ウィンドウから追加すると自動入力されます。",
+      "value": "Tavallisesti menuName_poseName. Arvo täytetään automaattisesti lisättäessä kohta säätöikkunasta."
+    },
+    {
+      "key": "通常は元の姿勢を維持します。対象アバターへ元Animationを適用した直後と同じ側へ曲げます。",
+      "value": "Säilyttää tavallisesti lähdeasennon ja taivuttaa samalle puolelle kuin heti lähdeanimaation käyttämisen jälkeen kohdeavatarilla."
+    },
+    {
+      "key": "運動会",
+      "value": "Urheilupäivä"
+    },
+    {
+      "key": "適用するPrefabs (PosingSystem)",
+      "value": "Käytettävät PosingSystem-prefabit"
+    },
+    {
+      "key": "選択アバターの1評価版比較コピーを作成",
+      "value": "Luo käsittelyn vertailukopio"
+    },
+    {
+      "key": "選択アバターの最適化比較コピーを作成",
+      "value": "Luo optimoinnin vertailukopio"
+    },
+    {
+      "key": "選択時",
+      "value": "Valittaessa"
+    },
+    {
+      "key": "配置対象のアバターPrefab/FBXのファイル名",
+      "value": "Kohdeavatarin prefabien / FBX-tiedostojen nimet"
+    },
+    {
+      "key": "配置対象のアバターPrefabs/FBX",
+      "value": "Kohdeavatarin prefabit / FBX"
+    },
+    {
+      "key": "長い落下",
+      "value": "Pitkä putoaminen"
+    },
+    {
+      "key": "長さの基準に必要なHumanoidボーン（{0}・{1}）がありません。",
+      "value": "Pituusvertailuun tarvittavat Humanoid-luut puuttuvat: {0}, {1}."
+    },
+    {
+      "key": "閉じる",
+      "value": "Sulje"
+    },
+    {
+      "key": "開く ›",
+      "value": "Avaa ›"
+    },
+    {
+      "key": "閾値設定",
+      "value": "Korkeusrajat"
+    },
+    {
+      "key": "限界突破",
+      "value": "Laajennettu"
+    },
+    {
+      "key": "限界突破をオンにするとパラメータの設定幅が5倍になります",
+      "value": "Ottaa käyttöön viisinkertaisen parametrialueen normaaliin verrattuna."
+    },
+    {
+      "key": "面接",
+      "value": "Haastattelu"
+    },
+    {
+      "key": "順番",
+      "value": "Järjestys"
+    },
+    {
+      "key": "頭、腰、膝、ViewPosition（目の位置）など、手足の置き場所を測る基準です。ViewPositionは頭の動きに追従します。",
+      "value": "Käden tai jalan sijainnin mittausvertailu, kuten Head, Hips, polvi tai ViewPosition (silmien sijainti). ViewPosition seuraa pään liikettä."
+    },
+    {
+      "key": "頭のボーン（Head）を取得できません。姿勢の高さを計算できません。",
+      "value": "Head-luuta ei löytynyt, joten asennon korkeutta ei voi laskea."
+    },
+    {
+      "key": "頭の位置を保ち、足側の高さを変えられます。足が床に埋まる・浮くときに調整できます。",
+      "value": "Säätää jalkojen korkeutta päätä siirtämättä, jotta jalat eivät leiju tai uppoa lattiaan."
+    },
+    {
+      "key": "頭の向きに合わせて寝返りできます。一部の寝姿勢のみ対応しています。",
+      "value": "Voit kääntyä päätä kallistamalla. Toimii tietyissä makuuasennoissa."
+    },
+    {
+      "key": "頭の大きさ（HeadとViewpointの前後差）",
+      "value": "Pään koko (Head/Viewpoint-syvyysero)"
+    },
+    {
+      "key": "頭の大きさ（HeadとViewpointの高低差）",
+      "value": "Pään koko (Head/Viewpoint-korkeusero)"
+    },
+    {
+      "key": "頭の高さ無視",
+      "value": "Ohita pään korkeus"
+    },
+    {
+      "key": "頭も含めた身体全体の高さを変えられます。VRChatの「床の高さ」で、50%を元の高さとして上下3mまで調整できます。",
+      "value": "Siirtää koko kehoa päätä myöten enintään 3 m ylös tai alas. Lattian kork. -säädön 50 % vastaa alkuperäistä korkeutta."
+    },
+    {
+      "key": "首の向きの違いによる姿勢崩れを抑制",
+      "value": "Vähennä pään kierrosta aiheutuvaa asennon vääristymää"
+    },
+    {
+      "key": "首・頭",
+      "value": "Kaula ja pää"
+    },
+    {
       "key": "首固定",
       "value": "Lukitse pää"
+    },
+    {
+      "key": "首固定を解除したとき、元のポーズと首の向きが異なることで起きる姿勢崩れを抑えます。",
+      "value": "Vähentää vääristymää, kun pää osoittaa eri suuntaan kuin alkuperäisessä asennossa pään lukituksen ollessa pois käytöstä."
+    },
+    {
+      "key": "騎士",
+      "value": "Ritari"
+    },
+    {
+      "key": "高さ",
+      "value": "Korkeus"
+    },
+    {
+      "key": "魔王降臨",
+      "value": "Demonikuningas"
+    },
+    {
+      "key": "（ユーザー作成）",
+      "value": " (Käyttäjä)"
+    },
+    {
+      "key": "（公式）",
+      "value": " (Virallinen)"
+    },
+    {
+      "key": "（廃止されたAPIの使用）",
+      "value": " (vanhentuneen API:n käyttö)"
+    },
+    {
+      "key": "（生成方式）",
+      "value": " (luontitapa)"
+    },
+    {
+      "key": "＋ 1件追加",
+      "value": "+ Lisää asento"
+    },
+    {
+      "key": "＋ 複数のアニメーションを追加",
+      "value": "+ Lisää useita animaatioita"
     }
   ]
 }

@@ -1,0 +1,37 @@
+{
+  "language": "fi",
+  "authoring": "Codex AI, 2026-11-09",
+  "catalog_missing_completed": 782,
+  "anatomy_completed": 120,
+  "setup_missing_completed": 61,
+  "terminology": {
+    "prebuild": "esikoonti (matches existing standalone setup)",
+    "preset": "esiasetus",
+    "pose": "asento",
+    "direction_markers": "O=oikea, V=vasen; numbering preserved"
+  },
+  "term_forms": {
+    "Photo Mode": [
+      "Kuvatil"
+    ],
+    "prebuild": [
+      "esikoon"
+    ],
+    "preset": [
+      "esiasetu"
+    ],
+    "Roll Over": [
+      "Käänny",
+      "käänty",
+      "kääntym"
+    ]
+  },
+  "review": [
+    "All 128 pose names authored together",
+    "One vocabulary for all 95 muscles and 25 bones",
+    "Existing 26 translations preserved",
+    "Placeholder and key-set validation"
+  ],
+  "native_speaker_review": false,
+  "rendered_visual_review": false
+}

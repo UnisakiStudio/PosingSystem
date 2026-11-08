@@ -1,0 +1,30 @@
+{
+  "language": "zh-Hans",
+  "author": "Codex AI",
+  "date": "2026-11-09",
+  "method": "AI authored against Japanese source, English reference and complete related pose/anatomy sets; no external translation service",
+  "entries": 743,
+  "setup_entries": 61,
+  "existing_translations": "preserved",
+  "native_speaker_review": false,
+  "rendered_layout_review": false,
+  "term_forms": {
+    "Photo Mode": [
+      "拍照模式"
+    ],
+    "prebuild": [
+      "预构建"
+    ],
+    "preset": [
+      "预设"
+    ],
+    "Roll Over": [
+      "翻身"
+    ]
+  },
+  "notes": [
+    "Chinese script and regional vocabulary authored separately.",
+    "Muscle numbers and body-side mapping preserved; finger labels assembled from one consistent terminology table.",
+    "Standard poses are the pre-existing complete batch, retained unchanged."
+  ]
+}

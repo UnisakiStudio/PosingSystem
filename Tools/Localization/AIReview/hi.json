@@ -1,0 +1,31 @@
+{
+  "language": "hi",
+  "author": "Codex AI",
+  "date": "2026-11-09",
+  "method": "AI authored against Japanese source, English reference and complete related pose/anatomy sets; no external translation service",
+  "entries": 774,
+  "setup_entries": 61,
+  "existing_translations": "preserved",
+  "native_speaker_review": false,
+  "rendered_layout_review": false,
+  "term_forms": {
+    "Photo Mode": [
+      "फ़ोटो मोड"
+    ],
+    "prebuild": [
+      "प्रीबिल्ड"
+    ],
+    "preset": [
+      "प्रीसेट"
+    ],
+    "Roll Over": [
+      "करवट"
+    ]
+  },
+  "notes": [
+    "Indic glyph shaping and rendered widths require visual checks.",
+    "Muscle numbers and body-side mapping preserved; labels assembled from one reviewed anatomy terminology table.",
+    "Hindi standard poses are the retained complete existing batch; Bengali poses authored together with consistent numbering and side names.",
+    "Product names, API identifiers, filenames and Shinano remain in their original Latin spelling."
+  ]
+}

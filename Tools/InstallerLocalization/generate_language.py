@@ -28,10 +28,12 @@ def render():
     for locale, entries in translations.items():
         if locale == 'ja': continue
         for product in ['Kawaii Posing', 'Cool Posing', 'Posing System']:
-            entries['Install ' + product + ' license'] = entries['License installation'] + ' - ' + product
-            entries[product + ' license status'] = entries['License status'] + ' - ' + product
-            entries['Remove ' + product + ' license'] = entries['Remove licenses'] + ' - ' + product
-            entries['Add ' + product] = entries['Add'] + ' ' + product
+            # Prefer reviewed complete phrases; composition is a fallback for newly
+            # added products. Keep native menus, Inspector and setup terminology equal.
+            entries.setdefault('Install ' + product + ' license', entries['License installation'] + ' - ' + product)
+            entries.setdefault(product + ' license status', entries['License status'] + ' - ' + product)
+            entries.setdefault('Remove ' + product + ' license', entries['Remove licenses'] + ' - ' + product)
+            entries.setdefault('Add ' + product, entries['Add'] + ' ' + product)
     # Permit a setup dialog to be redrawn after choosing a different language.
     for entries in translations.values():
         for key,value in entries.items():

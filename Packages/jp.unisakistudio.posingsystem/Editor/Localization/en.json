@@ -281,6 +281,106 @@
       "value": "[email]"
     },
     {
+      "key": "bone.Chest",
+      "value": "Chest"
+    },
+    {
+      "key": "bone.Head",
+      "value": "Head"
+    },
+    {
+      "key": "bone.Hips",
+      "value": "Hips"
+    },
+    {
+      "key": "bone.Jaw",
+      "value": "Jaw"
+    },
+    {
+      "key": "bone.LeftEye",
+      "value": "Left Eye"
+    },
+    {
+      "key": "bone.LeftFoot",
+      "value": "Left Foot"
+    },
+    {
+      "key": "bone.LeftHand",
+      "value": "Left Hand"
+    },
+    {
+      "key": "bone.LeftLowerArm",
+      "value": "Left Lower Arm"
+    },
+    {
+      "key": "bone.LeftLowerLeg",
+      "value": "Left Lower Leg"
+    },
+    {
+      "key": "bone.LeftShoulder",
+      "value": "Left Shoulder"
+    },
+    {
+      "key": "bone.LeftToes",
+      "value": "Left Toes"
+    },
+    {
+      "key": "bone.LeftUpperArm",
+      "value": "Left Upper Arm"
+    },
+    {
+      "key": "bone.LeftUpperLeg",
+      "value": "Left Upper Leg"
+    },
+    {
+      "key": "bone.Neck",
+      "value": "Neck"
+    },
+    {
+      "key": "bone.RightEye",
+      "value": "Right Eye"
+    },
+    {
+      "key": "bone.RightFoot",
+      "value": "Right Foot"
+    },
+    {
+      "key": "bone.RightHand",
+      "value": "Right Hand"
+    },
+    {
+      "key": "bone.RightLowerArm",
+      "value": "Right Lower Arm"
+    },
+    {
+      "key": "bone.RightLowerLeg",
+      "value": "Right Lower Leg"
+    },
+    {
+      "key": "bone.RightShoulder",
+      "value": "Right Shoulder"
+    },
+    {
+      "key": "bone.RightToes",
+      "value": "Right Toes"
+    },
+    {
+      "key": "bone.RightUpperArm",
+      "value": "Right Upper Arm"
+    },
+    {
+      "key": "bone.RightUpperLeg",
+      "value": "Right Upper Leg"
+    },
+    {
+      "key": "bone.Spine",
+      "value": "Spine"
+    },
+    {
+      "key": "bone.UpperChest",
+      "value": "Upper Chest"
+    },
+    {
       "key": "changelog",
       "value": "View changelog"
     },
@@ -299,6 +399,386 @@
     {
       "key": "manual",
       "value": "Manual"
+    },
+    {
+      "key": "muscle.0",
+      "value": "Spine Front-Back"
+    },
+    {
+      "key": "muscle.1",
+      "value": "Spine Left-Right"
+    },
+    {
+      "key": "muscle.10",
+      "value": "Neck Tilt Left-Right"
+    },
+    {
+      "key": "muscle.11",
+      "value": "Neck Turn Left-Right"
+    },
+    {
+      "key": "muscle.12",
+      "value": "Head Nod Down-Up"
+    },
+    {
+      "key": "muscle.13",
+      "value": "Head Tilt Left-Right"
+    },
+    {
+      "key": "muscle.14",
+      "value": "Head Turn Left-Right"
+    },
+    {
+      "key": "muscle.15",
+      "value": "Left Eye Down-Up"
+    },
+    {
+      "key": "muscle.16",
+      "value": "Left Eye In-Out"
+    },
+    {
+      "key": "muscle.17",
+      "value": "Right Eye Down-Up"
+    },
+    {
+      "key": "muscle.18",
+      "value": "Right Eye In-Out"
+    },
+    {
+      "key": "muscle.19",
+      "value": "Jaw Close"
+    },
+    {
+      "key": "muscle.2",
+      "value": "Spine Twist Left-Right"
+    },
+    {
+      "key": "muscle.20",
+      "value": "Jaw Left-Right"
+    },
+    {
+      "key": "muscle.21",
+      "value": "Left Upper Leg Front-Back"
+    },
+    {
+      "key": "muscle.22",
+      "value": "Left Upper Leg In-Out"
+    },
+    {
+      "key": "muscle.23",
+      "value": "Left Upper Leg Twist In-Out"
+    },
+    {
+      "key": "muscle.24",
+      "value": "Left Lower Leg Stretch"
+    },
+    {
+      "key": "muscle.25",
+      "value": "Left Lower Leg Twist In-Out"
+    },
+    {
+      "key": "muscle.26",
+      "value": "Left Foot Up-Down"
+    },
+    {
+      "key": "muscle.27",
+      "value": "Left Foot Twist In-Out"
+    },
+    {
+      "key": "muscle.28",
+      "value": "Left Toes Up-Down"
+    },
+    {
+      "key": "muscle.29",
+      "value": "Right Upper Leg Front-Back"
+    },
+    {
+      "key": "muscle.3",
+      "value": "Chest Front-Back"
+    },
+    {
+      "key": "muscle.30",
+      "value": "Right Upper Leg In-Out"
+    },
+    {
+      "key": "muscle.31",
+      "value": "Right Upper Leg Twist In-Out"
+    },
+    {
+      "key": "muscle.32",
+      "value": "Right Lower Leg Stretch"
+    },
+    {
+      "key": "muscle.33",
+      "value": "Right Lower Leg Twist In-Out"
+    },
+    {
+      "key": "muscle.34",
+      "value": "Right Foot Up-Down"
+    },
+    {
+      "key": "muscle.35",
+      "value": "Right Foot Twist In-Out"
+    },
+    {
+      "key": "muscle.36",
+      "value": "Right Toes Up-Down"
+    },
+    {
+      "key": "muscle.37",
+      "value": "Left Shoulder Down-Up"
+    },
+    {
+      "key": "muscle.38",
+      "value": "Left Shoulder Front-Back"
+    },
+    {
+      "key": "muscle.39",
+      "value": "Left Arm Down-Up"
+    },
+    {
+      "key": "muscle.4",
+      "value": "Chest Left-Right"
+    },
+    {
+      "key": "muscle.40",
+      "value": "Left Arm Front-Back"
+    },
+    {
+      "key": "muscle.41",
+      "value": "Left Arm Twist In-Out"
+    },
+    {
+      "key": "muscle.42",
+      "value": "Left Forearm Stretch"
+    },
+    {
+      "key": "muscle.43",
+      "value": "Left Forearm Twist In-Out"
+    },
+    {
+      "key": "muscle.44",
+      "value": "Left Hand Down-Up"
+    },
+    {
+      "key": "muscle.45",
+      "value": "Left Hand In-Out"
+    },
+    {
+      "key": "muscle.46",
+      "value": "Right Shoulder Down-Up"
+    },
+    {
+      "key": "muscle.47",
+      "value": "Right Shoulder Front-Back"
+    },
+    {
+      "key": "muscle.48",
+      "value": "Right Arm Down-Up"
+    },
+    {
+      "key": "muscle.49",
+      "value": "Right Arm Front-Back"
+    },
+    {
+      "key": "muscle.5",
+      "value": "Chest Twist Left-Right"
+    },
+    {
+      "key": "muscle.50",
+      "value": "Right Arm Twist In-Out"
+    },
+    {
+      "key": "muscle.51",
+      "value": "Right Forearm Stretch"
+    },
+    {
+      "key": "muscle.52",
+      "value": "Right Forearm Twist In-Out"
+    },
+    {
+      "key": "muscle.53",
+      "value": "Right Hand Down-Up"
+    },
+    {
+      "key": "muscle.54",
+      "value": "Right Hand In-Out"
+    },
+    {
+      "key": "muscle.55",
+      "value": "Left Thumb 1 Stretched"
+    },
+    {
+      "key": "muscle.56",
+      "value": "Left Thumb Spread"
+    },
+    {
+      "key": "muscle.57",
+      "value": "Left Thumb 2 Stretched"
+    },
+    {
+      "key": "muscle.58",
+      "value": "Left Thumb 3 Stretched"
+    },
+    {
+      "key": "muscle.59",
+      "value": "Left Index 1 Stretched"
+    },
+    {
+      "key": "muscle.6",
+      "value": "UpperChest Front-Back"
+    },
+    {
+      "key": "muscle.60",
+      "value": "Left Index Spread"
+    },
+    {
+      "key": "muscle.61",
+      "value": "Left Index 2 Stretched"
+    },
+    {
+      "key": "muscle.62",
+      "value": "Left Index 3 Stretched"
+    },
+    {
+      "key": "muscle.63",
+      "value": "Left Middle 1 Stretched"
+    },
+    {
+      "key": "muscle.64",
+      "value": "Left Middle Spread"
+    },
+    {
+      "key": "muscle.65",
+      "value": "Left Middle 2 Stretched"
+    },
+    {
+      "key": "muscle.66",
+      "value": "Left Middle 3 Stretched"
+    },
+    {
+      "key": "muscle.67",
+      "value": "Left Ring 1 Stretched"
+    },
+    {
+      "key": "muscle.68",
+      "value": "Left Ring Spread"
+    },
+    {
+      "key": "muscle.69",
+      "value": "Left Ring 2 Stretched"
+    },
+    {
+      "key": "muscle.7",
+      "value": "UpperChest Left-Right"
+    },
+    {
+      "key": "muscle.70",
+      "value": "Left Ring 3 Stretched"
+    },
+    {
+      "key": "muscle.71",
+      "value": "Left Little 1 Stretched"
+    },
+    {
+      "key": "muscle.72",
+      "value": "Left Little Spread"
+    },
+    {
+      "key": "muscle.73",
+      "value": "Left Little 2 Stretched"
+    },
+    {
+      "key": "muscle.74",
+      "value": "Left Little 3 Stretched"
+    },
+    {
+      "key": "muscle.75",
+      "value": "Right Thumb 1 Stretched"
+    },
+    {
+      "key": "muscle.76",
+      "value": "Right Thumb Spread"
+    },
+    {
+      "key": "muscle.77",
+      "value": "Right Thumb 2 Stretched"
+    },
+    {
+      "key": "muscle.78",
+      "value": "Right Thumb 3 Stretched"
+    },
+    {
+      "key": "muscle.79",
+      "value": "Right Index 1 Stretched"
+    },
+    {
+      "key": "muscle.8",
+      "value": "UpperChest Twist Left-Right"
+    },
+    {
+      "key": "muscle.80",
+      "value": "Right Index Spread"
+    },
+    {
+      "key": "muscle.81",
+      "value": "Right Index 2 Stretched"
+    },
+    {
+      "key": "muscle.82",
+      "value": "Right Index 3 Stretched"
+    },
+    {
+      "key": "muscle.83",
+      "value": "Right Middle 1 Stretched"
+    },
+    {
+      "key": "muscle.84",
+      "value": "Right Middle Spread"
+    },
+    {
+      "key": "muscle.85",
+      "value": "Right Middle 2 Stretched"
+    },
+    {
+      "key": "muscle.86",
+      "value": "Right Middle 3 Stretched"
+    },
+    {
+      "key": "muscle.87",
+      "value": "Right Ring 1 Stretched"
+    },
+    {
+      "key": "muscle.88",
+      "value": "Right Ring Spread"
+    },
+    {
+      "key": "muscle.89",
+      "value": "Right Ring 2 Stretched"
+    },
+    {
+      "key": "muscle.9",
+      "value": "Neck Nod Down-Up"
+    },
+    {
+      "key": "muscle.90",
+      "value": "Right Ring 3 Stretched"
+    },
+    {
+      "key": "muscle.91",
+      "value": "Right Little 1 Stretched"
+    },
+    {
+      "key": "muscle.92",
+      "value": "Right Little Spread"
+    },
+    {
+      "key": "muscle.93",
+      "value": "Right Little 2 Stretched"
+    },
+    {
+      "key": "muscle.94",
+      "value": "Right Little 3 Stretched"
     },
     {
       "key": "package",

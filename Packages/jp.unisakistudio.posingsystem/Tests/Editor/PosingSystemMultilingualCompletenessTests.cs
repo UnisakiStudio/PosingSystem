@@ -42,6 +42,34 @@ namespace jp.unisakistudio.posingsystemeditor.tests
         }
 
         [Test]
+        public void CachedBlockedObjectMessageChangesLanguageWithoutTranslatingItsPath()
+        {
+            const string template = "共通ポージングAnimatorを使用できません。「{0}」{1}。";
+            const string path = "Custom / 対象";
+            var root = new GameObject("Cached diagnostic language test");
+            try
+            {
+                var system = root.AddComponent<PosingSystem>();
+                system.menuLanguage = "en";
+                string cached;
+                using (PosingSystemLocalization.ForInspector(system))
+                    cached = PosingSystemLocalization.Format(template, path, PosingSystemLocalization.Text("が無効になっています"));
+                foreach (var language in new[] { "fr", "ja", "en" })
+                {
+                    system.menuLanguage = language;
+                    using (PosingSystemLocalization.ForInspector(system))
+                    {
+                        var expected = PosingSystemLocalization.Format(template, path, PosingSystemLocalization.Text("が無効になっています"));
+                        cached = PosingSystemLocalization.TextMessage(cached);
+                        Assert.That(cached, Is.EqualTo(expected), language);
+                        Assert.That(cached, Does.Contain(path), language);
+                    }
+                }
+            }
+            finally { Object.DestroyImmediate(root); }
+        }
+
+        [Test]
         public void MaintenanceDialogsAndDraftCanReturnToJapanese()
         {
             const string preference = "jp.unisakistudio.posingsystem.language";

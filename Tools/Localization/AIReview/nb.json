@@ -1,0 +1,36 @@
+{
+  "language": "nb",
+  "authoring": "Codex AI, 2026-11-09",
+  "catalog_missing_completed": 782,
+  "anatomy_completed": 120,
+  "setup_missing_completed": 61,
+  "terminology": {
+    "prebuild": "forhåndsbygg/forhåndsbygging",
+    "preset": "forhåndsinnstilling",
+    "pose": "positur",
+    "direction_markers": "H=høyre, V=venstre; numbering preserved"
+  },
+  "term_forms": {
+    "Photo Mode": [
+      "Fotomodus"
+    ],
+    "prebuild": [
+      "forhåndsbygg"
+    ],
+    "preset": [
+      "forhåndsinnstilling"
+    ],
+    "Roll Over": [
+      "Snu deg",
+      "snu deg"
+    ]
+  },
+  "review": [
+    "All 128 pose names authored as one set",
+    "All 95 muscle names and 25 bones use one anatomical vocabulary",
+    "Existing 26 translations preserved",
+    "Placeholder and key-set validation"
+  ],
+  "native_speaker_review": false,
+  "rendered_visual_review": false
+}

@@ -27,8 +27,10 @@ The product's `Documentation~/UserGuide.en.html` contains installation, avatar f
 VRChat controls, pose editing, parameter memory, updating, and troubleshooting.
 Standard pose names are translated for display; custom names, avatar names, asset filenames,
 saved object names, and parameter identifiers preserve their original spelling.
-Thirty languages can be selected. Translation coverage varies: English includes the normal
-editor workflow; other languages have setup/basic menu coverage and selected pose-name batches.
+Thirty languages can be selected. The bundled Inspector, setup dialogs, standard pose names
+and generated menus have complete display catalogs for every selection. This offline guide is in English.
+
+[30-language quick references](QuickReference/index.html) cover the feature explanations and standard pose-name tables. These are concise references; this full manual is in English.
 
 ## Licensing and support
 

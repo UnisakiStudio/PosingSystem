@@ -1,6 +1,386 @@
 {
   "entries": [
     {
+      "key": "(名前なし)",
+      "value": "(Adsız)"
+    },
+    {
+      "key": "0〜1の値を指定してください。",
+      "value": "0 ile 1 arasında bir değer kullanın."
+    },
+    {
+      "key": "0では回転せず、1で記録した向きへ完全に合わせます。",
+      "value": "0 özgün dönüşü korur; 1 kayıtlı yönelimi tamamen eşleştirir."
+    },
+    {
+      "key": "0にリセットします",
+      "value": "Sıfıra döndürür."
+    },
+    {
+      "key": "1件のエラー",
+      "value": "1 hata"
+    },
+    {
+      "key": "1件の注意",
+      "value": "1 uyarı"
+    },
+    {
+      "key": "AddStateMachineBehaviourに失敗しました。多くの場合原因は別のツールなどにエラーが発生していることです。アバタービルド・アップロード前にConsoleウィンドウを確認してエラーを解消してから再度お試しください",
+      "value": "AddStateMachineBehaviour başarısız oldu. Başka bir araç daha önce hata vermiş olabilir. Avatarı yeniden derlemeden veya yüklemeden önce Console'daki ilgili ilk hatayı çözün."
+    },
+    {
+      "key": "Animator Override Controllerはここでは使用できません。ツールの標準Controllerへ戻してください。",
+      "value": "Aracın standart Controller'ını geri yükleyin. Burada Animator Override Controller desteklenmez."
+    },
+    {
+      "key": "Animator Override Controllerはここでは使用できません。ツールの標準Controllerへ戻してください。シーンを保存・バックアップしてから、ALCOM / VCCで商品本体と「ゆにさきポーズシステム」を再取得してください。入れ直しても直らない場合は、Inspector上部の「ヘルプ・変更履歴」から公式マニュアル・お問い合わせをご確認ください。調整済みのオブジェクトやGeneratedResourcesは削除しないでください。",
+      "value": "Aracın standart Controller'ını geri yükleyin. Burada Animator Override Controller desteklenmez.\nSahneyi kaydedip yedekleyin, ardından ürünü ve Unisaki Posing System'i ALCOM / VCC ile yeniden indirin. Sorun sürerse kılavuz ve destek için Inspector'ın üstündeki yardım ve değişiklikleri açın. Düzenlediğiniz nesneleri ve GeneratedResources'u koruyun."
+    },
+    {
+      "key": "Animator を持つアバターが見つかりません。",
+      "value": "Animator içeren avatar bulunamadı."
+    },
+    {
+      "key": "AnimatorにParameterとして登録されていないパラメータが条件式に使われています。「{0}」ファイルの「{1}」というレイヤーで使用されている「{2}」というパラメータが条件式に使われていますが、AnimatorControllerのParametersにはパラメータがありません。使用しているツールやギミックの相性の問題だと思われるため、このパラメータを使用しているツールの開発者に連絡してください",
+      "value": "Bir Animator koşulu bildirilmemiş parametreye başvuruyor. Dosya: {0}, katman: {1}, parametre: {2}. Koşulda kullanılıyor ancak Animator Controller Parameters listesinde yok. Uyumluluk için bu parametreyi kullanan aracın geliştiricisine başvurun."
+    },
+    {
+      "key": "AnimatorのAvatarが有効なHumanoidではありません。",
+      "value": "Animator geçerli bir Humanoid Avatar'a başvurmuyor."
+    },
+    {
+      "key": "AnimatorのAvatar欄がNoneまたはMissingです。",
+      "value": "Animator'ın Avatar alanı None veya Missing."
+    },
+    {
+      "key": "AnimatorのAvatar欄が未設定です。Inspectorの「設定の確認」の対処手順をご確認ください。",
+      "value": "Animator'ın Avatar alanı boş. Inspector'daki ayar kontrolüne bakın."
+    },
+    {
+      "key": "Auto-Footstepsはオンです。ポーズ中に意図せず足が動く場合は、下のボタンでオフにして比較できます。問題がなければ変更は不要です。",
+      "value": "Auto-Footsteps açık. Pozlarda ayaklar beklenmedik biçimde hareket ediyorsa aşağıdan kapatıp karşılaştırın. Sorun yoksa olduğu gibi bırakın."
+    },
+    {
+      "key": "ConsoleでMissing Prefabなどのインポートエラーを確認してください。配置先のシーンを開き直して再実行してください。",
+      "value": "Console'da Missing Prefab gibi içe aktarma hatalarını kontrol edin. Hedef sahneyi yeniden açıp deneyin."
+    },
+    {
+      "key": "Consoleのエラー\n",
+      "value": "Console hataları\n"
+    },
+    {
+      "key": "Consoleの最初のコンパイルエラーを修正し、再コンパイルが完了してから実行してください。",
+      "value": "Console'daki ilk derleme hatasını düzeltin, derlemenin bitmesini bekleyin ve yeniden deneyin."
+    },
+    {
+      "key": "HeadとViewpointの前後差を測定できません。View Positionとアバターのスケールを確認してください。",
+      "value": "Head ve Viewpoint arasındaki derinlik farkı ölçülemedi. View Position ve avatar ölçeğini kontrol edin."
+    },
+    {
+      "key": "HeadとViewpointの高低差を測定できません。View Positionとアバターのスケールを確認してください。",
+      "value": "Head ve Viewpoint arasındaki yükseklik farkı ölçülemedi. View Position ve avatar ölçeğini kontrol edin."
+    },
+    {
+      "key": "Hierarchyでアバター内のポーズツールを選択し直してください。",
+      "value": "Hierarchy'de avatarın içindeki poz aracını yeniden seçin."
+    },
+    {
+      "key": "Hierarchyの警告マークを非表示",
+      "value": "Hierarchy uyarı işaretlerini gizle"
+    },
+    {
+      "key": "Humanoid Animatorが必要です。",
+      "value": "Humanoid Animator gerekli."
+    },
+    {
+      "key": "Humanoid AnimatorまたはIKルールがありません。",
+      "value": "Humanoid Animator veya IK kuralı eksik."
+    },
+    {
+      "key": "Humanoid の Animator を持つアバターが見つかりません。",
+      "value": "Humanoid Animator içeren avatar bulunamadı."
+    },
+    {
+      "key": "HumanoidのアバターとAnimationClipを指定してください。",
+      "value": "Humanoid avatar ve AnimationClip seçin."
+    },
+    {
+      "key": "Humanoidボーン軸の違いを除いた、基準から見た手首または足首の向きです。",
+      "value": "Humanoid kemik ekseni farkları hariç, referansa göre bilek veya ayak bileği yönelimi."
+    },
+    {
+      "key": "IKで手足の位置を自動調整しています。手動で調整するには、下の「IKを調整に反映」を押してください。",
+      "value": "IK uzuvları düzeltiyor. Elle düzenlemek için aşağıda IK'yi düzeltmeye işle'yi seçin."
+    },
+    {
+      "key": "IKで補正する前の基準姿勢です。",
+      "value": "IK düzeltmesinden önceki referans poz."
+    },
+    {
+      "key": "IKの結果を新しい調整アニメーションに保存して、このポーズのIKをオフにします。その後は下の項目で手動調整できます。",
+      "value": "IK sonucunu yeni bir düzeltme animasyonuna kaydedip bu pozun IK'sini kapatır. Sonra aşağıdan elle düzeltebilirsiniz."
+    },
+    {
+      "key": "IKの調整を保存できませんでした。",
+      "value": "IK düzeltmesi kaydedilemedi."
+    },
+    {
+      "key": "IKを反映するポーズとアバターを確認してください。",
+      "value": "IK uygulanacak pozu ve avatarı kontrol edin."
+    },
+    {
+      "key": "IKを反映できませんでした",
+      "value": "IK işlenemedi"
+    },
+    {
+      "key": "IKを調整に反映",
+      "value": "IK'yi düzeltmeye işle"
+    },
+    {
+      "key": "IKルール {0}",
+      "value": "IK kuralı {0}"
+    },
+    {
+      "key": "IKルールを適用できませんでした。",
+      "value": "IK kuralları uygulanamadı."
+    },
+    {
+      "key": "Inspectorの「設定の確認」で対象を選択し、表示された項目を直して再実行してください。",
+      "value": "Inspector'daki ayar kontrolünden ilgili nesneyi seçin, listelenen sorunları düzeltin ve yeniden deneyin."
+    },
+    {
+      "key": "Mecanimで使用できるアニメーションを指定してください。元モデル由来ならRigの設定も確認してください。",
+      "value": "Mecanim tarafından desteklenen bir animasyon atayın. Bir modelden geliyorsa modelin Rig ayarlarını kontrol edin."
+    },
+    {
+      "key": "Modular Avatarで追加した衣装などは、アバターのビルド時に撮影し直したアイコンへ反映されます。",
+      "value": "Modular Avatar ile eklenen kıyafetler, avatar derlemesi sırasında simgeler yeniden çekilirken dahil edilir."
+    },
+    {
+      "key": "Motion Timeのパラメータ名を設定するか、Motion Timeを無効にしてください。",
+      "value": "Motion Time parametre adını ayarlayın veya Motion Time'ı devre dışı bırakın."
+    },
+    {
+      "key": "PosingSystem が見つかりません。対象のコンポーネントを選択した状態で再度開いてください。",
+      "value": "PosingSystem bulunamadı. Hedef bileşeni seçip bu pencereyi yeniden açın."
+    },
+    {
+      "key": "PrefabsHashesに\nクリップボードから追加",
+      "value": "Panodan\nPrefabsHashes'e ekle"
+    },
+    {
+      "key": "PrefabsHashesを\nクリア",
+      "value": "PrefabsHashes'i\ntemizle"
+    },
+    {
+      "key": "PrefabsHashesをすべてクリアしますか？",
+      "value": "Tüm PrefabsHashes kayıtları temizlensin mi?"
+    },
+    {
+      "key": "PrefabsNamesに\nクリップボードから追加",
+      "value": "Panodan\nPrefabsNames'e ekle"
+    },
+    {
+      "key": "PrefabsNamesを\nクリア",
+      "value": "PrefabsNames'i\ntemizle"
+    },
+    {
+      "key": "PrefabsNamesをすべてクリアしますか？",
+      "value": "Tüm PrefabsNames kayıtları temizlensin mi?"
+    },
+    {
+      "key": "Prefabが破損しているか、Posing Systemコンポーネントがありません。ConsoleのMissing Script・コンパイルエラーを確認してください。",
+      "value": "Prefab bozuk veya Posing System bileşeni yok. Console'da Missing Script ve derleme hatalarını kontrol edin."
+    },
+    {
+      "key": "Prefabを読み込めません [PS042]",
+      "value": "Prefab yüklenemedi [PS042]"
+    },
+    {
+      "key": "Prefabを配置できません [PS043]",
+      "value": "Prefab yerleştirilemedi [PS043]"
+    },
+    {
+      "key": "Prefab編集画面を閉じ、HierarchyでVRC Avatar Descriptorが付いたアバターの子にツールを配置してください。Project内のPrefab単体ではプレビルドできません。",
+      "value": "Prefab Modu'nu kapatıp aracı, sahnede VRC Avatar Descriptor içeren bir avatarın içine yerleştirin. Project penceresindeki bir prefab varlığı tek başına önceden oluşturulamaz."
+    },
+    {
+      "key": "Projectで選ぶときは、Inspector右上の鍵を閉じてから選択してください。",
+      "value": "Project'te klip seçmeden önce sağ üstteki asma kilitle Inspector'ı kilitleyin."
+    },
+    {
+      "key": "Projectで選択中のPrefabを追加",
+      "value": "Project'te seçili prefabları ekle"
+    },
+    {
+      "key": "Projectで選択中のクリップを読み込む",
+      "value": "Project'te seçili klipleri içe aktar"
+    },
+    {
+      "key": "Projectで選択中のファイル名を追加",
+      "value": "Project'te seçili dosya adlarını ekle"
+    },
+    {
+      "key": "Submenu Rootには、このアバター内のメニュー生成先を指定してください。",
+      "value": "Submenu Root'a bu avatarın içindeki bir menü hedefi atayın."
+    },
+    {
+      "key": "Unityでスクリプトのコンパイルに失敗したため、ポーズの生成を開始できません。",
+      "value": "Unity betik derlemesi başarısız olduğundan poz oluşturma başlatılamadı."
+    },
+    {
+      "key": "VRC Avatar Descriptorと同じオブジェクトのAnimatorを確認し、配布元のアバターPrefabの設定と比較してください。",
+      "value": "VRC Avatar Descriptor ile aynı nesnedeki Animator'ı kontrol edin ve ayarlarını avatarın özgün prefabıyla karşılaştırın."
+    },
+    {
+      "key": "VRChatのメニューで呼吸をつけたり止めたりできます。ON/OFFは他の人にも反映されます。",
+      "value": "VRChat'te nefesi açıp kapatır. Diğerleri de değişikliği görür."
+    },
+    {
+      "key": "VRChatのメニューに切り替え項目を追加します。使いたいときに、ポーズの左右を反転できます。",
+      "value": "Poza ayna uygulamak için menüye anahtar ekler."
+    },
+    {
+      "key": "VRChat標準の揺れを止める",
+      "value": "VRChat bekleme sallanmasını kapat"
+    },
+    {
+      "key": "VRC想定移動モーション(無料配布)追加",
+      "value": "VRChat hareket animasyonları ekle (Ücretsiz)"
+    },
+    {
+      "key": "ViewPositionの基準となるHeadの参照姿勢を取得できません。",
+      "value": "ViewPosition için Head referans pozu alınamadı."
+    },
+    {
+      "key": "ViewPositionの基準となるHeadの回転を取得できません。",
+      "value": "ViewPosition referansı için Head dönüşü alınamadı."
+    },
+    {
+      "key": "ViewPositionまたはボーンの座標に無効な値があります。",
+      "value": "ViewPosition veya bir kemik konumu geçersiz değer içeriyor."
+    },
+    {
+      "key": "ViewPositionを基準にするには、同じアバターのAvatar DescriptorとHeadボーンが必要です。",
+      "value": "ViewPosition referansı aynı avatardan Avatar Descriptor ve Head kemiği gerektirir."
+    },
+    {
+      "key": "ViewPositionを計算できません。HeadまでのボーンのスケールとHumanoid設定を確認してください。",
+      "value": "ViewPosition hesaplanamadı. Head'e uzanan kemiklerin ölçeklerini ve Humanoid ayarlarını kontrol edin."
+    },
+    {
+      "key": "ViewPosition（目の位置）",
+      "value": "ViewPosition (göz konumu)"
+    },
+    {
+      "key": "[パス]",
+      "value": "[yol]"
+    },
+    {
+      "key": "[メール]",
+      "value": "[e-posta]"
+    },
+    {
+      "key": "bone.Chest",
+      "value": "Göğüs"
+    },
+    {
+      "key": "bone.Head",
+      "value": "Baş"
+    },
+    {
+      "key": "bone.Hips",
+      "value": "Kalça"
+    },
+    {
+      "key": "bone.Jaw",
+      "value": "Çene"
+    },
+    {
+      "key": "bone.LeftEye",
+      "value": "Göz (sol)"
+    },
+    {
+      "key": "bone.LeftFoot",
+      "value": "Ayak (sol)"
+    },
+    {
+      "key": "bone.LeftHand",
+      "value": "El (sol)"
+    },
+    {
+      "key": "bone.LeftLowerArm",
+      "value": "Ön kol (sol)"
+    },
+    {
+      "key": "bone.LeftLowerLeg",
+      "value": "Alt bacak (sol)"
+    },
+    {
+      "key": "bone.LeftShoulder",
+      "value": "Omuz (sol)"
+    },
+    {
+      "key": "bone.LeftToes",
+      "value": "Ayak parmakları (sol)"
+    },
+    {
+      "key": "bone.LeftUpperArm",
+      "value": "Üst kol (sol)"
+    },
+    {
+      "key": "bone.LeftUpperLeg",
+      "value": "Üst bacak (sol)"
+    },
+    {
+      "key": "bone.Neck",
+      "value": "Boyun"
+    },
+    {
+      "key": "bone.RightEye",
+      "value": "Göz (sağ)"
+    },
+    {
+      "key": "bone.RightFoot",
+      "value": "Ayak (sağ)"
+    },
+    {
+      "key": "bone.RightHand",
+      "value": "El (sağ)"
+    },
+    {
+      "key": "bone.RightLowerArm",
+      "value": "Ön kol (sağ)"
+    },
+    {
+      "key": "bone.RightLowerLeg",
+      "value": "Alt bacak (sağ)"
+    },
+    {
+      "key": "bone.RightShoulder",
+      "value": "Omuz (sağ)"
+    },
+    {
+      "key": "bone.RightToes",
+      "value": "Ayak parmakları (sağ)"
+    },
+    {
+      "key": "bone.RightUpperArm",
+      "value": "Üst kol (sağ)"
+    },
+    {
+      "key": "bone.RightUpperLeg",
+      "value": "Üst bacak (sağ)"
+    },
+    {
+      "key": "bone.Spine",
+      "value": "Omurga"
+    },
+    {
+      "key": "bone.UpperChest",
+      "value": "Üst göğüs"
+    },
+    {
       "key": "changelog",
       "value": "Değişiklikleri göster"
     },
@@ -21,88 +401,3316 @@
       "value": "Kılavuz"
     },
     {
+      "key": "muscle.0",
+      "value": "Omurga — İleri/geri"
+    },
+    {
+      "key": "muscle.1",
+      "value": "Omurga — Sol/sağ"
+    },
+    {
+      "key": "muscle.10",
+      "value": "Boyun — Sola/sağa eğilme"
+    },
+    {
+      "key": "muscle.11",
+      "value": "Boyun — Sola/sağa dönme"
+    },
+    {
+      "key": "muscle.12",
+      "value": "Baş — Aşağı/yukarı baş sallama"
+    },
+    {
+      "key": "muscle.13",
+      "value": "Baş — Sola/sağa eğilme"
+    },
+    {
+      "key": "muscle.14",
+      "value": "Baş — Sola/sağa dönme"
+    },
+    {
+      "key": "muscle.15",
+      "value": "Göz (sol) — Aşağı/yukarı"
+    },
+    {
+      "key": "muscle.16",
+      "value": "Göz (sol) — İçe/dışa"
+    },
+    {
+      "key": "muscle.17",
+      "value": "Göz (sağ) — Aşağı/yukarı"
+    },
+    {
+      "key": "muscle.18",
+      "value": "Göz (sağ) — İçe/dışa"
+    },
+    {
+      "key": "muscle.19",
+      "value": "Çene — Kapatma"
+    },
+    {
+      "key": "muscle.2",
+      "value": "Omurga — Sola/sağa burulma"
+    },
+    {
+      "key": "muscle.20",
+      "value": "Çene — Sol/sağ"
+    },
+    {
+      "key": "muscle.21",
+      "value": "Üst bacak (sol) — İleri/geri"
+    },
+    {
+      "key": "muscle.22",
+      "value": "Üst bacak (sol) — İçe/dışa"
+    },
+    {
+      "key": "muscle.23",
+      "value": "Üst bacak (sol) — İçe/dışa burulma"
+    },
+    {
+      "key": "muscle.24",
+      "value": "Alt bacak (sol) — Uzatma"
+    },
+    {
+      "key": "muscle.25",
+      "value": "Alt bacak (sol) — İçe/dışa burulma"
+    },
+    {
+      "key": "muscle.26",
+      "value": "Ayak (sol) — Yukarı/aşağı"
+    },
+    {
+      "key": "muscle.27",
+      "value": "Ayak (sol) — İçe/dışa burulma"
+    },
+    {
+      "key": "muscle.28",
+      "value": "Ayak parmakları (sol) — Yukarı/aşağı"
+    },
+    {
+      "key": "muscle.29",
+      "value": "Üst bacak (sağ) — İleri/geri"
+    },
+    {
+      "key": "muscle.3",
+      "value": "Göğüs — İleri/geri"
+    },
+    {
+      "key": "muscle.30",
+      "value": "Üst bacak (sağ) — İçe/dışa"
+    },
+    {
+      "key": "muscle.31",
+      "value": "Üst bacak (sağ) — İçe/dışa burulma"
+    },
+    {
+      "key": "muscle.32",
+      "value": "Alt bacak (sağ) — Uzatma"
+    },
+    {
+      "key": "muscle.33",
+      "value": "Alt bacak (sağ) — İçe/dışa burulma"
+    },
+    {
+      "key": "muscle.34",
+      "value": "Ayak (sağ) — Yukarı/aşağı"
+    },
+    {
+      "key": "muscle.35",
+      "value": "Ayak (sağ) — İçe/dışa burulma"
+    },
+    {
+      "key": "muscle.36",
+      "value": "Ayak parmakları (sağ) — Yukarı/aşağı"
+    },
+    {
+      "key": "muscle.37",
+      "value": "Omuz (sol) — Aşağı/yukarı"
+    },
+    {
+      "key": "muscle.38",
+      "value": "Omuz (sol) — İleri/geri"
+    },
+    {
+      "key": "muscle.39",
+      "value": "Üst kol (sol) — Aşağı/yukarı"
+    },
+    {
+      "key": "muscle.4",
+      "value": "Göğüs — Sol/sağ"
+    },
+    {
+      "key": "muscle.40",
+      "value": "Üst kol (sol) — İleri/geri"
+    },
+    {
+      "key": "muscle.41",
+      "value": "Üst kol (sol) — İçe/dışa burulma"
+    },
+    {
+      "key": "muscle.42",
+      "value": "Ön kol (sol) — Uzatma"
+    },
+    {
+      "key": "muscle.43",
+      "value": "Ön kol (sol) — İçe/dışa burulma"
+    },
+    {
+      "key": "muscle.44",
+      "value": "El (sol) — Aşağı/yukarı"
+    },
+    {
+      "key": "muscle.45",
+      "value": "El (sol) — İçe/dışa"
+    },
+    {
+      "key": "muscle.46",
+      "value": "Omuz (sağ) — Aşağı/yukarı"
+    },
+    {
+      "key": "muscle.47",
+      "value": "Omuz (sağ) — İleri/geri"
+    },
+    {
+      "key": "muscle.48",
+      "value": "Üst kol (sağ) — Aşağı/yukarı"
+    },
+    {
+      "key": "muscle.49",
+      "value": "Üst kol (sağ) — İleri/geri"
+    },
+    {
+      "key": "muscle.5",
+      "value": "Göğüs — Sola/sağa burulma"
+    },
+    {
+      "key": "muscle.50",
+      "value": "Üst kol (sağ) — İçe/dışa burulma"
+    },
+    {
+      "key": "muscle.51",
+      "value": "Ön kol (sağ) — Uzatma"
+    },
+    {
+      "key": "muscle.52",
+      "value": "Ön kol (sağ) — İçe/dışa burulma"
+    },
+    {
+      "key": "muscle.53",
+      "value": "El (sağ) — Aşağı/yukarı"
+    },
+    {
+      "key": "muscle.54",
+      "value": "El (sağ) — İçe/dışa"
+    },
+    {
+      "key": "muscle.55",
+      "value": "Başparmak 1 (sol) — Uzatma"
+    },
+    {
+      "key": "muscle.56",
+      "value": "Başparmak (sol) — Açılma"
+    },
+    {
+      "key": "muscle.57",
+      "value": "Başparmak 2 (sol) — Uzatma"
+    },
+    {
+      "key": "muscle.58",
+      "value": "Başparmak 3 (sol) — Uzatma"
+    },
+    {
+      "key": "muscle.59",
+      "value": "İşaret parmağı 1 (sol) — Uzatma"
+    },
+    {
+      "key": "muscle.6",
+      "value": "Üst göğüs — İleri/geri"
+    },
+    {
+      "key": "muscle.60",
+      "value": "İşaret parmağı (sol) — Açılma"
+    },
+    {
+      "key": "muscle.61",
+      "value": "İşaret parmağı 2 (sol) — Uzatma"
+    },
+    {
+      "key": "muscle.62",
+      "value": "İşaret parmağı 3 (sol) — Uzatma"
+    },
+    {
+      "key": "muscle.63",
+      "value": "Orta parmak 1 (sol) — Uzatma"
+    },
+    {
+      "key": "muscle.64",
+      "value": "Orta parmak (sol) — Açılma"
+    },
+    {
+      "key": "muscle.65",
+      "value": "Orta parmak 2 (sol) — Uzatma"
+    },
+    {
+      "key": "muscle.66",
+      "value": "Orta parmak 3 (sol) — Uzatma"
+    },
+    {
+      "key": "muscle.67",
+      "value": "Yüzük parmağı 1 (sol) — Uzatma"
+    },
+    {
+      "key": "muscle.68",
+      "value": "Yüzük parmağı (sol) — Açılma"
+    },
+    {
+      "key": "muscle.69",
+      "value": "Yüzük parmağı 2 (sol) — Uzatma"
+    },
+    {
+      "key": "muscle.7",
+      "value": "Üst göğüs — Sol/sağ"
+    },
+    {
+      "key": "muscle.70",
+      "value": "Yüzük parmağı 3 (sol) — Uzatma"
+    },
+    {
+      "key": "muscle.71",
+      "value": "Serçe parmak 1 (sol) — Uzatma"
+    },
+    {
+      "key": "muscle.72",
+      "value": "Serçe parmak (sol) — Açılma"
+    },
+    {
+      "key": "muscle.73",
+      "value": "Serçe parmak 2 (sol) — Uzatma"
+    },
+    {
+      "key": "muscle.74",
+      "value": "Serçe parmak 3 (sol) — Uzatma"
+    },
+    {
+      "key": "muscle.75",
+      "value": "Başparmak 1 (sağ) — Uzatma"
+    },
+    {
+      "key": "muscle.76",
+      "value": "Başparmak (sağ) — Açılma"
+    },
+    {
+      "key": "muscle.77",
+      "value": "Başparmak 2 (sağ) — Uzatma"
+    },
+    {
+      "key": "muscle.78",
+      "value": "Başparmak 3 (sağ) — Uzatma"
+    },
+    {
+      "key": "muscle.79",
+      "value": "İşaret parmağı 1 (sağ) — Uzatma"
+    },
+    {
+      "key": "muscle.8",
+      "value": "Üst göğüs — Sola/sağa burulma"
+    },
+    {
+      "key": "muscle.80",
+      "value": "İşaret parmağı (sağ) — Açılma"
+    },
+    {
+      "key": "muscle.81",
+      "value": "İşaret parmağı 2 (sağ) — Uzatma"
+    },
+    {
+      "key": "muscle.82",
+      "value": "İşaret parmağı 3 (sağ) — Uzatma"
+    },
+    {
+      "key": "muscle.83",
+      "value": "Orta parmak 1 (sağ) — Uzatma"
+    },
+    {
+      "key": "muscle.84",
+      "value": "Orta parmak (sağ) — Açılma"
+    },
+    {
+      "key": "muscle.85",
+      "value": "Orta parmak 2 (sağ) — Uzatma"
+    },
+    {
+      "key": "muscle.86",
+      "value": "Orta parmak 3 (sağ) — Uzatma"
+    },
+    {
+      "key": "muscle.87",
+      "value": "Yüzük parmağı 1 (sağ) — Uzatma"
+    },
+    {
+      "key": "muscle.88",
+      "value": "Yüzük parmağı (sağ) — Açılma"
+    },
+    {
+      "key": "muscle.89",
+      "value": "Yüzük parmağı 2 (sağ) — Uzatma"
+    },
+    {
+      "key": "muscle.9",
+      "value": "Boyun — Aşağı/yukarı baş sallama"
+    },
+    {
+      "key": "muscle.90",
+      "value": "Yüzük parmağı 3 (sağ) — Uzatma"
+    },
+    {
+      "key": "muscle.91",
+      "value": "Serçe parmak 1 (sağ) — Uzatma"
+    },
+    {
+      "key": "muscle.92",
+      "value": "Serçe parmak (sağ) — Açılma"
+    },
+    {
+      "key": "muscle.93",
+      "value": "Serçe parmak 2 (sağ) — Uzatma"
+    },
+    {
+      "key": "muscle.94",
+      "value": "Serçe parmak 3 (sağ) — Uzatma"
+    },
+    {
+      "key": "package",
+      "value": "Paket Kimliği"
+    },
+    {
       "key": "support",
       "value": "Destek"
+    },
+    {
+      "key": "unknown",
+      "value": "Bilinmiyor"
+    },
+    {
+      "key": "version",
+      "value": "Sürüm"
+    },
+    {
+      "key": "{0} のHumanoid基準軸を取得できません。",
+      "value": "{0} için Humanoid referans eksenleri alınamadı."
+    },
+    {
+      "key": "{0} の基準姿勢を保存しました。",
+      "value": "{0} için referans poz kaydedildi."
+    },
+    {
+      "key": "{0} 用の補正を生成しました（{1} Muscle）。",
+      "value": "{0} için düzeltmeler oluşturuldu ({1} kas)."
+    },
+    {
+      "key": "{0}: Two-Bone IKを解けませんでした。",
+      "value": "{0}: iki kemikli IK çözümü başarısız oldu."
+    },
+    {
+      "key": "{0}: {1} のHumanoidボーンがありません。",
+      "value": "{0}: {1} için Humanoid kemikleri eksik."
+    },
+    {
+      "key": "{0}: ターゲットへ届かないため {1}m 手前で制限しました。",
+      "value": "{0}: hedefe ulaşılamıyor; sonuç hedefe {1} m kala sınırlandı."
+    },
+    {
+      "key": "{0}: 有効なIKルールがありません。",
+      "value": "{0}: etkin IK kuralı yok."
+    },
+    {
+      "key": "{0}からコピー",
+      "value": "{0} üzerinden kopyala"
+    },
+    {
+      "key": "{0}に{1}個の項目を追加しました。\n（重複する項目は除外されました）",
+      "value": "{0} içine {1} kayıt eklendi.\nYinelenen kayıtlar atlandı."
+    },
+    {
+      "key": "{0}のフォルダを取り除く",
+      "value": "{0} klasörünü kaldır"
+    },
+    {
+      "key": "{0}の旧設定を取り除きます。ツールを通常アンインストールするための操作ではありません。調整内容を確認できるよう、先にプロジェクトをバックアップしてください。",
+      "value": "{0} için eski ayarları kaldırın. Bu temizleme eski avatar ayarları içindir. Düzenlemelerinizi geri yükleyip karşılaştırabilmek için önce projeyi yedekleyin."
+    },
+    {
+      "key": "{0}の設定がアバターに残っています！ 不具合が発生する可能性があるので、自動で設定を取り除く機能を使用してください。また、アバター購入時にBaseLayerに設定されていたLocomotion用のAnimatorControllerがある場合は、恐れ入りますが手動で復元してお使いください。",
+      "value": "Bu avatarda {0} için eski ayarlar kalmış ve çakışma oluşturabilir. Temizleme komutuyla kaldırın. Avatar başlangıçta Base katmanında hareket için özel bir Animator Controller kullanıyorsa daha sonra elle geri yükleyin."
+    },
+    {
+      "key": "{0}の設定を取り除く",
+      "value": "{0} ayarlarını kaldır"
+    },
+    {
+      "key": "{0}を中止しました。\n{1}",
+      "value": "{0} durduruldu.\n{1}"
+    },
+    {
+      "key": "{0}を完了できませんでした",
+      "value": "{0} tamamlanamadı"
+    },
+    {
+      "key": "{0}を開きます。{1}",
+      "value": "{0} aç. {1}"
+    },
+    {
+      "key": "{0}・{1}から有効な長さを測定できません。",
+      "value": "{0} ile {1} arasında geçerli uzunluk ölçülemedi."
+    },
+    {
+      "key": "{0}件のIKルールから自動調整Animationを作成しました。",
+      "value": "{0} IK kuralından otomatik düzeltme animasyonu oluşturuldu."
+    },
+    {
+      "key": "{0}件のIKルールを適用しました。\n{1}",
+      "value": "{0} IK kuralı uygulandı.\n{1}"
+    },
+    {
+      "key": "{0}件のエラー",
+      "value": "{0} hata"
+    },
+    {
+      "key": "{0}件の注意",
+      "value": "{0} uyarı"
+    },
+    {
+      "key": "{0}件を「{1}」に追加",
+      "value": "{0} öğesini {1} içine ekle"
+    },
+    {
+      "key": "{0}件追加しました。",
+      "value": "{0} öğe eklendi."
+    },
+    {
+      "key": "{0}個の調整アニメーションを複製保存しました。",
+      "value": "{0} düzeltme animasyonu çoğaltılıp kaydedildi."
+    },
+    {
+      "key": "{0}（{1}行目）",
+      "value": "{0} (satır {1})"
+    },
+    {
+      "key": "※ 寝返りと姿勢崩れ抑制のbit表示は、今の状態でチェックを変更したときの増減量です。首固定の1 bitは共用します。",
+      "value": "Dönüş ve bozulma azaltma bitleri geçerli ayarlara göre değişimi gösterir. 1 bitlik baş kilidini paylaşırlar."
+    },
+    {
+      "key": "▶ 取り込み設定を開く",
+      "value": "▶ İçe aktarma ayarlarını aç"
+    },
+    {
+      "key": "▶ 設定を開く",
+      "value": "▶ Ayarları aç"
+    },
+    {
+      "key": "▼ 取り込み設定を閉じる",
+      "value": "▼ İçe aktarma ayarlarını kapat"
+    },
+    {
+      "key": "▼ 設定を閉じる",
+      "value": "▼ Ayarları kapat"
+    },
+    {
+      "key": "「Use Auto-Footsteps for 3 and 4 point tracking」をオフにする",
+      "value": "Use Auto-Footsteps for 3 and 4 point tracking seçeneğini kapat"
+    },
+    {
+      "key": "「{0}」で初期ポーズが複数選ばれています。",
+      "value": "{0} içinde birden fazla varsayılan poz seçilmiş."
+    },
+    {
+      "key": "「{0}」に有効なポーズがありません。このカテゴリの選択メニューは生成されません。",
+      "value": "{0} içinde etkin poz yok. Bu kategorinin poz seçim menüsü oluşturulmayacak."
+    },
+    {
+      "key": "「{0}」の{1}番目のポーズデータが欠けています。",
+      "value": "{0} içindeki {1}. öğenin poz verileri eksik."
+    },
+    {
+      "key": "「{0}」の{1}番目（{2}）にアニメーションがありません。",
+      "value": "{0} içindeki {1}. öğede ({2}) animasyon yok."
+    },
+    {
+      "key": "「{0}」の{1}番目（{2}）のMotion Time用パラメータ名が空です。",
+      "value": "{0} içindeki {1}. öğenin ({2}) Motion Time parametre adı yok."
+    },
+    {
+      "key": "「{0}」の{1}番目（{2}）の寝返りにはHumanoidのAnimationClipが必要です。",
+      "value": "{0} içindeki {1}. öğenin ({2}) dönmesi için Humanoid AnimationClip gerekir."
+    },
+    {
+      "key": "「{0}」の{1}番目（{2}）の接地補正の強さが範囲外です。",
+      "value": "{0} içindeki {1}. öğenin ({2}) temas düzeltme gücü aralık dışında."
+    },
+    {
+      "key": "「{0}」の{1}番目（{2}）はLegacy形式のアニメーションです。",
+      "value": "{0} içindeki {1}. öğe ({2}) Legacy animasyon kullanıyor."
+    },
+    {
+      "key": "「{0}」の{1}番目（{2}）は独自アイコンが有効ですが画像がありません。",
+      "value": "{0} içindeki {1}. öğe ({2}) için özel simge etkin, ancak görüntü atanmamış."
+    },
+    {
+      "key": "「{0}」オブジェクトの設定が更新されています。再度プレビルドを行ってください",
+      "value": "{0} nesnesinin ayarları değişti. Ön oluşturmayı güncelleyin."
+    },
+    {
+      "key": "「ポーズ一覧」で対応するポーズの詳細を開き、「寝返りを使う」をオンにしてください。",
+      "value": "Pozlar'da desteklenen bir poz açıp dönüşü etkinleştirin."
+    },
+    {
+      "key": "「現在の手足位置から取得」を一度実行してください。再取得までは元Animationの手足の向きを維持します。",
+      "value": "geçerli uzuv konumlarını bir kez yakalayın. Yeniden yakalanana kadar kaynak animasyonun uzuv yönelimi korunur."
+    },
+    {
+      "key": "「立ち・歩き・走り」「しゃがみ（Crouching）」「伏せ（Prone）」には移動を含むBlendTreeを指定してください。単独の立ち姿勢は「立ちのみ」に指定できます。",
+      "value": "Ayakta / yürüme / koşma, çömelme ve yüzüstü için hareket içeren bir BlendTree kullanın. Tek bir ayakta poz için Yalnızca ayakta'yı kullanın."
+    },
+    {
+      "key": "あおむけ時自動頭固定",
+      "value": "Sırtüstüyken başı otomatik kilitle"
+    },
+    {
+      "key": "あぐら",
+      "value": "Bağdaş"
+    },
+    {
+      "key": "あぐら２",
+      "value": "Bağdaş 2"
+    },
+    {
+      "key": "いいえ",
+      "value": "Hayır"
+    },
+    {
+      "key": "いじけ",
+      "value": "Somurtma"
+    },
+    {
+      "key": "うずくまり",
+      "value": "Yumak Gibi"
     },
     {
       "key": "うつ伏せ寝",
       "value": "Yüzüstü"
     },
     {
+      "key": "おいで",
+      "value": "Buraya Gel"
+    },
+    {
+      "key": "おきあがり",
+      "value": "Kalkış"
+    },
+    {
+      "key": "おすまし",
+      "value": "Ağırbaşlı"
+    },
+    {
+      "key": "おちこみ",
+      "value": "Keyifsiz"
+    },
+    {
+      "key": "お伺いポーズ",
+      "value": "İzin Var mı?"
+    },
+    {
+      "key": "お姉さん座り",
+      "value": "Zarif Oturuş"
+    },
+    {
+      "key": "お疲れ",
+      "value": "Bitkin"
+    },
+    {
+      "key": "が無効になっています",
+      "value": "devre dışı"
+    },
+    {
+      "key": "くずし",
+      "value": "Kambur Oturuş"
+    },
+    {
+      "key": "くつろぎ１",
+      "value": "Dinlenme 1"
+    },
+    {
+      "key": "くつろぎ２",
+      "value": "Dinlenme 2"
+    },
+    {
+      "key": "ぐだり１",
+      "value": "Serilme 1"
+    },
+    {
+      "key": "ぐだり２",
+      "value": "Serilme 2"
+    },
+    {
+      "key": "ぐだり３",
+      "value": "Serilme 3"
+    },
+    {
+      "key": "このIK設定を使用する商品名です。",
+      "value": "Bu IK ayarlarını kullanan ürün."
+    },
+    {
+      "key": "このアバターでポーズを使用する場合は、「対象を選択」で該当オブジェクトのタグと有効状態を確認してください。",
+      "value": "Bu avatarda poz kullanmak için ilgili nesneyi seçip etiketini ve etkinlik durumunu kontrol edin."
+    },
+    {
+      "key": "このアバターの手足の自動調整が無効になっています。",
+      "value": "Bu avatar için otomatik uzuv düzeltmesi kapalı."
+    },
+    {
+      "key": "このアバターは人型ではありません。アバターのAnimatorにHumanoid型のAvatarが設定されていない場合はこのツールは使えません。",
+      "value": "Bu avatar Humanoid değil. Araç, Animator'a atanmış Humanoid Avatar gerektirir."
+    },
+    {
+      "key": "このエラーについて相談する",
+      "value": "Bu hata hakkında sor"
+    },
+    {
+      "key": "このコンピュータにはゆにさきポーズシステムの使用が許諾されていません。Boothのショップから可愛いポーズツールを購入して、コンピュータにライセンスをインストールしてください",
+      "value": "Bu bilgisayarın Unisaki Posing System lisansı yok. BOOTH'tan Kawaii Posing satın alıp lisansı bu bilgisayara kurun."
+    },
+    {
+      "key": "このコンピュータにはカッコいいポーズツールの使用が許諾されていません。Boothのショップからカッコいいポーズツールを購入して、コンピュータにライセンスをインストールしてください。カッコいいポーズツールを購入しているのにこのエラーが表示される場合は、Boothから最新版のZipファイルをダウンロードして、「CoolPosing.unitypackage」をインポートしてください。（この作業は１つのパソコンにつき一回行う必要があります）",
+      "value": "Bu bilgisayarda Cool Posing lisansı yok. Aracı BOOTH'tan satın alıp lisansını kurun. Zaten satın aldıysanız BOOTH'tan son ZIP'i indirip CoolPosing.unitypackage'i içe aktarın. Bilgisayar başına bir kez gerekir."
+    },
+    {
+      "key": "このコンピュータには可愛いポーズツールの使用が許諾されていません。Boothのショップから可愛いポーズツールを購入して、コンピュータにライセンスをインストールしてください。可愛いポーズツールを購入しているのにこのエラーが表示される場合は、Boothから最新版のZipファイルをダウンロードして、「KawaiiPosing.unitypackage」をインポートしてください。（この作業は１つのパソコンにつき一回行う必要があります）",
+      "value": "Bu bilgisayarda Kawaii Posing lisansı yok. Aracı BOOTH'tan satın alıp lisansını kurun. Zaten satın aldıysanız BOOTH'tan son ZIP'i indirip KawaiiPosing.unitypackage'i içe aktarın. Bilgisayar başına bir kez gerekir."
+    },
+    {
+      "key": "このツールにはアバター固有補正用の基準データがありません。",
+      "value": "Bu araçta avatar düzeltmesi için referans verisi yok."
+    },
+    {
+      "key": "このプリセットに変更する",
+      "value": "Bu ön ayarı uygula"
+    },
+    {
+      "key": "このプリセットは削除されたか、現在のツールに適用できません。「再読込」で一覧を更新してください。",
+      "value": "Ön ayar silindi veya bu araca uygulanamıyor. Listeyi güncellemek için Yenile'yi seçin."
+    },
+    {
+      "key": "このポーズにはIKによる自動調整が設定されていません。元の姿勢と手動調整を使用します。",
+      "value": "Bu pozun otomatik IK düzeltmesi yok. Özgün poz ve elle düzeltmeler kullanılır."
+    },
+    {
+      "key": "このポーズのIKを使う",
+      "value": "Bu poz için IK'yi etkinleştir"
+    },
+    {
+      "key": "このポーズの手足の自動調整（IK）",
+      "value": "Bu pozun uzuv düzeltmesi (IK)"
+    },
+    {
+      "key": "このポーズを使う",
+      "value": "Bu pozu kullan"
+    },
+    {
+      "key": "このポーズツールごとに保存します。エラー表示と、ビルド時に必要な再生成は有効なままです。",
+      "value": "Poz aracı başına kaydedilir. Hatalar ve derleme sırasında gereken yeniden oluşturma etkin kalır."
+    },
+    {
+      "key": "このユーザーのゆにさきポーズシステムライセンスが見つかりません。正規の購入ページからダウンロードしたインストーラーを、このUnityプロジェクトへインポートしてください。ライセンスは、PCのユーザーごとに一度インストールします。別のPCやユーザーでは再度インストールしてください。",
+      "value": "Bu işletim sistemi kullanıcısı için Unisaki Posing System lisansı bulunamadı. Resmî satın alma indirmenizdeki yükleyiciyi bu Unity projesine aktarın. Her bilgisayarda her işletim sistemi kullanıcısı için lisansı bir kez kurun."
+    },
+    {
+      "key": "このユーザーのカッコいいポーズツールライセンスが見つかりません。正規の購入ページからダウンロードしたインストーラーを、このUnityプロジェクトへインポートしてください。ライセンスは、PCのユーザーごとに一度インストールします。別のPCやユーザーでは再度インストールしてください。",
+      "value": "Bu işletim sistemi kullanıcısı için Cool Posing Tool lisansı bulunamadı. Resmî satın alma indirmenizdeki yükleyiciyi bu Unity projesine aktarın. Her bilgisayarda her işletim sistemi kullanıcısı için lisansı bir kez kurun."
+    },
+    {
+      "key": "このユーザーの可愛いポーズツールライセンスが見つかりません。正規の購入ページからダウンロードしたインストーラーを、このUnityプロジェクトへインポートしてください。ライセンスは、PCのユーザーごとに一度インストールします。別のPCやユーザーでは再度インストールしてください。",
+      "value": "Bu işletim sistemi kullanıcısı için Kawaii Posing Tool lisansı bulunamadı. Resmî satın alma indirmenizdeki yükleyiciyi bu Unity projesine aktarın. Her bilgisayarda her işletim sistemi kullanıcısı için lisansı bir kez kurun."
+    },
+    {
+      "key": "このルールを使用",
+      "value": "Bu kuralı etkinleştir"
+    },
+    {
+      "key": "この分類にはアニメーションがありません。",
+      "value": "Bu kategoride animasyon yok."
+    },
+    {
+      "key": "この分類の中で移動先の順番を選べます。",
+      "value": "Bu kategori içindeki hedef konumu seçin."
+    },
+    {
+      "key": "この分類の初期ポーズにする",
+      "value": "Kategori için varsayılan yap"
+    },
+    {
+      "key": "この切り替えは調整ウィンドウのプレビュー専用です。保存・サムネイル・最終出力には影響しません。膝クランプは引き続き有効です。",
+      "value": "Bu anahtar kayıtlı veriyi, küçük resimleri veya son çıktıyı değil, yalnızca düzeltme önizlemesini etkiler. Diz sınırlaması etkin kalır."
+    },
+    {
+      "key": "この商品には基準アバター姿勢が登録されていません。",
+      "value": "Bu ürün için kayıtlı referans avatar pozu yok."
+    },
+    {
+      "key": "この商品には基準データがありません。",
+      "value": "Bu ürünün referans verisi yok."
+    },
+    {
+      "key": "この姿勢の自動調整データがありません。",
+      "value": "Bu poz için otomatik düzeltme verisi yok."
+    },
+    {
+      "key": "この種類には移動を含むBlendTreeを指定してください。",
+      "value": "Bu hareket türü için hareket içeren bir BlendTree seçin."
+    },
+    {
+      "key": "この種類のモーションを使う",
+      "value": "Bu hareket türünü kullan"
+    },
+    {
+      "key": "この種類の手動設定と調整を解除します。自動取り込みがONなら次回生成時に再検出します。Undoで戻せます。",
+      "value": "Bu hareket türünün elle yapılan ayarlarını ve düzeltmelerini temizler. Otomatik içe aktarma etkinse sonraki derlemede yeniden algılanır. İşlem geri alınabilir."
+    },
+    {
+      "key": "この警告について相談する",
+      "value": "Bu uyarı hakkında sor"
+    },
+    {
+      "key": "この警告を今後表示しない",
+      "value": "Bu uyarıyı tekrar gösterme"
+    },
+    {
+      "key": "ごろ寝システムEX追加",
+      "value": "Gorone System EX ekle"
+    },
+    {
+      "key": "ざせつ",
+      "value": "Yenilmiş"
+    },
+    {
+      "key": "しなの",
+      "value": "Shinano"
+    },
+    {
+      "key": "しなの (着せ替え)",
+      "value": "Shinano (Kıyafet)"
+    },
+    {
+      "key": "しなの（着せ替え)",
+      "value": "Shinano (Kıyafet)"
+    },
+    {
+      "key": "しなの（着せ替え）",
+      "value": "Shinano (Kıyafet)"
+    },
+    {
+      "key": "しゃがみ（Crouching）",
+      "value": "Çömelme"
+    },
+    {
+      "key": "じだらく",
+      "value": "Tembel Gün"
+    },
+    {
+      "key": "すねの長さ",
+      "value": "Alt bacak uzunluğu"
+    },
+    {
+      "key": "すべての姿勢から検索",
+      "value": "Tüm pozlarda ara"
+    },
+    {
+      "key": "すべての警告・注意を非表示",
+      "value": "Tüm uyarıları ve notları gizle"
+    },
+    {
+      "key": "すべての項目が既に存在するため、追加されませんでした。",
+      "value": "Tüm kayıtlar zaten mevcut; hiçbir şey eklenmedi."
+    },
+    {
+      "key": "その他",
+      "value": "Diğer"
+    },
+    {
+      "key": "たたみ",
+      "value": "Tatami"
+    },
+    {
+      "key": "なし",
+      "value": "Yok"
+    },
+    {
+      "key": "にEditorOnlyタグが設定されています",
+      "value": "EditorOnly etiketine sahip"
+    },
+    {
+      "key": "ねころび",
+      "value": "Uzanma"
+    },
+    {
+      "key": "ねころび１",
+      "value": "Uzanma 1"
+    },
+    {
+      "key": "ねころび２",
+      "value": "Uzanma 2"
+    },
+    {
+      "key": "ねころび３",
+      "value": "Uzanma 3"
+    },
+    {
+      "key": "のんびり",
+      "value": "Acele Yok"
+    },
+    {
+      "key": "のーんびり",
+      "value": "Çok Rahat"
+    },
+    {
+      "key": "はい",
+      "value": "Evet"
+    },
+    {
+      "key": "はいずり",
+      "value": "Sürünme"
+    },
+    {
+      "key": "はりつけ",
+      "value": "Sabitlenmiş"
+    },
+    {
+      "key": "びっくり",
+      "value": "Şaşkın"
+    },
+    {
+      "key": "ふくじゅう",
+      "value": "Boyun Eğme"
+    },
+    {
+      "key": "ほかのギミックとの併用によって固定機能がうまく動かない場合はオンにしてください。",
+      "value": "Takip kilitleri diğer araçlarla birlikte düzgün çalışmıyorsa etkinleştirin."
+    },
+    {
+      "key": "ほかのプリセットを探す",
+      "value": "Diğer ön ayarlara göz at"
+    },
+    {
+      "key": "または",
+      "value": "veya"
+    },
+    {
+      "key": "まだプレビルドしていません。「プレビルドを更新」で姿勢データを生成できます。",
+      "value": "Henüz ön oluşturma yok. Poz verisini oluşturmak için Ön oluşturmayı güncelle'yi seçin."
+    },
+    {
+      "key": "むきりょく",
+      "value": "Enerjisiz"
+    },
+    {
+      "key": "ゆにさきスタジオ",
+      "value": "Unisaki Studio"
+    },
+    {
+      "key": "ゆにさきスタジオ公式",
+      "value": "Resmî Unisaki Studio ön ayarları"
+    },
+    {
+      "key": "ゆにさきポーズシステム",
+      "value": "Unisaki Posing System"
+    },
+    {
+      "key": "ゆにさきポーズシステムライセンス削除",
+      "value": "Posing System lisansını kaldır"
+    },
+    {
+      "key": "ゆにさきポーズシステム設定",
+      "value": "Unisaki Posing System Ayarları"
+    },
+    {
+      "key": "よりかかり",
+      "value": "Yaslanma"
+    },
+    {
+      "key": "アイコンの更新",
+      "value": "Simge güncelleme"
+    },
+    {
+      "key": "アイコンを撮り直す",
+      "value": "Simgeleri yeniden çek"
+    },
+    {
+      "key": "アイコン画像",
+      "value": "Simge görüntüsü"
+    },
+    {
+      "key": "アイコン画像の容量を減らす",
+      "value": "Simge boyutunu küçült"
+    },
+    {
+      "key": "アイコン画像を指定するか、独自アイコンを無効にして自動生成を使用してください。",
+      "value": "Bir simge görüntüsü atayın veya oluşturulan simgeleri kullanmak için özel simgeyi kapatın."
+    },
+    {
+      "key": "アイコン画像ファイルを削除",
+      "value": "Simge görüntü dosyasını sil"
+    },
+    {
+      "key": "アイドル",
+      "value": "İdol"
+    },
+    {
+      "key": "アップロード時に適用します。未翻訳の項目は日本語で表示されます。",
+      "value": "Yükleme sırasında uygulanır. Çevrilmemiş öğeler Japonca gösterilir."
+    },
+    {
+      "key": "アニメーション",
+      "value": "Animasyon"
+    },
+    {
+      "key": "アニメーションが割り当てられていません。",
+      "value": "Animasyon atanmamış."
+    },
+    {
+      "key": "アニメーションの調整は現在停止中です",
+      "value": "Animasyon düzeltmesi durduruldu."
+    },
+    {
+      "key": "アニメーションを合成して保存しました。\n新しいファイル: {0}",
+      "value": "Animasyon birleştirildi ve kaydedildi.\nYeni dosya: {0}"
+    },
+    {
+      "key": "アニメーションを選択してください。",
+      "value": "Bir animasyon seçin."
+    },
+    {
+      "key": "アニメーション情報",
+      "value": "Animasyon bilgileri"
+    },
+    {
+      "key": "アニメーション調整",
+      "value": "Animasyon Düzeltmesi"
+    },
+    {
+      "key": "アニメーション調整ウィンドウが表示されています。調整が終わったらウィンドウを閉じてください",
+      "value": "Animasyon düzeltme penceresi açık. Düzeltme bittiğinde kapatın."
+    },
+    {
+      "key": "アニメーション調整ウィンドウを閉じる",
+      "value": "Animasyon düzeltme penceresini kapat"
+    },
+    {
+      "key": "アニメーション調整画面など、ほかのプレビューを終了してからお試しください。",
+      "value": "Animasyon Düzeltmesi dahil diğer animasyon önizlemelerini kapatıp yeniden deneyin."
+    },
+    {
+      "key": "アニメーション調節機能を使用して姿勢をアバターに合わせたデータを、別のアバターデータでも使用したい場合は、プリセットを作成すると便利です。PrefabsやFBXを登録してプリセットを作成すると、そのアバターに{0}を追加した時に自動でプリセットが適用されるようになります。また、作成したプリセットは公開、配付、販売が可能です。",
+      "value": "Poz düzeltmelerinizi aynı avatarın başka bir kopyasında kullanmak için ön ayar oluşturun. Bu avatara {0} eklendiğinde ön ayarın önerilmesi için prefab veya FBX kaydedin. Oluşturduğunuz ön ayarları ürün lisansı kapsamında yayımlayabilir, dağıtabilir veya satabilirsiniz."
+    },
+    {
+      "key": "アバターごとの設定ではなく、1つの商品につき1ファイルを作成します。",
+      "value": "Her ürün için bir dosya oluşturun; avatara özgü ayarlardan ayrıdır."
+    },
+    {
+      "key": "アバターごとの関節の向きやひねりの違いを自動で補正します。",
+      "value": "Her avatarın eklem yönü ve burulma farklarını otomatik düzeltir."
+    },
+    {
+      "key": "アバターとの組み合わせ",
+      "value": "Avatar bütünleştirme"
+    },
+    {
+      "key": "アバターに合わないときは、このポーズだけIKをオフにできます。ほかのポーズやアバターには影響しません。",
+      "value": "Avatarınıza uymuyorsa yalnızca bu pozun IK'sini kapatın. Diğer pozlar ve avatarlar etkilenmez."
+    },
+    {
+      "key": "アバターに適合",
+      "value": "Uyumlu avatar"
+    },
+    {
+      "key": "アバターのBaseに通常のAnimatorControllerを設定してください。AnimatorOverrideControllerには対応していません。",
+      "value": "Avatarın Base katmanına normal bir Animator Controller atayın. Animator Override Controller desteklenmez."
+    },
+    {
+      "key": "アバターのスケールから有効な固定長を測定できません。",
+      "value": "Avatar ölçeğinden geçerli sabit uzunluk ölçülemedi."
+    },
+    {
+      "key": "アバターのルートにAnimatorがありません。",
+      "value": "Avatarın kökünde Animator yok."
+    },
+    {
+      "key": "アバターのルートにAnimatorがありません。Inspectorの「設定の確認」の対処手順をご確認ください。",
+      "value": "Avatarın kökünde Animator yok. Inspector'daki ayar kontrolüne bakın."
+    },
+    {
+      "key": "アバターの元の立ち・しゃがみ・伏せ姿勢を使う",
+      "value": "Özgün ayakta, çömelme ve yüzüstü pozları kullan"
+    },
+    {
+      "key": "アバターの元モデルに対応するHumanoid AvatarをAnimatorのAvatar欄に戻してください。別アバターのAvatarは指定しないでください。",
+      "value": "Avatarın özgün modeline ait Humanoid Avatar'ı Animator'ın Avatar alanına geri atayın. Bu modele ait Avatar varlığını kullanın."
+    },
+    {
+      "key": "アバターの初期姿勢が変わったため、補正を自動更新します。",
+      "value": "Avatarın dinlenme pozu değişti. Düzeltmeler otomatik güncellenecek."
+    },
+    {
+      "key": "アバターの姿勢をリセット（Tポーズに戻す）",
+      "value": "Avatarı T-pozuna sıfırla"
+    },
+    {
+      "key": "アバターの容量を抑えたいときに便利です。アイコン画像は少し粗くなります。",
+      "value": "Biraz simge ayrıntısından vazgeçerek avatar boyutunu küçültür."
+    },
+    {
+      "key": "アバターの設定が必要",
+      "value": "Avatar kurulumu gerekli"
+    },
+    {
+      "key": "アバターデータフォルダの自動検出",
+      "value": "Avatar veri klasörünü algıla"
+    },
+    {
+      "key": "アバター全体を基準",
+      "value": "Avatar"
+    },
+    {
+      "key": "アバター名",
+      "value": "Avatar adı"
+    },
+    {
+      "key": "アバター名を入力してください。",
+      "value": "Avatar adını girin."
+    },
+    {
+      "key": "アバター固有補正を使う",
+      "value": "Avatar düzeltmesini etkinleştir"
+    },
+    {
+      "key": "アバター固有補正を使用",
+      "value": "Avatar düzeltmesini etkinleştir"
+    },
+    {
+      "key": "アバター固有補正アニメーションを保存できませんでした。",
+      "value": "Avatara özgü düzeltme animasyonu kaydedilemedi."
+    },
+    {
+      "key": "アバター調整",
+      "value": "Avatar Kurulumu"
+    },
+    {
+      "key": "アバター選択",
+      "value": "Avatar seçimi"
+    },
+    {
+      "key": "エラー",
+      "value": "Hata"
+    },
+    {
+      "key": "オブジェクトがVRC用のアバターオブジェクトの中に入っていません。このオブジェクトはVRCAvatarDescriptorコンポーネントの付いたオブジェクトの中に配置してください",
+      "value": "Bu nesneyi VRCAvatarDescriptor bileşeni içeren bir avatarın içine yerleştirin."
+    },
+    {
+      "key": "カエルのポーズ１",
+      "value": "Kurbağa 1"
+    },
+    {
+      "key": "カエルのポーズ２",
+      "value": "Kurbağa 2"
+    },
+    {
+      "key": "カスタム",
+      "value": "Özel"
+    },
+    {
+      "key": "カスタムアニメーション",
+      "value": "Özel animasyon"
+    },
+    {
+      "key": "カッコいいポーズ",
+      "value": "Cool Posing"
+    },
+    {
+      "key": "カッコいいポーズツール",
+      "value": "Cool Posing"
+    },
+    {
+      "key": "カッコいいポーズツール(Gumroad)",
+      "value": "Cool Posing Tool (Gumroad)"
+    },
+    {
+      "key": "カッコいいポーズツールライセンスインストール",
+      "value": "Cool Posing lisansını kur"
+    },
+    {
+      "key": "カッコいいポーズツールライセンス削除",
+      "value": "Cool Posing lisansını kaldır"
+    },
+    {
+      "key": "カッコいいポーズツールライセンス状態確認",
+      "value": "Cool Posing lisans durumu"
+    },
+    {
+      "key": "カッコいいポーズツール設定",
+      "value": "Cool Posing Ayarları"
+    },
+    {
+      "key": "カッコいいポーズツール追加",
+      "value": "Cool Posing ekle"
+    },
+    {
+      "key": "カッコいいポーズツール（BOOTH）",
+      "value": "Cool Posing Tool (BOOTH)"
+    },
+    {
+      "key": "キック",
+      "value": "Tekme"
+    },
+    {
+      "key": "クマ人形",
+      "value": "Oyuncak Ayı"
+    },
+    {
+      "key": "クリップボードが空です。",
+      "value": "Pano boş."
+    },
+    {
+      "key": "ケンカ",
+      "value": "Kavgaya Hazır"
+    },
+    {
+      "key": "ゲーム内で使うには「機能」タブの「寝返り」もオンにしてください。",
+      "value": "VRChat'te kullanmak için Özellikler sekmesinde dönüşü de etkinleştirin."
+    },
+    {
+      "key": "ゲーム内メニューの言語",
+      "value": "Oyun içi menü dili"
+    },
+    {
+      "key": "コンパイルエラー（先頭から最大5件）",
+      "value": "Derleme hataları (ilk 5'e kadar)"
+    },
+    {
+      "key": "コンビニ",
+      "value": "Bakkal"
+    },
+    {
+      "key": "シーンを保存・バックアップしてから、ALCOM / VCCで商品本体と「ゆにさきポーズシステム」を再取得してください。入れ直しても直らない場合は、Inspector上部の「ヘルプ・変更履歴」から公式マニュアル・お問い合わせをご確認ください。調整済みのオブジェクトやGeneratedResourcesは削除しないでください。",
+      "value": "Sahneyi kaydedip yedekleyin, ardından ürünü ve Unisaki Posing System'i ALCOM / VCC ile yeniden indirin. Sorun sürerse kılavuz ve destek için Inspector'ın üstündeki yardım ve değişiklikleri açın. Düzenlediğiniz nesneleri ve GeneratedResources'u koruyun."
+    },
+    {
       "key": "ジェスチャー無効",
       "value": "Jestleri kapat"
+    },
+    {
+      "key": "ジャンプ",
+      "value": "Zıplama"
+    },
+    {
+      "key": "ジャンプで寝姿勢を切り替える",
+      "value": "Zıplayarak yatış pozunu değiştir"
+    },
+    {
+      "key": "スライダーは−1〜1。範囲外の値も数値欄に入力できます。",
+      "value": "Kaydırıcı aralığı: -1 ile 1. Bu aralığın dışında değerler yazabilirsiniz."
+    },
+    {
+      "key": "ソースとなるPosingSystemが見つかりません。",
+      "value": "Kaynak PosingSystem bulunamadı."
+    },
+    {
+      "key": "ゾンビ",
+      "value": "Zombi"
+    },
+    {
+      "key": "ターゲットボーン {0} がありません。",
+      "value": "{0} hedef kemiği eksik."
+    },
+    {
+      "key": "チェックを付けると増える量／外すと減る量です。\n寝返りON/OFF：1 bit、頭の傾き：8 bit、首固定：1 bit。\nほかの設定で使用中のパラメーターは重複して数えません。",
+      "value": "Bu seçeneği açıp kapatırken bellek değişimi.\nDönüş anahtarı: 1 bit; baş eğimi: 8 bit; baş kilidi: 1 bit.\nDiğer seçeneklerin kullandığı parametreler bir kez sayılır."
+    },
+    {
+      "key": "チェックを付けると増える量／外すと減る量です。\n首固定：1 bit（寝返りと共用）。\n寝返りなどで使用中なら0 bitです。",
+      "value": "Bu seçeneği açıp kapatırken bellek değişimi.\nBaş kilidi: 1 bit, dönüşle paylaşılır.\nDönüş bu parametreyi zaten kullanıyorsa ek bit kullanmaz."
+    },
+    {
+      "key": "ツールに同梱された公式プリセットを一覧と検索結果に表示しません。同じプロジェクト内のアバターで共有する設定です。",
+      "value": "Resmî hazır ön ayarları listeden ve arama sonuçlarından gizler. Bu ayar projedeki avatarlar arasında paylaşılır."
+    },
+    {
+      "key": "ツールのルートにMA Parametersがありません。",
+      "value": "Aracın kökünde MA Parameters bileşeni yok."
+    },
+    {
+      "key": "ツールの親にVRC Avatar Descriptorがありません。",
+      "value": "Aracın üstünde VRC Avatar Descriptor bulunamadı."
+    },
+    {
+      "key": "ツール内の共通ポージングAnimatorが1つだけ有効か、EditorOnlyタグ・Missing Scriptの有無と標準Prefabの導入状態を確認してください。",
+      "value": "Yalnızca bir ortak poz Animator'ının etkin olduğunu, EditorOnly etiketi veya Missing Script bulunmadığını ve standart prefabın kurulu olduğunu kontrol edin."
+    },
+    {
+      "key": "ツール内の姿勢メニューが削除・無効化されていないか確認してください。",
+      "value": "Aracın içindeki poz menüsünün silinmediğini veya devre dışı bırakılmadığını kontrol edin."
+    },
+    {
+      "key": "ツール内の姿勢メニューが削除・無効化されていないか確認してください。シーンを保存・バックアップしてから、ALCOM / VCCで商品本体と「ゆにさきポーズシステム」を再取得してください。入れ直しても直らない場合は、Inspector上部の「ヘルプ・変更履歴」から公式マニュアル・お問い合わせをご確認ください。調整済みのオブジェクトやGeneratedResourcesは削除しないでください。",
+      "value": "Aracın içindeki poz menüsünün silinmediğini veya devre dışı bırakılmadığını kontrol edin.\nSahneyi kaydedip yedekleyin, ardından ürünü ve Unisaki Posing System'i ALCOM / VCC ile yeniden indirin. Sorun sürerse kılavuz ve destek için Inspector'ın üstündeki yardım ve değişiklikleri açın. Düzenlediğiniz nesneleri ve GeneratedResources'u koruyun."
+    },
+    {
+      "key": "ツール本体が見つかりません [PS041]",
+      "value": "Araç prefabı bulunamadı [PS041]"
+    },
+    {
+      "key": "デバッグ: アバター固有補正をプレビュー",
+      "value": "Hata ayıklama: avatar düzeltmesini önizle"
+    },
+    {
+      "key": "デフォルト",
+      "value": "Varsayılan"
+    },
+    {
+      "key": "データ形式のバージョン",
+      "value": "Veri biçimi sürümü"
+    },
+    {
+      "key": "トラブルシューティング",
+      "value": "Sorun giderme"
+    },
+    {
+      "key": "トラブルシューティングを閉じる",
+      "value": "Sorun gidermeyi kapat"
+    },
+    {
+      "key": "バックアップ済み・削除する",
+      "value": "Yedeklendi — sil"
+    },
+    {
+      "key": "バックアップ済み・取り除く",
+      "value": "Yedeklendi — kaldır"
+    },
+    {
+      "key": "バンザイ",
+      "value": "Kollar Yukarı"
+    },
+    {
+      "key": "バージョン不明",
+      "value": "Bilinmeyen sürüm"
+    },
+    {
+      "key": "パッケージ内の標準Controllerが見つかりません。",
+      "value": "Pakette standart Controller bulunamadı."
+    },
+    {
+      "key": "ファイルに保存されている値に戻します。",
+      "value": "Dosyada kayıtlı değerleri geri yükler."
+    },
+    {
+      "key": "プランク",
+      "value": "Plank"
+    },
+    {
+      "key": "プリセット",
+      "value": "Ön ayarlar"
+    },
+    {
+      "key": "プリセットの保存・管理",
+      "value": "Ön ayarları kaydet / yönet"
+    },
+    {
+      "key": "プリセットの保存・管理を閉じる",
+      "value": "Ön ayar yönetimini kapat"
+    },
+    {
+      "key": "プリセットを作成",
+      "value": "Ön ayar oluştur"
+    },
+    {
+      "key": "プリセットを作成しました。プリセット選択の「再読込」で一覧に反映できます。",
+      "value": "Ön ayar oluşturuldu. Listeyi güncellemek için ön ayar seçicisinde Yenile'yi kullanın."
+    },
+    {
+      "key": "プリセットを読み込めません",
+      "value": "Ön ayar yüklenemedi"
+    },
+    {
+      "key": "プリセットを適用し直すか、新しく追加したツールのポーズ一覧と比較してください。",
+      "value": "Bir ön ayarı yeniden uygulayın veya poz listesini aracın yeni eklenen bir kopyasıyla karşılaştırın."
+    },
+    {
+      "key": "プリセットを適用し直すか、新しく追加したツールのポーズ一覧と比較してください。シーンを保存・バックアップしてから、ALCOM / VCCで商品本体と「ゆにさきポーズシステム」を再取得してください。入れ直しても直らない場合は、Inspector上部の「ヘルプ・変更履歴」から公式マニュアル・お問い合わせをご確認ください。調整済みのオブジェクトやGeneratedResourcesは削除しないでください。",
+      "value": "Bir ön ayarı yeniden uygulayın veya poz listesini aracın yeni eklenen bir kopyasıyla karşılaştırın.\nSahneyi kaydedip yedekleyin, ardından ürünü ve Unisaki Posing System'i ALCOM / VCC ile yeniden indirin. Sorun sürerse kılavuz ve destek için Inspector'ın üstündeki yardım ve değişiklikleri açın. Düzenlediğiniz nesneleri ve GeneratedResources'u koruyun."
+    },
+    {
+      "key": "プリセットを選択してください",
+      "value": "Bir ön ayar seçin"
+    },
+    {
+      "key": "プリセット一覧を更新できませんでした:",
+      "value": "Ön ayar listesi yenilenemedi:"
+    },
+    {
+      "key": "プリセット一覧を読み込めませんでした。「再読込」で再試行できます:",
+      "value": "Ön ayar listesi yüklenemedi. Yeniden denemek için Yenile'yi seçin:"
+    },
+    {
+      "key": "プリセット一覧を閉じる",
+      "value": "Ön ayar listesini kapat"
+    },
+    {
+      "key": "プリセット作成中にエラーが発生しました。",
+      "value": "Ön ayar oluşturulurken hata oluştu."
+    },
+    {
+      "key": "プリセット作成設定",
+      "value": "Ön ayar oluşturma ayarları"
+    },
+    {
+      "key": "プリセット選択",
+      "value": "Ön ayar seç"
+    },
+    {
+      "key": "プレビュー",
+      "value": "Önizleme"
+    },
+    {
+      "key": "プレビューを終了（元の姿勢に戻す）",
+      "value": "Önizlemeyi bitir (özgün pozu geri yükle)"
+    },
+    {
+      "key": "プレビュー中：{0}",
+      "value": "Önizleme: {0}"
+    },
+    {
+      "key": "プレビルド",
+      "value": "Ön oluşturma"
+    },
+    {
+      "key": "プレビルドの更新について相談したいです。",
+      "value": "Ön oluşturmayı güncellemek için yardım istiyorum."
+    },
+    {
+      "key": "プレビルドを実行できません。Inspectorの「設定の確認」で、アバターの配置・Animator・Humanoidの設定を確認してください。",
+      "value": "Ön oluşturulamıyor. Inspector'daki ayar kontrolünde avatarın yerleşimini, Animator ve Humanoid ayarlarını kontrol edin."
+    },
+    {
+      "key": "プレビルドを更新",
+      "value": "Ön oluşturmayı güncelle"
+    },
+    {
+      "key": "プレビルド・ビルド時に標準Prefabから再作成します。",
+      "value": "Ön oluşturma veya avatar derlemesi sırasında standart prefabdan yeniden oluşturulacak."
+    },
+    {
+      "key": "プレビルド・ビルド時に標準設定から再作成します。",
+      "value": "Ön oluşturma veya avatar derlemesi sırasında standart ayarlardan yeniden oluşturulacak."
+    },
+    {
+      "key": "プレビルド後に設定が変更されています。「プレビルドを更新」で現在の設定を反映してください。",
+      "value": "Son ön oluşturmadan beri ayarlar değişti. Geçerli ayarları uygulamak için Ön oluşturmayı güncelle'yi seçin."
+    },
+    {
+      "key": "プレビルド後の設定変更の警告を非表示",
+      "value": "Değişen ayar uyarılarını gizle"
+    },
+    {
+      "key": "プレビルド時に標準Controllerから復元を試みます。復元できない場合は、ゆにさきポーズシステムのパッケージを再取得してください。",
+      "value": "Ön oluşturma standart Controller'ı geri yüklemeyi deneyecek. Başarısız olursa Unisaki Posing System paketini yeniden edinin."
+    },
+    {
+      "key": "プレビルド未実行の警告を非表示",
+      "value": "Eksik ön oluşturma uyarılarını gizle"
+    },
+    {
+      "key": "ベッド",
+      "value": "Yatak"
+    },
+    {
+      "key": "ポーズ {0} bit ＋ 追加機能 {1} bit  ／ このアバターのポーズツール分",
+      "value": "Pozlar: {0} bit + isteğe bağlı özellikler: {1} bit / bu avatardaki poz araçları"
+    },
+    {
+      "key": "ポーズアイコン生成",
+      "value": "Poz simgeleri oluştur"
+    },
+    {
+      "key": "ポーズシステム",
+      "value": "Posing System"
+    },
+    {
+      "key": "ポーズツールで次のエラーが出ました。対処方法を教えてください。",
+      "value": "Poz aracı aşağıdaki hatayı bildirdi. Nasıl çözebilirim?"
+    },
+    {
+      "key": "ポーズ・アバター設定の注意を非表示",
+      "value": "Poz ve avatar notlarını gizle"
+    },
+    {
+      "key": "ポーズ一覧",
+      "value": "Pozlar"
+    },
+    {
+      "key": "ポーズ一覧でアニメーションを指定するか、その項目を無効にしてください。",
+      "value": "Poz listesinde bir animasyon atayın veya kaydı devre dışı bırakın."
+    },
+    {
+      "key": "ポーズ一覧で使うポーズを有効にしてください。意図的に空にしている場合は対応不要です。",
+      "value": "Poz listesinden istediğiniz pozları etkinleştirin. Kategori bilerek boş bırakıldıysa değişiklik gerekmez."
+    },
+    {
+      "key": "ポーズ一覧で初期ポーズを1つにしてください。",
+      "value": "Bu kategoride tek bir varsayılan poz seçin."
+    },
+    {
+      "key": "ポーズ一覧で該当カテゴリを確認し、プリセットまたはバックアップから復元してください。",
+      "value": "Poz listesindeki bu kategoriyi kontrol edip ön ayardan veya yedekten geri yükleyin."
+    },
+    {
+      "key": "ポーズ一覧のカテゴリ{0}のデータが欠けています。",
+      "value": "Poz listesinde {0} kategorisinin verileri eksik."
+    },
+    {
+      "key": "ポーズ一覧のデータがありません。",
+      "value": "Poz listesi verileri eksik."
+    },
+    {
+      "key": "ポーズ名",
+      "value": "Poz adı"
+    },
+    {
+      "key": "ポーズ画像を更新",
+      "value": "Poz küçük resimlerini güncelle"
+    },
+    {
+      "key": "マットレス",
+      "value": "Şilte"
+    },
+    {
+      "key": "メニューに撮影モードを追加します。前へ最大3m移動したり回転したりして、自分から見える位置を調整できます。",
+      "value": "Kendinizi daha iyi görmek için 3 m'ye kadar ileri hareket ve dönüş sağlayan fotoğraf modu ekler."
+    },
+    {
+      "key": "メニューのアイコン画像",
+      "value": "Menü simgeleri"
+    },
+    {
+      "key": "メニュー追加",
+      "value": "Menü özellikleri"
+    },
+    {
+      "key": "モデル",
+      "value": "Model"
+    },
+    {
+      "key": "ユーザー作成",
+      "value": "Kullanıcı ön ayarları"
+    },
+    {
+      "key": "ライセンスの削除",
+      "value": "Lisansı kaldır"
+    },
+    {
+      "key": "ライセンス削除",
+      "value": "Lisans kaldırma"
+    },
+    {
+      "key": "ラダー運動",
+      "value": "Çeviklik Çalışması"
+    },
+    {
+      "key": "リクライニング",
+      "value": "Geriye Yaslanma"
+    },
+    {
+      "key": "リラックス",
+      "value": "Rahat"
+    },
+    {
+      "key": "リラックス１",
+      "value": "Rahat 1"
+    },
+    {
+      "key": "リラックス２",
+      "value": "Rahat 2"
+    },
+    {
+      "key": "リラックス３",
+      "value": "Rahat 3"
+    },
+    {
+      "key": "ルール名",
+      "value": "Kural adı"
+    },
+    {
+      "key": "ローカル（基準の向き）",
+      "value": "Yerel (referans yönelimi)"
+    },
+    {
+      "key": "ワールドの軸に沿って移動します。オフの軸は元の姿勢の位置を保ちます。",
+      "value": "Dünya eksenleri boyunca hareket eder. Kapalı eksenler özgün poz konumunu korur."
+    },
+    {
+      "key": "ワールド（シーンの軸）",
+      "value": "Dünya (sahne eksenleri)"
+    },
+    {
+      "key": "一括操作",
+      "value": "Toplu işlemler"
+    },
+    {
+      "key": "一括追加を閉じる",
+      "value": "Toplu eklemeyi kapat"
+    },
+    {
+      "key": "一括追加機能",
+      "value": "Toplu ekleme"
+    },
+    {
+      "key": "一致するアニメーションがありません。",
+      "value": "Eşleşen animasyon yok."
+    },
+    {
+      "key": "一覧から削除",
+      "value": "Listeden kaldır"
+    },
+    {
+      "key": "一覧は追加・変更時に更新されます。表示が変わらない場合は「再読込」を押してください。",
+      "value": "Öğeler eklendiğinde veya değiştiğinde liste güncellenir. Görünüm eskiyse Yenile'yi seçin."
+    },
+    {
+      "key": "三点だいしゅき(女)ツール追加",
+      "value": "Virtual Love (Kadın) ekle"
+    },
+    {
+      "key": "三点だいしゅき(男)ツール追加",
+      "value": "Virtual Love (Erkek) ekle"
+    },
+    {
+      "key": "上腕の長さ",
+      "value": "Üst kol uzunluğu"
+    },
+    {
+      "key": "不機嫌",
+      "value": "Huysuz"
+    },
+    {
+      "key": "中",
+      "value": "Orta"
+    },
+    {
+      "key": "中央と横向きに、Humanoid形式のクリップを指定してください。BlendTree・Legacy・身体カーブのないクリップは使用できません。",
+      "value": "Merkez ve yan pozlar için Humanoid klipler atayın. BlendTree, Legacy klipler ve gövde eğrileri olmayan klipler desteklenmez."
+    },
+    {
+      "key": "中腰の高さ閾値",
+      "value": "Çömelme yüksekliği eşiği"
     },
     {
       "key": "中腰姿勢",
       "value": "Çömelme"
     },
     {
+      "key": "二人分座り",
+      "value": "İki Kişilik Yer"
+    },
+    {
+      "key": "五体投地",
+      "value": "Yere Kapanma"
+    },
+    {
+      "key": "他商品連携用Prefabs",
+      "value": "Ürün bütünleştirmeleri"
+    },
+    {
+      "key": "以前の設定から、使う1つを選べます。",
+      "value": "Önceki ayarlardan birini seçin."
+    },
+    {
+      "key": "仰向けとうつ伏せの両方を選んでいるとき、その場でジャンプすると切り替わります。",
+      "value": "Sırtüstü ve yüzüstü pozlar seçiliyken aralarında geçmek için yerinde zıplayın."
+    },
+    {
       "key": "仰向け寝",
       "value": "Sırtüstü"
+    },
+    {
+      "key": "伏せ",
+      "value": "Yüzüstü"
+    },
+    {
+      "key": "伏せ（Prone）",
+      "value": "Yüzüstü"
+    },
+    {
+      "key": "休憩中",
+      "value": "Molada"
+    },
+    {
+      "key": "位置の座標系",
+      "value": "Konum koordinat uzayı"
+    },
+    {
+      "key": "位置の長さの基準",
+      "value": "Konum uzunluk referansı"
+    },
+    {
+      "key": "位置を合わせる強さ",
+      "value": "Konum ağırlığı"
+    },
+    {
+      "key": "位置（選んだ長さを1とする比率）",
+      "value": "Konum (seçilen uzunluğa göre)"
+    },
+    {
+      "key": "低姿勢",
+      "value": "Alçak Duruş"
+    },
+    {
+      "key": "体幹",
+      "value": "Gövde"
+    },
+    {
+      "key": "体格に合わせた手足の自動調整",
+      "value": "Otomatik uzuv düzeltmesi"
+    },
+    {
+      "key": "体育座り",
+      "value": "Dizler Yukarı"
+    },
+    {
+      "key": "使い始めるときの姿勢セットを変更できます。変更すると現在のポーズ設定が置き換わります。",
+      "value": "Başlangıç poz kümesini seçin. Geçerli poz ayarlarının yerine geçer."
+    },
+    {
+      "key": "使用",
+      "value": "Kullan"
+    },
+    {
+      "key": "使用するにはメニュー追加の「撮影モード」をオンにしてください。",
+      "value": "Bu özellik için Menü özellikleri altında fotoğraf modunu etkinleştirin."
+    },
+    {
+      "key": "使用するには便利機能の「呼吸の動きをつける」をオンにしてください。",
+      "value": "Bu özellik için Kolaylıklar altında nefes animasyonunu etkinleştirin."
+    },
+    {
+      "key": "使用方法:\n1. 追加したい文字列を改行区切りでクリップボードにコピー\n2. 対応するボタンをクリック\n3. 重複する項目は自動的に除外されます",
+      "value": "Yönergeler:\n1. Her satırda bir öğe olacak şekilde panoya kopyalayın.\n2. İlgili düğmeye tıklayın.\n3. Yinelenenler atlanır."
+    },
+    {
+      "key": "例: 右手を腰へ、左手を床へ",
+      "value": "Örnek: sağ el kalçada, sol el yerde"
+    },
+    {
+      "key": "便利機能",
+      "value": "Kolaylıklar"
+    },
+    {
+      "key": "保存",
+      "value": "Kaydet"
+    },
+    {
+      "key": "保存された設定の形式・表記",
+      "value": "Kayıtlı ayarların biçimi veya gösterimi"
+    },
+    {
+      "key": "保存されていない変更があります。保存しますか？",
+      "value": "Kaydedilmemiş değişiklikler var. Kaydedilsin mi?"
+    },
+    {
+      "key": "保存先にはAssets内のフォルダと.animファイルを指定してください。",
+      "value": "Assets içinde bir klasör ve .anim dosya adı seçin."
+    },
+    {
+      "key": "保存先フォルダのパスを生成できませんでした。フォルダ「{0}」がプロジェクトに認識されているか確認してください。",
+      "value": "Hedef klasör belirlenemedi. Unity'nin bu proje klasörünü tanıdığından emin olun: {0}"
+    },
+    {
+      "key": "保存時から変わった項目を確認",
+      "value": "Ön oluşturmadan beri değişenleri göster"
+    },
+    {
+      "key": "保存時と異なるプレビルドの設定項目",
+      "value": "Kayıttan beri değişen ön oluşturma ayarları"
+    },
+    {
+      "key": "保存時と異なる項目（最大12件）",
+      "value": "Kayıttan beri değişen ayarlar (en fazla 12)"
+    },
+    {
+      "key": "倒され寝",
+      "value": "Yere Serilmiş"
+    },
+    {
+      "key": "傍観者",
+      "value": "Seyirci"
+    },
+    {
+      "key": "元の姿勢",
+      "value": "Özgün Pozlar"
+    },
+    {
+      "key": "元の姿勢Animation",
+      "value": "Özgün poz animasyonu"
+    },
+    {
+      "key": "元の姿勢AnimationClipがありません。",
+      "value": "Kaynak poz AnimationClip'i eksik."
+    },
+    {
+      "key": "元の姿勢Animationに含まれる肘・膝の曲がり方を、IKを解く前に自動取得します。",
+      "value": "IK çözümünden önce özgün poz animasyonundan dirsek ve diz bükülme yönlerini okur."
+    },
+    {
+      "key": "元の姿勢と手動調整をプレビューしています。",
+      "value": "Özgün poz ve elle yapılan düzeltmeler önizleniyor."
+    },
+    {
+      "key": "元の姿勢の曲げ方向を維持",
+      "value": "Kaynak pozun bükülmesini koru"
+    },
+    {
+      "key": "元モデルのInspector > RigでHumanoid設定とConfigureの割り当てを確認してください。配布元が指定する設定を優先してください。",
+      "value": "Özgün modelin Inspector > Rig ayarlarındaki Humanoid ve Configure atamalarını kontrol edin. Avatar yapımcısının önerdiği kurulumu izleyin."
+    },
+    {
+      "key": "元モデルのRig > ConfigureでHeadを確認し、シーン内で頭のボーンが削除されていないか確認してください。",
+      "value": "Özgün modelin Rig > Configure ayarlarında Head'i kontrol edin ve baş kemiğinin sahnede hâlâ bulunduğundan emin olun."
+    },
+    {
+      "key": "元姿勢の読み込み",
+      "value": "Özgün pozları içe aktar"
+    },
+    {
+      "key": "全ての変更された差分を保存しました。",
+      "value": "Değişen tüm düzeltme değerleri kaydedildi."
+    },
+    {
+      "key": "全ての姿勢の調整値をリセットしますか？",
+      "value": "Her pozun düzeltme değerleri sıfırlansın mı?"
+    },
+    {
+      "key": "全ての姿勢の調整値を再読み込みしますか？未保存の変更は失われます。",
+      "value": "Her pozun düzeltme değerleri yeniden yüklensin mi? Kaydedilmemiş değişiklikler kaybolacak."
+    },
+    {
+      "key": "全ての調整データを複製保存しますか？\n変更のあるアニメーションの調整アニメーションが複製され、変更が保存されます。",
+      "value": "Tüm düzeltme verileri çoğaltılıp kaydedilsin mi?\nDeğişen düzeltme animasyonları çoğaltılıp kaydedilecek."
+    },
+    {
+      "key": "全ての調整値を0にリセットします。",
+      "value": "Tüm düzeltme değerlerini sıfırlar."
+    },
+    {
+      "key": "全ての調整値をファイルに保存されている値に戻します。",
+      "value": "Tüm düzeltme değerlerini kayıtlı dosyalardan yeniden yükler."
+    },
+    {
+      "key": "全姿勢再読込",
+      "value": "Tümünü yeniden yükle"
+    },
+    {
+      "key": "全姿勢初期化",
+      "value": "Tümünü sıfırla"
+    },
+    {
+      "key": "全差分保存",
+      "value": "Değişenleri kaydet"
+    },
+    {
+      "key": "全調整データ複製保存",
+      "value": "Tümünü çoğalt"
+    },
+    {
+      "key": "全身",
+      "value": "Tüm vücut"
+    },
+    {
+      "key": "公開用として有効",
+      "value": "Üretimde etkinleştir"
+    },
+    {
+      "key": "公開用として有効です。カタログを参照する商品では、従来の姿勢別調整Animationとアバター固有補正が使用されません。設定漏れの姿勢がないことを確認してください。",
+      "value": "Üretimde etkin. Bu kataloğu kullanan ürünler eski poz düzeltme animasyonlarını ve avatar düzeltmelerini atlar. Tüm pozların yapılandırıldığını kontrol edin."
+    },
+    {
+      "key": "共通Controllerに姿勢制御用のレイヤーがありません。",
+      "value": "Ortak Controller'da poz kontrol katmanları yok."
+    },
+    {
+      "key": "共通Controllerに未保存の変更があります。変更を保存してからやり直してください。",
+      "value": "Ortak Controller'da kaydedilmemiş değişiklikler var. Yeniden denemeden önce kaydedin."
+    },
+    {
+      "key": "共通Controllerの内容が、このバージョンの生成定義と一致しません。",
+      "value": "Ortak Controller bu sürümün oluşturma tanımıyla eşleşmiyor."
+    },
+    {
+      "key": "共通Controllerの内容が、このバージョンの生成定義と一致しません。独自の変更は別のControllerに保存し、ALCOM / VCCで同じバージョンの「ゆにさきポーズシステム」を入れ直してください。",
+      "value": "Ortak Controller bu sürümün oluşturma tanımıyla eşleşmiyor. Özel değişiklikleri ayrı bir Controller'a kaydedip Unisaki Posing System'in aynı sürümünü ALCOM veya VCC ile yeniden kurun."
+    },
+    {
+      "key": "共通アニメーション（従来設定）",
+      "value": "Ortak animasyon (eski)"
+    },
+    {
+      "key": "共通ポージングAnimatorがありません。",
+      "value": "Ortak poz Animator'ı eksik."
+    },
+    {
+      "key": "共通ポージングAnimatorにMA Merge Animatorがありません。",
+      "value": "Ortak poz Animator'ında MA Merge Animator yok."
+    },
+    {
+      "key": "共通ポージングAnimatorに通常のAnimator Controller以外が設定されています。",
+      "value": "Ortak poz Animator'ı normal bir Animator Controller gerektirir."
+    },
+    {
+      "key": "共通ポージングAnimatorのAnimator参照が未設定です。",
+      "value": "Ortak poz Animator'ına Animator Controller atanmamış."
+    },
+    {
+      "key": "共通ポージングAnimatorへ別のControllerを指定していないか確認してください。",
+      "value": "Ortak poz Animator'ına başka bir Controller atanıp atanmadığını kontrol edin."
+    },
+    {
+      "key": "共通ポージングAnimatorへ別のControllerを指定していないか確認してください。シーンを保存・バックアップしてから、ALCOM / VCCで商品本体と「ゆにさきポーズシステム」を再取得してください。入れ直しても直らない場合は、Inspector上部の「ヘルプ・変更履歴」から公式マニュアル・お問い合わせをご確認ください。調整済みのオブジェクトやGeneratedResourcesは削除しないでください。",
+      "value": "Ortak poz Animator'ına başka bir Controller atanıp atanmadığını kontrol edin.\nSahneyi kaydedip yedekleyin, ardından ürünü ve Unisaki Posing System'i ALCOM / VCC ile yeniden indirin. Sorun sürerse kılavuz ve destek için Inspector'ın üstündeki yardım ve değişiklikleri açın. Düzenlediğiniz nesneleri ve GeneratedResources'u koruyun."
+    },
+    {
+      "key": "共通ポージングAnimatorを使用できません。「{0}」{1}。",
+      "value": "Ortak poz Animator'ı kullanılamıyor. “{0}” {1}."
+    },
+    {
+      "key": "内股座り",
+      "value": "Ayaklar İçe"
+    },
+    {
+      "key": "内部的な互換性管理に使います。通常は変更しません。",
+      "value": "Dahili uyumluluk takibi için kullanılır. Genellikle değiştirmeyin."
+    },
+    {
+      "key": "再生位置のパラメーター",
+      "value": "Oynatma konumu parametresi"
+    },
+    {
+      "key": "再生位置を指定する",
+      "value": "Oynatma konumunu ayarla"
+    },
+    {
+      "key": "再読込",
+      "value": "Yenile"
+    },
+    {
+      "key": "初期ポーズ",
+      "value": "Varsayılan poz"
+    },
+    {
+      "key": "初期化",
+      "value": "Sıfırla"
+    },
+    {
+      "key": "制止",
+      "value": "Dur"
+    },
+    {
+      "key": "削除",
+      "value": "Sil"
+    },
+    {
+      "key": "削除対象: {0}\nこの中のPrefabやアニメーションも削除されます。自作・調整済みデータがある場合はキャンセルし、移行手順に従ってください。バックアップなしでは元に戻せません。",
+      "value": "Silinecek klasör: {0}\nİçindeki prefablar ve animasyonlar da silinir. Özel veya düzenlenmiş veri varsa iptal edin ve geçiş yönergelerini izleyin. Silinen dosyaları geri yüklemek için yedek gerekir."
+    },
+    {
+      "key": "前かがみ",
+      "value": "Öne Eğilme"
+    },
+    {
+      "key": "前回の処理は完了していません。",
+      "value": "Önceki işlem tamamlanmadı."
+    },
+    {
+      "key": "前回の失敗内容をコピー",
+      "value": "Önceki hata ayrıntılarını kopyala"
+    },
+    {
+      "key": "前回の失敗表示を閉じる",
+      "value": "Önceki hatayı kapat"
+    },
+    {
+      "key": "前後傾き",
+      "value": "Öne/arkaya eğim"
+    },
+    {
+      "key": "前腕の長さ",
+      "value": "Ön kol uzunluğu"
+    },
+    {
+      "key": "動かす手足",
+      "value": "Hareket edecek uzuv"
+    },
+    {
+      "key": "取り込むアニメーションを個別に指定",
+      "value": "İçe aktarılacak animasyonları seç"
+    },
+    {
+      "key": "可愛いポーズ",
+      "value": "Kawaii Posing"
+    },
+    {
+      "key": "可愛いポーズツール",
+      "value": "Kawaii Posing"
+    },
+    {
+      "key": "可愛いポーズツール(Booth)",
+      "value": "Kawaii Posing Tool (BOOTH)"
+    },
+    {
+      "key": "可愛いポーズツール(Gumroad)",
+      "value": "Kawaii Posing Tool (Gumroad)"
+    },
+    {
+      "key": "可愛いポーズツールライセンスインストール",
+      "value": "Kawaii Posing lisansını kur"
+    },
+    {
+      "key": "可愛いポーズツールライセンス削除",
+      "value": "Kawaii Posing lisansını kaldır"
+    },
+    {
+      "key": "可愛いポーズツールライセンス状態確認",
+      "value": "Kawaii Posing lisans durumu"
+    },
+    {
+      "key": "可愛いポーズツール設定",
+      "value": "Kawaii Posing Ayarları"
+    },
+    {
+      "key": "可愛いポーズツール追加",
+      "value": "Kawaii Posing ekle"
+    },
+    {
+      "key": "可愛い座り",
+      "value": "Kawaii Sitting"
+    },
+    {
+      "key": "可愛い座り(女)ツール追加",
+      "value": "Kawaii Sitting (Kadın) ekle"
+    },
+    {
+      "key": "可愛い座り(男)ツール追加",
+      "value": "Kawaii Sitting (Erkek) ekle"
+    },
+    {
+      "key": "右向き寝",
+      "value": "Sağa Yatış"
+    },
+    {
+      "key": "右向き昼寝",
+      "value": "Sağa Kestirme"
+    },
+    {
+      "key": "右手指",
+      "value": "Sağ el parmakları"
+    },
+    {
+      "key": "右手首",
+      "value": "Sağ bilek"
+    },
+    {
+      "key": "右脚",
+      "value": "Sağ bacak"
+    },
+    {
+      "key": "右腕",
+      "value": "Sağ kol"
+    },
+    {
+      "key": "各固定機能の他ギミックとの統合",
+      "value": "Takip kilitlerini diğer araçlarla bütünleştir"
+    },
+    {
+      "key": "合成",
+      "value": "Birleştir"
+    },
+    {
+      "key": "合成する調整アニメーションが存在しません。",
+      "value": "Birleştirilecek düzeltme animasyonu yok."
+    },
+    {
+      "key": "合蹠のポーズ",
+      "value": "Kelebek"
+    },
+    {
+      "key": "同梱プリセットを表示しない",
+      "value": "Hazır ön ayarları gizle"
+    },
+    {
+      "key": "名前",
+      "value": "Ad"
+    },
+    {
+      "key": "名前で検索",
+      "value": "Ada göre ara"
+    },
+    {
+      "key": "名前なし",
+      "value": "Adsız"
     },
     {
       "key": "向き",
       "value": "Yön"
     },
     {
+      "key": "向きを合わせる強さ",
+      "value": "Dönüş ağırlığı"
+    },
+    {
+      "key": "向きを回転させる",
+      "value": "Yönü döndür"
+    },
+    {
       "key": "呼吸",
       "value": "Nefes"
+    },
+    {
+      "key": "呼吸に合わせて胸などが動きます。姿勢ごとに強さを設定でき、同期bitを使わずに利用できます。",
+      "value": "Nefesle göğsü hareket ettirir. Ek eşitleme biti olmadan poz başına gücü ayarlayın."
+    },
+    {
+      "key": "呼吸の動きをつける",
+      "value": "Nefes animasyonu ekle"
+    },
+    {
+      "key": "呼吸の設定",
+      "value": "Nefes ayarları"
+    },
+    {
+      "key": "和室",
+      "value": "Japon Odası"
+    },
+    {
+      "key": "商品に収録する各姿勢について、手や足をどこへ置くかを記録する開発用データです。",
+      "value": "Dahil edilen her poz için el ve ayak hedeflerini kaydeden hazırlama verileri. "
+    },
+    {
+      "key": "商品に収録する各姿勢について、手や足をどこへ置くかを記録する開発用データです。アバターごとの設定ではなく、1つの商品につき1ファイルを作成します。",
+      "value": "Dahil edilen her poz için el ve ayak hedeflerini kaydeden hazırlama verileri. Her ürün için bir dosya oluşturun; avatara özgü ayarlardan ayrıdır."
+    },
+    {
+      "key": "商品名",
+      "value": "Ürün adı"
+    },
+    {
+      "key": "商談",
+      "value": "İş Görüşmesi"
+    },
+    {
+      "key": "回転",
+      "value": "Dönüş"
+    },
+    {
+      "key": "回転角度",
+      "value": "Dönüş açısı"
+    },
+    {
+      "key": "回転角度(360度)",
+      "value": "Dönüş (tur)"
+    },
+    {
+      "key": "固定長（アバタースケールのみ）",
+      "value": "Sabit uzunluk (yalnızca avatar ölçeği)"
+    },
+    {
+      "key": "地球寝",
+      "value": "Dünyaya Sarıl"
+    },
+    {
+      "key": "培養中",
+      "value": "Kapsülde"
+    },
+    {
+      "key": "基準にする身体ボーン",
+      "value": "Referans vücut kemiği"
+    },
+    {
+      "key": "基準の向きに沿って移動します。オフの軸は元の姿勢の位置を保ちます。",
+      "value": "Referans yönelimine göre hareket eder. Kapalı eksenler özgün poz konumunu korur."
+    },
+    {
+      "key": "基準アバターとの初期関節角度・ひねりの差を補正します。",
+      "value": "Referans avatara göre başlangıç eklem açısı ve burulma farklarını düzeltir."
+    },
+    {
+      "key": "基準アバターに有効な Humanoid Animator がありません。",
+      "value": "Referans avatarın geçerli Humanoid Animator'ı yok."
+    },
+    {
+      "key": "基準姿勢の読み取りに失敗しました: {0}",
+      "value": "Referans poz okunamadı: {0}"
+    },
+    {
+      "key": "堤防",
+      "value": "Set Üstü"
+    },
+    {
+      "key": "壁ドン",
+      "value": "Duvara Yaslanma"
+    },
+    {
+      "key": "変更のあるアニメーションの調整値を保存します。",
+      "value": "Değişiklik içeren animasyonların düzeltmelerini kaydeder."
+    },
+    {
+      "key": "変更のあるアニメーションの調整値を複製して保存します。元々設定されていたファイルは変更されません",
+      "value": "Düzeltme animasyonlarını çoğaltır ve değişen değerleri kaydeder. Başta atanmış dosyalar korunur."
+    },
+    {
+      "key": "変更を破棄して保存されていた値に戻します",
+      "value": "Değişiklikleri atıp kayıtlı değerleri geri yükler."
+    },
+    {
+      "key": "変更履歴を読み込めませんでした。",
+      "value": "Değişiklik listesi yüklenemedi."
+    },
+    {
+      "key": "太ももの長さ",
+      "value": "Üst bacak uzunluğu"
+    },
+    {
+      "key": "女の子座り",
+      "value": "W Oturuşu"
+    },
+    {
+      "key": "姿勢 {0}",
+      "value": "Poz {0}"
+    },
+    {
+      "key": "姿勢のプレビュー",
+      "value": "Pozu önizle"
+    },
+    {
+      "key": "姿勢のプレビューや、細かな調整ができます。",
+      "value": "Pozlarınızı önizleyip ince ayar yapın."
+    },
+    {
+      "key": "姿勢の分類",
+      "value": "Poz kategorisi"
+    },
+    {
+      "key": "姿勢の分類が設定されていません。",
+      "value": "Poz kategorisi yapılandırılmamış."
+    },
+    {
+      "key": "姿勢の識別キー",
+      "value": "Poz kimlik anahtarı"
+    },
+    {
+      "key": "姿勢メニューの生成先が別のアバター、またはアバターの外にあります。",
+      "value": "Poz menüsü hedefi başka bir avatarda veya bu avatarın dışında."
+    },
+    {
+      "key": "姿勢メニューの生成先が見つかりません。",
+      "value": "Poz menüsü oluşturma hedefi bulunamadı."
+    },
+    {
+      "key": "姿勢別IK自動調整が有効です。従来のアバター固有補正と調整Animationは使用しません。",
+      "value": "Poz başına IK düzeltmesi etkin. Eski avatar düzeltmeleri ve düzeltme animasyonları atlanır."
+    },
+    {
+      "key": "姿勢別IK自動調整を使用中です。従来の身体の補正は使用しません。",
+      "value": "Poz başına IK düzeltmesi etkin. Eski vücut düzeltmesi kullanılmaz."
+    },
+    {
+      "key": "姿勢別IK設定一覧（{0}件）",
+      "value": "Poz başına IK ayarları ({0})"
+    },
+    {
+      "key": "姿勢設定を追加",
+      "value": "Poz ayarları ekle"
     },
     {
       "key": "姿勢選択",
       "value": "Poz seç"
     },
     {
+      "key": "完了",
+      "value": "Tamamlandı"
+    },
+    {
+      "key": "実験",
+      "value": "Deneysel"
+    },
+    {
+      "key": "寝の高さ閾値",
+      "value": "Yatış yüksekliği eşiği"
+    },
+    {
+      "key": "寝姿勢",
+      "value": "Yatış"
+    },
+    {
       "key": "寝返り",
       "value": "Dön"
+    },
+    {
+      "key": "寝返りの設定",
+      "value": "Dönüş ayarları"
+    },
+    {
+      "key": "寝返りを使う",
+      "value": "Dönüşü etkinleştir"
+    },
+    {
+      "key": "寝返り時の横向き",
+      "value": "Yan dönüş pozu"
+    },
+    {
+      "key": "対処:",
+      "value": "İşlem:"
+    },
+    {
+      "key": "対処: Window > General > Consoleで、この操作中に最初に出た赤いエラーを確認してください。設定の確認で問題が解消しない場合は、このエラー番号・詳細とツールのバージョンをお問い合わせに添えてください。",
+      "value": "İşlem: Window > General > Console içinde bu işlemin ilk kırmızı hatasını kontrol edin. Ayar kontrolü sorunu çözmezse destek talebine hata kodunu, ayrıntıları ve araç sürümünü ekleyin."
+    },
+    {
+      "key": "対象の腕または脚のHumanoidボーンが見つかりません。",
+      "value": "Hedef kol veya bacağın Humanoid kemikleri bulunamadı."
+    },
+    {
+      "key": "対象を選択（{0}）",
+      "value": "İlgili nesneyi seç ({0})"
+    },
+    {
+      "key": "小さな傾きを無視する範囲",
+      "value": "Baş eğimi ölü bölgesi"
+    },
+    {
+      "key": "少女モーション集追加",
+      "value": "Girl Motion Collection ekle"
+    },
+    {
+      "key": "左右傾き",
+      "value": "Yana eğim"
+    },
+    {
+      "key": "左右反対側の部位の調整値をこの部位へ適用します",
+      "value": "Karşı tarafın düzeltme değerlerini bu vücut bölümüne uygular."
     },
     {
       "key": "左右反転",
       "value": "Aynala"
     },
     {
+      "key": "左向き寝",
+      "value": "Sola Yatış"
+    },
+    {
+      "key": "左向き昼寝",
+      "value": "Sola Kestirme"
+    },
+    {
+      "key": "左向き昼寝２",
+      "value": "Sola Kestirme 2"
+    },
+    {
+      "key": "左手指",
+      "value": "Sol el parmakları"
+    },
+    {
+      "key": "左手首",
+      "value": "Sol bilek"
+    },
+    {
+      "key": "左脚",
+      "value": "Sol bacak"
+    },
+    {
+      "key": "左腕",
+      "value": "Sol kol"
+    },
+    {
+      "key": "差異:",
+      "value": "Fark:"
+    },
+    {
+      "key": "布団",
+      "value": "Futon"
+    },
+    {
       "key": "床の高さ",
       "value": "Zemin yüksekliği"
+    },
+    {
+      "key": "床を基準",
+      "value": "Zemin"
+    },
+    {
+      "key": "座りの高さ閾値",
+      "value": "Oturma yüksekliği eşiği"
     },
     {
       "key": "座り姿勢",
       "value": "Oturarak"
     },
     {
+      "key": "座布団",
+      "value": "Yer Minderi"
+    },
+    {
+      "key": "弱",
+      "value": "Hafif"
+    },
+    {
+      "key": "弱・中・強はゆっくりした呼吸、急は速い呼吸です。姿勢ごとに選べます。",
+      "value": "Hafif, orta ve güçlü yavaş nefes kullanır; hızlı ise sık nefes kullanır. Poz başına seçin."
+    },
+    {
+      "key": "強",
+      "value": "Güçlü"
+    },
+    {
+      "key": "待ちぼうけ",
+      "value": "Hâlâ Bekliyor"
+    },
+    {
+      "key": "待ち伏せ",
+      "value": "Pusu"
+    },
+    {
+      "key": "後方彼氏",
+      "value": "Gözeten"
+    },
+    {
+      "key": "従者のポーズ",
+      "value": "Hizmetkâr"
+    },
+    {
+      "key": "忍者走り",
+      "value": "Ninja Koşusu"
+    },
+    {
+      "key": "思考中",
+      "value": "Düşünceli"
+    },
+    {
+      "key": "急",
+      "value": "Hızlı"
+    },
+    {
+      "key": "情報",
+      "value": "Bilgi"
+    },
+    {
       "key": "戻る",
       "value": "Geri"
+    },
+    {
+      "key": "手動で方向を指定",
+      "value": "Yönü elle ayarla"
+    },
+    {
+      "key": "手動指定を解除",
+      "value": "Elle seçimi temizle"
+    },
+    {
+      "key": "手動指定時だけ使用します。アバター正面を基準にした方向です。",
+      "value": "Yalnızca elle belirtilmiş bükülme yönüyle, avatarın önüne göre kullanılır."
+    },
+    {
+      "key": "手足のIKルールを追加",
+      "value": "Uzuv IK kuralı ekle"
+    },
+    {
+      "key": "手足のIKルール（{0}件）",
+      "value": "Uzuv IK kuralları ({0})"
+    },
+    {
+      "key": "手足の向きも合わせる",
+      "value": "Uzuv dönüşünü eşleştir"
+    },
+    {
+      "key": "手足の自動調整を使う",
+      "value": "Otomatik uzuv düzeltmesini etkinleştir"
+    },
+    {
+      "key": "抱きしめ",
+      "value": "Sarılma"
+    },
+    {
+      "key": "指の形を固定・解除する切り替えをメニューに追加します。固定中はコントローラーを握っても形を保てます。",
+      "value": "Kontrol cihazı sıkılırken bile parmak jestlerini kilitleyen bir anahtar ekler."
+    },
+    {
+      "key": "指定した種類にはこのモーションを使います。未指定の種類は元の設定を使います。",
+      "value": "Seçilen türler bu hareketleri kullanır. Diğerleri özgün ayarlarını korur."
+    },
+    {
+      "key": "探しているPrefab: {0}\n購入ファイルのライセンス用unitypackageだけでは、ツール本体の導入は完了しません。ALCOM / VCCでこのプロジェクトに商品本体と「ゆにさきポーズシステム」が追加されているか確認してください。\n導入済みの場合: {1}",
+      "value": "Aranan prefab: {0}\nSatın alınan lisans yükleyicisi tek başına ürün kurulumunu tamamlamaz. ALCOM / VCC içinde ürünün ve Unisaki Posing System'in projeye eklendiğinden emin olun.\nZaten kuruluysa: {1}"
+    },
+    {
+      "key": "接地補正の強さ",
+      "value": "Zemin düzeltme gücü"
     },
     {
       "key": "撮影モード",
       "value": "Fotoğraf modu"
     },
     {
+      "key": "撮影モードで動かした位置と向きを他の人にも表示できます。自分の画面だけで撮影する場合は0 bitで使えます。",
+      "value": "Fotoğraf modundaki konum ve dönüşü diğerleriyle paylaşır. Yalnızca yerel çekim 0 bit kullanır."
+    },
+    {
+      "key": "撮影モードを同期する",
+      "value": "Fotoğraf modunu eşitle"
+    },
+    {
       "key": "撮影モードを終了",
       "value": "Fotoğraftan çık"
+    },
+    {
+      "key": "撮影モード中は頭を非表示にしない",
+      "value": "Fotoğraf modunda başı görünür tut"
+    },
+    {
+      "key": "撮影機能に必要なため、自動で選ばれています。",
+      "value": "Fotoğraf modu gerektirdiği için otomatik seçildi."
+    },
+    {
+      "key": "操作対象のポーズツールが見つかりません。",
+      "value": "Hedef poz aracı bulunamadı."
+    },
+    {
+      "key": "斜め座り",
+      "value": "Çapraz Oturuş"
+    },
+    {
+      "key": "旧unitypackage版の「{0}」フォルダがプロジェクトに残っています。新版と競合する可能性があります。削除する前に移行手順とバックアップを確認してください。",
+      "value": "Eski unitypackage klasörü “{0}” projede duruyor ve güncel sürümle çakışabilir. Kaldırmadan önce geçiş yönergelerini ve yedeğinizi kontrol edin."
+    },
+    {
+      "key": "旧座標形式です。調整アニメーションウィンドウで基準アバターを表示し、",
+      "value": "Bu kayıt eski koordinat biçimini kullanıyor. Düzeltme penceresinde referans avatarı gösterip "
+    },
+    {
+      "key": "旧座標形式です。調整アニメーションウィンドウで基準アバターを表示し、「現在の手足位置から取得」を一度実行してください。再取得までは元Animationの手足の向きを維持します。",
+      "value": "Bu kayıt eski koordinat biçimini kullanıyor. Düzeltme penceresinde referans avatarı gösterip geçerli uzuv konumlarını bir kez yakalayın. Yeniden yakalanana kadar kaynak animasyonun uzuv yönelimi korunur."
+    },
+    {
+      "key": "旧形式の保存データ（項目を比較できません）",
+      "value": "Eski kayıt verileri (ayarlar karşılaştırılamaz)"
+    },
+    {
+      "key": "旧版のアバター設定を取り除きます",
+      "value": "Eski avatar ayarlarını kaldır"
+    },
+    {
+      "key": "旧版フォルダの削除を確認",
+      "value": "Eski klasörün silinmesini onayla"
+    },
+    {
+      "key": "昼寝",
+      "value": "Kestirme"
+    },
+    {
+      "key": "晴天寝",
+      "value": "Güneşte Kestirme"
+    },
+    {
+      "key": "最低膝曲げ角度（°）",
+      "value": "En küçük diz bükülmesi (derece)"
+    },
+    {
+      "key": "最初の姿勢をSceneタブで確認できます。終了すると元の姿勢に戻ります。",
+      "value": "Scene görünümünde ilk kareyi önizler. Önizleme durdurulunca özgün poz geri yüklenir."
+    },
+    {
+      "key": "最新",
+      "value": "Güncel"
+    },
+    {
+      "key": "有効なHumanoid Animatorがありません。",
+      "value": "Geçerli Humanoid Animator bulunamadı."
+    },
+    {
+      "key": "有効な共通ポージングAnimatorが見つかりません。",
+      "value": "Etkin ortak poz Animator'ı bulunamadı."
+    },
+    {
+      "key": "有効な文字列が見つかりませんでした。",
+      "value": "Geçerli metin kaydı bulunamadı."
+    },
+    {
+      "key": "有効にすると従来の調整Animationを無視し、このIK設定から自動調整Animationを生成します。",
+      "value": "Etkinse eski düzeltme animasyonları yerine bu IK ayarlarından otomatik düzeltme animasyonları oluşturulur."
+    },
+    {
+      "key": "服従",
+      "value": "İtaat"
+    },
+    {
+      "key": "木の上寝",
+      "value": "Ağaçta Kestirme"
+    },
+    {
+      "key": "未保存の手動調整があります",
+      "value": "Kaydedilmemiş elle düzeltmeler"
+    },
+    {
+      "key": "未実行",
+      "value": "Oluşturulmadı"
+    },
+    {
+      "key": "未対応のターゲット空間です: {0}",
+      "value": "Desteklenmeyen hedef uzayı: {0}"
+    },
+    {
+      "key": "未対応の長さの基準です: {0}",
+      "value": "Desteklenmeyen uzunluk referansı: {0}"
+    },
+    {
+      "key": "未指定",
+      "value": "Atanmamış"
+    },
+    {
+      "key": "条件式が間違っているパラメータがあります。「{0}」ファイルの「{1}」というレイヤーで使用されている「{2}」というパラメータは、AnimatorController内では「{3}」という型ですが、条件式に「{4}」が使われているため条件式が正しく動作しません。このためギミックや処理が正しく動作しない可能性があります。使用しているツールやギミックの相性の問題だと思われるため、このパラメータを使用しているツールの開発者に連絡してください",
+      "value": "Bir Animator koşulu uyumsuz parametre türü kullanıyor. Dosya: {0}, katman: {1}, parametre: {2}, bildirilen tür: {3}, koşul: {4}. Bu, özelliklerin çalışmasını engelleyebilir. Uyumluluk için bu parametreyi kullanan aracın geliştiricisine başvurun."
+    },
+    {
+      "key": "検出できる設定エラーはありません",
+      "value": "Algılanan yapılandırma hatası yok"
+    },
+    {
+      "key": "検索",
+      "value": "Ara"
+    },
+    {
+      "key": "楽園",
+      "value": "Cennet"
+    },
+    {
+      "key": "横を向くまでの頭の傾き",
+      "value": "Tam dönüş için baş eğimi"
+    },
+    {
+      "key": "横向きのAnimationClipを指定してください。未指定の場合は、従来どおり通常欄の完成済み寝返りアニメーションを使います。",
+      "value": "Yan AnimationClip atayın. Boşsa normal alandaki tamamlanmış dönüş animasyonu eskisi gibi kullanılır."
+    },
+    {
+      "key": "機能",
+      "value": "Özellikler"
+    },
+    {
+      "key": "注意・補足を確認（{0}件）",
+      "value": "Notları göster ({0})"
+    },
+    {
+      "key": "海岸",
+      "value": "Deniz Kenarı"
+    },
+    {
+      "key": "添い寝ツール追加",
+      "value": "Birlikte uyuma aracını ekle"
+    },
+    {
+      "key": "照れ",
+      "value": "Utangaç"
+    },
+    {
+      "key": "猫のポーズ（右）",
+      "value": "Sağ Kedi Esnemesi"
+    },
+    {
+      "key": "猫のポーズ（左）",
+      "value": "Sol Kedi Esnemesi"
+    },
+    {
+      "key": "猫寝",
+      "value": "Kedi Uykusu"
+    },
+    {
+      "key": "現在のアニメーション",
+      "value": "Kaynak animasyon"
+    },
+    {
+      "key": "現在のアニメーションに調整アニメーションを合成したものを新しいアニメーションクリップとして保存します。",
+      "value": "Kaynak animasyonu ve düzeltmeyi yeni bir animasyon klibinde birleştirir."
+    },
+    {
+      "key": "現在のアバターから読み込む",
+      "value": "Geçerli avatardan içe aktar"
+    },
+    {
+      "key": "現在のモーションは AnimationClip ではありません。差分調整は AnimationClip のみ対応しています。",
+      "value": "Geçerli hareket bir AnimationClip değil. Düzeltme farkları yalnızca AnimationClip destekler."
+    },
+    {
+      "key": "現在の手足位置・見た目の向き・曲げ方向をIKルールへ記録しました。",
+      "value": "Geçerli uzuv konumu, görünen yönelim ve bükülme yönü IK kuralına kaydedildi."
+    },
+    {
+      "key": "現在の設定からプリセットを作成",
+      "value": "Geçerli ayarlardan ön ayar oluştur"
+    },
+    {
+      "key": "現在は制作中です。商品Prefabから参照されていても、従来の調整Animationが引き続き使用されます。",
+      "value": "Çalışma sürüyor. Ürün prefabı bu kataloğa başvursa bile eski düzeltme animasyonları kullanılmaya devam eder."
+    },
+    {
+      "key": "生成時にアバターのBaseからモーションを検出します。取り込み設定の一覧には追加しません。手動設定がある種類は手動指定を優先します。",
+      "value": "Oluşturma sırasında avatarın Base katmanından hareketleri algılar. İçe aktarma listesine eklenmezler. Elle yapılan seçimler önceliklidir."
+    },
+    {
+      "key": "画像でポーズを見分けやすくできます。アバターのビルド時間は少し長くなります。",
+      "value": "Küçük resimler pozları ayırt etmeyi kolaylaştırır. Avatar derlemesi biraz uzar."
+    },
+    {
+      "key": "画像ファイル",
+      "value": "Görüntü dosyası"
+    },
+    {
+      "key": "画像ファイル・補足",
+      "value": "Görüntü dosyası / notlar"
+    },
+    {
+      "key": "画像ファイル・補足を閉じる",
+      "value": "Görüntü dosyasını / notları kapat"
+    },
+    {
+      "key": "異変無し",
+      "value": "Her Şey Yolunda"
+    },
+    {
+      "key": "直立",
+      "value": "Ayakta"
+    },
+    {
+      "key": "着地（短め）",
+      "value": "Kısa iniş"
+    },
+    {
+      "key": "着地（短）",
+      "value": "Kısa iniş"
+    },
+    {
+      "key": "着地（長め）",
+      "value": "Uzun iniş"
+    },
+    {
+      "key": "着地（長）",
+      "value": "Uzun iniş"
+    },
+    {
+      "key": "睡魔",
+      "value": "Uykulu"
+    },
+    {
+      "key": "短い落下",
+      "value": "Kısa düşüş"
+    },
+    {
+      "key": "砂浜",
+      "value": "Kumsal"
+    },
+    {
+      "key": "確認",
+      "value": "Onayla"
+    },
+    {
+      "key": "種類ごとに1つのモーションを指定できます。上の「元の姿勢を使う」とは別に設定できます。",
+      "value": "Yukarıdaki özgün pozları kullanma seçeneğinden bağımsız olarak tür başına bir hareket seçin."
+    },
+    {
+      "key": "空気椅子",
+      "value": "Duvar Oturuşu"
+    },
+    {
+      "key": "立ちのみ",
+      "value": "Yalnızca ayakta"
+    },
+    {
+      "key": "立ち・歩き",
+      "value": "Ayakta / Yürüme"
+    },
+    {
+      "key": "立ち・歩き・走り",
+      "value": "Ayakta / yürüme / koşma"
     },
     {
       "key": "立ち姿勢",
       "value": "Ayakta"
     },
     {
+      "key": "立ち止まっているときに自動で入る、VRChat標準の身体の揺れを止められます。ポーズツールで設定した呼吸の動きはそのまま使えます。",
+      "value": "Aracın nefes animasyonunu korurken VRChat'in varsayılan bekleme sallanmasını kapatır."
+    },
+    {
+      "key": "終了",
+      "value": "Durdur"
+    },
+    {
+      "key": "絨毯",
+      "value": "Halı"
+    },
+    {
+      "key": "置き場所の基準",
+      "value": "Hedef referansı"
+    },
+    {
+      "key": "考える男",
+      "value": "Düşünen Adam"
+    },
+    {
+      "key": "肘パンチ",
+      "value": "Dirsek Vuruşu"
+    },
+    {
+      "key": "肘・膝の曲げ方",
+      "value": "Dirsek / diz bükülmesi"
+    },
+    {
+      "key": "肘・膝を曲げる方向",
+      "value": "Dirsek / diz bükülme yönü"
+    },
+    {
+      "key": "肘付き",
+      "value": "Dirseğe Dayanma"
+    },
+    {
+      "key": "胸のボーン（Chest）が割り当てられていません。",
+      "value": "Chest kemiği atanmamış."
+    },
+    {
+      "key": "胸の姿勢が崩れる場合は元モデルのRig > Configure > BodyのChestを確認してください。Upper Chestとは別の項目です。対応するボーンがない場合は無理に割り当てず、配布元の設定を確認してください。",
+      "value": "Göğüs pozu yanlışsa özgün modelde Rig > Configure > Body altındaki Chest'i kontrol edin. Chest ve Upper Chest ayrı atamalardır. Modelde karşılık gelen kemik yoksa yapımcının kurulumunu izleyin."
+    },
+    {
+      "key": "胸の長さ",
+      "value": "Göğüs uzunluğu"
+    },
+    {
+      "key": "脚を伸ばしたときに、膝が逆向きに折れるのを抑えます。",
+      "value": "Bacaklar düzelirken dizlerin geriye bükülmesini önler."
+    },
+    {
+      "key": "脚全体の長さ（太もも＋すね）",
+      "value": "Tam bacak uzunluğu (üst + alt)"
+    },
+    {
+      "key": "脱力寝",
+      "value": "Yığılıp Uyuma"
+    },
+    {
+      "key": "腕や脚の長さに合わせて、手足が自然な置き場所へ届くよう調整します。",
+      "value": "Uzuvları avatarın oranlarına uygun doğal konumlara getirir."
+    },
+    {
+      "key": "腕固定",
+      "value": "Kolları kilitle"
+    },
+    {
+      "key": "腕枕寝",
+      "value": "Kol Üstünde Uyku"
+    },
+    {
+      "key": "腕枕（右）",
+      "value": "Sağ Kol Yastık"
+    },
+    {
+      "key": "腕枕（左）",
+      "value": "Sol Kol Yastık"
+    },
+    {
+      "key": "腕立て伏せ",
+      "value": "Şınav"
+    },
+    {
+      "key": "膝がこの角度より伸びる前にクランプします。",
+      "value": "Bükülme açısı bu değerin altına düşmeden dizin açılmasını sınırlar."
+    },
+    {
+      "key": "膝が伸びきる手前で止める角度です。",
+      "value": "Dizi tamamen doğrulmadan hemen önce durdurur."
+    },
+    {
+      "key": "膝が逆向きに曲がるのを防ぐ",
+      "value": "Dizin ters bükülmesini önle"
+    },
+    {
+      "key": "膝の補正",
+      "value": "Diz düzeltmesi"
+    },
+    {
+      "key": "膝の計測に必要なHumanoid Animatorがありません。",
+      "value": "Diz ölçümü için gereken Humanoid Animator eksik."
+    },
+    {
+      "key": "膝立て",
+      "value": "Bir Diz Yukarı"
+    },
+    {
+      "key": "自分で用意したモーションを使う",
+      "value": "Kendi hareketlerinizi kullanın"
+    },
+    {
+      "key": "自分の頭が近くにあっても撮影できます。自分の画面だけに反映され、撮影終了後は通常の表示に戻ります。",
+      "value": "Yakın çekimde başı kendi ekranınızda görünür tutar. Fotoğraf modu sonrası normal görünürlük döner."
+    },
+    {
+      "key": "自動アバター補正",
+      "value": "Otomatik avatar düzeltmesi"
+    },
+    {
+      "key": "自動取り込みの結果は生成時だけ使い、この一覧には追加しません。手動指定をOFFにした種類や、指定済みモーションを外した種類は自動で補完しません。自動取り込みに戻すには「手動指定を解除」を使います。",
+      "value": "Otomatik içe aktarımlar oluşturma sırasında kullanılır ve bu listeye eklenmez. Elle kapatılan veya temizlenen türler otomatik doldurulmaz. Otomatik içe aktarmayı geri getirmek için elle seçimi temizleyin."
+    },
+    {
+      "key": "自動姿勢IK設定",
+      "value": "Poz IK Kataloğu"
+    },
+    {
+      "key": "自動検出",
+      "value": "Otomatik algıla"
+    },
+    {
+      "key": "自動生成された補正",
+      "value": "Oluşturulan düzeltme"
+    },
+    {
+      "key": "自動調整Animationの作成に失敗しました: {0}",
+      "value": "Otomatik düzeltme animasyonu oluşturulamadı: {0}"
+    },
+    {
+      "key": "自動足踏みに関する案内を非表示",
+      "value": "Auto-Footsteps notlarını gizle"
+    },
+    {
+      "key": "芝生",
+      "value": "Çimen"
+    },
+    {
+      "key": "落下（短め）",
+      "value": "Kısa düşüş"
+    },
+    {
+      "key": "落下（長め）",
+      "value": "Uzun düşüş"
+    },
+    {
+      "key": "行き倒れ",
+      "value": "Yere Yığılma"
+    },
+    {
+      "key": "行った操作・起きたこと：",
+      "value": "Yaptığım işlem ve gerçekleşen durum:"
+    },
+    {
+      "key": "衣装や見た目を変えたときに使います。設定を変えたときはプレビルドしてください。",
+      "value": "Kıyafet veya görünüm değişikliğinden sonra kullanın. Ayarlar değiştiğinde ön oluşturmayı güncelleyin."
+    },
+    {
+      "key": "複数のアニメーションをここにドロップ",
+      "value": "Animasyon kliplerini buraya bırakın"
+    },
+    {
+      "key": "複数の手足を解き直す回数です。通常は2回です。",
+      "value": "Birden çok uzvu çözmek için geçiş sayısı. Genellikle 2."
+    },
+    {
+      "key": "複製",
+      "value": "Kopyala"
+    },
+    {
+      "key": "複製して保存",
+      "value": "Kopyala/kaydet"
+    },
+    {
+      "key": "複製する調整アニメーションが存在しません。",
+      "value": "Çoğaltılacak düzeltme animasyonu yok."
+    },
+    {
+      "key": "複製保存する変更はありませんでした。",
+      "value": "Çoğaltılıp kaydedilecek değişiklik yoktu."
+    },
+    {
+      "key": "見た目の手足の向き",
+      "value": "Görünen uzuv yönelimi"
+    },
+    {
+      "key": "見下し",
+      "value": "Tepeden Bakış"
+    },
+    {
+      "key": "観察中",
+      "value": "Gözlem"
+    },
+    {
+      "key": "角度は度数で指定します。寝姿勢を選び、VRChatのメニューで首固定を解除して使ってください。",
+      "value": "Açılar derece cinsindedir. Yatış pozu seçip VRChat menüsünde baş kilidini açın."
+    },
+    {
+      "key": "計測用クローンに有効な Humanoid Animator がありません。",
+      "value": "Ölçüm kopyasının geçerli Humanoid Animator'ı yok."
+    },
+    {
+      "key": "計算する順番",
+      "value": "Değerlendirme sırası"
+    },
+    {
+      "key": "計算の反復回数",
+      "value": "Çözücü yinelemeleri"
+    },
+    {
+      "key": "訓練場",
+      "value": "Antrenman Alanı"
+    },
+    {
       "key": "設定",
       "value": "Ayarlar"
+    },
+    {
+      "key": "設定にエラーがあります。Inspectorの「設定の確認」を開いてください。",
+      "value": "Yapılandırma hataları var. Inspector'da ayar kontrolünü açın."
+    },
+    {
+      "key": "設定に問題があるため、ポーズの生成を開始できません。",
+      "value": "Yapılandırma hataları nedeniyle poz oluşturma başlatılamadı."
+    },
+    {
+      "key": "設定の更新あり",
+      "value": "Ayarlar değişti"
+    },
+    {
+      "key": "設定の確認",
+      "value": "Ayarları kontrol et"
+    },
+    {
+      "key": "設定の確認、またはプレビルドの更新が必要です。Inspectorを確認してください。",
+      "value": "Ayarları gözden geçirin veya ön oluşturmayı güncelleyin. Inspector'ı kontrol edin."
+    },
+    {
+      "key": "設定を先に生成して、アバターのビルド時間を短縮します。",
+      "value": "Avatar derlemesini kısaltmak için ayarları önceden oluşturur."
+    },
+    {
+      "key": "設定を再確認",
+      "value": "Ayarları yeniden kontrol et"
+    },
+    {
+      "key": "診断 ",
+      "value": "Tanılama "
+    },
+    {
+      "key": "該当するプリセットがありません。",
+      "value": "Eşleşen ön ayar yok."
+    },
+    {
+      "key": "該当する項目をポーズ一覧から削除し、必要なアニメーションを追加し直してください。",
+      "value": "Eksik kaydı poz listesinden kaldırın ve gereken animasyonu yeniden ekleyin."
+    },
+    {
+      "key": "詳細",
+      "value": "Ayrıntılar"
+    },
+    {
+      "key": "調整アニメーション",
+      "value": "Düzeltme animasyonu"
+    },
+    {
+      "key": "調整アニメーションを複製して保存しました。\n新しいファイル: {0}",
+      "value": "Düzeltme animasyonu çoğaltıldı ve kaydedildi.\nYeni dosya: {0}"
+    },
+    {
+      "key": "調整アニメーションを複製して保存します。元々設定されていたファイルは変更されません",
+      "value": "Düzeltme animasyonunu çoğaltıp kaydeder. Başta atanmış dosya korunur."
+    },
+    {
+      "key": "調整アニメーションを複製します。",
+      "value": "Düzeltme animasyonunu çoğaltır."
+    },
+    {
+      "key": "調整クリップ",
+      "value": "Düzeltme klibi"
+    },
+    {
+      "key": "調整値をすべて0にリセットします。",
+      "value": "Tüm düzeltme değerlerini sıfırlar."
+    },
+    {
+      "key": "調整値をファイルに保存します。",
+      "value": "Düzeltme değerlerini dosyaya kaydeder."
+    },
+    {
+      "key": "調整可能なアニメーションが見つかりません。PosingSystem の設定を確認してください。",
+      "value": "Düzeltilebilecek animasyon bulunamadı. PosingSystem ayarlarını kontrol edin."
+    },
+    {
+      "key": "調整結果をプレビューしています。",
+      "value": "Düzeltilmiş sonuç önizleniyor."
+    },
+    {
+      "key": "警告の表示設定",
+      "value": "Uyarı gösterim ayarları"
+    },
+    {
+      "key": "警戒",
+      "value": "Tetikte"
+    },
+    {
+      "key": "警戒（右）",
+      "value": "Sağa Tetikte"
+    },
+    {
+      "key": "警戒（左）",
+      "value": "Sola Tetikte"
+    },
+    {
+      "key": "足IKで膝が逆向きに折れることを防止します。",
+      "value": "Bacak IK'sinin dizleri geriye bükmesini önler."
     },
     {
       "key": "足の高さ",
       "value": "Ayak yüksekliği"
     },
     {
+      "key": "足伸ばし",
+      "value": "Bacaklar Uzun"
+    },
+    {
       "key": "足固定",
       "value": "Ayakları kilitle"
+    },
+    {
+      "key": "足組み",
+      "value": "Bacak Bacak Üstüne"
+    },
+    {
+      "key": "足組み２",
+      "value": "Bacak Bacak Üstüne 2"
+    },
+    {
+      "key": "足降ろし",
+      "value": "Bacaklar Aşağı"
     },
     {
       "key": "距離",
       "value": "Mesafe"
     },
     {
+      "key": "蹲踞",
+      "value": "Derin Çömelme"
+    },
+    {
+      "key": "身体のボーン、アバター全体、床のいずれを基準にするか選びます。",
+      "value": "Referans olarak vücut kemiği, avatar veya zemin seçin."
+    },
+    {
+      "key": "身体のボーンを基準",
+      "value": "Vücut kemiği"
+    },
+    {
+      "key": "身体の補正",
+      "value": "Vücut düzeltmesi"
+    },
+    {
+      "key": "身長",
+      "value": "Avatar boyu"
+    },
+    {
+      "key": "追加先にあるクリップは重複して追加されません。",
+      "value": "Hedefte bulunan klipler yeniden eklenmez."
+    },
+    {
+      "key": "追加先の姿勢",
+      "value": "Hedef poz"
+    },
+    {
+      "key": "追加先を確認してください [PS040]",
+      "value": "Hedefi kontrol edin [PS040]"
+    },
+    {
+      "key": "追加先を選択してください [PS040]",
+      "value": "Hedef seçin [PS040]"
+    },
+    {
+      "key": "追加機能を外して、ExpressionParametersの使用量を減らす",
+      "value": "ExpressionParameters kullanımını azaltmak için isteğe bağlı özellikleri kapat"
+    },
+    {
+      "key": "逆関節防止機能",
+      "value": "Dizin ters bükülmesini önle"
+    },
+    {
+      "key": "通常のアニメーションを中央にし、横向きの姿勢と左右反転をビルド時に合成します。各クリップの最初の姿勢を使用します。中央は0.5、左右端は0と1です。接地補正は0で無効、0.25で25％です。",
+      "value": "Derleme sırasında merkezdeki normal poz, yan poz ve onun aynasıyla birleştirilir. Her klibin ilk karesi kullanılır. Merkez 0.5, uçlar 0 ve 1'dir. Zemin düzeltmesi 0'da kapalı, 0.25'te %25'tir."
+    },
+    {
+      "key": "通常は1です。小さくすると元の姿勢を多く残します。",
+      "value": "Genellikle 1. Düşük değerler kaynak pozun daha fazlasını korur."
+    },
+    {
+      "key": "通常は「メニュー名_姿勢名」です。調整ウィンドウから追加すると自動入力されます。",
+      "value": "Genellikle menuName_poseName. Düzeltme penceresinden kayıt eklendiğinde otomatik doldurulur."
+    },
+    {
+      "key": "通常は元の姿勢を維持します。対象アバターへ元Animationを適用した直後と同じ側へ曲げます。",
+      "value": "Genellikle kaynak animasyon hedef avatara uygulandıktan hemen sonrakiyle aynı yöne bükülerek kaynak pozu korur."
+    },
+    {
+      "key": "運動会",
+      "value": "Spor Günü"
+    },
+    {
+      "key": "適用するPrefabs (PosingSystem)",
+      "value": "Uygulanacak PosingSystem prefabları"
+    },
+    {
+      "key": "選択アバターの1評価版比較コピーを作成",
+      "value": "Değerlendirme karşılaştırma kopyası oluştur"
+    },
+    {
+      "key": "選択アバターの最適化比較コピーを作成",
+      "value": "Optimizasyon karşılaştırma kopyası oluştur"
+    },
+    {
+      "key": "選択時",
+      "value": "Seçildiğinde"
+    },
+    {
+      "key": "配置対象のアバターPrefab/FBXのファイル名",
+      "value": "Hedef avatar prefab / FBX dosya adları"
+    },
+    {
+      "key": "配置対象のアバターPrefabs/FBX",
+      "value": "Hedef avatar prefabları / FBX"
+    },
+    {
+      "key": "長い落下",
+      "value": "Uzun düşüş"
+    },
+    {
+      "key": "長さの基準に必要なHumanoidボーン（{0}・{1}）がありません。",
+      "value": "Uzunluk referansı için gereken Humanoid kemikleri eksik: {0}, {1}."
+    },
+    {
+      "key": "閉じる",
+      "value": "Kapat"
+    },
+    {
+      "key": "開く ›",
+      "value": "Aç ›"
+    },
+    {
+      "key": "閾値設定",
+      "value": "Yükseklik eşikleri"
+    },
+    {
+      "key": "限界突破",
+      "value": "Genişletilmiş"
+    },
+    {
+      "key": "限界突破をオンにするとパラメータの設定幅が5倍になります",
+      "value": "Normalden beş kat geniş parametre aralığını etkinleştirir."
+    },
+    {
+      "key": "面接",
+      "value": "Mülakat"
+    },
+    {
+      "key": "順番",
+      "value": "Sıra"
+    },
+    {
+      "key": "頭、腰、膝、ViewPosition（目の位置）など、手足の置き場所を測る基準です。ViewPositionは頭の動きに追従します。",
+      "value": "El veya ayak yerleşimi için Head, Hips, diz ya da ViewPosition (göz konumu) gibi referans. ViewPosition baş hareketini izler."
+    },
+    {
+      "key": "頭のボーン（Head）を取得できません。姿勢の高さを計算できません。",
+      "value": "Head kemiği bulunamadığından poz yüksekliği hesaplanamıyor."
+    },
+    {
+      "key": "頭の位置を保ち、足側の高さを変えられます。足が床に埋まる・浮くときに調整できます。",
+      "value": "Yüzen veya zemine batan ayakları düzeltmek için baş yerinde kalırken ayak yüksekliğini ayarlar."
+    },
+    {
+      "key": "頭の向きに合わせて寝返りできます。一部の寝姿勢のみ対応しています。",
+      "value": "Başınızı eğerek dönmenizi sağlar. Belirli yatış pozlarında desteklenir."
+    },
+    {
+      "key": "頭の大きさ（HeadとViewpointの前後差）",
+      "value": "Baş boyutu (Head/Viewpoint derinlik farkı)"
+    },
+    {
+      "key": "頭の大きさ（HeadとViewpointの高低差）",
+      "value": "Baş boyutu (Head/Viewpoint yükseklik farkı)"
+    },
+    {
+      "key": "頭の高さ無視",
+      "value": "Baş yüksekliğini yok say"
+    },
+    {
+      "key": "頭も含めた身体全体の高さを変えられます。VRChatの「床の高さ」で、50%を元の高さとして上下3mまで調整できます。",
+      "value": "Baş dahil tüm vücudu en fazla 3 m yukarı veya aşağı taşır. Zemin yüksekliği %50'de özgün seviyededir."
+    },
+    {
+      "key": "首の向きの違いによる姿勢崩れを抑制",
+      "value": "Baş dönüşünden kaynaklanan poz bozulmasını azalt"
+    },
+    {
+      "key": "首・頭",
+      "value": "Boyun ve baş"
+    },
+    {
       "key": "首固定",
       "value": "Başı kilitle"
+    },
+    {
+      "key": "首固定を解除したとき、元のポーズと首の向きが異なることで起きる姿勢崩れを抑えます。",
+      "value": "Baş kilidi kapalıyken baş özgün pozdan farklı yöne baktığında oluşan bozulmayı azaltır."
+    },
+    {
+      "key": "騎士",
+      "value": "Şövalye"
+    },
+    {
+      "key": "高さ",
+      "value": "Yükseklik"
+    },
+    {
+      "key": "魔王降臨",
+      "value": "İblis Kral"
+    },
+    {
+      "key": "（ユーザー作成）",
+      "value": " (Kullanıcı)"
+    },
+    {
+      "key": "（公式）",
+      "value": " (Resmî)"
+    },
+    {
+      "key": "（廃止されたAPIの使用）",
+      "value": " (kullanımdan kalkmış API kullanımı)"
+    },
+    {
+      "key": "（生成方式）",
+      "value": " (oluşturma yöntemi)"
+    },
+    {
+      "key": "＋ 1件追加",
+      "value": "+ Poz ekle"
+    },
+    {
+      "key": "＋ 複数のアニメーションを追加",
+      "value": "+ Birden çok animasyon ekle"
     }
   ]
 }

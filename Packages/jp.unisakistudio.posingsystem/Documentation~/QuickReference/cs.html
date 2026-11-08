@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="cs" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="reference-scope" content="UI quick reference; not a full translated manual">
+<meta name="translation-source" content="Existing product interface catalogs only">
+<title>Čeština — Unisaki Posing System / Návod</title>
+<style>:root { color-scheme: light dark; font-family: system-ui, -apple-system, "Segoe UI", sans-serif; line-height: 1.65; }
+body { max-width: 64rem; margin: 0 auto; padding: 1.5rem; overflow-wrap: anywhere; }
+h1, h2, h3 { line-height: 1.35; }
+h1 { font-size: 1.9rem; } h2 { margin-top: 2.5rem; }
+h3 { margin: 0 0 .4rem; font-size: 1.1rem; }
+a { color: #2867bb; } a:visited { color: #7355a1; }
+nav { display: flex; flex-wrap: wrap; gap: .5rem 1.2rem; }
+.scope { border-inline-start: .25rem solid #b87918; padding: .6rem 1rem; background: #b8791814; }
+.card { border: 1px solid #8886; border-radius: .5rem; padding: 1rem; margin: 1rem 0; break-inside: avoid; }
+.card p { margin: 0; } table { width: 100%; border-collapse: collapse; }
+th, td { text-align: start; vertical-align: top; padding: .5rem .7rem; border: 1px solid #8886; }
+thead { background: #8882; } tbody tr:nth-child(even) { background: #8881; }
+code { direction: ltr; unicode-bidi: isolate; } .language-list { columns: 3 14rem; }
+.language-list li { break-inside: avoid; margin-block: .4rem; }
+footer { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #8886; }
+@media (prefers-color-scheme: dark) { a { color: #8dc1ff; } a:visited { color: #d3b3ff; } }
+@media print { body { max-width: none; padding: 0; } nav { display: none; } a { color: inherit; } }</style>
+</head>
+<body>
+<header><h1>Čeština — Unisaki Posing System / Návod</h1>
+<p class="scope" lang="en" dir="ltr">Quick reference generated from existing interface translations. This is not a complete translated manual. The full guide is available in English.</p>
+<nav aria-label="Reference navigation">
+<a href="index.html">Language / 言語</a>
+<a href="../UserGuide.en.html" lang="en" dir="ltr">English — Návod</a>
+<a href="#features">Funkce</a>
+<a href="#actions">Usnadnění</a>
+<a href="#poses">Pózy</a>
+</nav></header>
+<main>
+<section id="features"><h2>Funkce</h2>
+<article class="card feature-card"><h3>Zrcadlit</h3><p>Přidá do nabídky přepínač zrcadlení pózy.</p></article>
+<article class="card feature-card"><h3>Gesta vyp.</h3><p>Přidá přepínač zámku gest prstů, i při sevření ovladače.</p></article>
+<article class="card feature-card"><h3>Dýchání</h3><p>Zapíná a vypíná dýchání ve VRChat. Změnu vidí i ostatní.</p></article>
+<article class="card feature-card"><h3>Přetočit se</h3><p>Umožní přetočit se náklonem hlavy. Podporují jen některé ležící pózy.</p></article>
+<article class="card feature-card"><h3>Výška chodidel</h3><p>Upraví výšku chodidel při zachování polohy hlavy a opraví plovoucí či do podlahy zapadlé nohy.</p></article>
+<article class="card feature-card"><h3>Výška podlahy</h3><p>Posune celé tělo včetně hlavy až o 3 m nahoru nebo dolů. Výška podlahy je neutrální na 50 %.</p></article>
+<article class="card feature-card"><h3>Režim focení</h3><p>Přidá režim focení pro posun až o 3 m vpřed a otáčení pro lepší pohled na sebe.</p></article>
+<article class="card feature-card"><h3>Měnit ležící pózy skokem</h3><p>Pokud jsou vybrány pózy na zádech i na břiše, přepnete mezi nimi skokem na místě.</p></article>
+<article class="card feature-card"><h3>Omezit deformaci pózy při otočení hlavy</h3><p>Omezí deformaci, když hlava při vypnutém zámku míří jinam než v původní póze.</p></article>
+<article class="card feature-card"><h3>Synchronizovat režim focení</h3><p>Sdílí polohu a otočení režimu focení s ostatními. Pouze místní focení používá 0 bitů.</p></article>
+<article class="card feature-card"><h3>Ponechat hlavu viditelnou v režimu focení</h3><p>Zachová hlavu viditelnou na vaší obrazovce pro detailní fotky. Po režimu focení se obnoví běžná viditelnost.</p></article>
+<article class="card feature-card"><h3>Vypnout pohupování VRChat v klidu</h3><p>Vypne výchozí pohupování VRChat v klidu a zachová animaci dýchání nástroje.</p></article>
+<article class="card feature-card"><h3>Animovat dýchání</h3><p>Animuje hrudník při dýchání. Síla se nastavuje pro každou pózu bez dalších synchronizačních bitů.</p></article>
+<article class="card feature-card"><h3>Generovat ikony póz</h3><p>Náhledové obrázky usnadní rozpoznání póz. Sestavení avatara bude trochu delší.</p></article>
+<article class="card feature-card"><h3>Zmenšit velikost ikon</h3><p>Zmenší velikost avatara za cenu menšího detailu ikon.</p></article>
+<article class="card feature-card"><h3>Zapnout korekci avatara</h3><p>Automaticky koriguje rozdíly směru a zkroucení kloubů každého avatara.</p></article>
+<article class="card feature-card"><h3>Zabránit ohybu kolen dozadu</h3><p>Zabraňuje ohnutí kolen dozadu při natažení nohou.</p></article>
+<article class="card feature-card"><h3>Použít původní pózy ve stoje, v přikrčení a na břiše</h3><p>Při generování rozpozná pohyby z vrstvy Base avatara. Do seznamu importu je nepřidává. Ruční přiřazení mají přednost.</p></article>
+<article class="card feature-card"><h3>Propojit zámky sledování s dalšími nástroji</h3><p>Zapněte, pokud zámky sledování nefungují správně s dalšími nástroji.</p></article>
+</section>
+<section id="actions"><h2>Usnadnění</h2>
+<article class="card action-card"><h3>Kontrola nastavení</h3><p>Vyberte dotčený objekt v kontrole nastavení v Inspector, opravte uvedené problémy a zkuste to znovu.</p></article>
+<article class="card action-card"><h3>Aktualizovat předgenerování</h3><p>Vygeneruje nastavení předem pro zkrácení sestavení avatara.</p></article>
+<article class="card action-card"><h3>Použít tuto předvolbu</h3><p>Vyberte výchozí sadu póz. Nahradí aktuální nastavení póz.</p></article>
+<article class="card action-card"><h3>Úprava animace</h3><p>Náhled a jemné doladění póz.</p></article>
+<article class="card action-card"><h3>Znovu pořídit ikony</h3><p>Použijte po změně oblečení nebo vzhledu. Po změně nastavení aktualizujte předgenerování.</p></article>
+<article class="card action-card"><h3>Vymazat ruční výběr</h3><p>Vymaže ruční nastavení a korekce tohoto typu pohybu. Pokud je zapnutý automatický import, další sestavení jej znovu rozpozná. Akci lze vrátit zpět.</p></article>
+</section>
+<section id="poses"><h2>Pózy</h2>
+<table><thead><tr><th lang="ja" dir="ltr">日本語</th><th>Název pózy</th></tr></thead><tbody>
+<tr class="pose-row"><td lang="ja" dir="ltr">あぐら</td><td>Turecký sed</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">あぐら２</td><td>Turecký sed 2</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">いじけ</td><td>Trucování</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">うずくまり</td><td>Do klubíčka</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">おいで</td><td>Pojď sem</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">おきあがり</td><td>Vstávání</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">おすまし</td><td>Důstojně</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">おちこみ</td><td>Smutek</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">お伺いポーズ</td><td>Mohu?</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">お姉さん座り</td><td>Elegantní sed</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">お疲れ</td><td>Bez sil</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">くずし</td><td>Shrbení</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">くつろぎ１</td><td>Odpočinek 1</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">くつろぎ２</td><td>Odpočinek 2</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">ぐだり１</td><td>Rozvalení 1</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">ぐだり２</td><td>Rozvalení 2</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">ぐだり３</td><td>Rozvalení 3</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">ざせつ</td><td>Porážka</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">じだらく</td><td>Líný den</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">たたみ</td><td>Tatami</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">ねころび</td><td>Vleže</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">ねころび１</td><td>Vleže 1</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">ねころび２</td><td>Vleže 2</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">ねころび３</td><td>Vleže 3</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">のんびり</td><td>Bez spěchu</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">のーんびり</td><td>Úplný klid</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">はいずり</td><td>Plazení</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">はりつけ</td><td>Přitisknutí</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">びっくり</td><td>Překvapení</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">ふくじゅう</td><td>Podrobení</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">むきりょく</td><td>Bez energie</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">よりかかり</td><td>Opření</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">アイドル</td><td>Idol</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">カエルのポーズ１</td><td>Žába 1</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">カエルのポーズ２</td><td>Žába 2</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">キック</td><td>Kop</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">クマ人形</td><td>Medvídek</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">ケンカ</td><td>Připraven k boji</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">コンビニ</td><td>Večerka</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">ゾンビ</td><td>Zombie</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">バンザイ</td><td>Ruce vzhůru</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">プランク</td><td>Prkno</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">ベッド</td><td>Postel</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">マットレス</td><td>Matrace</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">モデル</td><td>Model</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">ラダー運動</td><td>Žebřík</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">リクライニング</td><td>Pololeh</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">リラックス</td><td>Uvolnění</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">リラックス１</td><td>Uvolnění 1</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">リラックス２</td><td>Uvolnění 2</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">リラックス３</td><td>Uvolnění 3</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">不機嫌</td><td>Mrzutost</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">二人分座り</td><td>Místo pro dva</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">五体投地</td><td>Poklona k zemi</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">伏せ</td><td>Na břiše</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">休憩中</td><td>Přestávka</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">低姿勢</td><td>Nízký postoj</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">体育座り</td><td>Kolena k hrudi</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">倒され寝</td><td>Sražení</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">傍観者</td><td>Pozorovatel</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">内股座り</td><td>Špičky dovnitř</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">制止</td><td>Stůj</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">前かがみ</td><td>Předklon</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">右向き寝</td><td>Spánek vpravo</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">右向き昼寝</td><td>Dřímání vpravo</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">合蹠のポーズ</td><td>Motýl</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">和室</td><td>Japonský pokoj</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">商談</td><td>Obchodní jednání</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">地球寝</td><td>Obejmout zemi</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">培養中</td><td>V kapsli</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">堤防</td><td>Nábřeží</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">壁ドン</td><td>U zdi</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">女の子座り</td><td>Sed W</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">左向き寝</td><td>Spánek vlevo</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">左向き昼寝</td><td>Dřímání vlevo</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">左向き昼寝２</td><td>Dřímání vlevo 2</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">布団</td><td>Futon</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">座布団</td><td>Podsedák</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">待ちぼうけ</td><td>Stále čeká</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">待ち伏せ</td><td>Léčka</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">後方彼氏</td><td>Dohlížení</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">従者のポーズ</td><td>Sluha</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">忍者走り</td><td>Běh nindži</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">思考中</td><td>Přemýšlení</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">抱きしめ</td><td>Objetí</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">斜め座り</td><td>Šikmý sed</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">昼寝</td><td>Dřímání</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">晴天寝</td><td>Dřímání na slunci</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">服従</td><td>Poslušnost</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">木の上寝</td><td>Spánek na stromě</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">楽園</td><td>Ráj</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">海岸</td><td>U moře</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">照れ</td><td>Ostych</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">猫のポーズ（右）</td><td>Kočka vpravo</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">猫のポーズ（左）</td><td>Kočka vlevo</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">猫寝</td><td>Kočičí spánek</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">異変無し</td><td>Vše v pořádku</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">直立</td><td>Stoj</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">睡魔</td><td>Ospalost</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">砂浜</td><td>Písečná pláž</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">空気椅子</td><td>Sed u zdi</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">絨毯</td><td>Koberec</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">考える男</td><td>Myslitel</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">肘パンチ</td><td>Úder loktem</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">肘付き</td><td>Na lokti</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">脱力寝</td><td>Padl a usnul</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">腕枕寝</td><td>Spánek na paži</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">腕枕（右）</td><td>Pravá paže pod hlavou</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">腕枕（左）</td><td>Levá paže pod hlavou</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">腕立て伏せ</td><td>Klik</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">膝立て</td><td>Jedno koleno vzhůru</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">芝生</td><td>Trávník</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">行き倒れ</td><td>Zhroucení</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">見下し</td><td>Pohled svrchu</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">観察中</td><td>Pozorování</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">訓練場</td><td>Cvičiště</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">警戒</td><td>Ve střehu</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">警戒（右）</td><td>Střeh vpravo</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">警戒（左）</td><td>Střeh vlevo</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">足伸ばし</td><td>Nohy vpřed</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">足組み</td><td>Noha přes nohu</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">足組み２</td><td>Noha přes nohu 2</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">足降ろし</td><td>Nohy dolů</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">蹲踞</td><td>Hluboký dřep</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">運動会</td><td>Sportovní den</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">面接</td><td>Pohovor</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">騎士</td><td>Rytíř</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">魔王降臨</td><td>Pán démonů</td></tr>
+</tbody></table></section>
+</main>
+<footer><a href="../UserGuide.en.html" lang="en" dir="ltr">English — Návod</a></footer>
+</body>
+</html>

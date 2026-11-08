@@ -1,0 +1,42 @@
+{
+  "language": "he",
+  "authoring": "Codex AI, 2026-11-09",
+  "catalog_missing_completed": 782,
+  "setup_missing_completed": 61,
+  "anatomy_completed": 120,
+  "term_forms": {
+    "Photo Mode": [
+      "מצב צילום",
+      "במצב צילום",
+      "ממצב צילום"
+    ],
+    "prebuild": [
+      "חישוב מקדים",
+      "החישוב המקדים",
+      "חושב מראש",
+      "לחשב מראש"
+    ],
+    "preset": [
+      "תצורה",
+      "תצורות"
+    ],
+    "Roll Over": [
+      "התהפכות",
+      "להתהפכות",
+      "ההתהפכות"
+    ]
+  },
+  "terminology_exceptions": [
+    "Generic roll rotation uses הטיה לצדדים. Proper product/API identifiers retain original spelling."
+  ],
+  "review": [
+    "Existing menu terms preserved",
+    "128 pose names authored together; explicit ימין/שמאל labels retained consistently",
+    "Placeholders checked",
+    "Anatomy directions and finger numbering preserved",
+    "Logical Unicode order; no manual reversal or bidi control characters inserted"
+  ],
+  "native_speaker_review": false,
+  "rendered_visual_review": false,
+  "rtl_visual_review_required": true
+}

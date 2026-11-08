@@ -78,10 +78,14 @@ def audit():
     for path in sorted((PACKAGE/'Editor').rglob('*.cs')):
         if path.name == 'SetupLanguage.cs': continue
         text = re.sub(r'//[^\n]*', '', path.read_text(encoding='utf-8-sig'))
-        for m in re.finditer(r'PosingSystemLocalization\.(?:Text|Format)\s*\(\s*('+STRING+r')', text):
+        for m in re.finditer(r'PosingSystemLocalization\.(?:Text|TextMessage|Format)\s*\(\s*('+STRING+r')', text):
             key = json.loads(m[1])
+            if text[m.end():].lstrip().startswith('+') and any(k.startswith(key) for k in expected): continue
             if key not in known: report['source_omissions'].append({'file':path.relative_to(ROOT).as_posix(), 'key':key})
     for key in sorted(feature_inventory-known): report['source_omissions'].append({'file':'Inspector feature cards', 'key':key})
+    bone_source = (PACKAGE/'Editor/PosingSystemAutoPoseCatalogEditor.cs').read_text(encoding='utf-8-sig')
+    for bone in re.findall(r'HumanBodyBones\.(\w+)\s*=>', bone_source):
+        if 'bone.'+bone not in expected: report['source_omissions'].append({'file':'Humanoid bone labels', 'key':'bone.'+bone})
     report['summary'] = dict(target_languages=len(codes)-1, keys=len(expected), feature_cards=len(features),
         missing=sum(len(v['missing']) for v in report['languages'].values()),
         feature_missing=sum(len(v['feature_missing']) for v in report['languages'].values()),

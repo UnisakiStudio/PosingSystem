@@ -1,0 +1,73 @@
+{
+  "language": "tr",
+  "author": "Codex AI",
+  "external_translation_service": false,
+  "native_speaker_review": false,
+  "visual_review": false,
+  "anatomy": {
+    "keys": 120,
+    "method": "AI-authored anatomical vocabulary composed consistently across the full 95-muscle and 25-bone set",
+    "numbering_and_directions_preserved": true
+  },
+  "catalog_keys_added": 902,
+  "setup_keys_added": 61,
+  "existing_translations_preserved": true,
+  "pose_batch": {
+    "complete_set": 128,
+    "directions": "sağ/sol",
+    "number_variants": "Arabic numeral suffixes"
+  },
+  "term_forms": {
+    "Photo Mode": [
+      "fotoğraf mod"
+    ],
+    "prebuild": [
+      "ön oluştur"
+    ],
+    "preset": [
+      "ön ayar"
+    ],
+    "Roll Over": [
+      "dön",
+      "dönüş"
+    ]
+  },
+  "notes": [
+    "Proper product names and APIs intentionally unchanged.",
+    "Turkish suffixes retained naturally; prebuild is consistently ön oluşturma, separate from script compilation."
+  ],
+  "intentional_unchanged_labels": [
+    "Tatami",
+    "Plank",
+    "Model",
+    "Futon",
+    "Avatar",
+    "Kawaii Posing Tool (BOOTH)",
+    "Cool Posing Tool (BOOTH)",
+    "Kawaii Posing Tool (Gumroad)",
+    "Cool Posing Tool (Gumroad)",
+    "Posing System",
+    "Cool Posing",
+    "Kawaii Posing",
+    "Kawaii Sitting",
+    "Unisaki Posing System",
+    "Kawaii Posing",
+    "Cool Posing",
+    "Shinano",
+    "Unisaki Studio"
+  ],
+  "checks": {
+    "missing": 0,
+    "extra": 0,
+    "placeholders": "passed",
+    "markup": "passed",
+    "existing_entries": "not overwritten",
+    "native_speaker_review": false,
+    "visual_review": false
+  },
+  "pose_length_check": {
+    "code_points": true,
+    "longest": 20,
+    "fixed_limit": "not specified; rendered width check remains pending"
+  }
+}

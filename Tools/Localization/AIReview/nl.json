@@ -1,0 +1,35 @@
+{
+  "language": "nl",
+  "authoring": "Codex AI, 2026-11-09",
+  "catalog_missing_completed": 782,
+  "setup_missing_completed": 61,
+  "anatomy_completed": 120,
+  "term_forms": {
+    "Photo Mode": [
+      "Fotomodus"
+    ],
+    "prebuild": [
+      "voorberekening",
+      "voorberekenen",
+      "voorberekend"
+    ],
+    "preset": [
+      "voorinstelling"
+    ],
+    "Roll Over": [
+      "omdraaien",
+      "omdraai"
+    ]
+  },
+  "terminology_exceptions": [
+    "Generic roll orientation is zijwaarts kantelen. Proper product/API names retain original spelling."
+  ],
+  "review": [
+    "Existing translations preserved",
+    "128 pose names authored together; R/L are rechts/links",
+    "Placeholders checked",
+    "Anatomy directions and finger numbering preserved"
+  ],
+  "native_speaker_review": false,
+  "rendered_visual_review": false
+}

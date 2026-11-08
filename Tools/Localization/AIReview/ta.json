@@ -1,0 +1,32 @@
+{
+  "language": "ta",
+  "author": "Codex AI",
+  "date": "2026-11-09",
+  "method": "AI authored against Japanese source, English reference and complete related pose/anatomy sets; no external translation service",
+  "entries": 902,
+  "setup_entries": 61,
+  "existing_translations": "preserved",
+  "native_speaker_review": false,
+  "rendered_layout_review": false,
+  "term_forms": {
+    "Photo Mode": [
+      "புகைப்பட முறை",
+      "புகைப்பட முற"
+    ],
+    "prebuild": [
+      "முன்கட்டமை"
+    ],
+    "preset": [
+      "முன்னமை"
+    ],
+    "Roll Over": [
+      "புரள"
+    ]
+  },
+  "notes": [
+    "Indic glyph shaping and rendered widths require visual checks.",
+    "Muscle numbers and body-side mapping preserved; labels assembled from one reviewed anatomy terminology table.",
+    "All 128 Tamil and Telugu pose names authored together per language with consistent numbering and side names.",
+    "Product names, API identifiers, filenames and Shinano remain in their original Latin spelling."
+  ]
+}

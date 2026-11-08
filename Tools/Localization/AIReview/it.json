@@ -1,0 +1,32 @@
+{
+  "language": "it",
+  "authoring": "Codex AI, 2026-11-09",
+  "catalog_missing_completed": 623,
+  "setup_missing_completed": 61,
+  "anatomy_completed": 120,
+  "review": [
+    "Existing translations preserved",
+    "Full feature/128-pose context supplied",
+    "Placeholders checked",
+    "Anatomy indices, directions and finger numbering preserved"
+  ],
+  "native_speaker_review": false,
+  "rendered_visual_review": false,
+  "term_forms": {
+    "Photo Mode": [
+      "Modalità foto"
+    ],
+    "prebuild": [
+      "precalcolo"
+    ],
+    "preset": [
+      "preset"
+    ],
+    "Roll Over": [
+      "girarsi"
+    ]
+  },
+  "terminology_exceptions": [
+    "API, package and product identifiers retain their original spelling. Generic roll rotation labels are not the Roll Over feature."
+  ]
+}

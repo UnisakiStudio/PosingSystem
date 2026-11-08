@@ -1,0 +1,32 @@
+{
+  "language": "ar",
+  "author": "Codex AI",
+  "date": "2026-11-09",
+  "method": "AI authored against Japanese source, English reference and complete related pose/anatomy sets; no external translation service",
+  "entries": 902,
+  "setup_entries": 61,
+  "existing_translations": "preserved",
+  "native_speaker_review": false,
+  "rendered_layout_review": false,
+  "term_forms": {
+    "Photo Mode": [
+      "وضع التصوير"
+    ],
+    "prebuild": [
+      "بناء مسبق",
+      "البناء المسبق"
+    ],
+    "preset": [
+      "مسبق"
+    ],
+    "Roll Over": [
+      "تقلب"
+    ]
+  },
+  "notes": [
+    "RTL order, contextual Arabic shaping and mixed Latin/numeric text require rendered verification.",
+    "Muscle numbers and left/right mapping preserved; gender agreement and anatomy labels authored consistently as a complete set.",
+    "All 128 pose names authored together; numbered variants and side directions remain consistent.",
+    "Product names, API identifiers, filenames and Shinano remain in their original Latin spelling."
+  ]
+}

@@ -1,0 +1,236 @@
+{
+  "ar": {
+    "撮影モードを終了": {
+      "Photo Mode": {
+        "reason": "Existing compact exit-menu caption omits the word mode but retains photography and the exit action. Kept to preserve the established short menu wording. Exception is tied to the exact source and target and must be reviewed if either changes.",
+        "source": "Exit Photo Mode",
+        "value": "إنهاء التصوير"
+      }
+    }
+  },
+  "bn": {
+    "撮影モードを終了": {
+      "Photo Mode": {
+        "reason": "Existing compact exit-menu caption omits the word mode but retains photography and the exit action. Kept to preserve the established short menu wording. Exception is tied to the exact source and target and must be reviewed if either changes.",
+        "source": "Exit Photo Mode",
+        "value": "ফটো থেকে বেরোন"
+      }
+    }
+  },
+  "cs": {
+    "撮影モードを終了": {
+      "Photo Mode": {
+        "reason": "Existing compact exit-menu caption omits the word mode but retains photography and the exit action. Kept to preserve the established short menu wording. Exception is tied to the exact source and target and must be reviewed if either changes.",
+        "source": "Exit Photo Mode",
+        "value": "Ukončit focení"
+      }
+    }
+  },
+  "da": {
+    "撮影モードを終了": {
+      "Photo Mode": {
+        "reason": "Existing compact exit-menu caption omits the word mode but retains photography and the exit action. Kept to preserve the established short menu wording. Exception is tied to the exact source and target and must be reviewed if either changes.",
+        "source": "Exit Photo Mode",
+        "value": "Afslut foto"
+      }
+    }
+  },
+  "de": {
+    "撮影モードを終了": {
+      "Photo Mode": {
+        "reason": "Existing compact exit-menu caption omits the word mode but retains photography and the exit action. Kept to preserve the established short menu wording. Exception is tied to the exact source and target and must be reviewed if either changes.",
+        "source": "Exit Photo Mode",
+        "value": "Foto beenden"
+      }
+    }
+  },
+  "es": {
+    "撮影モードを終了": {
+      "Photo Mode": {
+        "reason": "Existing compact exit-menu caption omits the word mode but retains photography and the exit action. Kept to preserve the established short menu wording. Exception is tied to the exact source and target and must be reviewed if either changes.",
+        "source": "Exit Photo Mode",
+        "value": "Salir de foto"
+      }
+    }
+  },
+  "fi": {
+    "撮影モードを終了": {
+      "Photo Mode": {
+        "reason": "Existing compact exit-menu caption omits the word mode but retains photography and the exit action. Kept to preserve the established short menu wording. Exception is tied to the exact source and target and must be reviewed if either changes.",
+        "source": "Exit Photo Mode",
+        "value": "Lopeta kuvaus"
+      }
+    }
+  },
+  "fr": {
+    "撮影モードを終了": {
+      "Photo Mode": {
+        "reason": "Existing compact exit-menu caption omits the word mode but retains photography and the exit action. Kept to preserve the established short menu wording. Exception is tied to the exact source and target and must be reviewed if either changes.",
+        "source": "Exit Photo Mode",
+        "value": "Quitter photo"
+      }
+    }
+  },
+  "he": {
+    "撮影モードを終了": {
+      "Photo Mode": {
+        "reason": "Existing compact exit-menu caption omits the word mode but retains photography and the exit action. Kept to preserve the established short menu wording. Exception is tied to the exact source and target and must be reviewed if either changes.",
+        "source": "Exit Photo Mode",
+        "value": "סיום צילום"
+      }
+    }
+  },
+  "hi": {
+    "撮影モードを終了": {
+      "Photo Mode": {
+        "reason": "Existing compact exit-menu caption omits the word mode but retains photography and the exit action. Kept to preserve the established short menu wording. Exception is tied to the exact source and target and must be reviewed if either changes.",
+        "source": "Exit Photo Mode",
+        "value": "फ़ोटो से बाहर"
+      }
+    }
+  },
+  "id": {
+    "撮影モードを終了": {
+      "Photo Mode": {
+        "reason": "Existing compact exit-menu caption omits the word mode but retains photography and the exit action. Kept to preserve the established short menu wording. Exception is tied to the exact source and target and must be reviewed if either changes.",
+        "source": "Exit Photo Mode",
+        "value": "Keluar foto"
+      }
+    }
+  },
+  "it": {
+    "撮影モードを終了": {
+      "Photo Mode": {
+        "reason": "Existing compact exit-menu caption omits the word mode but retains photography and the exit action. Kept to preserve the established short menu wording. Exception is tied to the exact source and target and must be reviewed if either changes.",
+        "source": "Exit Photo Mode",
+        "value": "Esci da foto"
+      }
+    }
+  },
+  "ko": {
+    "撮影モードを終了": {
+      "Photo Mode": {
+        "reason": "Existing compact exit-menu caption omits the word mode but retains photography and the exit action. Kept to preserve the established short menu wording. Exception is tied to the exact source and target and must be reviewed if either changes.",
+        "source": "Exit Photo Mode",
+        "value": "촬영 종료"
+      }
+    }
+  },
+  "nb": {
+    "撮影モードを終了": {
+      "Photo Mode": {
+        "reason": "Existing compact exit-menu caption omits the word mode but retains photography and the exit action. Kept to preserve the established short menu wording. Exception is tied to the exact source and target and must be reviewed if either changes.",
+        "source": "Exit Photo Mode",
+        "value": "Avslutt foto"
+      }
+    }
+  },
+  "nl": {
+    "撮影モードを終了": {
+      "Photo Mode": {
+        "reason": "Existing compact exit-menu caption omits the word mode but retains photography and the exit action. Kept to preserve the established short menu wording. Exception is tied to the exact source and target and must be reviewed if either changes.",
+        "source": "Exit Photo Mode",
+        "value": "Foto afsluiten"
+      }
+    }
+  },
+  "pl": {
+    "撮影モードを終了": {
+      "Photo Mode": {
+        "reason": "Existing compact exit-menu caption omits the word mode but retains photography and the exit action. Kept to preserve the established short menu wording. Exception is tied to the exact source and target and must be reviewed if either changes.",
+        "source": "Exit Photo Mode",
+        "value": "Zakończ zdjęcia"
+      }
+    }
+  },
+  "pt-BR": {
+    "撮影モードを終了": {
+      "Photo Mode": {
+        "reason": "Existing compact exit-menu caption omits the word mode but retains photography and the exit action. Kept to preserve the established short menu wording. Exception is tied to the exact source and target and must be reviewed if either changes.",
+        "source": "Exit Photo Mode",
+        "value": "Sair da foto"
+      }
+    }
+  },
+  "pt": {
+    "撮影モードを終了": {
+      "Photo Mode": {
+        "reason": "Existing compact exit-menu caption omits the word mode but retains photography and the exit action. Kept to preserve the established short menu wording. Exception is tied to the exact source and target and must be reviewed if either changes.",
+        "source": "Exit Photo Mode",
+        "value": "Sair da foto"
+      }
+    }
+  },
+  "sv": {
+    "撮影モードを終了": {
+      "Photo Mode": {
+        "reason": "Existing compact exit-menu caption omits the word mode but retains photography and the exit action. Kept to preserve the established short menu wording. Exception is tied to the exact source and target and must be reviewed if either changes.",
+        "source": "Exit Photo Mode",
+        "value": "Avsluta foto"
+      }
+    }
+  },
+  "ta": {
+    "撮影モードを終了": {
+      "Photo Mode": {
+        "reason": "Existing compact exit-menu caption omits the word mode but retains photography and the exit action. Kept to preserve the established short menu wording. Exception is tied to the exact source and target and must be reviewed if either changes.",
+        "source": "Exit Photo Mode",
+        "value": "புகைப்படம் முடி"
+      }
+    }
+  },
+  "te": {
+    "撮影モードを終了": {
+      "Photo Mode": {
+        "reason": "Existing compact exit-menu caption omits the word mode but retains photography and the exit action. Kept to preserve the established short menu wording. Exception is tied to the exact source and target and must be reviewed if either changes.",
+        "source": "Exit Photo Mode",
+        "value": "ఫోటో ముగించు"
+      }
+    }
+  },
+  "th": {
+    "撮影モードを終了": {
+      "Photo Mode": {
+        "reason": "Existing compact exit-menu caption omits the word mode but retains photography and the exit action. Kept to preserve the established short menu wording. Exception is tied to the exact source and target and must be reviewed if either changes.",
+        "source": "Exit Photo Mode",
+        "value": "จบการถ่ายภาพ"
+      }
+    }
+  },
+  "tr": {
+    "撮影モードを終了": {
+      "Photo Mode": {
+        "reason": "Existing compact exit-menu caption omits the word mode but retains photography and the exit action. Kept to preserve the established short menu wording. Exception is tied to the exact source and target and must be reviewed if either changes.",
+        "source": "Exit Photo Mode",
+        "value": "Fotoğraftan çık"
+      }
+    }
+  },
+  "vi": {
+    "撮影モードを終了": {
+      "Photo Mode": {
+        "reason": "Existing compact exit-menu caption omits the word mode but retains photography and the exit action. Kept to preserve the established short menu wording. Exception is tied to the exact source and target and must be reviewed if either changes.",
+        "source": "Exit Photo Mode",
+        "value": "Thoát chụp"
+      }
+    }
+  },
+  "zh-Hans": {
+    "撮影モードを終了": {
+      "Photo Mode": {
+        "reason": "Existing compact exit-menu caption omits the word mode but retains photography and the exit action. Kept to preserve the established short menu wording. Exception is tied to the exact source and target and must be reviewed if either changes.",
+        "source": "Exit Photo Mode",
+        "value": "结束拍照"
+      }
+    }
+  },
+  "zh-Hant": {
+    "撮影モードを終了": {
+      "Photo Mode": {
+        "reason": "Existing compact exit-menu caption omits the word mode but retains photography and the exit action. Kept to preserve the established short menu wording. Exception is tied to the exact source and target and must be reviewed if either changes.",
+        "source": "Exit Photo Mode",
+        "value": "結束拍照"
+      }
+    }
+  }
+}

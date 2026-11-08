@@ -70,31 +70,54 @@ namespace jp.unisakistudio.posingsystemeditor
         {
             var state = GetState(ps);
             var note = new GUIStyle(EditorStyles.wordWrappedMiniLabel) { font = EditorStyles.standardFont, fontSize = 11 };
-            var label = new GUIStyle(EditorStyles.boldLabel) { font = EditorStyles.boldFont, fontSize = 12, alignment = TextAnchor.MiddleLeft };
+            var label = new GUIStyle(EditorStyles.boldLabel) { font = EditorStyles.boldFont, fontSize = 12, alignment = TextAnchor.MiddleLeft, wordWrap = true };
             var statusLabel = new GUIStyle(note) { alignment = TextAnchor.MiddleLeft, margin = new RectOffset(label.margin.left, label.margin.right, label.margin.top, label.margin.bottom) };
+            var title = new GUIContent(PosingSystemLocalization.Text("プレビルド"));
+            var status = state == BuildState.Ready ? "最新" : state == BuildState.Outdated ? "設定の更新あり" :
+                state == BuildState.NotBuilt ? "未実行" : "アバターの設定が必要";
+            var statusContent = new GUIContent(PosingSystemLocalization.Text(status));
+            var update = new GUIContent(PosingSystemLocalization.Text("プレビルドを更新"));
+            var updateStyle = new GUIStyle(GUI.skin.button) { wordWrap = true };
+            var detailsLabel = PosingSystemLocalization.Text(showDetails ? "閉じる" : "詳細");
+            var detailsStyle = PosingSystemInspectorGUI.Text(11);
+            var titleWidth = Mathf.Max(76, label.CalcSize(title).x + 4);
+            var statusWidth = statusLabel.CalcSize(statusContent).x + 4;
+            var updateWidth = Mathf.Max(120, updateStyle.CalcSize(update).x);
+            var detailsWidth = Mathf.Max(34, detailsStyle.CalcSize(new GUIContent(detailsLabel)).x + 4);
+            // currentViewWidth is stable during Layout/Repaint. Leave room for the
+            // Inspector scrollbar, help-box padding and the surrounding margins.
+            var availableWidth = Mathf.Max(80, EditorGUIUtility.currentViewWidth - 36 - EditorGUI.indentLevel * 15);
+            var separateActions = titleWidth + statusWidth + updateWidth + detailsWidth + 24 > availableWidth;
             var changed = GUI.changed;
             using (new EditorGUILayout.VerticalScope(EditorStyles.helpBox))
             {
                 using (new EditorGUILayout.HorizontalScope())
                 {
-                    GUILayout.Label(PosingSystemLocalization.Text("プレビルド"), label, GUILayout.Width(76), GUILayout.Height(24));
-                    var status = state == BuildState.Ready ? "最新" : state == BuildState.Outdated ? "設定の更新あり" :
-                        state == BuildState.NotBuilt ? "未実行" : "アバターの設定が必要";
-                    GUILayout.Label(PosingSystemLocalization.Text(status), statusLabel, GUILayout.Height(24));
-                    using (new EditorGUI.DisabledScope(state == BuildState.AvatarRequired || EditorApplication.isCompiling || EditorApplication.isPlaying))
+                    if (separateActions)
                     {
-                        if (GUILayout.Button(PosingSystemLocalization.Text("プレビルドを更新"), GUILayout.Width(120), GUILayout.Height(24)))
-                        {
-                            PosingSystemEditorChangeUtility.Commit(serialized);
-                            PosingSystemEditor.TryPrebuildAndRenew(ps);
-                            serialized.Update();
-                            GUIUtility.ExitGUI();
-                        }
+                        var wrappedTitleWidth = Mathf.Min(titleWidth, availableWidth * .45f);
+                        var wrappedStatusWidth = Mathf.Max(20, availableWidth - wrappedTitleWidth - 8);
+                        var headerHeight = Mathf.Max(24, label.CalcHeight(title, wrappedTitleWidth), statusLabel.CalcHeight(statusContent, wrappedStatusWidth));
+                        GUILayout.Label(title, label, GUILayout.Width(wrappedTitleWidth), GUILayout.Height(headerHeight));
+                        GUILayout.Label(statusContent, statusLabel, GUILayout.ExpandWidth(true), GUILayout.Height(headerHeight));
                     }
-                    var detailsLabel = PosingSystemLocalization.Text(showDetails ? "閉じる" : "詳細");
-                    var detailsWidth = Mathf.Max(34, PosingSystemInspectorGUI.Text(11).CalcSize(new GUIContent(detailsLabel)).x + 4);
-                    if (PosingSystemInspectorGUI.Link(detailsLabel, GUILayout.Width(detailsWidth), GUILayout.Height(24))) showDetails = !showDetails;
+                    else
+                    {
+                        GUILayout.Label(title, label, GUILayout.Width(titleWidth), GUILayout.Height(24));
+                        GUILayout.Label(statusContent, statusLabel, GUILayout.MinWidth(statusWidth), GUILayout.ExpandWidth(true), GUILayout.Height(24));
+                        DrawUpdate(updateWidth, 24);
+                        DrawDetails(24);
+                    }
                 }
+                if (separateActions)
+                    using (new EditorGUILayout.HorizontalScope())
+                    {
+                        var wrappedUpdateWidth = Mathf.Min(updateWidth, Mathf.Max(40, availableWidth - detailsWidth - 8));
+                        var actionHeight = Mathf.Max(24, updateStyle.CalcHeight(update, wrappedUpdateWidth));
+                        DrawUpdate(wrappedUpdateWidth, actionHeight);
+                        GUILayout.FlexibleSpace();
+                        DrawDetails(actionHeight);
+                    }
                 if (state == BuildState.AvatarRequired)
                     EditorGUILayout.HelpBox(PosingSystemLocalization.Text("プレビルドを実行できません。Inspectorの「設定の確認」で、アバターの配置・Animator・Humanoidの設定を確認してください。"), MessageType.Info);
                 if (showDetails)
@@ -144,6 +167,23 @@ namespace jp.unisakistudio.posingsystemeditor
             }
             }
             GUI.changed = changed;
+
+            void DrawUpdate(float width, float height)
+            {
+                using (new EditorGUI.DisabledScope(state == BuildState.AvatarRequired || EditorApplication.isCompiling || EditorApplication.isPlaying))
+                {
+                    if (!GUILayout.Button(update, updateStyle, GUILayout.Width(width), GUILayout.Height(height))) return;
+                    PosingSystemEditorChangeUtility.Commit(serialized);
+                    PosingSystemEditor.TryPrebuildAndRenew(ps);
+                    serialized.Update();
+                    GUIUtility.ExitGUI();
+                }
+            }
+
+            void DrawDetails(float height)
+            {
+                if (PosingSystemInspectorGUI.Link(detailsLabel, GUILayout.Width(detailsWidth), GUILayout.Height(height))) showDetails = !showDetails;
+            }
         }
     }
 }

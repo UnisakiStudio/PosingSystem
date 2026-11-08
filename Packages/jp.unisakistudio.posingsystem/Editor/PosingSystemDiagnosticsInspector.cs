@@ -90,7 +90,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 }
                 if (failures.TryGetValue(ps.GetInstanceID(), out var failure))
                 {
-                    EditorGUILayout.HelpBox(PosingSystemLocalization.Text("前回の処理は完了していません。") + "\n" + PosingSystemLocalization.Text(failure), MessageType.Error);
+                    EditorGUILayout.HelpBox(PosingSystemLocalization.Text("前回の処理は完了していません。") + "\n" + PosingSystemLocalization.TextMessage(failure), MessageType.Error);
                     if (GUILayout.Button(PosingSystemLocalization.Text("このエラーについて相談する"))) PosingSystemSupportReport.Open(failure);
                     if (GUILayout.Button(PosingSystemLocalization.Text("前回の失敗内容をコピー"))) EditorGUIUtility.systemCopyBuffer = failure;
                     if (GUILayout.Button(PosingSystemLocalization.Text("前回の失敗表示を閉じる"))) SetFailure(ps, null);

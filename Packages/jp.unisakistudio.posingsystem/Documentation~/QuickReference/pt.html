@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="pt" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="reference-scope" content="UI quick reference; not a full translated manual">
+<meta name="translation-source" content="Existing product interface catalogs only">
+<title>Português — Unisaki Posing System / Manual</title>
+<style>:root { color-scheme: light dark; font-family: system-ui, -apple-system, "Segoe UI", sans-serif; line-height: 1.65; }
+body { max-width: 64rem; margin: 0 auto; padding: 1.5rem; overflow-wrap: anywhere; }
+h1, h2, h3 { line-height: 1.35; }
+h1 { font-size: 1.9rem; } h2 { margin-top: 2.5rem; }
+h3 { margin: 0 0 .4rem; font-size: 1.1rem; }
+a { color: #2867bb; } a:visited { color: #7355a1; }
+nav { display: flex; flex-wrap: wrap; gap: .5rem 1.2rem; }
+.scope { border-inline-start: .25rem solid #b87918; padding: .6rem 1rem; background: #b8791814; }
+.card { border: 1px solid #8886; border-radius: .5rem; padding: 1rem; margin: 1rem 0; break-inside: avoid; }
+.card p { margin: 0; } table { width: 100%; border-collapse: collapse; }
+th, td { text-align: start; vertical-align: top; padding: .5rem .7rem; border: 1px solid #8886; }
+thead { background: #8882; } tbody tr:nth-child(even) { background: #8881; }
+code { direction: ltr; unicode-bidi: isolate; } .language-list { columns: 3 14rem; }
+.language-list li { break-inside: avoid; margin-block: .4rem; }
+footer { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #8886; }
+@media (prefers-color-scheme: dark) { a { color: #8dc1ff; } a:visited { color: #d3b3ff; } }
+@media print { body { max-width: none; padding: 0; } nav { display: none; } a { color: inherit; } }</style>
+</head>
+<body>
+<header><h1>Português — Unisaki Posing System / Manual</h1>
+<p class="scope" lang="en" dir="ltr">Quick reference generated from existing interface translations. This is not a complete translated manual. The full guide is available in English.</p>
+<nav aria-label="Reference navigation">
+<a href="index.html">Language / 言語</a>
+<a href="../UserGuide.en.html" lang="en" dir="ltr">English — Manual</a>
+<a href="#features">Funções</a>
+<a href="#actions">Funções práticas</a>
+<a href="#poses">Poses</a>
+</nav></header>
+<main>
+<section id="features"><h2>Funções</h2>
+<article class="card feature-card"><h3>Espelhar</h3><p>Adiciona ao menu uma opção para espelhar a pose.</p></article>
+<article class="card feature-card"><h3>Sem gestos</h3><p>Adiciona uma opção para fixar os gestos dos dedos, mesmo ao apertar o controlo.</p></article>
+<article class="card feature-card"><h3>Respiração</h3><p>Ativa ou desativa a respiração no menu do VRChat. Outros utilizadores também veem a mudança.</p></article>
+<article class="card feature-card"><h3>Virar</h3><p>Permite virar ao inclinar a cabeça. Compatível com certas poses deitadas.</p></article>
+<article class="card feature-card"><h3>Altura pés</h3><p>Ajusta a altura dos pés sem mover a cabeça, corrigindo pés flutuando ou afundados no chão.</p></article>
+<article class="card feature-card"><h3>Altura chão</h3><p>Move o corpo inteiro, incluindo a cabeça, até 3 m para cima ou para baixo. Em Altura chão, 50% é a altura original.</p></article>
+<article class="card feature-card"><h3>Modo foto</h3><p>Adiciona o Modo foto para avançar até 3 m e girar, ajustando como você se vê.</p></article>
+<article class="card feature-card"><h3>Trocar poses deitadas pulando</h3><p>Quando poses de barriga para cima e de bruços estão selecionadas, pule no lugar para alternar entre elas.</p></article>
+<article class="card feature-card"><h3>Reduzir deformação por rotação da cabeça</h3><p>Reduz a deformação quando a cabeça aponta numa direção diferente da pose original com o bloqueio de cabeça desativado.</p></article>
+<article class="card feature-card"><h3>Sincronizar Modo foto</h3><p>Mostra aos outros a posição e rotação no Modo foto. Fotografar apenas localmente usa 0 bits.</p></article>
+<article class="card feature-card"><h3>Manter cabeça visível no Modo foto</h3><p>Mantém a cabeça visível na sua ecrã em fotos próximas. Ao sair do Modo foto, a visibilidade normal retorna.</p></article>
+<article class="card feature-card"><h3>Desativar balanço em repouso do VRChat</h3><p>Desativa o balanço padrão em repouso do VRChat, preservando a animação de respiração desta ferramenta.</p></article>
+<article class="card feature-card"><h3>Animar respiração</h3><p>Anima o peito e outras partes ao respirar. Ajuste a intensidade por pose sem bits de sincronização adicionais.</p></article>
+<article class="card feature-card"><h3>Gerar ícones das poses</h3><p>Usa miniaturas para identificar poses. A compilação do avatar leva um pouco mais de tempo.</p></article>
+<article class="card feature-card"><h3>Reduzir tamanho dos ícones</h3><p>Reduz o tamanho do avatar, diminuindo um pouco os detalhes dos ícones.</p></article>
+<article class="card feature-card"><h3>Ativar correção específica do avatar</h3><p>Corrige automaticamente diferenças na direção e torção das articulações de cada avatar.</p></article>
+<article class="card feature-card"><h3>Impedir flexão inversa dos joelhos</h3><p>Impede que os joelhos dobrem para trás ao esticar as pernas.</p></article>
+<article class="card feature-card"><h3>Usar poses originais em pé, agachado e de bruços</h3><p>Detecta movimentos da camada Base do avatar durante a geração, sem adicioná-los à lista de importação. As escolhas manuais têm prioridade.</p></article>
+<article class="card feature-card"><h3>Integrar bloqueios de rastreamento com outras ferramentas</h3><p>Ative se os bloqueios de rastreamento não funcionarem corretamente junto com outras ferramentas.</p></article>
+</section>
+<section id="actions"><h2>Funções práticas</h2>
+<article class="card action-card"><h3>Verificar configurações</h3><p>Selecione o objeto afetado em Verificar configurações no Inspector, corrija os problemas listados e tente novamente.</p></article>
+<article class="card action-card"><h3>Atualizar pré-cálculo</h3><p>Gera as configurações antecipadamente para reduzir o tempo de compilação do avatar.</p></article>
+<article class="card action-card"><h3>Aplicar esta predefinição</h3><p>Escolha um conjunto inicial de poses. Isso substitui as configurações atuais das poses.</p></article>
+<article class="card action-card"><h3>Ajuste de animação</h3><p>Veja e ajuste suas poses com precisão.</p></article>
+<article class="card action-card"><h3>Refazer ícones</h3><p>Use após mudar a roupa ou a aparência. Atualize o pré-cálculo depois de alterar configurações.</p></article>
+<article class="card action-card"><h3>Limpar seleção manual</h3><p>Limpa as configurações e os ajustes manuais deste tipo de movimento. Se a importação automática estiver ativa, a próxima compilação voltará a detectá-lo. Esta ação pode ser desfeita.</p></article>
+</section>
+<section id="poses"><h2>Poses</h2>
+<table><thead><tr><th lang="ja" dir="ltr">日本語</th><th>Nome da pose</th></tr></thead><tbody>
+<tr class="pose-row"><td lang="ja" dir="ltr">あぐら</td><td>Pernas cruzadas</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">あぐら２</td><td>Pernas cruzadas 2</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">いじけ</td><td>Emburrado</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">うずくまり</td><td>Encolhido</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">おいで</td><td>Vem cá</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">おきあがり</td><td>Levantando</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">おすまし</td><td>Com postura</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">おちこみ</td><td>Desanimado</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">お伺いポーズ</td><td>Posso?</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">お姉さん座り</td><td>Sentar elegante</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">お疲れ</td><td>Exausto</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">くずし</td><td>Largado</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">くつろぎ１</td><td>Descansando 1</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">くつろぎ２</td><td>Descansando 2</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">ぐだり１</td><td>Jogado 1</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">ぐだり２</td><td>Jogado 2</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">ぐだり３</td><td>Jogado 3</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">ざせつ</td><td>Derrotado</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">じだらく</td><td>Dia de preguiça</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">たたみ</td><td>Tatami</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">ねころび</td><td>Deitado</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">ねころび１</td><td>Deitado 1</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">ねころび２</td><td>Deitado 2</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">ねころび３</td><td>Deitado 3</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">のんびり</td><td>Com calma</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">のーんびり</td><td>Bem relaxado</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">はいずり</td><td>Rastejando</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">はりつけ</td><td>Imobilizado</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">びっくり</td><td>Surpreendido</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">ふくじゅう</td><td>Submissão</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">むきりょく</td><td>Sem energia</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">よりかかり</td><td>Apoiado</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">アイドル</td><td>Ídolo</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">カエルのポーズ１</td><td>Sapo 1</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">カエルのポーズ２</td><td>Sapo 2</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">キック</td><td>Pontapé</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">クマ人形</td><td>Urso de pelúcia</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">ケンカ</td><td>Pronto para brigar</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">コンビニ</td><td>Loja da esquina</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">ゾンビ</td><td>Zumbi</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">バンザイ</td><td>Braços ao alto</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">プランク</td><td>Prancha</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">ベッド</td><td>Cama</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">マットレス</td><td>Colchão</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">モデル</td><td>Modelo</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">ラダー運動</td><td>Exercício de agilidade</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">リクライニング</td><td>Reclinado</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">リラックス</td><td>Relaxado</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">リラックス１</td><td>Relaxado 1</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">リラックス２</td><td>Relaxado 2</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">リラックス３</td><td>Relaxado 3</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">不機嫌</td><td>Mal-humorado</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">二人分座り</td><td>Lugar para dois</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">五体投地</td><td>Prostração</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">伏せ</td><td>De bruços</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">休憩中</td><td>Em pausa</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">低姿勢</td><td>Bem abaixado</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">体育座り</td><td>Joelhos ao alto</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">倒され寝</td><td>Derrubado</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">傍観者</td><td>Espectador</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">内股座り</td><td>Pés para dentro</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">制止</td><td>Pare</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">前かがみ</td><td>Inclinado à frente</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">右向き寝</td><td>Dormir de lado D</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">右向き昼寝</td><td>Sesta de lado D</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">合蹠のポーズ</td><td>Borboleta</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">和室</td><td>Sala japonesa</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">商談</td><td>Negociação</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">地球寝</td><td>Abraçando a terra</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">培養中</td><td>Em uma cápsula</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">堤防</td><td>Dique</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">壁ドン</td><td>Apoio na parede</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">女の子座り</td><td>Sentado em W</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">左向き寝</td><td>Dormir de lado E</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">左向き昼寝</td><td>Sesta de lado E</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">左向き昼寝２</td><td>Sesta de lado E2</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">布団</td><td>Futon</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">座布団</td><td>Almofada no chão</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">待ちぼうけ</td><td>Ainda esperando</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">待ち伏せ</td><td>Emboscada</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">後方彼氏</td><td>Cuidando de trás</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">従者のポーズ</td><td>Ajudante</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">忍者走り</td><td>Corrida ninja</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">思考中</td><td>Pensando</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">抱きしめ</td><td>Abraço</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">斜め座り</td><td>Sentado de lado</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">昼寝</td><td>Sesta</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">晴天寝</td><td>Sesta ao sol</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">服従</td><td>Obediência</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">木の上寝</td><td>Sesta na árvore</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">楽園</td><td>Paraíso</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">海岸</td><td>Beira-mar</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">照れ</td><td>Tímido</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">猫のポーズ（右）</td><td>Alongamento de gato D</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">猫のポーズ（左）</td><td>Alongamento de gato E</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">猫寝</td><td>Sesta de gato</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">異変無し</td><td>Tudo tranquilo</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">直立</td><td>Em pé</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">睡魔</td><td>Sonolento</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">砂浜</td><td>Praia de areia</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">空気椅子</td><td>Agachamento na parede</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">絨毯</td><td>Tapete</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">考える男</td><td>O pensador</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">肘パンチ</td><td>Golpe de cotovelo</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">肘付き</td><td>Apoio no cotovelo</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">脱力寝</td><td>Dormindo largado</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">腕枕寝</td><td>Sesta sobre o braço</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">腕枕（右）</td><td>Braço como travesseiro D</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">腕枕（左）</td><td>Braço como travesseiro E</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">腕立て伏せ</td><td>Flexão</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">膝立て</td><td>Um joelho levantado</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">芝生</td><td>Relvado</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">行き倒れ</td><td>Caído no chão</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">見下し</td><td>Olhando de cima</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">観察中</td><td>Observando</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">訓練場</td><td>Campo de treino</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">警戒</td><td>Em guarda</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">警戒（右）</td><td>Em guarda D</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">警戒（左）</td><td>Em guarda E</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">足伸ばし</td><td>Pernas esticadas</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">足組み</td><td>Cruzar as pernas</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">足組み２</td><td>Cruzar as pernas 2</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">足降ろし</td><td>Pernas para baixo</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">蹲踞</td><td>Agachamento profundo</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">運動会</td><td>Dia de desporto</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">面接</td><td>Entrevista</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">騎士</td><td>Cavaleiro</td></tr>
+<tr class="pose-row"><td lang="ja" dir="ltr">魔王降臨</td><td>Senhor demônio</td></tr>
+</tbody></table></section>
+</main>
+<footer><a href="../UserGuide.en.html" lang="en" dir="ltr">English — Manual</a></footer>
+</body>
+</html>
