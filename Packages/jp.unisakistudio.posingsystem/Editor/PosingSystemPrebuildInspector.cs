@@ -1,4 +1,7 @@
 using jp.unisakistudio.posingsystem;
+using System.Collections.Generic;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using UnityEditor;
 using UnityEngine;
 
@@ -9,6 +12,48 @@ namespace jp.unisakistudio.posingsystemeditor
         internal enum BuildState { AvatarRequired, NotBuilt, Outdated, Ready }
         private bool showImages;
         private bool showDetails;
+
+        // Called on request. Only schema paths from the current DTO can leave the editor,
+        // never avatar, custom pose or asset names from either snapshot.
+        internal static string ChangedInputs(PosingSystem ps)
+        {
+            try
+            {
+                var saved = JObject.Parse(ps.data);
+                var current = JObject.Parse(PosingSystemConverter.GetDefineSerializeJson(ps, true));
+                var paths = new List<string>();
+                void Compare(JToken a, JToken b, string path)
+                {
+                    if (paths.Count >= 12 || JToken.DeepEquals(a, b)) return;
+                    if (path == "featureSettings" && a?.Type == JTokenType.String && b.Type == JTokenType.String)
+                    {
+                        var left = a.Value<string>();
+                        var right = b.Value<string>();
+                        var start = right.IndexOf('{');
+                        if (start >= 0 && left.IndexOf('{') == start &&
+                            left.Substring(0, start) == right.Substring(0, start))
+                        {
+                            Compare(JObject.Parse(left.Substring(start)), JObject.Parse(right.Substring(start)), path);
+                            return;
+                        }
+                    }
+                    if (b is JObject obj && a is JObject)
+                    {
+                        foreach (var p in obj.Properties())
+                            Compare(a[p.Name], p.Value, path.Length == 0 ? p.Name : path + "." + p.Name);
+                    }
+                    else if (b is JArray rows && a is JArray oldRows && rows.Count == oldRows.Count)
+                    {
+                        for (int i = 0; i < rows.Count && paths.Count < 12; i++)
+                            Compare(oldRows[i], rows[i], path + "[" + i + "]");
+                    }
+                    else paths.Add(path);
+                }
+                Compare(saved, current, "");
+                return paths.Count == 0 ? "保存された設定の形式・表記" : string.Join("\n", paths);
+            }
+            catch (JsonException) { return "旧形式の保存データ（項目を比較できません）"; }
+        }
 
         internal static BuildState GetState(PosingSystem ps)
         {
@@ -50,6 +95,12 @@ namespace jp.unisakistudio.posingsystemeditor
                     EditorGUILayout.HelpBox("プレビルドを実行できません。Inspectorの「設定の確認」で、アバターの配置・Animator・Humanoidの設定を確認してください。", MessageType.Info);
                 if (showDetails)
                 {
+                if (state == BuildState.Outdated && GUILayout.Button("保存時から変わった項目を確認"))
+                {
+                    var paths = ChangedInputs(ps);
+                    if (EditorUtility.DisplayDialog("保存時と異なるプレビルドの設定項目", paths,
+                        "この警告について相談する", "閉じる")) PosingSystemSupportReport.OpenPrebuild(paths);
+                }
                 GUILayout.Label("設定を先に生成して、アバターのビルド時間を短縮します。", note);
                 using (new EditorGUILayout.HorizontalScope())
                 {

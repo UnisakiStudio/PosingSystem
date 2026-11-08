@@ -222,7 +222,7 @@ namespace jp.unisakistudio.posingsystemeditor
         }
 
         internal static DiagnosticException CompilationFailure(UnityEngine.Object context) =>
-            Failure("PS050", "Unityでスクリプトのコンパイルに失敗したため、ポーズの生成を開始できません。",
+            Failure("PS050", "Unityでスクリプトのコンパイルに失敗したため、ポーズの生成を開始できません。" + PosingSystemSupportReport.CompilerDetails(),
                 "Consoleの最初のコンパイルエラーを修正し、再コンパイルが完了してから実行してください。", context);
     }
 }

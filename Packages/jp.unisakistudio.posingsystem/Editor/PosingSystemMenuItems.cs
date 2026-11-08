@@ -27,6 +27,9 @@ namespace jp.unisakistudio.posingsystemeditor
 {
     public static class PosingSystemMenuItems
     {
+        [MenuItem("Tools/ゆにさきスタジオ/Consoleのエラーについて相談する", false, 200)]
+        private static void OpenConsoleInquiry() => PosingSystemSupportReport.Open(null);
+
         private const string REGKEY = @"SOFTWARE\UnisakiStudio";
         private const string POSINGSYSTEM_APPKEY = "posingsystem";
         private const string LICENSE_VALUE = "licensed";
@@ -77,23 +80,23 @@ namespace jp.unisakistudio.posingsystemeditor
                 var prefabs = FindInstallPrefab(name, out var paths);
                 if (paths.Length == 0)
                 {
-                    if (EditorUtility.DisplayDialog("ツール本体が見つかりません [PS041]", "探しているPrefab: " + name + "\nBOOTH同梱のライセンス用unitypackageだけでは、ツール本体の導入は完了しません。ALCOM / VCCでこのプロジェクトに商品本体と「ゆにさきポーズシステム」が追加されているか確認してください。\n導入済みの場合: " + PosingSystemDiagnostics.RestoreTool, "公式ヘルプを開く", "閉じる"))
-                        Application.OpenURL(PosingSystemPackageInfo.SupportUrl);
+                    if (EditorUtility.DisplayDialog("ツール本体が見つかりません [PS041]", "探しているPrefab: " + name + "\nBOOTH同梱のライセンス用unitypackageだけでは、ツール本体の導入は完了しません。ALCOM / VCCでこのプロジェクトに商品本体と「ゆにさきポーズシステム」が追加されているか確認してください。\n導入済みの場合: " + PosingSystemDiagnostics.RestoreTool, "このエラーについて相談する", "閉じる"))
+                        PosingSystemSupportReport.Open("PS041");
                     return;
                 }
 
                 if (prefabs == null)
                 {
-                    if (EditorUtility.DisplayDialog("Prefabを読み込めません [PS042]", "対象: " + string.Join("\n", paths) + "\nPrefabが破損しているか、Posing Systemコンポーネントがありません。ConsoleのMissing Script・コンパイルエラーを確認してください。\n" + PosingSystemDiagnostics.RestoreTool, "公式ヘルプを開く", "閉じる"))
-                        Application.OpenURL(PosingSystemPackageInfo.SupportUrl);
+                    if (EditorUtility.DisplayDialog("Prefabを読み込めません [PS042]", "対象: " + string.Join("\n", paths) + "\nPrefabが破損しているか、Posing Systemコンポーネントがありません。ConsoleのMissing Script・コンパイルエラーを確認してください。\n" + PosingSystemDiagnostics.RestoreTool, "このエラーについて相談する", "閉じる"))
+                        PosingSystemSupportReport.Open("PS042");
                     return;
                 }
                 // 導入するPosingSystemのPrefabsをアバターに配置する
                 var instance = PrefabUtility.InstantiatePrefab(prefabs, avatar.transform) as GameObject;
                 if (instance == null)
                 {
-                    if (EditorUtility.DisplayDialog("Prefabを配置できません [PS043]", "対象: " + name + "\nConsoleでMissing Prefabなどのインポートエラーを確認してください。配置先のシーンを開き直して再実行してください。", "公式ヘルプを開く", "閉じる"))
-                        Application.OpenURL(PosingSystemPackageInfo.SupportUrl);
+                    if (EditorUtility.DisplayDialog("Prefabを配置できません [PS043]", "対象: " + name + "\nConsoleでMissing Prefabなどのインポートエラーを確認してください。配置先のシーンを開き直して再実行してください。", "このエラーについて相談する", "閉じる"))
+                        PosingSystemSupportReport.Open("PS043");
                     return;
                 }
                 Undo.RegisterCreatedObjectUndo(instance, "Add Prefab");

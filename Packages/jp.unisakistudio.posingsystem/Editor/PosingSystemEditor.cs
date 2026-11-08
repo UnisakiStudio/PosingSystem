@@ -511,8 +511,8 @@ namespace jp.unisakistudio.posingsystemeditor
                 PosingSystemDiagnosticsInspector.SetFailure(posingSystem, message);
                 Debug.LogError("[PosingSystem] " + message, posingSystem);
                 Debug.LogException(ex, posingSystem);
-                if (EditorUtility.DisplayDialog(stage + "を完了できませんでした", message, "公式ヘルプを開く", "閉じる"))
-                    Application.OpenURL(PosingSystemPackageInfo.SupportUrl);
+                if (EditorUtility.DisplayDialog(stage + "を完了できませんでした", message, "このエラーについて相談する", "閉じる"))
+                    PosingSystemSupportReport.Open(message);
                 return false;
             }
         }

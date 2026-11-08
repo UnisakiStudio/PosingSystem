@@ -91,6 +91,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 if (failures.TryGetValue(ps.GetInstanceID(), out var failure))
                 {
                     EditorGUILayout.HelpBox("前回の処理は完了していません。\n" + failure, MessageType.Error);
+                    if (GUILayout.Button("このエラーについて相談する")) PosingSystemSupportReport.Open(failure);
                     if (GUILayout.Button("前回の失敗内容をコピー")) EditorGUIUtility.systemCopyBuffer = failure;
                     if (GUILayout.Button("前回の失敗表示を閉じる")) SetFailure(ps, null);
                 }
