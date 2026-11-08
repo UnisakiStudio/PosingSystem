@@ -204,6 +204,14 @@ namespace jp.unisakistudio.posingsystemeditor
         {
             errorLocalizer = LocalizationAsset.ErrorLocalization();
 
+            InPhase(BuildPhase.Resolving)
+                .Run("Restore legacy automatic head lock menu", ctx =>
+                {
+                    foreach (var ps in ctx.AvatarRootObject.GetComponentsInChildren<PosingSystem>(true))
+                        PosingSystemFeatureUtility.RestoreLegacyAutoHeadMenu(ps, false);
+                })
+                .BeforePass(nadena.dev.ndmf.builtin.RemoveEditorOnlyPass.Instance);
+
             // MAが同期パラメーターやメニューを処理する前に、選択した機能に同期する。
             InPhase(BuildPhase.Generating)
                 .BeforePlugin("nadena.dev.modular-avatar")

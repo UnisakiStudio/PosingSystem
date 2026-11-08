@@ -33,6 +33,32 @@ namespace jp.unisakistudio.posingsystemeditor.tests
         }
 
         [Test]
+        public void LegacyAutoHeadToggleSurvivesFootHeightChanges()
+        {
+            var items = ps.GetComponentsInChildren<ModularAvatarMenuItem>(true);
+            var head = items.Single(i => i.Control?.parameter?.name == "USSPS_AutoLockHead");
+            var feet = items.Single(i => i.Control?.type == VRC.SDK3.Avatars.ScriptableObjects.VRCExpressionsMenu.Control.ControlType.RadialPuppet &&
+                i.Control.subParameters.Any(p => p.name == "FootHeight"));
+            // Fully unpacked 3.1.1 settings retain a stale puppet axis on the head toggle.
+            head.Control.subParameters = feet.Control.subParameters;
+            head.gameObject.tag = "EditorOnly";
+            head.gameObject.SetActive(false);
+            foreach (var enabled in new[] { false, true, false })
+            {
+                ps.features.footHeight = enabled;
+                PosingSystemFeatureUtility.Synchronize(ps);
+                Assert.That(head.gameObject.activeSelf, Is.True);
+                Assert.That(head.CompareTag("EditorOnly"), Is.False);
+                Assert.That(feet.gameObject.activeSelf, Is.EqualTo(enabled));
+            }
+            // An explicit later menu edit must survive subsequent synchronizations.
+            head.gameObject.tag = "EditorOnly";
+            head.gameObject.SetActive(false);
+            PosingSystemFeatureUtility.Synchronize(ps);
+            Assert.That(head.gameObject.activeSelf, Is.False);
+        }
+
+        [Test]
         public void MovementDefaults_UseFinalizedImplementations()
         {
             AssertFinalizedMovement(new PosingSystemFeatureSettings());

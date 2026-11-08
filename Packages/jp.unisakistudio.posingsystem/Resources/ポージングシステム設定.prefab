@@ -399,11 +399,11 @@ GameObject:
   - component: {fileID: 3385141257451228010}
   m_Layer: 0
   m_Name: "\u3042\u304A\u3080\u3051\u6642\u81EA\u52D5\u982D\u56FA\u5B9A"
-  m_TagString: EditorOnly
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1762945089683593122
 Transform:
   m_ObjectHideFlags: 0
@@ -443,8 +443,7 @@ MonoBehaviour:
     value: 1
     style: 0
     subMenu: {fileID: 0}
-    subParameters:
-    - name: FootHeight
+    subParameters: []
     labels: []
   MenuSource: 0
   menuSource_otherObjectChildren: {fileID: 0}
