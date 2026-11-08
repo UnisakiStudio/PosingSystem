@@ -25,6 +25,13 @@ def prepare(upstream,inputs,output):
     text=text.replace('''return "You're installing tools that require VRCSDK for Unity 2019.x " +
                            "but you're using other versions of VRCSDK!\\n" +
                            "Please use older VRCSDK or wait for tool updates!";''','''return SetupLanguage.T("You're installing tools that require VRCSDK for Unity 2019.x but you're using other versions of VRCSDK! Please use older VRCSDK or wait for tool updates!");''')
+    # Re-render the human-readable parts after the dialog's Language... action.
+    # Package IDs, versions, repository URLs and cleanup paths remain the resolved inputs.
+    start=text.index('                var confirmMessage = new StringBuilder(SetupLanguage.T("You\'re installing the following packages:"));')
+    end=text.index('                if (!SetupLanguage.Dialog("Confirm", confirmMessage.ToString(), "Install", "Cancel"))',start)
+    body=text[start:end].rstrip()
+    text=text[:start]+'                string ConfirmationMessage()\n                {\n'+''.join('    '+line+'\n' for line in body.splitlines())+'                    return confirmMessage.ToString();\n                }\n\n'+text[end:]
+    text=text.replace('SetupLanguage.Dialog("Confirm", confirmMessage.ToString(), "Install", "Cancel")', 'SetupLanguage.Dialog("Confirm", ConfirmationMessage, "Install", "Cancel")')
     (output/'VPMPackageAutoInstaller.cs').write_text(text,encoding='utf-8')
     # Preserve every non-UI part of each license activator. In particular do not change
     # registration keys, activation values, product IDs or cleanup targets.

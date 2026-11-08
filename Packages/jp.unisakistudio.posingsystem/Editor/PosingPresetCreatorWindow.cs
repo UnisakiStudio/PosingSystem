@@ -20,7 +20,7 @@ namespace jp.unisakistudio.posingsystemeditor
 
         public static void ShowWindow(PosingSystem source)
         {
-            var window = GetWindow<PosingPresetCreatorWindow>("プリセット作成");
+            var window = GetWindow<PosingPresetCreatorWindow>(PosingSystemLocalization.Text("プリセットを作成"));
             window.sourcePosingSystem = source;
             window.Initialize();
             window.Show();
@@ -229,6 +229,7 @@ namespace jp.unisakistudio.posingsystemeditor
         private void OnGUI()
         {
             using var languageScope = PosingSystemLocalization.ForInspector(sourcePosingSystem);
+            titleContent = new GUIContent(PosingSystemLocalization.Text("プリセットを作成"));
             if (sourcePosingSystem == null)
             {
                 EditorGUILayout.HelpBox(PosingSystemLocalization.Text("ソースとなるPosingSystemが見つかりません。"), MessageType.Error);
