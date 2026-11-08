@@ -29,11 +29,13 @@ namespace jp.unisakistudio.posingsystemeditor
                     {
                         var left = a.Value<string>();
                         var right = b.Value<string>();
-                        var start = right.IndexOf('{');
-                        if (start >= 0 && left.IndexOf('{') == start &&
-                            left.Substring(0, start) == right.Substring(0, start))
+                        var leftStart = left.IndexOf('{');
+                        var rightStart = right.IndexOf('{');
+                        if (leftStart >= 0 && rightStart >= 0)
                         {
-                            Compare(JObject.Parse(left.Substring(start)), JObject.Parse(right.Substring(start)), path);
+                            if (left.Substring(0, leftStart) != right.Substring(0, rightStart))
+                                paths.Add(path + "（生成方式）");
+                            Compare(JObject.Parse(left.Substring(leftStart)), JObject.Parse(right.Substring(rightStart)), path);
                             return;
                         }
                     }

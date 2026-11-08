@@ -22,8 +22,8 @@ namespace jp.unisakistudio.posingsystemeditor
             var settings = JsonUtility.FromJson<PosingSystemFeatureSettings>(JsonUtility.ToJson(ps.features ?? new PosingSystemFeatureSettings()));
             settings.ApplyFinalizedMovementSettings();
             settings.rolloverAnimation = null; // Use the asset GUID and content hash, never a transient instance ID.
-            // Regenerate comparison-era prebuilds, including ones which already selected E.
-            return "movement-final-v6:" + JsonUtility.ToJson(settings);
+            // Existing prebuilds with face correction must regenerate their synchronized layer.
+            return (settings.faceForward ? "movement-final-v7:" : "movement-final-v6:") + JsonUtility.ToJson(settings);
         }
 
         public static void ConvertOptionalFeatures(PosingSystem ps, IAssetSaver saver = null)
@@ -244,6 +244,14 @@ namespace jp.unisakistudio.posingsystemeditor
                         layer.SetOverrideMotion(original, blend);
                     }
                 }
+                // An unassigned motion on a synced, Write Defaults Off layer can hold the
+                // previous neck/head correction after the main layer returns to locomotion.
+                foreach (var state in AllFeatureStates(main.stateMachine))
+                {
+                    if (state.motion != null && layer.GetOverrideMotion(state) == null)
+                        layer.SetOverrideMotion(state, WithoutFootHeight(state.motion));
+                }
+
                 Motion CorrectMotion(Motion source)
                 {
                     if (source == null) return null;
