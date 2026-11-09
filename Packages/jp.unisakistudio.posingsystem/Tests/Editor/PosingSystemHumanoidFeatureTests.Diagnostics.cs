@@ -13,6 +13,35 @@ namespace jp.unisakistudio.posingsystemeditor.tests
     public partial class PosingSystemHumanoidFeatureTests
     {
         [Test]
+        public void Diagnostics_RolloverInquiryCarriesGuidanceWithoutCustomPoseNames()
+        {
+            var empty = new AnimationClip();
+            assets.Add(empty);
+            var pose = new PosingSystem.AnimationDefine(DefaultIdleProxy(), "private-pose-name")
+                { isRollover = true, rolloverSideAnimation = empty };
+            var ps = DiagnosticPoseSettings(pose);
+            var failure = Assert.Throws<PosingSystemDiagnostics.DiagnosticException>(() => PosingSystemDiagnostics.ThrowIfInvalid(ps));
+            Assert.That(failure.Message, Does.Contain("PS070").And.Contain("private-pose-name"));
+            var draft = PosingSystemSupportReport.Draft(failure.Message);
+            Assert.That(draft, Does.Contain(PosingSystemDiagnostics.RolloverClipAction));
+            Assert.That(draft, Does.Not.Contain("private-pose-name"));
+            Assert.That(PosingSystemSupportReport.Draft("PS050"), Does.Not.Contain(PosingSystemDiagnostics.RolloverClipAction));
+            pose.rolloverSideAnimation = DefaultIdleProxy();
+            Assert.DoesNotThrow(() => PosingSystemDiagnostics.ThrowIfInvalid(ps));
+        }
+
+        [Test]
+        public void Diagnostics_VrcFuryDraftIncludesOnlyKnownObsoleteApiNames()
+        {
+            const string path = "C:/private-user/project/Packages/com.vrcfury.vrcfury/Editor/VRCExpressionParameterExtensions.cs";
+            const string error = "(43,20): error CS0618: 'VRCExpressionParameters.TypeCost(VRCExpressionParameters.ValueType)' is obsolete: 'Use Parameter.GetBitWidthByType() instead.'";
+            var draft = PosingSystemSupportReport.SafeError(path + error + " private-details");
+            Assert.That(draft, Is.EqualTo("com.vrcfury.vrcfury/VRCExpressionParameterExtensions.cs:43 CS0618（VRCExpressionParameters.TypeCost → Parameter.GetBitWidthByType）"));
+            Assert.That(PosingSystemSupportReport.SafeError(path + error.Replace("TypeCost", "PersonalMethod")), Does.Not.Contain("TypeCost"));
+            Assert.That(PosingSystemSupportReport.SafeError(path + error.Replace("error CS0618", "warning CS0618")), Is.Empty);
+        }
+
+        [Test]
         public void Diagnostics_ValidHumanoidWithoutUpperChest_HasNoErrorsOrChestWarning_AndIsReadOnly()
         {
             var ps = DefaultIdleSettings(false, false);

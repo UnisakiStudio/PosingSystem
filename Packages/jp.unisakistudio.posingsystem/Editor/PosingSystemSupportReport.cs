@@ -100,7 +100,7 @@ namespace jp.unisakistudio.posingsystemeditor
             return line.Length > 500 ? line.Substring(0,500) + "…" : line;
         }
 
-        private static string SafeError(string raw)
+        internal static string SafeError(string raw)
         {
             var line = raw.Replace('\\','/');
             var code = Regex.Match(line, @"\berror\s+(CS\d{4})\b", RegexOptions.IgnoreCase);
@@ -119,6 +119,10 @@ namespace jp.unisakistudio.posingsystemeditor
             if (code.Success)
             {
                 var id = code.Groups[1].Value;
+                if (id == "CS0618" && source.Groups[1].Value == "com.vrcfury.vrcfury" &&
+                    source.Groups[2].Value == "VRCExpressionParameterExtensions.cs" &&
+                    line.Contains("VRCExpressionParameters.TypeCost(") && line.Contains("Parameter.GetBitWidthByType()"))
+                    return location + id + "（VRCExpressionParameters.TypeCost → Parameter.GetBitWidthByType）";
                 return location + id + (id == "CS0618" || id == "CS0619" ? "（廃止されたAPIの使用）" : "");
             }
             return exception.Success ? location + exception.Value : "";
@@ -131,6 +135,8 @@ namespace jp.unisakistudio.posingsystemeditor
             var codes = Regex.Matches(failure ?? "", @"\bPS\d{3}\b").Cast<Match>().Select(m => m.Value).Distinct().Take(8).ToArray();
             var lines = new List<string> { question, "行った操作・起きたこと：", "" };
             if (codes.Length != 0) lines.Add("診断 " + string.Join(" ", codes));
+            // Include the package's guidance, never the issue summary containing custom pose names.
+            if (codes.Contains("PS070")) lines.Add("PS070（寝返り） " + PosingSystemDiagnostics.RolloverClipAction);
             lines.Add("Unity " + Application.unityVersion);
             foreach (var p in PackageInfo.GetAllRegisteredPackages().Where(p => tools.Contains(p.name)).OrderBy(p=>p.name,StringComparer.Ordinal))
             {
