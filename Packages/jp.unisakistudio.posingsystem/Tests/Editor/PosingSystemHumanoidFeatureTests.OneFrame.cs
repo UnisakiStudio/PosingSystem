@@ -315,6 +315,8 @@ namespace jp.unisakistudio.posingsystemeditor.tests
             for(var round=0;round<3;round++)
             {
                 PosingSystemOneFrameSelection.Apply(c,assets.Add);
+                var wrapper = c.layers.Single(l => l.name == "USSPS_Locomotion").stateMachine;
+                wrapper.stateMachines = wrapper.stateMachines.Reverse().ToArray();
                 Assert.That(PosingSystemOneFrameSelection.Restore(c),Is.True);
                 Assert.That(PosingSystemOneFrameSelection.Restore(c),Is.False,"Restore must be idempotent");
                 var restored=PosingSystemControllerGraph.Collect(new[]{c},o=>!EditorUtility.IsPersistent(o));
@@ -348,6 +350,10 @@ namespace jp.unisakistudio.posingsystemeditor.tests
                 var counts=new List<int>();
                 for(var i=0;i<3;i++)
                 {
+                    var wrapper = controller.layers.Single(l => l.name == "USSPS_Locomotion").stateMachine;
+                    wrapper.stateMachines = wrapper.stateMachines.Reverse().ToArray();
+                    EditorUtility.SetDirty(wrapper);
+                    AssetDatabase.SaveAssets();
                     copied.data="";PosingSystemConverter.ConvertToModularAvatarComponents(copied);
                     controller=(AnimatorController)merge.animator;
                     Assert.That(AssetDatabase.GetAssetPath(controller),Is.EqualTo(path));
