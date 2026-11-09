@@ -9,17 +9,70 @@ using Object = UnityEngine.Object;
 
 namespace jp.unisakistudio.posingsystemeditor
 {
+    // The source stays active and unmodified. Only its Scene view visibility is borrowed.
+    internal sealed class SceneAvatarPreview : IDisposable
+    {
+        private GameObject root;
+        private GameObject[] originallyVisible;
+        private AnimationModeDriver driver;
+        public Animator Animator { get; private set; }
+        public bool IsActive => Animator != null && driver != null && AnimationMode.InAnimationMode(driver);
+
+        public void Start(Animator source, Animator model, string name)
+        {
+            root = new GameObject(name) { hideFlags = HideFlags.HideAndDontSave, tag = "EditorOnly" };
+            root.SetActive(false);
+            SceneManager.MoveGameObjectToScene(root, source.gameObject.scene);
+            var clone = Object.Instantiate(model.gameObject, root.transform);
+            foreach (var child in clone.GetComponentsInChildren<Transform>(true))
+                child.gameObject.hideFlags = HideFlags.HideAndDontSave;
+            Animator = clone.GetComponent<Animator>();
+            foreach (var behaviour in clone.GetComponentsInChildren<Behaviour>(true))
+                if (behaviour != null && behaviour != Animator) behaviour.enabled = false;
+            Animator.enabled = true;
+            Animator.runtimeAnimatorController = null;
+            Animator.cullingMode = AnimatorCullingMode.AlwaysAnimate;
+            clone.transform.SetPositionAndRotation(source.transform.position, source.transform.rotation);
+            clone.transform.localScale = source.transform.lossyScale;
+            clone.SetActive(true);
+            root.SetActive(true);
+
+            originallyVisible = source.GetComponentsInChildren<Transform>(true)
+                .Select(t => t.gameObject).Where(go => !SceneVisibilityManager.instance.IsHidden(go)).ToArray();
+            SceneVisibilityManager.instance.Hide(source.gameObject, true);
+            driver = ScriptableObject.CreateInstance<AnimationModeDriver>();
+            driver.hideFlags = HideFlags.HideAndDontSave;
+            AnimationMode.StartAnimationMode(driver);
+        }
+
+        public void Dispose()
+        {
+            try
+            {
+                if (driver != null && AnimationMode.InAnimationMode(driver))
+                    AnimationMode.StopAnimationMode(driver);
+            }
+            finally
+            {
+                if (originallyVisible != null)
+                    SceneVisibilityManager.instance.Show(originallyVisible.Where(go => go != null).ToArray(), false);
+                originallyVisible = null;
+                if (root != null) Object.DestroyImmediate(root);
+                if (driver != null) Object.DestroyImmediate(driver);
+                Animator = null;
+            }
+        }
+    }
+
     [InitializeOnLoad]
     public static class PosingSystemQuickPreview
     {
         private static PosingSystem owner;
         private static PosingSystem.BaseAnimationDefine pose;
-        private static GameObject previewRoot;
-        private static GameObject[] originallyVisible;
-        internal static Animator PreviewAnimator { get; private set; }
-        private static AnimationModeDriver driver;
+        private static SceneAvatarPreview preview;
+        internal static Animator PreviewAnimator => preview?.Animator;
         private static string label;
-        public static bool IsActive => owner != null && driver != null && AnimationMode.InAnimationMode(driver);
+        public static bool IsActive => owner != null && preview != null && preview.IsActive;
         public static bool IsPreviewing(PosingSystem ps, PosingSystem.BaseAnimationDefine entry) =>
             IsActive && owner == ps && ReferenceEquals(pose, entry);
 
@@ -48,37 +101,15 @@ namespace jp.unisakistudio.posingsystemeditor
             if (AnimationMode.InAnimationMode())
             { message = "アニメーション調整画面など、ほかのプレビューを終了してからお試しください。"; return false; }
             owner = ps; pose = entry; label = key;
-            driver = ScriptableObject.CreateInstance<AnimationModeDriver>();
-            driver.hideFlags = HideFlags.HideAndDontSave;
             AnimationClip combined = null;
             try
             {
-                // Keep transient poses out of scene saves, prefab overrides and avatar builds.
-                previewRoot = new GameObject("_USSPS_QuickPreview") { hideFlags = HideFlags.HideAndDontSave, tag = "EditorOnly" };
-                previewRoot.SetActive(false);
-                SceneManager.MoveGameObjectToScene(previewRoot, animator.gameObject.scene);
-                var clone = Object.Instantiate(animator.gameObject, previewRoot.transform);
-                foreach (var child in clone.GetComponentsInChildren<Transform>(true))
-                    child.gameObject.hideFlags = HideFlags.HideAndDontSave;
-                PreviewAnimator = clone.GetComponent<Animator>();
-                foreach (var behaviour in clone.GetComponentsInChildren<Behaviour>(true))
-                    if (behaviour != null && behaviour != PreviewAnimator) behaviour.enabled = false;
-                PreviewAnimator.enabled = true;
-                PreviewAnimator.runtimeAnimatorController = null;
-                PreviewAnimator.cullingMode = AnimatorCullingMode.AlwaysAnimate;
-                clone.transform.SetPositionAndRotation(animator.transform.position, animator.transform.rotation);
-                clone.transform.localScale = animator.transform.lossyScale;
-                var position = clone.transform.position;
-                var rotation = clone.transform.rotation;
-                var scale = clone.transform.localScale;
-                clone.SetActive(true); previewRoot.SetActive(true);
-                // Hide every mesh under the source, not just the root GameObject (which
-                // usually has no renderer). Preserve individually hidden clothing as well.
-                originallyVisible = animator.GetComponentsInChildren<Transform>(true)
-                    .Select(t => t.gameObject).Where(go => !SceneVisibilityManager.instance.IsHidden(go)).ToArray();
-                SceneVisibilityManager.instance.Hide(animator.gameObject, true);
-                animator = PreviewAnimator;
-                AnimationMode.StartAnimationMode(driver);
+                preview = new SceneAvatarPreview();
+                preview.Start(animator, animator, "_USSPS_QuickPreview");
+                animator = preview.Animator;
+                var position = animator.transform.position;
+                var rotation = animator.transform.rotation;
+                var scale = animator.transform.localScale;
                 var sample = clip;
                 if (!ps.UsesAutoPoseFor(entry) && entry.adjustmentClip != null)
                 {
@@ -121,23 +152,16 @@ namespace jp.unisakistudio.posingsystemeditor
 
         public static void Stop()
         {
-            try { if (driver != null && AnimationMode.InAnimationMode(driver)) AnimationMode.StopAnimationMode(driver); }
-            finally
-            {
-                if (originallyVisible != null)
-                    SceneVisibilityManager.instance.Show(originallyVisible.Where(go => go != null).ToArray(), false);
-                originallyVisible = null;
-                if (previewRoot != null) Object.DestroyImmediate(previewRoot);
-                previewRoot = null; PreviewAnimator = null; owner = null; pose = null;
-                if (driver != null) Object.DestroyImmediate(driver);
-                driver = null;
-            }
+            preview?.Dispose();
+            preview = null;
+            owner = null;
+            pose = null;
             SceneView.RepaintAll();
         }
 
         private static void CheckLifetime()
         {
-            if (driver != null && (owner == null || !owner.gameObject.scene.IsValid() || !IsActive || !owner.gameObject.activeInHierarchy)) Stop();
+            if (preview != null && (owner == null || !owner.gameObject.scene.IsValid() || !IsActive || !owner.gameObject.activeInHierarchy)) Stop();
         }
 
         private static void DrawSceneControls(SceneView view)

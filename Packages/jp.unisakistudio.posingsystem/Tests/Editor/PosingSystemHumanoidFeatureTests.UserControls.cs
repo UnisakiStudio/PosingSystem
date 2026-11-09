@@ -14,6 +14,100 @@ namespace jp.unisakistudio.posingsystemeditor.tests
 {
     public partial class PosingSystemHumanoidFeatureTests
     {
+        [TestCase(false, false, false)]
+        [TestCase(false, false, true)]
+        [TestCase(false, true, true)]
+        [TestCase(true, false, false)]
+        [TestCase(true, false, true)]
+        [TestCase(true, true, true)]
+        public void AdjustmentWindow_OpenAndClosePreservesAvatar(bool cached, bool edit, bool savedOffsets)
+        {
+            var ps = UserSettings(out var entry);
+            ps.enablePoseIk = false;
+            if (savedOffsets)
+            {
+                var saved = PosingSystemConverter.RootOffsetClip(new Vector3(0, .1f, 0), Quaternion.Euler(0, 18, 0), "Saved adjustment");
+                assets.Add(saved);
+                entry.adjustmentClip = saved;
+            }
+            var hand = animator.GetBoneTransform(HumanBodyBones.LeftHand);
+            hand.localRotation = Quaternion.Euler(13, 28, -9);
+            root.transform.SetPositionAndRotation(new Vector3(3, 1, -2), Quaternion.Euler(0, 67, 0));
+            root.transform.localScale = Vector3.one * .8f;
+            var cache = cached ? Object.Instantiate(root) : null;
+            if (cache != null)
+            {
+                cache.SetActive(false);
+                ps.previewAvatarObject = cache;
+            }
+            var transforms = root.GetComponentsInChildren<Transform>(true).AsEnumerable();
+            if (cache != null) transforms = transforms.Concat(cache.GetComponentsInChildren<Transform>(true));
+            var before = transforms.Select(t => (t, t.localPosition, t.localRotation, t.localScale, t.gameObject.activeSelf)).ToArray();
+            PosingAnimationAdjustmentWindow window = null;
+            Animator preview = null;
+            try
+            {
+                PosingAnimationAdjustmentWindow.ShowWindow(ps);
+                window = Resources.FindObjectsOfTypeAll<PosingAnimationAdjustmentWindow>().Single(w => w.PosingSystem == ps);
+                preview = window.PreviewAnimator;
+                Assert.That(preview, Is.Not.Null);
+                var previewWasSeparate = preview != animator && (cache == null || preview.gameObject != cache);
+                var sourceStayedActive = root.activeSelf;
+                var cacheStayedInactive = cache == null || !cache.activeSelf;
+                if (edit)
+                {
+                    var originalPreviewPosition = preview.transform.position;
+                    var originalPreviewRotation = preview.transform.rotation;
+                    var field = typeof(PosingAnimationAdjustmentWindow).GetField("_adjustments", BindingFlags.NonPublic | BindingFlags.Instance);
+                    var draft = (PosingAnimationAdjustmentWindow.Adjustments)field.GetValue(window);
+                    draft.rootTYAdjustment = .25f;
+                    draft.rootQAdjustments = new Vector3(0, 15, 0);
+                    draft.adjustments[0] = 10;
+                    window.RefreshPreview();
+                    var placement = preview.transform.position;
+                    var rotation = preview.transform.rotation;
+                    Assert.That(Vector3.Distance(placement, originalPreviewPosition), Is.GreaterThan(.01f));
+                    Assert.That(Quaternion.Angle(rotation, originalPreviewRotation), Is.GreaterThan(1f));
+                    window.RefreshPreview();
+                    Assert.That(Vector3.Distance(preview.transform.position, placement), Is.LessThan(.0001f));
+                    Assert.That(Quaternion.Angle(preview.transform.rotation, rotation), Is.LessThan(.05f));
+                }
+                window.Close();
+                foreach (var (t, position, rotation, scale, active) in before)
+                    Assert.That((t.localPosition, t.localRotation, t.localScale, t.gameObject.activeSelf),
+                        Is.EqualTo((position, rotation, scale, active)), t.name);
+                Assert.That(previewWasSeparate && sourceStayedActive && cacheStayedInactive, Is.True);
+                Assert.That(preview == null, Is.True, "The temporary preview must be destroyed on close.");
+                Assert.That(SceneVisibilityManager.instance.IsHidden(root), Is.False);
+            }
+            finally
+            {
+                if (window != null) window.Close();
+                if (cache != null) Object.DestroyImmediate(cache);
+            }
+        }
+
+        [Test]
+        public void AdjustmentWindow_OpenAlongsideAnotherAnimationModeLeavesItRunning()
+        {
+            var ps = UserSettings(out _);
+            PosingAnimationAdjustmentWindow window = null;
+            AnimationMode.StartAnimationMode();
+            try
+            {
+                PosingAnimationAdjustmentWindow.ShowWindow(ps);
+                window = Resources.FindObjectsOfTypeAll<PosingAnimationAdjustmentWindow>().Single(w => w.PosingSystem == ps);
+                Assert.That(window.PreviewAnimator, Is.Null);
+                window.Close();
+                Assert.That(AnimationMode.InAnimationMode(), Is.True);
+            }
+            finally
+            {
+                if (window != null) window.Close();
+                AnimationMode.StopAnimationMode();
+            }
+        }
+
         [TestCase(false, false, 1f)]
         [TestCase(false, true, 1f)]
         [TestCase(false, true, .6f)]

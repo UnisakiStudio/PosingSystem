@@ -47,10 +47,7 @@ namespace jp.unisakistudio.posingsystemeditor
         public PosingSystem PosingSystem => _posingSystem;
         public AnimationClip SelectedAnimationClip => GetSelectedEntry()?.Animation?.animationClip as AnimationClip;
         public string SelectedPoseKey => GetAnimationKey(GetSelectedEntry());
-        public Animator PreviewAnimator => _previewAvatar != null ? _previewAvatar :
-            (_posingSystem?.previewAvatarObject != null
-                ? _posingSystem.previewAvatarObject.GetComponent<Animator>()
-                : _posingSystem?.GetAvatar()?.GetComponent<Animator>());
+        public Animator PreviewAnimator => _previewAvatar;
 
         public void RefreshPreview()
         {
