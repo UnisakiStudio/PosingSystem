@@ -162,23 +162,7 @@ namespace jp.unisakistudio.posingsystemeditor
         /// </summary>
         public override string QualifiedName => "jp.unisakistudio.posingsystemeditor.posingsystemconverter";
 
-        static string _versionName = null;
-        public static string VersionName
-        {
-            get
-            {
-                if (_versionName == null)
-                {
-                    var request = UnityEditor.PackageManager.Client.List(true, true);
-                    while (!request.IsCompleted) { }
-                    if (request.Status == UnityEditor.PackageManager.StatusCode.Success)
-                    {
-                        _versionName = request.Result.FirstOrDefault(pkg => pkg.name == "jp.unisakistudio.posingsystem").version;
-                    }
-                }
-                return _versionName != null ? _versionName : "";
-            }
-        }
+        public static string VersionName => PosingSystemPackageInfo.SystemVersion;
 
         /// <summary>
         /// The plugin name shown in debug UIs. If not set, the qualified name will be shown.
@@ -358,21 +342,19 @@ namespace jp.unisakistudio.posingsystemeditor
                             return;
                         }
 
-                        if (IsAndroidBuildTarget())
+                        if (!IsAndroidBuildTarget())
                         {
-                            // Androidビルドターゲットでは、アイコン撮影・メニューアイコン設定は行わない
-                            return;
-                        }
-
-                        foreach (var posingSystem in ctx.AvatarRootObject.GetComponentsInChildren<PosingSystem>())
-                        {
-                            if (posingSystem.thumbnailPackObject == null)
+                            foreach (var posingSystem in ctx.AvatarRootObject.GetComponentsInChildren<PosingSystem>())
                             {
-                                TakeScreenshot(posingSystem, true, true);
-                                SetMenuIcon(posingSystem);
+                                if (posingSystem.thumbnailPackObject == null)
+                                {
+                                    TakeScreenshot(posingSystem, true, true);
+                                    SetMenuIcon(posingSystem);
+                                }
                             }
                         }
-                        foreach (var posingSystem in ctx.AvatarRootObject.GetComponentsInChildren<PosingSystem>())
+                        // Inactive authoring components also belong to the editor, on every platform.
+                        foreach (var posingSystem in ctx.AvatarRootObject.GetComponentsInChildren<PosingSystem>(true))
                         {
                             GameObject.DestroyImmediate(posingSystem);
                         }

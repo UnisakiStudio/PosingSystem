@@ -40,6 +40,7 @@ namespace jp.unisakistudio.posingsystemeditor
         }
 
         private static readonly Dictionary<Type, Info> Cache = new Dictionary<Type, Info>();
+        internal static string SystemVersion => Get(typeof(jp.unisakistudio.posingsystem.PosingSystem)).version ?? string.Empty;
 
         static PosingSystemPackageInfo()
         {

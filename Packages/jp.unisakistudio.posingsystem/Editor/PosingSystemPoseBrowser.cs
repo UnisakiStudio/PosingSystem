@@ -120,7 +120,9 @@ namespace jp.unisakistudio.posingsystemeditor
                 if (expanded == key && Event.current.type == EventType.Repaint) AnchorExpandedRow(rect.y);
                 var preview = entry.previewImage;
                 if (entry is PosingSystem.AnimationDefine pose && pose.isCustomIcon && pose.icon != null) preview = pose.icon;
-                if (preview == null && entry.animationClip != null) preview = AssetPreview.GetAssetPreview(entry.animationClip) ?? AssetPreview.GetMiniThumbnail(entry.animationClip);
+                // Missing pose images must not queue a separate Unity asset preview for every row on every repaint.
+                if (preview == null && entry.animationClip != null && Event.current.type == EventType.Repaint)
+                    preview = AssetPreview.GetMiniThumbnail(entry.animationClip);
                 var image = new Rect(rect.x + 2, rect.y + 6, 40, 40);
                 EditorGUI.DrawRect(image, EditorGUIUtility.isProSkin ? new Color(.16f,.17f,.19f) : new Color(.86f,.88f,.91f));
                 if (preview != null) GUI.DrawTexture(image, preview, ScaleMode.ScaleToFit);

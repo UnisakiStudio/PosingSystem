@@ -61,6 +61,7 @@ namespace jp.unisakistudio.posingsystemeditor
                             PosingSystemQuickPreview.Stop();
                             ClearThumbnailPack(ps); CreateThumbnailPack(ps);
                             PosingSystemConverter.TakeScreenshot(ps, true, false);
+                            PosingSystemEditorChangeUtility.MarkChanged(ps);
                             serializedObject.Update(); GUIUtility.ExitGUI();
                         }
                 }

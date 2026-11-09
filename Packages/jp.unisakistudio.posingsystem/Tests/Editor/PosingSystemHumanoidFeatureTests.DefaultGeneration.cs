@@ -26,6 +26,26 @@ namespace jp.unisakistudio.posingsystemeditor.tests
             return ps;
         }
 
+        [Test]
+        public void DefaultGeneration_BuildStripsInactivePoseSettingsFromTheCopy()
+        {
+            DefaultGenerationSettings();
+            var child = new GameObject("Inactive settings");
+            child.transform.SetParent(root.transform, false);
+            child.SetActive(false);
+            var original = child.AddComponent<PosingSystem>();
+            WithPersistedBuild(context =>
+            {
+                var method = typeof(AvatarProcessor).GetMethod("ProcessAvatar", BindingFlags.NonPublic | BindingFlags.Static,
+                    null, new[] { typeof(BuildContext), typeof(BuildPhase), typeof(BuildPhase) }, null);
+                method.Invoke(null, new object[] { context, BuildPhase.Resolving, BuildPhase.Optimizing });
+                context.DeactivateAllExtensionContexts();
+                Assert.That(context.Successful, Is.True);
+                Assert.That(context.AvatarRootObject.GetComponentsInChildren<PosingSystem>(true), Is.Empty);
+            });
+            Assert.That(child.GetComponent<PosingSystem>(), Is.SameAs(original));
+        }
+
         [TestCase(false)] [TestCase(true)]
         public void DefaultGeneration_PrebuildIsOneEvaluationAndKeepsOneAssetAcrossUpdates(bool legacy)
         {
