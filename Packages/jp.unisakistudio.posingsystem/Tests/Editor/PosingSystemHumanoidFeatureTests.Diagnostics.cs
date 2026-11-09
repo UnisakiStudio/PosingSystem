@@ -13,6 +13,18 @@ namespace jp.unisakistudio.posingsystemeditor.tests
     public partial class PosingSystemHumanoidFeatureTests
     {
         [Test]
+        public void Diagnostics_RecognizesPlayerLayoutErrorWithoutSharingLocalDetails()
+        {
+            const string raw = "Type '[jp.unisakistudio.posingsystem]jp.unisakistudio.posingsystem.PosingSystem' has an extra field 'legacyAutoHeadMenuChecked' of type 'System.Boolean' in the player and thus can't be serialized (expected 'privateField' in private/avatar).";
+            var signature = PosingSystemSupportReport.SafeError(raw);
+            Assert.That(signature, Is.EqualTo("jp.unisakistudio.posingsystem.PosingSystem / legacyAutoHeadMenuChecked / can't be serialized"));
+            Assert.That(PosingSystemSupportReport.SafeError(raw.Replace("legacyAutoHeadMenuChecked", "privateField")), Is.Empty);
+            var draft = PosingSystemSupportReport.Draft(raw);
+            Assert.That(draft, Does.Contain(signature).And.Not.Contain("private"));
+            Assert.That(PosingSystemSupportReport.SafeError("[PosingSystem] PS070 private pose"), Is.EqualTo("PS070"));
+        }
+
+        [Test]
         public void Diagnostics_RolloverInquiryCarriesGuidanceWithoutCustomPoseNames()
         {
             var empty = new AnimationClip();

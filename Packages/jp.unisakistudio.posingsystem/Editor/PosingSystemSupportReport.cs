@@ -47,7 +47,7 @@ namespace jp.unisakistudio.posingsystemeditor
 
         // Unity exposes live compiler events publicly, but not the existing Console rows.
         // When this internal API is unavailable the build check and manual Console hint still work.
-        private static List<string> ReadConsole(int mask)
+        private static List<string> ReadConsole(int mask, bool forDraft = false)
         {
             var result = new List<string>();
             try
@@ -71,7 +71,9 @@ namespace jp.unisakistudio.posingsystemeditor
                         args[0] = i;
                         if (!(bool)get.Invoke(null, args) || ((int)mode.GetValue(args[1]) & mask) == 0) continue;
                         var line = ((string)message.GetValue(args[1]) ?? "").Split('\n')[0].Trim();
-                        if (line.Length > 0 && !line.Contains("[PosingSystem") && !result.Contains(line)) result.Add(line);
+                        if (forDraft) line = SafeError(line);
+                        else if (line.Contains("[PosingSystem")) continue;
+                        if (line.Length > 0 && !result.Contains(line)) result.Add(line);
                     }
                 }
                 finally { end.Invoke(null, null); }
@@ -102,7 +104,17 @@ namespace jp.unisakistudio.posingsystemeditor
 
         internal static string SafeError(string raw)
         {
+            if (string.IsNullOrEmpty(raw)) return "";
             var line = raw.Replace('\\','/');
+            const string posingType = "[jp.unisakistudio.posingsystem]jp.unisakistudio.posingsystem.PosingSystem";
+            if (line.Contains("Type '" + posingType + "' has an extra field 'legacyAutoHeadMenuChecked'") &&
+                line.Contains("can't be serialized"))
+                return "jp.unisakistudio.posingsystem.PosingSystem / legacyAutoHeadMenuChecked / can't be serialized";
+            if (line.Contains("[PosingSystem"))
+            {
+                var diagnosis = Regex.Match(line, @"\bPS\d{3}\b");
+                if (diagnosis.Success) return diagnosis.Value;
+            }
             var code = Regex.Match(line, @"\berror\s+(CS\d{4})\b", RegexOptions.IgnoreCase);
             var exception = Regex.Match(line, @"\b(NullReferenceException|InvalidOperationException|ArgumentException|IOException|MissingReferenceException|FileNotFoundException|TypeLoadException)\b");
             var source = Regex.Match(line, @"(?:^|/)(?:Packages|Library/PackageCache)/([A-Za-z0-9.-]+)(?:@[^/\s]+)?/(?:[^/()\r\n]+/)*([A-Za-z0-9_.-]+\.cs)\((\d+)(?:,(\d+))?\)", RegexOptions.IgnoreCase);
@@ -143,8 +155,8 @@ namespace jp.unisakistudio.posingsystemeditor
                 var version = Regex.Match(p.version ?? "", @"^\d+\.\d+\.\d+(?:-(?:alpha|beta|rc|pre|preview)[.-]?\d+)?", RegexOptions.IgnoreCase);
                 if (version.Success) lines.Add(p.name + " " + version.Value);
             }
-            var raw = EditorUtility.scriptCompilationFailed ? CompilerErrors().AsEnumerable() : Enumerable.Empty<string>();
-            var errors = raw.Concat(ReadConsole(CompileError | OtherErrors)).Select(SafeError)
+            var compiled = EditorUtility.scriptCompilationFailed ? compiler.Select(SafeError) : Enumerable.Empty<string>();
+            var errors = compiled.Append(SafeError(failure)).Concat(ReadConsole(CompileError | OtherErrors, true))
                 .Where(s=>s.Length>0).Distinct().Take(Limit).ToArray();
             if (errors.Length > 0) lines.Add("Consoleのエラー\n" + string.Join("\n",errors));
             return string.Join("\n",lines);
