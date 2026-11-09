@@ -35,6 +35,9 @@ namespace jp.unisakistudio.posingsystemeditor.tests
                 }
             };
             posing = root.AddComponent<PosingSystem>();
+            // An installation without its common Animator correctly carries its own PS010 warning.
+            // Use the shipped component so each test can isolate the warning it changes.
+            Object.Instantiate(PosingSystemDiagnostics.CommonAnimatorTemplate().gameObject, root.transform);
             posing.savedInstanceId = GlobalObjectId.GetGlobalObjectIdSlow(posing).ToString();
         }
 
