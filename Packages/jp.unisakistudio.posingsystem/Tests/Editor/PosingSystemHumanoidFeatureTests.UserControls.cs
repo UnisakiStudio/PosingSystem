@@ -396,7 +396,11 @@ MonoBehaviour:
             obj.transform.SetParent(ps.transform, false); obj.SetActive(false); obj.tag = "EditorOnly";
             var menu = obj.AddComponent<ModularAvatarMenuItem>();
             menu.Control.icon = icon;
-            if (radial) menu.Control.subParameters = new[] { new VRCExpressionsMenu.Control.Parameter {name=parameter} };
+            if (radial)
+            {
+                menu.Control.type = VRCExpressionsMenu.Control.ControlType.RadialPuppet;
+                menu.Control.subParameters = new[] { new VRCExpressionsMenu.Control.Parameter {name=parameter} };
+            }
             else menu.Control.parameter = new VRCExpressionsMenu.Control.Parameter {name=parameter};
             Assert.That(PosingSystemFeatureUtility.GetFeatureMenuIcon(ps, setting), Is.SameAs(icon));
             var secondIcon = new Texture2D(2, 2); assets.Add(secondIcon); menu.Control.icon = secondIcon;
