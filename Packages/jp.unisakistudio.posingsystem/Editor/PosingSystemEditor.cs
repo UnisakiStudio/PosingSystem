@@ -467,10 +467,8 @@ namespace jp.unisakistudio.posingsystemeditor
         {
             LegacyRolloverPoseMigration.Apply(posingSystem);
             PosingSystemDiagnostics.ThrowIfInvalid(posingSystem);
-            // ビルド時のクローンでもプレビルド済みデータを同一と判定できるよう、
-            // 元のPosingSystemを示す安定したIDをデータ生成より先に保存する。
+            // 複製元の画像パックを再利用する前に所有者を確認する。
             CheckAndDeleteThumbnailPack(posingSystem);
-            posingSystem.savedInstanceId = UnityEditor.GlobalObjectId.GetGlobalObjectIdSlow(posingSystem).ToString();
             PosingSystemConverter.ConvertToModularAvatarComponents(posingSystem);
             PosingSystemEditorChangeUtility.MarkChanged(posingSystem);
         }

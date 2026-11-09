@@ -133,6 +133,26 @@ namespace jp.unisakistudio.posingsystemeditor.tests
         }
 
         [Test]
+        public void ThumbnailOwnerChange_PreservesCurrentAndLegacyPrebuildsButNotEditedSettings()
+        {
+            var current = PosingSystemConverter.GetDefineSerializeJson(posing);
+            // Unity serialized the former owner field last in the 3.1.2 snapshot.
+            var legacy = current.Insert(current.Length - 1, ",\"savedInstanceId\":\"" + posing.savedInstanceId + "\"");
+            posing.savedInstanceId = "new-thumbnail-owner";
+
+            foreach (var snapshot in new[] { current, legacy })
+            {
+                posing.data = snapshot;
+                Assert.That(PosingSystemConverter.IsPosingSystemDataUpdated(posing), Is.False);
+                Assert.That(PosingSystemConverter.ShouldReportPrebuildUpdateWarning(posing), Is.False);
+                posing.isIconSmall = !posing.isIconSmall;
+                Assert.That(PosingSystemConverter.ShouldReportPrebuildUpdateWarning(posing), Is.True);
+                posing.isIconSmall = !posing.isIconSmall;
+                Assert.That(posing.data, Is.EqualTo(snapshot));
+            }
+        }
+
+        [Test]
         public void PhotographyFloorFix_InvalidatesPreviousPrebuildButKeepsCurrentCache()
         {
             var current = PosingSystemConverter.GetDefineSerializeJson(posing, true);

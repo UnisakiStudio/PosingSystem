@@ -3,6 +3,8 @@
 using System.Collections.Immutable;
 using System.Collections.Generic;
 using System.Linq;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using UnityEditor;
 using UnityEditor.Animations;
 using UnityEngine;
@@ -154,7 +156,6 @@ namespace jp.unisakistudio.posingsystemeditor
             public System.Collections.Generic.List<OverrideAnimationDefineDTO> overrides;
             public AdditiveBreathingSettingsDTO additiveBreathing;
             public string version;
-            public string savedInstanceId;
         }
         /// <summary>
         /// This name is used to identify the plugin internally, and can be used to declare BeforePlugin/AfterPlugin
@@ -255,13 +256,14 @@ namespace jp.unisakistudio.posingsystemeditor
                         PosingSystemDiagnostics.ThrowIfInvalid(posingSystem);
                         // 未プレビルド（null / 空文字）は直後に自動変換するため、
                         // 「設定変更済み」としてNDMFエラーを報告しない。
-                        if (ShouldReportPrebuildUpdateWarning(posingSystem))
+                        var settingsUpdated = IsPosingSystemDataUpdated(posingSystem);
+                        if (settingsUpdated && IsPrebuildUpdateWarningEnabled(posingSystem))
                         {
                             ErrorReport.ReportError(errorLocalizer, ErrorSeverity.NonFatal, "オブジェクトの設定が更新されています。再度プレビルドを行ってください", posingSystem.name);
                         }
 
                         if (ctx.GetState<PosingSystemControllerGeneration.BuildState>().MissingPrebuilds.Contains(posingSystem) ||
-                            string.IsNullOrEmpty(posingSystem.data) || posingSystem.data != GetDefineSerializeJson(posingSystem, true))
+                            settingsUpdated)
                         {
                             ConvertToModularAvatarComponents(posingSystem, ctx.AssetSaver);
                         }
@@ -777,8 +779,11 @@ namespace jp.unisakistudio.posingsystemeditor
         }
 
         public static bool ShouldReportPrebuildUpdateWarning(PosingSystem posingSystem)
-            => posingSystem != null && !posingSystem.IsWarningIgnored(PosingSystem.WarningType.PrebuildOutOfDate)
-                && !string.IsNullOrEmpty(posingSystem.data) && IsPosingSystemDataUpdated(posingSystem);
+            => IsPrebuildUpdateWarningEnabled(posingSystem) && IsPosingSystemDataUpdated(posingSystem);
+
+        private static bool IsPrebuildUpdateWarningEnabled(PosingSystem posingSystem)
+            => posingSystem != null && !string.IsNullOrEmpty(posingSystem.data) &&
+                !posingSystem.IsWarningIgnored(PosingSystem.WarningType.PrebuildOutOfDate);
 
         public static PosingSystem.WarningType GetVisibleWarnings(PosingSystem posingSystem)
         {
@@ -845,8 +850,27 @@ namespace jp.unisakistudio.posingsystemeditor
         {
             if (posingSystem == null || posingSystem.defines == null ||
                 posingSystem.defines.Any(d => d?.animations == null || d.animations.Any(a => a == null))) return true;
-            return posingSystem.data != GetDefineSerializeJson(posingSystem, true);
+            var saved = posingSystem.data;
+            if (string.IsNullOrEmpty(saved)) return true;
+            var current = GetDefineSerializeJson(posingSystem);
+            if (saved == current) return false;
+            // Older prebuilds included the thumbnail pack owner in their settings snapshot.
+            if (!saved.Contains("\"savedInstanceId\":")) return true;
+            try
+            {
+                var legacy = JsonConvert.DeserializeObject<JObject>(saved, LegacySnapshotSettings);
+                return legacy == null || !legacy.Remove(nameof(PosingSystem.savedInstanceId)) ||
+                    !JToken.DeepEquals(legacy, JsonConvert.DeserializeObject<JObject>(current, LegacySnapshotSettings));
+            }
+            catch (JsonException) { return true; }
         }
+
+        private static readonly JsonSerializerSettings LegacySnapshotSettings = new JsonSerializerSettings
+        {
+            // A custom pose or parameter name that resembles a date must stay a literal string.
+            DateParseHandling = DateParseHandling.None,
+            CheckAdditionalContent = true
+        };
 
         public static bool IsContainExistProduct(PosingSystem posingSystem)
         {
@@ -1323,6 +1347,8 @@ namespace jp.unisakistudio.posingsystemeditor
             return hash.ToString();
         }
 
+        // Keep the optional argument for callers built against earlier versions.
+        // A settings snapshot is now independent of thumbnail ownership in every context.
         public static string GetDefineSerializeJson(PosingSystem posingSystem, bool ignoreInstanceId = false)
         {
             var breathing = posingSystem.additiveBreathing;
@@ -1399,7 +1425,6 @@ namespace jp.unisakistudio.posingsystemeditor
                     typeFixHash = GetAssetContentHash(typeFixBreathing),
                 },
                 version = VersionName,
-                savedInstanceId = ignoreInstanceId ? posingSystem.savedInstanceId : UnityEditor.GlobalObjectId.GetGlobalObjectIdSlow(posingSystem).ToString(),
                 autoPoseCatalogGuid = GetStableObjectIdentifier(posingSystem.autoPoseCatalog),
                 // Include edits still in memory: dependency hashes alone only see the saved asset.
                 // EditorJsonUtility preserves persistent animation references as GUID/fileID.

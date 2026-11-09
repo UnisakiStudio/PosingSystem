@@ -113,6 +113,7 @@ namespace jp.unisakistudio.posingsystemeditor.tests
             ps.defines[0].animations[0].icon = Texture2D.whiteTexture;
             Assert.That(EditorSceneManager.SaveScene(scene, folder + "/Test.unity"), Is.True);
             ps.savedInstanceId = GlobalObjectId.GetGlobalObjectIdSlow(ps).ToString();
+            ps.data = PosingSystemConverter.GetDefineSerializeJson(ps);
             var copy = Object.Instantiate(root);
             try
             {
@@ -120,6 +121,7 @@ namespace jp.unisakistudio.posingsystemeditor.tests
                 var other = copy.GetComponentInChildren<PosingSystem>();
                 Assert.That(GlobalObjectId.GetGlobalObjectIdSlow(other).ToString(), Is.Not.EqualTo(ps.savedInstanceId));
                 PosingSystemEditor.ClearThumbnailPack(other);
+                Assert.That(PosingSystemConverter.IsPosingSystemDataUpdated(other), Is.False);
                 Assert.That(AssetDatabase.LoadAllAssetRepresentationsAtPath(path), Does.Contain(thumbnail));
                 Assert.That(other.thumbnailPackObject, Is.Null);
                 Assert.That(other.defines[0].animations[0].previewImage, Is.Null);
