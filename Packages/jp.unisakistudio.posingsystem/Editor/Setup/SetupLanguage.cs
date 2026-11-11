@@ -17,8 +17,15 @@ namespace UnisakiStudio.Setup
         internal static bool HasSelection => Array.IndexOf(Codes, EditorPrefs.GetString(PreferenceKey, "")) >= 0;
         internal static readonly string[] Codes = { "ja", "en", "fr", "it", "zh-Hans", "zh-Hant", "ko", "th", "de", "es", "pt", "pt-BR", "ru", "uk", "pl", "nl", "sv", "da", "fi", "nb", "cs", "tr", "id", "vi", "hi", "bn", "ta", "te", "ar", "he" };
         internal static readonly string[] Names = { "日本語", "English", "Français", "Italiano", "简体中文", "繁體中文", "한국어", "ไทย", "Deutsch", "Español", "Português", "Português (Brasil)", "Русский", "Українська", "Polski", "Nederlands", "Svenska", "Dansk", "Suomi", "Norsk", "Čeština", "Türkçe", "Bahasa Indonesia", "Tiếng Việt", "हिन्दी", "বাংলা", "தமிழ்", "తెలుగు", "العربية", "עברית" };
-        private static readonly Dictionary<string, string> Aliases = BuildAliases();
-        private static readonly Dictionary<string, Dictionary<string, string>> Catalogs = BuildCatalogs();
+        // Preference reads must not initialize translation catalogs or diagnostic regexes.
+        private static Dictionary<string, string> Aliases => TranslationData.Aliases;
+        private static Dictionary<string, Dictionary<string, string>> Catalogs => TranslationData.Catalogs;
+        private static class TranslationData
+        {
+            internal static readonly Dictionary<string, string> Aliases = BuildAliases();
+            internal static readonly Dictionary<string, Dictionary<string, string>> Catalogs = BuildCatalogs();
+            internal static readonly HashSet<string> Canonical = new HashSet<string>(Aliases.Values, StringComparer.Ordinal);
+        }
         private static readonly Dictionary<string, int[]> LocalizedArguments = new Dictionary<string, int[]> { { "Applied {0} IK rules.\n{1}", new[] { 1 } }, { "{0} was stopped.\n{1}", new[] { 1 } }, { "Prefab to find: {0}\nThe purchased license installer alone does not complete product installation. In ALCOM / VCC, make sure the product and Unisaki Posing System are added to this project.\nIf already installed: {1}", new[] { 1 } }, { "The common posing Animator is unavailable. \"{0}\" {1}.", new[] { 1 } } };
         private static Dictionary<string, string> BuildAliases() => new Dictionary<string, string> {
     { "(Adsız)", "(Unnamed)" },
@@ -55341,13 +55348,19 @@ namespace UnisakiStudio.Setup
             internal string Canonical;
             internal int[] Indices;
             internal int[] TextArguments;
+            internal string Prefix, Suffix;
         }
-        private static readonly List<Template> Templates = BuildTemplates();
+        private static class DiagnosticData
+        {
+            internal static readonly List<Template> Templates = BuildTemplates();
+            internal static readonly string[] Prefixes = Aliases.SelectMany(pair => new[] { pair.Key, pair.Value })
+                .Where(value => value.EndsWith(":", StringComparison.Ordinal)).Distinct().ToArray();
+        }
         private static List<Template> BuildTemplates()
         {
             var result = new List<Template>();
             var patterns = Aliases.Concat(Aliases.Values.Select(value => new KeyValuePair<string, string>(value, value)))
-                .GroupBy(pair => pair.Key).Select(group => group.First());
+                .Where(pair => pair.Key.IndexOf('{') >= 0).GroupBy(pair => pair.Key).Select(group => group.First());
             foreach (var pair in patterns.OrderByDescending(pair => Regex.Replace(pair.Key, @"\{\d+\}", "").Length))
             {
                 var matches = Regex.Matches(pair.Key, @"\{(\d+)\}");
@@ -55366,14 +55379,17 @@ namespace UnisakiStudio.Setup
                     position = match.Index + match.Length;
                 }
                 pattern += Regex.Escape(pair.Key.Substring(position)) + "$";
-                result.Add(new Template { Pattern = new Regex(pattern, RegexOptions.Singleline | RegexOptions.CultureInvariant), Canonical = pair.Value, Indices = indices.ToArray(), TextArguments = textArguments });
+                var first = matches[0]; var last = matches[matches.Count - 1];
+                result.Add(new Template { Pattern = new Regex(pattern, RegexOptions.Singleline | RegexOptions.CultureInvariant), Canonical = pair.Value, Indices = indices.ToArray(), TextArguments = textArguments,
+                    Prefix = pair.Key.Substring(0, first.Index), Suffix = pair.Key.Substring(last.Index + last.Length) });
             }
             return result;
         }
         private static bool TryFormatted(string language, string text, out string translated)
         {
-            foreach (var template in Templates)
+            foreach (var template in DiagnosticData.Templates)
             {
+                if (!text.StartsWith(template.Prefix, StringComparison.Ordinal) || !text.EndsWith(template.Suffix, StringComparison.Ordinal)) continue;
                 var match = template.Pattern.Match(text);
                 if (!match.Success) continue;
                 var maximum = 0;
@@ -55439,7 +55455,42 @@ namespace UnisakiStudio.Setup
             EditorPrefs.SetString(PreferenceKey, code);
             UnityEditorInternal.InternalEditorUtility.RepaintAllViews();
         }
+        // Exact UI lookup never parses user content as a diagnostic template.
+        internal static string TranslateExact(string language, string source)
+        {
+            if (string.IsNullOrEmpty(source)) return source;
+            return TryExact(language, source, out var value) ? value : source;
+        }
+        private static bool TryExact(string language, string source, out string value)
+        {
+            var trimmed = source.Trim();
+            var known = Aliases.TryGetValue(trimmed, out var canonical);
+            if (!known) canonical = trimmed;
+            value = null;
+            bool translated = Catalogs.TryGetValue(language, out var catalog) && catalog.TryGetValue(canonical, out value);
+            if (!translated) value = canonical;
+            if (!known && !translated && !TranslationData.Canonical.Contains(canonical)) return false;
+            int start = source.IndexOf(trimmed, StringComparison.Ordinal);
+            value = start == 0 && trimmed.Length == source.Length ? value : source.Substring(0, start) + value + source.Substring(start + trimmed.Length);
+            return true;
+        }
+        private const int CacheCapacity = 1024, MaxCachedLength = 4096;
+        private static readonly Dictionary<(string language, string source), string> MessageCache = new Dictionary<(string, string), string>();
         internal static string Translate(string language, string source)
+        {
+            if (string.IsNullOrEmpty(source)) return source;
+            if (TryExact(language, source, out var exact)) return exact;
+            var key = (language, source);
+            if (MessageCache.TryGetValue(key, out var cached)) return cached;
+            var result = TranslateMessage(language, source);
+            if (source.Length <= MaxCachedLength && result.Length <= MaxCachedLength)
+            {
+                if (MessageCache.Count >= CacheCapacity) MessageCache.Clear();
+                MessageCache[key] = result;
+            }
+            return result;
+        }
+        private static string TranslateMessage(string language, string source)
         {
             if (string.IsNullOrEmpty(source)) return source;
             var codePrefix = Regex.Match(source, @"^\[(?:PosingSystem / )?PS\d{3}\]\s+");
@@ -55468,13 +55519,10 @@ namespace UnisakiStudio.Setup
             }
             if (value == canonical && canonical == trimmed)
             {
-                foreach (var pair in Aliases)
+                foreach (var prefix in DiagnosticData.Prefixes)
                 {
-                    foreach (var prefix in new[] { pair.Key, pair.Value })
-                    {
                         if (!prefix.EndsWith(":", StringComparison.Ordinal) || trimmed.Length <= prefix.Length || !trimmed.StartsWith(prefix, StringComparison.Ordinal)) continue;
                         return source.Substring(0, start) + Translate(language, prefix) + trimmed.Substring(prefix.Length) + source.Substring(start + trimmed.Length);
-                    }
                 }
             }
             if (value == canonical && canonical == trimmed && source.IndexOf('\n') >= 0)

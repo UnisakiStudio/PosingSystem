@@ -25,11 +25,15 @@ namespace jp.unisakistudio.posingsystemeditor
         internal static bool Link(string label, params GUILayoutOption[] options)
         {
             label = PosingSystemLocalization.Text(label);
-            return Link(GUILayoutUtility.GetRect(new GUIContent(label), Text(11), options), label);
+            return DrawLink(GUILayoutUtility.GetRect(new GUIContent(label), Text(11), options), label);
         }
         internal static bool Link(Rect rect, string label)
         {
             label = PosingSystemLocalization.Text(label);
+            return DrawLink(rect, label);
+        }
+        private static bool DrawLink(Rect rect, string label)
+        {
             var changed = GUI.changed;
             var style = Text(11); style.normal.textColor = Accent;
             var clicked = PosingSystemTextGUI.Button(rect, label, style);

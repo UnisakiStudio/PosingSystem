@@ -198,6 +198,12 @@ def audit():
     constraints_path = HERE/'terminology-constraints.json'
     constraints = read(constraints_path) if constraints_path.exists() else {}
     report = {'languages': {}, 'feature_cards': features, 'source_omissions': [], 'terminology_errors': [], 'errors': []}
+    display_names = set()
+    for table in ('poses.translations.json', 'menus.translations.json'):
+        for entries in read(HERE/table).values(): display_names.update(entries)
+    names_source = (PACKAGE/'Editor/PosingSystemDisplayNameKeys.cs').read_text(encoding='utf-8-sig')
+    generated_names = {json.loads(value) for value in re.findall(STRING, names_source)}
+    if generated_names != display_names: report['errors'].append('Stale generated standard display-name keys')
     for language in codes:
         if language == 'ja': continue
         values = merged.get(language, {})

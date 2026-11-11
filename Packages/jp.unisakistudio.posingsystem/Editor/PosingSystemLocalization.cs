@@ -29,7 +29,6 @@ namespace jp.unisakistudio.posingsystemeditor
         internal static void Select(string code)
         {
             UnisakiStudio.Setup.Language.Select(Normalize(code));
-            UnityEditorInternal.InternalEditorUtility.RepaintAllViews();
         }
 
         internal static bool ApplyLanguageSelection(int index, PosingSystem target = null)
@@ -49,8 +48,8 @@ namespace jp.unisakistudio.posingsystemeditor
         // Never use this method for object names, parameter names or serialized IDs.
         public static bool Dialog(string title, string message, string ok, string cancel = "")
             => string.IsNullOrEmpty(cancel)
-                ? EditorUtility.DisplayDialog(Text(title), Text(message), Text(ok))
-                : EditorUtility.DisplayDialog(Text(title), Text(message), Text(ok), Text(cancel));
+                ? EditorUtility.DisplayDialog(Text(title), TextMessage(message), Text(ok))
+                : EditorUtility.DisplayDialog(Text(title), TextMessage(message), Text(ok), Text(cancel));
         public static bool DialogFormat(string title, string message, string ok, string cancel, params object[] arguments)
             => Dialog(title, Format(message, arguments), ok, cancel);
         public static string Format(string japanese, params object[] arguments) => string.Format(Text(japanese), arguments);
@@ -75,8 +74,14 @@ namespace jp.unisakistudio.posingsystemeditor
                 catalog = ParseCatalog(asset != null ? asset.text : null);
                 Catalogs[language] = catalog;
             }
-            return catalog.TryGetValue(key, out var value) && !string.IsNullOrWhiteSpace(value) ? value : UnisakiStudio.Setup.Language.Translate(language, fallback);
+            return catalog.TryGetValue(key, out var value) && !string.IsNullOrWhiteSpace(value) ? value : UnisakiStudio.Setup.Language.TranslateExact(language, fallback);
         }
+        // Only the reviewed standard pose/menu names are localizable display identities.
+        // Unknown user names must never go through general UI aliases or diagnostics.
+        internal static string DisplayName(string source) => TranslateDisplayName(Language, source);
+        internal static string TranslateDisplayName(string language, string source)
+            => source != null && PosingSystemDisplayNameKeys.Values.Contains(source) ? Translate(language, source, source) : source;
+        internal static string PresetName(string source, bool official) => official ? Text(source) : source;
         internal static Dictionary<string, string> ParseCatalog(string json)
         {
             var result = new Dictionary<string, string>(StringComparer.Ordinal);

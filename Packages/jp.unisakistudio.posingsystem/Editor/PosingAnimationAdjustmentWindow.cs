@@ -454,7 +454,7 @@ namespace jp.unisakistudio.posingsystemeditor
         }
 
         private static string DisplayAnimationLabel(AnimationEntry entry)
-            => PosingSystemLocalization.Text(entry.Layer.menuName) + " / " + PosingSystemLocalization.Text(entry.Animation.displayName);
+            => PosingSystemLocalization.DisplayName(entry.Layer.menuName) + " / " + PosingSystemLocalization.DisplayName(entry.Animation.displayName);
 
         private GUIContent[] GetDynamicAnimationLabels()
         {
@@ -951,7 +951,7 @@ namespace jp.unisakistudio.posingsystemeditor
             using (new EditorGUILayout.VerticalScope(GUI.skin.box))
             {
                 // アニメーション名表示
-                PosingSystemTextGUI.LayoutLabelField(PosingAnimationAdjustmentWindowText.Name, PosingSystemLocalization.Text(entry.Animation.displayName));
+                PosingSystemTextGUI.LayoutLabelField(PosingAnimationAdjustmentWindowText.Name, PosingSystemLocalization.DisplayName(entry.Animation.displayName));
 
                 // 調整アニメーションのanimationClipProperty表示・編集
                 using (new EditorGUILayout.HorizontalScope())

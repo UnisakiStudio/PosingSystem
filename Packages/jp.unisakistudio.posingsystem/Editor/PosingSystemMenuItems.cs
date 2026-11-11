@@ -125,7 +125,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 // PresetDefineを適用する
                 if (presetDefine != null)
                 {
-                    if (UnisakiStudio.Setup.Language.Dialog(PosingSystemLocalization.Text("情報"), () => UnisakiStudio.Setup.Language.Format("A preset for {0} was found. Apply it to adjust the poses to this avatar?", PosingSystemLocalization.Text(presetDefine.avatarName)), "適用する", "スキップ"))
+                    if (UnisakiStudio.Setup.Language.Dialog(PosingSystemLocalization.Text("情報"), () => UnisakiStudio.Setup.Language.Format("A preset for {0} was found. Apply it to adjust the poses to this avatar?", presetDefine.avatarName), "適用する", "スキップ"))
                     {
                         Debug.Log("[PosingSystem]" + presetDefine.avatarName + "を適用します");
                         if (!PosingSystemPresetDefinesCache.ApplyPreset(installedPosingSystem, presetDefine))

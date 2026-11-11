@@ -17,6 +17,26 @@ all languages and restore/isolate preferences in tests.
 
 This is development work, not a published release. The user confirmed all 30 language selections on 2026-11-09.
 
+## Performance and free-text boundaries (2026-11-12)
+
+Use `Text`/`Format` for exact UI keys; use `TextMessage` only for already-formatted
+diagnostics. Never parse pose, avatar or user-preset names as diagnostics. Standard
+pose/menu display names use the generated `PosingSystemDisplayNameKeys` allowlist
+from the union of every language's pose/menu source keys. User presets remain literal.
+`Link` translates once internally. Do not add another translation layer around it.
+The standalone diagnostic fallback has a bounded cache (1024 entries, at most 4096
+characters per source/result); keep preference reads independent of catalog/regex
+initialization. Test both translated and untranslated repeated strings for memory
+allocation, not only their resulting text. Preserve placeholders and JA round trips.
+
+Select checks by impact: exact UI/diagnostic changes need focused language/input
+and performance tests plus the offline audit. Menu/build changes additionally need
+a representative full avatar build. Full product/prebuild matrices and storefront
+repackaging belong to affected generation/installer changes and release validation;
+do not repeat them for every unrelated display fix. Record the checked source and
+live-project synchronization separately; a disposable test project's pass does not
+establish that a different live package copy is verified.
+
 ## Required for every feature and fix (2026-11-09)
 
 The user has confirmed **all 30 selectable languages**, including Japanese. A
@@ -131,7 +151,7 @@ Use numbered variants consistently. Keep left/right markers consistent within ea
 
 The Inspector language dropdown uses a user-specific EditorPrefs key independent of Unity's UI language. Without an explicit choice, the OS language is used; unsupported languages use English. Missing translations use the standalone setup catalog's English fallback where available, then the original display text. JSON catalogs are cached and invalidated on import changes. Display-only language changes preserve GUI.changed.
 
-The per-tool `menuLanguage` setting is serialized on PosingSystem. The Inspector and generated game menu share this value. Empty values use the remembered preference or OS language; existing explicit avatar choices are respected. A Generating pass translates only the NDMF build clone before Modular Avatar processes menus, after synchronizing optional features. GameObject names, pose definitions, parameters and animations stay unchanged. Referenced expression menus are copied with shared-reference and cycle handling; owned menu-installer targets follow their copies. External target menus are not translated. Language changes do not invalidate animation prebuild snapshots.
+The legacy `menuLanguage` field remains serialized for compatibility and is ignored. Inspector and generated menus use the shared EditorPrefs preference, with OS language then English fallback. A Generating pass translates only the NDMF build clone before Modular Avatar processes menus, after synchronizing optional features. GameObject names, pose definitions, parameters and animations stay unchanged. Referenced expression menus are copied with shared-reference and cycle handling; owned menu-installer targets follow their copies. External target menus are not translated. Language changes do not invalidate animation prebuild snapshots.
 
 The original name remains editable in pose details; translated names appear in the list and work in search. Custom names without a catalog entry are displayed as entered.
 
@@ -146,9 +166,9 @@ Unity tests cover preferences, catalog availability, fallback, cycles, original-
 No version bump, package publication or public deployment is part of this checkpoint. More Inspector strings, full manuals, remaining pose languages, translation review and actual UI/VRChat visual checks remain before release.
 
 
-## Updated language UX (2026-11-07)
+## Historical language UX (2026-11-07; superseded by the shared policy above)
 
-The two language selectors have been unified at the user's request. The header is the only selector. It stores `menuLanguage` on the selected PosingSystem with Undo/Prefab support, and remembers the last choice for tools without an explicit selection. An Inspector language scope uses that same saved value for all display text; the NDMF menu pass resolves the same value. Empty values fall back to the last preference, then the OS language, then English. The old Features-tab selector is removed. Popup changes compare selected indices directly instead of relying on the surrounding GUI.changed state. Earlier descriptions of independent Inspector and menu languages are superseded by this section.
+The initial unified selector stored an avatar-specific value. That behavior was replaced on 2026-11-12: the header changes only the shared EditorPrefs preference, never a component, scene or prefab. No avatar language scope remains. The removed Features-tab selector stays removed, and popup changes still compare indices rather than relying on the surrounding GUI.changed state.
 
 
 ## Setup programs (2026-11-08)

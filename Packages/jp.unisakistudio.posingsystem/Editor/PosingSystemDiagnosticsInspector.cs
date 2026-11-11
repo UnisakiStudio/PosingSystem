@@ -127,7 +127,7 @@ namespace jp.unisakistudio.posingsystemeditor
 
         private static void DrawIssue(PosingSystem ps, PosingSystemDiagnostics.Issue issue)
         {
-            PosingSystemTextGUI.LayoutHelpBox(PosingSystemLocalization.Text(issue.Message), issue.Severity);
+            PosingSystemTextGUI.LayoutHelpBox(issue.Message, issue.Severity);
             if (issue.Context != null && PosingSystemTextGUI.LayoutButton(PosingSystemLocalization.Format("対象を選択（{0}）", issue.Code)))
             {
                 Selection.activeObject = issue.Context;

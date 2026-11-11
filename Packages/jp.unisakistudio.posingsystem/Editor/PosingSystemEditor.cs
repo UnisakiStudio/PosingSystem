@@ -80,6 +80,17 @@ namespace jp.unisakistudio.posingsystemeditor
 
         protected IDisposable UseInspectorLanguage(PosingSystem system) => PosingSystemLocalization.ForInspector(system);
 
+        // Product-specific unlicensed inspectors return before the common inspector.
+        // Keep those captions on the same complex-script rendering path as normal UI.
+        protected void DrawLicenseNotice(string title, string message, string boothLabel, string boothUrl, string gumroadLabel, string gumroadUrl)
+        {
+            using var textScope = PosingSystemTextGUI.BeginGUI(GetInstanceID(), 0, Repaint);
+            PosingSystemTextGUI.LayoutLabelField(title, EditorStyles.boldLabel, GUILayout.MinHeight(30));
+            PosingSystemTextGUI.LayoutHelpBox(message, MessageType.Error);
+            if (PosingSystemTextGUI.LayoutLinkButton(boothLabel)) Application.OpenURL(boothUrl);
+            if (PosingSystemTextGUI.LayoutLinkButton(gumroadLabel)) Application.OpenURL(gumroadUrl);
+        }
+
         static PosingSystemEditor()
         {
             AssemblyReloadEvents.beforeAssemblyReload += CleanupAllPreviewAvatars;
@@ -510,7 +521,7 @@ namespace jp.unisakistudio.posingsystemeditor
             catch (ExitGUIException) { throw; }
             catch (Exception ex)
             {
-                var message = PosingSystemLocalization.Format("{0}を中止しました。\n{1}", PosingSystemLocalization.Text(stage), PosingSystemLocalization.Text(ex.Message));
+                var message = PosingSystemLocalization.Format("{0}を中止しました。\n{1}", PosingSystemLocalization.Text(stage), PosingSystemLocalization.TextMessage(ex.Message));
                 if (!(ex is PosingSystemDiagnostics.DiagnosticException))
                     message += "\n" + PosingSystemLocalization.Text("対処: Window > General > Consoleで、この操作中に最初に出た赤いエラーを確認してください。設定の確認で問題が解消しない場合は、このエラー番号・詳細とツールのバージョンをお問い合わせに添えてください。");
                 PosingSystemDiagnosticsInspector.SetFailure(posingSystem, message);

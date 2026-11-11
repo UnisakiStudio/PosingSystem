@@ -23,7 +23,7 @@ namespace jp.unisakistudio.posingsystemeditor
 
         internal void Draw(SerializedObject serialized, PosingSystem ps, bool imports = false)
         {
-            var names = (imports ? ImportLabels : ps.defines.Select(d => d.menuName).ToArray()).Select(PosingSystemLocalization.Text).ToArray();
+            var names = imports ? ImportLabels.Select(PosingSystemLocalization.Text).ToArray() : ps.defines.Select(d => PosingSystemLocalization.DisplayName(d.menuName)).ToArray();
             if (names.Length == 0) { PosingSystemTextGUI.LayoutHelpBox(PosingSystemLocalization.Text("姿勢の分類が設定されていません。"), MessageType.Info); return; }
             category = Mathf.Clamp(category, -1, names.Length - 1);
             using (new EditorGUILayout.HorizontalScope(GUILayout.ExpandWidth(true)))
@@ -65,9 +65,9 @@ namespace jp.unisakistudio.posingsystemeditor
                         for (var i = 0; i < define.animations.Count; i++)
                         {
                             var entry = define.animations[i];
-                            if (category < 0 && !PosingSystemPoseListUtility.Matches(search, entry.displayName, entry.animationClip) && !PosingSystemPoseListUtility.Matches(search, PosingSystemLocalization.Text(entry.displayName), entry.animationClip)) continue;
+                            if (category < 0 && !PosingSystemPoseListUtility.Matches(search, entry.displayName, entry.animationClip) && !PosingSystemPoseListUtility.Matches(search, PosingSystemLocalization.DisplayName(entry.displayName), entry.animationClip)) continue;
                             DrawRow(serialized, ps, serialized.FindProperty("defines").GetArrayElementAtIndex(layer).FindPropertyRelative("animations").GetArrayElementAtIndex(i), layer, i,
-                                string.IsNullOrWhiteSpace(entry.displayName) ? PosingSystemLocalization.Text("名前なし") : PosingSystemLocalization.Text(entry.displayName), PosingSystemLocalization.Text(define.menuName), entry, false);
+                                string.IsNullOrWhiteSpace(entry.displayName) ? PosingSystemLocalization.Text("名前なし") : PosingSystemLocalization.DisplayName(entry.displayName), PosingSystemLocalization.DisplayName(define.menuName), entry, false);
                             count++;
                         }
                     }

@@ -88,7 +88,7 @@ namespace jp.unisakistudio.posingsystemeditor
             if (catalog != null && list.MatchCount == 0)
                 PosingSystemTextGUI.LayoutHelpBox(PosingSystemLocalization.Text("該当するプリセットがありません。"), MessageType.Info);
             }
-            if (selected != null) PosingSystemTextGUI.LayoutLabelField(PosingSystemLocalization.Text(selected.avatarName), PosingSystemInspectorGUI.Text(12, true));
+            if (selected != null) PosingSystemTextGUI.LayoutLabelField(PosingSystemLocalization.PresetName(selected.avatarName, selected.official), PosingSystemInspectorGUI.Text(12, true));
             if (!string.IsNullOrEmpty(error)) drawWarning(error);
 
             using (new EditorGUI.DisabledScope(selected == null))
@@ -192,12 +192,12 @@ namespace jp.unisakistudio.posingsystemeditor
                     if (hideBundled && entry.official) continue;
                     if (!string.IsNullOrEmpty(filter)
                         && (entry.avatarName ?? "").IndexOf(filter, StringComparison.CurrentCultureIgnoreCase) < 0
-                        && (PosingSystemLocalization.Text(entry.avatarName) ?? "").IndexOf(filter, StringComparison.CurrentCultureIgnoreCase) < 0)
+                        && (PosingSystemLocalization.PresetName(entry.avatarName, entry.official) ?? "").IndexOf(filter, StringComparison.CurrentCultureIgnoreCase) < 0)
                         continue;
                     // IDs stay stable when the search filters other rows out.
                     var id = i * 2 + 4;
                     entryById.Add(id, entry);
-                    var label = PosingSystemLocalization.Text(string.IsNullOrWhiteSpace(entry.avatarName) ? "(名前なし)" : entry.avatarName);
+                    var label = string.IsNullOrWhiteSpace(entry.avatarName) ? PosingSystemLocalization.Text("(名前なし)") : PosingSystemLocalization.PresetName(entry.avatarName, entry.official);
                     (entry.official ? official : user).AddChild(new TreeViewItem(id, 1, label));
                     MatchCount++;
                     if (avatarMatches.Contains(entry))

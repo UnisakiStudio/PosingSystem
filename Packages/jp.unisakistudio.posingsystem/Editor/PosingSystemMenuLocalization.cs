@@ -51,7 +51,7 @@ namespace jp.unisakistudio.posingsystemeditor
         }
 
         private static string Translate(string language, string value)
-            => PosingSystemLocalization.Translate(language, value, value);
+            => PosingSystemLocalization.TranslateDisplayName(language, value);
 
         internal static VRCExpressionsMenu CloneMenu(VRCExpressionsMenu source, string language,
             Dictionary<VRCExpressionsMenu, VRCExpressionsMenu> copies, IAssetSaver saver = null)
