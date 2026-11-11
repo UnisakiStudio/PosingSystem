@@ -22,6 +22,14 @@ namespace jp.unisakistudio.posingsystemeditor
             }
         }
 
+        internal static readonly Setting[] AvatarCorrectionSettings = {
+            new Setting("enableAvatarSpecificAdjustment", "アバター固有補正を使う", "アバターごとの関節の向きやひねりの違いを自動で補正します。"),
+            new Setting("enableReverseKneeSafetyClamp", "膝が逆向きに曲がるのを防ぐ", "脚を伸ばしたときに、膝が逆向きに折れるのを抑えます。") };
+
+        internal static readonly Setting[] AvatarIntegrationSettings = {
+            new Setting("autoImportAvatarAnimations", "アバターの元の立ち・しゃがみ・伏せ姿勢を使う", "生成時にアバターのBaseからモーションを検出します。取り込み設定の一覧には追加しません。手動設定がある種類は手動指定を優先します。"),
+            new Setting("mergeTrackingControl", "各固定機能の他ギミックとの統合", "ほかのギミックとの併用によって固定機能がうまく動かない場合はオンにしてください。") };
+
         private sealed class SettingGroup
         {
             internal readonly string Title;
@@ -82,7 +90,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 DrawCards(serialized, ps, group.Settings, setting => setting.Path == "features.breathing" ? "設定" : null,
                     setting => { }, null, ref breathingOpen, drawBreathing);
             }
-            GUILayout.Label(PosingSystemLocalization.Text("※ 寝返りと姿勢崩れ抑制のbit表示は、今の状態でチェックを変更したときの増減量です。首固定の1 bitは共用します。"), descriptionStyle);
+            PosingSystemTextGUI.LayoutLabel(PosingSystemLocalization.Text("※ 寝返りと姿勢崩れ抑制のbit表示は、今の状態でチェックを変更したときの増減量です。首固定の1 bitは共用します。"), descriptionStyle);
             if (PosingSystemInspectorGUI.Link(PosingSystemLocalization.Text("追加機能を外して、ExpressionParametersの使用量を減らす")))
             {
                 foreach (var group in Groups)
@@ -94,6 +102,8 @@ namespace jp.unisakistudio.posingsystemeditor
             DrawDetails(serialized, ps);
         }
 
+        private static readonly System.Collections.Generic.Dictionary<long, float> complexCardWidths = new System.Collections.Generic.Dictionary<long, float>();
+
         internal static void DrawCards(SerializedObject serialized, PosingSystem ps, Setting[] settings,
             Func<Setting, string> detailLabel, Action<Setting> onDetail, Action afterRow,
             ref bool breathingOpen, Action drawBreathing = null, bool disabled = false)
@@ -101,6 +111,9 @@ namespace jp.unisakistudio.posingsystemeditor
             EnsureStyles();
             var columns = EditorGUIUtility.currentViewWidth >= 460 ? 2 : 1;
             var estimatedWidth = (EditorGUIUtility.currentViewWidth - 64 - (columns - 1) * 8) / columns;
+            var complex = Array.Exists(settings, setting => PosingSystemTextRenderer.Requires(PosingSystemLocalization.Text(setting.Title)) || PosingSystemTextRenderer.Requires(DescriptionFor(ps, setting)));
+            var widthKey = settings.Length == 0 ? 0 : ((long)ps.GetInstanceID() << 32) ^ (uint)(settings[0].Path.GetHashCode() * 3 + columns);
+            if (complex && complexCardWidths.TryGetValue(widthKey, out var previousWidth)) estimatedWidth = previousWidth;
             var android = PosingSystemEditor.IsAndroidBuildTarget();
             for (var first = 0; first < settings.Length; first += columns)
             {
@@ -109,6 +122,12 @@ namespace jp.unisakistudio.posingsystemeditor
                     height = Mathf.Max(height, CardHeight(settings[first + c], estimatedWidth, DescriptionFor(ps, settings[first + c])));
                 var row = GUILayoutUtility.GetRect(0, height, GUILayout.ExpandWidth(true));
                 var width = (row.width - (columns - 1) * 8) / columns;
+                if (complex && Event.current.type == EventType.Repaint && width > 1 && Mathf.Abs(width - estimatedWidth) > .5f)
+                {
+                    if (complexCardWidths.Count > 128) complexCardWidths.Clear();
+                    complexCardWidths[widthKey] = width;
+                    UnityEditorInternal.InternalEditorUtility.RepaintAllViews();
+                }
                 var hasBreathing = false;
                 EditorGUI.BeginChangeCheck();
                 for (var c = 0; c < columns && first + c < settings.Length; c++)
@@ -163,10 +182,10 @@ namespace jp.unisakistudio.posingsystemeditor
             {
                 using (new EditorGUILayout.HorizontalScope())
                 {
-                    EditorGUILayout.LabelField("ExpressionParameters", summaryStyle);
-                    GUILayout.Label((pose + optional) + " bit", PosingSystemInspectorGUI.Text(24, true), GUILayout.Width(95), GUILayout.Height(31));
+                    PosingSystemTextGUI.LayoutLabelField("ExpressionParameters", summaryStyle);
+                    PosingSystemTextGUI.LayoutLabel((pose + optional) + " bit", PosingSystemInspectorGUI.Text(24, true), GUILayout.Width(95), GUILayout.Height(31));
                 }
-                EditorGUILayout.LabelField(PosingSystemLocalization.Format("ポーズ {0} bit ＋ 追加機能 {1} bit  ／ このアバターのポーズツール分", pose, optional), descriptionStyle);
+                PosingSystemTextGUI.LayoutLabelField(PosingSystemLocalization.Format("ポーズ {0} bit ＋ 追加機能 {1} bit  ／ このアバターのポーズツール分", pose, optional), descriptionStyle);
             }
         }
 
@@ -184,9 +203,9 @@ namespace jp.unisakistudio.posingsystemeditor
 
         private static float CardHeight(Setting setting, float width, string description)
         {
-            var textWidth = Mathf.Max(90, width - CardTextLeft - 5);
-            var titleHeight = Mathf.Max(16, titleStyle.CalcHeight(new GUIContent(PosingSystemLocalization.Text(setting.Title)), textWidth));
-            var bodyHeight = descriptionStyle.CalcHeight(new GUIContent(description), textWidth);
+            var textWidth = Mathf.Max(1, width - CardTextLeft - 5);
+            var titleHeight = Mathf.Max(16, PosingSystemTextGUI.MeasureHeight((new GUIContent(PosingSystemLocalization.Text(setting.Title))).text, titleStyle, textWidth));
+            var bodyHeight = PosingSystemTextGUI.MeasureHeight((new GUIContent(description)).text, descriptionStyle, textWidth);
             return 4 + Mathf.Max(CardIconSize, titleHeight + 2 + bodyHeight) + 24 + 4;
         }
 
@@ -197,7 +216,7 @@ namespace jp.unisakistudio.posingsystemeditor
             cardToggled = false;
             var value = displayedValue ?? (setting.Inverted ? !property.boolValue : property.boolValue);
             var textWidth = rect.width - CardTextLeft - 5;
-            var titleHeight = Mathf.Max(16, titleStyle.CalcHeight(new GUIContent(PosingSystemLocalization.Text(setting.Title)), textWidth));
+            var titleHeight = Mathf.Max(16, PosingSystemTextGUI.MeasureHeight((new GUIContent(PosingSystemLocalization.Text(setting.Title))).text, titleStyle, textWidth));
             var bodyY = rect.y + 6 + titleHeight;
             var background = value ? (EditorGUIUtility.isProSkin ? new Color(.19f,.25f,.32f) : new Color(.92f,.96f,1f)) : PosingSystemInspectorGUI.Surface;
             EditorGUI.DrawRect(rect, value ? Accent : PosingSystemInspectorGUI.Border);
@@ -206,7 +225,7 @@ namespace jp.unisakistudio.posingsystemeditor
             using (new EditorGUI.DisabledScope(disabled))
             {
                 EditorGUI.BeginProperty(rect, new GUIContent(PosingSystemLocalization.Text(setting.Title)), property);
-                var next = GUI.Toggle(rect, value, GUIContent.none, GUIStyle.none);
+                var next = PosingSystemTextGUI.Toggle(rect, value, GUIContent.none, GUIStyle.none);
                 var check = new Rect(rect.xMax - 26, rect.yMax - 26, 22, 22);
                 // The full setting surface handles clicks; the check only paints its state.
                 PosingSystemInspectorGUI.Check(check, value, GUIContent.none, false);
@@ -219,13 +238,13 @@ namespace jp.unisakistudio.posingsystemeditor
                 var bitDetails = setting.Path == "features.rollover"
                     ? "チェックを付けると増える量／外すと減る量です。\n寝返りON/OFF：1 bit、頭の傾き：8 bit、首固定：1 bit。\nほかの設定で使用中のパラメーターは重複して数えません。"
                     : setting.SharedHead ? "チェックを付けると増える量／外すと減る量です。\n首固定：1 bit（寝返りと共用）。\n寝返りなどで使用中なら0 bitです。" : null;
-                GUI.Label(new Rect(check.x - 49, check.y, 45, check.height),
+                PosingSystemTextGUI.Label(new Rect(check.x - 49, check.y, 45, check.height),
                     new GUIContent(displayedBits + " bit" + (setting.SharedHead ? " ※" : ""), PosingSystemLocalization.Text(bitDetails)), badgeStyle);
             }
             var iconRect = new Rect(rect.x + 4, rect.y + 4, CardIconSize, CardIconSize);
             PosingSystemSettingIcons.Draw(iconRect, setting.Path, ps);
-            GUI.Label(new Rect(rect.x + CardTextLeft, rect.y + 4, textWidth, titleHeight), PosingSystemLocalization.Text(setting.Title), titleStyle);
-            GUI.Label(new Rect(rect.x + CardTextLeft, bodyY, textWidth, rect.yMax - 27 - bodyY), PosingSystemLocalization.Text(disabledReason), descriptionStyle);
+            PosingSystemTextGUI.Label(new Rect(rect.x + CardTextLeft, rect.y + 4, textWidth, titleHeight), PosingSystemLocalization.Text(setting.Title), titleStyle);
+            PosingSystemTextGUI.Label(new Rect(rect.x + CardTextLeft, bodyY, textWidth, rect.yMax - 27 - bodyY), PosingSystemLocalization.Text(disabledReason), descriptionStyle);
             return clicked;
         }
 
@@ -238,18 +257,18 @@ namespace jp.unisakistudio.posingsystemeditor
                 EditorGUILayout.Space(8);
                 using (new EditorGUILayout.VerticalScope(EditorStyles.helpBox))
                 {
-                    EditorGUILayout.LabelField(PosingSystemLocalization.Text("寝返りの設定"), EditorStyles.boldLabel);
-                    EditorGUILayout.LabelField(PosingSystemLocalization.Text("「ポーズ一覧」で対応するポーズの詳細を開き、「寝返りを使う」をオンにしてください。"), descriptionStyle);
+                    PosingSystemTextGUI.LayoutLabelField(PosingSystemLocalization.Text("寝返りの設定"), EditorStyles.boldLabel);
+                    PosingSystemTextGUI.LayoutLabelField(PosingSystemLocalization.Text("「ポーズ一覧」で対応するポーズの詳細を開き、「寝返りを使う」をオンにしてください。"), descriptionStyle);
                     Draw("rolloverAngle", "横を向くまでの頭の傾き");
                     Draw("rolloverDeadZone", "小さな傾きを無視する範囲");
-                    EditorGUILayout.LabelField(PosingSystemLocalization.Text("角度は度数で指定します。寝姿勢を選び、VRChatのメニューで首固定を解除して使ってください。"), descriptionStyle);
+                    PosingSystemTextGUI.LayoutLabelField(PosingSystemLocalization.Text("角度は度数で指定します。寝姿勢を選び、VRChatのメニューで首固定を解除して使ってください。"), descriptionStyle);
                     // Keep previously assigned shared clips editable without requiring one for new per-pose settings.
                     if (f.FindPropertyRelative("rolloverAnimation").objectReferenceValue != null)
                         Draw("rolloverAnimation", "共通アニメーション（従来設定）");
                 }
             }
             if (EditorGUI.EndChangeCheck()) Apply(serialized, ps);
-            void Draw(string name, string label) => EditorGUILayout.PropertyField(f.FindPropertyRelative(name), new GUIContent(PosingSystemLocalization.Text(label)));
+            void Draw(string name, string label) => PosingSystemTextGUI.LayoutPropertyField(f.FindPropertyRelative(name), new GUIContent(PosingSystemLocalization.Text(label)));
         }
 
         private static void EnsureStyles()

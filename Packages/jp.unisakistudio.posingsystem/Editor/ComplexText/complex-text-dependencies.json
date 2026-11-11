@@ -1,0 +1,160 @@
+{
+  "files": [
+    {
+      "file": "Dependencies/Managed/UnisakiStudio.Posing.Text.HarfBuzzSharp.dll",
+      "sha256": "b87be4f9b4a3448f9378ea86e774b23b2136b1cbaa67b80f4bbde8ce73af4bba",
+      "bytes": 121856,
+      "os": ""
+    },
+    {
+      "file": "Dependencies/Managed/UnisakiStudio.Posing.Text.RichTextKit.dll",
+      "sha256": "eb3c4249483d1495a2bb996f119306dfd4020a65f318f9511be868319fc140b4",
+      "bytes": 167424,
+      "os": ""
+    },
+    {
+      "file": "Dependencies/Managed/UnisakiStudio.Posing.Text.SkiaSharp.dll",
+      "sha256": "eb21327ad9dacff6b6442ac687265890ad904f057b22f8f3bccbcd750ad71e4a",
+      "bytes": 527360,
+      "os": ""
+    },
+    {
+      "file": "Dependencies/Managed/UnisakiStudio.Posing.Text.SkiaSharp.HarfBuzz.dll",
+      "sha256": "93da79e4189dd4f19c13ab61e23d62c4e818e73e5e3b0f37e17dae4778ba53ae",
+      "bytes": 14848,
+      "os": ""
+    },
+    {
+      "file": "Dependencies/Windows/libUnisakiStudio_Posing_SkiaSharp.dll",
+      "sha256": "935ef4a00462e6b0c4dadb870f734fa43679b4f561287fe0d28cbe2ba147e832",
+      "bytes": 12875576,
+      "os": "Windows"
+    },
+    {
+      "file": "Dependencies/Windows/libUnisakiStudio_Posing_HarfBuzzSharp.dll",
+      "sha256": "936633a5e4bba88b93acf806a2fff4c1e42b8da4145219a4a2634a162c213df2",
+      "bytes": 2038112,
+      "os": "Windows"
+    },
+    {
+      "file": "Dependencies/OSX/libUnisakiStudio_Posing_SkiaSharp.dylib",
+      "sha256": "11a672e8df0701967aa041b449bb4db6f9af040a5e8b0ed9ea44a922ec0effaa",
+      "bytes": 15863680,
+      "os": "OSX"
+    },
+    {
+      "file": "Dependencies/OSX/libUnisakiStudio_Posing_HarfBuzzSharp.dylib",
+      "sha256": "6a0221fea3e088ce82e5180082bb3072a21e4ac0cff439b51f4372a79fb365a7",
+      "bytes": 2909360,
+      "os": "OSX"
+    },
+    {
+      "file": "Dependencies/Linux/libUnisakiStudio_Posing_SkiaSharp.so",
+      "sha256": "25cb7e5f9d36b9480354fca15d16a0b5aab95699475de7f219027b95afafab19",
+      "bytes": 12238016,
+      "os": "Linux"
+    },
+    {
+      "file": "Dependencies/Linux/libUnisakiStudio_Posing_HarfBuzzSharp.so",
+      "sha256": "4bd4d846aab1a0fd8333f96c70a564005dc3ca1becda52c3c4e8d093b46c1273",
+      "bytes": 2935200,
+      "os": "Linux"
+    },
+    {
+      "file": "Fonts/NotoSans-Bold.ttf",
+      "sha256": "c976e4b1b99edc88775377fcc21692ca4bfa46b6d6ca6522bfda505b28ff9d6a",
+      "os": "",
+      "bytes": 575740
+    },
+    {
+      "file": "Fonts/NotoSans-Regular.ttf",
+      "sha256": "b85c38ecea8a7cfb39c24e395a4007474fa5a4fc864f6ee33309eb4948d232d5",
+      "os": "",
+      "bytes": 569208
+    },
+    {
+      "file": "Fonts/NotoSansArabic-Bold.ttf",
+      "sha256": "ed2711b387750ae991b6a980b8dd16fdd65e6702b97e9f52adf3a8edf09ef4df",
+      "os": "",
+      "bytes": 248468
+    },
+    {
+      "file": "Fonts/NotoSansArabic-Regular.ttf",
+      "sha256": "ceea25b464a656dc3b26849bab9356740401af62aedf1bfa8b7f0d9b75925b1b",
+      "os": "",
+      "bytes": 240456
+    },
+    {
+      "file": "Fonts/NotoSansBengali-Bold.ttf",
+      "sha256": "7ad632c41ae1ac0931bfffb703470df0fd03e76bcb78f1fcd023d35fbed5ea8e",
+      "os": "",
+      "bytes": 209084
+    },
+    {
+      "file": "Fonts/NotoSansBengali-Regular.ttf",
+      "sha256": "6300c5370cd688b0641343de4c786de6d412bb6c578d129dae75e93a0322dcab",
+      "os": "",
+      "bytes": 200048
+    },
+    {
+      "file": "Fonts/NotoSansDevanagari-Bold.ttf",
+      "sha256": "19cc835a064c4af63e3c20feb54f5bf51dc25ffa52c0f493a23904572af8b26e",
+      "os": "",
+      "bytes": 225748
+    },
+    {
+      "file": "Fonts/NotoSansDevanagari-Regular.ttf",
+      "sha256": "385e78e6359a9d88a0f243d53b1209d7548361ba2194e2b9ec779bcaa7e8949d",
+      "os": "",
+      "bytes": 219212
+    },
+    {
+      "file": "Fonts/NotoSansHebrew-Bold.ttf",
+      "sha256": "a30243d1c625eaf63bb889f036fe9de97e81d9248976f89e6e4252f9668c832e",
+      "os": "",
+      "bytes": 27164
+    },
+    {
+      "file": "Fonts/NotoSansHebrew-Regular.ttf",
+      "sha256": "a7fa16fffb27bedb060a0866267c29e9859aeb9c21cc33f5b3aaf6eb062eca85",
+      "os": "",
+      "bytes": 26900
+    },
+    {
+      "file": "Fonts/NotoSansTamil-Bold.ttf",
+      "sha256": "61ccb56bafc7f8316644b91a91ebb3a878c238238ac14cb6ea2f19fa01e9d504",
+      "os": "",
+      "bytes": 77428
+    },
+    {
+      "file": "Fonts/NotoSansTamil-Regular.ttf",
+      "sha256": "6532db33b8b264abe3a098a40619feb489b5ddf5ab1d2b46e72b51eeb548001b",
+      "os": "",
+      "bytes": 74248
+    },
+    {
+      "file": "Fonts/NotoSansTelugu-Bold.ttf",
+      "sha256": "e7c717097993e71944ef221f520a9d79db05e9c7652f4b037e1801c96379ca22",
+      "os": "",
+      "bytes": 205304
+    },
+    {
+      "file": "Fonts/NotoSansTelugu-Regular.ttf",
+      "sha256": "2c05072e8018a9be1cb0582953d9edf9a0cf129cdfb74e611de763b09c411f7f",
+      "os": "",
+      "bytes": 197228
+    },
+    {
+      "file": "Fonts/NotoSansThai-Bold.ttf",
+      "sha256": "2b67cfb22337a868c6c85709e648ea30c79e0a7c530a5fc169a73d3f461d7c52",
+      "os": "",
+      "bytes": 37796
+    },
+    {
+      "file": "Fonts/NotoSansThai-Regular.ttf",
+      "sha256": "404ddfb5ed0aaa6b6ec8a85700d682978992062d67da93903967b56cbd9a4acc",
+      "os": "",
+      "bytes": 37752
+    }
+  ]
+}

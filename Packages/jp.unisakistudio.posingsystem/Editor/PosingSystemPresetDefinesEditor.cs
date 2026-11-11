@@ -10,10 +10,11 @@ namespace jp.unisakistudio.posingsystemeditor
     {
         public override void OnInspectorGUI()
         {
+            using var complexTextScope = PosingSystemTextGUI.BeginGUI(GetInstanceID(), 0, Repaint);
             DrawDefaultInspector();
             
             EditorGUILayout.Space();
-            EditorGUILayout.LabelField(PosingSystemLocalization.Text("一括追加機能"), EditorStyles.boldLabel);
+            PosingSystemTextGUI.LayoutLabelField(PosingSystemLocalization.Text("一括追加機能"), EditorStyles.boldLabel);
             
             var presetDefines = target as PosingSystemPresetDefines;
             
@@ -22,22 +23,22 @@ namespace jp.unisakistudio.posingsystemeditor
                 var presetDefine = presetDefines.presetDefines[i];
                 
                 EditorGUILayout.BeginVertical("box");
-                EditorGUILayout.LabelField($"PresetDefine [{i}]", EditorStyles.boldLabel);
+                PosingSystemTextGUI.LayoutLabelField($"PresetDefine [{i}]", EditorStyles.boldLabel);
                 
                 EditorGUILayout.BeginHorizontal();
-                if (GUILayout.Button(PosingSystemLocalization.Text("PrefabsHashesに\nクリップボードから追加"), GUILayout.Height(40)))
+                if (PosingSystemTextGUI.LayoutButton(PosingSystemLocalization.Text("PrefabsHashesに\nクリップボードから追加"), GUILayout.Height(40)))
                 {
                     AddFromClipboard(presetDefine.prefabsHashes, "PrefabsHashes");
                 }
                 
-                if (GUILayout.Button(PosingSystemLocalization.Text("PrefabsNamesに\nクリップボードから追加"), GUILayout.Height(40)))
+                if (PosingSystemTextGUI.LayoutButton(PosingSystemLocalization.Text("PrefabsNamesに\nクリップボードから追加"), GUILayout.Height(40)))
                 {
                     AddFromClipboard(presetDefine.prefabsNames, "PrefabsNames");
                 }
                 EditorGUILayout.EndHorizontal();
                 
                 EditorGUILayout.BeginHorizontal();
-                if (GUILayout.Button(PosingSystemLocalization.Text("PrefabsHashesを\nクリア"), GUILayout.Height(30)))
+                if (PosingSystemTextGUI.LayoutButton(PosingSystemLocalization.Text("PrefabsHashesを\nクリア"), GUILayout.Height(30)))
                 {
                     if (PosingSystemLocalization.Dialog(PosingSystemLocalization.Text("確認"), "PrefabsHashesをすべてクリアしますか？", "はい", "いいえ"))
                     {
@@ -48,7 +49,7 @@ namespace jp.unisakistudio.posingsystemeditor
                     }
                 }
                 
-                if (GUILayout.Button(PosingSystemLocalization.Text("PrefabsNamesを\nクリア"), GUILayout.Height(30)))
+                if (PosingSystemTextGUI.LayoutButton(PosingSystemLocalization.Text("PrefabsNamesを\nクリア"), GUILayout.Height(30)))
                 {
                     if (PosingSystemLocalization.Dialog(PosingSystemLocalization.Text("確認"), "PrefabsNamesをすべてクリアしますか？", "はい", "いいえ"))
                     {
@@ -65,7 +66,7 @@ namespace jp.unisakistudio.posingsystemeditor
             }
             
             EditorGUILayout.Space();
-            EditorGUILayout.HelpBox(PosingSystemLocalization.Text("使用方法:\n1. 追加したい文字列を改行区切りでクリップボードにコピー\n2. 対応するボタンをクリック\n3. 重複する項目は自動的に除外されます"), MessageType.Info);
+            PosingSystemTextGUI.LayoutHelpBox(PosingSystemLocalization.Text("使用方法:\n1. 追加したい文字列を改行区切りでクリップボードにコピー\n2. 対応するボタンをクリック\n3. 重複する項目は自動的に除外されます"), MessageType.Info);
         }
         
         private void AddFromClipboard(List<string> targetList, string listName)

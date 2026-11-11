@@ -17,7 +17,7 @@ namespace jp.unisakistudio.posingsystemeditor
         private void DrawInspectorWarning(string message)
         {
             drewInspectorWarning = true;
-            EditorGUILayout.HelpBox(message, MessageType.Warning);
+            PosingSystemTextGUI.LayoutHelpBox(message, MessageType.Warning);
         }
 
         private void DrawUserInspector(PosingSystem ps)
@@ -54,7 +54,7 @@ namespace jp.unisakistudio.posingsystemeditor
                         }
                     poseBrowser.Draw(serializedObject, ps);
                     using (new EditorGUI.DisabledScope(!valid || IsAndroidBuildTarget() || Application.isPlaying))
-                        if (GUILayout.Button(PosingSystemLocalization.Text("ポーズ画像を更新"), GUILayout.Height(26)) && PosingSystemLocalization.Dialog(
+                        if (PosingSystemTextGUI.LayoutButton(PosingSystemLocalization.Text("ポーズ画像を更新"), GUILayout.Height(26)) && PosingSystemLocalization.Dialog(
                             PosingSystemLocalization.Text("ポーズ画像を更新"), PosingSystemLocalization.Text("すべてのポーズ画像を作り直します。ポーズの数によっては少し時間がかかります。\n更新中はUnityの操作をお待ちください。"), PosingSystemLocalization.Text("更新する"), "キャンセル"))
                         {
                             PosingSystemEditorChangeUtility.Commit(serializedObject);
@@ -70,7 +70,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 {
                     GUILayout.Space(8);
                     if (PosingSystemInspectorGUI.Link(troubleshootingOpen ? "トラブルシューティングを閉じる" : "トラブルシューティング")) troubleshootingOpen = !troubleshootingOpen;
-                    if (troubleshootingOpen && GUILayout.Button(PosingSystemLocalization.Text("アバターの姿勢をリセット（Tポーズに戻す）"))) ResetAvatarPose(ps.GetAvatar());
+                    if (troubleshootingOpen && PosingSystemTextGUI.LayoutButton(PosingSystemLocalization.Text("アバターの姿勢をリセット（Tポーズに戻す）"))) ResetAvatarPose(ps.GetAvatar());
                 }
             }
             if (PosingSystemEditorChangeUtility.Apply(serializedObject))
@@ -102,20 +102,20 @@ namespace jp.unisakistudio.posingsystemeditor
             // Keep one native button hit area, including the icon and the explanation.
             // Opening the editor is navigation, not a serialized setting change.
             var wasChanged = GUI.changed;
-            var clicked = GUI.Button(rect, new GUIContent(string.Empty, PosingSystemLocalization.Format("{0}を開きます。{1}", title, description)), GUIStyle.none);
+            var clicked = PosingSystemTextGUI.Button(rect, new GUIContent(string.Empty, PosingSystemLocalization.Format("{0}を開きます。{1}", title, description)), GUIStyle.none);
             GUI.changed = wasChanged;
             if (GUI.enabled) EditorGUIUtility.AddCursorRect(rect, MouseCursor.Link);
 
             PosingSystemSettingIcons.Draw(new Rect(rect.x + 6, rect.center.y - 32, 64, 64), "animation-adjustment");
             var textWidth = Mathf.Max(1, rect.width - 140);
-            GUI.Label(new Rect(rect.x + 76, rect.y + 10, textWidth, 19), title, titleStyle);
-            GUI.Label(new Rect(rect.x + 76, rect.y + 32, textWidth, rect.height - 42), description, descriptionStyle);
+            PosingSystemTextGUI.Label(new Rect(rect.x + 76, rect.y + 10, textWidth, 19), title, titleStyle);
+            PosingSystemTextGUI.Label(new Rect(rect.x + 76, rect.y + 32, textWidth, rect.height - 42), description, descriptionStyle);
             var openRect = new Rect(rect.xMax - 57, rect.center.y - 14, 48, 28);
             EditorGUI.DrawRect(openRect, accent);
             var openStyle = PosingSystemInspectorGUI.Text(11, true);
             openStyle.alignment = TextAnchor.MiddleCenter;
             openStyle.normal.textColor = Color.white;
-            GUI.Label(openRect, PosingSystemLocalization.Text("開く ›"), openStyle);
+            PosingSystemTextGUI.Label(openRect, PosingSystemLocalization.Text("開く ›"), openStyle);
             GUILayout.Space(6);
             return clicked;
         }
@@ -124,8 +124,8 @@ namespace jp.unisakistudio.posingsystemeditor
         {
             using (new EditorGUILayout.VerticalScope(EditorStyles.helpBox))
             {
-                EditorGUILayout.LabelField(PosingSystemLocalization.Text("呼吸の設定"), PosingSystemInspectorGUI.Text(12, true));
-                EditorGUILayout.LabelField(PosingSystemLocalization.Text("弱・中・強はゆっくりした呼吸、急は速い呼吸です。姿勢ごとに選べます。"), PosingSystemInspectorGUI.Text(11));
+                PosingSystemTextGUI.LayoutLabelField(PosingSystemLocalization.Text("呼吸の設定"), PosingSystemInspectorGUI.Text(12, true));
+                PosingSystemTextGUI.LayoutLabelField(PosingSystemLocalization.Text("弱・中・強はゆっくりした呼吸、急は速い呼吸です。姿勢ごとに選べます。"), PosingSystemInspectorGUI.Text(11));
                 using (new EditorGUI.DisabledScope(!serializedObject.FindProperty("features.breathing").boolValue))
                     foreach (var name in GetAdditiveBreathingDisplayNames(ps))
                         DrawAdditiveBreathingLevel(serializedObject.FindProperty("additiveBreathing"), name);
@@ -140,19 +140,17 @@ namespace jp.unisakistudio.posingsystemeditor
             serializedObject.Update();
             PosingSystemInspectorGUI.Section(PosingSystemLocalization.Text("身体の補正"));
             var unavailable = ps.UsesAutoPoseCatalog || !PosingSystemAvatarAdjustmentUtility.HasReferenceProfile(ps);
-            PosingSystemSettingsInspector.DrawCards(serializedObject, ps, new[] {
-                new PosingSystemSettingsInspector.Setting("enableAvatarSpecificAdjustment", "アバター固有補正を使う", "アバターごとの関節の向きやひねりの違いを自動で補正します。"),
-                new PosingSystemSettingsInspector.Setting("enableReverseKneeSafetyClamp", "膝が逆向きに曲がるのを防ぐ", "脚を伸ばしたときに、膝が逆向きに折れるのを抑えます。") },
+            PosingSystemSettingsInspector.DrawCards(serializedObject, ps, PosingSystemSettingsInspector.AvatarCorrectionSettings,
                 setting => setting.Path == "enableReverseKneeSafetyClamp" ? (kneeOpen ? "▼ 設定を閉じる" : "▶ 設定を開く") : null,
                 setting => kneeOpen = !kneeOpen, null, ref breathingOpen, disabled: unavailable);
-            if (unavailable) EditorGUILayout.HelpBox(PosingSystemLocalization.Text(ps.UsesAutoPoseCatalog ? "姿勢別IK自動調整を使用中です。従来の身体の補正は使用しません。" : "このツールにはアバター固有補正用の基準データがありません。"), MessageType.Info);
+            if (unavailable) PosingSystemTextGUI.LayoutHelpBox(PosingSystemLocalization.Text(ps.UsesAutoPoseCatalog ? "姿勢別IK自動調整を使用中です。従来の身体の補正は使用しません。" : "このツールにはアバター固有補正用の基準データがありません。"), MessageType.Info);
             if (kneeOpen)
                 using (new EditorGUILayout.VerticalScope(EditorStyles.helpBox))
                 using (new EditorGUI.DisabledScope(unavailable || !ps.enableReverseKneeSafetyClamp))
                 {
-                    EditorGUILayout.LabelField(PosingSystemLocalization.Text("膝の補正"), PosingSystemInspectorGUI.Text(12, true));
-                    EditorGUILayout.Slider(serializedObject.FindProperty("reverseKneeSafetyAngle"), 0, 5, PosingSystemLocalization.Text("最低膝曲げ角度（°）"));
-                    EditorGUILayout.LabelField(PosingSystemLocalization.Text("膝が伸びきる手前で止める角度です。"), PosingSystemInspectorGUI.Text(11));
+                    PosingSystemTextGUI.LayoutLabelField(PosingSystemLocalization.Text("膝の補正"), PosingSystemInspectorGUI.Text(12, true));
+                    PosingSystemTextGUI.LayoutSlider(serializedObject.FindProperty("reverseKneeSafetyAngle"), 0, 5, PosingSystemLocalization.Text("最低膝曲げ角度（°）"));
+                    PosingSystemTextGUI.LayoutLabelField(PosingSystemLocalization.Text("膝が伸びきる手前で止める角度です。"), PosingSystemInspectorGUI.Text(11));
                 }
             if (PosingSystemEditorChangeUtility.Apply(serializedObject))
             {
@@ -164,13 +162,11 @@ namespace jp.unisakistudio.posingsystemeditor
             serializedObject.Update();
 
             PosingSystemInspectorGUI.Section(PosingSystemLocalization.Text("アバターとの組み合わせ"));
-            PosingSystemSettingsInspector.DrawCards(serializedObject, ps, new[] {
-                new PosingSystemSettingsInspector.Setting("autoImportAvatarAnimations", "アバターの元の立ち・しゃがみ・伏せ姿勢を使う", "生成時にアバターのBaseからモーションを検出します。取り込み設定の一覧には追加しません。手動設定がある種類は手動指定を優先します。"),
-                new PosingSystemSettingsInspector.Setting("mergeTrackingControl", "各固定機能の他ギミックとの統合", "ほかのギミックとの併用によって固定機能がうまく動かない場合はオンにしてください。") },
+            PosingSystemSettingsInspector.DrawCards(serializedObject, ps, PosingSystemSettingsInspector.AvatarIntegrationSettings,
                 null, null, null, ref breathingOpen);
 
             PosingSystemInspectorGUI.Section(PosingSystemLocalization.Text("自分で用意したモーションを使う"));
-            EditorGUILayout.LabelField(PosingSystemLocalization.Text("種類ごとに1つのモーションを指定できます。上の「元の姿勢を使う」とは別に設定できます。"), PosingSystemInspectorGUI.Text(11));
+            PosingSystemTextGUI.LayoutLabelField(PosingSystemLocalization.Text("種類ごとに1つのモーションを指定できます。上の「元の姿勢を使う」とは別に設定できます。"), PosingSystemInspectorGUI.Text(11));
             if (PosingSystemInspectorGUI.Link(importOpen ? "▼ 取り込み設定を閉じる" : "▶ 取り込み設定を開く"))
             {
                 PosingSystemEditorChangeUtility.Commit(serializedObject);
@@ -180,10 +176,10 @@ namespace jp.unisakistudio.posingsystemeditor
             if (importOpen)
                 using (new EditorGUILayout.VerticalScope(EditorStyles.helpBox))
                 {
-                    EditorGUILayout.LabelField(PosingSystemLocalization.Text("取り込むアニメーションを個別に指定"), PosingSystemInspectorGUI.Text(12, true));
-                    EditorGUILayout.LabelField(PosingSystemLocalization.Text("指定した種類にはこのモーションを使います。未指定の種類は元の設定を使います。"), PosingSystemInspectorGUI.Text(11));
+                    PosingSystemTextGUI.LayoutLabelField(PosingSystemLocalization.Text("取り込むアニメーションを個別に指定"), PosingSystemInspectorGUI.Text(12, true));
+                    PosingSystemTextGUI.LayoutLabelField(PosingSystemLocalization.Text("指定した種類にはこのモーションを使います。未指定の種類は元の設定を使います。"), PosingSystemInspectorGUI.Text(11));
                     using (new EditorGUI.DisabledScope(!valid))
-                        if (GUILayout.Button(PosingSystemLocalization.Text("現在のアバターから読み込む")))
+                        if (PosingSystemTextGUI.LayoutButton(PosingSystemLocalization.Text("現在のアバターから読み込む")))
                         {
                             PosingSystemEditorChangeUtility.Commit(serializedObject);
                             Undo.RecordObject(ps, "Import avatar animations");
@@ -195,11 +191,11 @@ namespace jp.unisakistudio.posingsystemeditor
                 }
             PosingSystemEditorChangeUtility.Apply(serializedObject);
             PosingSystemInspectorGUI.Section(PosingSystemLocalization.Text("プリセット"));
-            EditorGUILayout.LabelField(PosingSystemLocalization.Text("使い始めるときの姿勢セットを変更できます。変更すると現在のポーズ設定が置き換わります。"), PosingSystemInspectorGUI.Text(11));
+            PosingSystemTextGUI.LayoutLabelField(PosingSystemLocalization.Text("使い始めるときの姿勢セットを変更できます。変更すると現在のポーズ設定が置き換わります。"), PosingSystemInspectorGUI.Text(11));
             presetBrowser.Draw(ps, DrawInspectorWarning);
             serializedObject.Update();
             if (PosingSystemInspectorGUI.Link(presetManagementOpen ? "プリセットの保存・管理を閉じる" : "プリセットの保存・管理")) presetManagementOpen = !presetManagementOpen;
-            if (presetManagementOpen && GUILayout.Button(PosingSystemLocalization.Text("現在の設定からプリセットを作成"))) PosingPresetCreatorWindow.ShowWindow(ps);
+            if (presetManagementOpen && PosingSystemTextGUI.LayoutButton(PosingSystemLocalization.Text("現在の設定からプリセットを作成"))) PosingPresetCreatorWindow.ShowWindow(ps);
         }
 
         private void DrawInspectorTabs()
@@ -211,7 +207,7 @@ namespace jp.unisakistudio.posingsystemeditor
             {
                 var selected = (int)_selectedTab == i;
                 var rect = new Rect(row.x + i * (width + 3), row.y + (selected ? 0 : 3), width, selected ? 31 : 28);
-                if (GUI.Button(rect, GUIContent.none, GUIStyle.none))
+                if (PosingSystemTextGUI.Button(rect, GUIContent.none, GUIStyle.none))
                 {
                     PosingSystemEditorChangeUtility.Commit(serializedObject);
                     _selectedTab = (InspectorTab)i; Repaint(); GUIUtility.ExitGUI();
@@ -222,7 +218,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 if (selected) EditorGUI.DrawRect(new Rect(rect.x, rect.y, rect.width, 3), PosingSystemInspectorGUI.Accent);
                 var style = PosingSystemInspectorGUI.Text(12, selected); style.alignment = TextAnchor.MiddleCenter;
                 if (selected) style.normal.textColor = PosingSystemInspectorGUI.Accent;
-                GUI.Label(rect, PosingSystemLocalization.Text(InspectorTabLabels[i]), style);
+                PosingSystemTextGUI.Label(rect, PosingSystemLocalization.Text(InspectorTabLabels[i]), style);
             }
             GUILayout.Space(-2);
         }

@@ -21,6 +21,7 @@ namespace jp.unisakistudio.posingsystemeditor
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
+            using var complexTextScope = PosingSystemTextGUI.BeginGUI(property.serializedObject.targetObject.GetInstanceID() ^ property.propertyPath.GetHashCode(), position.width);
             // 各プロパティを取得
             var enabledProperty = property.FindPropertyRelative("enabled");
             var displayNameProperty = property.FindPropertyRelative("displayName");
@@ -54,7 +55,7 @@ namespace jp.unisakistudio.posingsystemeditor
 
             using (new EditorGUI.DisabledScope(initialSetProperty.boolValue))
             {
-                if (GUI.Button(buttonRect, PosingSystemLocalization.Text("デフォルト")))
+                if (PosingSystemTextGUI.Button(buttonRect, PosingSystemLocalization.Text("デフォルト")))
                 {
                     initialSetProperty.boolValue = true;
                 }
@@ -105,17 +106,17 @@ namespace jp.unisakistudio.posingsystemeditor
             // 2行目: アニメーション
             var animLabelRect = new Rect(contentRect.x, contentRect.y, AnimationLabelWidth, contentRect.height);
             var animFieldRect = new Rect(animLabelRect.xMax, contentRect.y, contentRect.width - AnimationLabelWidth, contentRect.height);
-            EditorGUI.LabelField(animLabelRect, PosingSystemLocalization.Text("アニメーション"));
+            PosingSystemTextGUI.LabelField(animLabelRect, PosingSystemLocalization.Text("アニメーション"));
             animationClipProperty.objectReferenceValue = EditorGUI.ObjectField(animFieldRect, animationClipProperty.objectReferenceValue, typeof(Motion), false);
             contentRect.y += EditorGUIUtility.singleLineHeight;
 
-            EditorGUI.PropertyField(contentRect, isRolloverProperty, new GUIContent(PosingSystemLocalization.Text("寝返りを使う")));
+            PosingSystemTextGUI.PropertyField(contentRect, isRolloverProperty, new GUIContent(PosingSystemLocalization.Text("寝返りを使う")));
             contentRect.y += EditorGUIUtility.singleLineHeight;
             if (isRolloverProperty.boolValue)
             {
-                EditorGUI.PropertyField(contentRect, property.FindPropertyRelative("rolloverSideAnimation"), new GUIContent(PosingSystemLocalization.Text("寝返り時の横向き")));
+                PosingSystemTextGUI.PropertyField(contentRect, property.FindPropertyRelative("rolloverSideAnimation"), new GUIContent(PosingSystemLocalization.Text("寝返り時の横向き")));
                 contentRect.y += EditorGUIUtility.singleLineHeight;
-                EditorGUI.PropertyField(contentRect, property.FindPropertyRelative("rolloverContactStrength"), new GUIContent(PosingSystemLocalization.Text("接地補正の強さ")));
+                PosingSystemTextGUI.PropertyField(contentRect, property.FindPropertyRelative("rolloverContactStrength"), new GUIContent(PosingSystemLocalization.Text("接地補正の強さ")));
                 contentRect.y += EditorGUIUtility.singleLineHeight;
                 PosingSystemRolloverIcon.Draw(iconRect);
             }
@@ -127,7 +128,7 @@ namespace jp.unisakistudio.posingsystemeditor
             using (new EditorGUI.DisabledScope(isRolloverProperty.boolValue))
             {
                 isMotionTimeProperty.boolValue = EditorGUI.Toggle(motionTimeToggleRect, isMotionTimeProperty.boolValue);
-                EditorGUI.LabelField(motionTimeLabelRect, "motionTime");
+                PosingSystemTextGUI.LabelField(motionTimeLabelRect, "motionTime");
                 if (isMotionTimeProperty.boolValue)
                     motionTimeParamNameProperty.stringValue = EditorGUI.TextField(motionTimeFieldRect, motionTimeParamNameProperty.stringValue);
             }
@@ -138,7 +139,7 @@ namespace jp.unisakistudio.posingsystemeditor
             var rotateLabelRect = new Rect(rotateToggleRect.xMax, contentRect.y, RotateLabelWidth, contentRect.height);
             var rotateFieldRect = new Rect(rotateLabelRect.xMax, contentRect.y, contentRect.width - (rotateLabelRect.xMax - contentRect.x), contentRect.height);
             isRotateProperty.boolValue = EditorGUI.Toggle(rotateToggleRect, isRotateProperty.boolValue);
-            EditorGUI.LabelField(rotateLabelRect, PosingSystemLocalization.Text("回転角度(360度)"));
+            PosingSystemTextGUI.LabelField(rotateLabelRect, PosingSystemLocalization.Text("回転角度(360度)"));
             if (isRotateProperty.boolValue)
             {
                 rotateProperty.intValue = EditorGUI.IntField(rotateFieldRect, rotateProperty.intValue);
@@ -150,7 +151,7 @@ namespace jp.unisakistudio.posingsystemeditor
             var customIconLabelRect = new Rect(customIconToggleRect.xMax, contentRect.y, IconLabelWidth, contentRect.height);
             var customIconFieldRect = new Rect(customIconLabelRect.xMax, contentRect.y, contentRect.width - (customIconLabelRect.xMax - contentRect.x), contentRect.height);
             isCustomIconProperty.boolValue = EditorGUI.Toggle(customIconToggleRect, isCustomIconProperty.boolValue);
-            EditorGUI.LabelField(customIconLabelRect, PosingSystemLocalization.Text("アイコン画像"));
+            PosingSystemTextGUI.LabelField(customIconLabelRect, PosingSystemLocalization.Text("アイコン画像"));
             if (isCustomIconProperty.boolValue)
             {
                 iconProperty.objectReferenceValue = EditorGUI.ObjectField(customIconFieldRect, iconProperty.objectReferenceValue, typeof(Texture2D), false);
@@ -160,7 +161,7 @@ namespace jp.unisakistudio.posingsystemeditor
             // 6行目: 調整アニメーション
             var adjustmentLabelRect = new Rect(contentRect.x, contentRect.y, AnimationLabelWidth, contentRect.height);
             var adjustmentFieldRect = new Rect(adjustmentLabelRect.xMax, contentRect.y, contentRect.width - AnimationLabelWidth, contentRect.height);
-            EditorGUI.LabelField(adjustmentLabelRect, PosingSystemLocalization.Text("調整クリップ"));
+            PosingSystemTextGUI.LabelField(adjustmentLabelRect, PosingSystemLocalization.Text("調整クリップ"));
             adjustmentClipProperty.objectReferenceValue = EditorGUI.ObjectField(adjustmentFieldRect, adjustmentClipProperty.objectReferenceValue, typeof(AnimationClip), false);
             contentRect.y += EditorGUIUtility.singleLineHeight;
 

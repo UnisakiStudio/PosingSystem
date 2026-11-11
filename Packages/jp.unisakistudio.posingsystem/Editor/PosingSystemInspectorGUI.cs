@@ -20,7 +20,7 @@ namespace jp.unisakistudio.posingsystemeditor
             GUILayout.Space(6);
             var rect = GUILayoutUtility.GetRect(0, 24, GUILayout.ExpandWidth(true));
             EditorGUI.DrawRect(new Rect(rect.x, rect.y + 5, 3, 14), Accent);
-            GUI.Label(new Rect(rect.x + 9, rect.y, rect.width - 9, rect.height), title, Text(12, true));
+            PosingSystemTextGUI.Label(new Rect(rect.x + 9, rect.y, rect.width - 9, rect.height), title, Text(12, true));
         }
         internal static bool Link(string label, params GUILayoutOption[] options)
         {
@@ -32,8 +32,8 @@ namespace jp.unisakistudio.posingsystemeditor
             label = PosingSystemLocalization.Text(label);
             var changed = GUI.changed;
             var style = Text(11); style.normal.textColor = Accent;
-            var clicked = GUI.Button(rect, label, style);
-            var width = Mathf.Min(rect.width, style.CalcSize(new GUIContent(label)).x);
+            var clicked = PosingSystemTextGUI.Button(rect, label, style);
+            var width = Mathf.Min(rect.width, PosingSystemTextGUI.MeasureWidth((new GUIContent(label)).text, style));
             EditorGUI.DrawRect(new Rect(rect.x, rect.center.y + 7, width, 1), Accent);
             EditorGUIUtility.AddCursorRect(rect, MouseCursor.Link);
             GUI.changed = changed;
@@ -41,7 +41,7 @@ namespace jp.unisakistudio.posingsystemeditor
         }
         internal static bool Check(Rect rect, bool value, GUIContent label, bool interactive = true)
         {
-            var next = interactive ? GUI.Toggle(rect, value, label, GUIStyle.none) : value;
+            var next = interactive ? PosingSystemTextGUI.Toggle(rect, value, label, GUIStyle.none) : value;
             EditorGUI.DrawRect(rect, value ? Accent : Border);
             if (!value) EditorGUI.DrawRect(new Rect(rect.x + 2, rect.y + 2, rect.width - 4, rect.height - 4), Surface);
             else

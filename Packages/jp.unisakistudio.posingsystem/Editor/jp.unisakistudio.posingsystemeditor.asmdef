@@ -8,7 +8,8 @@
         "jp.unisakistudio.posingsystem",
         "nadena.dev.ndmf",
         "nadena.dev.ndmf.vrchat",
-        "nadena.dev.modular-avatar.core"
+        "nadena.dev.modular-avatar.core",
+        "UnisakiStudio.Posing.Text.Editor"
     ],
     "includePlatforms": [
         "Editor"

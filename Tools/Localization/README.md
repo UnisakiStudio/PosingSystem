@@ -57,6 +57,35 @@ ordinary `Text` keeps original/custom-name fallback behavior unchanged.
 The pre-2026-11-09 scope notes below describe earlier checkpoints, not completion
 of the now-confirmed full language scope.
 
+## Complex-script Editor rendering (2026-11-11)
+
+The Editor's `PosingSystemTextGUI` adapter measures and paints Arabic, Hebrew,
+Devanagari, Bengali, Tamil, Telugu and Thai captions through the isolated
+`UnisakiStudio.Posing.Text.Editor` assembly. Keep the original logical strings,
+native control calls/IDs and editable values. Do not reverse strings or translate
+custom names, serialized values or paths. Use the adapter for new visible controls
+and its measurement helpers for wrapping; the coverage scanner checks adapter
+sinks as well as native Unity calls. End GUI scopes inside the language scope.
+
+The `Editor/ComplexText` tree contains hash-bound fonts, renamed private managed
+and native dependencies, Editor-only import settings and original third-party
+notices. Do not enable them for Player builds, introduce public API types from
+those dependencies or replace them with similarly named DLLs from other tools.
+Retain the source/Fonts/manifest directory layout. Dependency/ABI failures retain
+native drawing with one diagnostic; unsupported custom text and size limits fall
+back per entry without disabling other captions. Cache, rejection and resource
+limits are intentional. Preserve native tooltip content if shaping is unavailable.
+
+`FeatureCardTextTests` exercises all 30 languages, 19 feature cards and three
+widths, including glyph clusters and saved-value preservation. `TextGuiEventTests`
+compares native/adapted input, IDs, values and GUI.changed. Text editing comparisons
+must establish their selection through actual key events because Unity reuses a
+global TextEditor. Do not assign its internal cursor state to make a test pass.
+
+Catalog and automated rendering checks are separate from actual window, tooltip,
+expanded-popup, platform and VRChat-client visual review. Generic/third-party
+property drawers and native editable text retain their original Unity behavior.
+
 ## Authoritative data
 
 - `ui.translations.json`: Inspector display text. Japanese source text is the lookup key, with a small set of semantic keys for header navigation.

@@ -764,12 +764,13 @@ namespace jp.unisakistudio.posingsystemeditor
         private void OnGUI()
         {
             using var languageScope = PosingSystemLocalization.ForInspector(_posingSystem);
+            using var complexTextScope = PosingSystemTextGUI.BeginGUI(GetInstanceID(), 0, Repaint);
             titleContent = new GUIContent(PosingAnimationAdjustmentWindowText.Title);
             saveChangesMessage = PosingAnimationAdjustmentWindowText.SaveChangesMessage;
             if (!IsOpen)
             {
                 hasUnsavedChanges = false;
-                EditorGUILayout.HelpBox(PosingAnimationAdjustmentWindowText.AdjustmentStopped, MessageType.Warning);
+                PosingSystemTextGUI.LayoutHelpBox(PosingAnimationAdjustmentWindowText.AdjustmentStopped, MessageType.Warning);
 
                 return;
             }
@@ -779,8 +780,8 @@ namespace jp.unisakistudio.posingsystemeditor
 
             if (_posingSystem == null)
             {
-                EditorGUILayout.HelpBox(PosingAnimationAdjustmentWindowText.PosingSystemNotFound, MessageType.Warning);
-                if (GUILayout.Button(PosingAnimationAdjustmentWindowText.Close))
+                PosingSystemTextGUI.LayoutHelpBox(PosingAnimationAdjustmentWindowText.PosingSystemNotFound, MessageType.Warning);
+                if (PosingSystemTextGUI.LayoutButton(PosingAnimationAdjustmentWindowText.Close))
                 {
                     StopAdjustment();
                 }
@@ -812,7 +813,7 @@ namespace jp.unisakistudio.posingsystemeditor
 
         private void DrawLeftPanel()
         {
-            EditorGUILayout.LabelField(PosingAnimationAdjustmentWindowText.Title, EditorStyles.boldLabel);
+            PosingSystemTextGUI.LayoutLabelField(PosingAnimationAdjustmentWindowText.Title, EditorStyles.boldLabel);
 
             DrawAutoPoseCatalogPanel();
 
@@ -820,13 +821,13 @@ namespace jp.unisakistudio.posingsystemeditor
             {
                 using (new EditorGUILayout.VerticalScope(GUI.skin.box))
                 {
-                    EditorGUILayout.LabelField(PosingSystemLocalization.Text("自動アバター補正"), EditorStyles.boldLabel);
+                    PosingSystemTextGUI.LayoutLabelField(PosingSystemLocalization.Text("自動アバター補正"), EditorStyles.boldLabel);
                     using (new EditorGUI.DisabledScope(true))
                     {
-                        EditorGUILayout.ObjectField(_posingSystem.avatarSpecificAdjustmentClip, typeof(AnimationClip), false);
+                        PosingSystemTextGUI.LayoutObjectField(_posingSystem.avatarSpecificAdjustmentClip, typeof(AnimationClip), false);
                     }
                     EditorGUI.BeginChangeCheck();
-                    _debugPreviewAvatarSpecificAdjustment = EditorGUILayout.ToggleLeft(
+                    _debugPreviewAvatarSpecificAdjustment = PosingSystemTextGUI.LayoutToggleLeft(
                         PosingSystemLocalization.Text("デバッグ: アバター固有補正をプレビュー"),
                         _debugPreviewAvatarSpecificAdjustment);
                     if (EditorGUI.EndChangeCheck())
@@ -834,7 +835,7 @@ namespace jp.unisakistudio.posingsystemeditor
                         ApplyPreviewPose();
                         Repaint();
                     }
-                    EditorGUILayout.LabelField(
+                    PosingSystemTextGUI.LayoutLabelField(
                         PosingSystemLocalization.Text("この切り替えは調整ウィンドウのプレビュー専用です。保存・サムネイル・最終出力には影響しません。膝クランプは引き続き有効です。"),
                         EditorStyles.wordWrappedMiniLabel);
                 }
@@ -843,7 +844,7 @@ namespace jp.unisakistudio.posingsystemeditor
             // グローバルボタン
             using (new EditorGUILayout.VerticalScope(GUI.skin.box))
             {
-                EditorGUILayout.LabelField(PosingAnimationAdjustmentWindowText.BatchOperations, EditorStyles.boldLabel);
+                PosingSystemTextGUI.LayoutLabelField(PosingAnimationAdjustmentWindowText.BatchOperations, EditorStyles.boldLabel);
 
                 var hasAnyChangesGlobal = HasAnyChangesInAllAnimations();
                 var hasAnyAdjustmentsGlobal = HasAnyAdjustmentsInAllAnimations();
@@ -851,7 +852,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 // 全姿勢初期化（調整値がある時のみ有効）
                 using (new EditorGUI.DisabledScope(!hasAnyAdjustmentsGlobal))
                 {
-                    if (GUILayout.Button(new GUIContent(PosingAnimationAdjustmentWindowText.AllReset, PosingAnimationAdjustmentWindowText.AllResetTooltip)))
+                    if (PosingSystemTextGUI.LayoutButton(new GUIContent(PosingAnimationAdjustmentWindowText.AllReset, PosingAnimationAdjustmentWindowText.AllResetTooltip)))
                     {
                         ResetAllAnimationsAdjustments();
                     }
@@ -860,7 +861,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 // 全姿勢再読み込み（変更がある時のみ有効）
                 using (new EditorGUI.DisabledScope(!hasAnyChangesGlobal))
                 {
-                    if (GUILayout.Button(new GUIContent(PosingAnimationAdjustmentWindowText.AllReload, PosingAnimationAdjustmentWindowText.AllReloadTooltip)))
+                    if (PosingSystemTextGUI.LayoutButton(new GUIContent(PosingAnimationAdjustmentWindowText.AllReload, PosingAnimationAdjustmentWindowText.AllReloadTooltip)))
                     {
                         ReloadAllAnimationsAdjustments();
                     }
@@ -869,7 +870,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 // 全差分保存（変更がある時のみ有効）
                 using (new EditorGUI.DisabledScope(!hasAnyChangesGlobal))
                 {
-                    if (GUILayout.Button(new GUIContent(PosingAnimationAdjustmentWindowText.AllSaveDiff, PosingAnimationAdjustmentWindowText.AllSaveDiffTooltip)))
+                    if (PosingSystemTextGUI.LayoutButton(new GUIContent(PosingAnimationAdjustmentWindowText.AllSaveDiff, PosingAnimationAdjustmentWindowText.AllSaveDiffTooltip)))
                     {
                         SaveAllAdjustmentClips();
                     }
@@ -878,26 +879,26 @@ namespace jp.unisakistudio.posingsystemeditor
                 // 全調整データ複製保存（変更がある時のみ有効）
                 using (new EditorGUI.DisabledScope(!hasAnyChangesGlobal))
                 {
-                    if (GUILayout.Button(new GUIContent(PosingAnimationAdjustmentWindowText.AllDuplicateSave, PosingAnimationAdjustmentWindowText.AllDuplicateSaveTooltip)))
+                    if (PosingSystemTextGUI.LayoutButton(new GUIContent(PosingAnimationAdjustmentWindowText.AllDuplicateSave, PosingAnimationAdjustmentWindowText.AllDuplicateSaveTooltip)))
                     {
                         DuplicateAndSaveAllAdjustmentClips();
                     }
                 }
             }
 
-            EditorGUILayout.LabelField(PosingAnimationAdjustmentWindowText.Animation);
+            PosingSystemTextGUI.LayoutLabelField(PosingAnimationAdjustmentWindowText.Animation);
             using (var scrollView = new EditorGUILayout.ScrollViewScope(_animationListScroll, GUILayout.ExpandHeight(true)))
             {
                 _animationListScroll = scrollView.scrollPosition;
                 if (_animationEntries.Count == 0)
                 {
-                    EditorGUILayout.HelpBox(PosingAnimationAdjustmentWindowText.NoAdjustableAnimation, MessageType.Info);
+                    PosingSystemTextGUI.LayoutHelpBox(PosingAnimationAdjustmentWindowText.NoAdjustableAnimation, MessageType.Info);
                 }
                 else
                 {
                     EditorGUI.BeginChangeCheck();
                     var dynamicLabels = GetDynamicAnimationLabels();
-                    _selectedAnimationIndex = GUILayout.SelectionGrid(_selectedAnimationIndex, dynamicLabels, 1, GUILayout.ExpandHeight(true));
+                    _selectedAnimationIndex = PosingSystemTextGUI.LayoutSelectionGrid(_selectedAnimationIndex, dynamicLabels, 1, GUILayout.ExpandHeight(true));
                     ScrollToSelectedAnimation(GUILayoutUtility.GetLastRect());
                     if (EditorGUI.EndChangeCheck())
                     {
@@ -918,21 +919,21 @@ namespace jp.unisakistudio.posingsystemeditor
                 var selectedEntry = GetSelectedEntry();
                 if (selectedEntry == null)
                 {
-                    EditorGUILayout.HelpBox(PosingAnimationAdjustmentWindowText.SelectAnimation, MessageType.Info);
+                    PosingSystemTextGUI.LayoutHelpBox(PosingAnimationAdjustmentWindowText.SelectAnimation, MessageType.Info);
                     return;
                 }
 
                 var motion = selectedEntry.Animation.animationClip;
                 if (motion == null)
                 {
-                    EditorGUILayout.HelpBox(PosingAnimationAdjustmentWindowText.AnimationNotAssigned, MessageType.Warning);
+                    PosingSystemTextGUI.LayoutHelpBox(PosingAnimationAdjustmentWindowText.AnimationNotAssigned, MessageType.Warning);
                     DrawAdjustmentControls(enabled: false);
                     return;
                 }
 
                 if (motion is not AnimationClip)
                 {
-                    EditorGUILayout.HelpBox(PosingAnimationAdjustmentWindowText.MotionNotAnimationClip, MessageType.Warning);
+                    PosingSystemTextGUI.LayoutHelpBox(PosingAnimationAdjustmentWindowText.MotionNotAnimationClip, MessageType.Warning);
                     DrawAdjustmentControls(enabled: false);
                     return;
                 }
@@ -946,22 +947,22 @@ namespace jp.unisakistudio.posingsystemeditor
 
         private void DrawAnimationInfoSection(AnimationEntry entry)
         {
-            EditorGUILayout.LabelField(PosingAnimationAdjustmentWindowText.AnimationInfo, EditorStyles.boldLabel);
+            PosingSystemTextGUI.LayoutLabelField(PosingAnimationAdjustmentWindowText.AnimationInfo, EditorStyles.boldLabel);
             using (new EditorGUILayout.VerticalScope(GUI.skin.box))
             {
                 // アニメーション名表示
-                EditorGUILayout.LabelField(PosingAnimationAdjustmentWindowText.Name, PosingSystemLocalization.Text(entry.Animation.displayName));
+                PosingSystemTextGUI.LayoutLabelField(PosingAnimationAdjustmentWindowText.Name, PosingSystemLocalization.Text(entry.Animation.displayName));
 
                 // 調整アニメーションのanimationClipProperty表示・編集
                 using (new EditorGUILayout.HorizontalScope())
                 {
                     using (new EditorGUI.DisabledScope(true))
                     {
-                        EditorGUILayout.ObjectField(PosingAnimationAdjustmentWindowText.CurrentAnimation, entry.Animation.animationClip, typeof(AnimationClip), false);
+                        PosingSystemTextGUI.LayoutObjectField(PosingAnimationAdjustmentWindowText.CurrentAnimation, entry.Animation.animationClip, typeof(AnimationClip), false);
                     }
                     using (new EditorGUI.DisabledScope(entry.Animation.adjustmentClip == null))
                     {
-                        if (GUILayout.Button(new GUIContent(PosingAnimationAdjustmentWindowText.Combine, PosingAnimationAdjustmentWindowText.CombineTooltip), GUILayout.Width(50)))
+                        if (PosingSystemTextGUI.LayoutButton(new GUIContent(PosingAnimationAdjustmentWindowText.Combine, PosingAnimationAdjustmentWindowText.CombineTooltip), GUILayout.Width(50)))
                         {
                             CombineAndSaveAdjustmentClip(entry);
                         }
@@ -975,7 +976,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 using (new EditorGUI.DisabledScope(UsesIkInPreview()))
                 using (new EditorGUILayout.HorizontalScope())
                 {
-                    newAdjustmentClip = EditorGUILayout.ObjectField(
+                    newAdjustmentClip = PosingSystemTextGUI.LayoutObjectField(
                         PosingAnimationAdjustmentWindowText.AdjustmentAnimation,
                         oldAdjustmentClip,
                         typeof(AnimationClip),
@@ -983,7 +984,7 @@ namespace jp.unisakistudio.posingsystemeditor
                     if (oldAdjustmentClip != null)
                     {
                         // 複製ボタン
-                        if (GUILayout.Button(new GUIContent(PosingAnimationAdjustmentWindowText.Duplicate, PosingAnimationAdjustmentWindowText.DuplicateTooltip), GUILayout.Width(50)))
+                        if (PosingSystemTextGUI.LayoutButton(new GUIContent(PosingAnimationAdjustmentWindowText.Duplicate, PosingAnimationAdjustmentWindowText.DuplicateTooltip), GUILayout.Width(50)))
                         {
                             DuplicateAdjustmentClip(entry);
                         }
@@ -1005,7 +1006,7 @@ namespace jp.unisakistudio.posingsystemeditor
 
                 if (UsesIkInPreview())
                 {
-                    EditorGUILayout.HelpBox(
+                    PosingSystemTextGUI.LayoutHelpBox(
                         PosingSystemLocalization.Text("IKで手足の位置を自動調整しています。手動で調整するには、下の「IKを調整に反映」を押してください。"),
                         MessageType.Info);
                 }
@@ -1311,7 +1312,7 @@ namespace jp.unisakistudio.posingsystemeditor
                     // 初期化（調整値がある時のみ有効）
                     using (new EditorGUI.DisabledScope(!hasAnyAdjustments))
                     {
-                        if (GUILayout.Button(new GUIContent(PosingAnimationAdjustmentWindowText.CurrentReset, PosingAnimationAdjustmentWindowText.CurrentResetTooltip)))
+                        if (PosingSystemTextGUI.LayoutButton(new GUIContent(PosingAnimationAdjustmentWindowText.CurrentReset, PosingAnimationAdjustmentWindowText.CurrentResetTooltip)))
                         {
                             ResetAllAdjustments();
                         }
@@ -1320,7 +1321,7 @@ namespace jp.unisakistudio.posingsystemeditor
                     // 再読み込み（adjustmentClipがあるか、変更がある時のみ有効）
                     using (new EditorGUI.DisabledScope(!hasAdjustmentClip || !hasChanges))
                     {
-                        if (GUILayout.Button(new GUIContent(PosingAnimationAdjustmentWindowText.CurrentReload, PosingAnimationAdjustmentWindowText.CurrentReloadTooltip)))
+                        if (PosingSystemTextGUI.LayoutButton(new GUIContent(PosingAnimationAdjustmentWindowText.CurrentReload, PosingAnimationAdjustmentWindowText.CurrentReloadTooltip)))
                         {
                             ReloadCurrentAdjustmentFromFile();
                         }
@@ -1329,7 +1330,7 @@ namespace jp.unisakistudio.posingsystemeditor
                     // 保存（変更がある時のみ有効）
                     using (new EditorGUI.DisabledScope(!hasChanges))
                     {
-                        if (GUILayout.Button(new GUIContent(PosingAnimationAdjustmentWindowText.Save, PosingAnimationAdjustmentWindowText.SaveTooltip)))
+                        if (PosingSystemTextGUI.LayoutButton(new GUIContent(PosingAnimationAdjustmentWindowText.Save, PosingAnimationAdjustmentWindowText.SaveTooltip)))
                         {
                             SaveAdjustmentClip();
                         }
@@ -1338,7 +1339,7 @@ namespace jp.unisakistudio.posingsystemeditor
                     // 複製して保存（変更がある時のみ有効）
                     using (new EditorGUI.DisabledScope(!hasChanges))
                     {
-                        if (GUILayout.Button(new GUIContent(PosingAnimationAdjustmentWindowText.DuplicateAndSave, PosingAnimationAdjustmentWindowText.DuplicateAndSaveTooltip)))
+                        if (PosingSystemTextGUI.LayoutButton(new GUIContent(PosingAnimationAdjustmentWindowText.DuplicateAndSave, PosingAnimationAdjustmentWindowText.DuplicateAndSaveTooltip)))
                         {
                             DuplicateAndSaveAdjustmentClip();
                         }
@@ -1396,7 +1397,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 _foldoutStates["Root Height"] = true;
             }
 
-            rootTYExpanded = EditorGUILayout.Foldout(rootTYExpanded, PosingAnimationAdjustmentWindowText.Height, true);
+            rootTYExpanded = PosingSystemTextGUI.LayoutFoldout(rootTYExpanded, PosingAnimationAdjustmentWindowText.Height, true);
             _foldoutStates["Root Height"] = rootTYExpanded;
 
             if (rootTYExpanded)
@@ -1418,7 +1419,7 @@ namespace jp.unisakistudio.posingsystemeditor
                     }
 
                     EditorGUI.BeginChangeCheck();
-                    var newValue = EditorGUILayout.Slider(PosingAnimationAdjustmentWindowText.Height, currentValue, min, max);
+                    var newValue = PosingSystemTextGUI.LayoutSlider(PosingAnimationAdjustmentWindowText.Height, currentValue, min, max);
 
                     if (EditorGUI.EndChangeCheck())
                     {
@@ -1430,7 +1431,7 @@ namespace jp.unisakistudio.posingsystemeditor
 
                     // 限界突破トグル
                     EditorGUI.BeginChangeCheck();
-                    var newLimitBreak = EditorGUILayout.ToggleLeft(new GUIContent(PosingAnimationAdjustmentWindowText.LimitBreak, PosingAnimationAdjustmentWindowText.LimitBreakTooltip), isLimitBreak, GUILayout.Width(80));
+                    var newLimitBreak = PosingSystemTextGUI.LayoutToggleLeft(new GUIContent(PosingAnimationAdjustmentWindowText.LimitBreak, PosingAnimationAdjustmentWindowText.LimitBreakTooltip), isLimitBreak, GUILayout.Width(80));
                     if (EditorGUI.EndChangeCheck())
                     {
                         SetRootTYLimitBreakState(newLimitBreak);
@@ -1449,13 +1450,13 @@ namespace jp.unisakistudio.posingsystemeditor
                     }
 
                     // Uボタン（再読込）
-                    if (GUILayout.Button(new GUIContent(PosingAnimationAdjustmentWindowText.ReloadButton, PosingAnimationAdjustmentWindowText.ReloadTooltip), GUILayout.Width(20)))
+                    if (PosingSystemTextGUI.LayoutButton(new GUIContent(PosingAnimationAdjustmentWindowText.ReloadButton, PosingAnimationAdjustmentWindowText.ReloadTooltip), GUILayout.Width(20)))
                     {
                         ReloadRootTYParameter();
                     }
 
                     // ×ボタン（0リセット）
-                    if (GUILayout.Button(new GUIContent(PosingAnimationAdjustmentWindowText.ResetButton, PosingAnimationAdjustmentWindowText.ResetTooltip), GUILayout.Width(20)))
+                    if (PosingSystemTextGUI.LayoutButton(new GUIContent(PosingAnimationAdjustmentWindowText.ResetButton, PosingAnimationAdjustmentWindowText.ResetTooltip), GUILayout.Width(20)))
                     {
                         Undo.RecordObject(_adjustments, "Reset RootTY adjustment");
                         _adjustments.rootTYAdjustment = 0f;
@@ -1478,7 +1479,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 _foldoutStates["Root Rotation"] = true;
             }
 
-            rootExpanded = EditorGUILayout.Foldout(rootExpanded, PosingAnimationAdjustmentWindowText.Rotation, true);
+            rootExpanded = PosingSystemTextGUI.LayoutFoldout(rootExpanded, PosingAnimationAdjustmentWindowText.Rotation, true);
             _foldoutStates["Root Rotation"] = rootExpanded;
 
             if (rootExpanded)
@@ -1516,7 +1517,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 }
 
                 EditorGUI.BeginChangeCheck();
-                var newValue = EditorGUILayout.Slider($"{axisName} ({displayName})", currentValue, min, max);
+                var newValue = PosingSystemTextGUI.LayoutSlider($"{axisName} ({displayName})", currentValue, min, max);
 
                 if (EditorGUI.EndChangeCheck())
                 {
@@ -1530,7 +1531,7 @@ namespace jp.unisakistudio.posingsystemeditor
 
                 // 限界突破トグル
                 EditorGUI.BeginChangeCheck();
-                var newLimitBreak = EditorGUILayout.ToggleLeft(new GUIContent(PosingAnimationAdjustmentWindowText.LimitBreak, PosingAnimationAdjustmentWindowText.LimitBreakTooltip), isLimitBreak, GUILayout.Width(80));
+                var newLimitBreak = PosingSystemTextGUI.LayoutToggleLeft(new GUIContent(PosingAnimationAdjustmentWindowText.LimitBreak, PosingAnimationAdjustmentWindowText.LimitBreakTooltip), isLimitBreak, GUILayout.Width(80));
                 if (EditorGUI.EndChangeCheck())
                 {
                     SetRootQLimitBreakState(axisIndex, newLimitBreak);
@@ -1551,13 +1552,13 @@ namespace jp.unisakistudio.posingsystemeditor
                 }
 
                 // Uボタン（再読込）
-                if (GUILayout.Button(new GUIContent(PosingAnimationAdjustmentWindowText.ReloadButton, PosingAnimationAdjustmentWindowText.ReloadTooltip), GUILayout.Width(20)))
+                if (PosingSystemTextGUI.LayoutButton(new GUIContent(PosingAnimationAdjustmentWindowText.ReloadButton, PosingAnimationAdjustmentWindowText.ReloadTooltip), GUILayout.Width(20)))
                 {
                     ReloadRootQParameter(axisIndex);
                 }
 
                 // ×ボタン（0リセット）
-                if (GUILayout.Button(new GUIContent(PosingAnimationAdjustmentWindowText.ResetButton, PosingAnimationAdjustmentWindowText.ResetTooltip), GUILayout.Width(20)))
+                if (PosingSystemTextGUI.LayoutButton(new GUIContent(PosingAnimationAdjustmentWindowText.ResetButton, PosingAnimationAdjustmentWindowText.ResetTooltip), GUILayout.Width(20)))
                 {
                     Undo.RecordObject(_adjustments, $"Reset RootQ {displayName} adjustment");
                     var newRootQ = rootQAdjustments;
@@ -1581,7 +1582,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 rect.width = EditorGUIUtility.labelWidth;
             }
 
-            expanded = EditorGUI.Foldout(rect, expanded, group.DisplayName, true);
+            expanded = PosingSystemTextGUI.Foldout(rect, expanded, group.DisplayName, true);
 
             if (group.HasOpposite && expanded)
             {
@@ -1589,7 +1590,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 rect.width = controlRectWidth - EditorGUIUtility.labelWidth - buttonWidth - 3;
 
                 var content = new GUIContent(string.Format(PosingAnimationAdjustmentWindowText.CopyFromOppositeFormat, group.OppositeDisplayName), PosingAnimationAdjustmentWindowText.CopyFromOppositeTooltip);
-                var pressed = GUI.Button(rect, content);
+                var pressed = PosingSystemTextGUI.Button(rect, content);
                 if (pressed)
                 {
                     var oppositeGroup = MuscleGroups[(int)group.OppositeName];
@@ -1601,7 +1602,7 @@ namespace jp.unisakistudio.posingsystemeditor
 
             rect.x = controlRectDefaultX + controlRectWidth - buttonWidth;
             rect.width = buttonWidth;
-            if (GUI.Button(rect, new GUIContent(PosingAnimationAdjustmentWindowText.ResetButton, PosingAnimationAdjustmentWindowText.ResetTooltip)))
+            if (PosingSystemTextGUI.Button(rect, new GUIContent(PosingAnimationAdjustmentWindowText.ResetButton, PosingAnimationAdjustmentWindowText.ResetTooltip)))
             {
                 ClearGroupState(group);
                 SaveCurrentAdjustmentData();
@@ -1632,7 +1633,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 {
                     var origFontStyle = EditorStyles.label.fontStyle;
                     EditorStyles.label.fontStyle = FontStyle.Bold;
-                    var newValue = EditorGUILayout.Slider(new GUIContent(label), _adjustments.adjustments[muscleIndex], actualMin, actualMax);
+                    var newValue = PosingSystemTextGUI.LayoutSlider(new GUIContent(label), _adjustments.adjustments[muscleIndex], actualMin, actualMax);
                     EditorStyles.label.fontStyle = origFontStyle;
 
                     if (EditorGUI.EndChangeCheck())
@@ -1646,7 +1647,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 }
                 else
                 {
-                    var newValue = EditorGUILayout.Slider(label, _adjustments.adjustments[muscleIndex], actualMin, actualMax);
+                    var newValue = PosingSystemTextGUI.LayoutSlider(label, _adjustments.adjustments[muscleIndex], actualMin, actualMax);
 
                     if (EditorGUI.EndChangeCheck())
                     {
@@ -1660,7 +1661,7 @@ namespace jp.unisakistudio.posingsystemeditor
 
                 // 限界突破チェックボックス
                 EditorGUI.BeginChangeCheck();
-                var newLimitBreak = EditorGUILayout.ToggleLeft(PosingAnimationAdjustmentWindowText.LimitBreak, isLimitBreak, GUILayout.Width(80));
+                var newLimitBreak = PosingSystemTextGUI.LayoutToggleLeft(PosingAnimationAdjustmentWindowText.LimitBreak, isLimitBreak, GUILayout.Width(80));
                 if (EditorGUI.EndChangeCheck())
                 {
                     SetLimitBreakState(muscleIndex, newLimitBreak);
@@ -1680,13 +1681,13 @@ namespace jp.unisakistudio.posingsystemeditor
                 }
 
                 // Uボタン（再読込）
-                if (GUILayout.Button(new GUIContent(PosingAnimationAdjustmentWindowText.ReloadButton, PosingAnimationAdjustmentWindowText.ReloadTooltip), GUILayout.Width(20), GUILayout.Height(EditorGUIUtility.singleLineHeight)))
+                if (PosingSystemTextGUI.LayoutButton(new GUIContent(PosingAnimationAdjustmentWindowText.ReloadButton, PosingAnimationAdjustmentWindowText.ReloadTooltip), GUILayout.Width(20), GUILayout.Height(EditorGUIUtility.singleLineHeight)))
                 {
                     ReloadMuscleParameter(muscleIndex);
                 }
 
                 // リセットボタン
-                if (GUILayout.Button(new GUIContent(PosingAnimationAdjustmentWindowText.ResetButton, PosingAnimationAdjustmentWindowText.ResetTooltip), GUILayout.Width(20), GUILayout.Height(EditorGUIUtility.singleLineHeight)))
+                if (PosingSystemTextGUI.LayoutButton(new GUIContent(PosingAnimationAdjustmentWindowText.ResetButton, PosingAnimationAdjustmentWindowText.ResetTooltip), GUILayout.Width(20), GUILayout.Height(EditorGUIUtility.singleLineHeight)))
                 {
                     // 値を0にリセット
                     Undo.RecordObject(_adjustments, "Reset muscle adjustment");

@@ -262,7 +262,10 @@ namespace jp.unisakistudio.posingsystemeditor
         {
             drewInspectorWarning = false;
             using (PosingSystemLocalization.ForInspector(target as PosingSystem))
+            {
+                using var complexTextScope = PosingSystemTextGUI.BeginGUI(GetInstanceID(), 0, Repaint);
                 DrawPosingInspector();
+            }
             if (Event.current.type == EventType.Repaint)
                 PosingSystemHierarchyBadge.SetInspectorWarning(GetInstanceID(), drewInspectorWarning ? target as PosingSystem : null);
         }
@@ -330,10 +333,10 @@ namespace jp.unisakistudio.posingsystemeditor
                 }
                 else
                 {
-                    EditorGUILayout.LabelField(PosingSystemLocalization.Text("ゆにさきポーズシステム"), header1Label, GUILayout.Height(30));
+                    PosingSystemTextGUI.LayoutLabelField(PosingSystemLocalization.Text("ゆにさきポーズシステム"), header1Label, GUILayout.Height(30));
 
-                    EditorGUILayout.HelpBox(PosingSystemLocalization.Text("このユーザーのゆにさきポーズシステムライセンスが見つかりません。正規の購入ページからダウンロードしたインストーラーを、このUnityプロジェクトへインポートしてください。ライセンスは、PCのユーザーごとに一度インストールします。別のPCやユーザーでは再度インストールしてください。"), MessageType.Error);
-                    if (EditorGUILayout.LinkButton(PosingSystemLocalization.Text("可愛いポーズツール(Booth)")))
+                    PosingSystemTextGUI.LayoutHelpBox(PosingSystemLocalization.Text("このユーザーのゆにさきポーズシステムライセンスが見つかりません。正規の購入ページからダウンロードしたインストーラーを、このUnityプロジェクトへインポートしてください。ライセンスは、PCのユーザーごとに一度インストールします。別のPCやユーザーでは再度インストールしてください。"), MessageType.Error);
+                    if (PosingSystemTextGUI.LayoutLinkButton(PosingSystemLocalization.Text("可愛いポーズツール(Booth)")))
                     {
                         Application.OpenURL("https://yunisaki.booth.pm/items/5479202");
                     }
@@ -347,8 +350,8 @@ namespace jp.unisakistudio.posingsystemeditor
             // 調整ウィンドウが表示されている時は何もできないようにして、ウィンドウを閉じるボタンを用意する
             if (Resources.FindObjectsOfTypeAll<PosingAnimationAdjustmentWindow>().Where(window => window.IsOpen).Count() > 0)
             {
-                EditorGUILayout.HelpBox(PosingSystemLocalization.Text("アニメーション調整ウィンドウが表示されています。調整が終わったらウィンドウを閉じてください"), MessageType.Info);
-                if (GUILayout.Button(PosingSystemLocalization.Text("アニメーション調整ウィンドウを閉じる")))
+                PosingSystemTextGUI.LayoutHelpBox(PosingSystemLocalization.Text("アニメーション調整ウィンドウが表示されています。調整が終わったらウィンドウを閉じてください"), MessageType.Info);
+                if (PosingSystemTextGUI.LayoutButton(PosingSystemLocalization.Text("アニメーション調整ウィンドウを閉じる")))
                 {
                     foreach (var window in Resources.FindObjectsOfTypeAll<PosingAnimationAdjustmentWindow>().Where(window => window.IsOpen))
                     {
@@ -372,7 +375,7 @@ namespace jp.unisakistudio.posingsystemeditor
             {
                 if (_selectedTab == InspectorTab.Settings)
                 {
-                EditorGUILayout.HelpBox(PosingSystemLocalization.Text("オブジェクトがVRC用のアバターオブジェクトの中に入っていません。このオブジェクトはVRCAvatarDescriptorコンポーネントの付いたオブジェクトの中に配置してください"), MessageType.Error);
+                PosingSystemTextGUI.LayoutHelpBox(PosingSystemLocalization.Text("オブジェクトがVRC用のアバターオブジェクトの中に入っていません。このオブジェクトはVRCAvatarDescriptorコンポーネントの付いたオブジェクトの中に配置してください"), MessageType.Error);
                 }
                 return false;
             }
@@ -390,8 +393,8 @@ namespace jp.unisakistudio.posingsystemeditor
             {
                 foreach (var existProduct in existProducts)
                 {
-                    EditorGUILayout.HelpBox(PosingSystemLocalization.Format("{0}の設定がアバターに残っています！ 不具合が発生する可能性があるので、自動で設定を取り除く機能を使用してください。また、アバター購入時にBaseLayerに設定されていたLocomotion用のAnimatorControllerがある場合は、恐れ入りますが手動で復元してお使いください。", existProduct), MessageType.Error);
-                    if (GUILayout.Button(PosingSystemLocalization.Format("{0}の設定を取り除く", existProduct)) &&
+                    PosingSystemTextGUI.LayoutHelpBox(PosingSystemLocalization.Format("{0}の設定がアバターに残っています！ 不具合が発生する可能性があるので、自動で設定を取り除く機能を使用してください。また、アバター購入時にBaseLayerに設定されていたLocomotion用のAnimatorControllerがある場合は、恐れ入りますが手動で復元してお使いください。", existProduct), MessageType.Error);
+                    if (PosingSystemTextGUI.LayoutButton(PosingSystemLocalization.Format("{0}の設定を取り除く", existProduct)) &&
                         PosingSystemLocalization.Dialog(PosingSystemLocalization.Text("旧版のアバター設定を取り除きます"), PosingSystemLocalization.Format("{0}の旧設定を取り除きます。ツールを通常アンインストールするための操作ではありません。調整内容を確認できるよう、先にプロジェクトをバックアップしてください。", existProduct), "バックアップ済み・取り除く", "キャンセル"))
                     {
                         RemoveExistProduct(avatar, existProduct);
@@ -410,8 +413,8 @@ namespace jp.unisakistudio.posingsystemeditor
             {
                 foreach (var existFolder in existFolders)
                 {
-                    EditorGUILayout.HelpBox(PosingSystemLocalization.Format("旧unitypackage版の「{0}」フォルダがプロジェクトに残っています。新版と競合する可能性があります。削除する前に移行手順とバックアップを確認してください。", existFolder), MessageType.Error);
-                    if (GUILayout.Button(PosingSystemLocalization.Format("{0}のフォルダを取り除く", existFolder)) &&
+                    PosingSystemTextGUI.LayoutHelpBox(PosingSystemLocalization.Format("旧unitypackage版の「{0}」フォルダがプロジェクトに残っています。新版と競合する可能性があります。削除する前に移行手順とバックアップを確認してください。", existFolder), MessageType.Error);
+                    if (PosingSystemTextGUI.LayoutButton(PosingSystemLocalization.Format("{0}のフォルダを取り除く", existFolder)) &&
                         PosingSystemLocalization.Dialog(PosingSystemLocalization.Text("旧版フォルダの削除を確認"), PosingSystemLocalization.Format("削除対象: {0}\nこの中のPrefabやアニメーションも削除されます。自作・調整済みデータがある場合はキャンセルし、移行手順に従ってください。バックアップなしでは元に戻せません。", existFolder), "バックアップ済み・削除する", "キャンセル"))
                     {
                         RemoveExistFolder(existFolder);
@@ -423,8 +426,8 @@ namespace jp.unisakistudio.posingsystemeditor
 
             if (avatar.autoFootsteps && troubleshootingOpen && !posingSystem.IsWarningIgnored(PosingSystem.WarningType.AutoFootsteps))
             {
-                EditorGUILayout.HelpBox(PosingSystemLocalization.Text("Auto-Footstepsはオンです。ポーズ中に意図せず足が動く場合は、下のボタンでオフにして比較できます。問題がなければ変更は不要です。"), MessageType.Info);
-                if (GUILayout.Button(PosingSystemLocalization.Text("「Use Auto-Footsteps for 3 and 4 point tracking」をオフにする")))
+                PosingSystemTextGUI.LayoutHelpBox(PosingSystemLocalization.Text("Auto-Footstepsはオンです。ポーズ中に意図せず足が動く場合は、下のボタンでオフにして比較できます。問題がなければ変更は不要です。"), MessageType.Info);
+                if (PosingSystemTextGUI.LayoutButton(PosingSystemLocalization.Text("「Use Auto-Footsteps for 3 and 4 point tracking」をオフにする")))
                 {
                     Undo.RecordObject(avatar, "Disable auto footsteps");
                     avatar.autoFootsteps = false;
@@ -439,7 +442,7 @@ namespace jp.unisakistudio.posingsystemeditor
             {
                 if (_selectedTab == InspectorTab.Settings)
                 {
-                EditorGUILayout.HelpBox(PosingSystemLocalization.Text("アバターのルートにAnimatorがありません。Inspectorの「設定の確認」の対処手順をご確認ください。"), MessageType.Error);
+                PosingSystemTextGUI.LayoutHelpBox(PosingSystemLocalization.Text("アバターのルートにAnimatorがありません。Inspectorの「設定の確認」の対処手順をご確認ください。"), MessageType.Error);
                 }
                 return false;
             }
@@ -448,7 +451,7 @@ namespace jp.unisakistudio.posingsystemeditor
             {
                 if (_selectedTab == InspectorTab.Settings)
                 {
-                EditorGUILayout.HelpBox(PosingSystemLocalization.Text("AnimatorのAvatar欄が未設定です。Inspectorの「設定の確認」の対処手順をご確認ください。"), MessageType.Error);
+                PosingSystemTextGUI.LayoutHelpBox(PosingSystemLocalization.Text("AnimatorのAvatar欄が未設定です。Inspectorの「設定の確認」の対処手順をご確認ください。"), MessageType.Error);
                 }
                 return false;
             }
@@ -457,7 +460,7 @@ namespace jp.unisakistudio.posingsystemeditor
             {
                 if (_selectedTab == InspectorTab.Settings)
                 {
-                EditorGUILayout.HelpBox(PosingSystemLocalization.Text("このアバターは人型ではありません。アバターのAnimatorにHumanoid型のAvatarが設定されていない場合はこのツールは使えません。"), MessageType.Error);
+                PosingSystemTextGUI.LayoutHelpBox(PosingSystemLocalization.Text("このアバターは人型ではありません。アバターのAnimatorにHumanoid型のAvatarが設定されていない場合はこのツールは使えません。"), MessageType.Error);
                 }
                 return false;
             }
@@ -607,7 +610,7 @@ namespace jp.unisakistudio.posingsystemeditor
                     PosingSystem.BreathingLevel.Medium);
             }
 
-            selectedIndex = EditorGUILayout.Popup(
+            selectedIndex = PosingSystemTextGUI.LayoutPopup(
                 new GUIContent(displayName.Value),
                 selectedIndex,
                 BreathingLevelLabels.Select(PosingSystemLocalization.Text).ToArray());
@@ -627,7 +630,7 @@ namespace jp.unisakistudio.posingsystemeditor
 
             using (new EditorGUI.IndentLevelScope())
             {
-                EditorGUILayout.PropertyField(
+                PosingSystemTextGUI.LayoutPropertyField(
                     clipProperty,
                     new GUIContent(PosingSystemLocalization.Text("カスタムアニメーション")));
             }

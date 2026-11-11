@@ -31,8 +31,8 @@ namespace jp.unisakistudio.posingsystemeditor
                 var title = string.IsNullOrEmpty(target.settingName) ? product.displayName : target.settingName;
                 using (new EditorGUILayout.HorizontalScope())
                 {
-                    EditorGUILayout.LabelField(new GUIContent(PosingSystemLocalization.Text(title), PosingSystemLocalization.Text("package", "パッケージID") + ": " + product.name), titleStyle, GUILayout.Height(20));
-                    GUILayout.Label(PosingSystemLocalization.Text("version", "バージョン") + " " + (product.version ?? PosingSystemLocalization.Text("unknown", "不明")), bodyStyle, GUILayout.Width(116), GUILayout.Height(20));
+                    PosingSystemTextGUI.LayoutLabelField(new GUIContent(PosingSystemLocalization.Text(title), PosingSystemLocalization.Text("package", "パッケージID") + ": " + product.name), titleStyle, GUILayout.Height(20));
+                    PosingSystemTextGUI.LayoutLabel(PosingSystemLocalization.Text("version", "バージョン") + " " + (product.version ?? PosingSystemLocalization.Text("unknown", "不明")), bodyStyle, GUILayout.Width(116), GUILayout.Height(20));
                 }
                 if (hasSeparateProduct) DrawVersion("ゆにさきポーズシステム", system);
 
@@ -51,12 +51,12 @@ namespace jp.unisakistudio.posingsystemeditor
                     EditorGUILayout.Space(6);
                     if (hasSeparateProduct)
                     {
-                        var nextTab = GUILayout.Toolbar(changelogTab, new[] { PosingSystemLocalization.Text(product.displayName), PosingSystemLocalization.Text("ゆにさきポーズシステム") }, GUILayout.Height(28));
+                        var nextTab = PosingSystemTextGUI.LayoutToolbar(changelogTab, new[] { PosingSystemLocalization.Text(product.displayName), PosingSystemLocalization.Text("ゆにさきポーズシステム") }, GUILayout.Height(28));
                         if (nextTab != changelogTab) changelogScroll = Vector2.zero;
                         changelogTab = nextTab;
                     }
                     var selected = hasSeparateProduct && changelogTab == 0 ? product : system;
-                    EditorGUILayout.LabelField(PosingSystemLocalization.Text(selected.displayName) + "  " + selected.VersionLabel, bodyStyle);
+                    PosingSystemTextGUI.LayoutLabelField(PosingSystemLocalization.Text(selected.displayName) + "  " + selected.VersionLabel, bodyStyle);
                     using (var scroll = new EditorGUILayout.ScrollViewScope(changelogScroll, GUILayout.Height(240)))
                     {
                         changelogScroll = scroll.scrollPosition;
@@ -70,7 +70,7 @@ namespace jp.unisakistudio.posingsystemeditor
 
         private void DrawVersion(string name, PosingSystemPackageInfo.Info package)
         {
-            EditorGUILayout.LabelField(new GUIContent(PosingSystemLocalization.Text(name) + "  /  " + PosingSystemLocalization.Text("version", "バージョン") + " " + (package.version ?? PosingSystemLocalization.Text("unknown", "不明")),
+            PosingSystemTextGUI.LayoutLabelField(new GUIContent(PosingSystemLocalization.Text(name) + "  /  " + PosingSystemLocalization.Text("version", "バージョン") + " " + (package.version ?? PosingSystemLocalization.Text("unknown", "不明")),
                 PosingSystemLocalization.Text("package", "パッケージID") + ": " + package.name), bodyStyle, GUILayout.Height(18));
         }
 
@@ -82,17 +82,17 @@ namespace jp.unisakistudio.posingsystemeditor
                 if (line.StartsWith("## "))
                 {
                     EditorGUILayout.Space(8);
-                    EditorGUILayout.LabelField(line.Substring(3).Replace("[", "").Replace("]", ""), releaseStyle);
+                    PosingSystemTextGUI.LayoutLabelField(line.Substring(3).Replace("[", "").Replace("]", ""), releaseStyle);
                 }
                 else if (line.StartsWith("### "))
                 {
                     EditorGUILayout.Space(4);
-                    EditorGUILayout.LabelField(line.Substring(4), releaseStyle);
+                    PosingSystemTextGUI.LayoutLabelField(line.Substring(4), releaseStyle);
                 }
                 else if (!string.IsNullOrWhiteSpace(line))
                 {
                     if (line.StartsWith("- ")) line = "• " + line.Substring(2);
-                    EditorGUILayout.LabelField(line.Replace("`", ""), bodyStyle);
+                    PosingSystemTextGUI.LayoutLabelField(line.Replace("`", ""), bodyStyle);
                 }
             }
         }

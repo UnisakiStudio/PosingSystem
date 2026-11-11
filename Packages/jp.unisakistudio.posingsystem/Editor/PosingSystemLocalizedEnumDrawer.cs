@@ -17,12 +17,13 @@ namespace jp.unisakistudio.posingsystemeditor
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
+            using var complexTextScope = PosingSystemTextGUI.BeginGUI(property.serializedObject.targetObject.GetInstanceID() ^ property.propertyPath.GetHashCode(), position.width);
             label = new GUIContent(label) { text = PosingSystemLocalization.Text(label.text), tooltip = PosingSystemLocalization.Text(label.tooltip) };
             EditorGUI.BeginProperty(position, label, property);
             try
             {
                 EditorGUI.BeginChangeCheck();
-                var selected = EditorGUI.Popup(position, label, property.enumValueIndex, Labels(property));
+                var selected = PosingSystemTextGUI.Popup(position, label, property.enumValueIndex, Labels(property));
                 if (EditorGUI.EndChangeCheck()) property.enumValueIndex = selected;
             }
             finally { EditorGUI.EndProperty(); }

@@ -112,7 +112,7 @@ namespace jp.unisakistudio.posingsystemeditor
         {
             var changed = GUI.changed;
             var current = Array.IndexOf(Codes, Language);
-            var selected = EditorGUILayout.Popup(new GUIContent("Language / 言語", Text("画面とゲーム内メニューの言語。未選択時はOSの言語を使用します。")), current, Names);
+            var selected = PosingSystemTextGUI.LayoutPopup(new GUIContent("Language / 言語", Text("画面とゲーム内メニューの言語。未選択時はOSの言語を使用します。")), current, Names);
             if (selected != current) ApplyLanguageSelection(selected, target);
             GUI.changed = changed;
         }

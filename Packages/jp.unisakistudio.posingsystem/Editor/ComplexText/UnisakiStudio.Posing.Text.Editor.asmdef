@@ -1,0 +1,15 @@
+{
+  "name": "UnisakiStudio.Posing.Text.Editor",
+  "references": [],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "overrideReferences": true,
+  "precompiledReferences": [
+    "UnisakiStudio.Posing.Text.HarfBuzzSharp.dll",
+    "UnisakiStudio.Posing.Text.RichTextKit.dll",
+    "UnisakiStudio.Posing.Text.SkiaSharp.dll",
+    "UnisakiStudio.Posing.Text.SkiaSharp.HarfBuzz.dll"
+  ],
+  "autoReferenced": false
+}

@@ -5,6 +5,22 @@ from unittest.mock import patch
 import audit_coverage as audit
 
 class CoverageGateTests(unittest.TestCase):
+    def test_shaped_facade_keeps_direct_literals_in_strict_display_scan(self):
+        for method in ['Label', 'LayoutLabelField', 'LayoutHelpBox', 'LayoutButton',
+                       'LayoutEditorToggle', 'LayoutTextField', 'LayoutSlider', 'LayoutPropertyField']:
+            with self.subTest(method=method):
+                issues = audit.display_path_issues('PosingSystemTextGUI.' + method + '("登録済み");', {'登録済み'}, set())
+                self.assertEqual([(i['kind'], i['key']) for i in issues], [('unlocalized_display_literal', '登録済み')])
+
+    def test_shaped_popup_arrays_are_still_checked_for_missing_conversion(self):
+        source = 'string[] labels={"弱","強"}; PosingSystemTextGUI.LayoutPopup("Level",index,labels);'
+        issues = audit.display_path_issues(source, {'弱', '強'}, set())
+        self.assertEqual({i['kind'] for i in issues}, {'unlocalized_popup_options'})
+
+    def test_shaped_translated_sink_and_array_projection_remain_valid(self):
+        source = 'PosingSystemTextGUI.LayoutButton(PosingSystemLocalization.Text("表示")); string[] labels={"弱","強"}; PosingSystemTextGUI.LayoutPopup("Level",index,labels.Select(PosingSystemLocalization.Text).ToArray());'
+        self.assertEqual(audit.display_path_issues(source, {'表示', '弱', '強'}, set()), [])
+
     def test_ndmf_display_name_cannot_bypass_localization_with_a_registered_literal(self):
         for expression in ['=> "登録済み" + Version;', '{ get { return "登録済み" + Version; } }']:
             source='public override string DisplayName '+expression

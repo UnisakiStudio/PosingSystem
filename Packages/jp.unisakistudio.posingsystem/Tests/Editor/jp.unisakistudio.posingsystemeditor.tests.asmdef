@@ -5,7 +5,8 @@
         "jp.unisakistudio.posingsystem",
         "jp.unisakistudio.posingsystemeditor",
         "nadena.dev.ndmf",
-        "nadena.dev.modular-avatar.core"
+        "nadena.dev.modular-avatar.core",
+        "UnisakiStudio.Posing.Text.Editor"
     ],
     "includePlatforms": [
         "Editor"

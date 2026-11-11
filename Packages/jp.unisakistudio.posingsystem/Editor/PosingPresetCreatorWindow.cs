@@ -229,27 +229,28 @@ namespace jp.unisakistudio.posingsystemeditor
         private void OnGUI()
         {
             using var languageScope = PosingSystemLocalization.ForInspector(sourcePosingSystem);
+            using var complexTextScope = PosingSystemTextGUI.BeginGUI(GetInstanceID(), 0, Repaint);
             titleContent = new GUIContent(PosingSystemLocalization.Text("プリセットを作成"));
             if (sourcePosingSystem == null)
             {
-                EditorGUILayout.HelpBox(PosingSystemLocalization.Text("ソースとなるPosingSystemが見つかりません。"), MessageType.Error);
+                PosingSystemTextGUI.LayoutHelpBox(PosingSystemLocalization.Text("ソースとなるPosingSystemが見つかりません。"), MessageType.Error);
                 return;
             }
 
             scrollPosition = EditorGUILayout.BeginScrollView(scrollPosition);
 
-            EditorGUILayout.LabelField(PosingSystemLocalization.Text("プリセット作成設定"), EditorStyles.boldLabel);
+            PosingSystemTextGUI.LayoutLabelField(PosingSystemLocalization.Text("プリセット作成設定"), EditorStyles.boldLabel);
             EditorGUILayout.Space();
 
-            EditorGUILayout.HelpBox(PosingSystemLocalization.Format("アニメーション調節機能を使用して姿勢をアバターに合わせたデータを、別のアバターデータでも使用したい場合は、プリセットを作成すると便利です。PrefabsやFBXを登録してプリセットを作成すると、そのアバターに{0}を追加した時に自動でプリセットが適用されるようになります。また、作成したプリセットは公開、配付、販売が可能です。", sourcePosingSystem.name), MessageType.None);
+            PosingSystemTextGUI.LayoutHelpBox(PosingSystemLocalization.Format("アニメーション調節機能を使用して姿勢をアバターに合わせたデータを、別のアバターデータでも使用したい場合は、プリセットを作成すると便利です。PrefabsやFBXを登録してプリセットを作成すると、そのアバターに{0}を追加した時に自動でプリセットが適用されるようになります。また、作成したプリセットは公開、配付、販売が可能です。", sourcePosingSystem.name), MessageType.None);
             EditorGUILayout.Space();
 
             // アバター名
-            avatarName = EditorGUILayout.TextField(PosingSystemLocalization.Text("アバター名"), avatarName);
+            avatarName = PosingSystemTextGUI.LayoutTextField(PosingSystemLocalization.Text("アバター名"), avatarName);
 
             EditorGUILayout.Space();
-            EditorGUILayout.LabelField(PosingSystemLocalization.Text("アバターデータフォルダの自動検出"), EditorStyles.boldLabel);
-            if (GUILayout.Button(PosingSystemLocalization.Text("自動検出")))
+            PosingSystemTextGUI.LayoutLabelField(PosingSystemLocalization.Text("アバターデータフォルダの自動検出"), EditorStyles.boldLabel);
+            if (PosingSystemTextGUI.LayoutButton(PosingSystemLocalization.Text("自動検出")))
             {
                 targetAvatarPrefabs.Clear();
                 targetGameObjectNames.Clear();
@@ -257,12 +258,12 @@ namespace jp.unisakistudio.posingsystemeditor
             }
 
             EditorGUILayout.Space();
-            EditorGUILayout.LabelField(PosingSystemLocalization.Text("適用するPrefabs (PosingSystem)"), EditorStyles.boldLabel);
+            PosingSystemTextGUI.LayoutLabelField(PosingSystemLocalization.Text("適用するPrefabs (PosingSystem)"), EditorStyles.boldLabel);
             DrawGameObjectList(applicablePrefabs);
 
             EditorGUILayout.Space();
-            EditorGUILayout.LabelField(PosingSystemLocalization.Text("配置対象のアバターPrefabs/FBX"), EditorStyles.boldLabel);
-            if (GUILayout.Button(PosingSystemLocalization.Text("Projectで選択中のPrefabを追加")))
+            PosingSystemTextGUI.LayoutLabelField(PosingSystemLocalization.Text("配置対象のアバターPrefabs/FBX"), EditorStyles.boldLabel);
+            if (PosingSystemTextGUI.LayoutButton(PosingSystemLocalization.Text("Projectで選択中のPrefabを追加")))
             {
                 foreach (var obj in Selection.objects)
                 {
@@ -278,8 +279,8 @@ namespace jp.unisakistudio.posingsystemeditor
             DrawGameObjectList(targetAvatarPrefabs);
 
             EditorGUILayout.Space();
-            EditorGUILayout.LabelField(PosingSystemLocalization.Text("配置対象のアバターPrefab/FBXのファイル名"), EditorStyles.boldLabel);
-            if (GUILayout.Button(PosingSystemLocalization.Text("Projectで選択中のファイル名を追加")))
+            PosingSystemTextGUI.LayoutLabelField(PosingSystemLocalization.Text("配置対象のアバターPrefab/FBXのファイル名"), EditorStyles.boldLabel);
+            if (PosingSystemTextGUI.LayoutButton(PosingSystemLocalization.Text("Projectで選択中のファイル名を追加")))
             {
                 foreach (var obj in Selection.objects)
                 {
@@ -293,7 +294,7 @@ namespace jp.unisakistudio.posingsystemeditor
 
             EditorGUILayout.Space(20);
 
-            if (GUILayout.Button(PosingSystemLocalization.Text("プリセットを作成"), GUILayout.Height(40)))
+            if (PosingSystemTextGUI.LayoutButton(PosingSystemLocalization.Text("プリセットを作成"), GUILayout.Height(40)))
             {
                 CreatePreset();
             }
@@ -306,15 +307,15 @@ namespace jp.unisakistudio.posingsystemeditor
             for (int i = 0; i < list.Count; i++)
             {
                 EditorGUILayout.BeginHorizontal();
-                list[i] = (GameObject)EditorGUILayout.ObjectField(list[i], typeof(GameObject), false);
-                if (GUILayout.Button("-", GUILayout.Width(20)))
+                list[i] = (GameObject)PosingSystemTextGUI.LayoutObjectField(list[i], typeof(GameObject), false);
+                if (PosingSystemTextGUI.LayoutButton("-", GUILayout.Width(20)))
                 {
                     list.RemoveAt(i);
                     i--;
                 }
                 EditorGUILayout.EndHorizontal();
             }
-            if (GUILayout.Button("+", GUILayout.Width(20)))
+            if (PosingSystemTextGUI.LayoutButton("+", GUILayout.Width(20)))
             {
                 list.Add(null);
             }
@@ -325,15 +326,15 @@ namespace jp.unisakistudio.posingsystemeditor
             for (int i = 0; i < list.Count; i++)
             {
                 EditorGUILayout.BeginHorizontal();
-                list[i] = EditorGUILayout.TextField(list[i]);
-                if (GUILayout.Button("-", GUILayout.Width(20)))
+                list[i] = PosingSystemTextGUI.LayoutTextField(list[i]);
+                if (PosingSystemTextGUI.LayoutButton("-", GUILayout.Width(20)))
                 {
                     list.RemoveAt(i);
                     i--;
                 }
                 EditorGUILayout.EndHorizontal();
             }
-            if (GUILayout.Button("+", GUILayout.Width(20)))
+            if (PosingSystemTextGUI.LayoutButton("+", GUILayout.Width(20)))
             {
                 list.Add("");
             }

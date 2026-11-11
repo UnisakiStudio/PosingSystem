@@ -94,7 +94,10 @@ def display_path_issues(text, known, invariants, exceptions=None):
         for offset, value in literals(start, end):
             if JAPANESE.search(value) and value not in invariants and not is_protected(offset):
                 add(offset, value, 'unlocalized_plugin_display_name')
-    ui = r'(?:(?:EditorGUI|EditorGUILayout|GUI|GUILayout)\.(?:Label|LabelField|HelpBox|Button|ToggleLeft|Toggle|Foldout|Popup|LinkButton|TextField|ObjectField|IntField|FloatField|EnumPopup)|EditorUtility\.(?:DisplayDialog|DisplayDialogComplex|DisplayProgressBar)|new\s+GUIContent)'
+    # The shaped-text facade remains a display sink. Moving a control through
+    # it must never make an unlocalized literal or local popup array invisible.
+    controls = r'(?:Label|LabelField|HelpBox|Button|ToggleLeft|EditorToggle|Toggle|Foldout|Popup|LinkButton|TextField|ObjectField|IntField|FloatField|EnumPopup|PropertyField|Slider|Vector3Field|SelectionGrid|Toolbar)'
+    ui = r'(?:(?:EditorGUI|EditorGUILayout|GUI|GUILayout)\.' + controls + r'|PosingSystemTextGUI\.(?:Layout)?' + controls + r'|EditorUtility\.(?:DisplayDialog|DisplayDialogComplex|DisplayProgressBar)|new\s+GUIContent)'
     ui_calls=[]
     for call in re.finditer(ui+r'\s*\(',text):
         args,end=call_arguments(text,call.end()-1)

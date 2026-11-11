@@ -80,10 +80,10 @@ namespace jp.unisakistudio.posingsystemeditor
             var updateStyle = new GUIStyle(GUI.skin.button) { wordWrap = true };
             var detailsLabel = PosingSystemLocalization.Text(showDetails ? "閉じる" : "詳細");
             var detailsStyle = PosingSystemInspectorGUI.Text(11);
-            var titleWidth = Mathf.Max(76, label.CalcSize(title).x + 4);
-            var statusWidth = statusLabel.CalcSize(statusContent).x + 4;
-            var updateWidth = Mathf.Max(120, updateStyle.CalcSize(update).x);
-            var detailsWidth = Mathf.Max(34, detailsStyle.CalcSize(new GUIContent(detailsLabel)).x + 4);
+            var titleWidth = Mathf.Max(76, PosingSystemTextGUI.MeasureWidth((title).text, label) + 4);
+            var statusWidth = PosingSystemTextGUI.MeasureWidth((statusContent).text, statusLabel) + 4;
+            var updateWidth = Mathf.Max(120, PosingSystemTextGUI.MeasureWidth((update).text, updateStyle));
+            var detailsWidth = Mathf.Max(34, PosingSystemTextGUI.MeasureWidth((new GUIContent(detailsLabel)).text, detailsStyle) + 4);
             // currentViewWidth is stable during Layout/Repaint. Leave room for the
             // Inspector scrollbar, help-box padding and the surrounding margins.
             var availableWidth = Mathf.Max(80, EditorGUIUtility.currentViewWidth - 36 - EditorGUI.indentLevel * 15);
@@ -97,14 +97,14 @@ namespace jp.unisakistudio.posingsystemeditor
                     {
                         var wrappedTitleWidth = Mathf.Min(titleWidth, availableWidth * .45f);
                         var wrappedStatusWidth = Mathf.Max(20, availableWidth - wrappedTitleWidth - 8);
-                        var headerHeight = Mathf.Max(24, label.CalcHeight(title, wrappedTitleWidth), statusLabel.CalcHeight(statusContent, wrappedStatusWidth));
-                        GUILayout.Label(title, label, GUILayout.Width(wrappedTitleWidth), GUILayout.Height(headerHeight));
-                        GUILayout.Label(statusContent, statusLabel, GUILayout.ExpandWidth(true), GUILayout.Height(headerHeight));
+                        var headerHeight = Mathf.Max(24, PosingSystemTextGUI.MeasureHeight((title).text, label, wrappedTitleWidth), PosingSystemTextGUI.MeasureHeight((statusContent).text, statusLabel, wrappedStatusWidth));
+                        PosingSystemTextGUI.LayoutLabel(title, label, GUILayout.Width(wrappedTitleWidth), GUILayout.Height(headerHeight));
+                        PosingSystemTextGUI.LayoutLabel(statusContent, statusLabel, GUILayout.ExpandWidth(true), GUILayout.Height(headerHeight));
                     }
                     else
                     {
-                        GUILayout.Label(title, label, GUILayout.Width(titleWidth), GUILayout.Height(24));
-                        GUILayout.Label(statusContent, statusLabel, GUILayout.MinWidth(statusWidth), GUILayout.ExpandWidth(true), GUILayout.Height(24));
+                        PosingSystemTextGUI.LayoutLabel(title, label, GUILayout.Width(titleWidth), GUILayout.Height(24));
+                        PosingSystemTextGUI.LayoutLabel(statusContent, statusLabel, GUILayout.MinWidth(statusWidth), GUILayout.ExpandWidth(true), GUILayout.Height(24));
                         DrawUpdate(updateWidth, 24);
                         DrawDetails(24);
                     }
@@ -113,44 +113,44 @@ namespace jp.unisakistudio.posingsystemeditor
                     using (new EditorGUILayout.HorizontalScope())
                     {
                         var wrappedUpdateWidth = Mathf.Min(updateWidth, Mathf.Max(40, availableWidth - detailsWidth - 8));
-                        var actionHeight = Mathf.Max(24, updateStyle.CalcHeight(update, wrappedUpdateWidth));
+                        var actionHeight = Mathf.Max(24, PosingSystemTextGUI.MeasureHeight((update).text, updateStyle, wrappedUpdateWidth));
                         DrawUpdate(wrappedUpdateWidth, actionHeight);
                         GUILayout.FlexibleSpace();
                         DrawDetails(actionHeight);
                     }
                 if (state == BuildState.AvatarRequired)
-                    EditorGUILayout.HelpBox(PosingSystemLocalization.Text("プレビルドを実行できません。Inspectorの「設定の確認」で、アバターの配置・Animator・Humanoidの設定を確認してください。"), MessageType.Info);
+                    PosingSystemTextGUI.LayoutHelpBox(PosingSystemLocalization.Text("プレビルドを実行できません。Inspectorの「設定の確認」で、アバターの配置・Animator・Humanoidの設定を確認してください。"), MessageType.Info);
                 if (showDetails)
                 {
-                if (state == BuildState.Outdated && GUILayout.Button(PosingSystemLocalization.Text("保存時から変わった項目を確認")))
+                if (state == BuildState.Outdated && PosingSystemTextGUI.LayoutButton(PosingSystemLocalization.Text("保存時から変わった項目を確認")))
                 {
                     var paths = ChangedInputs(ps);
                     if (PosingSystemLocalization.Dialog("保存時と異なるプレビルドの設定項目", paths,
                         "この警告について相談する", "閉じる")) PosingSystemSupportReport.OpenPrebuild(paths);
                 }
-                GUILayout.Label(PosingSystemLocalization.Text("設定を先に生成して、アバターのビルド時間を短縮します。"), note);
+                PosingSystemTextGUI.LayoutLabel(PosingSystemLocalization.Text("設定を先に生成して、アバターのビルド時間を短縮します。"), note);
                 using (new EditorGUILayout.HorizontalScope())
                 {
                     using (new EditorGUI.DisabledScope(state != BuildState.Ready || ps.isIconDisabled || PosingSystemEditor.IsAndroidBuildTarget() || EditorApplication.isPlaying))
                     {
-                        if (GUILayout.Button(new GUIContent(PosingSystemLocalization.Text("アイコンを撮り直す"), PosingSystemLocalization.Text("衣装や見た目を変えたときに使います。設定を変えたときはプレビルドしてください。")), GUILayout.Height(20)))
+                        if (PosingSystemTextGUI.LayoutButton(new GUIContent(PosingSystemLocalization.Text("アイコンを撮り直す"), PosingSystemLocalization.Text("衣装や見た目を変えたときに使います。設定を変えたときはプレビルドしてください。")), GUILayout.Height(20)))
                         {
                             PosingSystemEditor.TryRenewAvatar(ps);
                             serialized.Update();
                             GUIUtility.ExitGUI();
                         }
                     }
-                    if (GUILayout.Button(PosingSystemLocalization.Text(showImages ? "画像ファイル・補足を閉じる" : "画像ファイル・補足"), GUILayout.Height(20))) showImages = !showImages;
+                    if (PosingSystemTextGUI.LayoutButton(PosingSystemLocalization.Text(showImages ? "画像ファイル・補足を閉じる" : "画像ファイル・補足"), GUILayout.Height(20))) showImages = !showImages;
                 }
                 if (showImages)
                 {
                     using (new EditorGUILayout.HorizontalScope())
                     {
                         using (new EditorGUI.DisabledScope(true))
-                            EditorGUILayout.ObjectField(PosingSystemLocalization.Text("画像ファイル"), ps.thumbnailPackObject, typeof(PosingSystemThumbnailPack), false);
+                            PosingSystemTextGUI.LayoutObjectField(PosingSystemLocalization.Text("画像ファイル"), ps.thumbnailPackObject, typeof(PosingSystemThumbnailPack), false);
                         using (new EditorGUI.DisabledScope(ps.thumbnailPackObject == null))
                         {
-                            if (GUILayout.Button(PosingSystemLocalization.Text("削除"), GUILayout.Width(44)) && PosingSystemLocalization.Dialog(PosingSystemLocalization.Text("アイコン画像ファイルを削除"),
+                            if (PosingSystemTextGUI.LayoutButton(PosingSystemLocalization.Text("削除"), GUILayout.Width(44)) && PosingSystemLocalization.Dialog(PosingSystemLocalization.Text("アイコン画像ファイルを削除"),
                                     PosingSystemLocalization.Text("生成済みの画像ファイルを削除します。削除後は「アイコンを撮り直す」で再生成できます。"), "削除する", "キャンセル"))
                             {
                                 Undo.RecordObject(ps, "Delete thumbnail pack");
@@ -162,7 +162,7 @@ namespace jp.unisakistudio.posingsystemeditor
                             }
                         }
                     }
-                    GUILayout.Label(PosingSystemLocalization.Text("Modular Avatarで追加した衣装などは、アバターのビルド時に撮影し直したアイコンへ反映されます。"), note);
+                    PosingSystemTextGUI.LayoutLabel(PosingSystemLocalization.Text("Modular Avatarで追加した衣装などは、アバターのビルド時に撮影し直したアイコンへ反映されます。"), note);
                 }
             }
             }
@@ -172,7 +172,7 @@ namespace jp.unisakistudio.posingsystemeditor
             {
                 using (new EditorGUI.DisabledScope(state == BuildState.AvatarRequired || EditorApplication.isCompiling || EditorApplication.isPlaying))
                 {
-                    if (!GUILayout.Button(update, updateStyle, GUILayout.Width(width), GUILayout.Height(height))) return;
+                    if (!PosingSystemTextGUI.LayoutButton(update, updateStyle, GUILayout.Width(width), GUILayout.Height(height))) return;
                     PosingSystemEditorChangeUtility.Commit(serialized);
                     PosingSystemEditor.TryPrebuildAndRenew(ps);
                     serialized.Update();

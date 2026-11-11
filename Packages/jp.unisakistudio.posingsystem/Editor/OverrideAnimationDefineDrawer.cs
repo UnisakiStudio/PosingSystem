@@ -20,6 +20,7 @@ namespace jp.unisakistudio.posingsystemeditor
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
+            using var complexTextScope = PosingSystemTextGUI.BeginGUI(property.serializedObject.targetObject.GetInstanceID() ^ property.propertyPath.GetHashCode(), position.width);
             // 各プロパティを取得
             var stateTypeProperty = property.FindPropertyRelative("stateType");
             var previewImageProperty = property.FindPropertyRelative("previewImage");
@@ -33,7 +34,7 @@ namespace jp.unisakistudio.posingsystemeditor
             var lineRect = new Rect(position.x, position.y, position.width, EditorGUIUtility.singleLineHeight);
 
             // 1行目: 種別を選択
-            EditorGUI.PropertyField(lineRect, stateTypeProperty, GUIContent.none);
+            PosingSystemTextGUI.PropertyField(lineRect, stateTypeProperty, GUIContent.none);
             position.y += EditorGUIUtility.singleLineHeight;
 
             // 2行目以降: 左側にアイコン、右側に設定項目
@@ -59,7 +60,7 @@ namespace jp.unisakistudio.posingsystemeditor
             // 2行目: アニメーション
             var animLabelRect = new Rect(contentRect.x, contentRect.y, AnimationLabelWidth, contentRect.height);
             var animFieldRect = new Rect(animLabelRect.xMax, contentRect.y, contentRect.width - AnimationLabelWidth, contentRect.height);
-            EditorGUI.LabelField(animLabelRect, PosingSystemLocalization.Text("アニメーション"));
+            PosingSystemTextGUI.LabelField(animLabelRect, PosingSystemLocalization.Text("アニメーション"));
             EditorGUI.ObjectField(animFieldRect, animationClipProperty, typeof(Motion), new GUIContent(""));
             contentRect.y += EditorGUIUtility.singleLineHeight;
 
@@ -68,7 +69,7 @@ namespace jp.unisakistudio.posingsystemeditor
             var motionTimeLabelRect = new Rect(motionTimeToggleRect.xMax, contentRect.y, MotionTimeLabelWidth, contentRect.height);
             var motionTimeFieldRect = new Rect(motionTimeLabelRect.xMax, contentRect.y, contentRect.width - (motionTimeLabelRect.xMax - contentRect.x), contentRect.height);
             isMotionTimeProperty.boolValue = EditorGUI.Toggle(motionTimeToggleRect, isMotionTimeProperty.boolValue);
-            EditorGUI.LabelField(motionTimeLabelRect, "motionTime");
+            PosingSystemTextGUI.LabelField(motionTimeLabelRect, "motionTime");
             if (isMotionTimeProperty.boolValue)
             {
                 motionTimeParamNameProperty.stringValue = EditorGUI.TextField(motionTimeFieldRect, motionTimeParamNameProperty.stringValue);
@@ -80,7 +81,7 @@ namespace jp.unisakistudio.posingsystemeditor
             var rotateLabelRect = new Rect(rotateToggleRect.xMax, contentRect.y, RotateLabelWidth, contentRect.height);
             var rotateFieldRect = new Rect(rotateLabelRect.xMax, contentRect.y, contentRect.width - (rotateLabelRect.xMax - contentRect.x), contentRect.height);
             isRotateProperty.boolValue = EditorGUI.Toggle(rotateToggleRect, isRotateProperty.boolValue);
-            EditorGUI.LabelField(rotateLabelRect, PosingSystemLocalization.Text("回転角度(360度)"));
+            PosingSystemTextGUI.LabelField(rotateLabelRect, PosingSystemLocalization.Text("回転角度(360度)"));
             if (isRotateProperty.boolValue)
             {
                 rotateProperty.intValue = EditorGUI.IntField(rotateFieldRect, rotateProperty.intValue);

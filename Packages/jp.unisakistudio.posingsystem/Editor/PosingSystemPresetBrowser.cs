@@ -55,8 +55,8 @@ namespace jp.unisakistudio.posingsystemeditor
             if (showBrowser)
             {
             EditorGUILayout.BeginHorizontal();
-            EditorGUILayout.LabelField(PosingSystemLocalization.Text("プリセット選択"), EditorStyles.boldLabel);
-            if (GUILayout.Button(PosingSystemLocalization.Text("再読込"), GUILayout.Width(72)))
+            PosingSystemTextGUI.LayoutLabelField(PosingSystemLocalization.Text("プリセット選択"), EditorStyles.boldLabel);
+            if (PosingSystemTextGUI.LayoutButton(PosingSystemLocalization.Text("再読込"), GUILayout.Width(72)))
             {
                 try
                 {
@@ -69,11 +69,11 @@ namespace jp.unisakistudio.posingsystemeditor
                 }
             }
             EditorGUILayout.EndHorizontal();
-            EditorGUILayout.LabelField(PosingSystemLocalization.Text("一覧は追加・変更時に更新されます。表示が変わらない場合は「再読込」を押してください。"), EditorStyles.wordWrappedMiniLabel);
+            PosingSystemTextGUI.LayoutLabelField(PosingSystemLocalization.Text("一覧は追加・変更時に更新されます。表示が変わらない場合は「再読込」を押してください。"), EditorStyles.wordWrappedMiniLabel);
             if (catalog != null)
             {
                 EditorGUI.BeginChangeCheck();
-                var hideBundled = EditorGUILayout.ToggleLeft(new GUIContent(PosingSystemLocalization.Text("同梱プリセットを表示しない"),
+                var hideBundled = PosingSystemTextGUI.LayoutToggleLeft(new GUIContent(PosingSystemLocalization.Text("同梱プリセットを表示しない"),
                     PosingSystemLocalization.Text("ツールに同梱された公式プリセットを一覧と検索結果に表示しません。同じプロジェクト内のアバターで共有する設定です。")),
                     catalog.hideBundledPresets);
                 if (EditorGUI.EndChangeCheck())
@@ -81,19 +81,19 @@ namespace jp.unisakistudio.posingsystemeditor
                     PosingSystemPresetDefinesCache.SetHideBundledPresets(hideBundled);
                 }
             }
-            search = EditorGUILayout.TextField(PosingSystemLocalization.Text("名前で検索"), search);
+            search = PosingSystemTextGUI.LayoutTextField(PosingSystemLocalization.Text("名前で検索"), search);
             list.SetFilter(search, catalog != null && catalog.hideBundledPresets);
             list.OnGUI(GUILayoutUtility.GetRect(0, 240, GUILayout.ExpandWidth(true)));
 
             if (catalog != null && list.MatchCount == 0)
-                EditorGUILayout.HelpBox(PosingSystemLocalization.Text("該当するプリセットがありません。"), MessageType.Info);
+                PosingSystemTextGUI.LayoutHelpBox(PosingSystemLocalization.Text("該当するプリセットがありません。"), MessageType.Info);
             }
-            if (selected != null) EditorGUILayout.LabelField(PosingSystemLocalization.Text(selected.avatarName), PosingSystemInspectorGUI.Text(12, true));
+            if (selected != null) PosingSystemTextGUI.LayoutLabelField(PosingSystemLocalization.Text(selected.avatarName), PosingSystemInspectorGUI.Text(12, true));
             if (!string.IsNullOrEmpty(error)) drawWarning(error);
 
             using (new EditorGUI.DisabledScope(selected == null))
             {
-                if (GUILayout.Button(PosingSystemLocalization.Text(selected == null ? "プリセットを選択してください" : "このプリセットに変更する")))
+                if (PosingSystemTextGUI.LayoutButton(PosingSystemLocalization.Text(selected == null ? "プリセットを選択してください" : "このプリセットに変更する")))
                 {
                     if (PosingSystemPresetDefinesCache.ApplyPreset(posingSystem, selected))
                     {
@@ -233,7 +233,7 @@ namespace jp.unisakistudio.posingsystemeditor
             {
                 base.RowGUI(args);
                 if (entryById.TryGetValue(args.item.id, out var entry))
-                    GUI.Label(args.rowRect, new GUIContent("", entry.sourcePath), GUIStyle.none);
+                    PosingSystemTextGUI.Label(args.rowRect, new GUIContent("", entry.sourcePath), GUIStyle.none);
             }
 
             private void Rebuild()

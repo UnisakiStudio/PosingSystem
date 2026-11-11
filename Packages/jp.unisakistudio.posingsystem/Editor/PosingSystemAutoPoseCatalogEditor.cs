@@ -11,21 +11,21 @@ namespace jp.unisakistudio.posingsystemeditor
         public static Vector3 PositionOffsetField(Vector3 offset, ref bool x, ref bool y, ref bool z,
             PosingSystemAutoPosePositionSpace space = PosingSystemAutoPosePositionSpace.ReferenceLocal)
         {
-            EditorGUILayout.LabelField(PosingSystemLocalization.Text("位置（選んだ長さを1とする比率）"));
+            PosingSystemTextGUI.LayoutLabelField(PosingSystemLocalization.Text("位置（選んだ長さを1とする比率）"));
             Axis("X", ref x, ref offset.x);
             Axis("Y", ref y, ref offset.y);
             Axis("Z", ref z, ref offset.z);
-            EditorGUILayout.LabelField(space == PosingSystemAutoPosePositionSpace.World
+            PosingSystemTextGUI.LayoutLabelField(space == PosingSystemAutoPosePositionSpace.World
                 ? PosingSystemLocalization.Text("ワールドの軸に沿って移動します。オフの軸は元の姿勢の位置を保ちます。")
                 : PosingSystemLocalization.Text("基準の向きに沿って移動します。オフの軸は元の姿勢の位置を保ちます。"), EditorStyles.wordWrappedMiniLabel);
-            EditorGUILayout.LabelField(PosingSystemLocalization.Text("スライダーは−1〜1。範囲外の値も数値欄に入力できます。"), EditorStyles.wordWrappedMiniLabel);
+            PosingSystemTextGUI.LayoutLabelField(PosingSystemLocalization.Text("スライダーは−1〜1。範囲外の値も数値欄に入力できます。"), EditorStyles.wordWrappedMiniLabel);
             return offset;
 
             void Axis(string label, ref bool enabled, ref float value)
             {
                 using (new EditorGUILayout.HorizontalScope())
                 {
-                    enabled = EditorGUILayout.ToggleLeft(label, enabled, GUILayout.Width(36));
+                    enabled = PosingSystemTextGUI.LayoutToggleLeft(label, enabled, GUILayout.Width(36));
                     using (new EditorGUI.DisabledScope(!enabled))
                     {
                         // Only a slider interaction may clamp to its range. Repaints and edits
@@ -57,7 +57,7 @@ namespace jp.unisakistudio.posingsystemeditor
         {
             var index = useViewPosition ? TargetBones.Length : Array.IndexOf(TargetBones, current);
             if (index < 0) index = Math.Max(0, Array.IndexOf(TargetBones, HumanBodyBones.Hips));
-            var selected = EditorGUILayout.Popup(label, index, TargetAnchorLabels);
+            var selected = PosingSystemTextGUI.LayoutPopup(label, index, TargetAnchorLabels);
             useViewPosition = selected == TargetBones.Length;
             return useViewPosition ? current : TargetBones[Mathf.Clamp(selected, 0, TargetBones.Length - 1)];
         }
@@ -69,7 +69,7 @@ namespace jp.unisakistudio.posingsystemeditor
             {
                 index = Math.Max(0, Array.IndexOf(TargetBones, HumanBodyBones.Hips));
             }
-            var selected = EditorGUILayout.Popup(label, index, TargetBoneLabels);
+            var selected = PosingSystemTextGUI.LayoutPopup(label, index, TargetBoneLabels);
             return TargetBones[Mathf.Clamp(selected, 0, TargetBones.Length - 1)];
         }
 
@@ -126,42 +126,43 @@ namespace jp.unisakistudio.posingsystemeditor
 
         public override void OnInspectorGUI()
         {
+            using var complexTextScope = PosingSystemTextGUI.BeginGUI(GetInstanceID(), 0, Repaint);
             serializedObject.Update();
 
-            EditorGUILayout.HelpBox(
+            PosingSystemTextGUI.LayoutHelpBox(
                 PosingSystemLocalization.Text("商品に収録する各姿勢について、手や足をどこへ置くかを記録する開発用データです。") +
                 PosingSystemLocalization.Text("アバターごとの設定ではなく、1つの商品につき1ファイルを作成します。"),
                 MessageType.Info);
 
-            EditorGUILayout.PropertyField(_productName, new GUIContent(
+            PosingSystemTextGUI.LayoutPropertyField(_productName, new GUIContent(
                 PosingSystemLocalization.Text("商品名"),
                 PosingSystemLocalization.Text("このIK設定を使用する商品名です。")));
             using (new EditorGUI.DisabledScope(true))
             {
-                EditorGUILayout.PropertyField(_formatVersion, new GUIContent(
+                PosingSystemTextGUI.LayoutPropertyField(_formatVersion, new GUIContent(
                     PosingSystemLocalization.Text("データ形式のバージョン"),
                     PosingSystemLocalization.Text("内部的な互換性管理に使います。通常は変更しません。")));
             }
 
-            EditorGUILayout.PropertyField(_productionReady, new GUIContent(
+            PosingSystemTextGUI.LayoutPropertyField(_productionReady, new GUIContent(
                 PosingSystemLocalization.Text("公開用として有効"),
                 PosingSystemLocalization.Text("有効にすると従来の調整Animationを無視し、このIK設定から自動調整Animationを生成します。")));
 
             if (_productionReady.boolValue)
             {
-                EditorGUILayout.HelpBox(
+                PosingSystemTextGUI.LayoutHelpBox(
                     PosingSystemLocalization.Text("公開用として有効です。カタログを参照する商品では、従来の姿勢別調整Animationとアバター固有補正が使用されません。設定漏れの姿勢がないことを確認してください。"),
                     MessageType.Warning);
             }
             else
             {
-                EditorGUILayout.HelpBox(
+                PosingSystemTextGUI.LayoutHelpBox(
                     PosingSystemLocalization.Text("現在は制作中です。商品Prefabから参照されていても、従来の調整Animationが引き続き使用されます。"),
                     MessageType.None);
             }
 
             EditorGUILayout.Space();
-            _poses.isExpanded = EditorGUILayout.Foldout(
+            _poses.isExpanded = PosingSystemTextGUI.LayoutFoldout(
                 _poses.isExpanded,
                 PosingSystemLocalization.Format("姿勢別IK設定一覧（{0}件）", _poses.arraySize),
                 true);
@@ -173,7 +174,7 @@ namespace jp.unisakistudio.posingsystemeditor
                     DrawPose(_poses.GetArrayElementAtIndex(poseIndex), poseIndex);
                 }
 
-                if (GUILayout.Button(PosingSystemLocalization.Text("姿勢設定を追加")))
+                if (PosingSystemTextGUI.LayoutButton(PosingSystemLocalization.Text("姿勢設定を追加")))
                 {
                     AddPose();
                 }
@@ -197,8 +198,8 @@ namespace jp.unisakistudio.posingsystemeditor
                     var title = string.IsNullOrEmpty(poseKey.stringValue)
                         ? PosingSystemLocalization.Format("姿勢 {0}", poseIndex + 1)
                         : poseKey.stringValue;
-                    pose.isExpanded = EditorGUILayout.Foldout(pose.isExpanded, title, true);
-                    if (GUILayout.Button(PosingSystemLocalization.Text("削除"), GUILayout.Width(48f)))
+                    pose.isExpanded = PosingSystemTextGUI.LayoutFoldout(pose.isExpanded, title, true);
+                    if (PosingSystemTextGUI.LayoutButton(PosingSystemLocalization.Text("削除"), GUILayout.Width(48f)))
                     {
                         PosingSystemEditorChangeUtility.DeleteArrayElement(_poses, poseIndex);
                         GUIUtility.ExitGUI();
@@ -210,17 +211,17 @@ namespace jp.unisakistudio.posingsystemeditor
                     return;
                 }
 
-                EditorGUILayout.PropertyField(poseKey, new GUIContent(
+                PosingSystemTextGUI.LayoutPropertyField(poseKey, new GUIContent(
                     PosingSystemLocalization.Text("姿勢の識別キー"),
                     PosingSystemLocalization.Text("通常は「メニュー名_姿勢名」です。調整ウィンドウから追加すると自動入力されます。")));
-                EditorGUILayout.PropertyField(sourceAnimation, new GUIContent(
+                PosingSystemTextGUI.LayoutPropertyField(sourceAnimation, new GUIContent(
                     PosingSystemLocalization.Text("元の姿勢Animation"),
                     PosingSystemLocalization.Text("IKで補正する前の基準姿勢です。")));
-                EditorGUILayout.PropertyField(solveIterations, new GUIContent(
+                PosingSystemTextGUI.LayoutPropertyField(solveIterations, new GUIContent(
                     PosingSystemLocalization.Text("計算の反復回数"),
                     PosingSystemLocalization.Text("複数の手足を解き直す回数です。通常は2回です。")));
 
-                limbRules.isExpanded = EditorGUILayout.Foldout(
+                limbRules.isExpanded = PosingSystemTextGUI.LayoutFoldout(
                     limbRules.isExpanded,
                     PosingSystemLocalization.Format("手足のIKルール（{0}件）", limbRules.arraySize),
                     true);
@@ -231,7 +232,7 @@ namespace jp.unisakistudio.posingsystemeditor
                     {
                         DrawRule(limbRules, ruleIndex);
                     }
-                    if (GUILayout.Button(PosingSystemLocalization.Text("手足のIKルールを追加")))
+                    if (PosingSystemTextGUI.LayoutButton(PosingSystemLocalization.Text("手足のIKルールを追加")))
                     {
                         AddRule(limbRules);
                     }
@@ -251,8 +252,8 @@ namespace jp.unisakistudio.posingsystemeditor
                     var title = string.IsNullOrEmpty(label.stringValue)
                         ? PosingSystemLocalization.Format("IKルール {0}", ruleIndex + 1)
                         : label.stringValue;
-                    rule.isExpanded = EditorGUILayout.Foldout(rule.isExpanded, title, true);
-                    if (GUILayout.Button(PosingSystemLocalization.Text("削除"), GUILayout.Width(48f)))
+                    rule.isExpanded = PosingSystemTextGUI.LayoutFoldout(rule.isExpanded, title, true);
+                    if (PosingSystemTextGUI.LayoutButton(PosingSystemLocalization.Text("削除"), GUILayout.Width(48f)))
                     {
                         PosingSystemEditorChangeUtility.DeleteArrayElement(rules, ruleIndex);
                         GUIUtility.ExitGUI();
@@ -264,13 +265,13 @@ namespace jp.unisakistudio.posingsystemeditor
                     return;
                 }
 
-                EditorGUILayout.PropertyField(rule.FindPropertyRelative("enabled"), new GUIContent(PosingSystemLocalization.Text("このルールを使用")));
-                EditorGUILayout.PropertyField(label, new GUIContent(PosingSystemLocalization.Text("ルール名"), PosingSystemLocalization.Text("例: 右手を腰へ、左手を床へ")));
-                EditorGUILayout.PropertyField(rule.FindPropertyRelative("limb"), new GUIContent(PosingSystemLocalization.Text("動かす手足")));
-                EditorGUILayout.PropertyField(rule.FindPropertyRelative("solveOrder"), new GUIContent(PosingSystemLocalization.Text("計算する順番")));
+                PosingSystemTextGUI.LayoutPropertyField(rule.FindPropertyRelative("enabled"), new GUIContent(PosingSystemLocalization.Text("このルールを使用")));
+                PosingSystemTextGUI.LayoutPropertyField(label, new GUIContent(PosingSystemLocalization.Text("ルール名"), PosingSystemLocalization.Text("例: 右手を腰へ、左手を床へ")));
+                PosingSystemTextGUI.LayoutPropertyField(rule.FindPropertyRelative("limb"), new GUIContent(PosingSystemLocalization.Text("動かす手足")));
+                PosingSystemTextGUI.LayoutPropertyField(rule.FindPropertyRelative("solveOrder"), new GUIContent(PosingSystemLocalization.Text("計算する順番")));
 
                 var targetSpace = rule.FindPropertyRelative("targetSpace");
-                EditorGUILayout.PropertyField(targetSpace, new GUIContent(
+                PosingSystemTextGUI.LayoutPropertyField(targetSpace, new GUIContent(
                     PosingSystemLocalization.Text("置き場所の基準"),
                     PosingSystemLocalization.Text("身体のボーン、アバター全体、床のいずれを基準にするか選びます。")));
                 if ((PosingSystemAutoPoseTargetSpace)targetSpace.enumValueIndex ==
@@ -293,8 +294,8 @@ namespace jp.unisakistudio.posingsystemeditor
                 }
 
                 var positionSpace = rule.FindPropertyRelative("positionSpace");
-                EditorGUILayout.PropertyField(positionSpace, new GUIContent(PosingSystemLocalization.Text("位置の座標系")));
-                EditorGUILayout.PropertyField(rule.FindPropertyRelative("lengthReference"), new GUIContent(PosingSystemLocalization.Text("位置の長さの基準")));
+                PosingSystemTextGUI.LayoutPropertyField(positionSpace, new GUIContent(PosingSystemLocalization.Text("位置の座標系")));
+                PosingSystemTextGUI.LayoutPropertyField(rule.FindPropertyRelative("lengthReference"), new GUIContent(PosingSystemLocalization.Text("位置の長さの基準")));
                 var positionX = rule.FindPropertyRelative("applyPositionX");
                 var positionY = rule.FindPropertyRelative("applyPositionY");
                 var positionZ = rule.FindPropertyRelative("applyPositionZ");
@@ -309,13 +310,13 @@ namespace jp.unisakistudio.posingsystemeditor
                 if (coordinateSpaceVersion.intValue <
                     PosingSystemAutoPoseLimbRule.CurrentCoordinateSpaceVersion)
                 {
-                    EditorGUILayout.HelpBox(
+                    PosingSystemTextGUI.LayoutHelpBox(
                         PosingSystemLocalization.Text("旧座標形式です。調整アニメーションウィンドウで基準アバターを表示し、") +
                         PosingSystemLocalization.Text("「現在の手足位置から取得」を一度実行してください。再取得までは元Animationの手足の向きを維持します。"),
                         MessageType.Warning);
                 }
                 EditorGUI.BeginChangeCheck();
-                var euler = EditorGUILayout.Vector3Field(
+                var euler = PosingSystemTextGUI.LayoutVector3Field(
                     new GUIContent(
                         PosingSystemLocalization.Text("見た目の手足の向き"),
                         PosingSystemLocalization.Text("Humanoidボーン軸の違いを除いた、基準から見た手首または足首の向きです。")),
@@ -326,30 +327,30 @@ namespace jp.unisakistudio.posingsystemeditor
                 }
 
                 var matchRotation = rule.FindPropertyRelative("matchEndRotation");
-                EditorGUILayout.PropertyField(matchRotation, new GUIContent(PosingSystemLocalization.Text("手足の向きも合わせる")));
-                EditorGUILayout.PropertyField(rule.FindPropertyRelative("positionWeight"), new GUIContent(
+                PosingSystemTextGUI.LayoutPropertyField(matchRotation, new GUIContent(PosingSystemLocalization.Text("手足の向きも合わせる")));
+                PosingSystemTextGUI.LayoutPropertyField(rule.FindPropertyRelative("positionWeight"), new GUIContent(
                     PosingSystemLocalization.Text("位置を合わせる強さ"),
                     PosingSystemLocalization.Text("通常は1です。小さくすると元の姿勢を多く残します。")));
                 using (new EditorGUI.DisabledScope(!matchRotation.boolValue))
                 {
-                    EditorGUILayout.PropertyField(rule.FindPropertyRelative("rotationWeight"), new GUIContent(
+                    PosingSystemTextGUI.LayoutPropertyField(rule.FindPropertyRelative("rotationWeight"), new GUIContent(
                         PosingSystemLocalization.Text("向きを合わせる強さ"),
                         PosingSystemLocalization.Text("0では回転せず、1で記録した向きへ完全に合わせます。")));
                 }
                 var bendDirectionMode = rule.FindPropertyRelative("bendDirectionMode");
-                EditorGUILayout.PropertyField(bendDirectionMode, new GUIContent(
+                PosingSystemTextGUI.LayoutPropertyField(bendDirectionMode, new GUIContent(
                     PosingSystemLocalization.Text("肘・膝の曲げ方"),
                     PosingSystemLocalization.Text("通常は元の姿勢を維持します。対象アバターへ元Animationを適用した直後と同じ側へ曲げます。")));
                 if ((PosingSystemAutoPoseBendDirectionMode)bendDirectionMode.enumValueIndex ==
                     PosingSystemAutoPoseBendDirectionMode.Manual)
                 {
-                    EditorGUILayout.PropertyField(rule.FindPropertyRelative("poleDirectionInAvatarSpace"), new GUIContent(
+                    PosingSystemTextGUI.LayoutPropertyField(rule.FindPropertyRelative("poleDirectionInAvatarSpace"), new GUIContent(
                         PosingSystemLocalization.Text("肘・膝を曲げる方向"),
                         PosingSystemLocalization.Text("手動指定時だけ使用します。アバター正面を基準にした方向です。")));
                 }
                 else
                 {
-                    EditorGUILayout.HelpBox(
+                    PosingSystemTextGUI.LayoutHelpBox(
                         PosingSystemLocalization.Text("元の姿勢Animationに含まれる肘・膝の曲がり方を、IKを解く前に自動取得します。"),
                         MessageType.None);
                 }
