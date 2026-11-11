@@ -59,6 +59,8 @@ def prepare(upstream,inputs,output):
     notices=[]
     for title,relative in [('VPMPackageAutoInstaller','LICENSE'),('SimpleJson','Assets/InstallerSource/SimpleJson~/LICENSE'),('semver.net','Assets/InstallerSource/semver.net~/LICENSE')]:
         notices.append(title+'\n'+(upstream/relative).read_text(encoding='utf-8-sig').strip())
+    # Keep existing upstream notices and the fixed-caption artwork font attribution.
+    notices.append((HERE/'Bootstrap/BootstrapFontNotice.txt').read_text(encoding='utf-8-sig').strip())
     (output/'LICENSE-VPMPackageAutoInstaller.txt').write_text('\n\n'.join(notices)+'\n',encoding='utf-8')
     manifest={'upstream':str(upstream),'source':str(src),'licenses':licenses,'generated_sources':{p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in output.glob('*.cs')}}
     (output/'sources.json').write_text(json.dumps(manifest,indent=2)+'\n',encoding='utf-8')

@@ -1,6 +1,7 @@
 """Generate identical standalone language helpers for the product and setup programs."""
 from pathlib import Path
 import json,re,uuid
+from bootstrap_embed import embed
 HERE=Path(__file__).resolve().parent
 REPO=HERE.parents[1]
 def quoted(value):return json.dumps(value,ensure_ascii=False)
@@ -65,6 +66,7 @@ def render():
     arguments='new Dictionary<string, int[]> { '+', '.join('{ '+quoted(key)+', new[] { '+', '.join(map(str,indices))+' } }' for key,indices in data.get('localized_arguments',{}).items())+' }'
     rendered=rendered.replace('__LOCALIZED_ARGUMENTS__',arguments)
     rendered+='\n'+(HERE/'SetupMenus.cs.in').read_text(encoding='utf-8')
+    rendered=embed(rendered,HERE/'Bootstrap')
     dest=REPO/'Packages/jp.unisakistudio.posingsystem/Editor/Setup/SetupLanguage.cs';dest.parent.mkdir(exist_ok=True);dest.write_text(rendered,encoding='utf-8')
     for path in [dest.parent,dest]:
         meta=Path(str(path)+'.meta')

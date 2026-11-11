@@ -1,0 +1,19 @@
+        private sealed class LanguagePicker : EditorWindow
+        {
+            private int selection;
+            private void OnEnable() { selection = Array.IndexOf(Codes, Current); }
+            private void OnDisable() { BootstrapCaptionImages.Reset(); }
+            private void OnGUI()
+            {
+                EditorGUILayout.Space(8);
+                selection = BootstrapCaptionImages.Popup("Language / 言語", selection, Names, Codes[selection]);
+                var language = Codes[selection];
+                var remembered = Translate(language, "This language is remembered for other Unity projects on this computer.");
+                var apply = Translate(language, "Apply");
+                var requiredHeight = BootstrapCaptionImages.RequiredHeight(language, remembered, apply);
+                // The offline generation gate rejects any caption that needs more than 220pt.
+                minSize = new Vector2(380, Mathf.Min(220, requiredHeight));
+                BootstrapCaptionImages.HelpBox(language, remembered);
+                if (BootstrapCaptionImages.Button(language, apply)) { Select(Codes[selection]); Close(); }
+            }
+        }

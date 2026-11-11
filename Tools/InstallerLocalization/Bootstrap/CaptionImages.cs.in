@@ -1,0 +1,195 @@
+// Isolated bootstrap stage. Only fixed, SHA-bound display pixels; no text reordering.
+#if UNITY_EDITOR
+using System;
+using System.Collections.Generic;
+using System.Security.Cryptography;
+using System.Text;
+using UnityEditor;
+using UnityEngine;
+using Object = UnityEngine.Object;
+
+namespace UnisakiStudio.Setup
+{
+    internal static partial class BootstrapCaptionImages
+    {
+        private sealed class Caption
+        {
+            internal readonly string Text, TextSha, PngSha, Base64;
+            internal readonly float Width, Height;
+            internal Texture2D Texture;
+            internal Caption(string text, string textSha, string pngSha, float width, float height, string base64)
+            { Text = text; TextSha = textSha; PngSha = pngSha; Width = width; Height = height; Base64 = base64; }
+        }
+        private static readonly HashSet<string> warned = new HashSet<string>();
+        private static int buttonPointer, buttonKeyboard;
+        internal static int TexturesLoaded { get; private set; }
+        internal static string LastFailure { get; private set; }
+
+        static BootstrapCaptionImages()
+        {
+            AssemblyReloadEvents.beforeAssemblyReload += Reset;
+            EditorApplication.quitting += Reset;
+        }
+
+        private static bool Complex(string language) => language == "ar" || language == "he" || language == "hi" ||
+            language == "bn" || language == "ta" || language == "te" || language == "th";
+
+        private static string Sha(byte[] value)
+        { using (var sha = SHA256.Create()) return BitConverter.ToString(sha.ComputeHash(value)).Replace("-", "").ToLowerInvariant(); }
+
+        private static bool Get(string language, string role, string logical, out Caption caption)
+        {
+            caption = null;
+            if (!Complex(language)) return false;
+            if (Captions.TryGetValue(language + "/" + role, out var found) && found.Text == logical)
+            { caption = found; return true; }
+            Warn(language + "/" + role, "Fixed caption differs from the current logical translation; native fallback remains visible.");
+            return false;
+        }
+
+        private static void Warn(string key, string message)
+        {
+            LastFailure = message;
+            if (warned.Add(key)) Debug.LogWarning("USSPS_BOOTSTRAP_CAPTION: " + key + ": " + message);
+        }
+
+        private static bool Prepare(Caption caption)
+        {
+            if (caption.Texture != null) return true;
+            try
+            {
+                var bytes = Convert.FromBase64String(caption.Base64);
+                if (Sha(Encoding.UTF8.GetBytes(caption.Text)) != caption.TextSha || Sha(bytes) != caption.PngSha)
+                    throw new InvalidOperationException("Caption/pixel SHA mismatch");
+                var texture = new Texture2D(2, 2, TextureFormat.RGBA32, false, false) {
+                    hideFlags = HideFlags.HideAndDontSave, filterMode = FilterMode.Bilinear, wrapMode = TextureWrapMode.Clamp };
+                try
+                {
+                    if (!ImageConversion.LoadImage(texture, bytes, true) || texture.width != Mathf.RoundToInt(caption.Width * 2) ||
+                        texture.height != Mathf.RoundToInt(caption.Height * 2)) throw new InvalidOperationException("Caption PNG dimensions differ");
+                    caption.Texture = texture; TexturesLoaded++; return true;
+                }
+                catch { Object.DestroyImmediate(texture); throw; }
+            }
+            catch (Exception e) { Warn(caption.TextSha, e.Message); return false; }
+        }
+
+        private static bool Overlay(string language, string role, string logical, out Caption caption)
+        {
+            if (!Get(language, role, logical, out caption) || Event.current.type != EventType.Repaint) return false;
+            return Prepare(caption); // Never hide native ink unless the overlay is ready.
+        }
+
+        private static GUIStyleState[] States(GUIStyle style) => new[] { style.normal, style.hover, style.active, style.focused,
+            style.onNormal, style.onHover, style.onActive, style.onFocused };
+
+        private sealed class Ink : IDisposable
+        {
+            private readonly GUIStyle style;
+            private readonly Color[] saved;
+            internal Ink(GUIStyle original, bool hide)
+            {
+                if (!hide || Event.current.type != EventType.Repaint) return;
+                style = original; var states = States(style); saved = new Color[states.Length];
+                for (int i = 0; i < states.Length; i++) { saved[i] = states[i].textColor; states[i].textColor = Color.clear; }
+            }
+            public void Dispose()
+            {
+                if (style == null) return;
+                var states = States(style); for (int i = 0; i < states.Length; i++) states[i].textColor = saved[i];
+            }
+        }
+
+        private static void Draw(Caption caption, Rect available, Color color, bool centered)
+        {
+            if (Event.current.type != EventType.Repaint || caption?.Texture == null) return;
+            var destination = new Rect(available.x + (centered ? (available.width - caption.Width) * .5f : 0),
+                available.y + (available.height - caption.Height) * .5f, caption.Width, caption.Height);
+            var clipped = Rect.MinMaxRect(Mathf.Max(destination.xMin, available.xMin), Mathf.Max(destination.yMin, available.yMin),
+                Mathf.Min(destination.xMax, available.xMax), Mathf.Min(destination.yMax, available.yMax));
+            if (clipped.width <= 0 || clipped.height <= 0) return;
+            var uv = new Rect((clipped.x - destination.x) / destination.width,
+                1 - (clipped.yMax - destination.y) / destination.height,
+                clipped.width / destination.width, clipped.height / destination.height);
+            var oldColor = GUI.color; var oldContent = GUI.contentColor; var enabled = GUI.enabled;
+            var tint = oldColor * oldContent * color;
+            if (!enabled) tint.a *= .55f;
+            try
+            {
+                GUI.color = tint; GUI.contentColor = Color.white; GUI.enabled = true;
+                GUI.DrawTextureWithTexCoords(clipped, caption.Texture, uv, true);
+            }
+            finally { GUI.color = oldColor; GUI.contentColor = oldContent; GUI.enabled = enabled; }
+        }
+
+        internal static float RequiredHeight(string language, string message, string apply)
+        {
+            float help = Get(language, "help", message, out var h) ? Mathf.Max(38, h.Height + 12) : 48;
+            float button = Get(language, "apply", apply, out var a) ? Mathf.Max(24, a.Height + 6) : 24;
+            return Mathf.Max(130, 8 + 20 + 4 + help + 4 + button + 12);
+        }
+
+        internal static int Popup(string label, int selected, string[] names, string language)
+        {
+            var logical = names[selected];
+            bool overlay = Overlay(language, "autonym", logical, out var caption);
+            var style = EditorStyles.popup;
+            int result;
+            using (new Ink(style, overlay))
+                result = EditorGUILayout.Popup(label, selected, names, style); // Original logical options, exactly once.
+            if (overlay)
+            {
+                var rect = GUILayoutUtility.GetLastRect(); rect.xMin += EditorGUIUtility.labelWidth; rect.xMax -= 16;
+                Draw(caption, rect, style.normal.textColor, false);
+            }
+            return result;
+        }
+
+        internal static void HelpBox(string language, string logical)
+        {
+            if (!Get(language, "help", logical, out var caption)) { EditorGUILayout.HelpBox(logical, MessageType.Info); return; }
+            var rect = GUILayoutUtility.GetRect(0, Mathf.Max(38, caption.Height + 12), GUILayout.ExpandWidth(true));
+            bool overlay = Overlay(language, "help", logical, out caption);
+            var style = EditorStyles.helpBox;
+            using (new Ink(style, overlay)) EditorGUI.HelpBox(rect, logical, MessageType.Info);
+            if (overlay)
+            {
+                var text = new Rect(rect.x + 40, rect.y + 4, Mathf.Min(304, rect.width - 44), rect.height - 8);
+                Draw(caption, text, style.normal.textColor, false);
+            }
+        }
+
+        internal static bool Button(string language, string logical)
+        {
+            if (!Get(language, "apply", logical, out var caption)) return GUILayout.Button(logical);
+            bool overlay = Overlay(language, "apply", logical, out caption);
+            var style = GUI.skin.button;
+            int hot = GUIUtility.hotControl, keyboard = GUIUtility.keyboardControl;
+            bool result;
+            using (new Ink(style, overlay)) result = GUILayout.Button(logical, style, GUILayout.Height(Mathf.Max(24, caption.Height + 6)));
+            if (GUIUtility.hotControl != 0 && GUIUtility.hotControl != hot) buttonPointer = GUIUtility.hotControl;
+            if (GUIUtility.keyboardControl != 0 && GUIUtility.keyboardControl != keyboard) buttonKeyboard = GUIUtility.keyboardControl;
+            if (overlay)
+            {
+                var rect = GUILayoutUtility.GetLastRect();
+                bool hover = GUI.enabled && rect.Contains(Event.current.mousePosition);
+                bool active = hover && buttonPointer != 0 && GUIUtility.hotControl == buttonPointer;
+                bool focus = GUI.enabled && buttonKeyboard != 0 && GUIUtility.keyboardControl == buttonKeyboard;
+                var state = active ? style.active : focus ? style.focused : hover ? style.hover : style.normal;
+                Draw(caption, style.padding.Remove(rect), state.textColor, true);
+            }
+            return result;
+        }
+
+        internal static void Reset()
+        {
+            foreach (var caption in Captions.Values)
+            {
+                if (caption.Texture != null) Object.DestroyImmediate(caption.Texture);
+                caption.Texture = null;
+            }
+            TexturesLoaded = 0; buttonPointer = buttonKeyboard = 0;
+        }
+    }
+}
+#endif

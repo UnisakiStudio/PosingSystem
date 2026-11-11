@@ -25,6 +25,8 @@ Unity内部の `MenuItemExists` は末尾空白付きパスにfalseを返す場�
 
 ## ソースと生成
 
+- `Bootstrap/` / `bootstrap_embed.py`: 初回言語選択の7言語（ar/he/hi/bn/ta/te/th）の固定caption描画。autonym・記憶先の説明・Applyの21画像を単一の生成helperへ埋め込む。独立installerへ追加の描画DLLやfontを導入しない。Popupの選択肢、OS dialog、入力値はlogical Unicodeのまま維持する。
+- 固定captionの翻訳やautonymを変更した場合は、画像を再生成して描画を確認する。翻訳と画像のSHA対応が一致しなければ生成を停止する。`Bootstrap/caption-manifest.json` と3つの `.cs.in` を手動で食い違わせない。実行時にも画像を検証し、失敗したcaptionはnative表示を残す。画像生成元NotoのOFL通知は既存のthird-party通知へ追記する。
 - `SetupLanguage.cs.in` / `SetupMenus.cs.in`: パッケージと独立導入側に共通の言語処理。
 - `bootstrap.translations.json`: 導入語彙・既存日本語からの対応表・確認文の構成。
 - `generate_language.py`: 本体の翻訳表も取り込み、`Editor/Setup/SetupLanguage.cs` を生成。
