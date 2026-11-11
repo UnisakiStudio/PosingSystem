@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using jp.unisakistudio.posingsystem;
+using nadena.dev.modular_avatar.core;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
@@ -34,6 +35,7 @@ namespace jp.unisakistudio.posingsystemeditor
             Animator.cullingMode = AnimatorCullingMode.AlwaysAnimate;
             clone.transform.SetPositionAndRotation(source.transform.position, source.transform.rotation);
             clone.transform.localScale = source.transform.lossyScale;
+            AttachBoneProxies(clone);
             clone.SetActive(true);
             root.SetActive(true);
 
@@ -43,6 +45,34 @@ namespace jp.unisakistudio.posingsystemeditor
             driver = ScriptableObject.CreateInstance<AnimationModeDriver>();
             driver.hideFlags = HideFlags.HideAndDontSave;
             AnimationMode.StartAnimationMode(driver);
+        }
+
+        private static void AttachBoneProxies(GameObject clone)
+        {
+            // Bone Proxy is a build-time attachment, not a constraint. Disabling edit-time
+            // behaviours alone leaves accessories in their unposed locations. Resolve all
+            // clone-local references before changing the hierarchy, then preserve MA's
+            // world-pose options in parent-before-child order.
+            var attachments = clone.GetComponentsInChildren<ModularAvatarBoneProxy>(true).Select(proxy =>
+            {
+                proxy.ResolveReferences();
+                return (proxy, target: proxy.target, position: proxy.transform.position, rotation: proxy.transform.rotation);
+            }).Where(p => p.target != null && p.target.IsChildOf(clone.transform)).ToArray();
+            foreach (var item in attachments)
+                if (!item.target.IsChildOf(item.proxy.transform)) item.proxy.transform.SetParent(item.target, true);
+            foreach (var item in attachments.OrderBy(p => p.proxy.GetComponentsInParent<Transform>(true).Length))
+            {
+                var transform = item.proxy.transform;
+                if (transform.parent != item.target) continue;
+                var mode = item.proxy.attachmentMode;
+                if (mode == BoneProxyAttachmentMode.AsChildKeepWorldPose || mode == BoneProxyAttachmentMode.AsChildKeepPosition)
+                    transform.position = item.position;
+                else transform.localPosition = Vector3.zero;
+                if (mode == BoneProxyAttachmentMode.AsChildKeepWorldPose || mode == BoneProxyAttachmentMode.AsChildKeepRotation)
+                    transform.rotation = item.rotation;
+                else transform.localRotation = Quaternion.identity;
+                if (item.proxy.matchScale) transform.localScale = Vector3.one;
+            }
         }
 
         public void Dispose()

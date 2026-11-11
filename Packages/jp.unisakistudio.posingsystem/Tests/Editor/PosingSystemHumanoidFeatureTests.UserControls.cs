@@ -493,6 +493,56 @@ MonoBehaviour:
         }
 
         [Test]
+        public void UserControls_PreviewBoneProxy_MatchesModularAvatarAndLeavesSourceUntouched(
+            [Values] BoneProxyAttachmentMode mode, [Values(false, true)] bool matchScale, [Values(false, true)] bool cached)
+        {
+            var ps = UserSettings(out var entry);
+            root.transform.SetPositionAndRotation(new Vector3(3, 2, -4), Quaternion.Euler(0, 27, 0));
+            root.transform.localScale = Vector3.one * .7f;
+            var accessory = new GameObject("Glasses"); accessory.transform.SetParent(root.transform, false);
+            accessory.transform.SetPositionAndRotation(animator.GetBoneTransform(HumanBodyBones.Head).position + Vector3.forward * .1f,
+                Quaternion.Euler(7, 13, 19));
+            accessory.transform.localScale = Vector3.one * .8f;
+            var proxy = accessory.AddComponent<ModularAvatarBoneProxy>();
+            proxy.boneReference = HumanBodyBones.Head; proxy.attachmentMode = mode;
+            proxy.matchScale = matchScale;
+            var original = (accessory.transform.parent, accessory.transform.localPosition, accessory.transform.localRotation, accessory.transform.localScale);
+            var expected = Object.Instantiate(root); assets.Add(expected);
+            var expectedAccessory = expected.transform.Find("Glasses");
+            var context = new nadena.dev.ndmf.BuildContext(expected, null, false);
+            try
+            {
+                foreach (var name in new[] { "BoneProxyPluginPrepass", "BoneProxyPluginPass" })
+                {
+                    var type = AppDomain.CurrentDomain.GetAssemblies().Select(a => a.GetType("nadena.dev.modular_avatar.core.editor." + name)).First(t => t != null);
+                    type.GetMethod("ExecuteForTesting", BindingFlags.Instance | BindingFlags.NonPublic)
+                        .Invoke(System.Activator.CreateInstance(type, true), new object[] { context });
+                }
+                using var preview = new SceneAvatarPreview();
+                var model = animator;
+                if (cached)
+                {
+                    var cache = Object.Instantiate(root); assets.Add(cache);
+                    cache.transform.SetPositionAndRotation(new Vector3(100, 0, 0), Quaternion.identity);
+                    cache.SetActive(false);
+                    model = cache.GetComponent<Animator>();
+                }
+                preview.Start(animator, model, "BoneProxy test");
+                var actual = preview.Animator.GetComponentsInChildren<Transform>(true).Single(t => t.name == "Glasses");
+                Assert.That(actual.parent, Is.SameAs(preview.Animator.GetBoneTransform(HumanBodyBones.Head)));
+                Assert.That(Vector3.Distance(actual.localPosition, expectedAccessory.localPosition), Is.LessThan(.0001f));
+                Assert.That(Quaternion.Angle(actual.localRotation, expectedAccessory.localRotation), Is.LessThan(.01f));
+                Assert.That(Vector3.Distance(actual.localScale, expectedAccessory.localScale), Is.LessThan(.0001f));
+                var head = preview.Animator.GetBoneTransform(HumanBodyBones.Head);
+                var local = actual.localPosition;
+                head.SetPositionAndRotation(head.position + Vector3.down, Quaternion.Euler(30, 40, 50));
+                Assert.That(Vector3.Distance(actual.position, head.TransformPoint(local)), Is.LessThan(.0001f));
+                Assert.That((accessory.transform.parent, accessory.transform.localPosition, accessory.transform.localRotation, accessory.transform.localScale), Is.EqualTo(original));
+            }
+            finally { context.DeactivateAllExtensionContexts(); }
+        }
+
+        [Test]
         public void UserControls_Bake_PreservesOldAssetAndCatalog_ManualPreviewMatchesIk()
         {
             var ps = UserSettings(out var entry);
