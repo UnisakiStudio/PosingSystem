@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace jp.unisakistudio.posingsystemeditor.tests
 {
-    public class PosingSystemDocumentationTests
+    public class PosingSystemDocumentationTests : global::jp.unisakistudio.posingsystemeditor.tests.SharedLanguagePreferenceTestBase
     {
         [Test]
         public void ManualAndChangelogFollowEverySelectedLanguage()
@@ -100,7 +100,7 @@ namespace jp.unisakistudio.posingsystemeditor.tests
             {
                 owner = new GameObject("Documentation language test");
                 var system = owner.AddComponent<jp.unisakistudio.posingsystem.PosingSystem>();
-                system.menuLanguage = language;
+                PosingSystemLocalization.Select(language);
                 scope = PosingSystemLocalization.ForInspector(system);
             }
             public void Dispose()

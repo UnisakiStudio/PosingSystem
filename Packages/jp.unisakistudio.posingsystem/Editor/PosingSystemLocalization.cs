@@ -13,37 +13,29 @@ namespace jp.unisakistudio.posingsystemeditor
         internal static readonly string[] Codes = { "ja", "en", "fr", "it", "zh-Hans", "zh-Hant", "ko", "th", "de", "es", "pt", "pt-BR", "ru", "uk", "pl", "nl", "sv", "da", "fi", "nb", "cs", "tr", "id", "vi", "hi", "bn", "ta", "te", "ar", "he" };
         internal static readonly string[] Names = { "日本語", "English", "Français", "Italiano", "简体中文", "繁體中文", "한국어", "ไทย", "Deutsch", "Español", "Português", "Português (Brasil)", "Русский", "Українська", "Polski", "Nederlands", "Svenska", "Dansk", "Suomi", "Norsk", "Čeština", "Türkçe", "Bahasa Indonesia", "Tiếng Việt", "हिन्दी", "বাংলা", "தமிழ்", "తెలుగు", "العربية", "עברית" };
         internal static bool HasSelection => Array.IndexOf(Codes, EditorPrefs.GetString(PreferenceKey, "")) >= 0;
-        private static string activeLanguage;
         private static string PreferenceLanguage => UnisakiStudio.Setup.Language.Current;
-        internal static string Language => activeLanguage ?? PreferenceLanguage;
+        internal static string Language => PreferenceLanguage;
         internal static string ResolveLanguage(PosingSystem target)
-            => target != null && !string.IsNullOrEmpty(target.menuLanguage) ? Normalize(target.menuLanguage) : PreferenceLanguage;
-        internal static IDisposable ForInspector(PosingSystem target) => new LanguageScope(target != null ? ResolveLanguage(target) : Language);
+            => PreferenceLanguage;
+        // Retain the existing call surface while every inspector/build reads the
+        // shared preference live. Legacy avatar fields never override it.
+        internal static IDisposable ForInspector(PosingSystem target) => LanguageScope.Instance;
         private sealed class LanguageScope : IDisposable
         {
-            private readonly string previous;
-            internal LanguageScope(string language) { previous = activeLanguage; activeLanguage = language; }
-            public void Dispose() { activeLanguage = previous; }
+            internal static readonly LanguageScope Instance = new LanguageScope();
+            public void Dispose() { }
         }
         internal static string Normalize(string code) => Array.IndexOf(Codes, code) >= 0 ? code : "ja";
         internal static void Select(string code)
         {
             UnisakiStudio.Setup.Language.Select(Normalize(code));
-            if (activeLanguage != null) activeLanguage = Normalize(code);
             UnityEditorInternal.InternalEditorUtility.RepaintAllViews();
         }
 
         internal static bool ApplyLanguageSelection(int index, PosingSystem target = null)
         {
             if (index < 0 || index >= Codes.Length) return false;
-            if (target != null)
-            {
-                if (target.menuLanguage == Codes[index]) return false;
-                Undo.RecordObject(target, "Change tool language");
-                target.menuLanguage = Codes[index];
-                PosingSystemEditorChangeUtility.MarkChanged(target);
-            }
-            else if (HasSelection && Language == Codes[index]) return false;
+            if (HasSelection && Language == Codes[index]) return false;
             Select(Codes[index]);
             return true;
         }

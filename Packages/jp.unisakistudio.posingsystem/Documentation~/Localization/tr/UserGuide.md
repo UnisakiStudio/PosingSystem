@@ -4,7 +4,7 @@ Unisaki Posing System, Kawaii Posing, Cool Posing ve ilgili araçların ortak ç
 
 ## Dil
 
-Aracın Inspector’ının üstündeki **Language / 言語** alanını seçin. Tek seçim Inspector’ı ve oluşturulan VRChat menüsünü yönetir. Dil değişikliğinden sonra avatarı yeniden yükleyin. Son seçim bu bilgisayardaki aynı işletim sistemi kullanıcısının diğer projelerinde hatırlanır. Kaydedilmiş seçim yoksa işletim sisteminin dili izlenir, gerekirse İngilizce kullanılır. Mevcut avatarın açık seçimi korunur. Dil tercihleri diğer bilgisayarlara eşitlenmez.
+Aracın Inspector’ının üstündeki **Language / 言語** alanını seçin. Tek seçim Inspector’ı ve oluşturulan VRChat menüsünü yönetir. Dil değişikliğinden sonra avatarı yeniden yükleyin. Son seçim bu bilgisayardaki aynı işletim sistemi kullanıcısının diğer projelerinde hatırlanır. Kaydedilmiş seçim yoksa işletim sisteminin dili izlenir, gerekirse İngilizce kullanılır. Tüm poz araçları ve avatarlar aynı dili kullanır. Herhangi bir aracın Inspector’ında dili değiştirmek ortak tercihi günceller; avatara özel dil seçimleri dikkate alınmaz. Dil tercihleri diğer bilgisayarlara eşitlenmez. Dil düğmesi, kayıtlı bir dil yoksa yalnızca ilk kurulum onayında görünür. Daha sonraki dil değişiklikleri Inspector’dan yapılır.
 
 ## Avatarı ayarlama
 

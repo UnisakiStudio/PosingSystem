@@ -53,14 +53,14 @@
       "product": "PosingSystem",
       "kind": "readme",
       "source": "PosingSystem/Packages/jp.unisakistudio.posingsystem/README.md",
-      "source_sha256": "7b3644f9b4242ecd30c2a6625ff374a7c4c17ab455688b7315bdf09cf4da3279",
+      "source_sha256": "098a94324d865f2dac2a5608c8046c04fdedf0c4d445cda9a6c5e7611c1a388f",
       "blocks": [
         "400f9d61ba8fe81c",
         "3384667be43ce486",
         "37b1b586e6f00193",
         "dddcc5e2fa2e62d6",
         "f057ec94623ab83e",
-        "6c7e34186b56734a",
+        "e949435434fc5e4d",
         "ef58b910342a4f74",
         "ca655f870ce7db19",
         "3240210502334b10",
@@ -221,12 +221,12 @@
       "product": "PosingSystem",
       "kind": "guide",
       "source": "PosingSystem/Packages/jp.unisakistudio.posingsystem/Documentation~/UserGuide.en.md",
-      "source_sha256": "6a219aa7ccce56d0f91a61ce64d18e3d962707f529eb66292aba5a2644fd683d",
+      "source_sha256": "b50a3e82156d05be50cc27340846cdeb652129d90c37c4e7bf4011bb7ed27cbd",
       "blocks": [
         "2bae13658c19ab69",
         "971cb3537679cb36",
         "e10754d0edc79b73",
-        "f203323936fba1f9",
+        "3dad11475dca2a2e",
         "d767800351bcbf7b",
         "3f9604cf6da66cae",
         "08512c6e6adcdc3e",
@@ -257,7 +257,7 @@
       "product": "KawaiiPosing",
       "kind": "readme",
       "source": "KawaiiPosing/Packages/jp.unisakistudio.kawaiiposing/README.md",
-      "source_sha256": "6e39577c5093a1b7048271aa519bcf60c381d8b3703ac8570c1ab408c5a4a9a9",
+      "source_sha256": "9720bc85e71b5bddd99997437e1bdbf59aaa7ae13b554dd0a0b52ae91075e044",
       "blocks": [
         "c6f4f4db27e61f12",
         "63ac3178b7280bc1",
@@ -265,7 +265,7 @@
         "c777006c3059a301",
         "dddcc5e2fa2e62d6",
         "f057ec94623ab83e",
-        "6c7e34186b56734a",
+        "e949435434fc5e4d",
         "ef58b910342a4f74",
         "2b2491db11188ac9",
         "f9631a2ac8eb42c9",
@@ -410,7 +410,7 @@
       "product": "KawaiiPosing",
       "kind": "guide",
       "source": "KawaiiPosing/Packages/jp.unisakistudio.kawaiiposing/Documentation~/UserGuide.en.md",
-      "source_sha256": "5301c10d58fe9b2df5cc73ff459a6f9c98d9ea269bcafd634c3ba9140c122381",
+      "source_sha256": "e169814c9de7b5dc74239112915710147f8b26ea5727e587fbfa619b2eafa3be",
       "blocks": [
         "f675a3d502bd6e37",
         "240461debb7fb962",
@@ -422,7 +422,7 @@
         "3c27365bd82f8dab",
         "952ab3fb036b1c5b",
         "a511a3ab974162c1",
-        "6a4140f9fcf8696a",
+        "bcb5eefe38ccacd0",
         "9b067be04670a030",
         "5db6d754ccbe01f8",
         "cc1a83bb12c33553",
@@ -499,7 +499,7 @@
       "product": "CoolPosing",
       "kind": "readme",
       "source": "CoolPosing/Packages/jp.unisakistudio.coolposing/README.md",
-      "source_sha256": "822f344f89a62376046edea9a899657c5e65409a1821f8b310137dd5b0b8ce77",
+      "source_sha256": "e76cd90f34493825505e3573d0761a9065676e81e04e582ca03f3515d3b3780e",
       "blocks": [
         "9ec15b083830389e",
         "c2493654393fac07",
@@ -507,7 +507,7 @@
         "42d11daea3442e03",
         "dddcc5e2fa2e62d6",
         "f057ec94623ab83e",
-        "6c7e34186b56734a",
+        "e949435434fc5e4d",
         "ef58b910342a4f74",
         "2b2491db11188ac9",
         "51f028bd02b8dece",
@@ -592,7 +592,7 @@
       "product": "CoolPosing",
       "kind": "guide",
       "source": "CoolPosing/Packages/jp.unisakistudio.coolposing/Documentation~/UserGuide.en.md",
-      "source_sha256": "e06f6bd35c4814004654f6307506255f5f409d7b5dfebd0367d4a9329434848c",
+      "source_sha256": "6cc8826907ed7110a0ff78dda1ce9c34ec22a2f2fa3d6e077fac221672d162a8",
       "blocks": [
         "9b3438889c475907",
         "759fd79caf261f73",
@@ -604,7 +604,7 @@
         "3c27365bd82f8dab",
         "790187b65aa5e389",
         "cd35a97066714f25",
-        "6a4140f9fcf8696a",
+        "bcb5eefe38ccacd0",
         "9b067be04670a030",
         "a7db8e8593d27872",
         "cc1a83bb12c33553",
@@ -772,9 +772,9 @@
         "CoolPosing/readme"
       ]
     },
-    "6c7e34186b56734a": {
+    "e949435434fc5e4d": {
       "language": "ja",
-      "text": "未選択の場合はパソコンの言語を使い、対応していない言語では英語を使います。Windows・macOS・Linuxに対応します。最後に選んだ言語はEditorPrefsに保存し、このパソコンの同じOSユーザーの別プロジェクトでも使用します。アバターに保存済みの明示的な選択は維持します。他のパソコンには同期しません。ライセンスの保存方法は変更しません。",
+      "text": "未選択の場合はパソコンの言語を使い、対応していない言語では英語を使います。Windows・macOS・Linuxに対応します。最後に選んだ言語はEditorPrefsに保存し、このパソコンの同じOSユーザーの別プロジェクトでも使用します。すべてのポーズツールとアバターで同じ言語を使用します。どのツールのInspectorで変更しても共通で反映され、アバターごとの言語指定は使用しません。他のパソコンには同期しません。ライセンスの保存方法は変更しません。 言語ボタンは言語が未選択の場合の最初の導入確認だけに表示されます。以後の言語変更はInspectorで行います。",
       "invariant": false,
       "contexts": [
         "PosingSystem/readme",
@@ -2007,9 +2007,9 @@
         "PosingSystem/guide"
       ]
     },
-    "f203323936fba1f9": {
+    "3dad11475dca2a2e": {
       "language": "en",
-      "text": "Choose **Language / 言語** at the top of the tool Inspector. One choice controls the\nInspector and generated VRChat menu. Re-upload the avatar after changing its language.\nYour last choice is remembered for other projects belonging to the same OS user on this\ncomputer. Without a saved choice, the tool follows the OS language and falls back to English.\nAn existing avatar's explicit choice is preserved. Language preferences do not sync to other PCs.",
+      "text": "Choose **Language / 言語** at the top of the tool Inspector. One choice controls the\nInspector and generated VRChat menu. Re-upload the avatar after changing its language.\nYour last choice is remembered for other projects belonging to the same OS user on this\ncomputer. Without a saved choice, the tool follows the OS language and falls back to English.\nAll posing tools and avatars use the same language. Changing it in any tool's Inspector updates the shared preference; per-avatar language choices are ignored. Language preferences do not sync to other PCs. The language button appears only on the initial setup confirmation when no language is saved. Later language changes are made in the Inspector.",
       "invariant": false,
       "contexts": [
         "PosingSystem/guide"
@@ -3057,9 +3057,9 @@
         "KawaiiPosing/guide"
       ]
     },
-    "6a4140f9fcf8696a": {
+    "bcb5eefe38ccacd0": {
       "language": "en",
-      "text": "Language preferences are stored through Unity EditorPrefs for the current OS user and are shared across Unity projects on this computer. Without a saved preference, the installer follows the OS language; unsupported languages use English. Product licenses retain their existing storage: the current user's `Software/UnisakiStudio` registry key on Windows, and per-user license files on macOS/Linux. Changing a language does not remove a license.",
+      "text": "Language preferences are stored through Unity EditorPrefs for the current OS user and are shared across Unity projects on this computer. Without a saved preference, the installer follows the OS language; unsupported languages use English. Product licenses retain their existing storage: the current user's `Software/UnisakiStudio` registry key on Windows, and per-user license files on macOS/Linux. Changing a language does not remove a license. All posing tools and avatars use the same language. Changing it in any tool's Inspector updates the shared preference; per-avatar language choices are ignored. The language button appears only on the initial setup confirmation when no language is saved. Later language changes are made in the Inspector.",
       "invariant": false,
       "contexts": [
         "KawaiiPosing/guide",
@@ -3947,5 +3947,5 @@
       ]
     }
   },
-  "source_sha256": "08f31ccd8536d5bd1f7d0c3b04d79aa5fd5531d22e0fb8fe61b762c2311a03b2"
+  "source_sha256": "bb972d2c92e1eac4444f55382f8010957690588846125684827b0316d90a280c"
 }

@@ -10,7 +10,7 @@ Choose **Language / 言語** at the top of the tool Inspector. One choice contro
 Inspector and generated VRChat menu. Re-upload the avatar after changing its language.
 Your last choice is remembered for other projects belonging to the same OS user on this
 computer. Without a saved choice, the tool follows the OS language and falls back to English.
-An existing avatar's explicit choice is preserved. Language preferences do not sync to other PCs.
+All posing tools and avatars use the same language. Changing it in any tool's Inspector updates the shared preference; per-avatar language choices are ignored. Language preferences do not sync to other PCs. The language button appears only on the initial setup confirmation when no language is saved. Later language changes are made in the Inspector.
 
 ## Set up an avatar
 

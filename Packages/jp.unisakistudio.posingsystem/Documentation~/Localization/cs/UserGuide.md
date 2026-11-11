@@ -4,7 +4,7 @@ Unisaki Posing System je společné jádro Kawaii Posing, Cool Posing a souvisej
 
 ## Jazyk
 
-Vyberte **Language / 言語** nahoře v Inspectoru nástroje. Jedna volba řídí Inspector i generovanou nabídku VRChat. Po změně jazyka avatara znovu nahrajte. Poslední volba se pamatuje pro další projekty stejného uživatele OS na tomto počítači. Bez uložené volby nástroj následuje jazyk OS a případně použije angličtinu. Výslovná volba existujícího avatara zůstává zachována. Jazykové preference se nepřenášejí na jiné počítače.
+Vyberte **Language / 言語** nahoře v Inspectoru nástroje. Jedna volba řídí Inspector i generovanou nabídku VRChat. Po změně jazyka avatara znovu nahrajte. Poslední volba se pamatuje pro další projekty stejného uživatele OS na tomto počítači. Bez uložené volby nástroj následuje jazyk OS a případně použije angličtinu. Všechny nástroje pro pózování a avataři používají stejný jazyk. Změna v Inspectoru kteréhokoli nástroje aktualizuje společné nastavení; volby jazyka jednotlivých avatarů se ignorují. Jazykové preference se nepřenášejí na jiné počítače. Tlačítko jazyka se zobrazí pouze při prvním potvrzení instalace, pokud ještě není uložen žádný jazyk. Pozdější změny jazyka se provádějí v Inspectoru.
 
 ## Nastavení avatara
 

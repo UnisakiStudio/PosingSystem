@@ -5,6 +5,24 @@ namespace jp.unisakistudio.posingsystemeditor.tests
 {
     public class PosingSystemSetupLanguageTests
     {
+        [Test]
+        public void LanguageButtonOnlyAppearsOnInitialSetupConfirmationsInEveryLanguage()
+        {
+            foreach (var code in Language.Codes)
+            {
+                foreach (var title in new[] { "Confirm", "License installation" })
+                {
+                    Assert.That(Language.CanOfferLanguage(title, code, false), Is.True, code + ": " + title);
+                    Assert.That(Language.CanOfferLanguage(Language.Translate(code, title), code, false), Is.True, code + ": localized title");
+                    Assert.That(Language.CanOfferLanguage(title, code, true), Is.False, code + ": remembered selection");
+                }
+                foreach (var title in new[] { "ERROR", "ERROR!", "Complete", "License installation complete" })
+                {
+                    Assert.That(Language.CanOfferLanguage(title, code, false), Is.False, code + ": " + title);
+                    Assert.That(Language.CanOfferLanguage(title, code, true), Is.False, code + ": remembered " + title);
+                }
+            }
+        }
         [TestCase("en-US", "Japanese", "ja")]
         [TestCase("zh-TW", "Chinese", "zh-Hant")]
         [TestCase("zh-HK", "Chinese", "zh-Hant")]

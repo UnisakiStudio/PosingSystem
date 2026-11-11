@@ -10,7 +10,7 @@ Wähle **Language / 言語** oben im Inspector. Eine Auswahl bestimmt die Sprach
 des Inspectors und des erzeugten VRChat-Menüs. Lade den Avatar nach Sprachänderung erneut hoch.
 Die letzte Auswahl wird für andere Projekte desselben Betriebssystembenutzers auf diesem
 Computer gespeichert. Ohne Auswahl folgt das Werkzeug der Systemsprache und verwendet bei Bedarf Englisch.
-Die ausdrückliche Auswahl vorhandener Avatare bleibt erhalten. Sprachpräferenzen werden nicht auf andere PCs synchronisiert.
+Alle Posenwerkzeuge und Avatare verwenden dieselbe Sprache. Eine Änderung im Inspector eines beliebigen Werkzeugs aktualisiert die gemeinsame Einstellung; avatarbezogene Sprachauswahlen werden ignoriert. Sprachpräferenzen werden nicht auf andere PCs synchronisiert. Die Sprachschaltfläche erscheint nur bei der ersten Installationsbestätigung, wenn noch keine Sprache gespeichert ist. Spätere Sprachänderungen erfolgen im Inspector.
 
 ## Avatar einrichten
 

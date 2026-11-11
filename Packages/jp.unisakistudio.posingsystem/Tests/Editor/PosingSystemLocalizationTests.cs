@@ -4,7 +4,18 @@ using UnityEditor;
 
 namespace jp.unisakistudio.posingsystemeditor.tests
 {
-    public class PosingSystemLocalizationTests
+    public abstract class SharedLanguagePreferenceTestBase
+    {
+        private const string Key = "jp.unisakistudio.posingsystem.language";
+        private bool existed;
+        private string previous;
+        [SetUp] public void SaveSharedLanguagePreference()
+        { existed = EditorPrefs.HasKey(Key); previous = EditorPrefs.GetString(Key); }
+        [TearDown] public void RestoreSharedLanguagePreference()
+        { if (existed) EditorPrefs.SetString(Key, previous); else EditorPrefs.DeleteKey(Key); }
+    }
+
+    public class PosingSystemLocalizationTests : global::jp.unisakistudio.posingsystemeditor.tests.SharedLanguagePreferenceTestBase
     {
         [Test]
         public void LanguageCatalogHasUniqueCodesAndMatchingNames()
@@ -31,35 +42,39 @@ namespace jp.unisakistudio.posingsystemeditor.tests
             }
         }
         [Test]
-        public void OneSelectionControlsInspectorAndMenuWithoutChangingOtherAvatars()
+        public void OnePreferenceOverridesLegacyAvatarValuesWithoutChangingSerializedData()
         {
-            const string key = "jp.unisakistudio.posingsystem.language";
-            var existed = EditorPrefs.HasKey(key); var previous = EditorPrefs.GetString(key);
-            var first = new UnityEngine.GameObject("first"); var second = new UnityEngine.GameObject("second");
+            var first = new UnityEngine.GameObject("Kawaii");
+            var second = new UnityEngine.GameObject("Cool");
             try
             {
-                var ps = first.AddComponent<jp.unisakistudio.posingsystem.PosingSystem>();
+                var ps = first.AddComponent<jp.unisakistudio.posingsystem.PosingSystem>(); ps.menuLanguage = "ja";
                 var other = second.AddComponent<jp.unisakistudio.posingsystem.PosingSystem>(); other.menuLanguage = "fr";
+                UnityEditor.EditorUtility.ClearDirty(ps); UnityEditor.EditorUtility.ClearDirty(other);
                 PosingSystemLocalization.Select("en");
                 using (PosingSystemLocalization.ForInspector(ps))
+                using (PosingSystemLocalization.ForInspector(other))
                 {
-                    Assert.That(PosingSystemLocalization.Language, Is.EqualTo("en"));
+                    Assert.That(PosingSystemLocalization.ResolveLanguage(ps), Is.EqualTo("en"));
+                    Assert.That(PosingSystemLocalization.ResolveLanguage(other), Is.EqualTo("en"));
                     Assert.That(PosingSystemLocalization.ApplyLanguageSelection(0, ps), Is.True);
-                    Assert.That(ps.menuLanguage, Is.EqualTo("ja"));
                     Assert.That(PosingSystemLocalization.Language, Is.EqualTo("ja"));
-                    Assert.That(PosingSystemLocalization.ResolveLanguage(ps), Is.EqualTo("ja"));
-                    Assert.That(PosingSystemLocalization.Text("機能"), Is.EqualTo("機能"));
+                    Assert.That(PosingSystemLocalization.ResolveLanguage(other), Is.EqualTo("ja"));
+                    Assert.That(PosingSystemLocalization.ApplyLanguageSelection(1, other), Is.True);
+                    Assert.That(PosingSystemLocalization.Language, Is.EqualTo("en"));
+                    Assert.That(PosingSystemLocalization.ResolveLanguage(ps), Is.EqualTo("en"));
+                    Assert.That(PosingSystemLocalization.ApplyLanguageSelection(1, ps), Is.False);
                 }
-                PosingSystemLocalization.Select("en");
-                using (PosingSystemLocalization.ForInspector(ps)) Assert.That(PosingSystemLocalization.Language, Is.EqualTo("ja"));
-                using (PosingSystemLocalization.ForInspector(other)) Assert.That(PosingSystemLocalization.Language, Is.EqualTo("fr"));
-                Assert.That(PosingSystemLocalization.Language, Is.EqualTo("en"));
+                Assert.That(ps.menuLanguage, Is.EqualTo("ja"));
+                Assert.That(other.menuLanguage, Is.EqualTo("fr"));
+                Assert.That(UnityEditor.EditorUtility.IsDirty(ps), Is.False);
+                Assert.That(UnityEditor.EditorUtility.IsDirty(other), Is.False);
+                UnityEditor.EditorPrefs.DeleteKey("jp.unisakistudio.posingsystem.language");
+                Assert.That(PosingSystemLocalization.HasSelection, Is.False);
+                Assert.That(PosingSystemLocalization.ResolveLanguage(ps), Is.EqualTo(UnisakiStudio.Setup.Language.Current));
+                Assert.That(PosingSystemLocalization.ResolveLanguage(other), Is.EqualTo(UnisakiStudio.Setup.Language.Current));
             }
-            finally
-            {
-                UnityEngine.Object.DestroyImmediate(first); UnityEngine.Object.DestroyImmediate(second);
-                if (existed) EditorPrefs.SetString(key, previous); else EditorPrefs.DeleteKey(key);
-            }
+            finally { UnityEngine.Object.DestroyImmediate(first); UnityEngine.Object.DestroyImmediate(second); }
         }
 
         [Test]
@@ -120,7 +135,7 @@ namespace jp.unisakistudio.posingsystemeditor.tests
         }
 
         [Test]
-        public void TargetFormattedFailurePreservesNamesAndRestoresOuterLanguage()
+        public void TargetFormattedFailureUsesSharedLanguageAndPreservesNames()
         {
             const string preference = "jp.unisakistudio.posingsystem.language";
             const string template = "「{0}」オブジェクトにMAParametersコンポーネントがありません";
@@ -131,15 +146,16 @@ namespace jp.unisakistudio.posingsystemeditor.tests
             {
                 var ps = go.AddComponent<jp.unisakistudio.posingsystem.PosingSystem>();
                 PosingSystemLocalization.Select("en");
-                ps.menuLanguage = "fr";
+                ps.menuLanguage = "ja";
+                PosingSystemLocalization.Select("fr");
                 var french = PosingSystemLocalization.FormatFor(ps, template, customName);
                 Assert.That(french, Is.EqualTo(string.Format(PosingSystemLocalization.Translate("fr", template, template), customName)));
                 Assert.That(french, Does.Contain(customName));
                 Assert.That(french, Does.Not.Contain("コンポーネントがありません"));
-                Assert.That(PosingSystemLocalization.Language, Is.EqualTo("en"), "target scope must not leak into other tools");
-                ps.menuLanguage = "ja";
+                Assert.That(PosingSystemLocalization.Language, Is.EqualTo("fr"));
+                PosingSystemLocalization.Select("ja");
                 Assert.That(PosingSystemLocalization.FormatFor(ps, template, customName), Is.EqualTo(string.Format(template, customName)));
-                Assert.That(PosingSystemLocalization.Language, Is.EqualTo("en"));
+                Assert.That(PosingSystemLocalization.Language, Is.EqualTo("ja"));
                 Assert.That(go.name, Is.EqualTo(customName));
             }
             finally
@@ -165,7 +181,7 @@ namespace jp.unisakistudio.posingsystemeditor.tests
                 PosingSystemLocalization.Select("en");
                 foreach (var language in new[] { "fr", "ja", "en" })
                 {
-                    ps.menuLanguage = language;
+                    PosingSystemLocalization.Select(language);
                     var exception = PosingSystemDiagnostics.Failure("PS035", string.Format(template, customCategory, customPose),
                         firstRemedy + "\n" + PosingSystemDiagnostics.RestoreTool, ps);
                     var expected = string.Format(PosingSystemLocalization.Translate(language, template, template), customCategory, customPose);
@@ -174,7 +190,7 @@ namespace jp.unisakistudio.posingsystemeditor.tests
                     Assert.That(exception.Message, Does.Contain(PosingSystemLocalization.Translate(language, firstRemedy, firstRemedy)), language);
                     Assert.That(exception.Message, Does.Contain(PosingSystemLocalization.Translate(language, PosingSystemDiagnostics.RestoreTool, PosingSystemDiagnostics.RestoreTool)), language);
                     if (language != "ja") Assert.That(exception.Message, Does.Not.Contain("変換に失敗しました").And.Not.Contain("ないか確認してください"), language);
-                    Assert.That(PosingSystemLocalization.Language, Is.EqualTo("en"));
+                    Assert.That(PosingSystemLocalization.Language, Is.EqualTo(language));
                 }
             }
             finally
@@ -185,7 +201,7 @@ namespace jp.unisakistudio.posingsystemeditor.tests
         }
 
         [Test]
-        public void ContextlessFailureInheritsTheEnclosingTargetLanguage()
+        public void ContextlessFailureUsesSharedPreferenceDespiteLegacyTargetLanguage()
         {
             const string preference = "jp.unisakistudio.posingsystem.language";
             const string summary = "ツールに同梱される空アニメーションが見つかりません。";
@@ -199,8 +215,8 @@ namespace jp.unisakistudio.posingsystemeditor.tests
                 using (PosingSystemLocalization.ForInspector(ps))
                 {
                     var failure = PosingSystemDiagnostics.Failure("PS031", summary, PosingSystemDiagnostics.RestoreTool, null);
-                    Assert.That(failure.Message, Does.Contain(PosingSystemLocalization.Translate("fr", summary, summary)));
-                    Assert.That(PosingSystemLocalization.Language, Is.EqualTo("fr"));
+                    Assert.That(failure.Message, Does.Contain(PosingSystemLocalization.Translate("en", summary, summary)));
+                    Assert.That(PosingSystemLocalization.Language, Is.EqualTo("en"));
                 }
                 Assert.That(PosingSystemLocalization.Language, Is.EqualTo("en"));
                 using (PosingSystemLocalization.ForInspector(null)) Assert.That(PosingSystemLocalization.Language, Is.EqualTo("en"));

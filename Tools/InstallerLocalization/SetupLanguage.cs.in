@@ -14,6 +14,7 @@ namespace UnisakiStudio.Setup
     internal static class Language
     {
         internal const string PreferenceKey = "jp.unisakistudio.posingsystem.language";
+        internal static bool HasSelection => Array.IndexOf(Codes, EditorPrefs.GetString(PreferenceKey, "")) >= 0;
         internal static readonly string[] Codes = __CODES__;
         internal static readonly string[] Names = __NAMES__;
         private static readonly Dictionary<string, string> Aliases = __ALIASES__;
@@ -194,16 +195,27 @@ __FACTORIES__
         }
         internal static bool Dialog(string title, string message, string ok, string cancel = "")
             => Dialog(title, () => T(message), ok, cancel);
+        internal static bool CanOfferLanguage(string title, string language, bool hasSelection)
+        {
+            if (hasSelection) return false;
+            var caption = Translate(language, title);
+            return caption == Translate(language, "Confirm") || caption == Translate(language, "License installation");
+        }
         internal static bool Dialog(string title, Func<string> message, string ok, string cancel = "")
         {
-            // Both license activators and VPAI can run before the product package exists.
-            // Language remains reachable from every setup confirmation without another package.
+            // Offer language only on the first setup confirmation. Completion and
+            // error dialogs always use ordinary buttons; Inspector handles later changes.
             while (true)
             {
+                if (!CanOfferLanguage(title, Current, HasSelection))
+                    return string.IsNullOrEmpty(cancel)
+                        ? EditorUtility.DisplayDialog(T(title), message(), T(ok))
+                        : EditorUtility.DisplayDialog(T(title), message(), T(ok), T(cancel));
                 var choice = EditorUtility.DisplayDialogComplex(T(title), message(), T(ok),
                     string.IsNullOrEmpty(cancel) ? T("Close") : T(cancel), T("Language..."));
-                if (choice != 2) return choice == 0;
-                Choose();
+                if (choice == 2) { Choose(); continue; }
+                if (choice == 0 && !HasSelection) Select(Current); // Accept the detected PC language once.
+                return choice == 0;
             }
         }
         internal static void Choose()

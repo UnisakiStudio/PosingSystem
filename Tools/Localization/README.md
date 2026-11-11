@@ -1,5 +1,20 @@
 # v3.2.0 localization authoring
 
+## Shared language policy (2026-11-12)
+
+All products, avatars, inspectors, setup programs and generated menus use the same
+EditorPrefs language for the current OS user on this computer. Legacy serialized
+`menuLanguage` values are retained only for compatibility and must never override
+or initialize that preference. Language changes must not dirty scenes or prefabs.
+Read the preference live, including nested inspector/build calls. Unselected means
+OS language with English fallback. Generated menus change on the next upload.
+
+Show the setup language button only on the first confirmation when no valid
+preference is saved. Accepting the detected PC language also saves that choice.
+Completion/error dialogs use ordinary buttons, even before a choice exists;
+subsequent language changes use the Inspector. Keep first-use policy checks across
+all languages and restore/isolate preferences in tests.
+
 This is development work, not a published release. The user confirmed all 30 language selections on 2026-11-09.
 
 ## Required for every feature and fix (2026-11-09)

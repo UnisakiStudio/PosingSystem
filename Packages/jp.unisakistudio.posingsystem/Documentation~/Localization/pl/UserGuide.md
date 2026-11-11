@@ -4,7 +4,7 @@ Unisaki Posing System to wspólny rdzeń Kawaii Posing, Cool Posing i powiązany
 
 ## Język
 
-Wybierz **Language / 言語** u góry Inspectora narzędzia. Jeden wybór steruje Inspectorem i generowanym menu VRChat. Po zmianie języka prześlij awatara ponownie. Ostatni wybór jest pamiętany w innych projektach tego samego użytkownika systemu na tym komputerze. Bez zapisanego wyboru narzędzie korzysta z języka systemu lub angielskiego jako zapasowego. Jawny wybór istniejącego awatara pozostaje zachowany. Preferencje języka nie synchronizują się z innymi komputerami.
+Wybierz **Language / 言語** u góry Inspectora narzędzia. Jeden wybór steruje Inspectorem i generowanym menu VRChat. Po zmianie języka prześlij awatara ponownie. Ostatni wybór jest pamiętany w innych projektach tego samego użytkownika systemu na tym komputerze. Bez zapisanego wyboru narzędzie korzysta z języka systemu lub angielskiego jako zapasowego. Wszystkie narzędzia do pozowania i awatary używają tego samego języka. Zmiana w Inspectorze dowolnego narzędzia aktualizuje wspólne ustawienie; wybory języka poszczególnych awatarów są ignorowane. Preferencje języka nie synchronizują się z innymi komputerami. Przycisk języka pojawia się tylko przy pierwszym potwierdzeniu instalacji, gdy nie zapisano języka. Późniejszych zmian dokonuje się w Inspectorze.
 
 ## Konfiguracja awatara
 

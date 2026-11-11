@@ -14,6 +14,7 @@ namespace UnisakiStudio.Setup
     internal static class Language
     {
         internal const string PreferenceKey = "jp.unisakistudio.posingsystem.language";
+        internal static bool HasSelection => Array.IndexOf(Codes, EditorPrefs.GetString(PreferenceKey, "")) >= 0;
         internal static readonly string[] Codes = { "ja", "en", "fr", "it", "zh-Hans", "zh-Hant", "ko", "th", "de", "es", "pt", "pt-BR", "ru", "uk", "pl", "nl", "sv", "da", "fi", "nb", "cs", "tr", "id", "vi", "hi", "bn", "ta", "te", "ar", "he" };
         internal static readonly string[] Names = { "日本語", "English", "Français", "Italiano", "简体中文", "繁體中文", "한국어", "ไทย", "Deutsch", "Español", "Português", "Português (Brasil)", "Русский", "Українська", "Polski", "Nederlands", "Svenska", "Dansk", "Suomi", "Norsk", "Čeština", "Türkçe", "Bahasa Indonesia", "Tiếng Việt", "हिन्दी", "বাংলা", "தமிழ்", "తెలుగు", "العربية", "עברית" };
         private static readonly Dictionary<string, string> Aliases = BuildAliases();
@@ -55508,16 +55509,27 @@ namespace UnisakiStudio.Setup
         }
         internal static bool Dialog(string title, string message, string ok, string cancel = "")
             => Dialog(title, () => T(message), ok, cancel);
+        internal static bool CanOfferLanguage(string title, string language, bool hasSelection)
+        {
+            if (hasSelection) return false;
+            var caption = Translate(language, title);
+            return caption == Translate(language, "Confirm") || caption == Translate(language, "License installation");
+        }
         internal static bool Dialog(string title, Func<string> message, string ok, string cancel = "")
         {
-            // Both license activators and VPAI can run before the product package exists.
-            // Language remains reachable from every setup confirmation without another package.
+            // Offer language only on the first setup confirmation. Completion and
+            // error dialogs always use ordinary buttons; Inspector handles later changes.
             while (true)
             {
+                if (!CanOfferLanguage(title, Current, HasSelection))
+                    return string.IsNullOrEmpty(cancel)
+                        ? EditorUtility.DisplayDialog(T(title), message(), T(ok))
+                        : EditorUtility.DisplayDialog(T(title), message(), T(ok), T(cancel));
                 var choice = EditorUtility.DisplayDialogComplex(T(title), message(), T(ok),
                     string.IsNullOrEmpty(cancel) ? T("Close") : T(cancel), T("Language..."));
-                if (choice != 2) return choice == 0;
-                Choose();
+                if (choice == 2) { Choose(); continue; }
+                if (choice == 0 && !HasSelection) Select(Current); // Accept the detected PC language once.
+                return choice == 0;
             }
         }
         internal static void Choose()

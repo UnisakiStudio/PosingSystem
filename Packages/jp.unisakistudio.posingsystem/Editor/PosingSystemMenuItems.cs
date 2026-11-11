@@ -122,7 +122,6 @@ namespace jp.unisakistudio.posingsystemeditor
                     .FirstOrDefault();
 
                 Undo.RecordObject(installedPosingSystem, "Set tool language");
-                installedPosingSystem.menuLanguage = UnisakiStudio.Setup.Language.Current;
                 // PresetDefineを適用する
                 if (presetDefine != null)
                 {
@@ -144,7 +143,6 @@ namespace jp.unisakistudio.posingsystemeditor
                     if (PosingSystemEditor.TryPrebuildAndRenew(installedPosingSystem))
                         UnisakiStudio.Setup.Language.Dialog(PosingSystemLocalization.Text("プレビルド"), "プレビルドが完了しました", "OK");
                 }
-                installedPosingSystem.menuLanguage = UnisakiStudio.Setup.Language.Current;
                 PosingSystemEditorChangeUtility.MarkChanged(installedPosingSystem);
             }
        }

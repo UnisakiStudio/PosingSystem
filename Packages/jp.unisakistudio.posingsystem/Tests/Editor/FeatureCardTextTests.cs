@@ -12,7 +12,7 @@ using Object = UnityEngine.Object;
 
 namespace UnisakiStudio.PosingSystem.Tests
 {
-    public sealed class FeatureCardTextTests
+    public sealed class FeatureCardTextTests : global::jp.unisakistudio.posingsystemeditor.tests.SharedLanguagePreferenceTestBase
     {
         const BindingFlags All = BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static | BindingFlags.Instance;
         sealed class GuiScope : IDisposable
@@ -58,11 +58,10 @@ namespace UnisakiStudio.PosingSystem.Tests
                 type.GetMethod("EnsureStyles", All).Invoke(null, null);
                 var titleStyle = (GUIStyle)type.GetField("titleStyle", All).GetValue(null);
                 var bodyStyle = (GUIStyle)type.GetField("descriptionStyle", All).GetValue(null);
-                var outerLanguage = PosingSystemLocalization.Language;
                 var samples = 0;
                 foreach (var language in PosingSystemLocalization.Codes)
                 {
-                    ps.menuLanguage = language;
+                    PosingSystemLocalization.Select(language);
                     serialized.Update();
                     var original = EditorJsonUtility.ToJson(ps);
                     using (PosingSystemLocalization.ForInspector(ps))
@@ -90,7 +89,7 @@ namespace UnisakiStudio.PosingSystem.Tests
                         }
                     }
                     Assert.That(EditorJsonUtility.ToJson(ps), Is.EqualTo(original), language + " changed serialized settings");
-                    Assert.That(PosingSystemLocalization.Language, Is.EqualTo(outerLanguage));
+                    Assert.That(PosingSystemLocalization.Language, Is.EqualTo(language));
                 }
                 Assert.That(samples, Is.EqualTo(30 * 19 * 3));
                 TestContext.WriteLine("All-language card width samples: " + samples);

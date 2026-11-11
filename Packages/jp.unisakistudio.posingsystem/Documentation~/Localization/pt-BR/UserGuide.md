@@ -10,7 +10,7 @@ Escolha **Language / 言語** no topo do Inspector. A seleção controla
 Inspector e menu VRChat gerado. Envie novamente o avatar depois de mudar o idioma.
 A última escolha é lembrada em outros projetos do mesmo usuário deste
 computador. Sem preferência, segue o sistema ou inglês se não suportado.
-Uma seleção explícita existente é conservada. Não sincroniza com outros PCs.
+Todas as ferramentas de poses e todos os avatares usam o mesmo idioma. Alterá-lo no Inspector de qualquer ferramenta atualiza a preferência compartilhada; as escolhas de idioma por avatar são ignoradas. Não sincroniza com outros PCs. O botão de idioma aparece apenas na confirmação inicial da instalação quando não há um idioma salvo. As alterações posteriores são feitas no Inspector.
 
 ## Configurar um avatar
 

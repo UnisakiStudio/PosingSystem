@@ -4,7 +4,7 @@ Unisaki Posing System on Kawaii Posingin, Cool Posingin ja muiden vastaavien ty�
 
 ## Kieli
 
-Valitse **Language / 言語** työkalun Inspectorin yläosasta. Sama valinta koskee Inspectoria ja luotavaa VRChat-valikkoa. Lataa avatar uudelleen palveluun kielen vaihtamisen jälkeen. Viimeinen valinta muistetaan tämän tietokoneen saman käyttöjärjestelmäkäyttäjän muissa projekteissa. Ilman tallennettua valintaa työkalu seuraa käyttöjärjestelmän kieltä ja käyttää tarvittaessa englantia. Avatarin olemassa oleva erillinen kielivalinta säilyy. Kieliasetuksia ei synkronoida muihin tietokoneisiin.
+Valitse **Language / 言語** työkalun Inspectorin yläosasta. Sama valinta koskee Inspectoria ja luotavaa VRChat-valikkoa. Lataa avatar uudelleen palveluun kielen vaihtamisen jälkeen. Viimeinen valinta muistetaan tämän tietokoneen saman käyttöjärjestelmäkäyttäjän muissa projekteissa. Ilman tallennettua valintaa työkalu seuraa käyttöjärjestelmän kieltä ja käyttää tarvittaessa englantia. Kaikki poseeraustyökalut ja avatarit käyttävät samaa kieltä. Kielen vaihtaminen minkä tahansa työkalun Inspectorissa päivittää yhteisen asetuksen; avatarikohtaisia kielivalintoja ei käytetä. Kieliasetuksia ei synkronoida muihin tietokoneisiin. Kielipainike näkyy vain ensimmäisessä asennusvahvistuksessa, jos kieltä ei ole tallennettu. Myöhemmät kielenvaihdot tehdään Inspectorissa.
 
 ## Avatarin käyttöönotto
 

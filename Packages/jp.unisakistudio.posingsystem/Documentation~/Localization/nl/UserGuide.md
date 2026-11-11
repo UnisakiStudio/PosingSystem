@@ -10,7 +10,7 @@ Kies **Language / 言語** boven in de Inspector. Eén keuze bestuurt
 Inspector en gegenereerd VRChat-menu. Upload opnieuw na een taalwijziging.
 De laatste keuze geldt voor andere projecten van dezelfde systeemgebruiker op deze
 computer. Zonder keuze volgt het systeem, met Engels als terugval.
-Een expliciete bestaande avatarkeuze blijft. Talen synchroniseren niet naar andere pc’s.
+Alle posehulpmiddelen en avatars gebruiken dezelfde taal. Een wijziging in de Inspector van een hulpmiddel werkt de gedeelde voorkeur bij; taalkeuzes per avatar worden genegeerd. Talen synchroniseren niet naar andere pc’s. De taalknop verschijnt alleen bij de eerste installatiebevestiging als er nog geen taal is opgeslagen. Latere taalwijzigingen gebeuren in de Inspector.
 
 ## Avatar instellen
 

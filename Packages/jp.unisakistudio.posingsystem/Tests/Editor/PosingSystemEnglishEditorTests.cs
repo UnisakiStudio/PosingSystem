@@ -10,7 +10,7 @@ using Object = UnityEngine.Object;
 
 namespace jp.unisakistudio.posingsystemeditor.tests
 {
-    public class PosingSystemEnglishEditorTests
+    public class PosingSystemEnglishEditorTests : global::jp.unisakistudio.posingsystemeditor.tests.SharedLanguagePreferenceTestBase
     {
         private static readonly Regex Japanese = new Regex("[\\u3040-\\u30ff\\u3400-\\u9fff]");
 
@@ -21,12 +21,12 @@ namespace jp.unisakistudio.posingsystemeditor.tests
             try
             {
                 var system = root.AddComponent<PosingSystem>();
-                system.menuLanguage = "en";
+                PosingSystemLocalization.Select("en");
                 using (PosingSystemLocalization.ForInspector(system))
                     foreach (var property in typeof(PosingAnimationAdjustmentWindowText).GetProperties(BindingFlags.Public | BindingFlags.Static))
                         Assert.That(Japanese.IsMatch((string)property.GetValue(null)), Is.False, property.Name);
 
-                system.menuLanguage = "ja";
+                PosingSystemLocalization.Select("ja");
                 using (PosingSystemLocalization.ForInspector(system))
                     Assert.That(PosingAnimationAdjustmentWindowText.Title, Is.EqualTo("アニメーション調整"));
             }
@@ -41,7 +41,7 @@ namespace jp.unisakistudio.posingsystemeditor.tests
             {
                 var system = root.AddComponent<PosingSystem>();
                 var boneLabels = typeof(PosingSystemAutoPoseEditorGui).GetProperty("TargetBoneLabels", BindingFlags.NonPublic | BindingFlags.Static);
-                system.menuLanguage = "en";
+                PosingSystemLocalization.Select("en");
                 using (PosingSystemLocalization.ForInspector(system))
                 {
                     for (var i = 0; i < HumanTrait.MuscleCount; i++)
@@ -50,7 +50,7 @@ namespace jp.unisakistudio.posingsystemeditor.tests
                         Assert.That(Japanese.IsMatch(group.DisplayName), Is.False, group.Name.ToString());
                     Assert.That(((GUIContent[])boneLabels.GetValue(null)).All(label => !Japanese.IsMatch(label.text)), Is.True);
                 }
-                system.menuLanguage = "ja";
+                PosingSystemLocalization.Select("ja");
                 using (PosingSystemLocalization.ForInspector(system))
                 {
                     Assert.That(PosingAnimationAdjustmentMuscle.GetMuscleNameJapanese(0), Is.EqualTo("腰 前後"));
@@ -76,7 +76,7 @@ namespace jp.unisakistudio.posingsystemeditor.tests
             var root = new GameObject("Localization editor test");
             try
             {
-                var system = root.AddComponent<PosingSystem>(); system.menuLanguage = "en";
+                var system = root.AddComponent<PosingSystem>(); PosingSystemLocalization.Select("en");
                 using var serialized = new SerializedObject(holder);
                 var before = EditorJsonUtility.ToJson(holder);
                 using (PosingSystemLocalization.ForInspector(system))
@@ -95,7 +95,7 @@ namespace jp.unisakistudio.posingsystemeditor.tests
             var root = new GameObject("Localization editor test");
             try
             {
-                var system = root.AddComponent<PosingSystem>(); system.menuLanguage = "en";
+                var system = root.AddComponent<PosingSystem>(); PosingSystemLocalization.Select("en");
                 using (PosingSystemLocalization.ForInspector(system))
                 {
                     var missing = PosingSystemDiagnostics.Collect(null).Single();
@@ -162,14 +162,14 @@ namespace jp.unisakistudio.posingsystemeditor.tests
                 var document = System.IO.Path.Combine(folder, "Documentation~", "UserGuide.en.html");
                 System.IO.File.WriteAllText(document, "<!doctype html><title>English guide</title>");
                 var info = new PosingSystemPackageInfo.Info { name = "jp.unisakistudio.kawaiiposing", RootPath = folder };
-                var system = root.AddComponent<PosingSystem>(); system.menuLanguage = "en";
+                var system = root.AddComponent<PosingSystem>(); PosingSystemLocalization.Select("en");
                 using (PosingSystemLocalization.ForInspector(system))
                 {
                     var uri = new Uri(info.ManualUrl);
                     Assert.That(uri.IsFile, Is.True);
                     Assert.That(System.IO.File.ReadAllText(uri.LocalPath), Does.Contain("English guide"));
                 }
-                system.menuLanguage = "ja";
+                PosingSystemLocalization.Select("ja");
                 using (PosingSystemLocalization.ForInspector(system))
                     Assert.That(info.ManualUrl, Is.EqualTo("https://docs.unisakistudio.jp/kawaiiposing/manual/"));
             }

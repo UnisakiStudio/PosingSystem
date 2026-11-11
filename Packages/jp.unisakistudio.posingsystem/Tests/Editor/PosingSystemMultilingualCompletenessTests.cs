@@ -8,7 +8,7 @@ using Object = UnityEngine.Object;
 
 namespace jp.unisakistudio.posingsystemeditor.tests
 {
-    public class PosingSystemMultilingualCompletenessTests
+    public class PosingSystemMultilingualCompletenessTests : global::jp.unisakistudio.posingsystemeditor.tests.SharedLanguagePreferenceTestBase
     {
         private const string Root = "Packages/jp.unisakistudio.posingsystem/Editor/Localization/";
 
@@ -50,13 +50,13 @@ namespace jp.unisakistudio.posingsystemeditor.tests
             try
             {
                 var system = root.AddComponent<PosingSystem>();
-                system.menuLanguage = "en";
+                PosingSystemLocalization.Select("en");
                 string cached;
                 using (PosingSystemLocalization.ForInspector(system))
                     cached = PosingSystemLocalization.Format(template, path, PosingSystemLocalization.Text("が無効になっています"));
                 foreach (var language in new[] { "fr", "ja", "en" })
                 {
-                    system.menuLanguage = language;
+                    PosingSystemLocalization.Select(language);
                     using (PosingSystemLocalization.ForInspector(system))
                     {
                         var expected = PosingSystemLocalization.Format(template, path, PosingSystemLocalization.Text("が無効になっています"));
@@ -73,12 +73,11 @@ namespace jp.unisakistudio.posingsystemeditor.tests
         public void MaintenanceDialogsAndDraftCanReturnToJapanese()
         {
             const string preference = "jp.unisakistudio.posingsystem.language";
-            var savedPreference = EditorPrefs.GetString(preference, "");
             var root = new GameObject("Language round trip test");
             try
             {
                 var system = root.AddComponent<PosingSystem>();
-                system.menuLanguage = "en";
+                PosingSystemLocalization.Select("en");
                 using (PosingSystemLocalization.ForInspector(system))
                 {
                     Assert.That(PosingSystemLocalization.Text("保存時から変わった項目を確認"), Is.EqualTo("Show settings changed since prebuild"));
@@ -86,14 +85,14 @@ namespace jp.unisakistudio.posingsystemeditor.tests
                     Assert.That(PosingSystemLocalization.Format("共通ポージングAnimatorを使用できません。「{0}」{1}。", "Custom / 対象", PosingSystemLocalization.Text("が無効になっています")),
                         Is.EqualTo("The common posing Animator is unavailable. \"Custom / 対象\" is disabled."));
                 }
-                system.menuLanguage = "ja";
+                PosingSystemLocalization.Select("ja");
                 using (PosingSystemLocalization.ForInspector(system))
                 {
                     Assert.That(PosingSystemLocalization.Text("保存時から変わった項目を確認"), Is.EqualTo("保存時から変わった項目を確認"));
                     Assert.That(PosingSystemSupportReport.Draft("[PS050]").StartsWith("ポーズツールで次のエラー"), Is.True);
                     Assert.That(PosingAnimationAdjustmentMuscle.GetMuscleNameJapanese(0), Is.EqualTo("腰 前後"));
                 }
-                Assert.That(EditorPrefs.GetString(preference, ""), Is.EqualTo(savedPreference));
+                Assert.That(EditorPrefs.GetString(preference, ""), Is.EqualTo("ja"));
             }
             finally { Object.DestroyImmediate(root); }
         }

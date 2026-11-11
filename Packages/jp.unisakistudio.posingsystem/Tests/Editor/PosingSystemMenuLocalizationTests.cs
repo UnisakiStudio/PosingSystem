@@ -8,7 +8,7 @@ using Object = UnityEngine.Object;
 
 namespace jp.unisakistudio.posingsystemeditor.tests
 {
-    public class PosingSystemMenuLocalizationTests
+    public class PosingSystemMenuLocalizationTests : global::jp.unisakistudio.posingsystemeditor.tests.SharedLanguagePreferenceTestBase
     {
         [Test]
         public void MenuClonePreservesSourceParametersAndCycles()
@@ -47,17 +47,19 @@ namespace jp.unisakistudio.posingsystemeditor.tests
             var root = new GameObject("test");
             try
             {
-                var ps = root.AddComponent<PosingSystem>(); ps.menuLanguage = "en";
+                var ps = root.AddComponent<PosingSystem>(); PosingSystemLocalization.Select("en");
                 var item = root.AddComponent<ModularAvatarMenuItem>();
                 item.Control.name = item.label = "寝返り";
                 var child = new GameObject("nested"); child.transform.parent = root.transform;
                 var nested = child.AddComponent<PosingSystem>(); nested.menuLanguage = "ja";
-                var nestedItem = child.AddComponent<ModularAvatarMenuItem>(); nestedItem.Control.name = "足固定";
+                var nestedItem = child.AddComponent<ModularAvatarMenuItem>(); nestedItem.Control.name = nestedItem.label = "足固定";
                 PosingSystemMenuLocalization.Apply(ps);
                 Assert.That(root.name, Is.EqualTo("test"));
                 Assert.That(item.Control.name, Is.EqualTo("Roll Over"));
                 Assert.That(item.label, Is.EqualTo("Roll Over"));
                 Assert.That(nestedItem.Control.name, Is.EqualTo("足固定"));
+                PosingSystemMenuLocalization.Apply(nested);
+                Assert.That(nestedItem.Control.name, Is.EqualTo("Lock Feet"), "Nested tools share the PC language despite their legacy field");
             }
             finally { Object.DestroyImmediate(root); }
         }
@@ -69,7 +71,7 @@ namespace jp.unisakistudio.posingsystemeditor.tests
             var root = new GameObject("寝返り");
             try
             {
-                var ps = root.AddComponent<PosingSystem>(); ps.menuLanguage = "en";
+                var ps = root.AddComponent<PosingSystem>(); PosingSystemLocalization.Select("en");
                 var child = new GameObject("寝返り"); child.transform.parent = root.transform;
                 var item = child.AddComponent<ModularAvatarMenuItem>(); item.label = "";
                 root.SetActive(active);
@@ -88,7 +90,7 @@ namespace jp.unisakistudio.posingsystemeditor.tests
             VRCExpressionsMenu copy = null;
             try
             {
-                var ps = root.AddComponent<PosingSystem>(); ps.menuLanguage = "en";
+                var ps = root.AddComponent<PosingSystem>(); PosingSystemLocalization.Select("en");
                 var first = root.AddComponent<ModularAvatarMenuInstaller>(); first.menuToAppend = menu;
                 var child = new GameObject("child"); child.transform.parent = root.transform;
                 var second = child.AddComponent<ModularAvatarMenuInstaller>(); second.installTargetMenu = menu;

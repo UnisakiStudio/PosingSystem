@@ -10,7 +10,7 @@ Pilih **Language / 言語** di bagian atas Inspector alat. Satu pilihan mengatur
 Inspector dan menu VRChat yang dihasilkan. Unggah ulang avatar setelah mengubah bahasa.
 Pilihan terakhir diingat untuk proyek lain milik pengguna OS yang sama di komputer ini.
 Jika belum ada pilihan tersimpan, alat mengikuti bahasa OS dan menggunakan bahasa Inggris jika tidak didukung.
-Pilihan eksplisit pada avatar yang ada tetap dipertahankan. Preferensi bahasa tidak disinkronkan ke PC lain.
+Semua alat pose dan avatar menggunakan bahasa yang sama. Mengubahnya di Inspector alat mana pun memperbarui preferensi bersama; pilihan bahasa per avatar diabaikan. Preferensi bahasa tidak disinkronkan ke PC lain. Tombol bahasa hanya muncul pada konfirmasi pemasangan awal jika belum ada bahasa yang disimpan. Perubahan bahasa berikutnya dilakukan di Inspector.
 
 ## Menyiapkan avatar
 

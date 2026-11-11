@@ -51,7 +51,13 @@ class Program
             Check((string)Call("Translate", "ja", warning) == originalWarning, "nested multiline message returns to Japanese");
             var codes = (string[])type.GetField("Codes", flags).GetValue(null);
             foreach (var code in codes)
+            {
                 Check(!string.IsNullOrWhiteSpace((string)Call("Translate", code, "Packages to install")), "setup terms in " + code);
+                Check((bool)Call("CanOfferLanguage", "Confirm", code, false), "initial confirmation offers language in " + code);
+                Check(!(bool)Call("CanOfferLanguage", "Confirm", code, true), "saved preference hides language in " + code);
+                Check(!(bool)Call("CanOfferLanguage", "ERROR", code, false), "errors never offer language in " + code);
+                Check(!(bool)Call("CanOfferLanguage", "Complete", code, false), "completion never offers language in " + code);
+            }
             // This pure formatter has no InitializeOnLoad/static installer hooks.
             // Never invoke VpmPackageAutoInstaller itself in the console process.
             var errorType = assembly.GetType("Anatawa12.VpmPackageAutoInstaller.InstallerError", false);

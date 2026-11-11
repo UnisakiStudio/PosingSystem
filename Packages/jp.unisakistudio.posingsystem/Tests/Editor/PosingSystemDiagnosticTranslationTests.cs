@@ -5,7 +5,7 @@ using jp.unisakistudio.posingsystemeditor;
 
 namespace UnisakiStudio.PosingSystem.Tests
 {
-    public class PosingSystemDiagnosticTranslationTests
+    public class PosingSystemDiagnosticTranslationTests : global::jp.unisakistudio.posingsystemeditor.tests.SharedLanguagePreferenceTestBase
     {
         [Test]
         public void DuplicateRemovalPluginTitleFollowsLanguageWithoutChangingItsIdentity()
@@ -18,14 +18,14 @@ namespace UnisakiStudio.PosingSystem.Tests
                 const string source = "ゆにさきポーズシステム・重複オブジェクト削除機能";
                 foreach (var language in PosingSystemLocalization.Codes)
                 {
-                    ps.menuLanguage = language;
+                    PosingSystemLocalization.Select(language);
                     using (PosingSystemLocalization.ForInspector(ps))
                     {
                         Assert.That(plugin.DisplayName, Is.EqualTo(PosingSystemLocalization.Text(source) + PosingSystemPackageInfo.SystemVersion), language);
                         Assert.That(plugin.QualifiedName, Is.EqualTo("jp.unisakistudio.posingsytemeditor.duplicate-eraser"));
                         if (language != "ja") Assert.That(plugin.DisplayName, Does.Not.Contain(source), language);
                     }
-                    ps.menuLanguage = "ja";
+                    PosingSystemLocalization.Select("ja");
                     using (PosingSystemLocalization.ForInspector(ps))
                         Assert.That(plugin.DisplayName, Does.StartWith(source), language + " -> ja");
                 }
@@ -41,10 +41,9 @@ namespace UnisakiStudio.PosingSystem.Tests
             try
             {
                 var ps = go.AddComponent<jp.unisakistudio.posingsystem.PosingSystem>();
-                var outerLanguage = PosingSystemLocalization.Language;
                 foreach (var language in PosingSystemLocalization.Codes)
                 {
-                    ps.menuLanguage = language;
+                    PosingSystemLocalization.Select(language);
                     using (PosingSystemLocalization.ForInspector(ps))
                     {
                         var guidance = PosingSystemLocalization.Text(PosingSystemDiagnostics.RolloverClipAction);
@@ -55,8 +54,8 @@ namespace UnisakiStudio.PosingSystem.Tests
                         if (language != "ja")
                             Assert.That(draft, Does.Not.Contain(PosingSystemDiagnostics.RolloverClipAction), language);
                     }
-                    Assert.That(PosingSystemLocalization.Language, Is.EqualTo(outerLanguage));
-                    ps.menuLanguage = "ja";
+                    Assert.That(PosingSystemLocalization.Language, Is.EqualTo(language));
+                    PosingSystemLocalization.Select("ja");
                     using (PosingSystemLocalization.ForInspector(ps))
                         Assert.That(PosingSystemSupportReport.Draft("PS070"), Does.Contain(PosingSystemDiagnostics.RolloverClipAction), language + " -> ja");
                 }
@@ -72,16 +71,15 @@ namespace UnisakiStudio.PosingSystem.Tests
             try
             {
                 var ps = go.AddComponent<jp.unisakistudio.posingsystem.PosingSystem>();
-                var outerLanguage = PosingSystemLocalization.Language;
                 foreach (var language in PosingSystemLocalization.Codes)
                 {
-                    ps.menuLanguage = language;
+                    PosingSystemLocalization.Select(language);
                     using (PosingSystemLocalization.ForInspector(ps))
                     {
                         var exception = Assert.Throws<System.ArgumentException>(() => PosingSystemHeadSensorUtility.Create(null, null));
                         Assert.That(exception.Message, Is.EqualTo(PosingSystemLocalization.Translate(language, source, source)), language);
                     }
-                    Assert.That(PosingSystemLocalization.Language, Is.EqualTo(outerLanguage));
+                    Assert.That(PosingSystemLocalization.Language, Is.EqualTo(language));
                 }
             }
             finally { Object.DestroyImmediate(go); }
@@ -99,10 +97,9 @@ namespace UnisakiStudio.PosingSystem.Tests
             try
             {
                 var ps = go.AddComponent<jp.unisakistudio.posingsystem.PosingSystem>();
-                var outerLanguage = PosingSystemLocalization.Language;
                 foreach (var language in PosingSystemLocalization.Codes)
                 {
-                    ps.menuLanguage = language;
+                    PosingSystemLocalization.Select(language);
                     string displayed;
                     using (PosingSystemLocalization.ForInspector(ps))
                     {
@@ -112,8 +109,8 @@ namespace UnisakiStudio.PosingSystem.Tests
                         Assert.That(displayed, Does.Contain(custom), language);
                         if (language != "ja") Assert.That(displayed, Is.Not.EqualTo(raw), language);
                     }
-                    Assert.That(PosingSystemLocalization.Language, Is.EqualTo(outerLanguage));
-                    ps.menuLanguage = "ja";
+                    Assert.That(PosingSystemLocalization.Language, Is.EqualTo(language));
+                    PosingSystemLocalization.Select("ja");
                     using (PosingSystemLocalization.ForInspector(ps))
                         Assert.That(PosingSystemLocalization.TextMessage(displayed), Is.EqualTo(raw), language + " -> ja");
                 }

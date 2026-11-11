@@ -15,6 +15,7 @@ namespace jp.unisakistudio.posingsystem
     {
         public string settingName;
         // One language for the Inspector and upload menu. Empty uses the last user choice.
+        // Legacy serialized data only. All tools use the user's shared EditorPrefs language.
         [HideInInspector] public string menuLanguage = "";
         public bool isIconDisabled = false;
         public bool isIconSmall = false;

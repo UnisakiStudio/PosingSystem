@@ -10,7 +10,7 @@ Chọn **Language / 言語** ở đầu Inspector của công cụ. Một lựa 
 Inspector và menu VRChat được tạo. Tải avatar lên lại sau khi đổi ngôn ngữ.
 Lựa chọn gần nhất được nhớ cho dự án khác thuộc cùng người dùng hệ điều hành trên máy này.
 Nếu chưa lưu lựa chọn, công cụ theo ngôn ngữ hệ điều hành và dùng tiếng Anh khi không hỗ trợ.
-Lựa chọn rõ ràng của avatar hiện có được giữ. Tùy chọn ngôn ngữ không đồng bộ sang PC khác.
+Tất cả công cụ tạo dáng và avatar dùng chung một ngôn ngữ. Thay đổi trong Inspector của bất kỳ công cụ nào sẽ cập nhật tùy chọn chung; lựa chọn ngôn ngữ riêng của từng avatar không được sử dụng. Tùy chọn ngôn ngữ không đồng bộ sang PC khác. Nút ngôn ngữ chỉ xuất hiện ở bước xác nhận cài đặt đầu tiên khi chưa lưu ngôn ngữ. Các lần đổi ngôn ngữ sau được thực hiện trong Inspector.
 
 ## Thiết lập avatar
 

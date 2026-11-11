@@ -4,7 +4,7 @@ Unisaki Posing System er felles kjerne for Kawaii Posing, Cool Posing og relater
 
 ## Språk
 
-Velg **Language / 言語** øverst i Inspector. Ett valg styrer Inspector og generert VRChat-meny. Last opp avataren på nytt etter språkbytte. Siste valg huskes i andre prosjekter for samme OS-bruker på maskinen. Uten lagret valg følger verktøyet OS-språket med engelsk som reserve. Avatarens uttrykkelige valg beholdes. Språkvalg synkroniseres ikke mellom maskiner.
+Velg **Language / 言語** øverst i Inspector. Ett valg styrer Inspector og generert VRChat-meny. Last opp avataren på nytt etter språkbytte. Siste valg huskes i andre prosjekter for samme OS-bruker på maskinen. Uten lagret valg følger verktøyet OS-språket med engelsk som reserve. Alle positurverktøy og avatarer bruker samme språk. En endring i Inspector for et hvilket som helst verktøy oppdaterer den felles innstillingen; språkvalg for enkeltavatarer ignoreres. Språkvalg synkroniseres ikke mellom maskiner. Språkknappen vises bare ved den første installasjonsbekreftelsen hvis ingen språk er lagret. Senere språkendringer gjøres i Inspector.
 
 ## Sett opp en avatar
 
