@@ -54,6 +54,12 @@ python package.py --input <original.unitypackage> --build <build-output> --outpu
 
 `package.py` は元の配布物を上書きせず、ActivatorとDLLを差し替え、共通ヘルパーとMIT本文を追加します。共通ヘルパーは両商品で同一のパス・GUIDを使い、本体パッケージとは異なるGUIDです。VPAIの自己削除フォルダ外に置きます。書き出した全ファイルを再読込して一致を検査し、変更箇所・ハッシュをmanifestへ記録します。
 
+### 日本語ファイル名の展開互換性（2026-11-12）
+
+gzipヘッダーの内部ファイル名を `archtemp.tar` に固定します。内部名を省略すると外側の日本語unitypackage名が中間TAR名に使われ、Windows Unity 2022.3.22f1のTAR展開で `Couldn't decompress package` が発生しました。同じデータは英語名なら成功します。内部名だけを修正すると日本語名でも成功することを、Unityの `PackageUtility.ExtractAndPrepareAssetList` で可愛い／カッコいい両方について確認済みです。通常のgzip/TAR読戻し成功だけではこの問題を検出できません。
+
+既存生成物を直す `normalize_gzip_header` は、展開後のTARを1バイトも変えずに内部名を補います。GUID・スクリプト・DLL・ライセンス値・依存設定は維持します。`python -m unittest discover -s Tools/InstallerLocalization -p test_package.py -v` で、内部名、TAR保持、再現性、破損拒否と新規生成を検査します。配布前には日本語名と英語名の両方でUnity実展開も確認してください。展開一覧取得ではインストーラーをAssetsへ取り込まず、ライセンス登録や自動導入を実行しません。
+
 依存範囲は元の `3.x.x` / `1.x.x` を保ちます。必要なら `--dependency jp.unisakistudio.kawaiiposing=3.2.x` のように明示指定できます。開発版本体が公開されるまで試作インストーラーだけを取り込んでも、公開済みの本体が導入されます。リリース前に依存範囲と公開先を確定してください。
 
 **完成したVPAI DLLを開発中のUnityのAssetsに直接置かないでください。** 上流と同様、読み込むだけで自動導入と自己削除が動きます。Unity内で試す場合は専用プロジェクトで事前に `VPM_PACKAGE_AUTO_INSTALLER_DEV_ENV` を定義し、実行対象のconfigと導入先を確認してください。

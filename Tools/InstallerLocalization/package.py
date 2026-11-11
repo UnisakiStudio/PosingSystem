@@ -11,10 +11,24 @@ import uuid
 NAMESPACE = uuid.UUID('80458ad0-046f-4f16-8e14-bf3ddd379a96')
 HELPER_PATH = 'Assets/UniSakiStudio/Setup/Editor/UnisakiSetupLanguage.cs'
 NOTICE_PATH = 'Assets/UniSakiStudio/Setup/VPMPackageAutoInstaller-LICENSE.txt'
+UNITY_TAR_FILENAME = 'archtemp.tar'
 
 
 def digest(data):
     return hashlib.sha256(data).hexdigest()
+
+
+def normalize_gzip_header(data):
+    """Preserve TAR bytes, but give Unity's two-stage extractor an ASCII name.
+
+    An unnamed gzip inherits the outer unitypackage basename. Unity 2022.3 on
+    Windows then fails its TAR extraction for Japanese outer filenames.
+    """
+    tar_bytes = gzip.decompress(data)
+    output = io.BytesIO()
+    with gzip.GzipFile(fileobj=output, mode='wb', mtime=0, filename=UNITY_TAR_FILENAME) as zipped:
+        zipped.write(tar_bytes)
+    return output.getvalue()
 
 
 def package(original, build, output, dependencies):
@@ -71,7 +85,7 @@ def package(original, build, output, dependencies):
     output.parent.mkdir(parents=True, exist_ok=True)
     # Fixed timestamps and ordered entries make the same inputs reproducible.
     with output.open('wb') as raw:
-        with gzip.GzipFile(fileobj=raw, mode='wb', mtime=0, filename='') as zipped:
+        with gzip.GzipFile(fileobj=raw, mode='wb', mtime=0, filename=UNITY_TAR_FILENAME) as zipped:
             with tarfile.open(fileobj=zipped, mode='w') as archive:
                 for name, data in sorted(entries.items()):
                     info = tarfile.TarInfo(name)
