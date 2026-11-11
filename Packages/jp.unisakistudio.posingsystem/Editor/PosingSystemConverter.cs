@@ -1378,7 +1378,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 additiveBreathingLogicVersion = 3,
                 // Rebuild unsupported IK poses with their manual adjustment instead of discarding it.
                 autoPoseLogicVersion = 4,
-                importedMotionLogicVersion = 2,
+                importedMotionLogicVersion = 3,
                 generatedAssetLogicVersion = 1,
                 controllerLogicVersion = 2, // Desktop one-evaluation is now standard; invalidate alpha.3 prebuilds.
                 floatingPhotographyLogicVersion = 1, // Do not reuse a prebuild which samples the displaced photography head.
@@ -4520,9 +4520,7 @@ namespace jp.unisakistudio.posingsystemeditor
             switch (stateType)
             {
                 case PosingSystem.OverrideAnimationDefine.AnimationStateType.StandWalkRun:
-                case PosingSystem.OverrideAnimationDefine.AnimationStateType.Crouch:
-                case PosingSystem.OverrideAnimationDefine.AnimationStateType.Prone:
-                    // これらはステート全体を置き換えるため、単発Clipでは歩行・旋回が失われる。
+                    // Standing also owns walking/running. Crouch/prone may intentionally use a single clip.
                     return motion is BlendTree;
                 default:
                     return true;

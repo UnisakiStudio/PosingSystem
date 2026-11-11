@@ -42,8 +42,8 @@ namespace jp.unisakistudio.posingsystemeditor.tests
             var jump = PosingSystem.OverrideAnimationDefine.AnimationStateType.Jump;
 
             Assert.That((bool)method.Invoke(null, new object[] { standWalkRun, idle }), Is.False);
-            Assert.That((bool)method.Invoke(null, new object[] { crouch, idle }), Is.False);
-            Assert.That((bool)method.Invoke(null, new object[] { prone, idle }), Is.False);
+            Assert.That((bool)method.Invoke(null, new object[] { crouch, idle }), Is.True);
+            Assert.That((bool)method.Invoke(null, new object[] { prone, idle }), Is.True);
             Assert.That((bool)method.Invoke(null, new object[] { standWalkRun, locomotion }), Is.True);
             Assert.That((bool)method.Invoke(null, new object[] { jump, idle }), Is.True);
             Assert.That((bool)method.Invoke(null, new object[] { jump, null }), Is.False);
