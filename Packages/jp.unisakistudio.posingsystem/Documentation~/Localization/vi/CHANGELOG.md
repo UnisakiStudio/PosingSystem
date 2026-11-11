@@ -13,6 +13,25 @@
 
 - Giữ thiết lập avatar hiện có, tên tùy chỉnh, tham chiếu tài nguyên, mã định danh tham số và phương thức lưu giấy phép.
 
+## [3.1.4] - 2026-11-11
+
+- Sửa lỗi hoạt ảnh chỉ định cho tư thế ngồi xổm và nằm sấp riêng của avatar không được áp dụng, khiến dùng tư thế mặc định VRChat. Áp dụng cho cả nhập tự động và chỉ định thủ công.
+- Sửa tóc, kính và các đối tượng gắn bằng MA Bone Proxy còn ở vị trí gốc khi sửa hoặc xem trước tư thế. Nay chúng theo tư thế xem trước trong khi giữ thiết lập và cách bố trí avatar gốc.
+- Sửa lỗi hiệu chỉnh tư thế theo vị trí điểm nhìn khi chụp ảnh các tư thế như “仰向け寝_お疲れ”. Ảnh dùng hoạt ảnh đã áp dụng hiệu chỉnh tư thế và điều chỉnh sàn của quá trình dựng.
+
+Cập nhật Unisaki Posing System lên 3.1.4 qua ALCOM / VCC. Kawaii Posing Tool 3.1.2 và Cool Posing Tool 1.1.0 có thể tiếp tục dùng không đổi. Nếu từng dùng tạo trước, sau cập nhật hãy nhấn “Cập nhật dữ liệu tạo trước”, lưu Scene rồi dựng và tải avatar lên lại.
+
+## [3.1.3] - 2026-11-09
+
+- “Cập nhật ảnh thu nhỏ tư thế” và tạo trước trên bản sao avatar không còn xóa ảnh tư thế của avatar gốc.
+- Sửa lỗi chỉ chụp lại ảnh cũng hiển thị “Thiết lập đã đổi” nếu tạo trước trước lần lưu Scene đầu tiên hoặc trong chế độ sửa Prefab.
+- Sửa dữ liệu tư thế còn lại từ lần tạo trước cũ đôi khi làm lần tạo trước tiếp theo dừng giữa chừng.
+- Giảm tải mở danh sách khi chưa có ảnh tư thế. Cũng cải thiện xử lý chặn thao tác Unity ở đầu tạo trước hoặc dựng cho đến khi lấy xong thông tin gói.
+- Thiết lập chỉnh sửa của công cụ tư thế bị tắt bên trong avatar nay cũng được loại bỏ khi dựng bản PC và Android.
+- “Hỏi về lỗi này” nay có thể đưa mã chẩn đoán và thông tin khác ở các thông báo sau vào bản nháp, ngay cả khi đầu Console có lỗi không đọc được nguyên nhân. Nếu thiết lập clip Lật người bị lỗi, bản nháp cũng có các vị trí cần kiểm tra.
+
+Cập nhật Unisaki Posing System lên 3.1.3 qua ALCOM / VCC. Kawaii Posing Tool 3.1.2 và Cool Posing Tool 1.1.0 có thể tiếp tục dùng không đổi. Có thể xuất hiện xác nhận xung đột khi cập nhật vì các sản phẩm này chỉ định phiên bản hệ thống chung cũ hơn. Nếu từng dùng tạo trước, sau cập nhật hãy nhấn “Cập nhật dữ liệu tạo trước”, lưu Scene rồi dựng và tải avatar lên lại.
+
 ## [3.1.2] - 2026-11-09
 
 - Sửa lỗi khiến mặt vẫn hướng lên sau khi đứng dậy từ nằm sấp khi bật “Giảm méo tư thế do xoay đầu”.

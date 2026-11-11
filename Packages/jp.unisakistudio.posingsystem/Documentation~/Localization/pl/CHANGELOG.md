@@ -13,6 +13,25 @@
 
 - Zachowywane są istniejące ustawienia awatara, własne nazwy, odwołania do zasobów, identyfikatory parametrów i sposób przechowywania licencji.
 
+## [3.1.4] - 2026-11-11
+
+- Naprawiono błąd, przez który animacje przypisane do własnych pozycji kucania i leżenia na brzuchu awatara nie były stosowane, a zamiast nich używano domyślnych pozycji VRChat. Poprawka obejmuje import automatyczny i przypisania ręczne.
+- Naprawiono pozostawanie włosów, okularów i innych elementów dołączonych przez MA Bone Proxy w pierwotnym miejscu podczas edycji i podglądu pozy. Teraz podążają za pozą podglądu przy zachowaniu ustawień i rozmieszczenia oryginalnego awatara.
+- Naprawiono błąd korekty pozy na podstawie położenia punktu widzenia podczas wykonywania obrazów takich poz jak „仰向け寝_お疲れ”. Obrazy korzystają z animacji uwzględniających korektę pozy i regulację podłogi stosowane podczas budowania.
+
+Zaktualizuj Unisaki Posing System do 3.1.4 w ALCOM / VCC. Kawaii Posing Tool 3.1.2 i Cool Posing Tool 1.1.0 mogą pozostać bez zmian. Jeśli korzystano z budowania wstępnego, po aktualizacji naciśnij „Aktualizuj budowanie wstępne”, zapisz scenę, a następnie ponownie zbuduj i prześlij awatara.
+
+## [3.1.3] - 2026-11-09
+
+- Polecenie „Odśwież miniatury poz” oraz budowanie wstępne na kopii awatara nie usuwają już obrazów poz oryginalnego awatara.
+- Naprawiono pojawianie się komunikatu „Ustawienia zmienione” po samym ponownym wykonaniu obrazów, jeśli budowanie wstępne odbyło się przed pierwszym zapisem sceny lub w trybie edycji Prefab.
+- Naprawiono błąd, przez który dane poz pozostałe z poprzedniego budowania wstępnego mogły przerwać kolejne budowanie wstępne.
+- Zmniejszono obciążenie podczas otwierania listy, gdy nie ma jeszcze obrazów poz. Zmieniono także obsługę, która na początku budowania wstępnego lub zwykłego blokowała korzystanie z Unity do zakończenia pobierania informacji o pakietach.
+- Ustawienia edycji narzędzi poz wyłączonych wewnątrz awatara są teraz także usuwane podczas budowania dla PC i Androida.
+- „Zapytaj o ten błąd” uwzględnia teraz w szkicu kody diagnostyczne i inne dane z dalszych komunikatów, nawet jeśli na początku Console są błędy o nierozpoznanej przyczynie. Przy błędzie ustawień klipu obracania się szkic zawiera też miejsca do sprawdzenia.
+
+Zaktualizuj Unisaki Posing System do 3.1.3 w ALCOM / VCC. Kawaii Posing Tool 3.1.2 i Cool Posing Tool 1.1.0 mogą pozostać bez zmian. Podczas aktualizacji może pojawić się potwierdzenie konfliktu, ponieważ produkty wskazują wcześniejszą wspólną wersję systemu. Jeśli korzystano z budowania wstępnego, po aktualizacji naciśnij „Aktualizuj budowanie wstępne”, zapisz scenę, a następnie ponownie zbuduj i prześlij awatara.
+
 ## [3.1.2] - 2026-11-09
 
 - Naprawiono pozostawanie twarzy skierowanej w górę po wstaniu z leżenia na brzuchu, gdy ograniczenie deformacji przy obrocie głowy jest włączone.

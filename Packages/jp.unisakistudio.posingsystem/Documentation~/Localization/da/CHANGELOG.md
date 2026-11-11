@@ -13,6 +13,25 @@
 
 - Eksisterende avatarindstillinger, egne navne, assetreferencer, parameteridentifikatorer og licenslagring bevares.
 
+## [3.1.4] - 2026-11-11
+
+- Rettet, at avatarspecifikke animationer tildelt hug og maveliggende ikke blev anvendt, så VRChats standardpositurer blev brugt i stedet. Det gælder både automatisk import og manuelle tildelinger.
+- Rettet, at hår, briller og andre dele monteret med MA Bone Proxy blev på deres oprindelige plads under redigering eller forhåndsvisning af positurer. De følger nu forhåndsvisningens positur, mens originalavatarens indstillinger og placering bevares.
+- Rettet fejl i positurkorrektion baseret på synspunktets position ved optagelse af billeder af positurer som ”仰向け寝_お疲れ”. Billederne bruger en animation med de positur- og gulvkorrektioner, der anvendes ved build.
+
+Opdatér Unisaki Posing System til 3.1.4 i ALCOM / VCC. Kawaii Posing 3.1.2 og Cool Posing 1.1.0 kan fortsat bruges uden ændringer. Brugte du forberegning, skal du trykke ”Opdatér forberegning” efter opdateringen, gemme scenen og bygge og uploade avataren igen.
+
+## [3.1.3] - 2026-11-09
+
+- ”Opdatér positurminiaturer” og forberegning på en duplikeret avatar sletter ikke længere originalavatarens positurbilleder.
+- Rettet visningen af ”Indstillinger ændret” efter blot at tage billederne igen, når forberegningen var udført før scenens første lagring eller i Prefab-redigeringstilstand.
+- Rettet, at forberegning kunne stoppe undervejs, hvis der var positurdata tilbage fra en tidligere forberegning.
+- Lettere åbning af listen, når positurbilleder endnu mangler. Ventetiden, der låste Unity, indtil pakkeoplysninger var hentet ved start af forberegning eller build, er også revideret.
+- Redigeringsindstillinger for positurværktøjer, der er deaktiveret i avataren, fjernes nu også ved PC- og Android-builds.
+- ”Spørg om denne fejl” kan nu medtage senere diagnosenumre og andre oplysninger fra Console i kladden, selv om de første fejl ikke viser en forståelig årsag. Ved fejl i klipindstillingerne for ”Vend dig” indeholder kladden også punkter, der skal kontrolleres.
+
+Opdatér Unisaki Posing System til 3.1.3 i ALCOM / VCC. Kawaii Posing 3.1.2 og Cool Posing 1.1.0 kan fortsat bruges uden ændringer. Da produkterne angiver en tidligere version af fællessystemet, kan der vises en konfliktbekræftelse under opdateringen. Brugte du forberegning, skal du trykke ”Opdatér forberegning” efter opdateringen, gemme scenen og bygge og uploade avataren igen.
+
 ## [3.1.2] - 2026-11-09
 
 - Rettet, at ansigtet blev ved at vende opad efter oprejsning fra maveliggende med ”Reducér forvrængning fra hovedrotation”.

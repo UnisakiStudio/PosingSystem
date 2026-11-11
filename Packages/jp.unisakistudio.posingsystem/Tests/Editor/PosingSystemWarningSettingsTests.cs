@@ -35,6 +35,9 @@ namespace jp.unisakistudio.posingsystemeditor.tests
                 }
             };
             posing = root.AddComponent<PosingSystem>();
+            // An installation without its common Animator correctly carries its own PS010 warning.
+            // Use the shipped component so each test can isolate the warning it changes.
+            Object.Instantiate(PosingSystemDiagnostics.CommonAnimatorTemplate().gameObject, root.transform);
             posing.savedInstanceId = GlobalObjectId.GetGlobalObjectIdSlow(posing).ToString();
         }
 
@@ -127,6 +130,26 @@ namespace jp.unisakistudio.posingsystemeditor.tests
             Assert.That(posing.IsWarningIgnored(PosingSystem.WarningType.All), Is.False);
             Assert.That(PosingSystemConverter.GetVisibleWarnings(posing), Is.EqualTo(PosingSystem.WarningType.AutoFootsteps));
             Assert.That(posing.IsWarningIgnored(PosingSystem.WarningType.PrebuildOutOfDate), Is.True);
+        }
+
+        [Test]
+        public void ThumbnailOwnerChange_PreservesCurrentAndLegacyPrebuildsButNotEditedSettings()
+        {
+            var current = PosingSystemConverter.GetDefineSerializeJson(posing);
+            // Unity serialized the former owner field last in the 3.1.2 snapshot.
+            var legacy = current.Insert(current.Length - 1, ",\"savedInstanceId\":\"" + posing.savedInstanceId + "\"");
+            posing.savedInstanceId = "new-thumbnail-owner";
+
+            foreach (var snapshot in new[] { current, legacy })
+            {
+                posing.data = snapshot;
+                Assert.That(PosingSystemConverter.IsPosingSystemDataUpdated(posing), Is.False);
+                Assert.That(PosingSystemConverter.ShouldReportPrebuildUpdateWarning(posing), Is.False);
+                posing.isIconSmall = !posing.isIconSmall;
+                Assert.That(PosingSystemConverter.ShouldReportPrebuildUpdateWarning(posing), Is.True);
+                posing.isIconSmall = !posing.isIconSmall;
+                Assert.That(posing.data, Is.EqualTo(snapshot));
+            }
         }
 
         [Test]

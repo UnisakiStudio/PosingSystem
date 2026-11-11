@@ -1,12 +1,12 @@
 {
   "schema": 1,
   "locale": "he",
-  "source_sha256": "c9089e57d158be729a9988f04b64395c3d5b4d3764eeee869420cf5b39491b5c",
+  "source_sha256": "08f31ccd8536d5bd1f7d0c3b04d79aa5fd5531d22e0fb8fe61b762c2311a03b2",
   "translator": "AI contextual translation",
   "native_speaker_review": false,
   "external_translation_service": false,
   "rendered_visual_review": false,
-  "authored_blocks": 381,
+  "authored_blocks": 385,
   "all_twelve_documents_complete": true,
   "full_history_preserved": true,
   "terminology": "Current UI catalogs, full standard pose set and AIReview glossary consulted. Original file/object/avatar/author names retained.",
@@ -18,5 +18,25 @@
         "reason": "This explicitly English/Japanese comparison table preserves the original English UI captions; localized UI terms are used in the instructions elsewhere."
       }
     }
-  }
+  },
+  "reviewed_blocks": 385,
+  "maintenance_updates": [
+    {
+      "date": "2026-11-11",
+      "source_sha256": "08f31ccd8536d5bd1f7d0c3b04d79aa5fd5531d22e0fb8fe61b762c2311a03b2",
+      "previous_source_sha256": "c9089e57d158be729a9988f04b64395c3d5b4d3764eeee869420cf5b39491b5c",
+      "method": "Local AI contextual translation; no external translation service",
+      "scope": "Four complete 3.1.3/3.1.4 changelog and upgrade paragraphs",
+      "added_blocks": [
+        "27d079df354139bc",
+        "6b667b21a30789e7",
+        "89c1bfe490387d11",
+        "ed1bb4e0b6618cb4"
+      ],
+      "existing_381_translations_preserved": true,
+      "context_review": "Unchanged content IDs and contexts checked; current UI captions and existing 3.1.2 terminology reused. Original asset name 仰向け寝_お疲れ, API names, versions and platform names preserved.",
+      "native_speaker_review": false,
+      "rendered_review": false
+    }
+  ]
 }

@@ -13,6 +13,25 @@
 
 - Pengaturan avatar yang ada, nama khusus, referensi aset, pengenal parameter, dan metode penyimpanan lisensi tetap dipertahankan.
 
+## [3.1.4] - 2026-11-11
+
+- Memperbaiki animasi yang ditentukan untuk pose jongkok dan tengkurap asli avatar tidak diterapkan sehingga pose bawaan VRChat digunakan. Perbaikan mencakup impor otomatis dan pilihan manual.
+- Memperbaiki rambut, kacamata, dan objek lain yang dipasang dengan MA Bone Proxy tetap berada di posisi semula selama penyuntingan atau pratinjau pose. Kini semuanya mengikuti pose pratinjau sambil mempertahankan pengaturan dan penempatan avatar asli.
+- Memperbaiki kegagalan koreksi pose berdasarkan posisi sudut pandang saat membuat gambar pose seperti “仰向け寝_お疲れ”. Gambar menggunakan animasi yang mencakup koreksi pose dan penyesuaian lantai saat build.
+
+Perbarui Unisaki Posing System ke 3.1.4 melalui ALCOM / VCC. Kawaii Posing Tool 3.1.2 dan Cool Posing Tool 1.1.0 tetap dapat digunakan tanpa perubahan. Jika sebelumnya menggunakan prabuild, setelah pembaruan tekan “Perbarui prabuild”, simpan Scene, lalu lakukan build dan unggah avatar kembali.
+
+## [3.1.3] - 2026-11-09
+
+- “Perbarui gambar mini pose” dan prabuild pada avatar duplikat kini tidak menghapus gambar pose avatar asli.
+- Memperbaiki munculnya “Pengaturan berubah” setelah hanya mengambil ulang gambar jika prabuild dilakukan sebelum Scene pertama kali disimpan atau dalam mode penyuntingan Prefab.
+- Memperbaiki data pose tersisa dari prabuild sebelumnya yang terkadang menyebabkan prabuild berikutnya berhenti di tengah proses.
+- Mengurangi beban saat membuka daftar ketika gambar pose belum ada. Memperbaiki juga proses yang menghentikan pengoperasian Unity hingga pengambilan informasi paket selesai pada awal prabuild atau build.
+- Pengaturan penyuntingan alat pose yang dinonaktifkan di dalam avatar kini juga dihapus saat build untuk PC dan Android.
+- “Tanyakan tentang kesalahan ini” kini dapat menyertakan kode diagnostik dan informasi lain dari pesan berikutnya dalam draf, meskipun Console diawali kesalahan yang penyebabnya tidak dapat dibaca. Jika pengaturan klip Berguling bermasalah, bagian yang perlu diperiksa juga disertakan dalam draf.
+
+Perbarui Unisaki Posing System ke 3.1.3 melalui ALCOM / VCC. Kawaii Posing Tool 3.1.2 dan Cool Posing Tool 1.1.0 tetap dapat digunakan tanpa perubahan. Konfirmasi konflik mungkin muncul saat pembaruan karena produk tersebut menentukan versi sistem bersama yang lebih lama. Jika sebelumnya menggunakan prabuild, setelah pembaruan tekan “Perbarui prabuild”, simpan Scene, lalu lakukan build dan unggah avatar kembali.
+
 ## [3.1.2] - 2026-11-09
 
 - Memperbaiki masalah ketika “Kurangi perubahan pose akibat rotasi kepala” aktif, wajah tetap menghadap ke atas setelah bangkit dari posisi tengkurap.

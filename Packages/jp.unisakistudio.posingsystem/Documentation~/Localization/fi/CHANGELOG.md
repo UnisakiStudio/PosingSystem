@@ -13,6 +13,25 @@
 
 - Avatarin nykyiset asetukset, omat nimet, resurssiviittaukset, parametrien tunnisteet ja lisenssin tallennustapa säilyvät.
 
+## [3.1.4] - 2026-11-11
+
+- Korjattu ongelma, jossa avatarin omiin kyykky- ja makuuasentoihin määritetyt animaatiot eivät toteutuneet, vaan käyttöön tulivat VRChatin oletusasennot. Korjaus koskee sekä automaattista tuontia että manuaalisia määrityksiä.
+- Korjattu ongelma, jossa MA Bone Proxylla kiinnitetyt hiukset, silmälasit ja muut osat jäivät alkuperäiseen paikkaansa asennon muokkauksen tai esikatselun aikana. Ne seuraavat nyt esikatseluasentoa alkuperäisen avatarin asetuksia ja sijoittelua muuttamatta.
+- Korjattu katselupisteen sijaintiin perustuvan asennonkorjauksen epäonnistuminen otettaessa kuvia esimerkiksi asennosta ”仰向け寝_お疲れ”. Kuvissa käytetään animaatioita, joissa ovat mukana koonnin asennonkorjaukset ja lattian säädöt.
+
+Päivitä Unisaki Posing System versioon 3.1.4 ALCOMissa / VCC:ssä. Kawaii Posing Tool 3.1.2 ja Cool Posing Tool 1.1.0 toimivat edelleen sellaisinaan. Jos käytit esikoontia, paina päivityksen jälkeen ”Päivitä esikoonti”, tallenna kohtaus ja kokoa sekä lataa avatar uudelleen.
+
+## [3.1.3] - 2026-11-09
+
+- Avatarin kopiossa tehtävä ”Päivitä asentojen pikkukuvat” tai esikoonti ei enää poista alkuperäisen avatarin asentokuvia.
+- Korjattu ongelma, jossa pelkkä kuvien ottaminen uudelleen näytti ”Asetukset muuttuneet”, jos esikoonti tehtiin ennen kohtauksen ensimmäistä tallennusta tai Prefabin muokkaustilassa.
+- Korjattu ongelma, jossa edellisestä esikoonnista jääneet asentotiedot saattoivat keskeyttää seuraavan esikoonnin.
+- Kevennetty luettelon avaamista, kun asentokuvia ei vielä ole. Parannettu myös käsittelyä, joka esti Unityn käytön pakettitietojen haun päättymiseen asti esikoonnin tai koonnin alussa.
+- Myös avatarissa käytöstä poistettujen asentotyökalujen muokkausasetukset poistetaan nyt PC- ja Android-koonneista.
+- ”Kysy tästä virheestä” sisällyttää nyt luonnokseen myöhempänä olevat diagnoositunnukset ja muut tiedot, vaikka Consolen alussa olisi virheitä, joiden syytä ei pystytä tulkitsemaan. Jos kääntymisen leikeasetuksissa on virhe, luonnokseen lisätään myös tarkistettavat kohdat.
+
+Päivitä Unisaki Posing System versioon 3.1.3 ALCOMissa / VCC:ssä. Kawaii Posing Tool 3.1.2 ja Cool Posing Tool 1.1.0 toimivat edelleen sellaisinaan. Päivityksessä saatetaan pyytää vahvistamaan ristiriita, koska nämä tuotteet määrittävät aiemman yhteisen järjestelmäversion. Jos käytit esikoontia, paina päivityksen jälkeen ”Päivitä esikoonti”, tallenna kohtaus ja kokoa sekä lataa avatar uudelleen.
+
 ## [3.1.2] - 2026-11-09
 
 - Korjattu ongelma, jossa kasvot jäivät ylöspäin vatsamakuulta noustessa, kun ”Vähennä pään kierrosta aiheutuvaa asennon vääristymää” oli käytössä.

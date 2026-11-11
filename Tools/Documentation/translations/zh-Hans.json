@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "source_sha256": "c9089e57d158be729a9988f04b64395c3d5b4d3764eeee869420cf5b39491b5c",
+  "source_sha256": "08f31ccd8536d5bd1f7d0c3b04d79aa5fd5531d22e0fb8fe61b762c2311a03b2",
   "translator": "AI contextual translation",
   "translations": {
     "400f9d61ba8fe81c": "# Unisaki Posing System",
@@ -383,6 +383,10 @@
     "a551cc9a490836e6": "Cool Posing的附带姿势未提供翻身动作。请为想要翻身的姿势准备合适的动画。",
     "fb5bf1d1e9e8a40c": "1. 备份项目并保存当前工作场景。\n2. 在VCC或ALCOM中，将**Cool Posing Tool**和共用**Unisaki Posing System**一同更新，同时保持所需SDK、Modular Avatar和NDMF版本兼容。\n3. 等待编译完成。选中已安装的工具，检查姿势、设置和参数用量。\n4. 如果使用预构建，请选择**更新预构建**，然后重新上传虚拟形象。",
     "b55e87f4f36596e5": "| 现象 | 检查内容 |\n| --- | --- |\n| 没有添加工具菜单 | 确认商品**和**Unisaki Posing System都已安装，并解决Unity Console中的编译错误。仅安装许可证程序并不包含姿势库。 |\n| 取消安装或删除了文件 | 准备好后重新导入购买的安装程序，并再次阅读确认内容。 |\n| 其他项目中似乎缺少许可证 | 在同一OS账户下导入购买的安装程序。如更换计算机或账户，也需在新的环境安装许可证。语言偏好不会自动跨计算机转移。 |\n| VRChat中没有姿势 | 将工具添加到正确的场景虚拟形象下，启用所需姿势，检查Inspector警告，并上传该虚拟形象。检查SDK及其他移动工具。 |\n| Z无法进入躺姿 | 在工具游戏内设置中提高躺姿高度阈值。 |\n| 手或膝盖位置不对 | 尝试适用的虚拟形象预设，再使用支持的IK和/或动画调整。在最终构建中检查服装变形。 |\n| 翻身不起作用 | 使用支持的躺姿，同时启用姿势的翻身设置与菜单项，并解除头部/颈部固定。Cool Posing需要另行提供合适的侧躺动画。 |\n| 朋友看不到拍照移动 | 在Unity中启用**同步拍照模式**，确认参数用量并重新上传。 |\n| Unity语言已更改，但VRChat未变化 | 重新上传虚拟形象。在支持本地化的版本中，检查Inspector顶部唯一的语言选择器。 |\n| 构建/预构建错误 | 阅读Console中相关的**第一条**错误。备份场景，通过VCC/ALCOM更新或重新获取商品与共用系统。如问题持续，请联系支持。除非支持提供具体恢复步骤，否则请保留已调整的对象和GeneratedResources。 |",
-    "15861714eb6995df": "- [支持](https://help.unisakistudio.jp/)\n- [在线图文手册（日语）](https://docs.unisakistudio.jp/coolposing/manual/)\n- [Gumroad商品页面](https://unisakistudio.gumroad.com/l/cool-posing)"
+    "15861714eb6995df": "- [支持](https://help.unisakistudio.jp/)\n- [在线图文手册（日语）](https://docs.unisakistudio.jp/coolposing/manual/)\n- [Gumroad商品页面](https://unisakistudio.gumroad.com/l/cool-posing)",
+    "89c1bfe490387d11": "- 修复了为虚拟形象指定的专用蹲下、俯卧动画未生效，反而使用VRChat默认姿势的问题。自动导入和手动指定均已修复。\n- 修复了编辑或预览姿势时，通过MA Bone Proxy安装的头发、眼镜等仍留在原位的问题。它们现在会跟随预览姿势，同时保持原虚拟形象的设置和摆放不变。\n- 修复了拍摄“仰向け寝_お疲れ”等姿势缩略图时，利用视点位置进行姿势校正失败的问题。拍摄时会使用已应用构建时姿势校正和地板调整的动画。",
+    "27d079df354139bc": "请在ALCOM / VCC中将Unisaki Posing System更新为3.1.4。Kawaii Posing Tool 3.1.2和Cool Posing Tool 1.1.0可继续使用。如果此前使用过预构建，请在更新后点击“更新预构建”并保存场景，然后重新构建、上传虚拟形象。",
+    "ed1bb4e0b6618cb4": "- 在复制的虚拟形象上执行“更新姿势缩略图”或预构建时，不再删除原虚拟形象的姿势缩略图。\n- 修复了在首次保存场景前或Prefab编辑界面中执行预构建后，仅重拍缩略图就显示“设置已更改”的问题。\n- 修复了上次预构建生成的姿势数据残留时，下一次预构建可能中途停止的问题。\n- 减轻了尚无姿势缩略图时打开列表的处理负担。还调整了预构建或构建开始时，在获取软件包信息完成前阻止Unity操作的处理。\n- PC和Android构建时，也会移除虚拟形象中已禁用的姿势工具的编辑设置。\n- 使用“咨询此错误”时，即使Console开头排列着无法判断原因的错误，也能将后面的诊断编号等加入草稿。若翻身片段设置发生错误，草稿还会包含需要检查的项目。",
+    "6b667b21a30789e7": "请在ALCOM / VCC中将Unisaki Posing System更新为3.1.3。Kawaii Posing Tool 3.1.2和Cool Posing Tool 1.1.0可继续使用。这些产品仍指定较早的共用系统版本，因此更新时可能显示冲突确认。如果此前使用过预构建，请在更新后点击“更新预构建”，保存场景，再重新构建、上传虚拟形象。"
   }
 }

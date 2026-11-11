@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using jp.unisakistudio.posingsystem;
 using NUnit.Framework;
 using UnityEditor;
 using UnityEditor.Animations;
@@ -315,6 +316,8 @@ namespace jp.unisakistudio.posingsystemeditor.tests
             for(var round=0;round<3;round++)
             {
                 PosingSystemOneFrameSelection.Apply(c,assets.Add);
+                var wrapper = c.layers.Single(l => l.name == "USSPS_Locomotion").stateMachine;
+                wrapper.stateMachines = wrapper.stateMachines.Reverse().ToArray();
                 Assert.That(PosingSystemOneFrameSelection.Restore(c),Is.True);
                 Assert.That(PosingSystemOneFrameSelection.Restore(c),Is.False,"Restore must be idempotent");
                 var restored=PosingSystemControllerGraph.Collect(new[]{c},o=>!EditorUtility.IsPersistent(o));
@@ -348,6 +351,10 @@ namespace jp.unisakistudio.posingsystemeditor.tests
                 var counts=new List<int>();
                 for(var i=0;i<3;i++)
                 {
+                    var wrapper = controller.layers.Single(l => l.name == "USSPS_Locomotion").stateMachine;
+                    wrapper.stateMachines = wrapper.stateMachines.Reverse().ToArray();
+                    EditorUtility.SetDirty(wrapper);
+                    AssetDatabase.SaveAssets();
                     copied.data="";PosingSystemConverter.ConvertToModularAvatarComponents(copied);
                     controller=(AnimatorController)merge.animator;
                     Assert.That(AssetDatabase.GetAssetPath(controller),Is.EqualTo(path));
@@ -416,6 +423,57 @@ namespace jp.unisakistudio.posingsystemeditor.tests
             Assert.That(rig.Playable.GetCurrentAnimatorStateInfo(rig.Layer("USSPS_Locomotion")).shortNameHash,Is.EqualTo(Animator.StringToHash(expected.name)));
             rig.Tick(180,90);
             foreach(var p in encoding)Assert.That(p.name=="USSPS_Pose"?rig.Playable.GetInteger(p.name):rig.Playable.GetBool(p.name)?1:0,Is.EqualTo((int)p.value));
+        }
+
+        [TestCase(false, false, false)] [TestCase(false, true, false)]
+        [TestCase(true, false, false)] [TestCase(true, true, false)]
+        [TestCase(false, false, true)] [TestCase(false, true, true)]
+        [TestCase(true, false, true)] [TestCase(true, true, true)]
+        public void CustomAvatarSelection_DoesNotPlayDuringJumpOrLanding(bool optimized, bool vr, bool floor)
+        {
+            var ps = CompilerSettings();
+            ps.features.floating = floor;
+            var selection = Clip();
+            selection.name = "Custom selection only";
+            UnityEditor.AnimationUtility.SetEditorCurve(selection,
+                UnityEditor.EditorCurveBinding.FloatCurve("", typeof(Animator), "Spine Twist Left-Right"),
+                AnimationCurve.Constant(0, 1, .75f));
+            var yaw = Quaternion.Euler(0, 75, 0);
+            for (var axis = 0; axis < 4; axis++)
+                AnimationUtility.SetEditorCurve(selection,
+                    EditorCurveBinding.FloatCurve("", typeof(Animator), "RootQ." + "xyzw"[axis]),
+                    AnimationCurve.Constant(0, 1, yaw[axis]));
+            ps.overrideDefines.Add(new PosingSystem.OverrideAnimationDefine {
+                stateType = PosingSystem.OverrideAnimationDefine.AnimationStateType.AvatarSelect,
+                animationClip = selection
+            });
+            var controller = CompileSettings(ps, optimized);
+            if (optimized) PosingSystemOneFrameSelection.Apply(controller, assets.Add);
+            using var rig = new ControllerCompilerRuntimeProbe(animator, controller, true, vr, 0);
+            var layer = rig.Layer("USSPS_Locomotion");
+            float SelectionWeight(int i) => rig.Playable.GetCurrentAnimatorClipInfo(i)
+                .Concat(rig.Playable.GetNextAnimatorClipInfo(i))
+                .Where(info => info.clip == selection).Sum(info => info.weight);
+            rig.Tick(1, 60);
+            Assert.That(SelectionWeight(layer), Is.GreaterThan(.9f), "Avatar selection must actually play the custom clip");
+            rig.Set("TrackingType", vr ? 6 : 3);
+            if (floor)
+            {
+                rig.Set("USSPS_FloatHeight", .65f);
+                rig.Set("USSPS_Float", 1);
+            }
+            rig.Tick(120, 60);
+            foreach (var step in new[] { (0, 0, 2), (0, 3, 20), (0, -10, 60), (1, -1, 2), (1, 0, 60) })
+            {
+                rig.Set("Grounded", step.Item1);
+                rig.Set("VelocityY", step.Item2);
+                for (int frame = 0; frame < step.Item3; frame++)
+                {
+                    rig.Tick(1, 60);
+                    for (int i = 0; i < rig.Playable.GetLayerCount(); i++)
+                        Assert.That(SelectionWeight(i), Is.Zero, $"{rig.Playable.GetLayerName(i)}: grounded={step.Item1}, velocity={step.Item2}, frame={frame}");
+                }
+            }
         }
 
         [TestCase(false)] [TestCase(true)]

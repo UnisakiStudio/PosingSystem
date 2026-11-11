@@ -1,8 +1,8 @@
 {
   "language": "ar",
-  "source_sha256": "c9089e57d158be729a9988f04b64395c3d5b4d3764eeee869420cf5b39491b5c",
+  "source_sha256": "08f31ccd8536d5bd1f7d0c3b04d79aa5fd5531d22e0fb8fe61b762c2311a03b2",
   "translator": "AI contextual translation",
-  "reviewed_blocks": 381,
+  "reviewed_blocks": 385,
   "full_history_preserved": true,
   "native_speaker_review": false,
   "rendered_review": false,
@@ -19,5 +19,24 @@
     "Complete twelve-document context and existing Arabic UI/pose terminology used. No external translation service.",
     "All historical entries, original names, identifiers, code, links, dates and numeric values preserved.",
     "Native logical Unicode preserved; no manual bidi control characters. RTL layout and native-speaker review pending."
+  ],
+  "maintenance_updates": [
+    {
+      "date": "2026-11-11",
+      "source_sha256": "08f31ccd8536d5bd1f7d0c3b04d79aa5fd5531d22e0fb8fe61b762c2311a03b2",
+      "previous_source_sha256": "c9089e57d158be729a9988f04b64395c3d5b4d3764eeee869420cf5b39491b5c",
+      "method": "Local AI contextual translation; no external translation service",
+      "scope": "Four complete 3.1.3/3.1.4 changelog and upgrade paragraphs",
+      "added_blocks": [
+        "27d079df354139bc",
+        "6b667b21a30789e7",
+        "89c1bfe490387d11",
+        "ed1bb4e0b6618cb4"
+      ],
+      "existing_381_translations_preserved": true,
+      "context_review": "Unchanged content IDs and contexts checked; current UI captions and existing 3.1.2 terminology reused. Original asset name 仰向け寝_お疲れ, API names, versions and platform names preserved.",
+      "native_speaker_review": false,
+      "rendered_review": false
+    }
   ]
 }

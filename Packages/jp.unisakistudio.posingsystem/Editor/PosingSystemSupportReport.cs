@@ -47,7 +47,7 @@ namespace jp.unisakistudio.posingsystemeditor
 
         // Unity exposes live compiler events publicly, but not the existing Console rows.
         // When this internal API is unavailable the build check and manual Console hint still work.
-        private static List<string> ReadConsole(int mask)
+        private static List<string> ReadConsole(int mask, bool forDraft = false)
         {
             var result = new List<string>();
             try
@@ -71,7 +71,9 @@ namespace jp.unisakistudio.posingsystemeditor
                         args[0] = i;
                         if (!(bool)get.Invoke(null, args) || ((int)mode.GetValue(args[1]) & mask) == 0) continue;
                         var line = ((string)message.GetValue(args[1]) ?? "").Split('\n')[0].Trim();
-                        if (line.Length > 0 && !line.Contains("[PosingSystem") && !result.Contains(line)) result.Add(line);
+                        if (forDraft) line = SafeError(line);
+                        else if (line.Contains("[PosingSystem")) continue;
+                        if (line.Length > 0 && !result.Contains(line)) result.Add(line);
                     }
                 }
                 finally { end.Invoke(null, null); }
@@ -100,9 +102,19 @@ namespace jp.unisakistudio.posingsystemeditor
             return line.Length > 500 ? line.Substring(0,500) + "…" : line;
         }
 
-        private static string SafeError(string raw)
+        internal static string SafeError(string raw)
         {
+            if (string.IsNullOrEmpty(raw)) return "";
             var line = raw.Replace('\\','/');
+            const string posingType = "[jp.unisakistudio.posingsystem]jp.unisakistudio.posingsystem.PosingSystem";
+            if (line.Contains("Type '" + posingType + "' has an extra field 'legacyAutoHeadMenuChecked'") &&
+                line.Contains("can't be serialized"))
+                return "jp.unisakistudio.posingsystem.PosingSystem / legacyAutoHeadMenuChecked / can't be serialized";
+            if (line.Contains("[PosingSystem"))
+            {
+                var diagnosis = Regex.Match(line, @"\bPS\d{3}\b");
+                if (diagnosis.Success) return diagnosis.Value;
+            }
             var code = Regex.Match(line, @"\berror\s+(CS\d{4})\b", RegexOptions.IgnoreCase);
             var exception = Regex.Match(line, @"\b(NullReferenceException|InvalidOperationException|ArgumentException|IOException|MissingReferenceException|FileNotFoundException|TypeLoadException)\b");
             var source = Regex.Match(line, @"(?:^|/)(?:Packages|Library/PackageCache)/([A-Za-z0-9.-]+)(?:@[^/\s]+)?/(?:[^/()\r\n]+/)*([A-Za-z0-9_.-]+\.cs)\((\d+)(?:,(\d+))?\)", RegexOptions.IgnoreCase);
@@ -119,6 +131,10 @@ namespace jp.unisakistudio.posingsystemeditor
             if (code.Success)
             {
                 var id = code.Groups[1].Value;
+                if (id == "CS0618" && source.Groups[1].Value == "com.vrcfury.vrcfury" &&
+                    source.Groups[2].Value == "VRCExpressionParameterExtensions.cs" &&
+                    line.Contains("VRCExpressionParameters.TypeCost(") && line.Contains("Parameter.GetBitWidthByType()"))
+                    return location + id + "（VRCExpressionParameters.TypeCost → Parameter.GetBitWidthByType）";
                 return location + id + (id == "CS0618" || id == "CS0619" ? PosingSystemLocalization.Text("（廃止されたAPIの使用）") : "");
             }
             return exception.Success ? location + exception.Value : "";
@@ -131,14 +147,16 @@ namespace jp.unisakistudio.posingsystemeditor
             var codes = Regex.Matches(failure ?? "", @"\bPS\d{3}\b").Cast<Match>().Select(m => m.Value).Distinct().Take(8).ToArray();
             var lines = new List<string> { question, PosingSystemLocalization.Text("行った操作・起きたこと："), "" };
             if (codes.Length != 0) lines.Add(PosingSystemLocalization.Text("診断 ") + string.Join(" ", codes));
+            // Only package guidance is included; custom pose names remain excluded.
+            if (codes.Contains("PS070")) lines.Add("PS070（" + PosingSystemLocalization.Text("寝返り") + "） " + PosingSystemLocalization.Text(PosingSystemDiagnostics.RolloverClipAction));
             lines.Add("Unity " + Application.unityVersion);
             foreach (var p in PackageInfo.GetAllRegisteredPackages().Where(p => tools.Contains(p.name)).OrderBy(p=>p.name,StringComparer.Ordinal))
             {
                 var version = Regex.Match(p.version ?? "", @"^\d+\.\d+\.\d+(?:-(?:alpha|beta|rc|pre|preview)[.-]?\d+)?", RegexOptions.IgnoreCase);
                 if (version.Success) lines.Add(p.name + " " + version.Value);
             }
-            var raw = EditorUtility.scriptCompilationFailed ? CompilerErrors().AsEnumerable() : Enumerable.Empty<string>();
-            var errors = raw.Concat(ReadConsole(CompileError | OtherErrors)).Select(SafeError)
+            var compiled = EditorUtility.scriptCompilationFailed ? compiler.Select(SafeError) : Enumerable.Empty<string>();
+            var errors = compiled.Append(SafeError(failure)).Concat(ReadConsole(CompileError | OtherErrors, true))
                 .Where(s=>s.Length>0).Distinct().Take(Limit).ToArray();
             if (errors.Length > 0) lines.Add(PosingSystemLocalization.Text("Consoleのエラー\n") + string.Join("\n",errors));
             return string.Join("\n",lines);

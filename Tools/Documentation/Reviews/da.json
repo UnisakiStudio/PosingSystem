@@ -1,8 +1,8 @@
 {
   "locale": "da",
-  "source_sha256": "c9089e57d158be729a9988f04b64395c3d5b4d3764eeee869420cf5b39491b5c",
-  "translated_blocks": 381,
-  "invariant_blocks_preserved_by_generator": 6,
+  "source_sha256": "08f31ccd8536d5bd1f7d0c3b04d79aa5fd5531d22e0fb8fe61b762c2311a03b2",
+  "translated_blocks": 385,
+  "invariant_blocks_preserved_by_generator": 8,
   "authoring": "AI contextual translation; no external translation service",
   "scope": "12 complete documents including all historical changelog entries and full English-source guides",
   "terminology_sources": [
@@ -24,7 +24,30 @@
   ],
   "native_speaker_review": false,
   "rendered_review": false,
-  "local_validation": "381/381 authored; strict document and179 terminology checks passing; physical Prefab names preserved",
+  "local_validation": "385/385 authored; locale-limited strict document audit: zero missing and zero issues; terminology audit:1830checks across10locales, zero issues; exact UI captions and original asset name checked",
   "rendered_visual_review": false,
-  "external_translation_service": false
+  "external_translation_service": false,
+  "source_updates_2026_11_11": {
+    "previous_source_sha256": "c9089e57d158be729a9988f04b64395c3d5b4d3764eeee869420cf5b39491b5c",
+    "source_sha256": "08f31ccd8536d5bd1f7d0c3b04d79aa5fd5531d22e0fb8fe61b762c2311a03b2",
+    "added_translation_blocks": [
+      "89c1bfe490387d11",
+      "27d079df354139bc",
+      "ed1bb4e0b6618cb4",
+      "6b667b21a30789e7"
+    ],
+    "authoring": "AI contextual translation; no external translation service",
+    "scope": "Complete 3.1.3 and3.1.4 release history, 4 new paragraphs; all381 existing translations retained",
+    "context_review": "Read existing3.1.2/3.1.1 history and current UI catalog/glossary. Button captions and status labels reuse exact catalog values.",
+    "preserved_asset_name": "仰向け寝_お疲れ; no exact catalog entry, retained as original asset name",
+    "native_speaker_review": false,
+    "rendered_visual_review": false,
+    "validation": {
+      "document_missing": 0,
+      "document_issues": 0,
+      "terminology_issues": 0,
+      "exact_ui_caption_checks": true,
+      "existing_381_blocks_unchanged": true
+    }
+  }
 }

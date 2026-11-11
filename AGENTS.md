@@ -1,7 +1,7 @@
 # Posing System development
 
 Use the primary checkout. The user has requested ongoing multilingual work on
-`codex/v3.2.0-localization`, merging the released `main` through 3.1.2.
+`codex/v3.2.0-localization`, merging the released `main` through 3.1.4.
 Commit author and committer must both be `UnisakiStudio <unisaki.studio@gmail.com>`;
 retain all existing Git guards. Public release still needs explicit user approval.
 

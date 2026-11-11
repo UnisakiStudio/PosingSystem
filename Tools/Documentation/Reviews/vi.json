@@ -1,12 +1,12 @@
 {
   "schema": 1,
   "locale": "vi",
-  "source_sha256": "c9089e57d158be729a9988f04b64395c3d5b4d3764eeee869420cf5b39491b5c",
+  "source_sha256": "08f31ccd8536d5bd1f7d0c3b04d79aa5fd5531d22e0fb8fe61b762c2311a03b2",
   "translator": "AI contextual translation",
   "native_speaker_review": false,
   "rendered_visual_review": false,
   "external_translation_service": false,
-  "blocks_translated": 381,
+  "blocks_translated": 385,
   "scope": "All 12 source documents: root/package README, complete historical CHANGELOG, full guides; no prose summarization or English fallback.",
   "terminology": "Existing UI catalogs and AIReview terms consulted; standard pose names reused. Grammar inflections kept natural. Historical Japanese UI glossary and original avatar/product/file identifiers intentionally retained.",
   "checks": {
@@ -14,5 +14,27 @@
     "structure_issues": 0,
     "terminology_issues": 0,
     "links_code_versions_dates_tables_lists": "passed"
+  },
+  "delta_review_2026_11_11": {
+    "previous_source_sha256": "c9089e57d158be729a9988f04b64395c3d5b4d3764eeee869420cf5b39491b5c",
+    "new_blocks": [
+      "89c1bfe490387d11",
+      "27d079df354139bc",
+      "ed1bb4e0b6618cb4",
+      "6b667b21a30789e7"
+    ],
+    "unchanged_translations_preserved": 381,
+    "source_change_context": "Only 3.1.3 and 3.1.4 shared-system historical fixes and corresponding update instructions were added; unchanged paragraphs retain their context. Two dated headings are invariant.",
+    "method": "Local AI contextual translation; existing UI captions and previous 3.1.2 update wording consulted. Original asset name 仰向け寝_お疲れ, MA Bone Proxy, product names and versions retained.",
+    "native_speaker_review": false,
+    "rendered_visual_review": false,
+    "validation": {
+      "structure_audit": "Recordings/Localization_20261111/documentation-europe-eight-audit-01.json",
+      "missing": 0,
+      "structure_issues": 0,
+      "terminology_audit": "Recordings/Localization_20261111/documentation-europe-eight-terminology-01.json",
+      "terminology_checks_combined_eight_locales": 1464,
+      "terminology_issues": 0
+    }
   }
 }

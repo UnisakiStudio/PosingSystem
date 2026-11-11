@@ -100,6 +100,41 @@ namespace jp.unisakistudio.posingsystemeditor.tests
         private static SerializedProperty Name(SerializedObject serialized, int index) => serialized.FindProperty("defines")
             .GetArrayElementAtIndex(0).FindPropertyRelative("animations").GetArrayElementAtIndex(index).FindPropertyRelative("displayName");
 
+        [Test] public void CopiedAvatarRefreshingImages_PreservesOriginalThumbnailAndCustomIcon()
+        {
+            var pack = ScriptableObject.CreateInstance<PosingSystemThumbnailPack>();
+            var path = folder + "/Original.asset";
+            AssetDatabase.CreateAsset(pack, path);
+            var thumbnail = new Texture2D(2, 2) { name = "Original thumbnail" };
+            AssetDatabase.AddObjectToAsset(thumbnail, pack);
+            AssetDatabase.SaveAssets();
+            ps.thumbnailPackObject = pack;
+            ps.defines[0].animations[0].previewImage = thumbnail;
+            ps.defines[0].animations[0].icon = Texture2D.whiteTexture;
+            Assert.That(EditorSceneManager.SaveScene(scene, folder + "/Test.unity"), Is.True);
+            ps.savedInstanceId = GlobalObjectId.GetGlobalObjectIdSlow(ps).ToString();
+            ps.data = PosingSystemConverter.GetDefineSerializeJson(ps);
+            var copy = Object.Instantiate(root);
+            try
+            {
+                EditorSceneManager.SaveScene(scene);
+                var other = copy.GetComponentInChildren<PosingSystem>();
+                Assert.That(GlobalObjectId.GetGlobalObjectIdSlow(other).ToString(), Is.Not.EqualTo(ps.savedInstanceId));
+                PosingSystemEditor.ClearThumbnailPack(other);
+                Assert.That(PosingSystemConverter.IsPosingSystemDataUpdated(other), Is.False);
+                Assert.That(AssetDatabase.LoadAllAssetRepresentationsAtPath(path), Does.Contain(thumbnail));
+                Assert.That(other.thumbnailPackObject, Is.Null);
+                Assert.That(other.defines[0].animations[0].previewImage, Is.Null);
+                Assert.That(other.defines[0].animations[0].icon, Is.EqualTo(Texture2D.whiteTexture));
+                Assert.That(ps.defines[0].animations[0].previewImage, Is.EqualTo(thumbnail));
+                PosingSystemEditor.ClearThumbnailPack(ps);
+                AssetDatabase.SaveAssets();
+                AssetDatabase.ImportAsset(path, ImportAssetOptions.ForceUpdate);
+                Assert.That(AssetDatabase.LoadAllAssetRepresentationsAtPath(path).OfType<Texture2D>(), Is.Empty);
+            }
+            finally { Object.DestroyImmediate(copy); }
+        }
+
         [Test] public void DetailSwitch_CommitsPendingName_EndsTextEditing_AndUndoRedoKeepsNamesSeparate()
         {
             using var serialized = new SerializedObject(ps);

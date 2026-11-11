@@ -82,6 +82,18 @@ def display_path_issues(text, known, invariants, exceptions=None):
             for offset,value in literals(start,stop):
                 if not registered(value): add(offset,value,'unregistered_dialog_argument' if name.startswith('Dialog') else 'unregistered_display_argument')
     def is_protected(offset): return any(start<=offset<end for start,end in protected)
+    # NDMF displays plugin names in its build/debug UI. A registered Japanese
+    # literal still bypasses translation unless the getter actually calls Text.
+    for prop in re.finditer(r'\boverride\s+string\s+DisplayName\s*(=>|\{)', text):
+        start = prop.end()
+        if prop[1] == '=>':
+            end = text.find(';', start)
+            if end < 0: continue
+        else:
+            _, end = call_arguments(text, start - 1)
+        for offset, value in literals(start, end):
+            if JAPANESE.search(value) and value not in invariants and not is_protected(offset):
+                add(offset, value, 'unlocalized_plugin_display_name')
     ui = r'(?:(?:EditorGUI|EditorGUILayout|GUI|GUILayout)\.(?:Label|LabelField|HelpBox|Button|ToggleLeft|Toggle|Foldout|Popup|LinkButton|TextField|ObjectField|IntField|FloatField|EnumPopup)|EditorUtility\.(?:DisplayDialog|DisplayDialogComplex|DisplayProgressBar)|new\s+GUIContent)'
     ui_calls=[]
     for call in re.finditer(ui+r'\s*\(',text):

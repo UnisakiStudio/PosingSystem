@@ -36,7 +36,9 @@ progress, never a passing release check. The CI workflow runs the strict gate.
 
 The display-path scan also checks all dialog arguments, direct GUI/GUIContent
 strings, local popup arrays, native MenuItem/CreateAssetMenu path segments and
-prebuild/build exception and diagnostic summaries/actions. It scans the three
+prebuild/build exception and diagnostic summaries/actions. It also checks NDMF
+plugin `DisplayName` getters, including registered Japanese literals that bypass
+the translation call. It scans the three
 product checkouts when they are available and lists the covered roots in the
 report. Exact developer-only diagnostic exclusions require a reason in
 `source-audit-exceptions.json`; custom names, asset filenames and language

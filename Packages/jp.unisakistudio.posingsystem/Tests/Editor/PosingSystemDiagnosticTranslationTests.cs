@@ -8,6 +8,63 @@ namespace UnisakiStudio.PosingSystem.Tests
     public class PosingSystemDiagnosticTranslationTests
     {
         [Test]
+        public void DuplicateRemovalPluginTitleFollowsLanguageWithoutChangingItsIdentity()
+        {
+            var go = new GameObject("NDMF plugin display language scope");
+            try
+            {
+                var ps = go.AddComponent<jp.unisakistudio.posingsystem.PosingSystem>();
+                var plugin = new DuplicateEraserConverter();
+                const string source = "ゆにさきポーズシステム・重複オブジェクト削除機能";
+                foreach (var language in PosingSystemLocalization.Codes)
+                {
+                    ps.menuLanguage = language;
+                    using (PosingSystemLocalization.ForInspector(ps))
+                    {
+                        Assert.That(plugin.DisplayName, Is.EqualTo(PosingSystemLocalization.Text(source) + PosingSystemPackageInfo.SystemVersion), language);
+                        Assert.That(plugin.QualifiedName, Is.EqualTo("jp.unisakistudio.posingsytemeditor.duplicate-eraser"));
+                        if (language != "ja") Assert.That(plugin.DisplayName, Does.Not.Contain(source), language);
+                    }
+                    ps.menuLanguage = "ja";
+                    using (PosingSystemLocalization.ForInspector(ps))
+                        Assert.That(plugin.DisplayName, Does.StartWith(source), language + " -> ja");
+                }
+            }
+            finally { Object.DestroyImmediate(go); }
+        }
+
+        [Test]
+        public void ReleasedRolloverInquiryGuidanceUsesEveryLanguageAndReturnsToJapanese()
+        {
+            const string privateName = "private-pose-name-not-for-the-inquiry";
+            var go = new GameObject("released inquiry language scope");
+            try
+            {
+                var ps = go.AddComponent<jp.unisakistudio.posingsystem.PosingSystem>();
+                var outerLanguage = PosingSystemLocalization.Language;
+                foreach (var language in PosingSystemLocalization.Codes)
+                {
+                    ps.menuLanguage = language;
+                    using (PosingSystemLocalization.ForInspector(ps))
+                    {
+                        var guidance = PosingSystemLocalization.Text(PosingSystemDiagnostics.RolloverClipAction);
+                        var draft = PosingSystemSupportReport.Draft("[PS070] " + privateName);
+                        Assert.That(draft, Does.Contain(guidance), language);
+                        Assert.That(draft, Does.Contain(PosingSystemLocalization.Text("寝返り")), language);
+                        Assert.That(draft, Does.Not.Contain(privateName), language);
+                        if (language != "ja")
+                            Assert.That(draft, Does.Not.Contain(PosingSystemDiagnostics.RolloverClipAction), language);
+                    }
+                    Assert.That(PosingSystemLocalization.Language, Is.EqualTo(outerLanguage));
+                    ps.menuLanguage = "ja";
+                    using (PosingSystemLocalization.ForInspector(ps))
+                        Assert.That(PosingSystemSupportReport.Draft("PS070"), Does.Contain(PosingSystemDiagnostics.RolloverClipAction), language + " -> ja");
+                }
+            }
+            finally { Object.DestroyImmediate(go); }
+        }
+
+        [Test]
         public void DirectUtilityExceptionIsLocalizedBeforeLeavingItsTargetScope()
         {
             const string source = "Humanoid Animatorが必要です。";

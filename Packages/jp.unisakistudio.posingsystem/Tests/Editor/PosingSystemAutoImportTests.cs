@@ -318,6 +318,12 @@ namespace jp.unisakistudio.posingsystemeditor.tests
         [TestCase(false, true, true)] [TestCase(true, true, true)]
         public void NdmfBuild_UsesAutomaticMotionWithoutChangingSourceOrManualSettings(bool prebuilt, bool defaultBase, bool manual)
         {
+            foreach (var pair in new[] { ("Crouching", StateType.Crouch), ("Prone", StateType.Prone) })
+            {
+                var posture = Clip("Imported_" + pair.Item1, .35f);
+                source.layers[0].stateMachine.AddState(pair.Item1).motion = posture;
+                if (manual) ps.overrideDefines.Add(Row(posture, pair.Item2));
+            }
             if (defaultBase) SetSource(null, true);
             if (manual) ps.overrideDefines.Add(Row(Clip("ManualLanding", .3f), StateType.ShortLanding));
             if(prebuilt)Prebuild();
@@ -352,6 +358,15 @@ namespace jp.unisakistudio.posingsystemeditor.tests
                     .Where(s=>s.name=="Jump").Select(s=>s.motion).ToArray();
                 Assert.That(context.Successful, Is.True);
                 Assert.That(imported.Any(m=>m!=null&&m.name.Contains("AutoJump")),Is.EqualTo(!defaultBase));
+                foreach (var posture in new[] { "Crouching", "Prone" })
+                foreach (var suffix in new[] { "", "_Desktop" })
+                {
+                    var states = output.layers.Where(l => l.name.Contains("USSPS_Locomotion"))
+                        .SelectMany(l => States(l.stateMachine)).Where(s => s.name == posture + suffix).ToArray();
+                    Assert.That(states, Is.Not.Empty, posture + suffix);
+                    Assert.That(states.Any(s => s.motion != null && s.motion.name.Contains("Imported_" + posture)),
+                        Is.EqualTo(manual || !defaultBase), posture + suffix);
+                }
                 if (manual)
                     Assert.That(output.layers.Where(l => l.name.Contains("USSPS_Locomotion")).SelectMany(l => States(l.stateMachine))
                         .Any(s => s.motion != null && s.motion.name.Contains("ManualLanding")), Is.True);

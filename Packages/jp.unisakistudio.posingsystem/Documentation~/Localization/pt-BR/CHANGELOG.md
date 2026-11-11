@@ -13,6 +13,25 @@
 
 - Mantidas configurações existentes, nomes próprios, referências a recursos, identificadores de parâmetros e armazenamento da licença.
 
+## [3.1.4] - 2026-11-11
+
+- Corrigido o problema em que as animações específicas do avatar atribuídas a agachar e deitar de bruços não eram aplicadas, sendo usadas as poses padrão do VRChat. A correção abrange a importação automática e as atribuições manuais.
+- Corrigidos os cabelos, óculos e outros elementos conectados com MA Bone Proxy que permaneciam na posição original durante a edição ou prévia de poses. Agora acompanham a pose da prévia, preservando as configurações e o posicionamento do avatar original.
+- Corrigida a falha da correção de pose baseada na posição do ponto de vista ao capturar imagens de poses como «仰向け寝_お疲れ». As imagens usam uma animação que inclui as correções de pose e do chão aplicadas durante a compilação.
+
+No ALCOM / VCC, atualize Unisaki Posing System para 3.1.4. Você pode continuar usando Kawaii Posing 3.1.2 e Cool Posing 1.1.0 sem alterações. Se usava pré-cálculo, pressione «Atualizar pré-cálculo» após a atualização, salve a cena e compile e envie o avatar novamente.
+
+## [3.1.3] - 2026-11-09
+
+- «Atualizar miniaturas das poses» e o pré-cálculo em um avatar duplicado não excluem mais as imagens de poses do avatar original.
+- Corrigida a indicação «Configurações alteradas» após apenas capturar as imagens novamente, quando o pré-cálculo tinha sido executado antes do primeiro salvamento da cena ou no modo de edição de Prefab.
+- Corrigido o problema em que o pré-cálculo podia parar no meio se restassem dados de poses de um pré-cálculo anterior.
+- A abertura da lista ficou mais leve quando ainda não existem imagens de poses. Também foi revisada a espera que bloqueava o Unity até terminar a obtenção de informações dos pacotes no início do pré-cálculo ou da compilação.
+- As configurações de edição das ferramentas de poses desativadas dentro do avatar também são removidas nas compilações para PC e Android.
+- «Pedir ajuda sobre este erro» pode incluir no rascunho números de diagnóstico e outras informações mais adiante na Console, mesmo quando os primeiros erros não permitem identificar a causa. Se ocorrer um erro nas configurações de clipes de «Virar», o rascunho também inclui os pontos a verificar.
+
+No ALCOM / VCC, atualize Unisaki Posing System para 3.1.3. Você pode continuar usando Kawaii Posing 3.1.2 e Cool Posing 1.1.0 sem alterações. Como esses produtos indicam uma versão anterior do sistema comum, pode aparecer uma confirmação de conflito durante a atualização. Se usava pré-cálculo, pressione «Atualizar pré-cálculo» após a atualização, salve a cena e compile e envie o avatar novamente.
+
 ## [3.1.2] - 2026-11-09
 
 - Corrigido o rosto que continuava para cima após levantar da posição de bruços com a redução de deformação por cabeça ativa.

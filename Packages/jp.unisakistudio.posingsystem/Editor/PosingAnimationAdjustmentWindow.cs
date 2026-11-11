@@ -73,13 +73,8 @@ namespace jp.unisakistudio.posingsystemeditor
         private Vector2 _animationListScroll;
         private Vector2 _muscleScroll;
 
-        private bool _previewActive;
-        private Animator _previewAvatar;
-
-        // プレビュー開始時の初期位置・回転を保存（累積回転問題の回避用）
-        private Vector3 _initialAvatarPosition;
-        private Quaternion _initialAvatarRotation;
-        private bool _initialTransformSaved;
+        private SceneAvatarPreview _preview;
+        private Animator _previewAvatar => _preview?.Animator;
 
         // Undo検知用の前回の値を保存
         private float[] _previousAdjustmentValues;
@@ -633,6 +628,8 @@ namespace jp.unisakistudio.posingsystemeditor
         private void OnEnable()
         {
             RegisterAutoPoseSceneGui();
+            EditorApplication.playModeStateChanged += OnPlayModeStateChanged;
+            UnityEditor.SceneManagement.EditorSceneManager.sceneClosing += OnPreviewSceneClosing;
             // GetWindow直後はInitialize前なのでIsOpenがfalseになる。ここで先に登録しないと、
             // 初回表示したウィンドウだけUndo/Redo通知を受け取れない。
             Undo.undoRedoPerformed -= OnUndoRedoPerformed;
@@ -664,6 +661,8 @@ namespace jp.unisakistudio.posingsystemeditor
 
         private void OnDisable()
         {
+            EditorApplication.playModeStateChanged -= OnPlayModeStateChanged;
+            UnityEditor.SceneManagement.EditorSceneManager.sceneClosing -= OnPreviewSceneClosing;
             ClearAdjustmentStates();
             UnregisterAutoPoseSceneGui();
             // Undoイベントの購読解除
@@ -671,6 +670,16 @@ namespace jp.unisakistudio.posingsystemeditor
             // 選択変更イベントの購読解除
             Selection.selectionChanged -= OnSelectionChanged;
             CleanupPreview();
+        }
+
+        private void OnPlayModeStateChanged(PlayModeStateChange state)
+        {
+            if (state == PlayModeStateChange.ExitingEditMode) CleanupPreview();
+        }
+
+        private void OnPreviewSceneClosing(UnityEngine.SceneManagement.Scene scene, bool removingScene)
+        {
+            if (_posingSystem != null && _posingSystem.gameObject.scene == scene) CleanupPreview();
         }
 
         private void OnUndoRedoPerformed()
@@ -707,23 +716,9 @@ namespace jp.unisakistudio.posingsystemeditor
                 return;
             }
 
-            // 現在プレビュー中のアバターを取得
-            GameObject currentPreviewAvatar = null;
-            if (_previewAvatar != null)
-            {
-                currentPreviewAvatar = _previewAvatar.gameObject;
-            }
-            else if (_posingSystem != null)
-            {
-                var avatar = _posingSystem.GetAvatar();
-                if (avatar != null)
-                {
-                    currentPreviewAvatar = avatar.gameObject;
-                }
-            }
-
-            // プレビュー中のアバターが存在し、選択されたオブジェクトが異なる場合
-            if (currentPreviewAvatar != null && Selection.activeGameObject != currentPreviewAvatar)
+            var source = _posingSystem.GetAvatar();
+            if (_previewAvatar != null && Selection.activeGameObject != _previewAvatar.gameObject &&
+                (source == null || Selection.activeGameObject != source.gameObject))
             {
                 // プレビューを終了
                 CleanupPreview();
@@ -2365,7 +2360,7 @@ namespace jp.unisakistudio.posingsystemeditor
         public static bool TryGetActivePosePreview(out PosingSystem system, out AnimationClip clip, out string key, out bool applyIk)
         {
             var window = Resources.FindObjectsOfTypeAll<PosingAnimationAdjustmentWindow>()
-                .FirstOrDefault(w => w.IsOpen && w._previewActive && w.GetSelectedEntry()?.Animation?.animationClip is AnimationClip);
+                .FirstOrDefault(w => w.IsOpen && w._previewAvatar != null && w.GetSelectedEntry()?.Animation?.animationClip is AnimationClip);
             system = window != null ? window._posingSystem : null;
             clip = window?.GetSelectedEntry()?.Animation?.animationClip as AnimationClip;
             key = window != null ? window.GetAnimationKey(window.GetSelectedEntry()) : null;
@@ -2385,6 +2380,7 @@ namespace jp.unisakistudio.posingsystemeditor
 
         private void ApplyPreviewPose()
         {
+            if (EditorApplication.isPlayingOrWillChangePlaymode) return;
             var entry = GetSelectedEntry();
             if (entry == null)
             {
@@ -2396,56 +2392,39 @@ namespace jp.unisakistudio.posingsystemeditor
                 return;
             }
 
-            if (!_previewActive)
-            {
-                AnimationMode.StartAnimationMode();
-                _previewActive = true;
-            }
-
-            if (_posingSystem.previewAvatarObject != null)
-            {
-                _previewAvatar = _posingSystem.previewAvatarObject.GetComponent<Animator>();
-            }
-            if (_previewAvatar == null)
-            {
-                _previewAvatar = _posingSystem.GetAvatar().GetComponent<Animator>();
-            }
-            if (_previewAvatar == null)
+            var source = _posingSystem.GetAvatar()?.GetComponent<Animator>();
+            if (source == null)
             {
                 PosingSystemLocalization.Dialog(PosingAnimationAdjustmentWindowText.InfoTitle, PosingAnimationAdjustmentWindowText.AvatarAnimatorNotFound, PosingAnimationAdjustmentWindowText.Ok);
                 CleanupPreview();
                 return;
             }
-
-            // 初回のみ元のアバターの位置と回転を保存（累積回転問題の回避）
-            if (!_initialTransformSaved && _posingSystem.GetAvatar() != null)
+            if (_preview == null || !_preview.IsActive)
             {
-                _initialAvatarPosition = _posingSystem.GetAvatar().transform.position;
-                _initialAvatarRotation = _posingSystem.GetAvatar().transform.rotation;
-                _initialTransformSaved = true;
+                CleanupPreview();
+                if (AnimationMode.InAnimationMode()) return;
+                var model = _posingSystem.previewAvatarObject != null
+                    ? _posingSystem.previewAvatarObject.GetComponent<Animator>() : null;
+                _preview = new SceneAvatarPreview();
+                try { _preview.Start(source, model != null ? model : source, "_USSPS_AdjustmentPreview"); }
+                catch { CleanupPreview(); throw; }
             }
-
-            // プレビューアバターが元のアバターと異なる場合のみ、元のアバターを非アクティブにする
-            if (_posingSystem.GetAvatar() != null && _previewAvatar.gameObject != _posingSystem.GetAvatar().gameObject)
-            {
-                _posingSystem.GetAvatar().gameObject.SetActive(false);
-                EditorUtility.SetDirty(_posingSystem.gameObject);
-            }
-
-            _previewAvatar.gameObject.SetActive(true);
-            EditorUtility.SetDirty(_posingSystem.gameObject);
 
             HumanPoseHandler poseHandler = null;
+            var placement = source.transform;
+            var target = _previewAvatar.transform;
+            // Evaluate the pose in avatar space every time. Get/SetHumanPose is not an
+            // identity round trip when a scaled or translated root is baked into the pose.
+            target.SetPositionAndRotation(Vector3.zero, Quaternion.identity);
+            target.localScale = Vector3.one;
             try
             {
                 AnimationMode.BeginSampling();
-                AnimationMode.SampleAnimationClip(_previewAvatar.gameObject, baseClip, 0f);
-                AnimationMode.EndSampling();
+                try { AnimationMode.SampleAnimationClip(_previewAvatar.gameObject, baseClip, 0f); }
+                finally { AnimationMode.EndSampling(); }
 
-                // 元のアニメーションのRootQを取得（サンプリング後のアバターの回転）
-                var baseRotation = _previewAvatar.transform.rotation;
-                var basePosition = _previewAvatar.transform.position;
-
+                var baseRotation = target.rotation;
+                var basePosition = target.position;
                 if (TryApplySelectedAutoPosePreview())
                 {
                     _previewAvatar.transform.position = basePosition;
@@ -2501,6 +2480,8 @@ namespace jp.unisakistudio.posingsystemeditor
             finally
             {
                 poseHandler?.Dispose();
+                target.SetPositionAndRotation(placement.TransformPoint(target.position), placement.rotation * target.rotation);
+                target.localScale = Vector3.Scale(placement.lossyScale, target.localScale);
                 PosePreviewChanged?.Invoke(_posingSystem, baseClip, GetAnimationKey(entry),
                     UsesIkInPreview());
             }
@@ -2508,35 +2489,14 @@ namespace jp.unisakistudio.posingsystemeditor
 
         private void CleanupPreview()
         {
-            PosePreviewStopped?.Invoke();
-            if (_previewActive)
+            if (_preview == null) return;
+            try { PosePreviewStopped?.Invoke(); }
+            finally
             {
-                AnimationMode.StopAnimationMode();
-                _previewActive = false;
+                _preview.Dispose();
+                _preview = null;
+                SceneView.RepaintAll();
             }
-            if (_previewAvatar != null)
-            {
-                // プレビューアバターが元のアバターと異なる場合のみ非アクティブにする
-                if (_posingSystem.GetAvatar() != null && _previewAvatar.gameObject != _posingSystem.GetAvatar().gameObject)
-                {
-                    _previewAvatar.gameObject.SetActive(false);
-                    EditorUtility.SetDirty(_posingSystem.gameObject);
-                }
-                // プレビューアバターが元のアバターと同じ場合、元の位置・回転に戻す
-                else if (_initialTransformSaved && _posingSystem.GetAvatar() != null)
-                {
-                    _posingSystem.GetAvatar().transform.position = _initialAvatarPosition;
-                    _posingSystem.GetAvatar().transform.rotation = _initialAvatarRotation;
-                }
-                _previewAvatar = null;
-            }
-            if (_posingSystem != null && _posingSystem.GetAvatar() != null)
-            {
-                _posingSystem.GetAvatar().gameObject.SetActive(true);
-                EditorUtility.SetDirty(_posingSystem.gameObject);
-            }
-            // 初期位置・回転の保存状態をリセット
-            _initialTransformSaved = false;
         }
 
         private void PreloadAllAdjustmentData(bool preserveDrafts = false)

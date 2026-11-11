@@ -29,6 +29,7 @@ namespace jp.unisakistudio.posingsystemeditor
         public const string RestoreTool = "シーンを保存・バックアップしてから、ALCOM / VCCで商品本体と「ゆにさきポーズシステム」を再取得してください。入れ直しても直らない場合は、Inspector上部の「ヘルプ・変更履歴」から公式マニュアル・お問い合わせをご確認ください。調整済みのオブジェクトやGeneratedResourcesは削除しないでください。";
 
         internal const string CommonAnimatorId = "jp.unisakistudio.posingsystem_locomotion";
+        internal const string RolloverClipAction = "中央と横向きに、Humanoid形式のクリップを指定してください。BlendTree・Legacy・身体カーブのないクリップは使用できません。";
         private const string CommonAnimatorPrefabGuid = "16f1d2fbf5ebb4d48b442583001516a2";
         internal static ModularAvatarMergeAnimator CommonAnimatorTemplate()
         {
@@ -197,7 +198,7 @@ namespace jp.unisakistudio.posingsystemeditor
                         {
                             if (!(pose.animationClip is AnimationClip center) || !PosingSystemRolloverGenerator.Supports(center) ||
                                 !PosingSystemRolloverGenerator.Supports(pose.rolloverSideAnimation))
-                                Add("PS070", string.Format("「{0}」の{1}番目（{2}）の寝返りにはHumanoidのAnimationClipが必要です。", category, j + 1, pose.displayName), "中央と横向きに、Humanoid形式のクリップを指定してください。BlendTree・Legacy・身体カーブのないクリップは使用できません。", MessageType.Error);
+                                Add("PS070", string.Format("「{0}」の{1}番目（{2}）の寝返りにはHumanoidのAnimationClipが必要です。", category, j + 1, pose.displayName), RolloverClipAction, MessageType.Error);
                             if (float.IsNaN(pose.rolloverContactStrength) || float.IsInfinity(pose.rolloverContactStrength) || pose.rolloverContactStrength < 0 || pose.rolloverContactStrength > 1)
                                 Add("PS071", string.Format("「{0}」の{1}番目（{2}）の接地補正の強さが範囲外です。", category, j + 1, pose.displayName), "0〜1の値を指定してください。", MessageType.Error);
                         }

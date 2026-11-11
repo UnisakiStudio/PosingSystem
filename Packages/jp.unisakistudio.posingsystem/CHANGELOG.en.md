@@ -13,6 +13,25 @@
 
 - Existing avatar settings, custom names, asset references, parameter identifiers and license storage are preserved.
 
+## [3.1.4] - 2026-11-11
+
+- Fixed avatar-specific crouching and prone animations being ignored and replaced by the default VRChat poses. Both automatic import and manually assigned animations are covered.
+- Fixed hair, glasses and other accessories attached with MA Bone Proxy staying in their original positions while editing or previewing poses. They now follow the preview pose while preserving the original avatar settings and placement.
+- Fixed pose correction using the viewpoint position failing when capturing pose thumbnails such as 仰向け寝_お疲れ. Thumbnails now use animations with the pose correction and floor adjustments applied during the build.
+
+Update Unisaki Posing System to 3.1.4 in ALCOM / VCC. Kawaii Posing Tool 3.1.2 and Cool Posing Tool 1.1.0 can continue to be used as they are. If you use a prebuild, click Update prebuild after updating, save the scene, then build and upload the avatar again.
+
+## [3.1.3] - 2026-11-09
+
+- Running Update pose thumbnails or a prebuild on a duplicated avatar no longer deletes the original avatar’s pose thumbnails.
+- Fixed Settings changed appearing after only recapturing thumbnails when the prebuild was created before the scene was first saved or while editing a Prefab.
+- Fixed a subsequent prebuild sometimes stopping partway through when pose data from an earlier prebuild remained.
+- Reduced the work needed to open the pose list when thumbnails do not yet exist. Also revised the process that blocked Unity while waiting for package information at the start of a prebuild or build.
+- The pose tool’s editing components are now also removed from PC and Android builds when the tool is disabled within the avatar.
+- Ask about this error can now include diagnostic codes from later Console entries in the draft even when the first errors do not identify the cause. For errors involving Roll Over clip settings, the draft also includes what to check.
+
+Update Unisaki Posing System to 3.1.3 in ALCOM / VCC. Kawaii Posing Tool 3.1.2 and Cool Posing Tool 1.1.0 can continue to be used as they are. Because these products specify an earlier shared system version, you may see a conflict confirmation when updating. If you use a prebuild, click Update prebuild after updating, save the scene, then build and upload the avatar again.
+
 ## [3.1.2] - 2026-11-09
 
 - Fixed the face remaining tilted upward after getting up from a prone pose when Reduce pose distortion from head rotation was enabled.

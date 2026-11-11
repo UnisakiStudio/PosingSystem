@@ -145,7 +145,7 @@
       "product": "PosingSystem",
       "kind": "changelog",
       "source": "PosingSystem/Packages/jp.unisakistudio.posingsystem/CHANGELOG.md",
-      "source_sha256": "6e379d9a51a8ab3f72d9082cc91f52eda5d13b8f51707101801600e54733319c",
+      "source_sha256": "eb8c5a67f30519706e5638551cf53f78105816b0628d3c446ef20dfd4fece65e",
       "blocks": [
         "3e9e4ae5e303de21",
         "1fea13aed5680b51",
@@ -153,6 +153,12 @@
         "79fec8d04d3cf763",
         "25b732bdda1bb358",
         "25d84bc9d3caff87",
+        "706843f119f826f7",
+        "89c1bfe490387d11",
+        "27d079df354139bc",
+        "7442cd7956701716",
+        "ed1bb4e0b6618cb4",
+        "6b667b21a30789e7",
         "e4cba598410c7048",
         "26e3fc73d9977c89",
         "5b848fae7ca7403a",
@@ -1466,6 +1472,54 @@
         "PosingSystem/changelog",
         "KawaiiPosing/changelog",
         "CoolPosing/changelog"
+      ]
+    },
+    "706843f119f826f7": {
+      "language": "ja",
+      "text": "## [3.1.4] - 2026-11-11",
+      "invariant": true,
+      "contexts": [
+        "PosingSystem/changelog"
+      ]
+    },
+    "89c1bfe490387d11": {
+      "language": "ja",
+      "text": "- アバター固有のしゃがみ・伏せに指定したアニメーションが反映されず、VRChat標準の姿勢になる問題を修正しました。自動取り込みと手動指定の両方が対象です。\n- ポーズの編集・プレビュー中に、MA Bone Proxyで取り付けた髪や眼鏡などが元の位置に残る問題を修正しました。元のアバターの設定や配置を保ったまま、プレビューの姿勢に追従します。\n- 「仰向け寝_お疲れ」などのポーズ画像を撮るとき、視点位置を使った姿勢補正に失敗する問題を修正しました。画像には、ビルド時の姿勢補正や床の調整を反映したアニメーションを使います。",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/changelog"
+      ]
+    },
+    "27d079df354139bc": {
+      "language": "ja",
+      "text": "ALCOM / VCCで「ゆにさきポーズシステム」を3.1.4に更新してください。「可愛いポーズツール」3.1.2・「カッコいいポーズツール」1.1.0はそのまま使えます。プレビルドを使っていた方は、更新後に「プレビルドを更新」を押してシーンを保存し、アバターを再度ビルド・アップロードしてください。",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/changelog"
+      ]
+    },
+    "7442cd7956701716": {
+      "language": "ja",
+      "text": "## [3.1.3] - 2026-11-09",
+      "invariant": true,
+      "contexts": [
+        "PosingSystem/changelog"
+      ]
+    },
+    "ed1bb4e0b6618cb4": {
+      "language": "ja",
+      "text": "- 複製したアバターで「ポーズ画像を更新」やプレビルドをしても、元のアバターのポーズ画像が消えなくなりました。\n- 初めてシーンを保存する前やPrefabの編集画面でプレビルドした場合に、画像を撮り直しただけで「設定の更新あり」と表示される問題を修正しました。\n- 以前のプレビルドで作ったポーズデータが残っていると、次のプレビルドが途中で止まることがある問題を修正しました。\n- ポーズ画像がまだないときに一覧を開く処理を軽くしました。プレビルドやビルドの開始時に、パッケージ情報の取得が終わるまでUnityの操作が止まる処理も見直しました。\n- アバター内で無効にしているポーズツールの編集用設定も、PC版・Android版のビルド時に取り除くようにしました。\n- 「このエラーについて相談する」で、Consoleの先頭に原因を読み取れないエラーが並んでいても、後ろにある診断番号などを下書きに含められるようにしました。寝返りのクリップ設定でエラーが出たときは、確認箇所も下書きに入ります。",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/changelog"
+      ]
+    },
+    "6b667b21a30789e7": {
+      "language": "ja",
+      "text": "ALCOM / VCCで「ゆにさきポーズシステム」を3.1.3に更新してください。「可愛いポーズツール」3.1.2・「カッコいいポーズツール」1.1.0はそのまま使えます。これらの商品が以前の共通バージョンを指定しているため、更新時に競合の確認が出ることがあります。プレビルドを使っていた方は、更新後に「プレビルドを更新」を押し、シーンを保存してからアバターを再度ビルド・アップロードしてください。",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/changelog"
       ]
     },
     "e4cba598410c7048": {
@@ -3893,5 +3947,5 @@
       ]
     }
   },
-  "source_sha256": "c9089e57d158be729a9988f04b64395c3d5b4d3764eeee869420cf5b39491b5c"
+  "source_sha256": "08f31ccd8536d5bd1f7d0c3b04d79aa5fd5531d22e0fb8fe61b762c2311a03b2"
 }

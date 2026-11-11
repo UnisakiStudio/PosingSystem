@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "locale": "ja",
-  "source_sha256": "c9089e57d158be729a9988f04b64395c3d5b4d3764eeee869420cf5b39491b5c",
+  "source_sha256": "08f31ccd8536d5bd1f7d0c3b04d79aa5fd5531d22e0fb8fe61b762c2311a03b2",
   "translator": "AI contextual translation",
   "native_speaker_review": false,
   "external_translation_service": false,
@@ -9,5 +9,18 @@
   "authored_blocks": 89,
   "all_twelve_documents_complete": true,
   "full_history_preserved": true,
-  "terminology": "Current UI catalogs, full standard pose set and AIReview glossary consulted. Original file/object/avatar/author names retained."
+  "terminology": "Current UI catalogs, full standard pose set and AIReview glossary consulted. Original file/object/avatar/author names retained.",
+  "release_history_update": {
+    "source_versions": [
+      "3.1.3",
+      "3.1.4"
+    ],
+    "new_source_blocks": [
+      "89c1bfe490387d11",
+      "27d079df354139bc",
+      "ed1bb4e0b6618cb4",
+      "6b667b21a30789e7"
+    ],
+    "review": "Existing translations unchanged; new released history checked against original main and existing UI labels. Japanese source retained verbatim; English retains the original asset name."
+  }
 }

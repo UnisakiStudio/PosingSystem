@@ -3,6 +3,8 @@
 using System.Collections.Immutable;
 using System.Collections.Generic;
 using System.Linq;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using UnityEditor;
 using UnityEditor.Animations;
 using UnityEngine;
@@ -154,7 +156,6 @@ namespace jp.unisakistudio.posingsystemeditor
             public System.Collections.Generic.List<OverrideAnimationDefineDTO> overrides;
             public AdditiveBreathingSettingsDTO additiveBreathing;
             public string version;
-            public string savedInstanceId;
         }
         /// <summary>
         /// This name is used to identify the plugin internally, and can be used to declare BeforePlugin/AfterPlugin
@@ -162,23 +163,7 @@ namespace jp.unisakistudio.posingsystemeditor
         /// </summary>
         public override string QualifiedName => "jp.unisakistudio.posingsystemeditor.posingsystemconverter";
 
-        static string _versionName = null;
-        public static string VersionName
-        {
-            get
-            {
-                if (_versionName == null)
-                {
-                    var request = UnityEditor.PackageManager.Client.List(true, true);
-                    while (!request.IsCompleted) { }
-                    if (request.Status == UnityEditor.PackageManager.StatusCode.Success)
-                    {
-                        _versionName = request.Result.FirstOrDefault(pkg => pkg.name == "jp.unisakistudio.posingsystem").version;
-                    }
-                }
-                return _versionName != null ? _versionName : "";
-            }
-        }
+        public static string VersionName => PosingSystemPackageInfo.SystemVersion;
 
         /// <summary>
         /// The plugin name shown in debug UIs. If not set, the qualified name will be shown.
@@ -274,13 +259,14 @@ namespace jp.unisakistudio.posingsystemeditor
                         PosingSystemDiagnostics.ThrowIfInvalid(posingSystem);
                         // 未プレビルド（null / 空文字）は直後に自動変換するため、
                         // 「設定変更済み」としてNDMFエラーを報告しない。
-                        if (ShouldReportPrebuildUpdateWarning(posingSystem))
+                        var settingsUpdated = IsPosingSystemDataUpdated(posingSystem);
+                        if (settingsUpdated && thumbnailBuild?.root != ctx.AvatarRootObject && IsPrebuildUpdateWarningEnabled(posingSystem))
                         {
                             ErrorReport.ReportError(errorLocalizer, ErrorSeverity.NonFatal, "オブジェクトの設定が更新されています。再度プレビルドを行ってください", posingSystem.name);
                         }
 
                         if (ctx.GetState<PosingSystemControllerGeneration.BuildState>().MissingPrebuilds.Contains(posingSystem) ||
-                            string.IsNullOrEmpty(posingSystem.data) || posingSystem.data != GetDefineSerializeJson(posingSystem, true))
+                            settingsUpdated)
                         {
                             ConvertToModularAvatarComponents(posingSystem, ctx.AssetSaver);
                         }
@@ -364,21 +350,23 @@ namespace jp.unisakistudio.posingsystemeditor
                             return;
                         }
 
-                        if (IsAndroidBuildTarget())
+                        if (thumbnailBuild?.root == ctx.AvatarRootObject)
                         {
-                            // Androidビルドターゲットでは、アイコン撮影・メニューアイコン設定は行わない
-                            return;
+                            thumbnailBuild.ReadMotions(ctx.VRChatAvatarDescriptor());
                         }
-
-                        foreach (var posingSystem in ctx.AvatarRootObject.GetComponentsInChildren<PosingSystem>())
+                        else if (!IsAndroidBuildTarget())
                         {
-                            if (posingSystem.thumbnailPackObject == null)
+                            foreach (var posingSystem in ctx.AvatarRootObject.GetComponentsInChildren<PosingSystem>())
                             {
-                                TakeScreenshot(posingSystem, true, true);
-                                SetMenuIcon(posingSystem);
+                                if (posingSystem.thumbnailPackObject == null)
+                                {
+                                    TakeScreenshot(posingSystem, true, true);
+                                    SetMenuIcon(posingSystem);
+                                }
                             }
                         }
-                        foreach (var posingSystem in ctx.AvatarRootObject.GetComponentsInChildren<PosingSystem>())
+                        // Inactive authoring components also belong to the editor, on every platform.
+                        foreach (var posingSystem in ctx.AvatarRootObject.GetComponentsInChildren<PosingSystem>(true))
                         {
                             GameObject.DestroyImmediate(posingSystem);
                         }
@@ -801,8 +789,11 @@ namespace jp.unisakistudio.posingsystemeditor
         }
 
         public static bool ShouldReportPrebuildUpdateWarning(PosingSystem posingSystem)
-            => posingSystem != null && !posingSystem.IsWarningIgnored(PosingSystem.WarningType.PrebuildOutOfDate)
-                && !string.IsNullOrEmpty(posingSystem.data) && IsPosingSystemDataUpdated(posingSystem);
+            => IsPrebuildUpdateWarningEnabled(posingSystem) && IsPosingSystemDataUpdated(posingSystem);
+
+        private static bool IsPrebuildUpdateWarningEnabled(PosingSystem posingSystem)
+            => posingSystem != null && !string.IsNullOrEmpty(posingSystem.data) &&
+                !posingSystem.IsWarningIgnored(PosingSystem.WarningType.PrebuildOutOfDate);
 
         public static PosingSystem.WarningType GetVisibleWarnings(PosingSystem posingSystem)
         {
@@ -869,8 +860,27 @@ namespace jp.unisakistudio.posingsystemeditor
         {
             if (posingSystem == null || posingSystem.defines == null ||
                 posingSystem.defines.Any(d => d?.animations == null || d.animations.Any(a => a == null))) return true;
-            return posingSystem.data != GetDefineSerializeJson(posingSystem, true);
+            var saved = posingSystem.data;
+            if (string.IsNullOrEmpty(saved)) return true;
+            var current = GetDefineSerializeJson(posingSystem);
+            if (saved == current) return false;
+            // Older prebuilds included the thumbnail pack owner in their settings snapshot.
+            if (!saved.Contains("\"savedInstanceId\":")) return true;
+            try
+            {
+                var legacy = JsonConvert.DeserializeObject<JObject>(saved, LegacySnapshotSettings);
+                return legacy == null || !legacy.Remove(nameof(PosingSystem.savedInstanceId)) ||
+                    !JToken.DeepEquals(legacy, JsonConvert.DeserializeObject<JObject>(current, LegacySnapshotSettings));
+            }
+            catch (JsonException) { return true; }
         }
+
+        private static readonly JsonSerializerSettings LegacySnapshotSettings = new JsonSerializerSettings
+        {
+            // A custom pose or parameter name that resembles a date must stay a literal string.
+            DateParseHandling = DateParseHandling.None,
+            CheckAdditionalContent = true
+        };
 
         public static bool IsContainExistProduct(PosingSystem posingSystem)
         {
@@ -1349,6 +1359,8 @@ namespace jp.unisakistudio.posingsystemeditor
             return hash.ToString();
         }
 
+        // Keep the optional argument for callers built against earlier versions.
+        // A settings snapshot is now independent of thumbnail ownership in every context.
         public static string GetDefineSerializeJson(PosingSystem posingSystem, bool ignoreInstanceId = false)
         {
             var breathing = posingSystem.additiveBreathing;
@@ -1374,7 +1386,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 additiveBreathingLogicVersion = 3,
                 // Rebuild unsupported IK poses with their manual adjustment instead of discarding it.
                 autoPoseLogicVersion = 4,
-                importedMotionLogicVersion = 2,
+                importedMotionLogicVersion = 3,
                 generatedAssetLogicVersion = 1,
                 controllerLogicVersion = 2, // Desktop one-evaluation is now standard; invalidate alpha.3 prebuilds.
                 floatingPhotographyLogicVersion = 1, // Do not reuse a prebuild which samples the displaced photography head.
@@ -1425,7 +1437,6 @@ namespace jp.unisakistudio.posingsystemeditor
                     typeFixHash = GetAssetContentHash(typeFixBreathing),
                 },
                 version = VersionName,
-                savedInstanceId = ignoreInstanceId ? posingSystem.savedInstanceId : UnityEditor.GlobalObjectId.GetGlobalObjectIdSlow(posingSystem).ToString(),
                 autoPoseCatalogGuid = GetStableObjectIdentifier(posingSystem.autoPoseCatalog),
                 // Include edits still in memory: dependency hashes alone only see the saved asset.
                 // EditorJsonUtility preserves persistent animation references as GUID/fileID.
@@ -3165,11 +3176,6 @@ namespace jp.unisakistudio.posingsystemeditor
             clone.name =
                 $"_PosingSystem_ProcessedPreview_{sourceAvatar.GetInstanceID()}_{posingSystem.GetInstanceID()}";
 
-            foreach (var clonePosingSystem in clone.GetComponentsInChildren<PosingSystem>(true))
-            {
-                clonePosingSystem.gameObject.tag = "EditorOnly";
-            }
-
             // DontSaveは有効なSceneを維持する。HideAndDontSaveはSceneから切り離すため使用しない。
             PosingSystemEditor.SetPreviewAvatarVisibility(clone, true);
             // ルートにHideInHierarchyとDontSaveを同時指定すると、再び無効Sceneへ移動してしまう。
@@ -3477,6 +3483,89 @@ namespace jp.unisakistudio.posingsystemeditor
             camera.transform.LookAt(avatarObject.transform.position + new Vector3(0, cameraHeight * 0.5f, /*cameraDepth / 2*/(cameraDepth + cameraDepth2) * 0.5f));
         }
 
+        // Only the synchronous SDK build of this exact photography clone is intercepted.
+        // Let MA and FloorAdjuster finish, collect the neutral Base poses before optimization,
+        // then render outside the SDK callback after removing the clone's descriptor.
+        private static ThumbnailBuild thumbnailBuild;
+
+        private sealed class ThumbnailBuild
+        {
+            public readonly GameObject root;
+            private readonly PosingSystem.AnimationDefine[] source;
+            private readonly PosingSystem.AnimationDefine[] copies;
+            private readonly Dictionary<PosingSystem.AnimationDefine, AnimationClip> output;
+
+            public ThumbnailBuild(GameObject avatar, PosingSystem owner, GameObject clone,
+                Dictionary<PosingSystem.AnimationDefine, AnimationClip> output)
+            {
+                root = clone;
+                this.output = output;
+                // Pair the serialized rows at Instantiate time. Names, source clips and initial
+                // parameter numbers can be shared, and conversion can reassign the clone's IDs.
+                int index = System.Array.IndexOf(avatar.GetComponentsInChildren<PosingSystem>(true), owner);
+                var copy = clone.GetComponentsInChildren<PosingSystem>(true)[index];
+                source = owner.defines.SelectMany(layer => layer.animations).ToArray();
+                copies = copy.defines.SelectMany(layer => layer.animations).ToArray();
+            }
+
+            public void ReadMotions(VRCAvatarDescriptor descriptor)
+            {
+                var built = new Dictionary<PosingSystem.AnimationDefine, AnimationClip>();
+                CollectThumbnailMotions(descriptor, copies, built);
+                for (int i = 0; i < copies.Length; i++)
+                    if (built.TryGetValue(copies[i], out var clip)) output[source[i]] = clip;
+            }
+        }
+
+        internal static void CollectThumbnailMotions(VRCAvatarDescriptor descriptor,
+            IEnumerable<PosingSystem.AnimationDefine> poses, Dictionary<PosingSystem.AnimationDefine, AnimationClip> output)
+        {
+            if (descriptor == null || descriptor.baseAnimationLayers == null) return;
+            var controller = descriptor.baseAnimationLayers.FirstOrDefault(l => l.type == VRCAvatarDescriptor.AnimLayerType.Base)
+                .animatorController as AnimatorController;
+            if (controller == null) return;
+            var clips = new Dictionary<int, AnimationClip>();
+            foreach (var layer in controller.layers)
+            {
+                if (layer.name != "USSPS_Locomotion") continue;
+                foreach (var entry in PoseEntries(layer.stateMachine))
+                {
+                    var conditions = entry.conditions;
+                    if (!conditions.Any(c => c.parameter == "VRMode" && c.mode == AnimatorConditionMode.NotEqual)) continue;
+                    var low = conditions.FirstOrDefault(c => c.parameter == "USSPS_Pose" && c.mode == AnimatorConditionMode.Equals);
+                    if (string.IsNullOrEmpty(low.parameter)) continue;
+                    int id = (int)low.threshold;
+                    for (int bit = 0; bit < 8; bit++)
+                        if (conditions.Any(c => c.parameter == "USSPS_Pose" + bit && c.mode == AnimatorConditionMode.If))
+                            id |= 1 << (8 + bit);
+                    var clip = ThumbnailClip(entry.destinationState?.motion, built: true);
+                    if (clip != null) clips[id] = clip;
+                }
+            }
+            foreach (var pose in poses)
+                if (pose.enabled && clips.TryGetValue(pose.syncdParameterValue, out var clip)) output[pose] = clip;
+
+            // The one-frame selector nests the original locomotion state machine.
+            static IEnumerable<AnimatorTransition> PoseEntries(AnimatorStateMachine machine) =>
+                machine.entryTransitions.Concat(machine.stateMachines.SelectMany(child => PoseEntries(child.stateMachine)));
+        }
+
+        private static AnimationClip ThumbnailClip(Motion motion, bool built, HashSet<Motion> visited = null)
+        {
+            if (!(motion is BlendTree tree)) return motion as AnimationClip;
+            visited ??= new HashSet<Motion>();
+            if (!visited.Add(tree)) return null;
+            IEnumerable<ChildMotion> children = tree.children;
+            if (built && tree.blendParameter == "FootHeight")
+                children = children.OrderBy(child => Mathf.Abs(child.threshold - .5f));
+            foreach (var child in children)
+            {
+                var clip = ThumbnailClip(child.motion, built, visited);
+                if (clip != null) return clip;
+            }
+            return null;
+        }
+
         public static void TakeScreenshot(PosingSystem posingSystem, bool force = false, bool drypreview = true)
         {
             // NDMFのビルドパス内では OnPreprocessAvatar を起動しないため、preprocessを回避するドライプレビューのみ許可
@@ -3532,6 +3621,9 @@ namespace jp.unisakistudio.posingsystemeditor
                 return;
             }
             GameObject clone;
+            var motions = new Dictionary<PosingSystem.AnimationDefine, AnimationClip>();
+            if (_isExecutingNdMfPass)
+                CollectThumbnailMotions(srcAvatar, posingSystem.defines.SelectMany(d => d.animations), motions);
             var usingEditorPreview = drypreview && HasValidHumanoidAnimator(posingSystem.previewAvatarObject);
             if (usingEditorPreview)
             {
@@ -3553,7 +3645,17 @@ namespace jp.unisakistudio.posingsystemeditor
                 {
                     try
                     {
-                        VRC.SDKBase.Editor.BuildPipeline.VRCBuildPipelineCallbacks.OnPreprocessAvatar(clone);
+                        var previousBuild = thumbnailBuild;
+                        try
+                        {
+                            thumbnailBuild = new ThumbnailBuild(srcAvatar.gameObject, posingSystem, clone, motions);
+                            if (!VRC.SDKBase.Editor.BuildPipeline.VRCBuildPipelineCallbacks.OnPreprocessAvatar(clone))
+                                throw new System.OperationCanceledException(nameof(VRC.SDKBase.Editor.BuildPipeline.VRCBuildPipelineCallbacks.OnPreprocessAvatar));
+                        }
+                        finally
+                        {
+                            thumbnailBuild = previousBuild;
+                        }
                         Object.DestroyImmediate(clone.GetComponent<VRC.SDK3.Avatars.Components.VRCAvatarDescriptor>());
 
                         if (!HasValidHumanoidAnimator(clone))
@@ -3602,7 +3704,8 @@ namespace jp.unisakistudio.posingsystemeditor
                             continue;
                         }
 
-                        TakeIconScreenshot(animation, posingSystem, camera, clone, force);
+                        motions.TryGetValue(animation, out var builtClip);
+                        TakeIconScreenshot(animation, posingSystem, camera, clone, force, builtClip);
                         if (animation.previewImage != null && !AssetDatabase.IsSubAsset(animation.previewImage))
                         {
                             if (posingSystem.thumbnailPackObject != null)
@@ -3813,6 +3916,9 @@ namespace jp.unisakistudio.posingsystemeditor
         }
 
         public static void TakeIconScreenshot(PosingSystem.BaseAnimationDefine animation, PosingSystem posingSystem, Camera camera, GameObject previewAvatarObject, bool force)
+            => TakeIconScreenshot(animation, posingSystem, camera, previewAvatarObject, force, null);
+
+        internal static void TakeIconScreenshot(PosingSystem.BaseAnimationDefine animation, PosingSystem posingSystem, Camera camera, GameObject previewAvatarObject, bool force, AnimationClip builtClip)
         {
             var animationDefine = animation as PosingSystem.AnimationDefine;
             if (force == false && animation.previewImage != null)
@@ -3883,45 +3989,28 @@ namespace jp.unisakistudio.posingsystemeditor
                 }
                 else
                 {
-                    AnimationClip getFirstAnimationClip(Motion motion)
-                    {
-                        if (motion == null)
-                        {
-                            return null;
-                        }
-                        if (motion.GetType() == typeof(AnimationClip))
-                        {
-                            return (AnimationClip)motion;
-                        }
-                        if (motion.GetType() == typeof(UnityEditor.Animations.BlendTree))
-                        {
-                            foreach (var child in ((UnityEditor.Animations.BlendTree)motion).children)
-                            {
-                                var clip = getFirstAnimationClip(child.motion);
-                                if (clip)
-                                {
-                                    return clip;
-                                }
-                            }
-                        }
-                        return null;
-                    }
-                    var firstAnimationClip = getFirstAnimationClip(animation.animationClip);
+                    var firstAnimationClip = builtClip != null ? builtClip : ThumbnailClip(animation.animationClip, built: false);
                     if (firstAnimationClip)
                     {
                         // 調整アニメーションを適用したクリップを作成
                         var clipToSample = firstAnimationClip;
                         AnimationClip automaticAdjustmentClip = null;
-                        var selectedAdjustmentClip = posingSystem.UsesAutoPoseFor(animationDefine)
-                            ? null
-                            : animationDefine?.adjustmentClip;
-                        if (posingSystem.UsesAutoPoseFor(animationDefine))
+                        var useIk = builtClip == null && posingSystem.UsesAutoPoseFor(animationDefine);
+                        var selectedAdjustmentClip = builtClip == null && !useIk ? animationDefine?.adjustmentClip : null;
+                        if (useIk)
                         {
-                            automaticAdjustmentClip = CreateAutomaticPoseAdjustmentClip(
-                                posingSystem,
-                                avatarAnimator,
-                                firstAnimationClip,
-                                FindPoseKey(posingSystem, animationDefine));
+                            // Disabled poses have no build state but are still shown in the editor.
+                            // Solve their authoring preview on a disposable rig with its own viewpoint.
+                            var solverAvatar = avatarAnimator.GetComponent<VRCAvatarDescriptor>() == null
+                                ? CreatePreviewAvatarClone(srcAvatar.gameObject, posingSystem, "IconIK") : null;
+                            try
+                            {
+                                if (solverAvatar != null) solverAvatar.SetActive(true);
+                                automaticAdjustmentClip = CreateAutomaticPoseAdjustmentClip(posingSystem,
+                                    solverAvatar != null ? solverAvatar.GetComponent<Animator>() : avatarAnimator,
+                                    firstAnimationClip, FindPoseKey(posingSystem, animationDefine));
+                            }
+                            finally { if (solverAvatar != null) Object.DestroyImmediate(solverAvatar); }
                             selectedAdjustmentClip = automaticAdjustmentClip;
                         }
                         if (selectedAdjustmentClip != null)
@@ -3955,12 +4044,13 @@ namespace jp.unisakistudio.posingsystemeditor
                         workingAvatar.transform.position = new Vector3(0, 0, 0);
                         workingAvatar.transform.LookAt(new Vector3(0, 0, 1));
                         AnimationMode.BeginSampling();
-                        AnimationMode.SampleAnimationClip(workingAvatar, clipToSample, 0);
+                        float sampleTime = builtClip != null && animationDefine.isRollover ? builtClip.length * .5f : 0f;
+                        AnimationMode.SampleAnimationClip(workingAvatar, clipToSample, sampleTime);
                         AnimationMode.EndSampling();
 
                         // サムネイルにも自動補正と安全クランプを反映する。
-                        PosingSystemAvatarAdjustmentUtility.ApplyToAnimator(
-                            posingSystem, avatarAnimator, 0f);
+                        if (builtClip == null)
+                            PosingSystemAvatarAdjustmentUtility.ApplyToAnimator(posingSystem, avatarAnimator, 0f);
 
                         // 一時的に作成したクリップを削除
                         if (clipToSample != firstAnimationClip)
@@ -3972,7 +4062,7 @@ namespace jp.unisakistudio.posingsystemeditor
                             Object.DestroyImmediate(automaticAdjustmentClip);
                         }
 
-                        if (animation.isRotate)
+                        if (builtClip == null && animation.isRotate)
                         {
                             workingAvatar.transform.Rotate(0, animation.rotate, 0);
                         }
@@ -4448,9 +4538,7 @@ namespace jp.unisakistudio.posingsystemeditor
             switch (stateType)
             {
                 case PosingSystem.OverrideAnimationDefine.AnimationStateType.StandWalkRun:
-                case PosingSystem.OverrideAnimationDefine.AnimationStateType.Crouch:
-                case PosingSystem.OverrideAnimationDefine.AnimationStateType.Prone:
-                    // これらはステート全体を置き換えるため、単発Clipでは歩行・旋回が失われる。
+                    // Standing also owns walking/running. Crouch/prone may intentionally use a single clip.
                     return motion is BlendTree;
                 default:
                     return true;

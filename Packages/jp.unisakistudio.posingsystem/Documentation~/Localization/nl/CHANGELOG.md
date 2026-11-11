@@ -13,6 +13,25 @@
 
 - Bestaande avataropties, eigen namen, assetverwijzingen, parameter-ID’s en licentieopslag behouden.
 
+## [3.1.4] - 2026-11-11
+
+- Hersteld dat avatarspecifiek toegewezen hurk- en buikliganimaties niet werden toegepast en in plaats daarvan de standaardposes van VRChat verschenen. Dit geldt voor zowel automatische import als handmatige toewijzingen.
+- Hersteld dat haar, brillen en andere onderdelen met MA Bone Proxy op hun oorspronkelijke plek bleven bij het bewerken of vooraf bekijken van poses. Ze volgen nu de voorbeeldpose met behoud van de instellingen en plaatsing van de oorspronkelijke avatar.
+- Fout hersteld bij de posecorrectie op basis van de kijkpuntpositie tijdens het maken van afbeeldingen van poses zoals ‘仰向け寝_お疲れ’. De afbeeldingen gebruiken een animatie met de pose- en vloercorrecties die tijdens het bouwen worden toegepast.
+
+Werk Unisaki Posing System in ALCOM / VCC bij naar 3.1.4. Kawaii Posing 3.1.2 en Cool Posing 1.1.0 kun je ongewijzigd blijven gebruiken. Gebruik je voorberekening, klik dan na de update op ‘Voorberekening bijwerken’, sla de scène op en bouw en upload de avatar opnieuw.
+
+## [3.1.3] - 2026-11-09
+
+- ‘Poseminiaturen bijwerken’ en voorberekening op een gedupliceerde avatar verwijderen niet langer de poseafbeeldingen van de oorspronkelijke avatar.
+- Onterechte melding ‘Instellingen gewijzigd’ na alleen het opnieuw maken van afbeeldingen hersteld, wanneer de voorberekening vóór de eerste scèneopslag of in de Prefab-bewerkingsmodus was uitgevoerd.
+- Hersteld dat de voorberekening halverwege kon stoppen als posegegevens van een eerdere voorberekening waren achtergebleven.
+- De lijst opent lichter wanneer er nog geen poseafbeeldingen zijn. Ook de wachttijd die Unity bij het starten van voorberekening of bouwen blokkeerde totdat pakketgegevens waren opgehaald, is aangepakt.
+- Bewerkingsinstellingen van uitgeschakelde posehulpmiddelen binnen de avatar worden nu ook uit PC- en Android-builds verwijderd.
+- ‘Hulp bij deze fout vragen’ kan nu latere diagnosenummers en andere gegevens uit de Console in het concept opnemen, ook als de eerste fouten geen herkenbare oorzaak bevatten. Bij fouten in de clipinstellingen voor ‘Omdraaien’ bevat het concept ook de te controleren punten.
+
+Werk Unisaki Posing System in ALCOM / VCC bij naar 3.1.3. Kawaii Posing 3.1.2 en Cool Posing 1.1.0 kun je ongewijzigd blijven gebruiken. Omdat deze producten een eerdere versie van het gedeelde systeem aangeven, kan tijdens het bijwerken een conflictbevestiging verschijnen. Gebruik je voorberekening, klik dan na de update op ‘Voorberekening bijwerken’, sla de scène op en bouw en upload de avatar opnieuw.
+
 ## [3.1.2] - 2026-11-09
 
 - Omhoog gericht gezicht na opstaan uit buikligging met hoofdrotatiecorrectie hersteld.

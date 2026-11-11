@@ -470,9 +470,8 @@ namespace jp.unisakistudio.posingsystemeditor
         {
             LegacyRolloverPoseMigration.Apply(posingSystem);
             PosingSystemDiagnostics.ThrowIfInvalid(posingSystem);
-            // ビルド時のクローンでもプレビルド済みデータを同一と判定できるよう、
-            // 元のPosingSystemを示す安定したIDをデータ生成より先に保存する。
-            posingSystem.savedInstanceId = UnityEditor.GlobalObjectId.GetGlobalObjectIdSlow(posingSystem).ToString();
+            // 複製元の画像パックを再利用する前に所有者を確認する。
+            CheckAndDeleteThumbnailPack(posingSystem);
             PosingSystemConverter.ConvertToModularAvatarComponents(posingSystem);
             PosingSystemEditorChangeUtility.MarkChanged(posingSystem);
         }
@@ -816,7 +815,7 @@ namespace jp.unisakistudio.posingsystemeditor
 
             posingSystem.savedInstanceId = UnityEditor.GlobalObjectId.GetGlobalObjectIdSlow(posingSystem).ToString();
             posingSystem.previousErrorCheckTime = DateTime.MinValue;
-            EditorUtility.SetDirty(posingSystem);
+            PosingSystemEditorChangeUtility.MarkChanged(posingSystem);
         }
 
         public static List<(string name, List<string> animatorControllerNames, List<string> checkExpressionParametersNames, List<string> expressionParametersNames, List<string> expressionsMenuNames, List<string> prefabsNames)> productDefines = new List<(string name, List<string> animatorControllerNames, List<string> checkExpressionParametersNames, List<string> expressionParametersNames, List<string> expressionsMenuNames, List<string> prefabsNames)>
@@ -1294,6 +1293,7 @@ namespace jp.unisakistudio.posingsystemeditor
         
         public static void ClearThumbnailPack(PosingSystem posingSystem)
         {
+            CheckAndDeleteThumbnailPack(posingSystem);
             // 既にあるなら一度すべてのアニメーションのプレビュー画像を削除            
             if (posingSystem.thumbnailPackObject != null)
             {
@@ -1327,7 +1327,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 Debug.LogError($"可愛いポーズツール: サムネイル保存先のパスを生成できませんでした。フォルダ「{generatedFolderPath}」がプロジェクトに認識されているか確認してください。");
                 return;
             }
-//            posingSystem.savedInstanceId = UnityEditor.GlobalObjectId.GetGlobalObjectIdSlow(posingSystem).ToString();
+            posingSystem.savedInstanceId = UnityEditor.GlobalObjectId.GetGlobalObjectIdSlow(posingSystem).ToString();
             EditorUtility.SetDirty(posingSystem);
             AssetDatabase.CreateAsset(posingSystem.thumbnailPackObject, filePath);
             AssetDatabase.SaveAssets();
@@ -1342,25 +1342,21 @@ namespace jp.unisakistudio.posingsystemeditor
 
             // アイコン画像作成時のアバターと違うなら、アイコン画像は全部削除する
             var savedInstanceId = UnityEditor.GlobalObjectId.GetGlobalObjectIdSlow(posingSystem).ToString();
-            if (posingSystem.savedInstanceId != "" && savedInstanceId != posingSystem.savedInstanceId)
+            if (savedInstanceId != posingSystem.savedInstanceId)
             {
                 posingSystem.savedInstanceId = savedInstanceId;
                 posingSystem.thumbnailPackObject = null;
 
-                for (int index = 0; index < posingSystem.defines.Count; index++)
-                {
-                    var define = posingSystem.defines[index];
+                if (posingSystem.defines != null)
+                    foreach (var define in posingSystem.defines)
                     {
-                        for (int animationIndex = 0; animationIndex < define.animations.Count; animationIndex++)
-                        {
-                            define.animations[animationIndex].previewImage = null;
-                        }
+                        if (define?.animations == null) continue;
+                        foreach (var pose in define.animations)
+                            if (pose != null) pose.previewImage = null;
                     }
-                }
-                for (int index = 0; index < posingSystem.overrideDefines.Count; index++)
-                {
-                    posingSystem.overrideDefines[index].previewImage = null;
-                }
+                if (posingSystem.overrideDefines != null)
+                    foreach (var pose in posingSystem.overrideDefines)
+                        if (pose != null) pose.previewImage = null;
             }
         }
 

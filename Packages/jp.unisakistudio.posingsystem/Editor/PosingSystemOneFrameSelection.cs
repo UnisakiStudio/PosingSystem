@@ -45,10 +45,15 @@ namespace jp.unisakistudio.posingsystemeditor
             var marker=wrapper.entryTransitions.SingleOrDefault(t=>t.name.StartsWith(Prefix,StringComparison.Ordinal));
             if(marker==null)return false;
             var backup=JsonUtility.FromJson<Backup>(marker.name.Substring(Prefix.Length));
-            var legacy=wrapper.stateMachines.First().stateMachine;
-            if(legacy.name!="USSPS_Locomotion" || backup.classifierDefaults.Length!=Classifiers.Length)
+            // Apply records the original machine as the marker's destination. Child order
+            // and display names are editable and are not identities in a saved controller.
+            var legacy = marker.destinationStateMachine;
+            var children = wrapper.stateMachines;
+            if (!legacy || !children.Any(child => child.stateMachine == legacy) ||
+                backup?.classifierDefaults?.Length != Classifiers.Length)
                 throw new InvalidOperationException("Unknown one-frame controller layout");
-            var clones=wrapper.stateMachines.Skip(1).SelectMany(m=>m.stateMachine.states).Select(s=>s.state).ToHashSet();
+            var clones = children.Where(child => child.stateMachine != legacy)
+                .SelectMany(child => child.stateMachine.states).Select(child => child.state).ToHashSet();
             clones.UnionWith(wrapper.states.Select(child => child.state));
             foreach(var state in States(legacy))
                 state.behaviours=state.behaviours.Where(b=>b==null || b.name!=MarkerName).ToArray();

@@ -13,6 +13,25 @@
 
 - Zachovávají se existující nastavení avatara, vlastní názvy, odkazy na prostředky, identifikátory parametrů a způsob ukládání licencí.
 
+## [3.1.4] - 2026-11-11
+
+- Opravena chyba, kdy se animace přiřazené vlastním pozicím avataru v dřepu a vleže na břiše nepoužily a místo nich se zobrazily výchozí pozice VRChat. Oprava se týká automatického importu i ručního přiřazení.
+- Opraveno setrvávání vlasů, brýlí a dalších prvků připojených přes MA Bone Proxy na původním místě během úprav a náhledu pózy. Nyní sledují pózu náhledu, přičemž nastavení a rozmístění původního avataru zůstávají zachována.
+- Opravena chyba korekce pózy podle polohy pohledu při pořizování obrázků póz, například „仰向け寝_お疲れ“. Obrázky používají animace se zapracovanou korekcí pózy a úpravou podlahy prováděnou při sestavení.
+
+Aktualizujte Unisaki Posing System na 3.1.4 v ALCOM / VCC. Kawaii Posing Tool 3.1.2 a Cool Posing Tool 1.1.0 lze nadále používat beze změny. Pokud jste používali předgenerování, po aktualizaci stiskněte „Aktualizovat předgenerování“, uložte scénu a avatara znovu sestavte a nahrajte.
+
+## [3.1.3] - 2026-11-09
+
+- Příkaz „Aktualizovat obrázky póz“ ani předgenerování na kopii avataru již nemažou obrázky póz původního avataru.
+- Opraveno zobrazování hlášení „Nastavení změněno“ po pouhém opětovném pořízení obrázků, pokud předgenerování proběhlo před prvním uložením scény nebo v režimu úprav Prefab.
+- Opravena chyba, kdy data póz zbylá po předchozím předgenerování mohla přerušit další předgenerování.
+- Snížena náročnost otevření seznamu, když ještě nejsou k dispozici obrázky póz. Upraveno také zpracování, které na začátku předgenerování či sestavení blokovalo ovládání Unity do dokončení načítání informací o balíčcích.
+- Nastavení pro úpravy nástrojů póz vypnutých uvnitř avataru se nyní také odstraňují při sestavení pro PC a Android.
+- „Zeptat se na tuto chybu“ nyní zahrne do konceptu diagnostické kódy a další údaje z pozdějších zpráv, i když jsou na začátku Console chyby s nerozpoznatelnou příčinou. Při chybě nastavení klipu přetáčení se do konceptu přidají i místa ke kontrole.
+
+Aktualizujte Unisaki Posing System na 3.1.3 v ALCOM / VCC. Kawaii Posing Tool 3.1.2 a Cool Posing Tool 1.1.0 lze nadále používat beze změny. Při aktualizaci se může zobrazit potvrzení konfliktu, protože tyto produkty požadují dřívější společnou verzi systému. Pokud jste používali předgenerování, po aktualizaci stiskněte „Aktualizovat předgenerování“, uložte scénu a avatara znovu sestavte a nahrajte.
+
 ## [3.1.2] - 2026-11-09
 
 - Opraveno přetrvávající natočení obličeje vzhůru po zvednutí z lehu na břiše při zapnutém omezení deformace pózy podle otočení hlavy.

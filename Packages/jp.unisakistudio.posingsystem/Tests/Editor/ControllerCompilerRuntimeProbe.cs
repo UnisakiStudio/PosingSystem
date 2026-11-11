@@ -25,7 +25,7 @@ namespace jp.unisakistudio.posingsystemeditor.tests
         internal int AppliedDrivers;
         internal bool LocomotionDisabled, PoseSpace;
 
-        internal ControllerCompilerRuntimeProbe(Animator target, AnimatorController controller, bool local, bool vr)
+        internal ControllerCompilerRuntimeProbe(Animator target, AnimatorController controller, bool local, bool vr, int initialTrackingType = 3)
         {
             animator = target;
             types = controller.parameters.ToDictionary(p => p.name, p => p.type);
@@ -37,7 +37,7 @@ namespace jp.unisakistudio.posingsystemeditor.tests
             VRC_AnimatorTemporaryPoseSpace.Initialize += InitSpace;
             Playable = AnimatorControllerPlayable.Create(graph, controller);
             AnimationPlayableOutput.Create(graph, "Avatar", animator).SetSourcePlayable(Playable);
-            Set("IsLocal", local ? 1 : 0); Set("VRMode", vr ? 1 : 0); Set("TrackingType", 3);
+            Set("IsLocal", local ? 1 : 0); Set("VRMode", vr ? 1 : 0); Set("TrackingType", initialTrackingType);
             Set("Grounded", 1); Set("Upright", 1);
             graph.Play();
             // EditMode creates runtime SMB instances lazily on evaluation, without SDK Awake.

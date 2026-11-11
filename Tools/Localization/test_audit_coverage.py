@@ -5,6 +5,16 @@ from unittest.mock import patch
 import audit_coverage as audit
 
 class CoverageGateTests(unittest.TestCase):
+    def test_ndmf_display_name_cannot_bypass_localization_with_a_registered_literal(self):
+        for expression in ['=> "登録済み" + Version;', '{ get { return "登録済み" + Version; } }']:
+            source='public override string DisplayName '+expression
+            issues=audit.display_path_issues(source, {'登録済み'}, set())
+            self.assertEqual([(i['kind'],i['key']) for i in issues], [('unlocalized_plugin_display_name','登録済み')])
+
+    def test_ndmf_translated_display_name_and_internal_identity_are_distinct(self):
+        source='public override string QualifiedName => "固定された識別子"; public override string DisplayName { get { return PosingSystemLocalization.Text("表示名") + Version; } }'
+        self.assertEqual(audit.display_path_issues(source, {'表示名'}, set()), [])
+
     def test_missing_feature_description_is_reported_even_when_fallback_exists(self):
         data = copy.deepcopy(audit.inventory())
         description = next(iter(audit.feature_keys().values()))['description']
