@@ -32,6 +32,13 @@ def prepare(upstream,inputs,output):
     body=text[start:end].rstrip()
     text=text[:start]+'                string ConfirmationMessage()\n                {\n'+''.join('    '+line+'\n' for line in body.splitlines())+'                    return confirmMessage.ToString();\n                }\n\n'+text[end:]
     text=text.replace('SetupLanguage.Dialog("Confirm", confirmMessage.ToString(), "Install", "Cancel")', 'SetupLanguage.Dialog("Confirm", ConfirmationMessage, "Install", "Cancel")')
+    # Keep the actual exception visible, including after choosing another language.
+    # Full exception/stack logging remains in the upstream catch block.
+    error_dialog='SetupLanguage.Dialog("ERROR", "Error installing packages", "ok");'
+    if text.count(error_dialog) != 1:
+        raise ValueError('Expected one generic package-installation error dialog')
+    text=text.replace(error_dialog, 'SetupLanguage.Dialog("ERROR", () => InstallerError.Message(e, SetupLanguage.Current), "ok");')
+    text+='\n'+(HERE/'InstallerError.cs.in').read_text(encoding='utf-8')
     (output/'VPMPackageAutoInstaller.cs').write_text(text,encoding='utf-8')
     # Preserve every non-UI part of each license activator. In particular do not change
     # registration keys, activation values, product IDs or cleanup targets.

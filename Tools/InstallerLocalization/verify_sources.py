@@ -17,6 +17,14 @@ def verify(inputs, sources):
                 raise ValueError(f'Missing setup translation: {locale}/{key}')
             if placeholders(key) != placeholders(entries[key]):
                 raise ValueError(f'Placeholder mismatch: {locale}/{key}')
+    installer = (sources / 'VPMPackageAutoInstaller.cs').read_text(encoding='utf-8')
+    if '() => InstallerError.Message(e, SetupLanguage.Current)' not in installer or 'Debug.LogError(e);' not in installer:
+        raise ValueError('Installer error details, language redraw or full Console logging were lost')
+    for locale, entries in data['translations'].items():
+        for key in ['Error installing packages', 'Please see console for more details']:
+            model = data.get('message_models', {}).get(key, '')
+            if not entries.get(key, '').strip() and not (model and all(entries.get(line, '').strip() for line in model.split('\n') if line.strip())):
+                raise ValueError(f'Missing installer diagnostic translation: {locale}/{key}')
     # Check sensitive behavior as text, without loading activators into a running Editor.
     critical = re.compile(r'const string |Registry\.CurrentUser\.|\.SetValue\(|\.DeleteValue\(|\.GetValue\(|File\.(WriteAllText|ReadAllText|Delete|Exists)\(|Directory\.(CreateDirectory|Delete)\(')
     for original in inputs.glob('*LicenseActivator.cs'):

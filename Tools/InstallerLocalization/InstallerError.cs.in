@@ -1,0 +1,24 @@
+// Build-local diagnostic UI. Technical exception messages are preserved verbatim.
+namespace Anatawa12.VpmPackageAutoInstaller
+{
+    internal static class InstallerError
+    {
+        internal static string Message(System.Exception exception, string language)
+        {
+            var messages = new System.Collections.Generic.List<string>();
+            void Append(System.Exception error)
+            {
+                if (error == null) return;
+                if (!string.IsNullOrWhiteSpace(error.Message) && !messages.Contains(error.Message))
+                    messages.Add(error.Message);
+                if (error is System.AggregateException aggregate)
+                    foreach (var inner in aggregate.InnerExceptions) Append(inner);
+                else Append(error.InnerException);
+            }
+            Append(exception);
+            var summary = UnisakiStudio.Setup.Language.Translate(language, "Error installing packages");
+            var guidance = UnisakiStudio.Setup.Language.Translate(language, "Please see console for more details");
+            return summary + (messages.Count == 0 ? "" : "\n\n" + string.Join("\n", messages)) + "\n\n" + guidance;
+        }
+    }
+}

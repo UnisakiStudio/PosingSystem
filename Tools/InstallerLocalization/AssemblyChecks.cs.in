@@ -52,6 +52,34 @@ class Program
             var codes = (string[])type.GetField("Codes", flags).GetValue(null);
             foreach (var code in codes)
                 Check(!string.IsNullOrWhiteSpace((string)Call("Translate", code, "Packages to install")), "setup terms in " + code);
+            // This pure formatter has no InitializeOnLoad/static installer hooks.
+            // Never invoke VpmPackageAutoInstaller itself in the console process.
+            var errorType = assembly.GetType("Anatawa12.VpmPackageAutoInstaller.InstallerError", false);
+            if (errorType != null)
+            {
+                const string missing = "package not found: jp.unisakistudio.kawaiiposing version 3.2.x";
+                var format = errorType.GetMethod("Message", flags);
+                string Error(Exception error, string language) => (string)format.Invoke(null, new object[] { error, language });
+                var failure = new Exception(missing);
+                foreach (var code in codes)
+                {
+                    var message = Error(failure, code);
+                    var summary = (string)Call("Translate", code, "Error installing packages");
+                    var guidance = (string)Call("Translate", code, "Please see console for more details");
+                    Check(message.Contains(missing), "original package/version preserved in " + code);
+                    Check(message.StartsWith(summary + "\n\n"), "error summary follows " + code);
+                    Check(message.EndsWith(guidance), "Console guidance follows " + code);
+                    if (code != "en") Check(summary != "Error installing packages" && guidance != "Please see console for more details", "diagnostic has no English fallback in " + code);
+                }
+                var japanese = Error(failure, "ja");
+                var english = Error(failure, "en");
+                Check(japanese != english && Error(failure, "ja") == japanese, "error dialog redraws Japanese to English to Japanese without losing details");
+                var nested = new Exception("outer context", new Exception(missing));
+                Check(Error(nested, "ja").Contains("outer context\n" + missing), "nested failure context preserved");
+                var aggregate = new AggregateException("parallel downloads", new Exception(missing), new Exception("HTTP 403: https://example.invalid/feed.json"));
+                Check(Error(aggregate, "ja").Contains(missing) && Error(aggregate, "ja").Contains("HTTP 403: https://example.invalid/feed.json"), "every aggregate failure remains visible");
+                Check(!Error(null, "ja").Contains("\n\n\n\n"), "missing details retain useful summary and guidance");
+            }
             Console.WriteLine(Path.GetFileName(file) + ": " + checks + " cumulative checks passed");
         }
         Console.WriteLine("PASSED " + checks);
