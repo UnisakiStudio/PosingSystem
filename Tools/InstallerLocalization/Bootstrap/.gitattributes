@@ -1,0 +1,6 @@
+# These text files are bound by raw-byte SHA256 in caption-manifest.json.
+# Keep checkout bytes identical on Windows and on Unix/archive exports.
+.gitattributes text eol=lf
+*.cs.in text eol=lf
+BootstrapFontNotice.txt text eol=lf
+caption-manifest.json text eol=lf
