@@ -30,6 +30,10 @@ namespace jp.unisakistudio.posingsystemeditor
         [MenuItem("Tools/ゆにさきスタジオ/Consoleのエラーについて相談する", false, 200)]
         private static void OpenConsoleInquiry() => PosingSystemSupportReport.Open(null);
 
+        internal static string PresetConfirmation(PosingSystemPresetCatalog.Entry preset)
+            => UnisakiStudio.Setup.Language.Format("A preset for {0} was found. Apply it to adjust the poses to this avatar?",
+                PosingSystemLocalization.PresetName(preset.avatarName, preset.official));
+
         private const string REGKEY = @"SOFTWARE\UnisakiStudio";
         private const string POSINGSYSTEM_APPKEY = "posingsystem";
         private const string LICENSE_VALUE = "licensed";
@@ -125,7 +129,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 // PresetDefineを適用する
                 if (presetDefine != null)
                 {
-                    if (UnisakiStudio.Setup.Language.Dialog(PosingSystemLocalization.Text("情報"), () => UnisakiStudio.Setup.Language.Format("A preset for {0} was found. Apply it to adjust the poses to this avatar?", presetDefine.avatarName), "適用する", "スキップ"))
+                    if (UnisakiStudio.Setup.Language.Dialog(PosingSystemLocalization.Text("情報"), () => PresetConfirmation(presetDefine), "適用する", "スキップ"))
                     {
                         Debug.Log("[PosingSystem]" + presetDefine.avatarName + "を適用します");
                         if (!PosingSystemPresetDefinesCache.ApplyPreset(installedPosingSystem, presetDefine))

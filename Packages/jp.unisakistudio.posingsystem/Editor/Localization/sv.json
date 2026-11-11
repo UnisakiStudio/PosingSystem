@@ -2249,6 +2249,10 @@
       "value": "Nedslagen"
     },
     {
+      "key": "候補を確認してから追加できます。",
+      "value": "Kontrollera de föreslagna klippen innan du lägger till dem."
+    },
+    {
       "key": "傍観者",
       "value": "Åskådare"
     },
@@ -3779,6 +3783,10 @@
     {
       "key": "身長",
       "value": "Avatarhöjd"
+    },
+    {
+      "key": "追加できる新しいアニメーションクリップがありません。",
+      "value": "Det finns inga nya animationsklipp att lägga till."
     },
     {
       "key": "追加先にあるクリップは重複して追加されません。",

@@ -82,6 +82,19 @@ def display_path_issues(text, known, invariants, exceptions=None):
             for offset,value in literals(start,stop):
                 if not registered(value): add(offset,value,'unregistered_dialog_argument' if name.startswith('Dialog') else 'unregistered_display_argument')
     def is_protected(offset): return any(start<=offset<end for start,end in protected)
+    # These inspector helpers accept source keys and translate internally. Callers
+    # with an already localized caption must use LinkLocalized instead.
+    for call in re.finditer(r'PosingSystemInspectorGUI\.(?:Link|Section)\s*\(', text):
+        args,end=call_arguments(text,call.end()-1)
+        for start,stop in args:
+            if re.search(r'PosingSystemLocalization\.(?:Text|Format)\s*\(', text[start:stop]):
+                add(start,text[start:stop].strip(),'double_translated_inspector_caption')
+    # Warning producers keep raw messages (including exception details). The
+    # shared callback is the translation boundary, not the shaped drawing facade.
+    for method in re.finditer(r'void\s+DrawInspectorWarning\s*\(\s*string\s+(\w+)\s*\)\s*\{', text):
+        _,end=call_arguments(text,method.end()-1)
+        for use in re.finditer(r'PosingSystemTextGUI\.LayoutHelpBox\s*\(\s*'+re.escape(method[1])+r'\s*,', text[method.end():end]):
+            add(method.end()+use.start(),method[1],'unlocalized_warning_boundary')
     # NDMF displays plugin names in its build/debug UI. A registered Japanese
     # literal still bypasses translation unless the getter actually calls Text.
     for prop in re.finditer(r'\boverride\s+string\s+DisplayName\s*(=>|\{)', text):
@@ -106,6 +119,17 @@ def display_path_issues(text, known, invariants, exceptions=None):
             for offset,value in literals(start,stop):
                 if JAPANESE.search(value) and value not in invariants and not is_protected(offset):
                     add(offset,value,'unlocalized_display_literal')
+    # Cached notices can be assigned in another method and survive a language
+    # switch. Catch direct display of a field containing a Japanese source string
+    # or an eagerly translated value. Store the source and translate at read time.
+    for field in re.finditer(r'private\s+string\s+(\w+)\s*;', text):
+        name=field[1]
+        assignments=list(re.finditer(r'\b'+re.escape(name)+r'\s*=\s*([^;]+);',text))
+        if not any(JAPANESE.search(m[1]) or re.search(translate,m[1]) for m in assignments): continue
+        for a,b,args in ui_calls:
+            for start,stop in args:
+                if text[start:stop].strip()==name:
+                    add(start,name,'unlocalized_cached_display_field')
     # A popup's label may be translated while its options (e.g. i + "番") are not.
     for assignment in re.finditer(r'\b(?:var|string\[\]|GUIContent\[\])\s+(\w+)\s*=\s*([^;]+);',text):
         name=assignment[1]

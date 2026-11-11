@@ -23,7 +23,20 @@ Use `Text`/`Format` for exact UI keys; use `TextMessage` only for already-format
 diagnostics. Never parse pose, avatar or user-preset names as diagnostics. Standard
 pose/menu display names use the generated `PosingSystemDisplayNameKeys` allowlist
 from the union of every language's pose/menu source keys. User presets remain literal.
-`Link` translates once internally. Do not add another translation layer around it.
+`Link` and `Section` translate source keys once internally. Use `LinkLocalized`
+for an already localized caption (for example a semantic-key header or a measured
+prebuild label). Do not add another translation layer around these helpers.
+Feature-card descriptions are already localized by `DescriptionFor`; draw them
+without passing them through a reverse alias lookup again. A translated word can
+coincide with a different source key in another language.
+
+Keep cached notices as source keys and arguments, resolving the current language
+when drawing them. The shared Inspector warning callback uses `TextMessage` for
+raw warnings and exception details. Cover the actual producers as well as catalogs:
+bulk-import candidates/duplicates/completion, preset failures, and motion warnings.
+Initial preset confirmation must use `PresetName(name, official)`, just like the
+preset browser; never translate a user preset merely because its name matches an
+official one. Verify existing state across language changes, including return to JA.
 The standalone diagnostic fallback has a bounded cache (1024 entries, at most 4096
 characters per source/result); keep preference reads independent of catalog/regex
 initialization. Test both translated and untranslated repeated strings for memory

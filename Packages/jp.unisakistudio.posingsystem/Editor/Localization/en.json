@@ -2249,6 +2249,10 @@
       "value": "Knocked Down"
     },
     {
+      "key": "候補を確認してから追加できます。",
+      "value": "Review the candidates before adding them."
+    },
+    {
       "key": "傍観者",
       "value": "Bystander"
     },
@@ -3779,6 +3783,10 @@
     {
       "key": "身長",
       "value": "Avatar height"
+    },
+    {
+      "key": "追加できる新しいアニメーションクリップがありません。",
+      "value": "No new animation clips can be added."
     },
     {
       "key": "追加先にあるクリップは重複して追加されません。",

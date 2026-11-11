@@ -2249,6 +2249,10 @@
       "value": "Yere Serilmiş"
     },
     {
+      "key": "候補を確認してから追加できます。",
+      "value": "Eklemeden önce önerilen klipleri kontrol edin."
+    },
+    {
       "key": "傍観者",
       "value": "Seyirci"
     },
@@ -3779,6 +3783,10 @@
     {
       "key": "身長",
       "value": "Avatar boyu"
+    },
+    {
+      "key": "追加できる新しいアニメーションクリップがありません。",
+      "value": "Eklenebilecek yeni animasyon klibi yok."
     },
     {
       "key": "追加先にあるクリップは重複して追加されません。",

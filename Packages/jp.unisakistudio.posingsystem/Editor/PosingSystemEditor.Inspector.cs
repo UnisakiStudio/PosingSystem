@@ -17,7 +17,7 @@ namespace jp.unisakistudio.posingsystemeditor
         private void DrawInspectorWarning(string message)
         {
             drewInspectorWarning = true;
-            PosingSystemTextGUI.LayoutHelpBox(message, MessageType.Warning);
+            PosingSystemTextGUI.LayoutHelpBox(PosingSystemLocalization.TextMessage(message), MessageType.Warning);
         }
 
         private void DrawUserInspector(PosingSystem ps)
@@ -138,7 +138,7 @@ namespace jp.unisakistudio.posingsystemeditor
         {
             PosingSystemAvatarAdjustmentInspector.EnsureUsageDefault(ps);
             serializedObject.Update();
-            PosingSystemInspectorGUI.Section(PosingSystemLocalization.Text("身体の補正"));
+            PosingSystemInspectorGUI.Section("身体の補正");
             var unavailable = ps.UsesAutoPoseCatalog || !PosingSystemAvatarAdjustmentUtility.HasReferenceProfile(ps);
             PosingSystemSettingsInspector.DrawCards(serializedObject, ps, PosingSystemSettingsInspector.AvatarCorrectionSettings,
                 setting => setting.Path == "enableReverseKneeSafetyClamp" ? (kneeOpen ? "▼ 設定を閉じる" : "▶ 設定を開く") : null,
@@ -161,11 +161,11 @@ namespace jp.unisakistudio.posingsystemeditor
             PosingSystemAvatarAdjustmentInspector.ScheduleAutomaticGeneration(ps);
             serializedObject.Update();
 
-            PosingSystemInspectorGUI.Section(PosingSystemLocalization.Text("アバターとの組み合わせ"));
+            PosingSystemInspectorGUI.Section("アバターとの組み合わせ");
             PosingSystemSettingsInspector.DrawCards(serializedObject, ps, PosingSystemSettingsInspector.AvatarIntegrationSettings,
                 null, null, null, ref breathingOpen);
 
-            PosingSystemInspectorGUI.Section(PosingSystemLocalization.Text("自分で用意したモーションを使う"));
+            PosingSystemInspectorGUI.Section("自分で用意したモーションを使う");
             PosingSystemTextGUI.LayoutLabelField(PosingSystemLocalization.Text("種類ごとに1つのモーションを指定できます。上の「元の姿勢を使う」とは別に設定できます。"), PosingSystemInspectorGUI.Text(11));
             if (PosingSystemInspectorGUI.Link(importOpen ? "▼ 取り込み設定を閉じる" : "▶ 取り込み設定を開く"))
             {
@@ -190,7 +190,7 @@ namespace jp.unisakistudio.posingsystemeditor
                     importBrowser.Draw(serializedObject, ps, DrawInspectorWarning);
                 }
             PosingSystemEditorChangeUtility.Apply(serializedObject);
-            PosingSystemInspectorGUI.Section(PosingSystemLocalization.Text("プリセット"));
+            PosingSystemInspectorGUI.Section("プリセット");
             PosingSystemTextGUI.LayoutLabelField(PosingSystemLocalization.Text("使い始めるときの姿勢セットを変更できます。変更すると現在のポーズ設定が置き換わります。"), PosingSystemInspectorGUI.Text(11));
             presetBrowser.Draw(ps, DrawInspectorWarning);
             serializedObject.Update();

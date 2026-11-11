@@ -2249,6 +2249,10 @@
       "value": "Slått ned"
     },
     {
+      "key": "候補を確認してから追加できます。",
+      "value": "Kontroller de foreslåtte klippene før du legger dem til."
+    },
+    {
       "key": "傍観者",
       "value": "Tilskuer"
     },
@@ -3779,6 +3783,10 @@
     {
       "key": "身長",
       "value": "Avatarhøyde"
+    },
+    {
+      "key": "追加できる新しいアニメーションクリップがありません。",
+      "value": "Det finnes ingen nye animasjonsklipp å legge til."
     },
     {
       "key": "追加先にあるクリップは重複して追加されません。",

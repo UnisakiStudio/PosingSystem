@@ -182,7 +182,7 @@ namespace jp.unisakistudio.posingsystemeditor
 
             void DrawDetails(float height)
             {
-                if (PosingSystemInspectorGUI.Link(detailsLabel, GUILayout.Width(detailsWidth), GUILayout.Height(height))) showDetails = !showDetails;
+                if (PosingSystemInspectorGUI.LinkLocalized(detailsLabel, GUILayout.Width(detailsWidth), GUILayout.Height(height))) showDetails = !showDetails;
             }
         }
     }

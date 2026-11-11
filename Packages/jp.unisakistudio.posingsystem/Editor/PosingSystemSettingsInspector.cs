@@ -86,12 +86,12 @@ namespace jp.unisakistudio.posingsystemeditor
             DrawSummary(ps);
             foreach (var group in Groups)
             {
-                PosingSystemInspectorGUI.Section(PosingSystemLocalization.Text(group.Title));
+                PosingSystemInspectorGUI.Section(group.Title);
                 DrawCards(serialized, ps, group.Settings, setting => setting.Path == "features.breathing" ? "設定" : null,
                     setting => { }, null, ref breathingOpen, drawBreathing);
             }
             PosingSystemTextGUI.LayoutLabel(PosingSystemLocalization.Text("※ 寝返りと姿勢崩れ抑制のbit表示は、今の状態でチェックを変更したときの増減量です。首固定の1 bitは共用します。"), descriptionStyle);
-            if (PosingSystemInspectorGUI.Link(PosingSystemLocalization.Text("追加機能を外して、ExpressionParametersの使用量を減らす")))
+            if (PosingSystemInspectorGUI.Link("追加機能を外して、ExpressionParametersの使用量を減らす"))
             {
                 foreach (var group in Groups)
                     foreach (var setting in group.Settings)
@@ -144,7 +144,7 @@ namespace jp.unisakistudio.posingsystemeditor
                     var isBreathing = setting.Path == "features.breathing";
                     var before = property.boolValue;
                     var clicked = DrawCard(new Rect(row.x + c * (width + 8), row.y, width, row.height), property, setting,
-                        unavailable, forced ? "撮影機能に必要なため、自動で選ばれています。" : DescriptionFor(ps, setting),
+                        unavailable, forced ? PosingSystemLocalization.Text("撮影機能に必要なため、自動で選ばれています。") : DescriptionFor(ps, setting),
                         dependencyMissing ? (bool?)false : forced ? (bool?)true : android && setting.Path == "isIconDisabled" ? (bool?)false :
                         isBreathing ? before && serialized.FindProperty("additiveBreathing.enabled").boolValue : (bool?)null, label,
                         setting.SharedHead ? PosingSystemFeatureUtility.SharedHeadFeatureToggleBits(ps, setting.Path == "features.rollover") : setting.Bits, ps);
@@ -244,7 +244,7 @@ namespace jp.unisakistudio.posingsystemeditor
             var iconRect = new Rect(rect.x + 4, rect.y + 4, CardIconSize, CardIconSize);
             PosingSystemSettingIcons.Draw(iconRect, setting.Path, ps);
             PosingSystemTextGUI.Label(new Rect(rect.x + CardTextLeft, rect.y + 4, textWidth, titleHeight), PosingSystemLocalization.Text(setting.Title), titleStyle);
-            PosingSystemTextGUI.Label(new Rect(rect.x + CardTextLeft, bodyY, textWidth, rect.yMax - 27 - bodyY), PosingSystemLocalization.Text(disabledReason), descriptionStyle);
+            PosingSystemTextGUI.Label(new Rect(rect.x + CardTextLeft, bodyY, textWidth, rect.yMax - 27 - bodyY), disabledReason, descriptionStyle);
             return clicked;
         }
 

@@ -19,7 +19,7 @@ namespace jp.unisakistudio.posingsystemeditor
 
         private void DrawPreferences(SerializedObject serialized, PosingSystem ps)
         {
-            showPreferences = DrawBoxFoldout(showPreferences, "警告の表示設定");
+            showPreferences = DrawBoxFoldout(showPreferences, PosingSystemLocalization.Text("警告の表示設定"));
             if (!showPreferences) return;
             using (new EditorGUILayout.VerticalScope(EditorStyles.helpBox))
             {
@@ -112,13 +112,13 @@ namespace jp.unisakistudio.posingsystemeditor
         {
             // Reserve space for the foldout arrow inside the surrounding help box.
             using (new EditorGUI.IndentLevelScope())
-                return PosingSystemTextGUI.LayoutFoldout(expanded, PosingSystemLocalization.Text(label), true);
+                return PosingSystemTextGUI.LayoutFoldout(expanded, label, true);
         }
 
         private static void DrawPrebuildWarning(PosingSystem ps, PosingSystem.WarningType type, string message)
         {
             PosingSystemTextGUI.LayoutHelpBox(PosingSystemLocalization.Text(message), MessageType.Warning);
-            if (PosingSystemInspectorGUI.Link(PosingSystemLocalization.Text("この警告を今後表示しない")))
+            if (PosingSystemInspectorGUI.Link("この警告を今後表示しない"))
             {
                 PosingSystemEditor.SetWarningIgnored(ps, type, true);
                 GUIUtility.ExitGUI();

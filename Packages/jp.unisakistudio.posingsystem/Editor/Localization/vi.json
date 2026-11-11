@@ -2249,6 +2249,10 @@
       "value": "Bị đánh ngã"
     },
     {
+      "key": "候補を確認してから追加できます。",
+      "value": "Kiểm tra các đoạn được đề xuất trước khi thêm."
+    },
+    {
       "key": "傍観者",
       "value": "Người đứng xem"
     },
@@ -3779,6 +3783,10 @@
     {
       "key": "身長",
       "value": "Chiều cao avatar"
+    },
+    {
+      "key": "追加できる新しいアニメーションクリップがありません。",
+      "value": "Không có đoạn hoạt ảnh mới nào để thêm."
     },
     {
       "key": "追加先にあるクリップは重複して追加されません。",

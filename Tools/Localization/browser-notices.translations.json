@@ -1,0 +1,118 @@
+{
+  "en": {
+    "追加できる新しいアニメーションクリップがありません。": "No new animation clips can be added.",
+    "候補を確認してから追加できます。": "Review the candidates before adding them."
+  },
+  "fr": {
+    "追加できる新しいアニメーションクリップがありません。": "Aucun nouveau clip d’animation ne peut être ajouté.",
+    "候補を確認してから追加できます。": "Vérifiez les clips proposés avant de les ajouter."
+  },
+  "it": {
+    "追加できる新しいアニメーションクリップがありません。": "Non ci sono nuovi clip di animazione da aggiungere.",
+    "候補を確認してから追加できます。": "Controlla le clip proposti prima di aggiungerli."
+  },
+  "zh-Hans": {
+    "追加できる新しいアニメーションクリップがありません。": "没有可添加的新动画片段。",
+    "候補を確認してから追加できます。": "请先确认候选片段，再进行添加。"
+  },
+  "zh-Hant": {
+    "追加できる新しいアニメーションクリップがありません。": "沒有可新增的新動畫片段。",
+    "候補を確認してから追加できます。": "請先確認候選片段，再進行新增。"
+  },
+  "ko": {
+    "追加できる新しいアニメーションクリップがありません。": "추가할 수 있는 새 애니메이션 클립이 없습니다.",
+    "候補を確認してから追加できます。": "추가할 후보 클립을 확인한 후 추가하세요."
+  },
+  "th": {
+    "追加できる新しいアニメーションクリップがありません。": "ไม่มีคลิปแอนิเมชันใหม่ที่เพิ่มได้",
+    "候補を確認してから追加できます。": "ตรวจสอบคลิปที่เสนอไว้ก่อนเพิ่ม"
+  },
+  "de": {
+    "追加できる新しいアニメーションクリップがありません。": "Es können keine neuen Animationsclips hinzugefügt werden.",
+    "候補を確認してから追加できます。": "Prüfe die vorgeschlagenen Clips, bevor du sie hinzufügst."
+  },
+  "es": {
+    "追加できる新しいアニメーションクリップがありません。": "No hay nuevos clips de animación que se puedan añadir.",
+    "候補を確認してから追加できます。": "Revisa los clips propuestos antes de añadirlos."
+  },
+  "pt": {
+    "追加できる新しいアニメーションクリップがありません。": "Não há novos clips de animação para adicionar.",
+    "候補を確認してから追加できます。": "Revê os clips propostos antes de os adicionares."
+  },
+  "pt-BR": {
+    "追加できる新しいアニメーションクリップがありません。": "Não há novos clips de animação para adicionar.",
+    "候補を確認してから追加できます。": "Confira os clips sugeridos antes de adicioná-los."
+  },
+  "ru": {
+    "追加できる新しいアニメーションクリップがありません。": "Нет новых анимационных клипов для добавления.",
+    "候補を確認してから追加できます。": "Проверьте выбранные клипы перед добавлением."
+  },
+  "uk": {
+    "追加できる新しいアニメーションクリップがありません。": "Немає нових анімаційних кліпів для додавання.",
+    "候補を確認してから追加できます。": "Перевірте вибрані кліпи перед додаванням."
+  },
+  "pl": {
+    "追加できる新しいアニメーションクリップがありません。": "Brak nowych klipów animacji do dodania.",
+    "候補を確認してから追加できます。": "Sprawdź proponowane klipy przed ich dodaniem."
+  },
+  "nl": {
+    "追加できる新しいアニメーションクリップがありません。": "Er zijn geen nieuwe animatieclips om toe te voegen.",
+    "候補を確認してから追加できます。": "Controleer de voorgestelde clips voordat je ze toevoegt."
+  },
+  "sv": {
+    "追加できる新しいアニメーションクリップがありません。": "Det finns inga nya animationsklipp att lägga till.",
+    "候補を確認してから追加できます。": "Kontrollera de föreslagna klippen innan du lägger till dem."
+  },
+  "da": {
+    "追加できる新しいアニメーションクリップがありません。": "Der er ingen nye animationsklip at tilføje.",
+    "候補を確認してから追加できます。": "Kontrollér de foreslåede klip, før du tilføjer dem."
+  },
+  "fi": {
+    "追加できる新しいアニメーションクリップがありません。": "Uusia lisättäviä animaatioleikkeitä ei ole.",
+    "候補を確認してから追加できます。": "Tarkista ehdotetut leikkeet ennen niiden lisäämistä."
+  },
+  "nb": {
+    "追加できる新しいアニメーションクリップがありません。": "Det finnes ingen nye animasjonsklipp å legge til.",
+    "候補を確認してから追加できます。": "Kontroller de foreslåtte klippene før du legger dem til."
+  },
+  "cs": {
+    "追加できる新しいアニメーションクリップがありません。": "Nejsou k dispozici žádné nové animační klipy k přidání.",
+    "候補を確認してから追加できます。": "Před přidáním zkontrolujte navržené klipy."
+  },
+  "tr": {
+    "追加できる新しいアニメーションクリップがありません。": "Eklenebilecek yeni animasyon klibi yok.",
+    "候補を確認してから追加できます。": "Eklemeden önce önerilen klipleri kontrol edin."
+  },
+  "id": {
+    "追加できる新しいアニメーションクリップがありません。": "Tidak ada klip animasi baru yang dapat ditambahkan.",
+    "候補を確認してから追加できます。": "Periksa klip yang diusulkan sebelum menambahkannya."
+  },
+  "vi": {
+    "追加できる新しいアニメーションクリップがありません。": "Không có đoạn hoạt ảnh mới nào để thêm.",
+    "候補を確認してから追加できます。": "Kiểm tra các đoạn được đề xuất trước khi thêm."
+  },
+  "hi": {
+    "追加できる新しいアニメーションクリップがありません。": "जोड़ने के लिए कोई नई ऐनिमेशन क्लिप नहीं है।",
+    "候補を確認してから追加できます。": "जोड़ने से पहले सुझाई गई क्लिप की जाँच करें।"
+  },
+  "bn": {
+    "追加できる新しいアニメーションクリップがありません。": "যোগ করার মতো নতুন কোনো অ্যানিমেশন ক্লিপ নেই।",
+    "候補を確認してから追加できます。": "যোগ করার আগে প্রস্তাবিত ক্লিপগুলো দেখে নিন।"
+  },
+  "ta": {
+    "追加できる新しいアニメーションクリップがありません。": "சேர்க்கக்கூடிய புதிய அசைவூட்டக் கிளிப்புகள் இல்லை.",
+    "候補を確認してから追加できます。": "சேர்ப்பதற்கு முன் பரிந்துரைக்கப்பட்ட கிளிப்புகளைச் சரிபார்க்கவும்."
+  },
+  "te": {
+    "追加できる新しいアニメーションクリップがありません。": "జోడించగల కొత్త యానిమేషన్ క్లిప్‌లు లేవు.",
+    "候補を確認してから追加できます。": "జోడించే ముందు సూచించిన క్లిప్‌లను తనిఖీ చేయండి."
+  },
+  "ar": {
+    "追加できる新しいアニメーションクリップがありません。": "لا توجد مقاطع حركة جديدة يمكن إضافتها.",
+    "候補を確認してから追加できます。": "راجع المقاطع المقترحة قبل إضافتها."
+  },
+  "he": {
+    "追加できる新しいアニメーションクリップがありません。": "אין קליפים של אנימציה חדשים שניתן להוסיף.",
+    "候補を確認してから追加できます。": "יש לבדוק את הקליפים המוצעים לפני הוספתם."
+  }
+}

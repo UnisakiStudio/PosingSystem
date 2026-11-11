@@ -5,6 +5,25 @@ from unittest.mock import patch
 import audit_coverage as audit
 
 class CoverageGateTests(unittest.TestCase):
+    def test_warning_callback_must_translate_before_drawing(self):
+        raw = 'private void DrawInspectorWarning(string message) { PosingSystemTextGUI.LayoutHelpBox(message, MessageType.Warning); }'
+        self.assertEqual([i['kind'] for i in audit.display_path_issues(raw,set(),set())], ['unlocalized_warning_boundary'])
+        fixed = raw.replace('LayoutHelpBox(message,', 'LayoutHelpBox(PosingSystemLocalization.TextMessage(message),')
+        self.assertEqual(audit.display_path_issues(fixed,set(),set()), [])
+
+    def test_cached_notice_cannot_be_displayed_without_resolving_current_language(self):
+        for value in ['"候補を確認"', 'PosingSystemLocalization.Format("追加{0}件", count)']:
+            source = 'private string notice; void Stage() { notice = '+value+'; } void Draw() { PosingSystemTextGUI.LayoutLabelField(notice, style); }'
+            self.assertIn('unlocalized_cached_display_field', [i['kind'] for i in audit.display_path_issues(source,{'候補を確認','追加{0}件'},set())])
+            fixed = source.replace('LayoutLabelField(notice,', 'LayoutLabelField(PosingSystemLocalization.TextMessage(notice),')
+            self.assertEqual(audit.display_path_issues(fixed,{'候補を確認','追加{0}件'},set()), [])
+
+    def test_inspector_helpers_must_not_retranslate_a_localized_caption(self):
+        for helper in ['Link','Section']:
+            source = 'PosingSystemInspectorGUI.'+helper+'(PosingSystemLocalization.Text("表示"));'
+            self.assertEqual([i['kind'] for i in audit.display_path_issues(source,{'表示'},set())], ['double_translated_inspector_caption'])
+        self.assertEqual(audit.display_path_issues('PosingSystemInspectorGUI.LinkLocalized(PosingSystemLocalization.Text("表示"));',{'表示'},set()), [])
+
     def test_shaped_facade_keeps_direct_literals_in_strict_display_scan(self):
         for method in ['Label', 'LayoutLabelField', 'LayoutHelpBox', 'LayoutButton',
                        'LayoutEditorToggle', 'LayoutTextField', 'LayoutSlider', 'LayoutPropertyField']:

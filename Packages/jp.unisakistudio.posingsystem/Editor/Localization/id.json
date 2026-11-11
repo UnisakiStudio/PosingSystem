@@ -2249,6 +2249,10 @@
       "value": "Terjatuh"
     },
     {
+      "key": "候補を確認してから追加できます。",
+      "value": "Periksa klip yang diusulkan sebelum menambahkannya."
+    },
+    {
       "key": "傍観者",
       "value": "Penonton"
     },
@@ -3779,6 +3783,10 @@
     {
       "key": "身長",
       "value": "Tinggi avatar"
+    },
+    {
+      "key": "追加できる新しいアニメーションクリップがありません。",
+      "value": "Tidak ada klip animasi baru yang dapat ditambahkan."
     },
     {
       "key": "追加先にあるクリップは重複して追加されません。",

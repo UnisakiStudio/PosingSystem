@@ -2249,6 +2249,10 @@
       "value": "Slået omkuld"
     },
     {
+      "key": "候補を確認してから追加できます。",
+      "value": "Kontrollér de foreslåede klip, før du tilføjer dem."
+    },
+    {
       "key": "傍観者",
       "value": "Tilskuer"
     },
@@ -3779,6 +3783,10 @@
     {
       "key": "身長",
       "value": "Avatarhøjde"
+    },
+    {
+      "key": "追加できる新しいアニメーションクリップがありません。",
+      "value": "Der er ingen nye animationsklip at tilføje."
     },
     {
       "key": "追加先にあるクリップは重複して追加されません。",

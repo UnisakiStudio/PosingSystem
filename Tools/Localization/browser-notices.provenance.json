@@ -1,0 +1,10 @@
+{
+  "date": "2026-11-12",
+  "method": "AI-authored in this task; no external translation service",
+  "context": "Bulk pose animation import: no new clips (including duplicates), or pending clips ready for review before adding. Notifications resolve in the currently selected language.",
+  "keys": [
+    "追加できる新しいアニメーションクリップがありません。",
+    "候補を確認してから追加できます。"
+  ],
+  "review": "Preserves the candidate-review step and animation-clip meaning. No placeholders or custom names in these two messages. Native-speaker and complex-script visual review not performed."
+}

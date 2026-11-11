@@ -25,8 +25,11 @@ namespace jp.unisakistudio.posingsystemeditor
         internal static bool Link(string label, params GUILayoutOption[] options)
         {
             label = PosingSystemLocalization.Text(label);
-            return DrawLink(GUILayoutUtility.GetRect(new GUIContent(label), Text(11), options), label);
+            return LinkLocalized(label, options);
         }
+        internal static bool LinkLocalized(string label, params GUILayoutOption[] options)
+            => DrawLink(GUILayoutUtility.GetRect(new GUIContent(label), Text(11), options), label);
+
         internal static bool Link(Rect rect, string label)
         {
             label = PosingSystemLocalization.Text(label);

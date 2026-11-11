@@ -2249,6 +2249,10 @@
       "value": "Kaatunut"
     },
     {
+      "key": "候補を確認してから追加できます。",
+      "value": "Tarkista ehdotetut leikkeet ennen niiden lisäämistä."
+    },
+    {
       "key": "傍観者",
       "value": "Sivustakatsoja"
     },
@@ -3779,6 +3783,10 @@
     {
       "key": "身長",
       "value": "Avatarin korkeus"
+    },
+    {
+      "key": "追加できる新しいアニメーションクリップがありません。",
+      "value": "Uusia lisättäviä animaatioleikkeitä ei ole."
     },
     {
       "key": "追加先にあるクリップは重複して追加されません。",

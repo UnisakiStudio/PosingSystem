@@ -2249,6 +2249,10 @@
       "value": "Derribado"
     },
     {
+      "key": "候補を確認してから追加できます。",
+      "value": "Revisa los clips propuestos antes de añadirlos."
+    },
+    {
       "key": "傍観者",
       "value": "Espectador"
     },
@@ -3779,6 +3783,10 @@
     {
       "key": "身長",
       "value": "Altura del avatar"
+    },
+    {
+      "key": "追加できる新しいアニメーションクリップがありません。",
+      "value": "No hay nuevos clips de animación que se puedan añadir."
     },
     {
       "key": "追加先にあるクリップは重複して追加されません。",

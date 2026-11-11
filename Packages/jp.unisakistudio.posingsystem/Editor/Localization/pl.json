@@ -2249,6 +2249,10 @@
       "value": "Powalenie"
     },
     {
+      "key": "候補を確認してから追加できます。",
+      "value": "Sprawdź proponowane klipy przed ich dodaniem."
+    },
+    {
       "key": "傍観者",
       "value": "Obserwator"
     },
@@ -3779,6 +3783,10 @@
     {
       "key": "身長",
       "value": "Wzrost awatara"
+    },
+    {
+      "key": "追加できる新しいアニメーションクリップがありません。",
+      "value": "Brak nowych klipów animacji do dodania."
     },
     {
       "key": "追加先にあるクリップは重複して追加されません。",

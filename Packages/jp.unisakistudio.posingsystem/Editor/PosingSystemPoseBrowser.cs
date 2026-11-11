@@ -16,6 +16,12 @@ namespace jp.unisakistudio.posingsystemeditor
         private int destination;
         private readonly List<AnimationClip> pending = new List<AnimationClip>();
         private string notice;
+        private int? addedCount;
+        // Keep the message identity until drawing, so a language change also updates notices.
+        internal string Notice => addedCount.HasValue
+            ? PosingSystemLocalization.Format("{0}件追加しました。", addedCount.Value)
+            : PosingSystemLocalization.Text(notice);
+        internal void SetAddedNotice(int count) { addedCount = count; notice = null; }
         private Vector2 listScroll;
         private float expandedRowY;
         private float? pendingRowY;
@@ -82,7 +88,7 @@ namespace jp.unisakistudio.posingsystemeditor
                     using (new EditorGUILayout.HorizontalScope())
                     {
                         using (new EditorGUI.DisabledScope(category < 0))
-                            if (PosingSystemInspectorGUI.Link(PosingSystemLocalization.Text("＋ 1件追加")))
+                            if (PosingSystemInspectorGUI.Link("＋ 1件追加"))
                             {
                                 PosingSystemEditorChangeUtility.Commit(serialized); Undo.IncrementCurrentGroup(); Undo.RecordObject(ps, "Add animation");
                                 if (imports)
@@ -94,7 +100,8 @@ namespace jp.unisakistudio.posingsystemeditor
                                 PosingSystemPoseListUtility.MarkChanged(ps); serialized.Update(); GUIUtility.ExitGUI();
                             }
                     }
-                    if (!string.IsNullOrEmpty(notice)) PosingSystemTextGUI.LayoutLabelField(notice, PosingSystemInspectorGUI.Text(11));
+                    var noticeText = Notice;
+                    if (!string.IsNullOrEmpty(noticeText)) PosingSystemTextGUI.LayoutLabelField(noticeText, PosingSystemInspectorGUI.Text(11));
                 }
             }
         }
@@ -154,7 +161,7 @@ namespace jp.unisakistudio.posingsystemeditor
                         GUIUtility.ExitGUI();
                     }
                 if (category >= 0 && initial) PosingSystemTextGUI.Label(new Rect(x + 84, rect.yMax - 21, Mathf.Max(0, textWidth - 112), 18), PosingSystemLocalization.Text("初期ポーズ"), PosingSystemInspectorGUI.Text(10));
-                if (PosingSystemInspectorGUI.Link(new Rect(rect.xMax - 29, rect.yMax - 20, 29, 18), expanded == key ? PosingSystemLocalization.Text("閉じる") : PosingSystemLocalization.Text("詳細")))
+                if (PosingSystemInspectorGUI.Link(new Rect(rect.xMax - 29, rect.yMax - 20, 29, 18), expanded == key ? "閉じる" : "詳細"))
                 {
                     SwitchDetail(serialized, key);
                     GUIUtility.ExitGUI();
@@ -220,7 +227,7 @@ namespace jp.unisakistudio.posingsystemeditor
                     using (new EditorGUI.DisabledScope(index == 0)) if (PosingSystemTextGUI.LayoutButton("↑", GUILayout.Width(28))) Move(index - 1);
                     using (new EditorGUI.DisabledScope(index == array.arraySize - 1)) if (PosingSystemTextGUI.LayoutButton("↓", GUILayout.Width(28))) Move(index + 1);
                     GUILayout.FlexibleSpace();
-                    if (PosingSystemInspectorGUI.Link(PosingSystemLocalization.Text("一覧から削除"), GUILayout.Width(72))) { PosingSystemEditorChangeUtility.DeleteArrayElement(array, index); Finish(); }
+                    if (PosingSystemInspectorGUI.Link("一覧から削除", GUILayout.Width(72))) { PosingSystemEditorChangeUtility.DeleteArrayElement(array, index); Finish(); }
                 }
             }
             finally { EditorGUIUtility.labelWidth = oldLabelWidth; }
@@ -304,15 +311,16 @@ namespace jp.unisakistudio.posingsystemeditor
                     {
                         PosingSystemEditorChangeUtility.Commit(serialized);
                         var added = PosingSystemPoseListUtility.AddClips(ps, destination, pending);
-                        pending.Clear(); category = destination; notice = PosingSystemLocalization.Format("{0}件追加しました。", added); serialized.Update(); GUIUtility.ExitGUI();
+                        pending.Clear(); category = destination; SetAddedNotice(added); serialized.Update(); GUIUtility.ExitGUI();
                     }
                 if (pending.Count > count) PosingSystemTextGUI.LayoutLabelField(PosingSystemLocalization.Text("追加先にあるクリップは重複して追加されません。"), PosingSystemInspectorGUI.Text(11));
             }
         }
-        private void Stage(IEnumerable<AnimationClip> clips)
+        internal void Stage(IEnumerable<AnimationClip> clips)
         {
             var added = 0;
             foreach (var clip in clips) if (!pending.Contains(clip)) { pending.Add(clip); added++; }
+            addedCount = null;
             notice = added == 0 ? "追加できる新しいアニメーションクリップがありません。" : "候補を確認してから追加できます。";
         }
     }

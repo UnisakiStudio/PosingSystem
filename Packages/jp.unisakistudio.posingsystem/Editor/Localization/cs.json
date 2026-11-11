@@ -2249,6 +2249,10 @@
       "value": "Sražení"
     },
     {
+      "key": "候補を確認してから追加できます。",
+      "value": "Před přidáním zkontrolujte navržené klipy."
+    },
+    {
       "key": "傍観者",
       "value": "Pozorovatel"
     },
@@ -3779,6 +3783,10 @@
     {
       "key": "身長",
       "value": "Výška avatara"
+    },
+    {
+      "key": "追加できる新しいアニメーションクリップがありません。",
+      "value": "Nejsou k dispozici žádné nové animační klipy k přidání."
     },
     {
       "key": "追加先にあるクリップは重複して追加されません。",

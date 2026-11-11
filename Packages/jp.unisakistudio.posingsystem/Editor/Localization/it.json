@@ -2249,6 +2249,10 @@
       "value": "A terra"
     },
     {
+      "key": "候補を確認してから追加できます。",
+      "value": "Controlla le clip proposti prima di aggiungerli."
+    },
+    {
       "key": "傍観者",
       "value": "Spettatore"
     },
@@ -3779,6 +3783,10 @@
     {
       "key": "身長",
       "value": "Altezza dell'avatar"
+    },
+    {
+      "key": "追加できる新しいアニメーションクリップがありません。",
+      "value": "Non ci sono nuovi clip di animazione da aggiungere."
     },
     {
       "key": "追加先にあるクリップは重複して追加されません。",

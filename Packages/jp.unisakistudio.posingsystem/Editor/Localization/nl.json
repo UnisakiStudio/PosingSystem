@@ -2249,6 +2249,10 @@
       "value": "Neergeslagen"
     },
     {
+      "key": "候補を確認してから追加できます。",
+      "value": "Controleer de voorgestelde clips voordat je ze toevoegt."
+    },
+    {
       "key": "傍観者",
       "value": "Toeschouwer"
     },
@@ -3779,6 +3783,10 @@
     {
       "key": "身長",
       "value": "Avatarhoogte"
+    },
+    {
+      "key": "追加できる新しいアニメーションクリップがありません。",
+      "value": "Er zijn geen nieuwe animatieclips om toe te voegen."
     },
     {
       "key": "追加先にあるクリップは重複して追加されません。",

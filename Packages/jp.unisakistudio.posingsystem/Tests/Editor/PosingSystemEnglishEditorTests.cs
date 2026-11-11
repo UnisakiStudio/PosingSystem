@@ -15,6 +15,79 @@ namespace jp.unisakistudio.posingsystemeditor.tests
         private static readonly Regex Japanese = new Regex("[\\u3040-\\u30ff\\u3400-\\u9fff]");
 
         [Test]
+        public void BulkImportNoticesFollowLanguageChangesAndDuplicateStaging()
+        {
+            var browser = new PosingSystemPoseBrowser();
+            var clip = new AnimationClip { name = "原名保持" };
+            try
+            {
+                PosingSystemLocalization.Select("en");
+                Assert.That(browser.Notice, Is.Null);
+                browser.Stage(new[] { clip });
+                Assert.That(browser.Notice, Is.EqualTo("Review the candidates before adding them."));
+                foreach (var code in PosingSystemLocalization.Codes.Concat(new[] { "ja", "en", "ja" }))
+                {
+                    PosingSystemLocalization.Select(code);
+                    var expected = PosingSystemLocalization.Text("候補を確認してから追加できます。");
+                    Assert.That(browser.Notice, Is.EqualTo(expected), code);
+                    if (code != "ja") Assert.That(browser.Notice, Is.Not.EqualTo("候補を確認してから追加できます。"), code);
+                }
+                // Re-staging the same clip must replace the previous notice, without adding duplicates.
+                browser.Stage(new[] { clip });
+                PosingSystemLocalization.Select("en");
+                Assert.That(browser.Notice, Is.EqualTo("No new animation clips can be added."));
+                PosingSystemLocalization.Select("ja");
+                Assert.That(browser.Notice, Is.EqualTo("追加できる新しいアニメーションクリップがありません。"));
+                browser.SetAddedNotice(7);
+                foreach (var code in PosingSystemLocalization.Codes.Concat(new[] { "en", "ja" }))
+                {
+                    PosingSystemLocalization.Select(code);
+                    Assert.That(browser.Notice, Is.EqualTo(PosingSystemLocalization.Format("{0}件追加しました。", 7)), code);
+                }
+                Assert.That(browser.Notice, Is.EqualTo("7件追加しました。"));
+                browser.Stage(Array.Empty<AnimationClip>());
+                Assert.That(browser.Notice, Is.EqualTo("追加できる新しいアニメーションクリップがありません。"));
+                Assert.That(clip.name, Is.EqualTo("原名保持"));
+            }
+            finally { Object.DestroyImmediate(clip); }
+        }
+
+        [Test]
+        public void InitialPresetConfirmationTranslatesOfficialNamesAndPreservesCustomNames()
+        {
+            var official = new PosingSystemPresetCatalog.Entry { avatarName = "しなの（着せ替え）", official = true };
+            var custom = new PosingSystemPresetCatalog.Entry { avatarName = official.avatarName, official = false };
+            foreach (var code in PosingSystemLocalization.Codes.Concat(new[] { "en", "ja" }))
+            {
+                PosingSystemLocalization.Select(code);
+                var translated = PosingSystemMenuItems.PresetConfirmation(official);
+                Assert.That(translated, Does.Contain(PosingSystemLocalization.PresetName(official.avatarName, true)), code);
+                Assert.That(PosingSystemMenuItems.PresetConfirmation(custom), Does.Contain(custom.avatarName), code);
+                if (code == "en")
+                    Assert.That(translated, Is.EqualTo("A preset for Shinano (Outfit) was found. Apply it to adjust the poses to this avatar?"));
+            }
+            Assert.That(PosingSystemMenuItems.PresetConfirmation(official), Does.Contain("しなの（着せ替え）"));
+            Assert.That(official.avatarName, Is.EqualTo(custom.avatarName));
+        }
+
+        [Test]
+        public void InspectorWarningTranslationPreservesExceptionDetailsAcrossLanguages()
+        {
+            const string prefix = "プリセット一覧を読み込めませんでした。「再読込」で再試行できます:";
+            const string details = " C:/My Avatar/原名保持.asset: Target: MyAvatar";
+            const string motion = "「立ち・歩き・走り」「しゃがみ（Crouching）」「伏せ（Prone）」には移動を含むBlendTreeを指定してください。単独の立ち姿勢は「立ちのみ」に指定できます。";
+            foreach (var code in PosingSystemLocalization.Codes.Concat(new[] { "en", "ja" }))
+            {
+                PosingSystemLocalization.Select(code);
+                Assert.That(PosingSystemLocalization.TextMessage(prefix + details),
+                    Is.EqualTo(PosingSystemLocalization.Text(prefix) + details), code);
+                var warning = PosingSystemLocalization.TextMessage(motion);
+                Assert.That(warning, Is.EqualTo(PosingSystemLocalization.Text(motion)), code);
+                if (code != "ja") Assert.That(warning, Is.Not.EqualTo(motion), code);
+            }
+        }
+
+        [Test]
         public void AdjustmentWindowLabelsAndTooltipsFollowTheSavedAvatarLanguage()
         {
             var root = new GameObject("Localization editor test");
