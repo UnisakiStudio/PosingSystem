@@ -88,6 +88,18 @@ property drawers and native editable text retain their original Unity behavior.
 
 ## Authoritative data
 
+- `feature-cards.ai.json`: reviewed feature-card batch with frozen `features`
+  records (`path`, Japanese `title`, Japanese `description`) and explicit
+  `title_paths`. The description rows follow these frozen records; title rows
+  follow `title_paths`, never the order of C# declarations. These bindings were
+  recovered from commit `906e634` (15 SettingsInspector cards, then 4 Inspector
+  cards). `build_feature_cards.py` checks the current path set and both Japanese
+  fields before emitting every reviewed row. New/missing paths or changed source
+  text stop generation for batch review and translation updates. Reordering C#
+  metadata needs no translation changes. Do not infer bindings from the current
+  source order or filter rows against old generated output/merged catalogs.
+  Run `python Tools/Localization/test_build_feature_cards.py` to check ordering,
+  exact preservation of the original 8-language/31-entry batch and drift failures.
 - `ui.translations.json`: Inspector display text. Japanese source text is the lookup key, with a small set of semantic keys for header navigation.
 - `menus.translations.json`: common expression-menu controls and the five pose categories.
 - `navigation.translations.json`: help and documentation navigation.

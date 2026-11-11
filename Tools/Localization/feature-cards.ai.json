@@ -1,5 +1,118 @@
 {
+  "schema": 1,
   "provenance": "AI-authored in Codex, 2026-11-09. All 19 related cards reviewed together against Japanese source and existing menu terminology. No external translation service. Native-speaker and rendered-layout review pending.",
+  "binding_source_commit": "906e634",
+  "features": [
+    {
+      "path": "features.mirror",
+      "title": "左右反転",
+      "description": "VRChatのメニューに切り替え項目を追加します。使いたいときに、ポーズの左右を反転できます。"
+    },
+    {
+      "path": "features.fingerGestureControl",
+      "title": "ジェスチャー無効",
+      "description": "指の形を固定・解除する切り替えをメニューに追加します。固定中はコントローラーを握っても形を保てます。"
+    },
+    {
+      "path": "features.breathingControl",
+      "title": "呼吸",
+      "description": "VRChatのメニューで呼吸をつけたり止めたりできます。ON/OFFは他の人にも反映されます。"
+    },
+    {
+      "path": "features.rollover",
+      "title": "寝返り",
+      "description": "頭の向きに合わせて寝返りできます。一部の寝姿勢のみ対応しています。"
+    },
+    {
+      "path": "features.footHeight",
+      "title": "足の高さ",
+      "description": "頭の位置を保ち、足側の高さを変えられます。足が床に埋まる・浮くときに調整できます。"
+    },
+    {
+      "path": "features.floating",
+      "title": "床の高さ",
+      "description": "頭も含めた身体全体の高さを変えられます。VRChatの「床の高さ」で、50%を元の高さとして上下3mまで調整できます。"
+    },
+    {
+      "path": "features.photography",
+      "title": "撮影モード",
+      "description": "メニューに撮影モードを追加します。前へ最大3m移動したり回転したりして、自分から見える位置を調整できます。"
+    },
+    {
+      "path": "disableSleepJumpSwitch",
+      "title": "ジャンプで寝姿勢を切り替える",
+      "description": "仰向けとうつ伏せの両方を選んでいるとき、その場でジャンプすると切り替わります。"
+    },
+    {
+      "path": "features.faceForward",
+      "title": "首の向きの違いによる姿勢崩れを抑制",
+      "description": "首固定を解除したとき、元のポーズと首の向きが異なることで起きる姿勢崩れを抑えます。"
+    },
+    {
+      "path": "features.photographySynced",
+      "title": "撮影モードを同期する",
+      "description": "撮影モードで動かした位置と向きを他の人にも表示できます。自分の画面だけで撮影する場合は0 bitで使えます。"
+    },
+    {
+      "path": "features.photographyKeepHeadVisible",
+      "title": "撮影モード中は頭を非表示にしない",
+      "description": "自分の頭が近くにあっても撮影できます。自分の画面だけに反映され、撮影終了後は通常の表示に戻ります。"
+    },
+    {
+      "path": "additiveBreathing.disableDefaultIdle",
+      "title": "VRChat標準の揺れを止める",
+      "description": "立ち止まっているときに自動で入る、VRChat標準の身体の揺れを止められます。ポーズツールで設定した呼吸の動きはそのまま使えます。"
+    },
+    {
+      "path": "features.breathing",
+      "title": "呼吸の動きをつける",
+      "description": "呼吸に合わせて胸などが動きます。姿勢ごとに強さを設定でき、同期bitを使わずに利用できます。"
+    },
+    {
+      "path": "isIconDisabled",
+      "title": "ポーズアイコン生成",
+      "description": "画像でポーズを見分けやすくできます。アバターのビルド時間は少し長くなります。"
+    },
+    {
+      "path": "isIconSmall",
+      "title": "アイコン画像の容量を減らす",
+      "description": "アバターの容量を抑えたいときに便利です。アイコン画像は少し粗くなります。"
+    },
+    {
+      "path": "enableAvatarSpecificAdjustment",
+      "title": "アバター固有補正を使う",
+      "description": "アバターごとの関節の向きやひねりの違いを自動で補正します。"
+    },
+    {
+      "path": "enableReverseKneeSafetyClamp",
+      "title": "膝が逆向きに曲がるのを防ぐ",
+      "description": "脚を伸ばしたときに、膝が逆向きに折れるのを抑えます。"
+    },
+    {
+      "path": "autoImportAvatarAnimations",
+      "title": "アバターの元の立ち・しゃがみ・伏せ姿勢を使う",
+      "description": "生成時にアバターのBaseからモーションを検出します。取り込み設定の一覧には追加しません。手動設定がある種類は手動指定を優先します。"
+    },
+    {
+      "path": "mergeTrackingControl",
+      "title": "各固定機能の他ギミックとの統合",
+      "description": "ほかのギミックとの併用によって固定機能がうまく動かない場合はオンにしてください。"
+    }
+  ],
+  "title_paths": [
+    "disableSleepJumpSwitch",
+    "features.faceForward",
+    "features.photographySynced",
+    "features.photographyKeepHeadVisible",
+    "additiveBreathing.disableDefaultIdle",
+    "features.breathing",
+    "isIconDisabled",
+    "isIconSmall",
+    "enableAvatarSpecificAdjustment",
+    "enableReverseKneeSafetyClamp",
+    "autoImportAvatarAnimations",
+    "mergeTrackingControl"
+  ],
   "languages": {
     "fr": {
       "descriptions": [
