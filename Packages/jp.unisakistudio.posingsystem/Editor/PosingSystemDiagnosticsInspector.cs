@@ -100,7 +100,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 {
                     var failure = renderFailure();
                     PosingSystemTextGUI.LayoutHelpBox(PosingSystemLocalization.Text("前回の処理は完了していません。") + "\n" + failure, MessageType.Error);
-                    if (PosingSystemTextGUI.LayoutButton(PosingSystemLocalization.Text("このエラーについて相談する"))) PosingSystemSupportReport.Open(failure);
+                    if (PosingSystemTextGUI.LayoutButton(PosingSystemLocalization.Text("このエラーについて相談する"))) PosingSystemSupportReport.Open(failure, ps);
                     if (PosingSystemTextGUI.LayoutButton(PosingSystemLocalization.Text("前回の失敗内容をコピー"))) EditorGUIUtility.systemCopyBuffer = failure;
                     if (PosingSystemTextGUI.LayoutButton(PosingSystemLocalization.Text("前回の失敗表示を閉じる"))) SetFailure(ps, null);
                 }

@@ -47,7 +47,7 @@ namespace jp.unisakistudio.posingsystemeditor
 
         // Unity exposes live compiler events publicly, but not the existing Console rows.
         // When this internal API is unavailable the build check and manual Console hint still work.
-        private static List<string> ReadConsole(int mask, bool forDraft = false)
+        private static List<string> ReadConsole(int mask, bool forDraft = false, bool whole = false)
         {
             var result = new List<string>();
             try
@@ -70,8 +70,10 @@ namespace jp.unisakistudio.posingsystemeditor
                     {
                         args[0] = i;
                         if (!(bool)get.Invoke(null, args) || ((int)mode.GetValue(args[1]) & mask) == 0) continue;
-                        var line = ((string)message.GetValue(args[1]) ?? "").Split('\n')[0].Trim();
-                        if (forDraft) line = SafeError(line);
+                        var line = (string)message.GetValue(args[1]) ?? "";
+                        if (!whole) line = line.Split('\n')[0].Trim();
+                        if (whole) { }
+                        else if (forDraft) line = SafeError(line);
                         else if (line.Contains("[PosingSystem")) continue;
                         if (line.Length > 0 && !result.Contains(line)) result.Add(line);
                     }
@@ -140,9 +142,116 @@ namespace jp.unisakistudio.posingsystemeditor
             return exception.Success ? location + exception.Value : "";
         }
 
-        internal static string Draft(string failure) => BuildDraft(failure, PosingSystemLocalization.Text("ポーズツールで次のエラーが出ました。対処方法を教えてください。"));
+        // ---- Technical details for the developer -------------------------------------------
+        // Language-neutral key=value lines: counts, switches, kinds of assets and code locations
+        // inside this studio's packages. Never object, pose, avatar or file names chosen by the
+        // user, and never arbitrary Console text.
+        private static readonly Regex OwnFrame = new Regex(
+            @"^\s*(?:at\s+)?jp\.unisakistudio\.[\w.]*?(\w+)[.:]([\w<>]+)\s*\(.*\(at [^\r\n]*?/([\w.-]+\.cs):(\d+)\)",
+            RegexOptions.Multiline);
 
-        private static string BuildDraft(string failure, string question)
+        // "NullReferenceException: ... @ Class.Method (File.cs:12) < Caller (File.cs:34)".
+        // Only exceptions that passed through this studio's code; diagnostics are reported by code.
+        internal static string ExceptionDetail(string entry)
+        {
+            if (string.IsNullOrEmpty(entry)) return "";
+            var first = entry.Split('\n')[0].Trim();
+            if (first.Contains("[PosingSystem")) return "";
+            var type = Regex.Match(first, @"^(?:[\w.]+\.)?(\w*Exception)\b:?\s*(.*)$");
+            if (!type.Success) return "";
+            var frames = OwnFrame.Matches(entry).Cast<Match>().Take(3)
+                .Select(m => m.Groups[1].Value + "." + m.Groups[2].Value + " (" + m.Groups[3].Value + ":" + m.Groups[4].Value + ")").ToArray();
+            if (frames.Length == 0) return "";
+            var message = LocalLine(type.Groups[2].Value);
+            if (message.Length > 120) message = message.Substring(0, 120) + "…";
+            return type.Groups[1].Value + (message.Length > 0 ? ": " + message : "") + " @ " + string.Join(" < ", frames);
+        }
+
+        private static string Kind(UnityEngine.Object motion)
+        {
+            if (motion == null) return "none";
+            if (motion is UnityEditor.Animations.BlendTree) return "BlendTree";
+            if (motion is AnimationClip clip)
+                return clip.legacy ? "Clip:legacy" : PosingSystemRolloverGenerator.Supports(clip) ? "Clip:humanoid" : "Clip:generic";
+            return motion.GetType().Name;
+        }
+
+        // The tool the report is about: the caller's, the selected one, or the only one in the scene.
+        private static jp.unisakistudio.posingsystem.PosingSystem Resolve(jp.unisakistudio.posingsystem.PosingSystem ps)
+        {
+            if (ps != null) return ps;
+            var selected = Selection.activeGameObject != null
+                ? Selection.activeGameObject.GetComponentInParent<jp.unisakistudio.posingsystem.PosingSystem>(true) : null;
+            if (selected != null) return selected;
+            var all = UnityEngine.Object.FindObjectsOfType<jp.unisakistudio.posingsystem.PosingSystem>(true);
+            return all.Length == 1 ? all[0] : null;
+        }
+
+        internal static List<string> ToolDetails(jp.unisakistudio.posingsystem.PosingSystem ps)
+        {
+            var lines = new List<string>();
+            lines.Add("[env] os=" + Application.platform + " target=" + EditorUserBuildSettings.activeBuildTarget + " lang=" + PosingSystemLocalization.Language);
+            if (ps == null) return lines;
+            try
+            {
+                var layers = (ps.defines ?? new List<jp.unisakistudio.posingsystem.PosingSystem.LayerDefine>()).Where(d => d?.animations != null).ToList();
+                var poses = layers.SelectMany(d => d.animations).Where(a => a != null).ToArray();
+                var source = PrefabUtility.GetCorrespondingObjectFromOriginalSource(ps.gameObject);
+                var package = Regex.Match(source != null ? AssetDatabase.GetAssetPath(source) ?? "" : "", @"^Packages/(jp\.unisakistudio\.[a-z]+)/");
+                string prebuild;
+                try { prebuild = string.IsNullOrEmpty(ps.data) ? "none" : PosingSystemConverter.IsPosingSystemDataUpdated(ps) ? "stale" : "current"; }
+                catch (Exception) { prebuild = "unknown"; }
+                lines.Add("[tool] source=" + (package.Success ? package.Groups[1].Value : source != null ? "other-prefab" : "no-prefab") +
+                    " poses=" + poses.Count(a => a.enabled) + "/" + poses.Length +
+                    " custom=" + poses.Count(a => !PosingSystemLocalization.IsStandardDisplayName(a.displayName)) +
+                    " imports=" + (ps.overrideDefines?.Count ?? 0) + " eightBit=" + (ps.isEightBitVersion ? 1 : 0) +
+                    " prebuild=" + prebuild + " active=" + (ps.gameObject.activeInHierarchy ? 1 : 0));
+                if (ps.features != null)
+                    lines.Add("[features] " + string.Join(" ", ps.features.GetType().GetFields(BindingFlags.Instance | BindingFlags.Public)
+                        .Where(f => f.FieldType == typeof(bool) || f.FieldType.IsEnum)
+                        .Select(f => f.Name + "=" + (f.FieldType == typeof(bool) ? ((bool)f.GetValue(ps.features) ? "1" : "0") : f.GetValue(ps.features).ToString()))) +
+                        " ik=" + (ps.enablePoseIk ? 1 : 0) + " avatarAdjust=" + (ps.enableAvatarSpecificAdjustment ? 1 : 0) +
+                        " kneeClamp=" + (ps.enableReverseKneeSafetyClamp ? 1 : 0) + " autoImport=" + (ps.autoImportAvatarAnimations ? 1 : 0));
+                var issues = PosingSystemDiagnostics.Collect(ps);
+                if (issues.Count > 0)
+                    lines.Add("[issues] " + string.Join(" ", issues.GroupBy(i => i.Code + "(" + (i.Severity == MessageType.Error ? "E" : i.Severity == MessageType.Warning ? "W" : "I") + ")")
+                        .Select(g => g.Key + (g.Count() > 1 ? "x" + g.Count() : "")).Take(12)));
+                if (issues.Any(i => i.Code == "PS010"))
+                {
+                    var avatar = ps.GetAvatar();
+                    var markers = PosingSystemDiagnostics.CommonAnimatorMarkers(ps);
+                    var recoverable = PosingSystemDiagnostics.CanRecoverCommonChild(ps, markers, out var orphan);
+                    var blocked = avatar != null ? PosingSystemHierarchy.BlockingParent(markers.FirstOrDefault()?.transform ?? orphan?.transform ?? ps.transform, avatar.transform) : null;
+                    lines.Add("[PS010] markers=" + markers.Length + " active=" + markers.Count(PosingSystemDiagnostics.ActiveCommonMarker) +
+                        " recoverable=" + (recoverable ? 1 : 0) + " blocked=" + (blocked == null ? "none" : blocked.CompareTag("EditorOnly") ? "editorOnly" : "inactive") +
+                        " prefab=" + PrefabUtility.GetPrefabInstanceStatus(ps.gameObject));
+                }
+                // Position and asset kinds identify the row without quoting its name.
+                var rollover = new List<string>();
+                for (var i = 0; i < layers.Count; i++)
+                    for (var j = 0; j < layers[i].animations.Count; j++)
+                    {
+                        var pose = layers[i].animations[j];
+                        if (pose == null || !pose.enabled || !pose.isRollover || pose.rolloverSideAnimation == null) continue;
+                        if (pose.animationClip is AnimationClip center && PosingSystemRolloverGenerator.Supports(center) &&
+                            PosingSystemRolloverGenerator.Supports(pose.rolloverSideAnimation)) continue;
+                        rollover.Add((i + 1) + "-" + (j + 1) + " center=" + Kind(pose.animationClip) + " side=" + Kind(pose.rolloverSideAnimation) +
+                            " standardName=" + (PosingSystemLocalization.IsStandardDisplayName(pose.displayName) ? 1 : 0));
+                    }
+                if (rollover.Count > 0) lines.Add("[PS070] " + string.Join(" ; ", rollover.Take(3)) + (rollover.Count > 3 ? " ; +" + (rollover.Count - 3) : ""));
+            }
+            catch (Exception exception)
+            {
+                // The report must still open when the tool is in a broken state.
+                lines.Add("[tool] unavailable (" + exception.GetType().Name + ")");
+            }
+            return lines;
+        }
+
+        internal static string Draft(string failure, jp.unisakistudio.posingsystem.PosingSystem ps = null)
+            => BuildDraft(failure, PosingSystemLocalization.Text("ポーズツールで次のエラーが出ました。対処方法を教えてください。"), ps);
+
+        private static string BuildDraft(string failure, string question, jp.unisakistudio.posingsystem.PosingSystem ps = null)
         {
             var codes = Regex.Matches(failure ?? "", @"\bPS\d{3}\b").Cast<Match>().Select(m => m.Value).Distinct().Take(8).ToArray();
             var lines = new List<string> { question, PosingSystemLocalization.Text("行った操作・起きたこと："), "" };
@@ -159,12 +268,14 @@ namespace jp.unisakistudio.posingsystemeditor
             var errors = compiled.Append(SafeError(failure)).Concat(ReadConsole(CompileError | OtherErrors, true))
                 .Where(s=>s.Length>0).Distinct().Take(Limit).ToArray();
             if (errors.Length > 0) lines.Add(PosingSystemLocalization.Text("Consoleのエラー\n") + string.Join("\n",errors));
+            lines.AddRange(ToolDetails(Resolve(ps)));
+            lines.AddRange(ReadConsole(OtherErrors, whole: true).Select(ExceptionDetail).Where(s => s.Length > 0).Distinct().Take(3).Select(s => "[exception] " + s));
             return string.Join("\n",lines);
         }
 
-        internal static void Open(string failure)
+        internal static void Open(string failure, jp.unisakistudio.posingsystem.PosingSystem ps = null)
         {
-            var draft = Draft(failure);
+            var draft = Draft(failure, ps);
             Application.OpenURL(PosingSystemPackageInfo.SupportUrl + "#unity-draft=" + Uri.EscapeDataString(draft));
         }
 

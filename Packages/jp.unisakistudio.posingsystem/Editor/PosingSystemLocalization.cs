@@ -150,6 +150,9 @@ namespace jp.unisakistudio.posingsystemeditor
         internal static string DisplayName(string source) => TranslateDisplayName(Language, source);
         internal static string TranslateDisplayName(string language, string source)
             => source != null && (PosingSystemDisplayNameKeys.Values.Contains(source) || IsProductDisplayName(source)) ? Translate(language, source, source) : source;
+        // True for the reviewed standard pose/menu names (shared or product-owned); false for names a user typed.
+        internal static bool IsStandardDisplayName(string source)
+            => source != null && (PosingSystemDisplayNameKeys.Values.Contains(source) || IsProductDisplayName(source));
         internal static string PresetName(string source, bool official) => official ? Text(source) : source;
         internal static Dictionary<string, string> ParseCatalog(string json)
         {

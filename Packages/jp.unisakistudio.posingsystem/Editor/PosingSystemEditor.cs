@@ -535,7 +535,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 Debug.LogError("[PosingSystem] " + message, posingSystem);
                 Debug.LogException(ex, posingSystem);
                 if (PosingSystemLocalization.Dialog(PosingSystemLocalization.Format("{0}を完了できませんでした", PosingSystemLocalization.Text(stage)), message, "このエラーについて相談する", "閉じる"))
-                    PosingSystemSupportReport.Open(message);
+                    PosingSystemSupportReport.Open(message, posingSystem);
                 return false;
             }
         }
