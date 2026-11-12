@@ -277,10 +277,6 @@
       "value": "Disattivare l'oscillazione da fermo di VRChat"
     },
     {
-      "key": "VRC想定移動モーション(無料配布)追加",
-      "value": "Aggiungi movimenti di locomozione VRChat (gratuiti)"
-    },
-    {
       "key": "ViewPositionの基準となるHeadの参照姿勢を取得できません。",
       "value": "Impossibile ottenere la posa di riferimento di Head usata per ViewPosition."
     },
@@ -1037,84 +1033,20 @@
       "value": "Blocca automaticamente la testa in posizione supina"
     },
     {
-      "key": "あぐら",
-      "value": "A gambe incrociate"
-    },
-    {
-      "key": "あぐら２",
-      "value": "Gambe incrociate 2"
-    },
-    {
       "key": "いいえ",
       "value": "No"
-    },
-    {
-      "key": "いじけ",
-      "value": "Broncio"
-    },
-    {
-      "key": "うずくまり",
-      "value": "Rannicchiato"
     },
     {
       "key": "うつ伏せ寝",
       "value": "Prono"
     },
     {
-      "key": "おいで",
-      "value": "Vieni qui"
-    },
-    {
-      "key": "おきあがり",
-      "value": "Alzarsi"
-    },
-    {
       "key": "おすまし",
       "value": "Composto"
     },
     {
-      "key": "おちこみ",
-      "value": "Giù di morale"
-    },
-    {
-      "key": "お伺いポーズ",
-      "value": "Permesso?"
-    },
-    {
-      "key": "お姉さん座り",
-      "value": "Seduta elegante"
-    },
-    {
-      "key": "お疲れ",
-      "value": "Sfinito"
-    },
-    {
       "key": "が無効になっています",
       "value": "è disattivato"
-    },
-    {
-      "key": "くずし",
-      "value": "Scomposto"
-    },
-    {
-      "key": "くつろぎ１",
-      "value": "Comodo 1"
-    },
-    {
-      "key": "くつろぎ２",
-      "value": "Comodo 2"
-    },
-    {
-      "key": "ぐだり１",
-      "value": "Accasciato 1"
-    },
-    {
-      "key": "ぐだり２",
-      "value": "Accasciato 2"
-    },
-    {
-      "key": "ぐだり３",
-      "value": "Accasciato 3"
     },
     {
       "key": "このIK設定を使用する商品名です。",
@@ -1139,14 +1071,6 @@
     {
       "key": "このコンピュータにはゆにさきポーズシステムの使用が許諾されていません。Boothのショップから可愛いポーズツールを購入して、コンピュータにライセンスをインストールしてください",
       "value": "Questo computer non dispone di una licenza Unisaki Posing System. Acquista Kawaii Posing su BOOTH e installa la licenza sul computer."
-    },
-    {
-      "key": "このコンピュータにはカッコいいポーズツールの使用が許諾されていません。Boothのショップからカッコいいポーズツールを購入して、コンピュータにライセンスをインストールしてください。カッコいいポーズツールを購入しているのにこのエラーが表示される場合は、Boothから最新版のZipファイルをダウンロードして、「CoolPosing.unitypackage」をインポートしてください。（この作業は１つのパソコンにつき一回行う必要があります）",
-      "value": "Questo computer non dispone di una licenza Cool Posing. Acquista lo strumento su BOOTH e installa la licenza. Se l'hai già acquistato, scarica l'ultimo ZIP da BOOTH e importa CoolPosing.unitypackage. Serve una volta per computer."
-    },
-    {
-      "key": "このコンピュータには可愛いポーズツールの使用が許諾されていません。Boothのショップから可愛いポーズツールを購入して、コンピュータにライセンスをインストールしてください。可愛いポーズツールを購入しているのにこのエラーが表示される場合は、Boothから最新版のZipファイルをダウンロードして、「KawaiiPosing.unitypackage」をインポートしてください。（この作業は１つのパソコンにつき一回行う必要があります）",
-      "value": "Questo computer non dispone di una licenza Kawaii Posing. Acquista lo strumento su BOOTH e installa la licenza. Se l'hai già acquistato, scarica l'ultimo ZIP da BOOTH e importa KawaiiPosing.unitypackage. Serve una volta per computer."
     },
     {
       "key": "このツールにはアバター固有補正用の基準データがありません。",
@@ -1183,14 +1107,6 @@
     {
       "key": "このユーザーのゆにさきポーズシステムライセンスが見つかりません。正規の購入ページからダウンロードしたインストーラーを、このUnityプロジェクトへインポートしてください。ライセンスは、PCのユーザーごとに一度インストールします。別のPCやユーザーでは再度インストールしてください。",
       "value": "Nessuna licenza Unisaki Posing System trovata per questo utente del sistema. Importa in questo progetto Unity l'installer dal download ufficiale del tuo acquisto. Installa la licenza una volta per utente del sistema e per computer."
-    },
-    {
-      "key": "このユーザーのカッコいいポーズツールライセンスが見つかりません。正規の購入ページからダウンロードしたインストーラーを、このUnityプロジェクトへインポートしてください。ライセンスは、PCのユーザーごとに一度インストールします。別のPCやユーザーでは再度インストールしてください。",
-      "value": "Nessuna licenza Cool Posing Tool trovata per questo utente del sistema. Importa in questo progetto Unity l'installer dal download ufficiale del tuo acquisto. Installa la licenza una volta per utente del sistema e per computer."
-    },
-    {
-      "key": "このユーザーの可愛いポーズツールライセンスが見つかりません。正規の購入ページからダウンロードしたインストーラーを、このUnityプロジェクトへインポートしてください。ライセンスは、PCのユーザーごとに一度インストールします。別のPCやユーザーでは再度インストールしてください。",
-      "value": "Nessuna licenza Kawaii Posing Tool trovata per questo utente del sistema. Importa in questo progetto Unity l'installer dal download ufficiale del tuo acquisto. Installa la licenza una volta per utente del sistema e per computer."
     },
     {
       "key": "このルールを使用",
@@ -1245,14 +1161,6 @@
       "value": "Non mostrare più questo avviso"
     },
     {
-      "key": "ごろ寝システムEX追加",
-      "value": "Aggiungi Gorone System EX"
-    },
-    {
-      "key": "ざせつ",
-      "value": "Sconfitto"
-    },
-    {
       "key": "しなの",
       "value": "Shinano"
     },
@@ -1271,10 +1179,6 @@
     {
       "key": "しゃがみ（Crouching）",
       "value": "Accovacciato"
-    },
-    {
-      "key": "じだらく",
-      "value": "Pigrizia"
     },
     {
       "key": "すねの長さ",
@@ -1301,10 +1205,6 @@
       "value": "Altro"
     },
     {
-      "key": "たたみ",
-      "value": "Tatami"
-    },
-    {
       "key": "なし",
       "value": "Nessuno"
     },
@@ -1313,48 +1213,8 @@
       "value": "ha il tag EditorOnly"
     },
     {
-      "key": "ねころび",
-      "value": "Sdraiato"
-    },
-    {
-      "key": "ねころび１",
-      "value": "Sdraiato 1"
-    },
-    {
-      "key": "ねころび２",
-      "value": "Sdraiato 2"
-    },
-    {
-      "key": "ねころび３",
-      "value": "Sdraiato 3"
-    },
-    {
-      "key": "のんびり",
-      "value": "Tranquillo"
-    },
-    {
-      "key": "のーんびり",
-      "value": "Molto tranquillo"
-    },
-    {
       "key": "はい",
       "value": "Sì"
-    },
-    {
-      "key": "はいずり",
-      "value": "Strisciare"
-    },
-    {
-      "key": "はりつけ",
-      "value": "Contro il muro"
-    },
-    {
-      "key": "びっくり",
-      "value": "Sorpreso"
-    },
-    {
-      "key": "ふくじゅう",
-      "value": "Sottomissione"
     },
     {
       "key": "ほかのギミックとの併用によって固定機能がうまく動かない場合はオンにしてください。",
@@ -1371,10 +1231,6 @@
     {
       "key": "まだプレビルドしていません。「プレビルドを更新」で姿勢データを生成できます。",
       "value": "Nessun precalcolo ancora. Seleziona Aggiorna precalcolo per generare i dati delle pose."
-    },
-    {
-      "key": "むきりょく",
-      "value": "Senza energie"
     },
     {
       "key": "ゆにさきスタジオ",
@@ -1399,10 +1255,6 @@
     {
       "key": "ゆにさきポーズシステム設定",
       "value": "Impostazioni Unisaki Posing System"
-    },
-    {
-      "key": "よりかかり",
-      "value": "Appoggiato"
     },
     {
       "key": "アイコンの更新",
@@ -1431,10 +1283,6 @@
     {
       "key": "アイコン画像ファイルを削除",
       "value": "Elimina file delle icone"
-    },
-    {
-      "key": "アイドル",
-      "value": "Idol"
     },
     {
       "key": "アップロード時に適用します。未翻訳の項目は日本語で表示されます。",
@@ -1601,14 +1449,6 @@
       "value": "Inserisci questo oggetto in un avatar dotato di componente VRCAvatarDescriptor."
     },
     {
-      "key": "カエルのポーズ１",
-      "value": "Rana 1"
-    },
-    {
-      "key": "カエルのポーズ２",
-      "value": "Rana 2"
-    },
-    {
       "key": "カスタム",
       "value": "Personalizzato"
     },
@@ -1617,60 +1457,12 @@
       "value": "Animazione personalizzata"
     },
     {
-      "key": "カッコいいポーズ",
-      "value": "Cool Posing"
-    },
-    {
-      "key": "カッコいいポーズツール",
-      "value": "Cool Posing"
-    },
-    {
-      "key": "カッコいいポーズツール(Gumroad)",
-      "value": "Cool Posing Tool (Gumroad)"
-    },
-    {
-      "key": "カッコいいポーズツールライセンスインストール",
-      "value": "Installa licenza Cool Posing"
-    },
-    {
-      "key": "カッコいいポーズツールライセンス削除",
-      "value": "Rimuovi licenza Cool Posing"
-    },
-    {
-      "key": "カッコいいポーズツールライセンス状態確認",
-      "value": "Stato licenza Cool Posing"
-    },
-    {
-      "key": "カッコいいポーズツール設定",
-      "value": "Impostazioni Cool Posing"
-    },
-    {
-      "key": "カッコいいポーズツール追加",
-      "value": "Aggiungi Cool Posing"
-    },
-    {
-      "key": "カッコいいポーズツール（BOOTH）",
-      "value": "Cool Posing Tool (BOOTH)"
-    },
-    {
       "key": "カテゴリ{0}",
       "value": "Categoria {0}"
     },
     {
-      "key": "キック",
-      "value": "Calcio"
-    },
-    {
-      "key": "クマ人形",
-      "value": "Orsacchiotto"
-    },
-    {
       "key": "クリップボードが空です。",
       "value": "Gli appunti sono vuoti."
-    },
-    {
-      "key": "ケンカ",
-      "value": "Pronto alla lotta"
     },
     {
       "key": "ゲーム内で使うには「機能」タブの「寝返り」もオンにしてください。",
@@ -1683,10 +1475,6 @@
     {
       "key": "コンパイルエラー（先頭から最大5件）",
       "value": "Errori di compilazione (fino ai primi 5)"
-    },
-    {
-      "key": "コンビニ",
-      "value": "Minimarket"
     },
     {
       "key": "シーンを保存・バックアップしてから、ALCOM / VCCで商品本体と「ゆにさきポーズシステム」を再取得してください。入れ直しても直らない場合は、Inspector上部の「ヘルプ・変更履歴」から公式マニュアル・お問い合わせをご確認ください。調整済みのオブジェクトやGeneratedResourcesは削除しないでください。",
@@ -1711,10 +1499,6 @@
     {
       "key": "ソースとなるPosingSystemが見つかりません。",
       "value": "PosingSystem sorgente non trovato."
-    },
-    {
-      "key": "ゾンビ",
-      "value": "Zombie"
     },
     {
       "key": "ターゲットボーン {0} がありません。",
@@ -1789,10 +1573,6 @@
       "value": "Backup effettuato — rimuovi"
     },
     {
-      "key": "バンザイ",
-      "value": "Braccia alzate"
-    },
-    {
       "key": "バージョン不明",
       "value": "Versione sconosciuta"
     },
@@ -1803,10 +1583,6 @@
     {
       "key": "ファイルに保存されている値に戻します。",
       "value": "Ripristina i valori salvati nel file."
-    },
-    {
-      "key": "プランク",
-      "value": "Plank"
     },
     {
       "key": "プリセット",
@@ -1925,10 +1701,6 @@
       "value": "Nascondi avvisi di precalcolo mancante"
     },
     {
-      "key": "ベッド",
-      "value": "Letto"
-    },
-    {
       "key": "ポーズ {0} bit ＋ 追加機能 {1} bit  ／ このアバターのポーズツール分",
       "value": "Pose: {0} bit + funzioni opzionali: {1} bit / strumenti di posa su questo avatar"
     },
@@ -1997,10 +1769,6 @@
       "value": "Aggiorna miniature delle pose"
     },
     {
-      "key": "マットレス",
-      "value": "Materasso"
-    },
-    {
       "key": "メニューに撮影モードを追加します。前へ最大3m移動したり回転したりして、自分から見える位置を調整できます。",
       "value": "Aggiunge la Modalità foto per avanzare fino a 3 m e ruotare, così da vederti meglio."
     },
@@ -2013,10 +1781,6 @@
       "value": "Funzioni del menu"
     },
     {
-      "key": "モデル",
-      "value": "Modello"
-    },
-    {
       "key": "ユーザー作成",
       "value": "Preset utente"
     },
@@ -2027,30 +1791,6 @@
     {
       "key": "ライセンス削除",
       "value": "Rimozione licenza"
-    },
-    {
-      "key": "ラダー運動",
-      "value": "Agilità"
-    },
-    {
-      "key": "リクライニング",
-      "value": "Reclinato"
-    },
-    {
-      "key": "リラックス",
-      "value": "Relax"
-    },
-    {
-      "key": "リラックス１",
-      "value": "Relax 1"
-    },
-    {
-      "key": "リラックス２",
-      "value": "Relax 2"
-    },
-    {
-      "key": "リラックス３",
-      "value": "Relax 3"
     },
     {
       "key": "ルール名",
@@ -2093,20 +1833,8 @@
       "value": "L'elenco si aggiorna ad aggiunte o modifiche. Seleziona Ricarica se la visualizzazione non è aggiornata."
     },
     {
-      "key": "三点だいしゅき(女)ツール追加",
-      "value": "Aggiungi Virtual Love (donna)"
-    },
-    {
-      "key": "三点だいしゅき(男)ツール追加",
-      "value": "Aggiungi Virtual Love (uomo)"
-    },
-    {
       "key": "上腕の長さ",
       "value": "Lunghezza del braccio"
-    },
-    {
-      "key": "不機嫌",
-      "value": "Imbronciato"
     },
     {
       "key": "中",
@@ -2125,18 +1853,6 @@
       "value": "Accovacciato"
     },
     {
-      "key": "二人分座り",
-      "value": "Posto per due"
-    },
-    {
-      "key": "五体投地",
-      "value": "Prostrazione"
-    },
-    {
-      "key": "他商品連携用Prefabs",
-      "value": "Integrazioni con altri prodotti"
-    },
-    {
       "key": "以前の設定から、使う1つを選べます。",
       "value": "Scegli una delle impostazioni precedenti."
     },
@@ -2149,16 +1865,8 @@
       "value": "Supino"
     },
     {
-      "key": "伏せ",
-      "value": "Prono"
-    },
-    {
       "key": "伏せ（Prone）",
       "value": "Prono"
-    },
-    {
-      "key": "休憩中",
-      "value": "In pausa"
     },
     {
       "key": "位置の座標系",
@@ -2177,20 +1885,12 @@
       "value": "Posizione (rispetto alla lunghezza selezionata)"
     },
     {
-      "key": "低姿勢",
-      "value": "Posizione bassa"
-    },
-    {
       "key": "体幹",
       "value": "Torso"
     },
     {
       "key": "体格に合わせた手足の自動調整",
       "value": "Regolazione automatica degli arti"
-    },
-    {
-      "key": "体育座り",
-      "value": "Ginocchia al petto"
     },
     {
       "key": "使い始めるときの姿勢セットを変更できます。変更すると現在のポーズ設定が置き換わります。",
@@ -2257,16 +1957,8 @@
       "value": "Impostazioni cambiate dal salvataggio (massimo 12)"
     },
     {
-      "key": "倒され寝",
-      "value": "A terra"
-    },
-    {
       "key": "候補を確認してから追加できます。",
       "value": "Controlla le clip proposti prima di aggiungerli."
-    },
-    {
-      "key": "傍観者",
-      "value": "Spettatore"
     },
     {
       "key": "元の姿勢",
@@ -2437,10 +2129,6 @@
       "value": "L'Animator di posa comune non è disponibile. «{0}» {1}."
     },
     {
-      "key": "内股座り",
-      "value": "Punte all’interno"
-    },
-    {
       "key": "内部的な互換性管理に使います。通常は変更しません。",
       "value": "Usato per il controllo interno della compatibilità. Di solito non va modificato."
     },
@@ -2465,20 +2153,12 @@
       "value": "Reimposta"
     },
     {
-      "key": "制止",
-      "value": "Fermo"
-    },
-    {
       "key": "削除",
       "value": "Elimina"
     },
     {
       "key": "削除対象: {0}\nこの中のPrefabやアニメーションも削除されます。自作・調整済みデータがある場合はキャンセルし、移行手順に従ってください。バックアップなしでは元に戻せません。",
       "value": "Cartella da eliminare: {0}\nVerranno eliminati anche i prefab e le animazioni al suo interno. Se contiene dati personalizzati o regolati, annulla e segui le istruzioni di migrazione. Per ripristinare i file eliminati serve un backup."
-    },
-    {
-      "key": "前かがみ",
-      "value": "Piegato in avanti"
     },
     {
       "key": "前回の処理は完了していません。",
@@ -2513,60 +2193,8 @@
       "value": "Scegli animazioni da importare"
     },
     {
-      "key": "可愛いポーズ",
-      "value": "Kawaii Posing"
-    },
-    {
-      "key": "可愛いポーズツール",
-      "value": "Kawaii Posing"
-    },
-    {
       "key": "可愛いポーズツール(Booth)",
       "value": "Kawaii Posing Tool (BOOTH)"
-    },
-    {
-      "key": "可愛いポーズツール(Gumroad)",
-      "value": "Kawaii Posing Tool (Gumroad)"
-    },
-    {
-      "key": "可愛いポーズツールライセンスインストール",
-      "value": "Installa licenza Kawaii Posing"
-    },
-    {
-      "key": "可愛いポーズツールライセンス削除",
-      "value": "Rimuovi licenza Kawaii Posing"
-    },
-    {
-      "key": "可愛いポーズツールライセンス状態確認",
-      "value": "Stato licenza Kawaii Posing"
-    },
-    {
-      "key": "可愛いポーズツール設定",
-      "value": "Impostazioni Kawaii Posing"
-    },
-    {
-      "key": "可愛いポーズツール追加",
-      "value": "Aggiungi Kawaii Posing"
-    },
-    {
-      "key": "可愛い座り",
-      "value": "Kawaii Sitting"
-    },
-    {
-      "key": "可愛い座り(女)ツール追加",
-      "value": "Aggiungi Kawaii Sitting (donna)"
-    },
-    {
-      "key": "可愛い座り(男)ツール追加",
-      "value": "Aggiungi Kawaii Sitting (uomo)"
-    },
-    {
-      "key": "右向き寝",
-      "value": "Sonno lato D"
-    },
-    {
-      "key": "右向き昼寝",
-      "value": "Pisolino lato D"
     },
     {
       "key": "右手指",
@@ -2595,10 +2223,6 @@
     {
       "key": "合成する調整アニメーションが存在しません。",
       "value": "Nessuna animazione di regolazione da unire."
-    },
-    {
-      "key": "合蹠のポーズ",
-      "value": "Farfalla"
     },
     {
       "key": "同梱プリセットを表示しない",
@@ -2657,10 +2281,6 @@
       "value": "Animator di posa per la respirazione non trovato."
     },
     {
-      "key": "和室",
-      "value": "Stanza giapponese"
-    },
-    {
       "key": "商品に収録する各姿勢について、手や足をどこへ置くかを記録する開発用データです。",
       "value": "Dati di creazione che registrano le destinazioni di mani e piedi per ogni posa inclusa. "
     },
@@ -2671,10 +2291,6 @@
     {
       "key": "商品名",
       "value": "Nome prodotto"
-    },
-    {
-      "key": "商談",
-      "value": "Trattativa"
     },
     {
       "key": "回転",
@@ -2691,14 +2307,6 @@
     {
       "key": "固定長（アバタースケールのみ）",
       "value": "Lunghezza fissa (solo scala avatar)"
-    },
-    {
-      "key": "地球寝",
-      "value": "Abbraccia la terra"
-    },
-    {
-      "key": "培養中",
-      "value": "In una capsula"
     },
     {
       "key": "基準にする身体ボーン",
@@ -2719,14 +2327,6 @@
     {
       "key": "基準姿勢の読み取りに失敗しました: {0}",
       "value": "Impossibile leggere la posa di riferimento: {0}"
-    },
-    {
-      "key": "堤防",
-      "value": "Argine"
-    },
-    {
-      "key": "壁ドン",
-      "value": "Al muro"
     },
     {
       "key": "変換用アバターに有効なHumanoid Animatorがありません。",
@@ -2755,10 +2355,6 @@
     {
       "key": "太ももの長さ",
       "value": "Lunghezza della coscia"
-    },
-    {
-      "key": "女の子座り",
-      "value": "Seduta a W"
     },
     {
       "key": "姿勢 {0}",
@@ -2897,10 +2493,6 @@
       "value": "Zona morta di inclinazione testa"
     },
     {
-      "key": "少女モーション集追加",
-      "value": "Aggiungi Girl Motion Collection"
-    },
-    {
       "key": "左右傾き",
       "value": "Rollio"
     },
@@ -2911,18 +2503,6 @@
     {
       "key": "左右反転",
       "value": "Specchio"
-    },
-    {
-      "key": "左向き寝",
-      "value": "Sonno lato S"
-    },
-    {
-      "key": "左向き昼寝",
-      "value": "Pisolino lato S"
-    },
-    {
-      "key": "左向き昼寝２",
-      "value": "Pisolino lato S2"
     },
     {
       "key": "左手指",
@@ -2945,10 +2525,6 @@
       "value": "Differenza:"
     },
     {
-      "key": "布団",
-      "value": "Futon"
-    },
-    {
       "key": "床の高さ",
       "value": "Altezza suolo"
     },
@@ -2965,10 +2541,6 @@
       "value": "Seduto"
     },
     {
-      "key": "座布団",
-      "value": "Cuscino da terra"
-    },
-    {
       "key": "弱",
       "value": "Debole"
     },
@@ -2983,26 +2555,6 @@
     {
       "key": "待ちぼうけ",
       "value": "Lunga attesa"
-    },
-    {
-      "key": "待ち伏せ",
-      "value": "Agguato"
-    },
-    {
-      "key": "後方彼氏",
-      "value": "Veglia discreta"
-    },
-    {
-      "key": "従者のポーズ",
-      "value": "Servitore"
-    },
-    {
-      "key": "忍者走り",
-      "value": "Corsa ninja"
-    },
-    {
-      "key": "思考中",
-      "value": "Pensieroso"
     },
     {
       "key": "急",
@@ -3051,10 +2603,6 @@
     {
       "key": "手足の自動調整を使う",
       "value": "Abilita regolazione automatica degli arti"
-    },
-    {
-      "key": "抱きしめ",
-      "value": "Abbraccio"
     },
     {
       "key": "指の形を固定・解除する切り替えをメニューに追加します。固定中はコントローラーを握っても形を保てます。",
@@ -3113,10 +2661,6 @@
       "value": "Strumento di posa di destinazione non trovato."
     },
     {
-      "key": "斜め座り",
-      "value": "Seduto di sbieco"
-    },
-    {
       "key": "新しいポーズ",
       "value": "Nuova posa"
     },
@@ -3149,14 +2693,6 @@
       "value": "Conferma eliminazione vecchia cartella"
     },
     {
-      "key": "昼寝",
-      "value": "Pisolino"
-    },
-    {
-      "key": "晴天寝",
-      "value": "Pisolino al sole"
-    },
-    {
       "key": "更新する",
       "value": "Aggiorna"
     },
@@ -3187,14 +2723,6 @@
     {
       "key": "有効にすると従来の調整Animationを無視し、このIK設定から自動調整Animationを生成します。",
       "value": "Se attivo, genera animazioni di regolazione automatica da queste impostazioni IK anziché dalle vecchie animazioni di regolazione."
-    },
-    {
-      "key": "服従",
-      "value": "Obbedienza"
-    },
-    {
-      "key": "木の上寝",
-      "value": "Pisolino sull’albero"
     },
     {
       "key": "未使用の生成ファイルをごみ箱へ移動しました: {0}",
@@ -3233,10 +2761,6 @@
       "value": "Cerca"
     },
     {
-      "key": "楽園",
-      "value": "Paradiso"
-    },
-    {
       "key": "標準Controllerの元姿勢が見つかりません: {0}",
       "value": "La posa originale non è stata trovata nel Controller standard: {0}"
     },
@@ -3269,32 +2793,12 @@
       "value": "Mostra note ({0})"
     },
     {
-      "key": "海岸",
-      "value": "Lungomare"
-    },
-    {
-      "key": "添い寝ツール追加",
-      "value": "Aggiungi strumento Sleep-together"
-    },
-    {
       "key": "照れ",
       "value": "Timido"
     },
     {
       "key": "状態「{0}」の {1} を生成できません。",
       "value": "Impossibile creare {1} per lo stato «{0}»."
-    },
-    {
-      "key": "猫のポーズ（右）",
-      "value": "Gatto lato D"
-    },
-    {
-      "key": "猫のポーズ（左）",
-      "value": "Gatto lato S"
-    },
-    {
-      "key": "猫寝",
-      "value": "Pisolino da gatto"
     },
     {
       "key": "現在のアニメーション",
@@ -3369,14 +2873,6 @@
       "value": "Chiudi file immagine / note"
     },
     {
-      "key": "異変無し",
-      "value": "Tutto tranquillo"
-    },
-    {
-      "key": "直立",
-      "value": "In piedi"
-    },
-    {
       "key": "着地（短め）",
       "value": "Atterraggio breve"
     },
@@ -3393,16 +2889,8 @@
       "value": "Atterraggio lungo"
     },
     {
-      "key": "睡魔",
-      "value": "Sonnolenza"
-    },
-    {
       "key": "短い落下",
       "value": "Caduta breve"
-    },
-    {
-      "key": "砂浜",
-      "value": "Spiaggia"
     },
     {
       "key": "確認",
@@ -3411,10 +2899,6 @@
     {
       "key": "種類ごとに1つのモーションを指定できます。上の「元の姿勢を使う」とは別に設定できます。",
       "value": "Scegli un movimento per tipo, indipendentemente da Usa pose originali qui sopra."
-    },
-    {
-      "key": "空気椅子",
-      "value": "Sedia invisibile"
     },
     {
       "key": "立ちのみ",
@@ -3445,20 +2929,8 @@
       "value": "Ferma"
     },
     {
-      "key": "絨毯",
-      "value": "Tappeto"
-    },
-    {
       "key": "置き場所の基準",
       "value": "Riferimento di destinazione"
-    },
-    {
-      "key": "考える男",
-      "value": "Il Pensatore"
-    },
-    {
-      "key": "肘パンチ",
-      "value": "Gomitata"
     },
     {
       "key": "肘・膝の曲げ方",
@@ -3467,10 +2939,6 @@
     {
       "key": "肘・膝を曲げる方向",
       "value": "Direzione di flessione gomito / ginocchio"
-    },
-    {
-      "key": "肘付き",
-      "value": "Sul gomito"
     },
     {
       "key": "胸のボーン（Chest）が割り当てられていません。",
@@ -3493,32 +2961,12 @@
       "value": "Lunghezza totale della gamba (superiore + inferiore)"
     },
     {
-      "key": "脱力寝",
-      "value": "Sonno rilassato"
-    },
-    {
       "key": "腕や脚の長さに合わせて、手足が自然な置き場所へ届くよう調整します。",
       "value": "Regola gli arti in posizioni naturali per le proporzioni di questo avatar."
     },
     {
       "key": "腕固定",
       "value": "Blocca braccia"
-    },
-    {
-      "key": "腕枕寝",
-      "value": "Pisolino sul braccio"
-    },
-    {
-      "key": "腕枕（右）",
-      "value": "Cuscino braccio D"
-    },
-    {
-      "key": "腕枕（左）",
-      "value": "Cuscino braccio S"
-    },
-    {
-      "key": "腕立て伏せ",
-      "value": "Flessioni"
     },
     {
       "key": "膝がこの角度より伸びる前にクランプします。",
@@ -3539,10 +2987,6 @@
     {
       "key": "膝の計測に必要なHumanoid Animatorがありません。",
       "value": "Manca il Humanoid Animator necessario alla misurazione del ginocchio."
-    },
-    {
-      "key": "膝立て",
-      "value": "Un ginocchio alzato"
     },
     {
       "key": "自分で用意したモーションを使う",
@@ -3581,20 +3025,12 @@
       "value": "Nascondi note Auto-Footsteps"
     },
     {
-      "key": "芝生",
-      "value": "Prato"
-    },
-    {
       "key": "落下（短め）",
       "value": "Caduta breve"
     },
     {
       "key": "落下（長め）",
       "value": "Caduta lunga"
-    },
-    {
-      "key": "行き倒れ",
-      "value": "Crollato"
     },
     {
       "key": "行った操作・起きたこと：",
@@ -3633,14 +3069,6 @@
       "value": "Orientamento visibile dell'arto"
     },
     {
-      "key": "見下し",
-      "value": "Sguardo dall’alto"
-    },
-    {
-      "key": "観察中",
-      "value": "Osservazione"
-    },
-    {
       "key": "角度は度数で指定します。寝姿勢を選び、VRChatのメニューで首固定を解除して使ってください。",
       "value": "Gli angoli sono in gradi. Seleziona una posa sdraiata e sblocca la testa nel menu VRChat."
     },
@@ -3655,10 +3083,6 @@
     {
       "key": "計算の反復回数",
       "value": "Iterazioni del risolutore"
-    },
-    {
-      "key": "訓練場",
-      "value": "Campo di allenamento"
     },
     {
       "key": "設定",
@@ -3749,18 +3173,6 @@
       "value": "Impostazioni di visualizzazione avvisi"
     },
     {
-      "key": "警戒",
-      "value": "In guardia"
-    },
-    {
-      "key": "警戒（右）",
-      "value": "In guardia D"
-    },
-    {
-      "key": "警戒（左）",
-      "value": "In guardia S"
-    },
-    {
       "key": "足IKで膝が逆向きに折れることを防止します。",
       "value": "Impedisce all'IK delle gambe di piegare le ginocchia all'indietro."
     },
@@ -3769,32 +3181,12 @@
       "value": "Altezza piedi"
     },
     {
-      "key": "足伸ばし",
-      "value": "Gambe distese"
-    },
-    {
       "key": "足固定",
       "value": "Blocca piedi"
     },
     {
-      "key": "足組み",
-      "value": "Gambe accavallate"
-    },
-    {
-      "key": "足組み２",
-      "value": "Gambe accavallate 2"
-    },
-    {
-      "key": "足降ろし",
-      "value": "Gambe abbassate"
-    },
-    {
       "key": "距離",
       "value": "Distanza"
-    },
-    {
-      "key": "蹲踞",
-      "value": "Accovacciato"
     },
     {
       "key": "身体のボーン、アバター全体、床のいずれを基準にするか選びます。",
@@ -3857,10 +3249,6 @@
       "value": "Di norma conserva la posa sorgente, piegando dallo stesso lato visto subito dopo l'applicazione dell'animazione sorgente all'avatar di destinazione."
     },
     {
-      "key": "運動会",
-      "value": "Giornata sportiva"
-    },
-    {
       "key": "適用するPrefabs (PosingSystem)",
       "value": "Prefab PosingSystem da applicare"
     },
@@ -3915,10 +3303,6 @@
     {
       "key": "限界突破をオンにするとパラメータの設定幅が5倍になります",
       "value": "Abilita un intervallo dei parametri cinque volte più ampio del normale."
-    },
-    {
-      "key": "面接",
-      "value": "Colloquio"
     },
     {
       "key": "順番",
@@ -3981,16 +3365,8 @@
       "value": "Riduce le deformazioni quando la testa guarda in una direzione diversa dalla posa originale e il blocco della testa è disattivato."
     },
     {
-      "key": "騎士",
-      "value": "Cavaliere"
-    },
-    {
       "key": "高さ",
       "value": "Altezza"
-    },
-    {
-      "key": "魔王降臨",
-      "value": "Re demone"
     },
     {
       "key": "（ユーザー作成）",

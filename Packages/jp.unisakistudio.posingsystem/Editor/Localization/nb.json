@@ -277,10 +277,6 @@
       "value": "Deaktiver VRChats hvilebevegelse"
     },
     {
-      "key": "VRC想定移動モーション(無料配布)追加",
-      "value": "Legg til VRChat-bevegelser (gratis)"
-    },
-    {
       "key": "ViewPositionの基準となるHeadの参照姿勢を取得できません。",
       "value": "Kunne ikke hente Head-referanseposituren som brukes for ViewPosition."
     },
@@ -1037,84 +1033,20 @@
       "value": "Lås hodet automatisk i ryggleie"
     },
     {
-      "key": "あぐら",
-      "value": "Skredderstilling"
-    },
-    {
-      "key": "あぐら２",
-      "value": "Skredderstilling 2"
-    },
-    {
       "key": "いいえ",
       "value": "Nei"
-    },
-    {
-      "key": "いじけ",
-      "value": "Surmulende"
-    },
-    {
-      "key": "うずくまり",
-      "value": "Sammenkrøpet"
     },
     {
       "key": "うつ伏せ寝",
       "value": "På magen"
     },
     {
-      "key": "おいで",
-      "value": "Kom hit"
-    },
-    {
-      "key": "おきあがり",
-      "value": "Reiser seg"
-    },
-    {
       "key": "おすまし",
       "value": "Klar"
     },
     {
-      "key": "おちこみ",
-      "value": "Nedstemt"
-    },
-    {
-      "key": "お伺いポーズ",
-      "value": "Kan jeg?"
-    },
-    {
-      "key": "お姉さん座り",
-      "value": "Elegant sittestilling"
-    },
-    {
-      "key": "お疲れ",
-      "value": "Utslitt"
-    },
-    {
       "key": "が無効になっています",
       "value": "er deaktivert"
-    },
-    {
-      "key": "くずし",
-      "value": "Sammensunket"
-    },
-    {
-      "key": "くつろぎ１",
-      "value": "Hvilestilling 1"
-    },
-    {
-      "key": "くつろぎ２",
-      "value": "Hvilestilling 2"
-    },
-    {
-      "key": "ぐだり１",
-      "value": "Slengt ned 1"
-    },
-    {
-      "key": "ぐだり２",
-      "value": "Slengt ned 2"
-    },
-    {
-      "key": "ぐだり３",
-      "value": "Slengt ned 3"
     },
     {
       "key": "このIK設定を使用する商品名です。",
@@ -1139,14 +1071,6 @@
     {
       "key": "このコンピュータにはゆにさきポーズシステムの使用が許諾されていません。Boothのショップから可愛いポーズツールを購入して、コンピュータにライセンスをインストールしてください",
       "value": "Denne datamaskinen har ingen lisens for Unisaki Posing System. Kjøp Kawaii Posing fra BOOTH og installer lisensen på denne datamaskinen."
-    },
-    {
-      "key": "このコンピュータにはカッコいいポーズツールの使用が許諾されていません。Boothのショップからカッコいいポーズツールを購入して、コンピュータにライセンスをインストールしてください。カッコいいポーズツールを購入しているのにこのエラーが表示される場合は、Boothから最新版のZipファイルをダウンロードして、「CoolPosing.unitypackage」をインポートしてください。（この作業は１つのパソコンにつき一回行う必要があります）",
-      "value": "Denne datamaskinen har ingen lisens for Cool Posing. Kjøp verktøyet fra BOOTH og installer lisensen. Hvis du allerede har kjøpt det, last ned den nyeste ZIP-filen fra BOOTH og importer CoolPosing.unitypackage. Dette kreves én gang per datamaskin."
-    },
-    {
-      "key": "このコンピュータには可愛いポーズツールの使用が許諾されていません。Boothのショップから可愛いポーズツールを購入して、コンピュータにライセンスをインストールしてください。可愛いポーズツールを購入しているのにこのエラーが表示される場合は、Boothから最新版のZipファイルをダウンロードして、「KawaiiPosing.unitypackage」をインポートしてください。（この作業は１つのパソコンにつき一回行う必要があります）",
-      "value": "Denne datamaskinen har ingen lisens for Kawaii Posing. Kjøp verktøyet fra BOOTH og installer lisensen. Hvis du allerede har kjøpt det, last ned den nyeste ZIP-filen fra BOOTH og importer KawaiiPosing.unitypackage. Dette kreves én gang per datamaskin."
     },
     {
       "key": "このツールにはアバター固有補正用の基準データがありません。",
@@ -1183,14 +1107,6 @@
     {
       "key": "このユーザーのゆにさきポーズシステムライセンスが見つかりません。正規の購入ページからダウンロードしたインストーラーを、このUnityプロジェクトへインポートしてください。ライセンスは、PCのユーザーごとに一度インストールします。別のPCやユーザーでは再度インストールしてください。",
       "value": "Ingen Unisaki Posing System-lisens ble funnet for denne OS-brukeren. Importer installasjonsfilen fra den offisielle kjøpsnedlastingen til dette Unity-prosjektet. Installer lisensen én gang per OS-bruker på hver datamaskin."
-    },
-    {
-      "key": "このユーザーのカッコいいポーズツールライセンスが見つかりません。正規の購入ページからダウンロードしたインストーラーを、このUnityプロジェクトへインポートしてください。ライセンスは、PCのユーザーごとに一度インストールします。別のPCやユーザーでは再度インストールしてください。",
-      "value": "Ingen Cool Posing Tool-lisens ble funnet for denne OS-brukeren. Importer installasjonsfilen fra den offisielle kjøpsnedlastingen til dette Unity-prosjektet. Installer lisensen én gang per OS-bruker på hver datamaskin."
-    },
-    {
-      "key": "このユーザーの可愛いポーズツールライセンスが見つかりません。正規の購入ページからダウンロードしたインストーラーを、このUnityプロジェクトへインポートしてください。ライセンスは、PCのユーザーごとに一度インストールします。別のPCやユーザーでは再度インストールしてください。",
-      "value": "Ingen Kawaii Posing Tool-lisens ble funnet for denne OS-brukeren. Importer installasjonsfilen fra den offisielle kjøpsnedlastingen til dette Unity-prosjektet. Installer lisensen én gang per OS-bruker på hver datamaskin."
     },
     {
       "key": "このルールを使用",
@@ -1245,14 +1161,6 @@
       "value": "Ikke vis denne advarselen igjen"
     },
     {
-      "key": "ごろ寝システムEX追加",
-      "value": "Legg til Gorone System EX"
-    },
-    {
-      "key": "ざせつ",
-      "value": "Beseiret"
-    },
-    {
       "key": "しなの",
       "value": "Shinano"
     },
@@ -1271,10 +1179,6 @@
     {
       "key": "しゃがみ（Crouching）",
       "value": "Huk"
-    },
-    {
-      "key": "じだらく",
-      "value": "Lat dag"
     },
     {
       "key": "すねの長さ",
@@ -1301,10 +1205,6 @@
       "value": "Annet"
     },
     {
-      "key": "たたみ",
-      "value": "Tatami"
-    },
-    {
       "key": "なし",
       "value": "Ingen"
     },
@@ -1313,48 +1213,8 @@
       "value": "har EditorOnly-taggen"
     },
     {
-      "key": "ねころび",
-      "value": "Liggende"
-    },
-    {
-      "key": "ねころび１",
-      "value": "Liggende 1"
-    },
-    {
-      "key": "ねころび２",
-      "value": "Liggende 2"
-    },
-    {
-      "key": "ねころび３",
-      "value": "Liggende 3"
-    },
-    {
-      "key": "のんびり",
-      "value": "Tar det rolig"
-    },
-    {
-      "key": "のーんびり",
-      "value": "Helt avslappet"
-    },
-    {
       "key": "はい",
       "value": "Ja"
-    },
-    {
-      "key": "はいずり",
-      "value": "Krabber"
-    },
-    {
-      "key": "はりつけ",
-      "value": "Holdt nede"
-    },
-    {
-      "key": "びっくり",
-      "value": "Overrasket"
-    },
-    {
-      "key": "ふくじゅう",
-      "value": "Underkastelse"
     },
     {
       "key": "ほかのギミックとの併用によって固定機能がうまく動かない場合はオンにしてください。",
@@ -1371,10 +1231,6 @@
     {
       "key": "まだプレビルドしていません。「プレビルドを更新」で姿勢データを生成できます。",
       "value": "Ingen forhåndsbygging ennå. Velg Oppdater forhåndsbygget for å generere positurdata."
-    },
-    {
-      "key": "むきりょく",
-      "value": "Tom for energi"
     },
     {
       "key": "ゆにさきスタジオ",
@@ -1399,10 +1255,6 @@
     {
       "key": "ゆにさきポーズシステム設定",
       "value": "Innstillinger for Unisaki Posing System"
-    },
-    {
-      "key": "よりかかり",
-      "value": "Lener seg"
     },
     {
       "key": "アイコンの更新",
@@ -1431,10 +1283,6 @@
     {
       "key": "アイコン画像ファイルを削除",
       "value": "Slett ikonbildefilen"
-    },
-    {
-      "key": "アイドル",
-      "value": "Idol"
     },
     {
       "key": "アップロード時に適用します。未翻訳の項目は日本語で表示されます。",
@@ -1601,14 +1449,6 @@
       "value": "Plasser dette objektet inne i et avatarobjekt med en VRCAvatarDescriptor-komponent."
     },
     {
-      "key": "カエルのポーズ１",
-      "value": "Frosk 1"
-    },
-    {
-      "key": "カエルのポーズ２",
-      "value": "Frosk 2"
-    },
-    {
       "key": "カスタム",
       "value": "Egendefinert"
     },
@@ -1617,60 +1457,12 @@
       "value": "Egendefinert animasjon"
     },
     {
-      "key": "カッコいいポーズ",
-      "value": "Cool Posing"
-    },
-    {
-      "key": "カッコいいポーズツール",
-      "value": "Cool Posing"
-    },
-    {
-      "key": "カッコいいポーズツール(Gumroad)",
-      "value": "Cool Posing Tool (Gumroad)"
-    },
-    {
-      "key": "カッコいいポーズツールライセンスインストール",
-      "value": "Installer Cool Posing-lisens"
-    },
-    {
-      "key": "カッコいいポーズツールライセンス削除",
-      "value": "Fjern Cool Posing-lisens"
-    },
-    {
-      "key": "カッコいいポーズツールライセンス状態確認",
-      "value": "Lisensstatus for Cool Posing"
-    },
-    {
-      "key": "カッコいいポーズツール設定",
-      "value": "Innstillinger for Cool Posing"
-    },
-    {
-      "key": "カッコいいポーズツール追加",
-      "value": "Legg til Cool Posing"
-    },
-    {
-      "key": "カッコいいポーズツール（BOOTH）",
-      "value": "Cool Posing Tool (BOOTH)"
-    },
-    {
       "key": "カテゴリ{0}",
       "value": "Kategori {0}"
     },
     {
-      "key": "キック",
-      "value": "Spark"
-    },
-    {
-      "key": "クマ人形",
-      "value": "Bamse"
-    },
-    {
       "key": "クリップボードが空です。",
       "value": "Utklippstavlen er tom."
-    },
-    {
-      "key": "ケンカ",
-      "value": "Kampklar"
     },
     {
       "key": "ゲーム内で使うには「機能」タブの「寝返り」もオンにしてください。",
@@ -1683,10 +1475,6 @@
     {
       "key": "コンパイルエラー（先頭から最大5件）",
       "value": "Kompileringsfeil (opptil de første 5)"
-    },
-    {
-      "key": "コンビニ",
-      "value": "Kiosken"
     },
     {
       "key": "シーンを保存・バックアップしてから、ALCOM / VCCで商品本体と「ゆにさきポーズシステム」を再取得してください。入れ直しても直らない場合は、Inspector上部の「ヘルプ・変更履歴」から公式マニュアル・お問い合わせをご確認ください。調整済みのオブジェクトやGeneratedResourcesは削除しないでください。",
@@ -1711,10 +1499,6 @@
     {
       "key": "ソースとなるPosingSystemが見つかりません。",
       "value": "Kildekomponenten PosingSystem ble ikke funnet."
-    },
-    {
-      "key": "ゾンビ",
-      "value": "Zombie"
     },
     {
       "key": "ターゲットボーン {0} がありません。",
@@ -1789,10 +1573,6 @@
       "value": "Sikkerhetskopiert — fjern"
     },
     {
-      "key": "バンザイ",
-      "value": "Armene opp"
-    },
-    {
       "key": "バージョン不明",
       "value": "Ukjent versjon"
     },
@@ -1803,10 +1583,6 @@
     {
       "key": "ファイルに保存されている値に戻します。",
       "value": "Gjenoppretter verdiene som er lagret i filen."
-    },
-    {
-      "key": "プランク",
-      "value": "Planken"
     },
     {
       "key": "プリセット",
@@ -1925,10 +1701,6 @@
       "value": "Skjul advarsler om manglende forhåndsbygg"
     },
     {
-      "key": "ベッド",
-      "value": "Seng"
-    },
-    {
       "key": "ポーズ {0} bit ＋ 追加機能 {1} bit  ／ このアバターのポーズツール分",
       "value": "Positurer: {0} bit + tilleggsfunksjoner: {1} bit / positurverktøy på denne avataren"
     },
@@ -1997,10 +1769,6 @@
       "value": "Oppdater positurminiatyrer"
     },
     {
-      "key": "マットレス",
-      "value": "Madrass"
-    },
-    {
       "key": "メニューに撮影モードを追加します。前へ最大3m移動したり回転したりして、自分から見える位置を調整できます。",
       "value": "Legger til Fotomodus for å flytte deg opptil 3 m framover og rotere, slik at du ser deg selv bedre."
     },
@@ -2013,10 +1781,6 @@
       "value": "Menyfunksjoner"
     },
     {
-      "key": "モデル",
-      "value": "Modell"
-    },
-    {
       "key": "ユーザー作成",
       "value": "Brukerens forhåndsinnstillinger"
     },
@@ -2027,30 +1791,6 @@
     {
       "key": "ライセンス削除",
       "value": "Lisensfjerning"
-    },
-    {
-      "key": "ラダー運動",
-      "value": "Smidighetsøvelse"
-    },
-    {
-      "key": "リクライニング",
-      "value": "Tilbakelent"
-    },
-    {
-      "key": "リラックス",
-      "value": "Avslappet"
-    },
-    {
-      "key": "リラックス１",
-      "value": "Avslappet 1"
-    },
-    {
-      "key": "リラックス２",
-      "value": "Avslappet 2"
-    },
-    {
-      "key": "リラックス３",
-      "value": "Avslappet 3"
     },
     {
       "key": "ルール名",
@@ -2093,20 +1833,8 @@
       "value": "Listen oppdateres når elementer legges til eller endres. Velg Last inn på nytt hvis visningen er utdatert."
     },
     {
-      "key": "三点だいしゅき(女)ツール追加",
-      "value": "Legg til Virtual Love (kvinnelig)"
-    },
-    {
-      "key": "三点だいしゅき(男)ツール追加",
-      "value": "Legg til Virtual Love (mannlig)"
-    },
-    {
       "key": "上腕の長さ",
       "value": "Overarmslengde"
-    },
-    {
-      "key": "不機嫌",
-      "value": "Gretten"
     },
     {
       "key": "中",
@@ -2125,18 +1853,6 @@
       "value": "På huk"
     },
     {
-      "key": "二人分座り",
-      "value": "Plass til to"
-    },
-    {
-      "key": "五体投地",
-      "value": "Kaster seg ned"
-    },
-    {
-      "key": "他商品連携用Prefabs",
-      "value": "Produktintegrasjoner"
-    },
-    {
       "key": "以前の設定から、使う1つを選べます。",
       "value": "Velg en av de tidligere innstillingene."
     },
@@ -2149,16 +1865,8 @@
       "value": "På ryggen"
     },
     {
-      "key": "伏せ",
-      "value": "Mageleie"
-    },
-    {
       "key": "伏せ（Prone）",
       "value": "Mageleie"
-    },
-    {
-      "key": "休憩中",
-      "value": "På pause"
     },
     {
       "key": "位置の座標系",
@@ -2177,20 +1885,12 @@
       "value": "Posisjon (relativt til valgt lengde)"
     },
     {
-      "key": "低姿勢",
-      "value": "Holder seg lavt"
-    },
-    {
       "key": "体幹",
       "value": "Overkropp"
     },
     {
       "key": "体格に合わせた手足の自動調整",
       "value": "Automatisk justering av armer og ben"
-    },
-    {
-      "key": "体育座り",
-      "value": "Knærne opp"
     },
     {
       "key": "使い始めるときの姿勢セットを変更できます。変更すると現在のポーズ設定が置き換わります。",
@@ -2257,16 +1957,8 @@
       "value": "Innstillinger endret siden lagring (opptil 12)"
     },
     {
-      "key": "倒され寝",
-      "value": "Slått ned"
-    },
-    {
       "key": "候補を確認してから追加できます。",
       "value": "Kontroller de foreslåtte klippene før du legger dem til."
-    },
-    {
-      "key": "傍観者",
-      "value": "Tilskuer"
     },
     {
       "key": "元の姿勢",
@@ -2437,10 +2129,6 @@
       "value": "Den felles Animator-komponenten for positurer er utilgjengelig. «{0}» {1}."
     },
     {
-      "key": "内股座り",
-      "value": "Tærne innover"
-    },
-    {
       "key": "内部的な互換性管理に使います。通常は変更しません。",
       "value": "Brukes til intern kompatibilitetssporing. Denne verdien bør vanligvis ikke endres."
     },
@@ -2465,20 +2153,12 @@
       "value": "Tilbakestill"
     },
     {
-      "key": "制止",
-      "value": "Stopp"
-    },
-    {
       "key": "削除",
       "value": "Slett"
     },
     {
       "key": "削除対象: {0}\nこの中のPrefabやアニメーションも削除されます。自作・調整済みデータがある場合はキャンセルし、移行手順に従ってください。バックアップなしでは元に戻せません。",
       "value": "Mappe som slettes: {0}\nDette sletter også prefaber og animasjoner i mappen. Avbryt og følg migreringsveiledningen hvis mappen inneholder egendefinerte eller justerte data. En sikkerhetskopi er nødvendig for å gjenopprette slettede filer."
-    },
-    {
-      "key": "前かがみ",
-      "value": "Framoverlent"
     },
     {
       "key": "前回の処理は完了していません。",
@@ -2513,60 +2193,8 @@
       "value": "Velg animasjoner som skal importeres"
     },
     {
-      "key": "可愛いポーズ",
-      "value": "Kawaii Posing"
-    },
-    {
-      "key": "可愛いポーズツール",
-      "value": "Kawaii Posing"
-    },
-    {
       "key": "可愛いポーズツール(Booth)",
       "value": "Kawaii Posing Tool (BOOTH)"
-    },
-    {
-      "key": "可愛いポーズツール(Gumroad)",
-      "value": "Kawaii Posing Tool (Gumroad)"
-    },
-    {
-      "key": "可愛いポーズツールライセンスインストール",
-      "value": "Installer Kawaii Posing-lisens"
-    },
-    {
-      "key": "可愛いポーズツールライセンス削除",
-      "value": "Fjern Kawaii Posing-lisens"
-    },
-    {
-      "key": "可愛いポーズツールライセンス状態確認",
-      "value": "Lisensstatus for Kawaii Posing"
-    },
-    {
-      "key": "可愛いポーズツール設定",
-      "value": "Innstillinger for Kawaii Posing"
-    },
-    {
-      "key": "可愛いポーズツール追加",
-      "value": "Legg til Kawaii Posing"
-    },
-    {
-      "key": "可愛い座り",
-      "value": "Kawaii Sitting"
-    },
-    {
-      "key": "可愛い座り(女)ツール追加",
-      "value": "Legg til Kawaii Sitting (kvinnelig)"
-    },
-    {
-      "key": "可愛い座り(男)ツール追加",
-      "value": "Legg til Kawaii Sitting (mannlig)"
-    },
-    {
-      "key": "右向き寝",
-      "value": "Sidesøvn H"
-    },
-    {
-      "key": "右向き昼寝",
-      "value": "Sidelur H"
     },
     {
       "key": "右手指",
@@ -2595,10 +2223,6 @@
     {
       "key": "合成する調整アニメーションが存在しません。",
       "value": "Ingen justeringsanimasjon å slå sammen."
-    },
-    {
-      "key": "合蹠のポーズ",
-      "value": "Sommerfugl"
     },
     {
       "key": "同梱プリセットを表示しない",
@@ -2657,10 +2281,6 @@
       "value": "Animator-komponenten for positurer for pust ble ikke funnet."
     },
     {
-      "key": "和室",
-      "value": "Japansk rom"
-    },
-    {
       "key": "商品に収録する各姿勢について、手や足をどこへ置くかを記録する開発用データです。",
       "value": "Utviklerdata som registrerer mål for hender og føtter for hver inkluderte positur. "
     },
@@ -2671,10 +2291,6 @@
     {
       "key": "商品名",
       "value": "Produktnavn"
-    },
-    {
-      "key": "商談",
-      "value": "Forretningsprat"
     },
     {
       "key": "回転",
@@ -2691,14 +2307,6 @@
     {
       "key": "固定長（アバタースケールのみ）",
       "value": "Fast lengde (bare avatarskala)"
-    },
-    {
-      "key": "地球寝",
-      "value": "Klemmer jorden"
-    },
-    {
-      "key": "培養中",
-      "value": "I kapselen"
     },
     {
       "key": "基準にする身体ボーン",
@@ -2719,14 +2327,6 @@
     {
       "key": "基準姿勢の読み取りに失敗しました: {0}",
       "value": "Kunne ikke lese referanseposituren: {0}"
-    },
-    {
-      "key": "堤防",
-      "value": "Elvebredd"
-    },
-    {
-      "key": "壁ドン",
-      "value": "Lent mot veggen"
     },
     {
       "key": "変換用アバターに有効なHumanoid Animatorがありません。",
@@ -2755,10 +2355,6 @@
     {
       "key": "太ももの長さ",
       "value": "Lårlengde"
-    },
-    {
-      "key": "女の子座り",
-      "value": "W-sitting"
     },
     {
       "key": "姿勢 {0}",
@@ -2897,10 +2493,6 @@
       "value": "Dødsone for hodetilt"
     },
     {
-      "key": "少女モーション集追加",
-      "value": "Legg til Girl Motion Collection"
-    },
-    {
       "key": "左右傾き",
       "value": "Rulling"
     },
@@ -2911,18 +2503,6 @@
     {
       "key": "左右反転",
       "value": "Speilvend"
-    },
-    {
-      "key": "左向き寝",
-      "value": "Sidesøvn V"
-    },
-    {
-      "key": "左向き昼寝",
-      "value": "Sidelur V"
-    },
-    {
-      "key": "左向き昼寝２",
-      "value": "Sidelur V 2"
     },
     {
       "key": "左手指",
@@ -2945,10 +2525,6 @@
       "value": "Forskjell:"
     },
     {
-      "key": "布団",
-      "value": "Futon"
-    },
-    {
       "key": "床の高さ",
       "value": "Gulvhøyde"
     },
@@ -2965,10 +2541,6 @@
       "value": "Sittende"
     },
     {
-      "key": "座布団",
-      "value": "Gulvpute"
-    },
-    {
       "key": "弱",
       "value": "Svak"
     },
@@ -2983,26 +2555,6 @@
     {
       "key": "待ちぼうけ",
       "value": "Venter fortsatt"
-    },
-    {
-      "key": "待ち伏せ",
-      "value": "Bakhold"
-    },
-    {
-      "key": "後方彼氏",
-      "value": "Passer på"
-    },
-    {
-      "key": "従者のポーズ",
-      "value": "Tjener"
-    },
-    {
-      "key": "忍者走り",
-      "value": "Ninjaløp"
-    },
-    {
-      "key": "思考中",
-      "value": "Tenker"
     },
     {
       "key": "急",
@@ -3051,10 +2603,6 @@
     {
       "key": "手足の自動調整を使う",
       "value": "Aktiver automatisk justering av armer og ben"
-    },
-    {
-      "key": "抱きしめ",
-      "value": "Klem"
     },
     {
       "key": "指の形を固定・解除する切り替えをメニューに追加します。固定中はコントローラーを握っても形を保てます。",
@@ -3113,10 +2661,6 @@
       "value": "Det valgte positurverktøyet ble ikke funnet."
     },
     {
-      "key": "斜め座り",
-      "value": "Sitter på skrå"
-    },
-    {
       "key": "新しいポーズ",
       "value": "Ny positur"
     },
@@ -3149,14 +2693,6 @@
       "value": "Bekreft sletting av eldre mappe"
     },
     {
-      "key": "昼寝",
-      "value": "Lur"
-    },
-    {
-      "key": "晴天寝",
-      "value": "Lur i solen"
-    },
-    {
       "key": "更新する",
       "value": "Oppdater"
     },
@@ -3187,14 +2723,6 @@
     {
       "key": "有効にすると従来の調整Animationを無視し、このIK設定から自動調整Animationを生成します。",
       "value": "Når dette er aktivert, genereres automatiske justeringsanimasjoner fra disse IK-innstillingene i stedet for de eldre justeringsanimasjonene."
-    },
-    {
-      "key": "服従",
-      "value": "Lydighet"
-    },
-    {
-      "key": "木の上寝",
-      "value": "Lur i treet"
     },
     {
       "key": "未使用の生成ファイルをごみ箱へ移動しました: {0}",
@@ -3233,10 +2761,6 @@
       "value": "Søk"
     },
     {
-      "key": "楽園",
-      "value": "Paradis"
-    },
-    {
       "key": "標準Controllerの元姿勢が見つかりません: {0}",
       "value": "Den opprinnelige posituren ble ikke funnet i standard-Controller: {0}"
     },
@@ -3269,32 +2793,12 @@
       "value": "Vis meldinger ({0})"
     },
     {
-      "key": "海岸",
-      "value": "Ved sjøen"
-    },
-    {
-      "key": "添い寝ツール追加",
-      "value": "Legg til Sleep-together tool"
-    },
-    {
       "key": "照れ",
       "value": "Sjenert"
     },
     {
       "key": "状態「{0}」の {1} を生成できません。",
       "value": "Kunne ikke opprette {1} for tilstanden «{0}»."
-    },
-    {
-      "key": "猫のポーズ（右）",
-      "value": "Kattestrekk H"
-    },
-    {
-      "key": "猫のポーズ（左）",
-      "value": "Kattestrekk V"
-    },
-    {
-      "key": "猫寝",
-      "value": "Kattelur"
     },
     {
       "key": "現在のアニメーション",
@@ -3369,14 +2873,6 @@
       "value": "Lukk bildefil / merknader"
     },
     {
-      "key": "異変無し",
-      "value": "Fri bane"
-    },
-    {
-      "key": "直立",
-      "value": "Stående"
-    },
-    {
       "key": "着地（短め）",
       "value": "Kort landing"
     },
@@ -3393,16 +2889,8 @@
       "value": "Lang landing"
     },
     {
-      "key": "睡魔",
-      "value": "Søvnig"
-    },
-    {
       "key": "短い落下",
       "value": "Kort fall"
-    },
-    {
-      "key": "砂浜",
-      "value": "Sandstrand"
     },
     {
       "key": "確認",
@@ -3411,10 +2899,6 @@
     {
       "key": "種類ごとに1つのモーションを指定できます。上の「元の姿勢を使う」とは別に設定できます。",
       "value": "Velg én bevegelse per type, uavhengig av Bruk opprinnelige positurer ovenfor."
-    },
-    {
-      "key": "空気椅子",
-      "value": "Sitter mot veggen"
     },
     {
       "key": "立ちのみ",
@@ -3445,20 +2929,8 @@
       "value": "Stopp"
     },
     {
-      "key": "絨毯",
-      "value": "Teppe"
-    },
-    {
       "key": "置き場所の基準",
       "value": "Målreferanse"
-    },
-    {
-      "key": "考える男",
-      "value": "Tenkeren"
-    },
-    {
-      "key": "肘パンチ",
-      "value": "Albueslag"
     },
     {
       "key": "肘・膝の曲げ方",
@@ -3467,10 +2939,6 @@
     {
       "key": "肘・膝を曲げる方向",
       "value": "Bøyningsretning for albue / kne"
-    },
-    {
-      "key": "肘付き",
-      "value": "Hviler på albuen"
     },
     {
       "key": "胸のボーン（Chest）が割り当てられていません。",
@@ -3493,32 +2961,12 @@
       "value": "Hele benets lengde (lår + legg)"
     },
     {
-      "key": "脱力寝",
-      "value": "Sovnet omkull"
-    },
-    {
       "key": "腕や脚の長さに合わせて、手足が自然な置き場所へ届くよう調整します。",
       "value": "Juster armer og ben til naturlige posisjoner for avatarens proporsjoner."
     },
     {
       "key": "腕固定",
       "value": "Lås armer"
-    },
-    {
-      "key": "腕枕寝",
-      "value": "Lur på armen"
-    },
-    {
-      "key": "腕枕（右）",
-      "value": "Armpute H"
-    },
-    {
-      "key": "腕枕（左）",
-      "value": "Armpute V"
-    },
-    {
-      "key": "腕立て伏せ",
-      "value": "Armheving"
     },
     {
       "key": "膝がこの角度より伸びる前にクランプします。",
@@ -3539,10 +2987,6 @@
     {
       "key": "膝の計測に必要なHumanoid Animatorがありません。",
       "value": "Humanoid Animator som kreves for knemåling, mangler."
-    },
-    {
-      "key": "膝立て",
-      "value": "Ett kne opp"
     },
     {
       "key": "自分で用意したモーションを使う",
@@ -3581,20 +3025,12 @@
       "value": "Skjul meldinger om Auto-Footsteps"
     },
     {
-      "key": "芝生",
-      "value": "Plen"
-    },
-    {
       "key": "落下（短め）",
       "value": "Kort fall"
     },
     {
       "key": "落下（長め）",
       "value": "Langt fall"
-    },
-    {
-      "key": "行き倒れ",
-      "value": "Kollapset"
     },
     {
       "key": "行った操作・起きたこと：",
@@ -3633,14 +3069,6 @@
       "value": "Synlig orientering av arm eller ben"
     },
     {
-      "key": "見下し",
-      "value": "Ser ned"
-    },
-    {
-      "key": "観察中",
-      "value": "Observerer"
-    },
-    {
       "key": "角度は度数で指定します。寝姿勢を選び、VRChatのメニューで首固定を解除して使ってください。",
       "value": "Vinkler angis i grader. Velg en liggende positur og lås opp hodet i VRChat-menyen."
     },
@@ -3655,10 +3083,6 @@
     {
       "key": "計算の反復回数",
       "value": "Antall løsningsgjennomganger"
-    },
-    {
-      "key": "訓練場",
-      "value": "Treningsbane"
     },
     {
       "key": "設定",
@@ -3749,18 +3173,6 @@
       "value": "Innstillinger for advarselsvisning"
     },
     {
-      "key": "警戒",
-      "value": "På vakt"
-    },
-    {
-      "key": "警戒（右）",
-      "value": "På vakt H"
-    },
-    {
-      "key": "警戒（左）",
-      "value": "På vakt V"
-    },
-    {
       "key": "足IKで膝が逆向きに折れることを防止します。",
       "value": "Hindrer at ben-IK bøyer knærne bakover."
     },
@@ -3769,32 +3181,12 @@
       "value": "Fothøyde"
     },
     {
-      "key": "足伸ばし",
-      "value": "Bena ut"
-    },
-    {
       "key": "足固定",
       "value": "Lås føtter"
     },
     {
-      "key": "足組み",
-      "value": "Kryssede ben"
-    },
-    {
-      "key": "足組み２",
-      "value": "Kryssede ben 2"
-    },
-    {
-      "key": "足降ろし",
-      "value": "Bena ned"
-    },
-    {
       "key": "距離",
       "value": "Avstand"
-    },
-    {
-      "key": "蹲踞",
-      "value": "Dyp huk"
     },
     {
       "key": "身体のボーン、アバター全体、床のいずれを基準にするか選びます。",
@@ -3857,10 +3249,6 @@
       "value": "Beholder vanligvis kildeposituren, med bøyning til samme side som rett etter at kildeanimasjonen er brukt på målavataren."
     },
     {
-      "key": "運動会",
-      "value": "Idrettsdag"
-    },
-    {
       "key": "適用するPrefabs (PosingSystem)",
       "value": "PosingSystem-prefaber som skal brukes"
     },
@@ -3915,10 +3303,6 @@
     {
       "key": "限界突破をオンにするとパラメータの設定幅が5倍になります",
       "value": "Aktiverer et parameterområde som er fem ganger større enn normalt."
-    },
-    {
-      "key": "面接",
-      "value": "Intervju"
     },
     {
       "key": "順番",
@@ -3981,16 +3365,8 @@
       "value": "Reduserer forvrengning når hodet vender i en annen retning enn i den opprinnelige posituren med hodelåsen av."
     },
     {
-      "key": "騎士",
-      "value": "Ridder"
-    },
-    {
       "key": "高さ",
       "value": "Høyde"
-    },
-    {
-      "key": "魔王降臨",
-      "value": "Demonkonge"
     },
     {
       "key": "（ユーザー作成）",

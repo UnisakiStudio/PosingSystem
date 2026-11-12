@@ -277,10 +277,6 @@
       "value": "Vypnout pohupování VRChat v klidu"
     },
     {
-      "key": "VRC想定移動モーション(無料配布)追加",
-      "value": "Přidat pohybové animace VRChat (zdarma)"
-    },
-    {
       "key": "ViewPositionの基準となるHeadの参照姿勢を取得できません。",
       "value": "Nelze získat referenční pózu Head pro ViewPosition."
     },
@@ -1037,84 +1033,20 @@
       "value": "Automaticky zamknout hlavu na zádech"
     },
     {
-      "key": "あぐら",
-      "value": "Turecký sed"
-    },
-    {
-      "key": "あぐら２",
-      "value": "Turecký sed 2"
-    },
-    {
       "key": "いいえ",
       "value": "Ne"
-    },
-    {
-      "key": "いじけ",
-      "value": "Trucování"
-    },
-    {
-      "key": "うずくまり",
-      "value": "Do klubíčka"
     },
     {
       "key": "うつ伏せ寝",
       "value": "Na břiše"
     },
     {
-      "key": "おいで",
-      "value": "Pojď sem"
-    },
-    {
-      "key": "おきあがり",
-      "value": "Vstávání"
-    },
-    {
       "key": "おすまし",
       "value": "Důstojně"
     },
     {
-      "key": "おちこみ",
-      "value": "Smutek"
-    },
-    {
-      "key": "お伺いポーズ",
-      "value": "Mohu?"
-    },
-    {
-      "key": "お姉さん座り",
-      "value": "Elegantní sed"
-    },
-    {
-      "key": "お疲れ",
-      "value": "Bez sil"
-    },
-    {
       "key": "が無効になっています",
       "value": "je vypnutý"
-    },
-    {
-      "key": "くずし",
-      "value": "Shrbení"
-    },
-    {
-      "key": "くつろぎ１",
-      "value": "Odpočinek 1"
-    },
-    {
-      "key": "くつろぎ２",
-      "value": "Odpočinek 2"
-    },
-    {
-      "key": "ぐだり１",
-      "value": "Rozvalení 1"
-    },
-    {
-      "key": "ぐだり２",
-      "value": "Rozvalení 2"
-    },
-    {
-      "key": "ぐだり３",
-      "value": "Rozvalení 3"
     },
     {
       "key": "このIK設定を使用する商品名です。",
@@ -1139,14 +1071,6 @@
     {
       "key": "このコンピュータにはゆにさきポーズシステムの使用が許諾されていません。Boothのショップから可愛いポーズツールを購入して、コンピュータにライセンスをインストールしてください",
       "value": "Tento počítač nemá licenci Unisaki Posing System. Kupte Kawaii Posing na BOOTH a nainstalujte licenci na tento počítač."
-    },
-    {
-      "key": "このコンピュータにはカッコいいポーズツールの使用が許諾されていません。Boothのショップからカッコいいポーズツールを購入して、コンピュータにライセンスをインストールしてください。カッコいいポーズツールを購入しているのにこのエラーが表示される場合は、Boothから最新版のZipファイルをダウンロードして、「CoolPosing.unitypackage」をインポートしてください。（この作業は１つのパソコンにつき一回行う必要があります）",
-      "value": "Tento počítač nemá licenci Cool Posing. Kupte nástroj na BOOTH a nainstalujte licenci. Pokud jste jej již koupili, stáhněte nejnovější ZIP z BOOTH a importujte CoolPosing.unitypackage. Stačí jednou na počítač."
-    },
-    {
-      "key": "このコンピュータには可愛いポーズツールの使用が許諾されていません。Boothのショップから可愛いポーズツールを購入して、コンピュータにライセンスをインストールしてください。可愛いポーズツールを購入しているのにこのエラーが表示される場合は、Boothから最新版のZipファイルをダウンロードして、「KawaiiPosing.unitypackage」をインポートしてください。（この作業は１つのパソコンにつき一回行う必要があります）",
-      "value": "Tento počítač nemá licenci Kawaii Posing. Kupte nástroj na BOOTH a nainstalujte licenci. Pokud jste jej již koupili, stáhněte nejnovější ZIP z BOOTH a importujte KawaiiPosing.unitypackage. Stačí jednou na počítač."
     },
     {
       "key": "このツールにはアバター固有補正用の基準データがありません。",
@@ -1183,14 +1107,6 @@
     {
       "key": "このユーザーのゆにさきポーズシステムライセンスが見つかりません。正規の購入ページからダウンロードしたインストーラーを、このUnityプロジェクトへインポートしてください。ライセンスは、PCのユーザーごとに一度インストールします。別のPCやユーザーでは再度インストールしてください。",
       "value": "Pro tohoto uživatele OS nebyla nalezena licence Unisaki Posing System. Importujte do projektu Unity instalátor z oficiálního nákupu. Licenci instalujte jednou pro každého uživatele OS na každém počítači."
-    },
-    {
-      "key": "このユーザーのカッコいいポーズツールライセンスが見つかりません。正規の購入ページからダウンロードしたインストーラーを、このUnityプロジェクトへインポートしてください。ライセンスは、PCのユーザーごとに一度インストールします。別のPCやユーザーでは再度インストールしてください。",
-      "value": "Pro tohoto uživatele OS nebyla nalezena licence Cool Posing Tool. Importujte do projektu Unity instalátor z oficiálního nákupu. Licenci instalujte jednou pro každého uživatele OS na každém počítači."
-    },
-    {
-      "key": "このユーザーの可愛いポーズツールライセンスが見つかりません。正規の購入ページからダウンロードしたインストーラーを、このUnityプロジェクトへインポートしてください。ライセンスは、PCのユーザーごとに一度インストールします。別のPCやユーザーでは再度インストールしてください。",
-      "value": "Pro tohoto uživatele OS nebyla nalezena licence Kawaii Posing Tool. Importujte do projektu Unity instalátor z oficiálního nákupu. Licenci instalujte jednou pro každého uživatele OS na každém počítači."
     },
     {
       "key": "このルールを使用",
@@ -1245,14 +1161,6 @@
       "value": "Toto varování již nezobrazovat"
     },
     {
-      "key": "ごろ寝システムEX追加",
-      "value": "Přidat Gorone System EX"
-    },
-    {
-      "key": "ざせつ",
-      "value": "Porážka"
-    },
-    {
       "key": "しなの",
       "value": "Shinano"
     },
@@ -1271,10 +1179,6 @@
     {
       "key": "しゃがみ（Crouching）",
       "value": "Přikrčení"
-    },
-    {
-      "key": "じだらく",
-      "value": "Líný den"
     },
     {
       "key": "すねの長さ",
@@ -1301,10 +1205,6 @@
       "value": "Ostatní"
     },
     {
-      "key": "たたみ",
-      "value": "Tatami"
-    },
-    {
       "key": "なし",
       "value": "Žádné"
     },
@@ -1313,48 +1213,8 @@
       "value": "má značku EditorOnly"
     },
     {
-      "key": "ねころび",
-      "value": "Vleže"
-    },
-    {
-      "key": "ねころび１",
-      "value": "Vleže 1"
-    },
-    {
-      "key": "ねころび２",
-      "value": "Vleže 2"
-    },
-    {
-      "key": "ねころび３",
-      "value": "Vleže 3"
-    },
-    {
-      "key": "のんびり",
-      "value": "Bez spěchu"
-    },
-    {
-      "key": "のーんびり",
-      "value": "Úplný klid"
-    },
-    {
       "key": "はい",
       "value": "Ano"
-    },
-    {
-      "key": "はいずり",
-      "value": "Plazení"
-    },
-    {
-      "key": "はりつけ",
-      "value": "Přitisknutí"
-    },
-    {
-      "key": "びっくり",
-      "value": "Překvapení"
-    },
-    {
-      "key": "ふくじゅう",
-      "value": "Podrobení"
     },
     {
       "key": "ほかのギミックとの併用によって固定機能がうまく動かない場合はオンにしてください。",
@@ -1371,10 +1231,6 @@
     {
       "key": "まだプレビルドしていません。「プレビルドを更新」で姿勢データを生成できます。",
       "value": "Zatím nebylo předgenerováno. Zvolte „Aktualizovat předgenerování“ pro vytvoření dat póz."
-    },
-    {
-      "key": "むきりょく",
-      "value": "Bez energie"
     },
     {
       "key": "ゆにさきスタジオ",
@@ -1399,10 +1255,6 @@
     {
       "key": "ゆにさきポーズシステム設定",
       "value": "Nastavení Unisaki Posing System"
-    },
-    {
-      "key": "よりかかり",
-      "value": "Opření"
     },
     {
       "key": "アイコンの更新",
@@ -1431,10 +1283,6 @@
     {
       "key": "アイコン画像ファイルを削除",
       "value": "Odstranit soubor obrázku ikon"
-    },
-    {
-      "key": "アイドル",
-      "value": "Idol"
     },
     {
       "key": "アップロード時に適用します。未翻訳の項目は日本語で表示されます。",
@@ -1601,14 +1449,6 @@
       "value": "Umístěte objekt dovnitř avatara s komponentou VRCAvatarDescriptor."
     },
     {
-      "key": "カエルのポーズ１",
-      "value": "Žába 1"
-    },
-    {
-      "key": "カエルのポーズ２",
-      "value": "Žába 2"
-    },
-    {
       "key": "カスタム",
       "value": "Vlastní"
     },
@@ -1617,60 +1457,12 @@
       "value": "Vlastní animace"
     },
     {
-      "key": "カッコいいポーズ",
-      "value": "Cool Posing"
-    },
-    {
-      "key": "カッコいいポーズツール",
-      "value": "Cool Posing"
-    },
-    {
-      "key": "カッコいいポーズツール(Gumroad)",
-      "value": "Cool Posing Tool (Gumroad)"
-    },
-    {
-      "key": "カッコいいポーズツールライセンスインストール",
-      "value": "Nainstalovat licenci Cool Posing"
-    },
-    {
-      "key": "カッコいいポーズツールライセンス削除",
-      "value": "Odstranit licenci Cool Posing"
-    },
-    {
-      "key": "カッコいいポーズツールライセンス状態確認",
-      "value": "Stav licence Cool Posing"
-    },
-    {
-      "key": "カッコいいポーズツール設定",
-      "value": "Nastavení Cool Posing"
-    },
-    {
-      "key": "カッコいいポーズツール追加",
-      "value": "Přidat Cool Posing"
-    },
-    {
-      "key": "カッコいいポーズツール（BOOTH）",
-      "value": "Cool Posing Tool (BOOTH)"
-    },
-    {
       "key": "カテゴリ{0}",
       "value": "Kategorie {0}"
     },
     {
-      "key": "キック",
-      "value": "Kop"
-    },
-    {
-      "key": "クマ人形",
-      "value": "Medvídek"
-    },
-    {
       "key": "クリップボードが空です。",
       "value": "Schránka je prázdná."
-    },
-    {
-      "key": "ケンカ",
-      "value": "Připraven k boji"
     },
     {
       "key": "ゲーム内で使うには「機能」タブの「寝返り」もオンにしてください。",
@@ -1683,10 +1475,6 @@
     {
       "key": "コンパイルエラー（先頭から最大5件）",
       "value": "Chyby kompilace (až prvních 5)"
-    },
-    {
-      "key": "コンビニ",
-      "value": "Večerka"
     },
     {
       "key": "シーンを保存・バックアップしてから、ALCOM / VCCで商品本体と「ゆにさきポーズシステム」を再取得してください。入れ直しても直らない場合は、Inspector上部の「ヘルプ・変更履歴」から公式マニュアル・お問い合わせをご確認ください。調整済みのオブジェクトやGeneratedResourcesは削除しないでください。",
@@ -1711,10 +1499,6 @@
     {
       "key": "ソースとなるPosingSystemが見つかりません。",
       "value": "Zdrojový PosingSystem nebyl nalezen."
-    },
-    {
-      "key": "ゾンビ",
-      "value": "Zombie"
     },
     {
       "key": "ターゲットボーン {0} がありません。",
@@ -1789,10 +1573,6 @@
       "value": "Záloha hotová — odstranit"
     },
     {
-      "key": "バンザイ",
-      "value": "Ruce vzhůru"
-    },
-    {
       "key": "バージョン不明",
       "value": "Neznámá verze"
     },
@@ -1803,10 +1583,6 @@
     {
       "key": "ファイルに保存されている値に戻します。",
       "value": "Obnoví hodnoty uložené v souboru."
-    },
-    {
-      "key": "プランク",
-      "value": "Prkno"
     },
     {
       "key": "プリセット",
@@ -1925,10 +1701,6 @@
       "value": "Skrýt varování o chybějícím předgenerování"
     },
     {
-      "key": "ベッド",
-      "value": "Postel"
-    },
-    {
       "key": "ポーズ {0} bit ＋ 追加機能 {1} bit  ／ このアバターのポーズツール分",
       "value": "Pózy: {0} bitů + volitelné funkce: {1} bitů / nástroje póz na tomto avatarovi"
     },
@@ -1997,10 +1769,6 @@
       "value": "Aktualizovat obrázky póz"
     },
     {
-      "key": "マットレス",
-      "value": "Matrace"
-    },
-    {
       "key": "メニューに撮影モードを追加します。前へ最大3m移動したり回転したりして、自分から見える位置を調整できます。",
       "value": "Přidá režim focení pro posun až o 3 m vpřed a otáčení pro lepší pohled na sebe."
     },
@@ -2013,10 +1781,6 @@
       "value": "Funkce nabídky"
     },
     {
-      "key": "モデル",
-      "value": "Model"
-    },
-    {
       "key": "ユーザー作成",
       "value": "Uživatelské předvolby"
     },
@@ -2027,30 +1791,6 @@
     {
       "key": "ライセンス削除",
       "value": "Odstranění licence"
-    },
-    {
-      "key": "ラダー運動",
-      "value": "Žebřík"
-    },
-    {
-      "key": "リクライニング",
-      "value": "Pololeh"
-    },
-    {
-      "key": "リラックス",
-      "value": "Uvolnění"
-    },
-    {
-      "key": "リラックス１",
-      "value": "Uvolnění 1"
-    },
-    {
-      "key": "リラックス２",
-      "value": "Uvolnění 2"
-    },
-    {
-      "key": "リラックス３",
-      "value": "Uvolnění 3"
     },
     {
       "key": "ルール名",
@@ -2093,20 +1833,8 @@
       "value": "Seznam se aktualizuje při přidání nebo změně položek. Pokud zobrazuje stará data, zvolte „Obnovit“."
     },
     {
-      "key": "三点だいしゅき(女)ツール追加",
-      "value": "Přidat Virtual Love (žena)"
-    },
-    {
-      "key": "三点だいしゅき(男)ツール追加",
-      "value": "Přidat Virtual Love (muž)"
-    },
-    {
       "key": "上腕の長さ",
       "value": "Délka paže"
-    },
-    {
-      "key": "不機嫌",
-      "value": "Mrzutost"
     },
     {
       "key": "中",
@@ -2125,18 +1853,6 @@
       "value": "Podřep"
     },
     {
-      "key": "二人分座り",
-      "value": "Místo pro dva"
-    },
-    {
-      "key": "五体投地",
-      "value": "Poklona k zemi"
-    },
-    {
-      "key": "他商品連携用Prefabs",
-      "value": "Integrace produktů"
-    },
-    {
       "key": "以前の設定から、使う1つを選べます。",
       "value": "Vyberte jedno z předchozích nastavení."
     },
@@ -2149,16 +1865,8 @@
       "value": "Na zádech"
     },
     {
-      "key": "伏せ",
-      "value": "Na břiše"
-    },
-    {
       "key": "伏せ（Prone）",
       "value": "Na břiše"
-    },
-    {
-      "key": "休憩中",
-      "value": "Přestávka"
     },
     {
       "key": "位置の座標系",
@@ -2177,20 +1885,12 @@
       "value": "Poloha (vůči vybrané délce)"
     },
     {
-      "key": "低姿勢",
-      "value": "Nízký postoj"
-    },
-    {
       "key": "体幹",
       "value": "Trup"
     },
     {
       "key": "体格に合わせた手足の自動調整",
       "value": "Automatická korekce končetin"
-    },
-    {
-      "key": "体育座り",
-      "value": "Kolena k hrudi"
     },
     {
       "key": "使い始めるときの姿勢セットを変更できます。変更すると現在のポーズ設定が置き換わります。",
@@ -2257,16 +1957,8 @@
       "value": "Nastavení změněná od uložení (až 12)"
     },
     {
-      "key": "倒され寝",
-      "value": "Sražení"
-    },
-    {
       "key": "候補を確認してから追加できます。",
       "value": "Před přidáním zkontrolujte navržené klipy."
-    },
-    {
-      "key": "傍観者",
-      "value": "Pozorovatel"
     },
     {
       "key": "元の姿勢",
@@ -2437,10 +2129,6 @@
       "value": "Společný Animator póz je nedostupný. „{0}“ {1}."
     },
     {
-      "key": "内股座り",
-      "value": "Špičky dovnitř"
-    },
-    {
       "key": "内部的な互換性管理に使います。通常は変更しません。",
       "value": "Slouží k internímu sledování kompatibility. Obvykle ponechte beze změny."
     },
@@ -2465,20 +2153,12 @@
       "value": "Resetovat"
     },
     {
-      "key": "制止",
-      "value": "Stůj"
-    },
-    {
       "key": "削除",
       "value": "Odstranit"
     },
     {
       "key": "削除対象: {0}\nこの中のPrefabやアニメーションも削除されます。自作・調整済みデータがある場合はキャンセルし、移行手順に従ってください。バックアップなしでは元に戻せません。",
       "value": "Složka k odstranění: {0}\nOdstraní se také prefaby a animace uvnitř. Pokud obsahuje vlastní či upravená data, zrušte akci a postupujte podle pokynů k přechodu. Pro obnovu odstraněných souborů je nutná záloha."
-    },
-    {
-      "key": "前かがみ",
-      "value": "Předklon"
     },
     {
       "key": "前回の処理は完了していません。",
@@ -2513,60 +2193,8 @@
       "value": "Vybrat animace k importu"
     },
     {
-      "key": "可愛いポーズ",
-      "value": "Kawaii Posing"
-    },
-    {
-      "key": "可愛いポーズツール",
-      "value": "Kawaii Posing"
-    },
-    {
       "key": "可愛いポーズツール(Booth)",
       "value": "Kawaii Posing Tool (BOOTH)"
-    },
-    {
-      "key": "可愛いポーズツール(Gumroad)",
-      "value": "Kawaii Posing Tool (Gumroad)"
-    },
-    {
-      "key": "可愛いポーズツールライセンスインストール",
-      "value": "Nainstalovat licenci Kawaii Posing"
-    },
-    {
-      "key": "可愛いポーズツールライセンス削除",
-      "value": "Odstranit licenci Kawaii Posing"
-    },
-    {
-      "key": "可愛いポーズツールライセンス状態確認",
-      "value": "Stav licence Kawaii Posing"
-    },
-    {
-      "key": "可愛いポーズツール設定",
-      "value": "Nastavení Kawaii Posing"
-    },
-    {
-      "key": "可愛いポーズツール追加",
-      "value": "Přidat Kawaii Posing"
-    },
-    {
-      "key": "可愛い座り",
-      "value": "Kawaii Sitting"
-    },
-    {
-      "key": "可愛い座り(女)ツール追加",
-      "value": "Přidat Kawaii Sitting (žena)"
-    },
-    {
-      "key": "可愛い座り(男)ツール追加",
-      "value": "Přidat Kawaii Sitting (muž)"
-    },
-    {
-      "key": "右向き寝",
-      "value": "Spánek vpravo"
-    },
-    {
-      "key": "右向き昼寝",
-      "value": "Dřímání vpravo"
     },
     {
       "key": "右手指",
@@ -2595,10 +2223,6 @@
     {
       "key": "合成する調整アニメーションが存在しません。",
       "value": "Není animace korekce ke sloučení."
-    },
-    {
-      "key": "合蹠のポーズ",
-      "value": "Motýl"
     },
     {
       "key": "同梱プリセットを表示しない",
@@ -2657,10 +2281,6 @@
       "value": "Animator póz pro dýchání nebyl nalezen."
     },
     {
-      "key": "和室",
-      "value": "Japonský pokoj"
-    },
-    {
       "key": "商品に収録する各姿勢について、手や足をどこへ置くかを記録する開発用データです。",
       "value": "Autorská data určující cíle rukou a chodidel pro každou zahrnutou pózu. "
     },
@@ -2671,10 +2291,6 @@
     {
       "key": "商品名",
       "value": "Název produktu"
-    },
-    {
-      "key": "商談",
-      "value": "Obchodní jednání"
     },
     {
       "key": "回転",
@@ -2691,14 +2307,6 @@
     {
       "key": "固定長（アバタースケールのみ）",
       "value": "Pevná délka (jen měřítko avatara)"
-    },
-    {
-      "key": "地球寝",
-      "value": "Obejmout zemi"
-    },
-    {
-      "key": "培養中",
-      "value": "V kapsli"
     },
     {
       "key": "基準にする身体ボーン",
@@ -2719,14 +2327,6 @@
     {
       "key": "基準姿勢の読み取りに失敗しました: {0}",
       "value": "Nelze načíst referenční pózu: {0}"
-    },
-    {
-      "key": "堤防",
-      "value": "Nábřeží"
-    },
-    {
-      "key": "壁ドン",
-      "value": "U zdi"
     },
     {
       "key": "変換用アバターに有効なHumanoid Animatorがありません。",
@@ -2755,10 +2355,6 @@
     {
       "key": "太ももの長さ",
       "value": "Délka stehna"
-    },
-    {
-      "key": "女の子座り",
-      "value": "Sed W"
     },
     {
       "key": "姿勢 {0}",
@@ -2897,10 +2493,6 @@
       "value": "Mrtvá zóna náklonu hlavy"
     },
     {
-      "key": "少女モーション集追加",
-      "value": "Přidat Girl Motion Collection"
-    },
-    {
       "key": "左右傾き",
       "value": "Boční náklon"
     },
@@ -2911,18 +2503,6 @@
     {
       "key": "左右反転",
       "value": "Zrcadlit"
-    },
-    {
-      "key": "左向き寝",
-      "value": "Spánek vlevo"
-    },
-    {
-      "key": "左向き昼寝",
-      "value": "Dřímání vlevo"
-    },
-    {
-      "key": "左向き昼寝２",
-      "value": "Dřímání vlevo 2"
     },
     {
       "key": "左手指",
@@ -2945,10 +2525,6 @@
       "value": "Rozdíl:"
     },
     {
-      "key": "布団",
-      "value": "Futon"
-    },
-    {
       "key": "床の高さ",
       "value": "Výška podlahy"
     },
@@ -2965,10 +2541,6 @@
       "value": "Sezení"
     },
     {
-      "key": "座布団",
-      "value": "Podsedák"
-    },
-    {
       "key": "弱",
       "value": "Slabé"
     },
@@ -2983,26 +2555,6 @@
     {
       "key": "待ちぼうけ",
       "value": "Stále čeká"
-    },
-    {
-      "key": "待ち伏せ",
-      "value": "Léčka"
-    },
-    {
-      "key": "後方彼氏",
-      "value": "Dohlížení"
-    },
-    {
-      "key": "従者のポーズ",
-      "value": "Sluha"
-    },
-    {
-      "key": "忍者走り",
-      "value": "Běh nindži"
-    },
-    {
-      "key": "思考中",
-      "value": "Přemýšlení"
     },
     {
       "key": "急",
@@ -3051,10 +2603,6 @@
     {
       "key": "手足の自動調整を使う",
       "value": "Zapnout automatickou korekci končetin"
-    },
-    {
-      "key": "抱きしめ",
-      "value": "Objetí"
     },
     {
       "key": "指の形を固定・解除する切り替えをメニューに追加します。固定中はコントローラーを握っても形を保てます。",
@@ -3113,10 +2661,6 @@
       "value": "Cílový nástroj pro pózy nebyl nalezen."
     },
     {
-      "key": "斜め座り",
-      "value": "Šikmý sed"
-    },
-    {
       "key": "新しいポーズ",
       "value": "Nová póza"
     },
@@ -3149,14 +2693,6 @@
       "value": "Potvrdit odstranění staré složky"
     },
     {
-      "key": "昼寝",
-      "value": "Dřímání"
-    },
-    {
-      "key": "晴天寝",
-      "value": "Dřímání na slunci"
-    },
-    {
       "key": "更新する",
       "value": "Aktualizovat"
     },
@@ -3187,14 +2723,6 @@
     {
       "key": "有効にすると従来の調整Animationを無視し、このIK設定から自動調整Animationを生成します。",
       "value": "Při zapnutí se automatické animace korekce generují z tohoto nastavení IK místo starých animací korekce."
-    },
-    {
-      "key": "服従",
-      "value": "Poslušnost"
-    },
-    {
-      "key": "木の上寝",
-      "value": "Spánek na stromě"
     },
     {
       "key": "未使用の生成ファイルをごみ箱へ移動しました: {0}",
@@ -3233,10 +2761,6 @@
       "value": "Hledat"
     },
     {
-      "key": "楽園",
-      "value": "Ráj"
-    },
-    {
       "key": "標準Controllerの元姿勢が見つかりません: {0}",
       "value": "Ve standardním Controlleru nebyla nalezena původní póza: {0}"
     },
@@ -3269,32 +2793,12 @@
       "value": "Zobrazit poznámky ({0})"
     },
     {
-      "key": "海岸",
-      "value": "U moře"
-    },
-    {
-      "key": "添い寝ツール追加",
-      "value": "Přidat nástroj společného spaní"
-    },
-    {
       "key": "照れ",
       "value": "Ostych"
     },
     {
       "key": "状態「{0}」の {1} を生成できません。",
       "value": "Nelze vytvořit {1} pro stav „{0}“."
-    },
-    {
-      "key": "猫のポーズ（右）",
-      "value": "Kočka vpravo"
-    },
-    {
-      "key": "猫のポーズ（左）",
-      "value": "Kočka vlevo"
-    },
-    {
-      "key": "猫寝",
-      "value": "Kočičí spánek"
     },
     {
       "key": "現在のアニメーション",
@@ -3369,14 +2873,6 @@
       "value": "Zavřít soubor obrázku / poznámky"
     },
     {
-      "key": "異変無し",
-      "value": "Vše v pořádku"
-    },
-    {
-      "key": "直立",
-      "value": "Stoj"
-    },
-    {
       "key": "着地（短め）",
       "value": "Krátké přistání"
     },
@@ -3393,16 +2889,8 @@
       "value": "Dlouhé přistání"
     },
     {
-      "key": "睡魔",
-      "value": "Ospalost"
-    },
-    {
       "key": "短い落下",
       "value": "Krátký pád"
-    },
-    {
-      "key": "砂浜",
-      "value": "Písečná pláž"
     },
     {
       "key": "確認",
@@ -3411,10 +2899,6 @@
     {
       "key": "種類ごとに1つのモーションを指定できます。上の「元の姿勢を使う」とは別に設定できます。",
       "value": "Vyberte jeden pohyb pro každý typ nezávisle na použití původních póz výše."
-    },
-    {
-      "key": "空気椅子",
-      "value": "Sed u zdi"
     },
     {
       "key": "立ちのみ",
@@ -3445,20 +2929,8 @@
       "value": "Zastavit"
     },
     {
-      "key": "絨毯",
-      "value": "Koberec"
-    },
-    {
       "key": "置き場所の基準",
       "value": "Reference cíle"
-    },
-    {
-      "key": "考える男",
-      "value": "Myslitel"
-    },
-    {
-      "key": "肘パンチ",
-      "value": "Úder loktem"
     },
     {
       "key": "肘・膝の曲げ方",
@@ -3467,10 +2939,6 @@
     {
       "key": "肘・膝を曲げる方向",
       "value": "Směr ohybu lokte / kolena"
-    },
-    {
-      "key": "肘付き",
-      "value": "Na lokti"
     },
     {
       "key": "胸のボーン（Chest）が割り当てられていません。",
@@ -3493,32 +2961,12 @@
       "value": "Délka nohy (stehno + bérec)"
     },
     {
-      "key": "脱力寝",
-      "value": "Padl a usnul"
-    },
-    {
       "key": "腕や脚の長さに合わせて、手足が自然な置き場所へ届くよう調整します。",
       "value": "Upraví končetiny do přirozené polohy pro proporce avatara."
     },
     {
       "key": "腕固定",
       "value": "Zamknout paže"
-    },
-    {
-      "key": "腕枕寝",
-      "value": "Spánek na paži"
-    },
-    {
-      "key": "腕枕（右）",
-      "value": "Pravá paže pod hlavou"
-    },
-    {
-      "key": "腕枕（左）",
-      "value": "Levá paže pod hlavou"
-    },
-    {
-      "key": "腕立て伏せ",
-      "value": "Klik"
     },
     {
       "key": "膝がこの角度より伸びる前にクランプします。",
@@ -3539,10 +2987,6 @@
     {
       "key": "膝の計測に必要なHumanoid Animatorがありません。",
       "value": "Chybí Humanoid Animator pro měření kolen."
-    },
-    {
-      "key": "膝立て",
-      "value": "Jedno koleno vzhůru"
     },
     {
       "key": "自分で用意したモーションを使う",
@@ -3581,20 +3025,12 @@
       "value": "Skrýt poznámky Auto-Footsteps"
     },
     {
-      "key": "芝生",
-      "value": "Trávník"
-    },
-    {
       "key": "落下（短め）",
       "value": "Krátký pád"
     },
     {
       "key": "落下（長め）",
       "value": "Dlouhý pád"
-    },
-    {
-      "key": "行き倒れ",
-      "value": "Zhroucení"
     },
     {
       "key": "行った操作・起きたこと：",
@@ -3633,14 +3069,6 @@
       "value": "Viditelná orientace končetiny"
     },
     {
-      "key": "見下し",
-      "value": "Pohled svrchu"
-    },
-    {
-      "key": "観察中",
-      "value": "Pozorování"
-    },
-    {
       "key": "角度は度数で指定します。寝姿勢を選び、VRChatのメニューで首固定を解除して使ってください。",
       "value": "Úhly jsou ve stupních. Vyberte ležící pózu a odemkněte hlavu v nabídce VRChat."
     },
@@ -3655,10 +3083,6 @@
     {
       "key": "計算の反復回数",
       "value": "Počet iterací řešení"
-    },
-    {
-      "key": "訓練場",
-      "value": "Cvičiště"
     },
     {
       "key": "設定",
@@ -3749,18 +3173,6 @@
       "value": "Zobrazení varování"
     },
     {
-      "key": "警戒",
-      "value": "Ve střehu"
-    },
-    {
-      "key": "警戒（右）",
-      "value": "Střeh vpravo"
-    },
-    {
-      "key": "警戒（左）",
-      "value": "Střeh vlevo"
-    },
-    {
       "key": "足IKで膝が逆向きに折れることを防止します。",
       "value": "Zabraňuje IK nohou ohýbat kolena dozadu."
     },
@@ -3769,32 +3181,12 @@
       "value": "Výška chodidel"
     },
     {
-      "key": "足伸ばし",
-      "value": "Nohy vpřed"
-    },
-    {
       "key": "足固定",
       "value": "Zamknout nohy"
     },
     {
-      "key": "足組み",
-      "value": "Noha přes nohu"
-    },
-    {
-      "key": "足組み２",
-      "value": "Noha přes nohu 2"
-    },
-    {
-      "key": "足降ろし",
-      "value": "Nohy dolů"
-    },
-    {
       "key": "距離",
       "value": "Vzdálenost"
-    },
-    {
-      "key": "蹲踞",
-      "value": "Hluboký dřep"
     },
     {
       "key": "身体のボーン、アバター全体、床のいずれを基準にするか選びます。",
@@ -3857,10 +3249,6 @@
       "value": "Obvykle zachová zdrojovou pózu a ohýbá na stejnou stranu jako ihned po použití zdrojové animace na cílového avatara."
     },
     {
-      "key": "運動会",
-      "value": "Sportovní den"
-    },
-    {
       "key": "適用するPrefabs (PosingSystem)",
       "value": "Prefaby PosingSystem k použití"
     },
@@ -3915,10 +3303,6 @@
     {
       "key": "限界突破をオンにするとパラメータの設定幅が5倍になります",
       "value": "Povolí pětkrát širší rozsah parametru."
-    },
-    {
-      "key": "面接",
-      "value": "Pohovor"
     },
     {
       "key": "順番",
@@ -3981,16 +3365,8 @@
       "value": "Omezí deformaci, když hlava při vypnutém zámku míří jinam než v původní póze."
     },
     {
-      "key": "騎士",
-      "value": "Rytíř"
-    },
-    {
       "key": "高さ",
       "value": "Výška"
-    },
-    {
-      "key": "魔王降臨",
-      "value": "Pán démonů"
     },
     {
       "key": "（ユーザー作成）",

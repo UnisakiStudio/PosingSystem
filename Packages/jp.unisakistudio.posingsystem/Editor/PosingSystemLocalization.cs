@@ -42,7 +42,75 @@ namespace jp.unisakistudio.posingsystemeditor
         [Serializable] internal sealed class Catalog { public Entry[] entries; }
         [Serializable] internal sealed class Entry { public string key; public string value; }
         private static readonly Dictionary<string, Dictionary<string, string>> Catalogs = new Dictionary<string, Dictionary<string, string>>();
-        internal static void ClearCache() => Catalogs.Clear();
+        internal static void ClearCache() { Catalogs.Clear(); productTranslations = null; }
+
+        // Product packages keep their own translations (product name, their pose names and
+        // captions) beside their assets and register one catalog file. Shared text stays in
+        // this package. The setup helper uses the same lookup, so native menus follow it too.
+        [Serializable] internal sealed class ProductCatalog { public string[] displayNames; public ProductLanguage[] languages; }
+        [Serializable] internal sealed class ProductLanguage { public string code; public Entry[] entries; }
+        private static readonly List<string> ProductCatalogPaths = new List<string>();
+        private static Dictionary<string, Dictionary<string, string>> productTranslations;
+        private static HashSet<string> productDisplayNames;
+        static PosingSystemLocalization() { UnisakiStudio.Setup.Language.External = ProductTranslation; }
+
+        /// <summary>Registers a product's catalog asset, for example
+        /// "Packages/jp.unisakistudio.kawaiiposing/Editor/Localization/translations.json".
+        /// Call once from an [InitializeOnLoad] class; the file is read on first use.</summary>
+        public static void RegisterProductCatalog(string assetPath)
+        {
+            if (string.IsNullOrEmpty(assetPath) || ProductCatalogPaths.Contains(assetPath)) return;
+            ProductCatalogPaths.Add(assetPath);
+            productTranslations = null;
+        }
+        internal static bool IsProductCatalog(string assetPath) => ProductCatalogPaths.Contains(assetPath);
+        private static void LoadProductCatalogs()
+        {
+            var translations = new Dictionary<string, Dictionary<string, string>>(StringComparer.Ordinal);
+            var names = new HashSet<string>(StringComparer.Ordinal);
+            foreach (var path in ProductCatalogPaths)
+            {
+                try
+                {
+                    var asset = AssetDatabase.LoadAssetAtPath<TextAsset>(path);
+                    var catalog = asset != null ? JsonUtility.FromJson<ProductCatalog>(asset.text) : null;
+                    if (catalog == null) continue;
+                    if (catalog.displayNames != null)
+                        foreach (var name in catalog.displayNames)
+                            if (!string.IsNullOrEmpty(name)) names.Add(name);
+                    if (catalog.languages == null) continue;
+                    foreach (var language in catalog.languages)
+                    {
+                        if (language == null || string.IsNullOrEmpty(language.code) || language.entries == null) continue;
+                        if (!translations.TryGetValue(language.code, out var table))
+                            translations[language.code] = table = new Dictionary<string, string>(StringComparer.Ordinal);
+                        foreach (var entry in language.entries)
+                            if (entry != null && !string.IsNullOrEmpty(entry.key) && !string.IsNullOrWhiteSpace(entry.value) && !table.ContainsKey(entry.key))
+                                table.Add(entry.key, entry.value);
+                    }
+                }
+                catch (Exception exception)
+                {
+                    // A damaged product catalog must not break the Inspector or an avatar build.
+                    Debug.LogWarning("[PosingSystem] Could not load product translation catalog " + path + ": " + exception.Message);
+                }
+            }
+            productDisplayNames = names;
+            productTranslations = translations;
+        }
+        // Exact source lookup only; returns null when no registered product owns the text.
+        internal static string ProductTranslation(string language, string source)
+        {
+            if (ProductCatalogPaths.Count == 0 || string.IsNullOrEmpty(source)) return null;
+            if (productTranslations == null) LoadProductCatalogs();
+            return productTranslations.TryGetValue(language, out var table) && table.TryGetValue(source, out var value) ? value : null;
+        }
+        private static bool IsProductDisplayName(string source)
+        {
+            if (ProductCatalogPaths.Count == 0) return false;
+            if (productTranslations == null) LoadProductCatalogs();
+            return productDisplayNames.Contains(source);
+        }
 
         // Keys may be stable semantic IDs or the original Japanese display text.
         // Never use this method for object names, parameter names or serialized IDs.
@@ -74,13 +142,14 @@ namespace jp.unisakistudio.posingsystemeditor
                 catalog = ParseCatalog(asset != null ? asset.text : null);
                 Catalogs[language] = catalog;
             }
-            return catalog.TryGetValue(key, out var value) && !string.IsNullOrWhiteSpace(value) ? value : UnisakiStudio.Setup.Language.TranslateExact(language, fallback);
+            if (catalog.TryGetValue(key, out var value) && !string.IsNullOrWhiteSpace(value)) return value;
+            return ProductTranslation(language, key) ?? UnisakiStudio.Setup.Language.TranslateExact(language, fallback);
         }
         // Only the reviewed standard pose/menu names are localizable display identities.
         // Unknown user names must never go through general UI aliases or diagnostics.
         internal static string DisplayName(string source) => TranslateDisplayName(Language, source);
         internal static string TranslateDisplayName(string language, string source)
-            => source != null && PosingSystemDisplayNameKeys.Values.Contains(source) ? Translate(language, source, source) : source;
+            => source != null && (PosingSystemDisplayNameKeys.Values.Contains(source) || IsProductDisplayName(source)) ? Translate(language, source, source) : source;
         internal static string PresetName(string source, bool official) => official ? Text(source) : source;
         internal static Dictionary<string, string> ParseCatalog(string json)
         {
@@ -125,7 +194,8 @@ namespace jp.unisakistudio.posingsystemeditor
         {
             foreach (var paths in new[] { imported, deleted, moved, movedFrom })
                 foreach (var path in paths)
-                    if (path.StartsWith("Packages/jp.unisakistudio.posingsystem/Editor/Localization/", StringComparison.Ordinal))
+                    if (path.StartsWith("Packages/jp.unisakistudio.posingsystem/Editor/Localization/", StringComparison.Ordinal)
+                        || PosingSystemLocalization.IsProductCatalog(path))
                     {
                         PosingSystemLocalization.ClearCache();
                         return;

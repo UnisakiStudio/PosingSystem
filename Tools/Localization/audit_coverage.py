@@ -6,6 +6,7 @@ release gates must use the strict default. No network access or user preferences
 """
 from pathlib import Path
 import argparse, collections, json, re, sys
+import products
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
@@ -201,6 +202,14 @@ def inventory():
                 target[key] = value
     return merged
 
+def inventory_with_products():
+    """Shared tables plus every available product's own tables (for whole-product reviews)."""
+    merged = inventory()
+    for product in products.checkouts():
+        for language, values in product.tables().items():
+            merged.setdefault(language, {}).update(values)
+    return merged
+
 def feature_keys():
     result = {}
     for name in ['PosingSystemSettingsInspector.cs', 'PosingSystemEditor.Inspector.cs']:
@@ -256,6 +265,16 @@ def audit():
         for key, reason in values.items():
             if not key or not reason.strip(): report['errors'].append('Source audit exception needs a key and reason: '+filename)
     known = expected | set(bootstrap['aliases']) | invariants
+    # Product-owned text lives in the product repository. Shared sources must not depend on it.
+    report['products'] = {}
+    product_known = {}
+    for product in products.checkouts():
+        tables = product.tables()
+        english = set(tables.get('en', {}))
+        product_known[product.name] = english
+        report['errors'].extend(products.problems(merged, product))
+        report['products'][product.name] = dict(keys=len(english), display_names=len(product.display_names()),
+            missing={language: sorted(english - set(tables.get(language, {}))) for language in codes if language not in ('ja', 'en') and english - set(tables.get(language, {}))})
     for path in sorted((PACKAGE/'Editor').rglob('*.cs')):
         if path.name == 'SetupLanguage.cs': continue
         text = without_comments(path.read_text(encoding='utf-8-sig'))
@@ -280,14 +299,15 @@ def audit():
         for folder in ['Editor','Runtime']:
             for path in sorted((package/folder).rglob('*.cs')):
                 if path.name=='SetupLanguage.cs': continue
-                for issue in display_path_issues(path.read_text(encoding='utf-8-sig'),known,invariants,source_exceptions.get(path.name)):
+                for issue in display_path_issues(path.read_text(encoding='utf-8-sig'),known|product_known.get(product,set()),invariants,source_exceptions.get(path.name)):
                     report['display_path_issues'].append(dict(product=product,file=path.relative_to(product_repo).as_posix(),**issue))
     for key in sorted(feature_inventory-known): report['source_omissions'].append({'file':'Inspector feature cards', 'key':key})
     bone_source = (PACKAGE/'Editor/PosingSystemAutoPoseCatalogEditor.cs').read_text(encoding='utf-8-sig')
     for bone in re.findall(r'HumanBodyBones\.(\w+)\s*=>', bone_source):
         if 'bone.'+bone not in expected: report['source_omissions'].append({'file':'Humanoid bone labels', 'key':'bone.'+bone})
     report['summary'] = dict(target_languages=len(codes)-1, keys=len(expected), feature_cards=len(features),
-        missing=sum(len(v['missing']) for v in report['languages'].values()),
+        product_keys={name: item['keys'] for name, item in report['products'].items()},
+        missing=sum(len(v['missing']) for v in report['languages'].values()) + sum(len(keys) for item in report['products'].values() for keys in item['missing'].values()),
         feature_missing=sum(len(v['feature_missing']) for v in report['languages'].values()),
         setup_missing=sum(len(v['setup_missing']) for v in report['languages'].values()),
         source_omissions=len(report['source_omissions']), display_path_issues=len(report['display_path_issues']), terminology_errors=len(report['terminology_errors']))

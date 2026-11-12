@@ -15,6 +15,8 @@ namespace UnisakiStudio.Setup
     {
         internal const string PreferenceKey = "jp.unisakistudio.posingsystem.language";
         internal static bool HasSelection => Array.IndexOf(Codes, EditorPrefs.GetString(PreferenceKey, "")) >= 0;
+        // (language, exact source text) => translation or null. Null in the standalone setup program.
+        internal static Func<string, string, string> External;
         internal static readonly string[] Codes = __CODES__;
         internal static readonly string[] Names = __NAMES__;
         // Preference reads must not initialize translation catalogs or diagnostic regexes.
@@ -156,7 +158,13 @@ __FACTORIES__
             value = null;
             bool translated = Catalogs.TryGetValue(language, out var catalog) && catalog.TryGetValue(canonical, out value);
             if (!translated) value = canonical;
-            if (!known && !translated && !TranslationData.Canonical.Contains(canonical)) return false;
+            if (!known && !translated && !TranslationData.Canonical.Contains(canonical))
+            {
+                // Product packages keep their own catalogs; only the package assembly sets this.
+                var external = External?.Invoke(language, trimmed);
+                if (external == null) return false;
+                value = external;
+            }
             int start = source.IndexOf(trimmed, StringComparison.Ordinal);
             value = start == 0 && trimmed.Length == source.Length ? value : source.Substring(0, start) + value + source.Substring(start + trimmed.Length);
             return true;

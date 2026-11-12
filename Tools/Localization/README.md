@@ -17,6 +17,36 @@ all languages and restore/isolate preferences in tests.
 
 This is development work, not a published release. The user confirmed all 30 language selections on 2026-11-09.
 
+## Product-owned translations (2026-11-12)
+
+Text that belongs to one product lives in that product's repository and package, not
+here. This repository keeps only text shared by every posing product.
+
+- **Product repository**: `Tools/Localization/product.translations.json` (all 29 target
+  languages, Japanese source text as key) and `display-names.json` (`poses` and `menus`
+  that may be translated in lists and generated in-game menus).
+- **Product package**: generated `Editor/Localization/translations.json` (one file, all
+  languages) and a small `[InitializeOnLoad]` class that calls
+  `PosingSystemLocalization.RegisterProductCatalog(path)`. Do not edit the generated file.
+- **Lookup order**: shared catalog, then registered product catalogs, then the embedded
+  setup tables. The setup helper reaches product catalogs through `Language.External`,
+  so native menu captions defined in product code are translated too. That lookup is an
+  exact source match in one direction; product text is never reverse-translated.
+- **Ownership**: one owner per text. A name or caption used by both products, or by
+  shared code, stays here (`products.problems` rejects a key defined in both places).
+  Currently the three pose names used by both main prefabs and the common menu/category
+  names are shared; each product owns its name, its menu root, its own pose names and
+  the captions that only its code uses.
+- **Setup text stays in `Tools/InstallerLocalization`**: license and installation
+  dialogs must work before any product package exists, so they cannot move.
+- **Tools**: `build_catalogs.py` also writes every available sibling product checkout;
+  `validate_catalogs.py`, `audit_coverage.py` and both terminology audits include the
+  product tables when the checkouts are present and skip them in a core-only checkout.
+  A released product without its own catalog (3.1.x) keeps Japanese product names.
+
+When adding a product: add it to `PRODUCTS` in `products.py`, create its tables and the
+registration class, then run the usual build and gates from this repository.
+
 ## Performance and free-text boundaries (2026-11-12)
 
 Use `Text`/`Format` for exact UI keys; use `TextMessage` only for already-formatted

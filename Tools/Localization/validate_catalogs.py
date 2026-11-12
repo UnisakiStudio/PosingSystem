@@ -1,6 +1,7 @@
 """Validate translation batches and generated catalogs; report missing text and name lengths."""
 from pathlib import Path
 import argparse,collections,json,re,sys
+import products
 ROOT=Path(__file__).resolve().parents[2]
 TABLES=Path(__file__).parent
 CATALOGS=ROOT/'Packages/jp.unisakistudio.posingsystem/Editor/Localization'
@@ -39,6 +40,16 @@ def validate(max_name_length=None):
         if language in poses and set(poses[language])!=pose_keys:raise ValueError('Incomplete pose batch: '+language)
         over=[{'source':key,'value':value,'length':len(value)} for key,value in poses.get(language,{}).items() if max_name_length is not None and len(value)>max_name_length]
         report[language]={'entries':len(entries),'pose_names':len(poses.get(language,{})),'longest_pose_name':max((len(v) for v in poses.get(language,{}).values()),default=0),'over_requested_name_limit':over}
+    placeholders=lambda text:collections.Counter(re.findall(r'(?<!\{)\{\d+(?:[^{}]*)\}(?!\})',text))
+    for product in products.checkouts():
+        errors=products.problems(merged,product)
+        if errors:raise ValueError('; '.join(errors))
+        for language,entries in product.tables().items():
+            for key,value in entries.items():
+                if any(ord(c)<32 and c not in '\n\t' for c in value):raise ValueError(f'Control character {product.name}/{language}/{key}')
+                if placeholders(key)!=placeholders(value):raise ValueError(f'Placeholder mismatch {product.name}/{language}/{key}')
+            report.setdefault(language,{'entries':0,'pose_names':0,'longest_pose_name':0,'over_requested_name_limit':[]})
+            report[language]['product_entries']=report[language].get('product_entries',0)+len(entries)
     if max_name_length is not None and any(v['over_requested_name_limit'] for v in report.values()):raise ValueError(json.dumps(report,ensure_ascii=False))
     return report
 
@@ -46,4 +57,4 @@ if __name__=='__main__':
     parser=argparse.ArgumentParser();parser.add_argument('--max-name-length',type=int);parser.add_argument('--report',type=Path);args=parser.parse_args()
     report=validate(args.max_name_length)
     if args.report:args.report.write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
-    print(json.dumps({'languages':len(report),'entries':sum(x['entries'] for x in report.values()),'complete_pose_languages':[k for k,v in report.items() if v['pose_names']]}))
+    print(json.dumps({'languages':len(report),'entries':sum(x['entries'] for x in report.values()),'product_entries':sum(x.get('product_entries',0) for x in report.values()),'complete_pose_languages':[k for k,v in report.items() if v['pose_names']]}))

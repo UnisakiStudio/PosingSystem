@@ -6,7 +6,7 @@ natural translations just to satisfy substring matching.
 """
 from pathlib import Path
 import argparse, json, re, sys, unicodedata
-from audit_coverage import inventory, read
+from audit_coverage import inventory_with_products, read
 
 HERE = Path(__file__).resolve().parent
 
@@ -14,7 +14,7 @@ def normalized(value):
     return unicodedata.normalize('NFKC', value).casefold()
 
 def audit():
-    merged = inventory()
+    merged = inventory_with_products()
     exceptions_path = HERE/'terminology-exceptions.json'
     exceptions = read(exceptions_path) if exceptions_path.exists() else {}
     result = {'unreviewed_languages': [], 'issues': [], 'exceptions': [], 'checked': 0}

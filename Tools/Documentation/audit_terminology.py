@@ -12,6 +12,8 @@ import unicodedata
 import build_documents as docs
 
 HERE=Path(__file__).resolve().parent
+sys.path.insert(0,str(HERE.parent/'Localization'))
+import products
 
 def normalized(text): return unicodedata.normalize('NFKC',text).casefold()
 
@@ -20,7 +22,10 @@ def audit(locales=None):
     if missing or errors: raise ValueError('A complete reviewed English pivot is required')
     japanese,ja_missing,ja_errors=docs.translations(source,'ja')
     result={'source_sha256':source['source_sha256'],'translation_digests':{'en':docs.digest(json.dumps(english,ensure_ascii=False,sort_keys=True)),'ja':docs.digest(json.dumps(japanese,ensure_ascii=False,sort_keys=True))},'checked':0,'missing':{},'issues':[],'exceptions':[],'native_speaker_review':False}
-    poses=docs.read(HERE.parent/'Localization/poses.translations.json')['en']
+    # Pose names shared by every product, plus each available product's own names.
+    owners=products.checkouts()
+    poses=sorted(set(docs.read(HERE.parent/'Localization/poses.translations.json')['en'])|{name for product in owners for name in product.pose_names()})
+    product_tables=[product.tables() for product in owners]
     if ja_missing or ja_errors: raise ValueError('A complete Japanese guide is required')
     for locale in locales or source['locales']:
         values,missing,errors=docs.translations(source,locale)
@@ -34,6 +39,7 @@ def audit(locales=None):
         else:
             catalog=docs.read(docs.repository('PosingSystem')/'Packages/jp.unisakistudio.posingsystem/Editor/Localization'/(locale+'.json'))
             display={entry['key']:entry['value'] for entry in catalog['entries']}
+            for tables in product_tables: display.update(tables.get(locale,{}))
         forms={term:list(options) for term,options in metadata.get('term_forms',{}).items()}
         for term,options in review.get('term_forms',{}).items(): forms.setdefault(term,[]).extend(options)
         if not forms and locale not in ('ja','en'): result['issues'].append({'locale':locale,'issue':'no established UI terminology metadata'}); continue

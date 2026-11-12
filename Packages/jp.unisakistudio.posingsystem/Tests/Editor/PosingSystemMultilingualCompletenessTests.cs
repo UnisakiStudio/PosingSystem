@@ -16,7 +16,8 @@ namespace jp.unisakistudio.posingsystemeditor.tests
         public void EveryAdvertisedLanguageContainsTheFullDisplayInventory()
         {
             var english = PosingSystemLocalization.ParseCatalog(AssetDatabase.LoadAssetAtPath<TextAsset>(Root + "en.json").text);
-            Assert.That(english.Count, Is.GreaterThanOrEqualTo(928));
+            // Shared inventory only: each product keeps its own names in its own package.
+            Assert.That(english.Count, Is.GreaterThanOrEqualTo(840));
             foreach (var language in PosingSystemLocalization.Codes.Where(c => c != "ja"))
             {
                 var asset = AssetDatabase.LoadAssetAtPath<TextAsset>(Root + language + ".json");
@@ -25,6 +26,34 @@ namespace jp.unisakistudio.posingsystemeditor.tests
                 Assert.That(english.Keys.Except(entries.Keys), Is.Empty, language + " contains fallback-only text");
                 foreach (var key in english.Keys)
                     Assert.That(PosingSystemLocalization.Translate(language, key, "MISSING"), Is.EqualTo(entries[key]), language + "/" + key);
+            }
+        }
+
+        [Test]
+        public void InstalledProductCatalogsAreRegisteredAndCoverEveryAdvertisedLanguage()
+        {
+            foreach (var path in new[]
+            {
+                "Packages/jp.unisakistudio.kawaiiposing/Editor/Localization/translations.json",
+                "Packages/jp.unisakistudio.coolposing/Editor/Localization/translations.json",
+            })
+            {
+                var asset = AssetDatabase.LoadAssetAtPath<TextAsset>(path);
+                if (asset == null) continue; // That product is not installed in this project.
+                var catalog = JsonUtility.FromJson<PosingSystemLocalization.ProductCatalog>(asset.text);
+                var english = catalog.languages.Single(language => language.code == "en").entries.Select(entry => entry.key).ToArray();
+                Assert.That(english, Is.Not.Empty, path);
+                Assert.That(catalog.displayNames.Except(english), Is.Empty, path + " has display names without translations");
+                Assert.That(PosingSystemLocalization.IsProductCatalog(path), Is.True, path + " is not registered by its product");
+                foreach (var language in PosingSystemLocalization.Codes.Where(c => c != "ja"))
+                    foreach (var key in english)
+                        Assert.That(PosingSystemLocalization.Translate(language, key, "MISSING"), Is.Not.EqualTo("MISSING"), language + "/" + key);
+                foreach (var name in catalog.displayNames)
+                {
+                    // Product names are display identities: translated by the allowlist path, literal in Japanese.
+                    Assert.That(PosingSystemLocalization.TranslateDisplayName("ja", name), Is.EqualTo(name));
+                    Assert.That(PosingSystemLocalization.TranslateDisplayName("en", name), Is.EqualTo(PosingSystemLocalization.Translate("en", name, "MISSING")), name);
+                }
             }
         }
 
