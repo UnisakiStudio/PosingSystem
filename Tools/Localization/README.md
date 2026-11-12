@@ -47,6 +47,11 @@ here. This repository keeps only text shared by every posing product.
 When adding a product: add it to `PRODUCTS` in `products.py`, create its tables and the
 registration class, then run the usual build and gates from this repository.
 
+VirtualLove (三点だいしゅきツール, added 2026-11-13) follows the same pattern. Its license
+dialogs are composed at run time: the product-specific first line is an exact key in its
+own table and the remaining lines are shared setup sentences, which the setup helper
+translates line by line. Its two installer menu captions are product text as well.
+
 ## Performance and free-text boundaries (2026-11-12)
 
 Use `Text`/`Format` for exact UI keys; use `TextMessage` only for already-formatted

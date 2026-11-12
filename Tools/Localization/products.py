@@ -14,7 +14,8 @@ import json
 import uuid
 
 ROOT = Path(__file__).resolve().parents[2]
-PRODUCTS = {'KawaiiPosing': 'jp.unisakistudio.kawaiiposing', 'CoolPosing': 'jp.unisakistudio.coolposing'}
+PRODUCTS = {'KawaiiPosing': 'jp.unisakistudio.kawaiiposing', 'CoolPosing': 'jp.unisakistudio.coolposing',
+            'VirtualLove': 'jp.unisakistudio.virtuallove'}
 CATALOG = 'Editor/Localization/translations.json'
 
 

@@ -291,7 +291,7 @@ def audit():
                 if key not in known: report['source_omissions'].append({'file':path.relative_to(ROOT).as_posix(), 'key':key})
     report['display_path_issues']=[]
     report['display_source_roots']=[]
-    for product in ['PosingSystem','KawaiiPosing','CoolPosing']:
+    for product in ['PosingSystem',*products.PRODUCTS]:
         product_repo=ROOT.parent/product
         package=product_repo/'Packages'/('jp.unisakistudio.'+product.lower())
         if not package.exists(): continue

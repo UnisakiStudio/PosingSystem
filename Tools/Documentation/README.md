@@ -28,6 +28,26 @@ confirming unchanged IDs still have the same context. A new global digest alone
 does not make old/omitted translations valid. External translation services are
 not used and require explicit permission before any future use.
 
+## Products that own their documentation data (2026-11-13)
+
+`sources.json` and `translations/` in this folder cover the three main products. A
+product added later keeps its own frozen sources, translations and reviewed inflections
+in `<product repo>/Tools/Documentation`, so adding or changing it never alters the shared
+digests or the manifests of the released products. VirtualLove is the first one:
+
+```sh
+python Tools/Documentation/freeze_sources.py --product VirtualLove
+python Tools/Documentation/build_documents.py --data ../VirtualLove/Tools/Documentation --report <file>
+python Tools/Documentation/build_documents.py --data ../VirtualLove/Tools/Documentation --check --report <file>
+python Tools/Documentation/audit_terminology.py --data ../VirtualLove/Tools/Documentation --strict --report <file>
+```
+
+Such a product has no separate guide: its package README is frozen as the guide too, so
+`UserGuide` pages exist for every language and the Inspector's guide link follows the
+selected language. Paragraphs identical to the main products' documents should stay
+identical; their reviewed translations are then copied instead of re-translated. The
+terminology gate applies the shared UI glossary and the shared reviewed inflections.
+
 ## Build and verify
 
 Run from the core repository (Python 3.10+, standard library only):

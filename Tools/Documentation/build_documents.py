@@ -19,7 +19,14 @@ import unicodedata
 
 HERE = Path(__file__).resolve().parent
 VPM = HERE.parents[2]
-SLUGS = {'PosingSystem':'posingsystem','KawaiiPosing':'kawaiiposing','CoolPosing':'coolposing'}
+SLUGS = {'PosingSystem':'posingsystem','KawaiiPosing':'kawaiiposing','CoolPosing':'coolposing','VirtualLove':'virtuallove'}
+# The frozen sources and translations of the three main products live here. A product
+# that owns its documentation data (`--data <product repo>/Tools/Documentation`) is
+# built from that folder instead, so its text never changes the shared digests.
+DATA = None
+
+def data():
+    return DATA if DATA is not None else HERE
 NAMES = dict(zip(['ja','en','fr','it','zh-Hans','zh-Hant','ko','th','de','es','pt','pt-BR','ru','uk','pl','nl','sv','da','fi','nb','cs','tr','id','vi','hi','bn','ta','te','ar','he'], ['日本語','English','Français','Italiano','简体中文','繁體中文','한국어','ไทย','Deutsch','Español','Português','Português (Brasil)','Русский','Українська','Polski','Nederlands','Svenska','Dansk','Suomi','Norsk','Čeština','Türkçe','Bahasa Indonesia','Tiếng Việt','हिन्दी','বাংলা','தமிழ்','తెలుగు','العربية','עברית']))
 LINK = re.compile(r'(!?\[[^\]\n]*\]\()([^\n]*?)(\))')
 NAV_START, NAV_END = '<!-- localization-navigation:start -->', '<!-- localization-navigation:end -->'
@@ -56,7 +63,7 @@ def canonical(text):
     return text.strip()
 
 def source_data():
-    source = read(HERE/'sources.json')
+    source = read(data()/'sources.json')
     editor=repository('PosingSystem')/'Packages/jp.unisakistudio.posingsystem/Editor/PosingSystemLocalization.cs'
     declared=re.search(r'Codes\s*=\s*\{([^}]+)\}',editor.read_text(encoding='utf-8-sig'))
     codes=re.findall(r'"([\w-]+)"',declared.group(1)) if declared else []
@@ -112,10 +119,13 @@ def structure_errors(original, translated):
     for name in ('可愛いポーズ','カッコいいポーズ'):
         if any(form in original for form in ('「'+name+'」','**'+name+'**',name+'Prefab')) and name not in translated:
             errors.append('saved object or Prefab name changed: '+name)
+    for name in ('三点だいしゅき(男)','三点だいしゅき(女)'):
+        if '「'+name+'」' in original and name not in translated:
+            errors.append('saved object or Prefab name changed: '+name)
     return errors
 
 def translations(source, locale):
-    path = HERE/'translations'/(locale+'.json')
+    path = data()/'translations'/(locale+'.json')
     payload = read(path) if path.exists() else {}
     issues = []
     if payload and payload.get('source_sha256') != source['source_sha256']:
@@ -237,7 +247,11 @@ def output_files(source, locale, values, products):
         folder=package/'Documentation~'/'Localization'/locale
         changelog_label=values[next(k for k,b in source['blocks'].items() if b['text']=='# 変更履歴')].lstrip('# ')
         guide_label=document_text(source,product+'/guide',values).splitlines()[0].lstrip('# ')
-        nav='<nav aria-label="Documentation"><a href="../index.html">'+escape(NAMES[locale])+' · 🌐</a><a href="README.html">README</a><a href="CHANGELOG.html">'+escape(changelog_label)+'</a><a href="UserGuide.html">'+escape(guide_label)+'</a></nav>'
+        # A product without a separate guide uses its README as the guide, so the
+        # Inspector's guide link still follows the language; the page is not listed twice.
+        readme_is_guide=source['documents'][product+'/guide']['source']==source['documents'][product+'/readme']['source']
+        guide_link='' if readme_is_guide else '<a href="UserGuide.html">'+escape(guide_label)+'</a>'
+        nav='<nav aria-label="Documentation"><a href="../index.html">'+escape(NAMES[locale])+' · 🌐</a><a href="README.html">README</a><a href="CHANGELOG.html">'+escape(changelog_label)+'</a>'+guide_link+'</nav>'
         for kind, filename in [('readme','README'),('changelog','CHANGELOG'),('guide','UserGuide')]:
             original=source_path(source['documents'][product+'/'+kind])
             text=document_text(source,product+'/'+kind,values)
@@ -261,10 +275,11 @@ def output_files(source, locale, values, products):
                 else:
                     guid=uuid.uuid5(uuid.NAMESPACE_URL,'https://unisakistudio.jp/'+SLUGS[product]+'/'+filename).hex
                     outputs[meta]='fileFormatVersion: 2\nguid: '+guid+'\n'
-            original=source_path(source['documents'][product+'/guide'])
-            legacytext=remap_links(document_text(source,product+'/guide',values),original.parent,original.parent,package,locale)
-            legacynav='<nav><a href="Localization/index.html">🌐</a><a href="Localization/en/README.html">README</a><a href="Localization/en/CHANGELOG.html">CHANGELOG</a></nav>'
-            outputs[package/'Documentation~'/'UserGuide.en.html']=html_page(legacytext,'en',legacynav)
+            if not readme_is_guide:
+                original=source_path(source['documents'][product+'/guide'])
+                legacytext=remap_links(document_text(source,product+'/guide',values),original.parent,original.parent,package,locale)
+                legacynav='<nav><a href="Localization/index.html">🌐</a><a href="Localization/en/README.html">README</a><a href="Localization/en/CHANGELOG.html">CHANGELOG</a></nav>'
+                outputs[package/'Documentation~'/'UserGuide.en.html']=html_page(legacytext,'en',legacynav)
         repository_text=document_text(source,product+'/repository',values)
         if locale!='ja': outputs[repo/('README.'+locale+'.md')]=remap_links(repository_text,repo,repo,package,locale)
         legacy=package/'Documentation~'/'Localization'/(locale+'.md')
@@ -308,10 +323,16 @@ def main():
     parser.add_argument('--check',action='store_true',help='Read-only comparison with generated files')
     parser.add_argument('--audit-only',action='store_true',help='Report completeness; never write generated files')
     parser.add_argument('--report',type=Path,required=True)
+    parser.add_argument('--data',type=Path,help='Folder with sources.json and translations/ of a product that owns its documentation data')
     args=parser.parse_args()
+    if args.data:
+        global DATA
+        DATA=args.data.resolve()
     source=source_data(); locales=args.locales or source['locales']
     if len(locales)!=len(set(locales)): parser.error('Duplicate language codes are not allowed')
-    products=args.products or [p for p in SLUGS if repository(p).is_dir()]
+    frozen={document['product'] for document in source['documents'].values()}
+    if args.products and set(args.products)-frozen: parser.error('Not in this frozen source: '+', '.join(sorted(set(args.products)-frozen)))
+    products=args.products or [p for p in SLUGS if p in frozen and repository(p).is_dir()]
     issues=[]; outputs={}; coverage={}; translation_digests={}
     for name,doc in source['documents'].items():
         if doc['product'] not in products: continue

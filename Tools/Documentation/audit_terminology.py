@@ -35,6 +35,14 @@ def audit(locales=None):
         metadata=docs.read(metadata) if metadata.exists() else {}
         review=HERE/'Reviews'/(locale+'.json')
         review=docs.read(review) if review.exists() else {}
+        if docs.data()!=HERE:
+            # A product that owns its documentation data reuses the reviewed inflections
+            # and keeps the exceptions for its own paragraphs beside that data.
+            owned=docs.data()/'Reviews'/(locale+'.json')
+            owned=docs.read(owned) if owned.exists() else {}
+            merged_forms={term:list(options) for term,options in review.get('term_forms',{}).items()}
+            for term,options in owned.get('term_forms',{}).items(): merged_forms.setdefault(term,[]).extend(options)
+            review={'term_forms':merged_forms,'term_exceptions':owned.get('term_exceptions',{})}
         if locale=='ja': display={pose:pose for pose in poses}
         else:
             catalog=docs.read(docs.repository('PosingSystem')/'Packages/jp.unisakistudio.posingsystem/Editor/Localization'/(locale+'.json'))
@@ -72,7 +80,8 @@ def audit(locales=None):
     return result
 
 def main():
-    p=argparse.ArgumentParser(description=__doc__); p.add_argument('--locales',nargs='+'); p.add_argument('--report',type=Path,required=True); p.add_argument('--strict',action='store_true'); args=p.parse_args()
+    p=argparse.ArgumentParser(description=__doc__); p.add_argument('--locales',nargs='+'); p.add_argument('--report',type=Path,required=True); p.add_argument('--strict',action='store_true'); p.add_argument('--data',type=Path,help='Documentation data folder of a product that owns it'); args=p.parse_args()
+    if args.data: docs.DATA=args.data.resolve()
     result=audit(args.locales); args.report.parent.mkdir(parents=True,exist_ok=True)
     args.report.write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
     print(json.dumps({'checked':result['checked'],'issues':len(result['issues']),'missing_languages':len(result['missing']),'reviewed_exceptions':len(result['exceptions'])}))
