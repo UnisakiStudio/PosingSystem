@@ -1,0 +1,263 @@
+{
+  "en": {
+    "アイコンを指定する": "Use custom icon",
+    "MotionTimeを使う": "Use Motion Time",
+    "操作パラメーター": "Control parameter",
+    "向きを調整する": "Adjust direction",
+    "プレビューできませんでした。": "Preview failed.",
+    "新しいポーズ": "New pose",
+    "対象: {0}": "Target: {0}"
+  },
+  "fr": {
+    "アイコンを指定する": "Utiliser une icône personnalisée",
+    "MotionTimeを使う": "Utiliser Motion Time",
+    "操作パラメーター": "Paramètre de contrôle",
+    "向きを調整する": "Régler l'orientation",
+    "プレビューできませんでした。": "Impossible d'afficher l'aperçu.",
+    "新しいポーズ": "Nouvelle pose",
+    "対象: {0}": "Cible : {0}"
+  },
+  "it": {
+    "アイコンを指定する": "Usa icona personalizzata",
+    "MotionTimeを使う": "Usa Motion Time",
+    "操作パラメーター": "Parametro di controllo",
+    "向きを調整する": "Regola orientamento",
+    "プレビューできませんでした。": "Impossibile mostrare l'anteprima.",
+    "新しいポーズ": "Nuova posa",
+    "対象: {0}": "Oggetto: {0}"
+  },
+  "zh-Hans": {
+    "アイコンを指定する": "指定图标",
+    "MotionTimeを使う": "使用Motion Time",
+    "操作パラメーター": "控制参数",
+    "向きを調整する": "调整方向",
+    "プレビューできませんでした。": "无法预览。",
+    "新しいポーズ": "新姿势",
+    "対象: {0}": "目标：{0}"
+  },
+  "zh-Hant": {
+    "アイコンを指定する": "指定圖示",
+    "MotionTimeを使う": "使用Motion Time",
+    "操作パラメーター": "控制參數",
+    "向きを調整する": "調整方向",
+    "プレビューできませんでした。": "無法預覽。",
+    "新しいポーズ": "新姿勢",
+    "対象: {0}": "目標：{0}"
+  },
+  "ko": {
+    "アイコンを指定する": "아이콘 지정",
+    "MotionTimeを使う": "Motion Time 사용",
+    "操作パラメーター": "조작 파라미터",
+    "向きを調整する": "방향 맞추기",
+    "プレビューできませんでした。": "미리보기를 표시할 수 없습니다.",
+    "新しいポーズ": "새 포즈",
+    "対象: {0}": "대상: {0}"
+  },
+  "th": {
+    "アイコンを指定する": "กำหนดไอคอนเอง",
+    "MotionTimeを使う": "ใช้ Motion Time",
+    "操作パラメーター": "พารามิเตอร์ควบคุม",
+    "向きを調整する": "ปรับทิศทาง",
+    "プレビューできませんでした。": "แสดงตัวอย่างไม่ได้",
+    "新しいポーズ": "ท่าใหม่",
+    "対象: {0}": "เป้าหมาย: {0}"
+  },
+  "de": {
+    "アイコンを指定する": "Eigenes Icon verwenden",
+    "MotionTimeを使う": "Motion Time verwenden",
+    "操作パラメーター": "Steuerparameter",
+    "向きを調整する": "Ausrichtung anpassen",
+    "プレビューできませんでした。": "Vorschau nicht möglich.",
+    "新しいポーズ": "Neue Pose",
+    "対象: {0}": "Ziel: {0}"
+  },
+  "es": {
+    "アイコンを指定する": "Usar icono personalizado",
+    "MotionTimeを使う": "Usar Motion Time",
+    "操作パラメーター": "Parámetro de control",
+    "向きを調整する": "Ajustar orientación",
+    "プレビューできませんでした。": "No se pudo mostrar la vista previa.",
+    "新しいポーズ": "Nueva pose",
+    "対象: {0}": "Objetivo: {0}"
+  },
+  "pt": {
+    "アイコンを指定する": "Usar ícone personalizado",
+    "MotionTimeを使う": "Usar Motion Time",
+    "操作パラメーター": "Parâmetro de controlo",
+    "向きを調整する": "Ajustar orientação",
+    "プレビューできませんでした。": "Não foi possível pré-visualizar.",
+    "新しいポーズ": "Nova pose",
+    "対象: {0}": "Alvo: {0}"
+  },
+  "pt-BR": {
+    "アイコンを指定する": "Usar ícone personalizado",
+    "MotionTimeを使う": "Usar Motion Time",
+    "操作パラメーター": "Parâmetro de controle",
+    "向きを調整する": "Ajustar orientação",
+    "プレビューできませんでした。": "Não foi possível exibir a prévia.",
+    "新しいポーズ": "Nova pose",
+    "対象: {0}": "Alvo: {0}"
+  },
+  "ru": {
+    "アイコンを指定する": "Задать свой значок",
+    "MotionTimeを使う": "Использовать Motion Time",
+    "操作パラメーター": "Управляющий параметр",
+    "向きを調整する": "Настроить направление",
+    "プレビューできませんでした。": "Не удалось показать предпросмотр.",
+    "新しいポーズ": "Новая поза",
+    "対象: {0}": "Объект: {0}"
+  },
+  "uk": {
+    "アイコンを指定する": "Задати власну піктограму",
+    "MotionTimeを使う": "Використовувати Motion Time",
+    "操作パラメーター": "Керівний параметр",
+    "向きを調整する": "Налаштувати напрямок",
+    "プレビューできませんでした。": "Не вдалося показати перегляд.",
+    "新しいポーズ": "Нова поза",
+    "対象: {0}": "Об'єкт: {0}"
+  },
+  "pl": {
+    "アイコンを指定する": "Użyj własnej ikony",
+    "MotionTimeを使う": "Użyj Motion Time",
+    "操作パラメーター": "Parametr sterujący",
+    "向きを調整する": "Dostosuj kierunek",
+    "プレビューできませんでした。": "Nie można wyświetlić podglądu.",
+    "新しいポーズ": "Nowa poza",
+    "対象: {0}": "Obiekt: {0}"
+  },
+  "nl": {
+    "アイコンを指定する": "Eigen pictogram gebruiken",
+    "MotionTimeを使う": "Motion Time gebruiken",
+    "操作パラメーター": "Besturingsparameter",
+    "向きを調整する": "Oriëntatie aanpassen",
+    "プレビューできませんでした。": "Voorbeeld kan niet worden weergegeven.",
+    "新しいポーズ": "Nieuwe pose",
+    "対象: {0}": "Doel: {0}"
+  },
+  "sv": {
+    "アイコンを指定する": "Använd egen ikon",
+    "MotionTimeを使う": "Använd Motion Time",
+    "操作パラメーター": "Styrparameter",
+    "向きを調整する": "Justera orientering",
+    "プレビューできませんでした。": "Det gick inte att förhandsvisa.",
+    "新しいポーズ": "Ny pose",
+    "対象: {0}": "Mål: {0}"
+  },
+  "da": {
+    "アイコンを指定する": "Brug eget ikon",
+    "MotionTimeを使う": "Brug Motion Time",
+    "操作パラメーター": "Styreparameter",
+    "向きを調整する": "Justér orientering",
+    "プレビューできませんでした。": "Forhåndsvisning mislykkedes.",
+    "新しいポーズ": "Ny positur",
+    "対象: {0}": "Mål: {0}"
+  },
+  "fi": {
+    "アイコンを指定する": "Käytä omaa kuvaketta",
+    "MotionTimeを使う": "Käytä Motion Timea",
+    "操作パラメーター": "Ohjausparametri",
+    "向きを調整する": "Säädä suuntausta",
+    "プレビューできませんでした。": "Esikatselu epäonnistui.",
+    "新しいポーズ": "Uusi asento",
+    "対象: {0}": "Kohde: {0}"
+  },
+  "nb": {
+    "アイコンを指定する": "Bruk eget ikon",
+    "MotionTimeを使う": "Bruk Motion Time",
+    "操作パラメーター": "Styreparameter",
+    "向きを調整する": "Juster orientering",
+    "プレビューできませんでした。": "Kunne ikke forhåndsvise.",
+    "新しいポーズ": "Ny positur",
+    "対象: {0}": "Mål: {0}"
+  },
+  "cs": {
+    "アイコンを指定する": "Použít vlastní ikonu",
+    "MotionTimeを使う": "Použít Motion Time",
+    "操作パラメーター": "Řídicí parametr",
+    "向きを調整する": "Upravit směr",
+    "プレビューできませんでした。": "Náhled se nepodařilo zobrazit.",
+    "新しいポーズ": "Nová póza",
+    "対象: {0}": "Cíl: {0}"
+  },
+  "tr": {
+    "アイコンを指定する": "Özel simge kullan",
+    "MotionTimeを使う": "Motion Time kullan",
+    "操作パラメーター": "Kontrol parametresi",
+    "向きを調整する": "Yönü ayarla",
+    "プレビューできませんでした。": "Önizleme gösterilemedi.",
+    "新しいポーズ": "Yeni poz",
+    "対象: {0}": "Hedef: {0}"
+  },
+  "id": {
+    "アイコンを指定する": "Gunakan ikon khusus",
+    "MotionTimeを使う": "Gunakan Motion Time",
+    "操作パラメーター": "Parameter kontrol",
+    "向きを調整する": "Sesuaikan arah",
+    "プレビューできませんでした。": "Pratinjau tidak dapat ditampilkan.",
+    "新しいポーズ": "Pose baru",
+    "対象: {0}": "Target: {0}"
+  },
+  "vi": {
+    "アイコンを指定する": "Dùng biểu tượng riêng",
+    "MotionTimeを使う": "Dùng Motion Time",
+    "操作パラメーター": "Tham số điều khiển",
+    "向きを調整する": "Điều chỉnh hướng",
+    "プレビューできませんでした。": "Không thể xem trước.",
+    "新しいポーズ": "Tư thế mới",
+    "対象: {0}": "Đối tượng: {0}"
+  },
+  "hi": {
+    "アイコンを指定する": "अपना आइकन चुनें",
+    "MotionTimeを使う": "Motion Time का उपयोग करें",
+    "操作パラメーター": "नियंत्रण पैरामीटर",
+    "向きを調整する": "दिशा समायोजित करें",
+    "プレビューできませんでした。": "पूर्वावलोकन नहीं दिखाया जा सका।",
+    "新しいポーズ": "नया पोज़",
+    "対象: {0}": "लक्ष्य: {0}"
+  },
+  "bn": {
+    "アイコンを指定する": "নিজস্ব আইকন ব্যবহার করুন",
+    "MotionTimeを使う": "Motion Time ব্যবহার করুন",
+    "操作パラメーター": "নিয়ন্ত্রণ প্যারামিটার",
+    "向きを調整する": "দিক ঠিক করুন",
+    "プレビューできませんでした。": "পূর্বরূপ দেখানো যায়নি।",
+    "新しいポーズ": "নতুন পোজ",
+    "対象: {0}": "লক্ষ্য: {0}"
+  },
+  "ta": {
+    "アイコンを指定する": "தனிப்பயன் சின்னத்தைப் பயன்படுத்து",
+    "MotionTimeを使う": "Motion Time-ஐப் பயன்படுத்து",
+    "操作パラメーター": "கட்டுப்பாட்டு அளபுரு",
+    "向きを調整する": "திசையைச் சரிசெய்",
+    "プレビューできませんでした。": "முன்னோட்டத்தைக் காட்ட முடியவில்லை.",
+    "新しいポーズ": "புதிய போஸ்",
+    "対象: {0}": "இலக்கு: {0}"
+  },
+  "te": {
+    "アイコンを指定する": "సొంత చిహ్నాన్ని ఉపయోగించు",
+    "MotionTimeを使う": "Motion Time ఉపయోగించు",
+    "操作パラメーター": "నియంత్రణ పరామితి",
+    "向きを調整する": "దిశను సర్దుబాటు చేయి",
+    "プレビューできませんでした。": "ముందుచూపు చూపలేకపోయాం.",
+    "新しいポーズ": "కొత్త భంగిమ",
+    "対象: {0}": "లక్ష్యం: {0}"
+  },
+  "ar": {
+    "アイコンを指定する": "استخدام أيقونة مخصصة",
+    "MotionTimeを使う": "استخدام Motion Time",
+    "操作パラメーター": "معلمة التحكم",
+    "向きを調整する": "ضبط الاتجاه",
+    "プレビューできませんでした。": "تعذرت المعاينة.",
+    "新しいポーズ": "وضعية جديدة",
+    "対象: {0}": "الهدف: {0}"
+  },
+  "he": {
+    "アイコンを指定する": "שימוש בסמל מותאם",
+    "MotionTimeを使う": "שימוש ב-Motion Time",
+    "操作パラメーター": "פרמטר שליטה",
+    "向きを調整する": "כוונון הכיוון",
+    "プレビューできませんでした。": "לא ניתן להציג תצוגה מקדימה.",
+    "新しいポーズ": "תנוחה חדשה",
+    "対象: {0}": "יעד: {0}"
+  }
+}

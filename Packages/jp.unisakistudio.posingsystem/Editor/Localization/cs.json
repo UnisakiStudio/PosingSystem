@@ -177,6 +177,10 @@
       "value": "Zadejte název parametru Motion Time nebo Motion Time vypněte."
     },
     {
+      "key": "MotionTimeを使う",
+      "value": "Použít Motion Time"
+    },
+    {
       "key": "PosingSystem が見つかりません。対象のコンポーネントを選択した状態で再度開いてください。",
       "value": "PosingSystem nebyl nalezen. Vyberte cílovou komponentu a znovu otevřete okno."
     },
@@ -1405,6 +1409,10 @@
       "value": "Aktualizace ikon"
     },
     {
+      "key": "アイコンを指定する",
+      "value": "Použít vlastní ikonu"
+    },
+    {
       "key": "アイコンを撮り直す",
       "value": "Znovu pořídit ikony"
     },
@@ -1863,6 +1871,10 @@
     {
       "key": "プレビュー",
       "value": "Náhled"
+    },
+    {
+      "key": "プレビューできませんでした。",
+      "value": "Náhled se nepodařilo zobrazit."
     },
     {
       "key": "プレビューを終了（元の姿勢に戻す）",
@@ -2617,6 +2629,10 @@
       "value": "Otočit směr"
     },
     {
+      "key": "向きを調整する",
+      "value": "Upravit směr"
+    },
+    {
       "key": "呼吸",
       "value": "Dýchání"
     },
@@ -2861,6 +2877,10 @@
       "value": "Postup: ve Window > General > Console zkontrolujte první červenou chybu této operace. Pokud kontrola nastavení problém nevyřeší, při kontaktování podpory uveďte kód chyby, podrobnosti a verzi nástroje."
     },
     {
+      "key": "対象: {0}",
+      "value": "Cíl: {0}"
+    },
+    {
       "key": "対象の腕または脚のHumanoidボーンが見つかりません。",
       "value": "Kosti Humanoid cílové paže nebo nohy nebyly nalezeny."
     },
@@ -3085,12 +3105,20 @@
       "value": "Vybráno automaticky, protože to vyžaduje režim focení."
     },
     {
+      "key": "操作パラメーター",
+      "value": "Řídicí parametr"
+    },
+    {
       "key": "操作対象のポーズツールが見つかりません。",
       "value": "Cílový nástroj pro pózy nebyl nalezen."
     },
     {
       "key": "斜め座り",
       "value": "Šikmý sed"
+    },
+    {
+      "key": "新しいポーズ",
+      "value": "Nová póza"
     },
     {
       "key": "既存のHead Chop設定との重複を避けるため、「撮影モード中は頭を非表示にしない」をオフにするか、既存設定のHead対象を見直してください。耳など別のボーンの設定はそのまま併用できます。",

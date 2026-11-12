@@ -96,7 +96,7 @@ namespace jp.unisakistudio.posingsystemeditor
                                     if (ps.overrideDefines == null) ps.overrideDefines = new List<PosingSystem.OverrideAnimationDefine>();
                                     ps.overrideDefines.Add(new PosingSystem.OverrideAnimationDefine { stateType = (PosingSystem.OverrideAnimationDefine.AnimationStateType)category });
                                 }
-                                else ps.defines[category].animations.Add(new PosingSystem.AnimationDefine(null, "新しいポーズ"));
+                                else ps.defines[category].animations.Add(new PosingSystem.AnimationDefine(null, PosingSystemLocalization.Text("新しいポーズ")));
                                 PosingSystemPoseListUtility.MarkChanged(ps); serialized.Update(); GUIUtility.ExitGUI();
                             }
                     }

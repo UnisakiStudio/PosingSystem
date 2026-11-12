@@ -68,6 +68,12 @@ gzipヘッダーの内部ファイル名を `archtemp.tar` に固定します。
 
 既存生成物を直す `normalize_gzip_header` は、展開後のTARを1バイトも変えずに内部名を補います。GUID・スクリプト・DLL・ライセンス値・依存設定は維持します。`python -m unittest discover -s Tools/InstallerLocalization -p test_package.py -v` で、内部名、TAR保持、再現性、破損拒否と新規生成を検査します。配布前には日本語名と英語名の両方でUnity実展開も確認してください。展開一覧取得ではインストーラーをAssetsへ取り込まず、ライセンス登録や自動導入を実行しません。
 
-依存範囲は元の `3.x.x` / `1.x.x` を保ちます。必要なら `--dependency jp.unisakistudio.kawaiiposing=3.2.x` のように明示指定できます。開発版本体が公開されるまで試作インストーラーだけを取り込んでも、公開済みの本体が導入されます。リリース前に依存範囲と公開先を確定してください。
+`package.py` は指定がなければ入力パッケージの依存範囲をそのまま保ちます。入力が既に `3.2.x` のように固定されている場合は固定のまま残るため、manifestの「retained」は「入力のまま」という意味です。公開用の配布物は `--dependency jp.unisakistudio.kawaiiposing=3.x.x`（カッコいいは `1.x.x`）を明示し、新規購入者が常に公開済みの最新3.x／1.xを受け取るようにします。開発側の `build_minimal_store_bundles.py` はこの範囲を指定し、生成後のconfigを検査します。本体の公開前に取り込んだ場合は、公開済みの旧版本体が導入されます。可愛いポーズツールのconfigは旧アカウントのlisting URLを参照しているため、公開時は両方のlistingに新版があることを確認してください。
+
+### ダイアログとビルドの注意（2026-11-12）
+
+- ライセンス導入ダイアログへは**原文の見出し・ボタン**と再評価できる本文（`() => ...`）を渡します。翻訳済みの文字列を渡すと、言語ボタン後の再描画で逆引きになり、1語が2つの意味を持つ言語（ベトナム語の「Cài đặt」＝Install／Settings）で同意ボタンが別の語になります。`prepare_sources.py` の `dialog_sources` がこの形へ変換します。
+- `Debug.Log` 系のConsole行は翻訳しません。`[InitializeOnLoad]` の「既に有効化されています」ログを翻訳すると、スクリプト再読込のたびに全言語表を構築していました。
+- `build.py` は `DebugType=none` でビルドし、完成DLLにビルドPCの絶対パス（アカウント名やフォルダー構成）が含まれないことを検査します。配布物の生成側でも全ファイルを同じ観点で検査します。
 
 **完成したVPAI DLLを開発中のUnityのAssetsに直接置かないでください。** 上流と同様、読み込むだけで自動導入と自己削除が動きます。Unity内で試す場合は専用プロジェクトで事前に `VPM_PACKAGE_AUTO_INSTALLER_DEV_ENV` を定義し、実行対象のconfigと導入先を確認してください。

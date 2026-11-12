@@ -91,7 +91,7 @@ namespace jp.unisakistudio.posingsystemeditor
 
                 if (prefabs == null)
                 {
-                    if (UnisakiStudio.Setup.Language.Dialog(PosingSystemLocalization.Text("Prefabを読み込めません [PS042]"), "対象: " + string.Join("\n", paths) + "\nPrefabが破損しているか、Posing Systemコンポーネントがありません。ConsoleのMissing Script・コンパイルエラーを確認してください。\n" + UnisakiStudio.Setup.Language.T(PosingSystemDiagnostics.RestoreTool), "このエラーについて相談する", "閉じる"))
+                    if (UnisakiStudio.Setup.Language.Dialog(PosingSystemLocalization.Text("Prefabを読み込めません [PS042]"), () => PosingSystemLocalization.Format("対象: {0}", string.Join("\n", paths)) + "\n" + PosingSystemLocalization.Text("Prefabが破損しているか、Posing Systemコンポーネントがありません。ConsoleのMissing Script・コンパイルエラーを確認してください。") + "\n" + PosingSystemLocalization.Text(PosingSystemDiagnostics.RestoreTool), "このエラーについて相談する", "閉じる"))
                         PosingSystemSupportReport.Open("PS042");
                     return;
                 }
@@ -99,7 +99,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 var instance = PrefabUtility.InstantiatePrefab(prefabs, avatar.transform) as GameObject;
                 if (instance == null)
                 {
-                    if (UnisakiStudio.Setup.Language.Dialog(PosingSystemLocalization.Text("Prefabを配置できません [PS043]"), "対象: " + name + "\nConsoleでMissing Prefabなどのインポートエラーを確認してください。配置先のシーンを開き直して再実行してください。", "このエラーについて相談する", "閉じる"))
+                    if (UnisakiStudio.Setup.Language.Dialog(PosingSystemLocalization.Text("Prefabを配置できません [PS043]"), () => PosingSystemLocalization.Format("対象: {0}", name) + "\n" + PosingSystemLocalization.Text("ConsoleでMissing Prefabなどのインポートエラーを確認してください。配置先のシーンを開き直して再実行してください。"), "このエラーについて相談する", "閉じる"))
                         PosingSystemSupportReport.Open("PS043");
                     return;
                 }

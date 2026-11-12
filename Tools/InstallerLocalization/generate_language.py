@@ -37,10 +37,12 @@ def render():
             entries.setdefault(product + ' license status', entries['License status'] + ' - ' + product)
             entries.setdefault('Remove ' + product + ' license', entries['Remove licenses'] + ' - ' + product)
             entries.setdefault('Add ' + product, entries['Add'] + ' ' + product)
+    for entries in translations.values():entries.setdefault('ok','OK')
     # Permit a setup dialog to be redrawn after choosing a different language.
     for entries in translations.values():
         for key,value in entries.items():
-            if value.strip():aliases.setdefault(value.strip(),key)
+            # A case-only alias would turn every "OK" caption into the installer's lower-case key.
+            if value.strip() and value.strip().lower()!=key.lower():aliases.setdefault(value.strip(),key)
     # Older builds installed multiline native license captions and stored paths
     # with newline delimiters. Retain their exact captions as migration aliases so
     # the registrar can recognize and remove all old-language copies on upgrade.

@@ -177,6 +177,10 @@
       "value": "Ustaw nazwę parametru Motion Time lub wyłącz Motion Time."
     },
     {
+      "key": "MotionTimeを使う",
+      "value": "Użyj Motion Time"
+    },
+    {
       "key": "PosingSystem が見つかりません。対象のコンポーネントを選択した状態で再度開いてください。",
       "value": "Nie znaleziono PosingSystem. Wybierz docelowy komponent i otwórz okno ponownie."
     },
@@ -1405,6 +1409,10 @@
       "value": "Aktualizacja ikon"
     },
     {
+      "key": "アイコンを指定する",
+      "value": "Użyj własnej ikony"
+    },
+    {
       "key": "アイコンを撮り直す",
       "value": "Ponownie zrób ikony"
     },
@@ -1863,6 +1871,10 @@
     {
       "key": "プレビュー",
       "value": "Podgląd"
+    },
+    {
+      "key": "プレビューできませんでした。",
+      "value": "Nie można wyświetlić podglądu."
     },
     {
       "key": "プレビューを終了（元の姿勢に戻す）",
@@ -2617,6 +2629,10 @@
       "value": "Obróć kierunek"
     },
     {
+      "key": "向きを調整する",
+      "value": "Dostosuj kierunek"
+    },
+    {
       "key": "呼吸",
       "value": "Oddech"
     },
@@ -2861,6 +2877,10 @@
       "value": "Działanie: w Window > General > Console sprawdź pierwszy czerwony błąd tej operacji. Jeśli sprawdzanie ustawień nie pomaga, podczas kontaktu z pomocą podaj kod błędu, szczegóły i wersję narzędzia."
     },
     {
+      "key": "対象: {0}",
+      "value": "Obiekt: {0}"
+    },
+    {
       "key": "対象の腕または脚のHumanoidボーンが見つかりません。",
       "value": "Nie znaleziono kości Humanoid docelowej ręki lub nogi."
     },
@@ -3085,12 +3105,20 @@
       "value": "Wybrane automatycznie, ponieważ wymaga tego tryb zdjęć."
     },
     {
+      "key": "操作パラメーター",
+      "value": "Parametr sterujący"
+    },
+    {
       "key": "操作対象のポーズツールが見つかりません。",
       "value": "Nie znaleziono docelowego narzędzia do poz."
     },
     {
       "key": "斜め座り",
       "value": "Siad na skos"
+    },
+    {
+      "key": "新しいポーズ",
+      "value": "Nowa poza"
     },
     {
       "key": "既存のHead Chop設定との重複を避けるため、「撮影モード中は頭を非表示にしない」をオフにするか、既存設定のHead対象を見直してください。耳など別のボーンの設定はそのまま併用できます。",

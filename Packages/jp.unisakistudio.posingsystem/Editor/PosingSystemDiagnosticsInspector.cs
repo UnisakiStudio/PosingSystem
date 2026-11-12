@@ -15,7 +15,7 @@ namespace jp.unisakistudio.posingsystemeditor
         private int checkedRevision = -1;
         private int checkedTarget;
         private int checkedDirtyCount;
-        private static readonly Dictionary<int, string> failures = new Dictionary<int, string>();
+        private static readonly Dictionary<int, System.Func<string>> failures = new Dictionary<int, System.Func<string>>();
 
         private void DrawPreferences(SerializedObject serialized, PosingSystem ps)
         {
@@ -62,7 +62,15 @@ namespace jp.unisakistudio.posingsystemeditor
         {
             if (ps == null) return;
             if (string.IsNullOrEmpty(message)) failures.Remove(ps.GetInstanceID());
-            else failures[ps.GetInstanceID()] = message;
+            else failures[ps.GetInstanceID()] = () => PosingSystemLocalization.TextMessage(message);
+        }
+
+        // Preferred: the caller renders from source keys in the language current at draw time.
+        internal static void SetFailureRenderer(PosingSystem ps, System.Func<string> render)
+        {
+            if (ps == null) return;
+            if (render == null) failures.Remove(ps.GetInstanceID());
+            else failures[ps.GetInstanceID()] = render;
         }
 
         internal void Draw(SerializedObject serialized, PosingSystem ps)
@@ -88,9 +96,10 @@ namespace jp.unisakistudio.posingsystemeditor
                     showNotes = DrawBoxFoldout(showNotes, PosingSystemLocalization.Format("注意・補足を確認（{0}件）", visibleIssues.Count(i => i.Severity != MessageType.Error)));
                     if (showNotes) foreach (var issue in visibleIssues.Where(i => i.Severity != MessageType.Error)) DrawIssue(ps, issue);
                 }
-                if (failures.TryGetValue(ps.GetInstanceID(), out var failure))
+                if (failures.TryGetValue(ps.GetInstanceID(), out var renderFailure))
                 {
-                    PosingSystemTextGUI.LayoutHelpBox(PosingSystemLocalization.Text("前回の処理は完了していません。") + "\n" + PosingSystemLocalization.TextMessage(failure), MessageType.Error);
+                    var failure = renderFailure();
+                    PosingSystemTextGUI.LayoutHelpBox(PosingSystemLocalization.Text("前回の処理は完了していません。") + "\n" + failure, MessageType.Error);
                     if (PosingSystemTextGUI.LayoutButton(PosingSystemLocalization.Text("このエラーについて相談する"))) PosingSystemSupportReport.Open(failure);
                     if (PosingSystemTextGUI.LayoutButton(PosingSystemLocalization.Text("前回の失敗内容をコピー"))) EditorGUIUtility.systemCopyBuffer = failure;
                     if (PosingSystemTextGUI.LayoutButton(PosingSystemLocalization.Text("前回の失敗表示を閉じる"))) SetFailure(ps, null);

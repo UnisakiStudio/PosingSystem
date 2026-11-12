@@ -177,6 +177,10 @@
       "value": "Lege den Motion Time-Parameternamen fest oder deaktiviere Motion Time."
     },
     {
+      "key": "MotionTimeを使う",
+      "value": "Motion Time verwenden"
+    },
+    {
       "key": "PosingSystem が見つかりません。対象のコンポーネントを選択した状態で再度開いてください。",
       "value": "PosingSystem wurde nicht gefunden. Wähle die Zielkomponente und öffne dieses Fenster erneut."
     },
@@ -1405,6 +1409,10 @@
       "value": "Iconaktualisierung"
     },
     {
+      "key": "アイコンを指定する",
+      "value": "Eigenes Icon verwenden"
+    },
+    {
       "key": "アイコンを撮り直す",
       "value": "Icons neu aufnehmen"
     },
@@ -1863,6 +1871,10 @@
     {
       "key": "プレビュー",
       "value": "Vorschau"
+    },
+    {
+      "key": "プレビューできませんでした。",
+      "value": "Vorschau nicht möglich."
     },
     {
       "key": "プレビューを終了（元の姿勢に戻す）",
@@ -2617,6 +2629,10 @@
       "value": "Richtung anpassen"
     },
     {
+      "key": "向きを調整する",
+      "value": "Ausrichtung anpassen"
+    },
+    {
       "key": "呼吸",
       "value": "Atmung"
     },
@@ -2861,6 +2877,10 @@
       "value": "Abhilfe: Prüfe unter Window > General > Console den ersten roten Fehler dieses Vorgangs. Falls die Einstellungsprüfung nicht hilft, nenne dem Support Fehlercode, Details und Werkzeugversion."
     },
     {
+      "key": "対象: {0}",
+      "value": "Ziel: {0}"
+    },
+    {
       "key": "対象の腕または脚のHumanoidボーンが見つかりません。",
       "value": "Die Humanoid-Bones des Zielarms oder Zielbeins wurden nicht gefunden."
     },
@@ -3085,12 +3105,20 @@
       "value": "Automatisch gewählt, da der Fotomodus dies benötigt."
     },
     {
+      "key": "操作パラメーター",
+      "value": "Steuerparameter"
+    },
+    {
       "key": "操作対象のポーズツールが見つかりません。",
       "value": "Das gewählte Posenwerkzeug wurde nicht gefunden."
     },
     {
       "key": "斜め座り",
       "value": "Schräger Sitz"
+    },
+    {
+      "key": "新しいポーズ",
+      "value": "Neue Pose"
     },
     {
       "key": "既存のHead Chop設定との重複を避けるため、「撮影モード中は頭を非表示にしない」をオフにするか、既存設定のHead対象を見直してください。耳など別のボーンの設定はそのまま併用できます。",

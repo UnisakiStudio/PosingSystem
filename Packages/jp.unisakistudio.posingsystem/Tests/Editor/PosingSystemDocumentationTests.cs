@@ -25,6 +25,18 @@ namespace jp.unisakistudio.posingsystemeditor.tests
         }
 
         [Test]
+        public void LocalManualUrlStaysOpenableBelowNonAsciiFolders()
+        {
+            // The Windows shell cannot resolve UTF-8 percent escapes in file URLs.
+            var path = Path.Combine(Path.GetTempPath(), "ドキュメント テスト#1", "ja", "UserGuide.html");
+            var windows = PosingSystemPackageInfo.LocalFileUrl(path, true);
+            Assert.That(windows, Does.Contain("ドキュメント%20テスト%231"));
+            Assert.That(windows, Does.Not.Contain("%E3"));
+            Assert.That(new Uri(windows).LocalPath, Is.EqualTo(Path.GetFullPath(path)));
+            Assert.That(PosingSystemPackageInfo.LocalFileUrl(path, false), Is.EqualTo(new Uri(Path.GetFullPath(path)).AbsoluteUri));
+        }
+
+        [Test]
         public void ReusingPackageInfoDoesNotLeakChangelogLanguageAndReturnsToJapanese()
         {
             WithTemporaryPackage((root, info) =>

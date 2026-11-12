@@ -31,10 +31,10 @@ namespace jp.unisakistudio.posingsystemeditor
                     if (!string.IsNullOrEmpty(RootPath))
                     {
                         var localized = DocumentationPath(this, "UserGuide.html");
-                        if (localized != null) return new Uri(Path.GetFullPath(localized)).AbsoluteUri;
+                        if (localized != null) return LocalFileUrl(localized);
                         var legacyEnglish = Path.Combine(RootPath, "Documentation~", "UserGuide.en.html");
                         if (PosingSystemLocalization.Language != "ja" && File.Exists(legacyEnglish))
-                            return new Uri(Path.GetFullPath(legacyEnglish)).AbsoluteUri;
+                            return LocalFileUrl(legacyEnglish);
                     }
                     switch (name)
                     {
@@ -45,6 +45,19 @@ namespace jp.unisakistudio.posingsystemeditor
                     }
                 }
             }
+        }
+
+        // The Windows shell decodes %XX in file URLs with the ANSI code page, so a
+        // fully escaped URI cannot open a project below a Japanese or other non-ASCII
+        // folder. Keep those characters literal there; spaces, '#' and '%' stay escaped.
+        internal static string LocalFileUrl(string path)
+            => LocalFileUrl(path, Application.platform == RuntimePlatform.WindowsEditor);
+        internal static string LocalFileUrl(string path, bool windowsShell)
+        {
+            var url = new Uri(Path.GetFullPath(path)).AbsoluteUri;
+            if (!windowsShell) return url;
+            return System.Text.RegularExpressions.Regex.Replace(url, "(?:%[89A-Fa-f][0-9A-Fa-f])+",
+                match => Uri.UnescapeDataString(match.Value));
         }
 
         private static readonly Dictionary<Type, Info> Cache = new Dictionary<Type, Info>();

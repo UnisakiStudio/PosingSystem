@@ -60,6 +60,11 @@ namespace jp.unisakistudio.posingsystemeditor
             if (copies.TryGetValue(source, out var existing)) return existing;
             var copy = Object.Instantiate(source);
             copy.name = source.name;
+            // Modular Avatar matches Menu Installer targets through NDMF object identity.
+            // Without this, an installer elsewhere on the avatar that targets the original
+            // asset silently loses its controls in every non-Japanese build.
+            try { ObjectRegistry.RegisterReplacedObject(source, copy); }
+            catch (System.ArgumentException) { } // Never fail a build because of the registry.
             copies.Add(source, copy); // Register before recursion: expression menus can contain cycles.
             saver?.SaveAsset(copy);
             for (var controlIndex = 0; controlIndex < copy.controls.Count; controlIndex++)

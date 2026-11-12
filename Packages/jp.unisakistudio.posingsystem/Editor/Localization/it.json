@@ -177,6 +177,10 @@
       "value": "Imposta il nome del parametro Motion Time o disattiva Motion Time."
     },
     {
+      "key": "MotionTimeを使う",
+      "value": "Usa Motion Time"
+    },
+    {
       "key": "PosingSystem が見つかりません。対象のコンポーネントを選択した状態で再度開いてください。",
       "value": "PosingSystem non trovato. Seleziona il componente di destinazione e riapri questa finestra."
     },
@@ -1405,6 +1409,10 @@
       "value": "Aggiornamento icone"
     },
     {
+      "key": "アイコンを指定する",
+      "value": "Usa icona personalizzata"
+    },
+    {
       "key": "アイコンを撮り直す",
       "value": "Ricrea icone"
     },
@@ -1863,6 +1871,10 @@
     {
       "key": "プレビュー",
       "value": "Anteprima"
+    },
+    {
+      "key": "プレビューできませんでした。",
+      "value": "Impossibile mostrare l'anteprima."
     },
     {
       "key": "プレビューを終了（元の姿勢に戻す）",
@@ -2617,6 +2629,10 @@
       "value": "Regola direzione"
     },
     {
+      "key": "向きを調整する",
+      "value": "Regola orientamento"
+    },
+    {
       "key": "呼吸",
       "value": "Respiro"
     },
@@ -2861,6 +2877,10 @@
       "value": "Intervento: in Window > General > Console, controlla il primo errore rosso di questa operazione. Se il controllo delle impostazioni non risolve il problema, comunica all'assistenza il codice di errore, i dettagli e la versione dello strumento."
     },
     {
+      "key": "対象: {0}",
+      "value": "Oggetto: {0}"
+    },
+    {
       "key": "対象の腕または脚のHumanoidボーンが見つかりません。",
       "value": "Bone Humanoid del braccio o della gamba di destinazione non trovati."
     },
@@ -3085,12 +3105,20 @@
       "value": "Selezionato automaticamente perché necessario alla Modalità foto."
     },
     {
+      "key": "操作パラメーター",
+      "value": "Parametro di controllo"
+    },
+    {
       "key": "操作対象のポーズツールが見つかりません。",
       "value": "Strumento di posa di destinazione non trovato."
     },
     {
       "key": "斜め座り",
       "value": "Seduto di sbieco"
+    },
+    {
+      "key": "新しいポーズ",
+      "value": "Nuova posa"
     },
     {
       "key": "既存のHead Chop設定との重複を避けるため、「撮影モード中は頭を非表示にしない」をオフにするか、既存設定のHead対象を見直してください。耳など別のボーンの設定はそのまま併用できます。",

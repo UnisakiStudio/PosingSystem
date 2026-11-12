@@ -521,10 +521,17 @@ namespace jp.unisakistudio.posingsystemeditor
             catch (ExitGUIException) { throw; }
             catch (Exception ex)
             {
-                var message = PosingSystemLocalization.Format("{0}を中止しました。\n{1}", PosingSystemLocalization.Text(stage), PosingSystemLocalization.TextMessage(ex.Message));
-                if (!(ex is PosingSystemDiagnostics.DiagnosticException))
-                    message += "\n" + PosingSystemLocalization.Text("対処: Window > General > Consoleで、この操作中に最初に出た赤いエラーを確認してください。設定の確認で問題が解消しない場合は、このエラー番号・詳細とツールのバージョンをお問い合わせに添えてください。");
-                PosingSystemDiagnosticsInspector.SetFailure(posingSystem, message);
+                var failedStage = stage; var failureDetail = ex.Message; var isDiagnostic = ex is PosingSystemDiagnostics.DiagnosticException;
+                // Keep the source parts and render on demand, so the notice follows later language changes.
+                Func<string> renderFailure = () =>
+                {
+                    var text = PosingSystemLocalization.Format("{0}を中止しました。\n{1}", PosingSystemLocalization.Text(failedStage), PosingSystemLocalization.TextMessage(failureDetail));
+                    if (!isDiagnostic)
+                        text += "\n" + PosingSystemLocalization.Text("対処: Window > General > Consoleで、この操作中に最初に出た赤いエラーを確認してください。設定の確認で問題が解消しない場合は、このエラー番号・詳細とツールのバージョンをお問い合わせに添えてください。");
+                    return text;
+                };
+                var message = renderFailure();
+                PosingSystemDiagnosticsInspector.SetFailureRenderer(posingSystem, renderFailure);
                 Debug.LogError("[PosingSystem] " + message, posingSystem);
                 Debug.LogException(ex, posingSystem);
                 if (PosingSystemLocalization.Dialog(PosingSystemLocalization.Format("{0}を完了できませんでした", PosingSystemLocalization.Text(stage)), message, "このエラーについて相談する", "閉じる"))
@@ -622,7 +629,8 @@ namespace jp.unisakistudio.posingsystemeditor
             }
 
             selectedIndex = PosingSystemTextGUI.LayoutPopup(
-                new GUIContent(displayName.Value),
+                // The value keeps the serialized category names; translate each standard name for display.
+                new GUIContent(string.Join("／", (displayName.Value ?? "").Split('／').Select(PosingSystemLocalization.DisplayName))),
                 selectedIndex,
                 BreathingLevelLabels.Select(PosingSystemLocalization.Text).ToArray());
             levelProperty.intValue = (int)BreathingLevels[selectedIndex];

@@ -17,12 +17,28 @@ PINS = {
 }
 
 
+def host_paths(data):
+    """Names of build-machine locations found in a binary (UTF-8 or UTF-16, any case)."""
+    lowered = data.lower()
+    found = []
+    for label, value in (('home directory', str(Path.home())), ('repository', str(Path(__file__).resolve().parents[2]))):
+        for candidate in {value, value.replace('\\', '/')}:
+            text = candidate.lower()
+            if text.encode('utf-8') in lowered or text.encode('utf-16-le') in lowered:
+                found.append(label)
+                break
+    return found
+
+
 def project(path, assembly, sources, managed, platform=None):
     root = ET.Element('Project', Sdk='Microsoft.NET.Sdk')
     props = ET.SubElement(root, 'PropertyGroup')
     values = dict(TargetFramework='netstandard2.1', EnableDefaultCompileItems='false',
                   GenerateAssemblyInfo='false', GenerateTargetFrameworkAttribute='false',
-                  AssemblyName=assembly, LangVersion='latest', Deterministic='true')
+                  AssemblyName=assembly, LangVersion='latest', Deterministic='true',
+                  # No PDB reference: a debug directory embeds the build machine's absolute path
+                  # (account name and folder layout) in the customer DLL.
+                  DebugType='none', DebugSymbols='false')
     if platform:
         values['DefineConstants'] = platform
     for name, value in values.items():
@@ -82,6 +98,9 @@ def build(upstream, inputs, output, unity, dotnet):
             raise RuntimeError('Build failed; see ' + str(log))
         print(path.stem + ': compiled')
     binary = builds / 'bin/Release/netstandard2.1/com.anatawa12.vpm-package-auto-installer.dll'
+    leaked = host_paths(binary.read_bytes())
+    if leaked:
+        raise RuntimeError('Installer binary contains a build-machine path: ' + ', '.join(leaked))
     checks = output / 'Checks'
     checks.mkdir(exist_ok=True)
     (checks / 'Program.cs').write_bytes((Path(__file__).parent / 'AssemblyChecks.cs.in').read_bytes())

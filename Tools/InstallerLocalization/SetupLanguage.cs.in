@@ -82,7 +82,8 @@ __FACTORIES__
                 foreach (var index in template.Indices) maximum = Math.Max(maximum, index);
                 var arguments = new object[maximum + 1];
                 foreach (var index in template.Indices) arguments[index] = match.Groups["p" + index].Value;
-                foreach (var index in template.TextArguments) arguments[index] = Translate(language, arguments[index] as string);
+                // A translation with fewer placeholders must fall back, not throw into the caller.
+                foreach (var index in template.TextArguments) if (index < arguments.Length) arguments[index] = Translate(language, arguments[index] as string);
                 var target = Catalogs.TryGetValue(language, out var catalog) && catalog.TryGetValue(template.Canonical, out var value) ? value : template.Canonical;
                 try { translated = string.Format(CultureInfo.InvariantCulture, target, arguments); return true; }
                 catch (FormatException) { }
@@ -208,7 +209,11 @@ __FACTORIES__
                 foreach (var prefix in DiagnosticData.Prefixes)
                 {
                         if (!prefix.EndsWith(":", StringComparison.Ordinal) || trimmed.Length <= prefix.Length || !trimmed.StartsWith(prefix, StringComparison.Ordinal)) continue;
-                        return source.Substring(0, start) + Translate(language, prefix) + trimmed.Substring(prefix.Length) + source.Substring(start + trimmed.Length);
+                        // Translate the body only when it is an exact known sentence (for example the
+                        // action after "Action:"); free text such as exception details stays untouched.
+                        var rest = trimmed.Substring(prefix.Length);
+                        if (TryExact(language, rest, out var exactRest)) rest = exactRest;
+                        return source.Substring(0, start) + Translate(language, prefix) + rest + source.Substring(start + trimmed.Length);
                 }
             }
             if (value == canonical && canonical == trimmed && source.IndexOf('\n') >= 0)
@@ -220,7 +225,12 @@ __FACTORIES__
             return source.Substring(0, start) + value + source.Substring(start + trimmed.Length);
         }
         internal static string T(string source) => Translate(Current, source);
-        internal static string Format(string source, params object[] arguments) => string.Format(T(source), arguments);
+        internal static string Format(string source, params object[] arguments)
+        {
+            // An imperfect translation must not replace the real message with a format error.
+            try { return string.Format(T(source), arguments); }
+            catch (FormatException) { return string.Format(source, arguments); }
+        }
         internal static void Progress(string title, string message, float progress)
         {
             Debug.Log("[VPAI] " + message); // Preserve detailed stage text for diagnostics.

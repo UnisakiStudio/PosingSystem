@@ -4,6 +4,38 @@ import argparse,json,re,hashlib,shutil
 HERE=Path(__file__).resolve().parent
 
 def csharp(value):return json.dumps(value,ensure_ascii=False)
+def dialog_sources(text):
+    """Give SetupLanguage.Dialog source captions and a message it can render again.
+
+    Dialog translates its captions itself and redraws after the Language... button.
+    A caption translated beforehand would be reverse-translated then, and one word
+    can stand for two captions in a language (Vietnamese Install/Settings).
+    """
+    marker='SetupLanguage.Dialog(';wrapped=re.compile(r'SetupLanguage\.T\(("(?:\\.|[^"\\])*")\)\Z')
+    output=[];position=0
+    while True:
+        start=text.find(marker,position)
+        if start<0:output.append(text[position:]);break
+        index=start+len(marker);last=index;depth=1;quoted=False;arguments=[]
+        while depth:
+            character=text[index]
+            if quoted:
+                if character=='\\':index+=1
+                elif character=='"':quoted=False
+            elif character=='"':quoted=True
+            elif character in '([{':depth+=1
+            elif character in ')]}':depth-=1
+            elif character==',' and depth==1:arguments.append(text[last:index]);last=index+1
+            index+=1
+        arguments.append(text[last:index-1])
+        if not 3<=len(arguments)<=4:raise ValueError('Unexpected setup dialog call')
+        for number,argument in enumerate(arguments):
+            core=argument.strip();caption=wrapped.match(core)
+            if number==1:
+                if 'SetupLanguage.' in core:arguments[number]=argument.replace(core,'() => '+core,1)
+            elif caption:arguments[number]=argument.replace(core,caption[1],1)
+        output.append(text[position:start]+marker+','.join(arguments)+')');position=index
+    return ''.join(output)
 def prepare(upstream,inputs,output):
     output.mkdir(parents=True,exist_ok=True)
     repo=HERE.parents[1]
@@ -47,7 +79,9 @@ def prepare(upstream,inputs,output):
     for original in sorted(inputs.glob('*LicenseActivator.cs')):
         lines=[]
         for line in original.read_text(encoding='utf-8-sig').splitlines():
-            if '[MenuItem(' not in line and 'const string' not in line and '$"' not in line:
+            # Console lines keep their original text. Translating the "already activated"
+            # log ran from InitializeOnLoad and built every language table on each reload.
+            if '[MenuItem(' not in line and 'const string' not in line and '$"' not in line and 'Debug.Log' not in line:
                 def replace(m):
                     try:value=json.loads(m[0])
                     except ValueError:return m[0]
@@ -60,6 +94,7 @@ def prepare(upstream,inputs,output):
             lines.append(line)
         patched='\n'.join(lines)+'\n'
         patched=patched.replace('SetupLanguage.T("ライセンスはソフトウェア用のレジストリ内にインストールされます。")', 'SetupLanguage.StorageNotice')
+        patched=dialog_sources(patched)
         patched='using SetupLanguage = UnisakiStudio.Setup.Language;\n'+patched
         (output/original.name).write_text(patched,encoding='utf-8')
         licenses.append(original.name)

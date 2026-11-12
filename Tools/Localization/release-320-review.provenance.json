@@ -1,0 +1,34 @@
+{
+  "authoring": "Claude AI, 2026-11-12",
+  "reason": "Display strings found untranslated by the final pre-release review: pose detail labels, quick-preview failure, default name of a newly added pose and the PS042/PS043 dialog target line",
+  "keys": [
+    "アイコンを指定する",
+    "MotionTimeを使う",
+    "操作パラメーター",
+    "向きを調整する",
+    "プレビューできませんでした。",
+    "新しいポーズ",
+    "対象: {0}"
+  ],
+  "languages": ["en", "fr", "it", "zh-Hans", "zh-Hant", "ko", "th", "de", "es", "pt", "pt-BR", "ru", "uk", "pl", "nl", "sv", "da", "fi", "nb", "cs", "tr", "id", "vi", "hi", "bn", "ta", "te", "ar", "he"],
+  "existing_terms_reused": [
+    "アイコン画像",
+    "再生位置のパラメーター",
+    "姿勢のプレビュー",
+    "ポーズ名",
+    "Motion Timeのパラメータ名を設定するか、Motion Timeを無効にしてください。"
+  ],
+  "checks": [
+    "All 29 target language batches contain the same 7 keys",
+    "Numbered placeholder preserved in the target line",
+    "Icon, parameter, preview and pose terms compared with each existing language catalog",
+    "Wording of the direction toggle kept distinct from the existing rotate-direction entry in every language"
+  ],
+  "native_speaker_review": false,
+  "rendered_review": false,
+  "sources": [
+    "PosingSystemPoseBrowser.cs",
+    "PosingSystemQuickPreview.cs",
+    "PosingSystemMenuItems.cs"
+  ]
+}
