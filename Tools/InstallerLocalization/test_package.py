@@ -61,9 +61,16 @@ class PackageTests(unittest.TestCase):
             with tarfile.open(output, 'r:gz') as archive:
                 self.assertEqual(archive.extractfile('a' * 32 + '/asset').read(), b'license fixture')
                 self.assertEqual(archive.extractfile('b' * 32 + '/asset').read(), b'binary fixture')
-                self.assertEqual(json.load(archive.extractfile('c' * 32 + '/asset'))['vpmDependencies'], {'example': '3.x.x'})
+                config = json.load(archive.extractfile('c' * 32 + '/asset'))
+                self.assertEqual(config, {'vpmDependencies': {'example': '3.x.x'}})
             with self.assertRaises(ValueError):
                 package(original, build, output, {})
+            # Pre-release bundles opt in explicitly; stable bundles never carry the flag.
+            alpha = root / 'alpha.unitypackage'
+            package(original, build, alpha, {'example': '>=3.2.0-alpha.1'}, include_prerelease=True)
+            with tarfile.open(alpha, 'r:gz') as archive:
+                self.assertEqual(json.load(archive.extractfile('c' * 32 + '/asset')),
+                                 {'vpmDependencies': {'example': '>=3.2.0-alpha.1'}, 'includePrerelease': True})
 
 
 if __name__ == '__main__':

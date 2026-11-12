@@ -31,7 +31,9 @@ def normalize_gzip_header(data):
     return output.getvalue()
 
 
-def package(original, build, output, dependencies):
+def package(original, build, output, dependencies, include_prerelease=False):
+    """include_prerelease is for alpha/beta bundles only: the installer then also resolves
+    pre-release versions of the requested packages and of their dependencies."""
     if original.resolve() == output.resolve() or output.exists():
         raise ValueError('Output must be a new file separate from the distribution input')
     with tarfile.open(original, 'r:gz') as archive:
@@ -58,7 +60,9 @@ def package(original, build, output, dependencies):
                 if name not in config['vpmDependencies']:
                     raise ValueError('Dependency absent from original config: ' + name)
                 config['vpmDependencies'][name] = version
-            if dependencies:
+            if include_prerelease:
+                config['includePrerelease'] = True
+            if dependencies or include_prerelease:
                 replacement = (json.dumps(config, ensure_ascii=False, indent=2) + '\n').encode('utf-8')
         if replacement is not None:
             changes.append(dict(path=path, before=digest(entries[asset]), after=digest(replacement)))
@@ -98,7 +102,7 @@ def package(original, build, output, dependencies):
         raise RuntimeError('Package round-trip verification failed')
     report = dict(input=str(original), input_sha256=digest(original.read_bytes()),
                   output=str(output), output_sha256=digest(output.read_bytes()), changes=changes,
-                  dependency_overrides=dependencies,
+                  dependency_overrides=dependencies, include_prerelease=include_prerelease,
                   dependency_note='Original dependency ranges retained' if not dependencies else 'Explicit overrides applied',
                   imported_into_unity=False, published=False)
     output.with_suffix('.manifest.json').write_text(json.dumps(report, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
@@ -110,6 +114,7 @@ if __name__ == '__main__':
     for name in ['input', 'build', 'output']:
         p.add_argument('--' + name, type=Path, required=True)
     p.add_argument('--dependency', action='append', default=[], metavar='NAME=RANGE')
+    p.add_argument('--include-prerelease', action='store_true', help='alpha/beta bundles: let the installer resolve pre-release versions')
     args = p.parse_args()
     dependencies = dict(value.split('=', 1) for value in args.dependency)
-    package(args.input.resolve(), args.build.resolve(), args.output.resolve(), dependencies)
+    package(args.input.resolve(), args.build.resolve(), args.output.resolve(), dependencies, args.include_prerelease)
