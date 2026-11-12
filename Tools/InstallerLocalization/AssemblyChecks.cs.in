@@ -58,6 +58,32 @@ class Program
                 Check(!(bool)Call("CanOfferLanguage", "ERROR", code, false), "errors never offer language in " + code);
                 Check(!(bool)Call("CanOfferLanguage", "Complete", code, false), "completion never offers language in " + code);
             }
+            // Virtual Love is licensed per side (male/female). Its installer text must be complete
+            // in the standalone helper, before any product package or catalog is installed.
+            var virtualLove = new[]
+            {
+                "このパソコンに三点だいしゅきツール（男の子用）とゆにさきポーズシステムのライセンスをインストールしますか？\n\n",
+                "このパソコンに三点だいしゅきツール（女の子用）とゆにさきポーズシステムのライセンスが正常にインストールされました。\n\n",
+                "三点だいしゅきツール（女の子用）とゆにさきポーズシステムのライセンスは既にインストールされています。",
+                "三点だいしゅきツール（男の子用）とゆにさきポーズシステムのライセンスを削除しますか？\n\n",
+                "三点だいしゅきツール（男の子用）ライセンス", "三点だいしゅきツール（女の子用）ライセンス状態", "三点だいしゅきツール（女の子用）ライセンス削除",
+            };
+            foreach (var code in codes)
+            {
+                foreach (var source in virtualLove)
+                {
+                    var text = (string)Call("Translate", code, source);
+                    if (code == "ja") { Check(text == source, "Virtual Love setup text stays Japanese"); continue; }
+                    Check(!text.Any(c => c >= '぀' && c <= 'ヿ'), "Virtual Love setup text in " + code + ": " + text);
+                    Check((string)Call("Translate", "ja", text) == source, "Virtual Love setup text returns to Japanese from " + code + ": " + text);
+                }
+                if (code == "ja") continue;
+                // As shown by the activator: a storage heading, then one line per license.
+                var status = "=== Windows レジストリ ===\n三点だいしゅきツール（男の子用）: " + (string)Call("Translate", code, "有効") + "\nゆにさきポーズシステム: " + (string)Call("Translate", code, "未登録");
+                var shown = (string)Call("Translate", code, status);
+                Check(!shown.Any(c => c >= '぀' && c <= 'ヿ') && shown.Split('\n').Length == 3, "Virtual Love license status in " + code + ": " + shown);
+            }
+            Check((string)Call("Translate", "en", "三点だいしゅきツール（女の子用）: Enabled") == "Virtual Love (Female): Enabled", "Virtual Love status label");
             // This pure formatter has no InitializeOnLoad/static installer hooks.
             // Never invoke VpmPackageAutoInstaller itself in the console process.
             var errorType = assembly.GetType("Anatawa12.VpmPackageAutoInstaller.InstallerError", false);
