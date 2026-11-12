@@ -1,6 +1,6 @@
 {
   "name": "jp.unisakistudio.posingsystem",
-  "version": "3.2.0",
+  "version": "3.2.0-alpha.1",
   "displayName": "ゆにさきポーズシステム",
   "description": "ゆにさきポーズシステムは可愛いポーズツールを始めとしたゆにさきスタジオで販売しているポーズツールのベースになるシステムです。",
   "author": {
@@ -13,7 +13,7 @@
   "keywords": [
     "VRChat"
   ],
-  "url": "https://github.com/UnisakiStudio/PosingSystem/releases/download/3.2.0/jp.unisakistudio.posingsystem-3.2.0.zip",
+  "url": "https://github.com/UnisakiStudio/PosingSystem/releases/download/3.2.0-alpha.1/jp.unisakistudio.posingsystem-3.2.0-alpha.1.zip",
   "repo": "https://github.com/UnisakiStudio/PosingSystem",
   "dependencies": {
     "nadena.dev.modular-avatar": "1.15.1",
