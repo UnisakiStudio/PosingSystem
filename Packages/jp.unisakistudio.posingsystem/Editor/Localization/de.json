@@ -25,6 +25,10 @@
       "value": "1 Warnung"
     },
     {
+      "key": "ALCOM / VCCで商品本体と「ゆにさきポーズシステム」を最新版に更新し、再コンパイルが完了してから実行してください。直らない場合は、このメッセージを添えてお問い合わせください。",
+      "value": "Aktualisiere das Produkt und Unisaki Posing System mit ALCOM / VCC auf die neueste Version, warte auf das Ende der Kompilierung und versuche es erneut. Besteht das Problem weiter, wende dich an den Support und füge diese Meldung bei."
+    },
+    {
       "key": "AddStateMachineBehaviourに失敗しました。多くの場合原因は別のツールなどにエラーが発生していることです。アバタービルド・アップロード前にConsoleウィンドウを確認してエラーを解消してから再度お試しください",
       "value": "AddStateMachineBehaviour ist fehlgeschlagen. Ein anderes Werkzeug hat möglicherweise zuvor einen Fehler ausgelöst. Behebe den ersten relevanten Console-Fehler, bevor du den Avatar erneut baust oder hochlädst."
     },
@@ -1445,6 +1449,10 @@
       "value": "Fehler"
     },
     {
+      "key": "エラーの発生元: {0}",
+      "value": "Fehlerquelle: {0}"
+    },
+    {
       "key": "オブジェクトがVRC用のアバターオブジェクトの中に入っていません。このオブジェクトはVRCAvatarDescriptorコンポーネントの付いたオブジェクトの中に配置してください",
       "value": "Platziere dieses Objekt in einem Avatarobjekt mit VRCAvatarDescriptor-Komponente."
     },
@@ -1471,6 +1479,10 @@
     {
       "key": "ゲーム内メニューの言語",
       "value": "Sprache des Menüs im Spiel"
+    },
+    {
+      "key": "コンパイルエラーの内容を読み取れませんでした。Consoleの検索欄を空にし、エラーの表示を有効にして、赤い行の先頭を確認してください。",
+      "value": "Die Kompilierungsfehler konnten nicht gelesen werden. Leere das Suchfeld der Console, schalte die Fehleranzeige ein und sieh dir die erste rote Zeile an."
     },
     {
       "key": "コンパイルエラー（先頭から最大5件）",
@@ -1719,6 +1731,10 @@
     {
       "key": "ポーズツールで次のエラーが出ました。対処方法を教えてください。",
       "value": "Das Posenwerkzeug hat folgenden Fehler gemeldet. Wie kann ich ihn beheben?"
+    },
+    {
+      "key": "ポーズツール以外で起きているエラーです。発生元のツールを更新するか、配布元で対応状況をご確認ください。エラーが解消し、再コンパイルが完了してから実行してください。",
+      "value": "Dieser Fehler stammt nicht vom Posenwerkzeug. Aktualisiere das als Quelle genannte Werkzeug oder prüfe beim Anbieter, ob es kompatibel ist. Versuche es erneut, sobald der Fehler behoben und die Kompilierung abgeschlossen ist."
     },
     {
       "key": "ポーズ・アバター設定の注意を非表示",

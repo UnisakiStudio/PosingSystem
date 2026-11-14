@@ -9,6 +9,10 @@
 - README, historia zmian i instrukcja offline otwierają się w wybranym języku.
 - Przygotowano nazwy wszystkich 128 standardowych poz i opisy funkcji zgodnie z dotychczasową terminologią.
 
+### Zmieniono
+
+- Gdy nie można utworzyć poz z powodu błędu kompilacji (PS050), komunikat podaje teraz nazwę narzędzia, w którym wystąpił błąd. Błędy są pokazywane także tuż po ponownym uruchomieniu Unity oraz gdy widok Console jest filtrowany.
+
 ### Zgodność
 
 - Zachowywane są istniejące ustawienia awatara, własne nazwy, odwołania do zasobów, identyfikatory parametrów i sposób przechowywania licencji.

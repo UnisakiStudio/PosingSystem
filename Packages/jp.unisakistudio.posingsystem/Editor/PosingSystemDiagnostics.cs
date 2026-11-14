@@ -229,8 +229,17 @@ namespace jp.unisakistudio.posingsystemeditor
             if (EditorUtility.scriptCompilationFailed) throw CompilationFailure(context);
         }
 
-        internal static DiagnosticException CompilationFailure(UnityEngine.Object context) =>
-            Failure("PS050", PosingSystemLocalization.Text("Unityでスクリプトのコンパイルに失敗したため、ポーズの生成を開始できません。") + PosingSystemSupportReport.CompilerDetails(),
-                "Consoleの最初のコンパイルエラーを修正し、再コンパイルが完了してから実行してください。", context);
+        internal static DiagnosticException CompilationFailure(UnityEngine.Object context)
+        {
+            var details = PosingSystemSupportReport.CompilerDetails(out var own, out var other);
+            return CompilationFailure(context, details, own, other);
+        }
+
+        // Most users cannot correct a script: say whose files fail and what they can do about it.
+        internal static DiagnosticException CompilationFailure(UnityEngine.Object context, string details, bool own, bool other) =>
+            Failure("PS050", PosingSystemLocalization.Text("Unityでスクリプトのコンパイルに失敗したため、ポーズの生成を開始できません。") + details,
+                own ? "ALCOM / VCCで商品本体と「ゆにさきポーズシステム」を最新版に更新し、再コンパイルが完了してから実行してください。直らない場合は、このメッセージを添えてお問い合わせください。"
+                : other ? "ポーズツール以外で起きているエラーです。発生元のツールを更新するか、配布元で対応状況をご確認ください。エラーが解消し、再コンパイルが完了してから実行してください。"
+                : "Consoleの最初のコンパイルエラーを修正し、再コンパイルが完了してから実行してください。", context);
     }
 }

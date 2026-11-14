@@ -9,6 +9,10 @@
 - Có thể mở README, lịch sử thay đổi và hướng dẫn ngoại tuyến bằng ngôn ngữ đã chọn.
 - Cung cấp tên hiển thị của 128 tư thế chuẩn và mô tả từng tính năng theo thuật ngữ hiện có.
 
+### Đã thay đổi
+
+- Khi không thể tạo tư thế do lỗi biên dịch (PS050), thông báo giờ đây nêu tên công cụ phát sinh lỗi. Lỗi cũng được hiển thị ngay sau khi khởi động lại Unity và khi phần hiển thị của Console đang được lọc.
+
 ### Tương thích
 
 - Giữ thiết lập avatar hiện có, tên tùy chỉnh, tham chiếu tài nguyên, mã định danh tham số và phương thức lưu giấy phép.

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
@@ -15,6 +16,9 @@ namespace jp.unisakistudio.posingsystemeditor
     {
         private const int Limit = 5;
         private const int CompileError = 1 << 11; // Unity 2022.3 ConsoleWindow.Mode.ScriptCompileError
+        // StickyError: rows Unity keeps until their cause is fixed (compiler and assembly definition errors).
+        private const int Blocking = CompileError | (1 << 13);
+        private const int ShowErrors = 1 << 9; // ConsoleWindow.ConsoleFlags.LogLevelError
         private const int OtherErrors = 1 | (1 << 4) | (1 << 6) | (1 << 8) | (1 << 17);
         private static readonly List<string> compiler = new List<string>();
         // Only public package identifiers are included in the web draft. Local/custom package
@@ -62,36 +66,123 @@ namespace jp.unisakistudio.posingsystemeditor
                 var mode = entryType?.GetField("mode");
                 var message = entryType?.GetField("message");
                 if (start == null || end == null || get == null || mode == null || message == null) return result;
+                // The Console API returns only the rows its window shows: a search text or a
+                // switched-off error button hides every error, and after an Editor restart these
+                // rows are the only source. Show them for this read, then put the user's view back.
+                var shown = entries.GetProperty("consoleFlags", flags);
+                var getFilter = entries.GetMethod("GetFilteringText", flags);
+                var setFilter = entries.GetMethod("SetFilteringText", flags);
+                object hiddenFlags = null;
+                string search = null;
                 var args = new object[] { 0, Activator.CreateInstance(entryType) };
-                var count = (int)start.Invoke(null, null);
                 try
                 {
-                    for (int i = 0; i < count && result.Count < Limit; i++)
+                    if (shown != null && getFilter != null && setFilter != null)
                     {
-                        args[0] = i;
-                        if (!(bool)get.Invoke(null, args) || ((int)mode.GetValue(args[1]) & mask) == 0) continue;
-                        var line = (string)message.GetValue(args[1]) ?? "";
-                        if (!whole) line = line.Split('\n')[0].Trim();
-                        if (whole) { }
-                        else if (forDraft) line = SafeError(line);
-                        else if (line.Contains("[PosingSystem")) continue;
-                        if (line.Length > 0 && !result.Contains(line)) result.Add(line);
+                        var current = (int)shown.GetValue(null);
+                        var text = (string)getFilter.Invoke(null, null);
+                        if ((current & ShowErrors) == 0) { hiddenFlags = current; shown.SetValue(null, current | ShowErrors); }
+                        if (!string.IsNullOrEmpty(text)) { search = text; setFilter.Invoke(null, new object[] { "" }); }
                     }
+                    var count = (int)start.Invoke(null, null);
+                    try
+                    {
+                        for (int i = 0; i < count && result.Count < Limit; i++)
+                        {
+                            args[0] = i;
+                            if (!(bool)get.Invoke(null, args) || ((int)mode.GetValue(args[1]) & mask) == 0) continue;
+                            var line = (string)message.GetValue(args[1]) ?? "";
+                            if (!whole) line = line.Split('\n')[0].Trim();
+                            if (whole) { }
+                            else if (forDraft) line = SafeError(line);
+                            else if (line.Contains("[PosingSystem")) continue;
+                            if (line.Length > 0 && !result.Contains(line)) result.Add(line);
+                        }
+                    }
+                    finally { end.Invoke(null, null); }
                 }
-                finally { end.Invoke(null, null); }
+                finally
+                {
+                    if (search != null) setFilter.Invoke(null, new object[] { search });
+                    if (hiddenFlags != null) shown.SetValue(null, hiddenFlags);
+                }
             }
             catch (Exception ex) when (ex is MemberAccessException || ex is TargetInvocationException ||
                 ex is InvalidCastException || ex is AmbiguousMatchException || ex is ArgumentException) { }
             return result;
         }
 
-        private static List<string> CompilerErrors() => compiler.Count > 0 ? compiler : ReadConsole(CompileError);
+        // Compiler events exist only for compilations this Editor session has seen. After a restart
+        // the failed compilation is over before this class loads, so the Console rows are read instead.
+        private static List<string> CompilerErrors() => compiler.Count > 0 ? compiler : ReadConsole(Blocking);
 
-        internal static string CompilerDetails()
+        internal static string CompilerDetails(out bool own, out bool other)
+            => CompilerDetails(CompilerErrors().Select(LocalLine).ToList(), out own, out other);
+
+        // Shown locally (dialog and Console) only. "own": a file of this studio's tools fails;
+        // "other": a file of another tool or of the project fails.
+        internal static string CompilerDetails(IReadOnlyList<string> errors, out bool own, out bool other)
         {
-            var errors = CompilerErrors();
-            return errors.Count == 0 ? "" : "\n" + PosingSystemLocalization.Text("コンパイルエラー（先頭から最大5件）") + "\n" +
-                string.Join("\n", errors.Select(s => LocalLine(s)));
+            own = other = false;
+            if (errors.Count == 0)
+                return "\n" + PosingSystemLocalization.Text("コンパイルエラーの内容を読み取れませんでした。Consoleの検索欄を空にし、エラーの表示を有効にして、赤い行の先頭を確認してください。");
+            var origins = new List<string>();
+            foreach (var error in errors)
+            {
+                var origin = Origin(error, out var mine);
+                if (origin == null) continue;
+                if (mine) own = true; else other = true;
+                if (!origins.Contains(origin)) origins.Add(origin);
+            }
+            return (origins.Count == 0 ? "" : "\n" + PosingSystemLocalization.Format("エラーの発生元: {0}", string.Join(", ", origins))) +
+                "\n" + PosingSystemLocalization.Text("コンパイルエラー（先頭から最大5件）") + "\n" + string.Join("\n", errors);
+        }
+
+        private static readonly Regex OriginPath = new Regex(
+            @"^(?:(?:Packages|Library/PackageCache)/([A-Za-z0-9._-]+?)(?:@[^/]+)?/|Assets/(?:([^/()]+)/)?)", RegexOptions.IgnoreCase);
+
+        // The package, or the top folder under Assets, that contains the failing script.
+        internal static string Origin(string error, out bool own)
+        {
+            own = false;
+            var match = OriginPath.Match(error ?? "");
+            if (!match.Success) return null;
+            if (!match.Groups[1].Success)
+            {
+                var folder = match.Groups[2].Value;
+                // Versions before the package release were imported into Assets/UnisakiStudio.
+                own = folder.Replace(" ", "").Equals("UnisakiStudio", StringComparison.OrdinalIgnoreCase);
+                return folder.Length == 0 ? "Assets" : "Assets/" + folder;
+            }
+            var id = match.Groups[1].Value;
+            own = id.StartsWith("jp.unisakistudio.", StringComparison.OrdinalIgnoreCase);
+            var info = PackageInfo.FindForAssetPath("Packages/" + id);
+            if (info == null) return "Packages/" + id;
+            return (string.IsNullOrEmpty(info.displayName) ? id : info.displayName + " (" + id + ")") + " " + info.version;
+        }
+
+        private static string SafeVersion(string version)
+        {
+            var match = Regex.Match(version ?? "", @"^\d+\.\d+\.\d+(?:-(?:alpha|beta|rc|pre|preview)[.-]?\d+)?", RegexOptions.IgnoreCase);
+            return match.Success ? match.Value : "";
+        }
+
+        // Packages installed through ALCOM / VCC come from a published listing, so their identifier
+        // is public. Embedded packages outside that list can carry a name the user chose.
+        private static bool InstalledFromListing(string id)
+        {
+            try
+            {
+                return Listed(File.ReadAllText(Path.Combine(Path.GetDirectoryName(Application.dataPath) ?? "", "Packages/vpm-manifest.json")), id);
+            }
+            catch (Exception ex) when (ex is IOException || ex is UnauthorizedAccessException) { return false; }
+        }
+
+        // An installed package is an object under "locked"; the packages it depends on are plain strings.
+        internal static bool Listed(string manifest, string id)
+        {
+            var locked = (manifest ?? "").IndexOf("\"locked\"", StringComparison.Ordinal);
+            return locked >= 0 && Regex.IsMatch(manifest.Substring(locked), "\"" + Regex.Escape(id) + "\"\\s*:\\s*\\{");
         }
 
         private static string LocalLine(string text)
@@ -121,6 +212,19 @@ namespace jp.unisakistudio.posingsystemeditor
             var exception = Regex.Match(line, @"\b(NullReferenceException|InvalidOperationException|ArgumentException|IOException|MissingReferenceException|FileNotFoundException|TypeLoadException)\b");
             var source = Regex.Match(line, @"(?:^|/)(?:Packages|Library/PackageCache)/([A-Za-z0-9.-]+)(?:@[^/\s]+)?/(?:[^/()\r\n]+/)*([A-Za-z0-9_.-]+\.cs)\((\d+)(?:,(\d+))?\)", RegexOptions.IgnoreCase);
             string location = "";
+            if (source.Success && !tools.Contains(source.Groups[1].Value))
+            {
+                // Another tool: its public identifier and version, or only the kind of place.
+                var other = source.Groups[1].Value;
+                location = "Packages ";
+                if (InstalledFromListing(other))
+                {
+                    var version = SafeVersion(PackageInfo.FindForAssetPath("Packages/" + other)?.version);
+                    location = PosingSystemLocalization.Format("{0}（{1}行目）", other + (version.Length > 0 ? " " + version : ""), source.Groups[3].Value) + " ";
+                }
+            }
+            else if (!source.Success && Regex.IsMatch(line, @"(?:^|[\s/])Assets/[^()\r\n]*\.cs\(\d+", RegexOptions.IgnoreCase))
+                location = "Assets ";
             if (source.Success && tools.Contains(source.Groups[1].Value))
             {
                 // A locally edited package can contain a script named after its owner.
@@ -261,13 +365,18 @@ namespace jp.unisakistudio.posingsystemeditor
             lines.Add("Unity " + Application.unityVersion);
             foreach (var p in PackageInfo.GetAllRegisteredPackages().Where(p => tools.Contains(p.name)).OrderBy(p=>p.name,StringComparer.Ordinal))
             {
-                var version = Regex.Match(p.version ?? "", @"^\d+\.\d+\.\d+(?:-(?:alpha|beta|rc|pre|preview)[.-]?\d+)?", RegexOptions.IgnoreCase);
-                if (version.Success) lines.Add(p.name + " " + version.Value);
+                var version = SafeVersion(p.version);
+                if (version.Length > 0) lines.Add(p.name + " " + version);
             }
-            var compiled = EditorUtility.scriptCompilationFailed ? compiler.Select(SafeError) : Enumerable.Empty<string>();
+            // Compiler errors come first: they explain a failed compilation, and unrelated errors
+            // logged earlier would otherwise use up the row limit.
+            var failed = EditorUtility.scriptCompilationFailed;
+            var compiled = failed ? compiler.Select(SafeError).Concat(ReadConsole(Blocking, true)) : Enumerable.Empty<string>();
             var errors = compiled.Append(SafeError(failure)).Concat(ReadConsole(CompileError | OtherErrors, true))
                 .Where(s=>s.Length>0).Distinct().Take(Limit).ToArray();
             if (errors.Length > 0) lines.Add(PosingSystemLocalization.Text("Consoleのエラー\n") + string.Join("\n",errors));
+            // Zero in both counts means the errors could not be read, not that there are none.
+            if (failed) lines.Add("[compile] failed=1 events=" + compiler.Count + " console=" + ReadConsole(Blocking).Count);
             lines.AddRange(ToolDetails(Resolve(ps)));
             lines.AddRange(ReadConsole(OtherErrors, whole: true).Select(ExceptionDetail).Where(s => s.Length > 0).Distinct().Take(3).Select(s => "[exception] " + s));
             return string.Join("\n",lines);

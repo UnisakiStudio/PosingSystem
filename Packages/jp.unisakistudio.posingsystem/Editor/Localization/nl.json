@@ -25,6 +25,10 @@
       "value": "1 waarschuwing"
     },
     {
+      "key": "ALCOM / VCCで商品本体と「ゆにさきポーズシステム」を最新版に更新し、再コンパイルが完了してから実行してください。直らない場合は、このメッセージを添えてお問い合わせください。",
+      "value": "Werk het product en Unisaki Posing System met ALCOM / VCC bij naar de nieuwste versie, wacht tot het compileren klaar is en probeer opnieuw. Blijft het probleem bestaan, neem dan contact op met de ondersteuning en voeg dit bericht toe."
+    },
+    {
       "key": "AddStateMachineBehaviourに失敗しました。多くの場合原因は別のツールなどにエラーが発生していることです。アバタービルド・アップロード前にConsoleウィンドウを確認してエラーを解消してから再度お試しください",
       "value": "AddStateMachineBehaviour is mislukt. Een ander gereedschap heeft mogelijk eerder een fout veroorzaakt. Los de eerste relevante Console-fout op voordat je de avatar opnieuw bouwt of uploadt."
     },
@@ -1445,6 +1449,10 @@
       "value": "Fout"
     },
     {
+      "key": "エラーの発生元: {0}",
+      "value": "Bron van de fout: {0}"
+    },
+    {
       "key": "オブジェクトがVRC用のアバターオブジェクトの中に入っていません。このオブジェクトはVRCAvatarDescriptorコンポーネントの付いたオブジェクトの中に配置してください",
       "value": "Plaats dit object binnen een avatarobject met VRCAvatarDescriptor-component."
     },
@@ -1471,6 +1479,10 @@
     {
       "key": "ゲーム内メニューの言語",
       "value": "Taal van het menu in het spel"
+    },
+    {
+      "key": "コンパイルエラーの内容を読み取れませんでした。Consoleの検索欄を空にし、エラーの表示を有効にして、赤い行の先頭を確認してください。",
+      "value": "De compilatiefouten konden niet worden gelezen. Maak het zoekveld van de Console leeg, schakel de weergave van fouten in en bekijk de eerste rode regel."
     },
     {
       "key": "コンパイルエラー（先頭から最大5件）",
@@ -1719,6 +1731,10 @@
     {
       "key": "ポーズツールで次のエラーが出ました。対処方法を教えてください。",
       "value": "Het posegereedschap meldde de volgende fout. Hoe kan ik die oplossen?"
+    },
+    {
+      "key": "ポーズツール以外で起きているエラーです。発生元のツールを更新するか、配布元で対応状況をご確認ください。エラーが解消し、再コンパイルが完了してから実行してください。",
+      "value": "Deze fout komt niet van het posegereedschap. Werk het als bron genoemde gereedschap bij of bekijk bij de aanbieder of het compatibel is. Probeer opnieuw zodra de fout weg is en het compileren klaar is."
     },
     {
       "key": "ポーズ・アバター設定の注意を非表示",

@@ -9,6 +9,10 @@
 - README, değişiklik geçmişi ve çevrimdışı kılavuz seçilen dilde açılabilir.
 - 128 standart pozun görüntüleme adları ve özellik açıklamaları mevcut terimlere göre hazırlandı.
 
+### Değişenler
+
+- Pozlar bir derleme hatası nedeniyle oluşturulamadığında (PS050), ileti artık hatanın oluştuğu aracın adını gösterir. Hatalar, Unity yeniden başlatıldıktan hemen sonra ve Console görünümü filtrelenmişken de gösterilir.
+
 ### Uyumluluk
 
 - Avatarın mevcut ayarları, özel adlar, varlık başvuruları, parametre kimlikleri ve lisans saklama yöntemi korunur.

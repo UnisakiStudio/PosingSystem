@@ -25,6 +25,10 @@
       "value": "1 varování"
     },
     {
+      "key": "ALCOM / VCCで商品本体と「ゆにさきポーズシステム」を最新版に更新し、再コンパイルが完了してから実行してください。直らない場合は、このメッセージを添えてお問い合わせください。",
+      "value": "Aktualizujte produkt a Unisaki Posing System na nejnovější verzi pomocí ALCOM / VCC, počkejte na dokončení kompilace a zkuste to znovu. Pokud problém trvá, kontaktujte podporu a přiložte tuto zprávu."
+    },
+    {
       "key": "AddStateMachineBehaviourに失敗しました。多くの場合原因は別のツールなどにエラーが発生していることです。アバタービルド・アップロード前にConsoleウィンドウを確認してエラーを解消してから再度お試しください",
       "value": "Selhalo AddStateMachineBehaviour. Jiný nástroj mohl dříve vyvolat chybu. Před dalším sestavením nebo nahráním avatara vyřešte první související chybu v Console."
     },
@@ -1445,6 +1449,10 @@
       "value": "Chyba"
     },
     {
+      "key": "エラーの発生元: {0}",
+      "value": "Zdroj chyby: {0}"
+    },
+    {
       "key": "オブジェクトがVRC用のアバターオブジェクトの中に入っていません。このオブジェクトはVRCAvatarDescriptorコンポーネントの付いたオブジェクトの中に配置してください",
       "value": "Umístěte objekt dovnitř avatara s komponentou VRCAvatarDescriptor."
     },
@@ -1471,6 +1479,10 @@
     {
       "key": "ゲーム内メニューの言語",
       "value": "Jazyk nabídky ve hře"
+    },
+    {
+      "key": "コンパイルエラーの内容を読み取れませんでした。Consoleの検索欄を空にし、エラーの表示を有効にして、赤い行の先頭を確認してください。",
+      "value": "Chyby kompilace se nepodařilo načíst. Vymažte vyhledávací pole v Console, zapněte zobrazení chyb a zkontrolujte první červený řádek."
     },
     {
       "key": "コンパイルエラー（先頭から最大5件）",
@@ -1719,6 +1731,10 @@
     {
       "key": "ポーズツールで次のエラーが出ました。対処方法を教えてください。",
       "value": "Nástroj pro pózy ohlásil tuto chybu. Jak ji vyřešit?"
+    },
+    {
+      "key": "ポーズツール以外で起きているエラーです。発生元のツールを更新するか、配布元で対応状況をご確認ください。エラーが解消し、再コンパイルが完了してから実行してください。",
+      "value": "Tato chyba vzniká mimo nástroj pro pózy. Aktualizujte nástroj uvedený jako zdroj chyby, nebo si u jeho distributora ověřte informace o kompatibilitě. Zkuste to znovu, až chyba zmizí a kompilace se dokončí."
     },
     {
       "key": "ポーズ・アバター設定の注意を非表示",

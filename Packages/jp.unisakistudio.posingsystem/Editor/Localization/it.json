@@ -25,6 +25,10 @@
       "value": "1 avviso"
     },
     {
+      "key": "ALCOM / VCCで商品本体と「ゆにさきポーズシステム」を最新版に更新し、再コンパイルが完了してから実行してください。直らない場合は、このメッセージを添えてお問い合わせください。",
+      "value": "Aggiorna il prodotto e Unisaki Posing System all'ultima versione con ALCOM / VCC, attendi la fine della compilazione e riprova. Se il problema persiste, contatta l'assistenza allegando questo messaggio."
+    },
+    {
       "key": "AddStateMachineBehaviourに失敗しました。多くの場合原因は別のツールなどにエラーが発生していることです。アバタービルド・アップロード前にConsoleウィンドウを確認してエラーを解消してから再度お試しください",
       "value": "AddStateMachineBehaviour non riuscito. Un altro strumento potrebbe aver segnalato un errore precedente. Risolvi il primo errore pertinente nella Console prima di compilare o caricare di nuovo l'avatar."
     },
@@ -1445,6 +1449,10 @@
       "value": "Errore"
     },
     {
+      "key": "エラーの発生元: {0}",
+      "value": "Origine dell'errore: {0}"
+    },
+    {
       "key": "オブジェクトがVRC用のアバターオブジェクトの中に入っていません。このオブジェクトはVRCAvatarDescriptorコンポーネントの付いたオブジェクトの中に配置してください",
       "value": "Inserisci questo oggetto in un avatar dotato di componente VRCAvatarDescriptor."
     },
@@ -1471,6 +1479,10 @@
     {
       "key": "ゲーム内メニューの言語",
       "value": "Lingua del menu in gioco"
+    },
+    {
+      "key": "コンパイルエラーの内容を読み取れませんでした。Consoleの検索欄を空にし、エラーの表示を有効にして、赤い行の先頭を確認してください。",
+      "value": "Impossibile leggere gli errori di compilazione. Svuota il campo di ricerca della Console, attiva la visualizzazione degli errori e controlla la prima riga rossa."
     },
     {
       "key": "コンパイルエラー（先頭から最大5件）",
@@ -1719,6 +1731,10 @@
     {
       "key": "ポーズツールで次のエラーが出ました。対処方法を教えてください。",
       "value": "Lo strumento di posa ha segnalato il seguente errore. Come posso risolverlo?"
+    },
+    {
+      "key": "ポーズツール以外で起きているエラーです。発生元のツールを更新するか、配布元で対応状況をご確認ください。エラーが解消し、再コンパイルが完了してから実行してください。",
+      "value": "Questo errore non proviene dallo strumento di posa. Aggiorna lo strumento indicato come origine oppure verifica le informazioni di compatibilità presso il suo distributore. Riprova quando l'errore è scomparso e la compilazione è terminata."
     },
     {
       "key": "ポーズ・アバター設定の注意を非表示",

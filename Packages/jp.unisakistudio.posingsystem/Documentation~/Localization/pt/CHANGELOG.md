@@ -9,6 +9,10 @@
 - README, histórico e manual offline abertos no idioma escolhido.
 - Nomes das 128 poses padrão e descrições de todas as funções alinhados com a terminologia existente.
 
+### Alterações
+
+- Quando não é possível gerar as poses devido a um erro de compilação (PS050), a mensagem indica agora a ferramenta em que o erro ocorre. Os erros também são apresentados logo após reiniciar o Unity e quando a vista da Console está filtrada.
+
 ### Compatibilidade
 
 - Mantidas definições existentes, nomes próprios, referências a recursos, identificadores de parâmetros e armazenamento da licença.

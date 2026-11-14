@@ -9,6 +9,10 @@
 - README, changelog and offline manuals can be opened in the selected language.
 - Prepared display names for all 128 standard poses and feature descriptions using the established terminology.
 
+### Changed
+
+- When poses cannot be generated because of a compilation error (PS050), the message now names the tool in which the error occurs. The errors are also shown right after restarting Unity and while the Console display is filtered.
+
 ### Compatibility
 
 - Existing avatar settings, custom names, asset references, parameter identifiers and license storage are preserved.

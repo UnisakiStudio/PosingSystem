@@ -1,0 +1,176 @@
+{
+  "en": {
+    "エラーの発生元: {0}": "Error source: {0}",
+    "コンパイルエラーの内容を読み取れませんでした。Consoleの検索欄を空にし、エラーの表示を有効にして、赤い行の先頭を確認してください。": "The compilation errors could not be read. Clear the Console search box, turn on the error display, and check the first red line.",
+    "ALCOM / VCCで商品本体と「ゆにさきポーズシステム」を最新版に更新し、再コンパイルが完了してから実行してください。直らない場合は、このメッセージを添えてお問い合わせください。": "Update the product and Unisaki Posing System to the latest version using ALCOM / VCC, wait for compilation to finish, then try again. If the problem continues, contact support and include this message.",
+    "ポーズツール以外で起きているエラーです。発生元のツールを更新するか、配布元で対応状況をご確認ください。エラーが解消し、再コンパイルが完了してから実行してください。": "This error comes from something other than the pose tool. Update the tool named as the source, or check its distributor for compatibility information. Try again after the error is gone and compilation has finished."
+  },
+  "ar": {
+    "エラーの発生元: {0}": "مصدر الخطأ: {0}",
+    "コンパイルエラーの内容を読み取れませんでした。Consoleの検索欄を空にし、エラーの表示を有効にして、赤い行の先頭を確認してください。": "تعذرت قراءة أخطاء التجميع. امسح مربع البحث في Console، وفعّل عرض الأخطاء، ثم تحقق من أول سطر أحمر.",
+    "ALCOM / VCCで商品本体と「ゆにさきポーズシステム」を最新版に更新し、再コンパイルが完了してから実行してください。直らない場合は、このメッセージを添えてお問い合わせください。": "حدّث المنتج وUnisaki Posing System إلى أحدث إصدار باستخدام ALCOM / VCC، وانتظر اكتمال التجميع ثم أعد المحاولة. إذا استمرت المشكلة، فتواصل مع الدعم وأرفق هذه الرسالة.",
+    "ポーズツール以外で起きているエラーです。発生元のツールを更新するか、配布元で対応状況をご確認ください。エラーが解消し、再コンパイルが完了してから実行してください。": "هذا الخطأ صادر من خارج أداة الوضعيات. حدّث الأداة المذكورة كمصدر للخطأ، أو راجع معلومات التوافق لدى موزّعها. أعد المحاولة بعد زوال الخطأ واكتمال التجميع."
+  },
+  "bn": {
+    "エラーの発生元: {0}": "ত্রুটির উৎস: {0}",
+    "コンパイルエラーの内容を読み取れませんでした。Consoleの検索欄を空にし、エラーの表示を有効にして、赤い行の先頭を確認してください。": "কম্পাইল ত্রুটির বিবরণ পড়া যায়নি। Console-এর সার্চ বক্স খালি করুন, ত্রুটি দেখানো চালু করুন এবং প্রথম লাল লাইনটি দেখুন।",
+    "ALCOM / VCCで商品本体と「ゆにさきポーズシステム」を最新版に更新し、再コンパイルが完了してから実行してください。直らない場合は、このメッセージを添えてお問い合わせください。": "ALCOM / VCC থেকে পণ্য এবং Unisaki Posing System সর্বশেষ সংস্করণে আপডেট করুন, কম্পাইল শেষ হওয়া পর্যন্ত অপেক্ষা করুন, তারপর আবার চেষ্টা করুন। সমস্যা থাকলে এই বার্তাটি যুক্ত করে সহায়তায় যোগাযোগ করুন।",
+    "ポーズツール以外で起きているエラーです。発生元のツールを更新するか、配布元で対応状況をご確認ください。エラーが解消し、再コンパイルが完了してから実行してください。": "এই ত্রুটি পোজ টুলের বাইরের কিছু থেকে হচ্ছে। উৎস হিসেবে দেখানো টুলটি আপডেট করুন, অথবা তার বিতরণকারীর কাছে সামঞ্জস্যের তথ্য দেখুন। ত্রুটি দূর হয়ে কম্পাইল শেষ হলে আবার চেষ্টা করুন।"
+  },
+  "cs": {
+    "エラーの発生元: {0}": "Zdroj chyby: {0}",
+    "コンパイルエラーの内容を読み取れませんでした。Consoleの検索欄を空にし、エラーの表示を有効にして、赤い行の先頭を確認してください。": "Chyby kompilace se nepodařilo načíst. Vymažte vyhledávací pole v Console, zapněte zobrazení chyb a zkontrolujte první červený řádek.",
+    "ALCOM / VCCで商品本体と「ゆにさきポーズシステム」を最新版に更新し、再コンパイルが完了してから実行してください。直らない場合は、このメッセージを添えてお問い合わせください。": "Aktualizujte produkt a Unisaki Posing System na nejnovější verzi pomocí ALCOM / VCC, počkejte na dokončení kompilace a zkuste to znovu. Pokud problém trvá, kontaktujte podporu a přiložte tuto zprávu.",
+    "ポーズツール以外で起きているエラーです。発生元のツールを更新するか、配布元で対応状況をご確認ください。エラーが解消し、再コンパイルが完了してから実行してください。": "Tato chyba vzniká mimo nástroj pro pózy. Aktualizujte nástroj uvedený jako zdroj chyby, nebo si u jeho distributora ověřte informace o kompatibilitě. Zkuste to znovu, až chyba zmizí a kompilace se dokončí."
+  },
+  "da": {
+    "エラーの発生元: {0}": "Fejlens kilde: {0}",
+    "コンパイルエラーの内容を読み取れませんでした。Consoleの検索欄を空にし、エラーの表示を有効にして、赤い行の先頭を確認してください。": "Kompileringsfejlene kunne ikke læses. Ryd søgefeltet i Console, slå visning af fejl til, og se den første røde linje.",
+    "ALCOM / VCCで商品本体と「ゆにさきポーズシステム」を最新版に更新し、再コンパイルが完了してから実行してください。直らない場合は、このメッセージを添えてお問い合わせください。": "Opdater produktet og Unisaki Posing System til nyeste version med ALCOM / VCC, vent til kompileringen er færdig, og prøv igen. Fortsætter problemet, så kontakt support og vedlæg denne meddelelse.",
+    "ポーズツール以外で起きているエラーです。発生元のツールを更新するか、配布元で対応状況をご確認ください。エラーが解消し、再コンパイルが完了してから実行してください。": "Denne fejl kommer ikke fra positurværktøjet. Opdater det værktøj, der er angivet som kilde, eller se oplysninger om kompatibilitet hos dets udgiver. Prøv igen, når fejlen er væk, og kompileringen er færdig."
+  },
+  "de": {
+    "エラーの発生元: {0}": "Fehlerquelle: {0}",
+    "コンパイルエラーの内容を読み取れませんでした。Consoleの検索欄を空にし、エラーの表示を有効にして、赤い行の先頭を確認してください。": "Die Kompilierungsfehler konnten nicht gelesen werden. Leere das Suchfeld der Console, schalte die Fehleranzeige ein und sieh dir die erste rote Zeile an.",
+    "ALCOM / VCCで商品本体と「ゆにさきポーズシステム」を最新版に更新し、再コンパイルが完了してから実行してください。直らない場合は、このメッセージを添えてお問い合わせください。": "Aktualisiere das Produkt und Unisaki Posing System mit ALCOM / VCC auf die neueste Version, warte auf das Ende der Kompilierung und versuche es erneut. Besteht das Problem weiter, wende dich an den Support und füge diese Meldung bei.",
+    "ポーズツール以外で起きているエラーです。発生元のツールを更新するか、配布元で対応状況をご確認ください。エラーが解消し、再コンパイルが完了してから実行してください。": "Dieser Fehler stammt nicht vom Posenwerkzeug. Aktualisiere das als Quelle genannte Werkzeug oder prüfe beim Anbieter, ob es kompatibel ist. Versuche es erneut, sobald der Fehler behoben und die Kompilierung abgeschlossen ist."
+  },
+  "es": {
+    "エラーの発生元: {0}": "Origen del error: {0}",
+    "コンパイルエラーの内容を読み取れませんでした。Consoleの検索欄を空にし、エラーの表示を有効にして、赤い行の先頭を確認してください。": "No se pudieron leer los errores de compilación. Vacía el cuadro de búsqueda de la Console, activa la visualización de errores y revisa la primera línea roja.",
+    "ALCOM / VCCで商品本体と「ゆにさきポーズシステム」を最新版に更新し、再コンパイルが完了してから実行してください。直らない場合は、このメッセージを添えてお問い合わせください。": "Actualiza el producto y Unisaki Posing System a la última versión con ALCOM / VCC, espera a que termine la compilación y vuelve a intentarlo. Si el problema continúa, contacta con el soporte e incluye este mensaje.",
+    "ポーズツール以外で起きているエラーです。発生元のツールを更新するか、配布元で対応状況をご確認ください。エラーが解消し、再コンパイルが完了してから実行してください。": "Este error no procede de la herramienta de poses. Actualiza la herramienta indicada como origen o consulta la información de compatibilidad de su distribuidor. Vuelve a intentarlo cuando el error haya desaparecido y la compilación haya terminado."
+  },
+  "fi": {
+    "エラーの発生元: {0}": "Virheen lähde: {0}",
+    "コンパイルエラーの内容を読み取れませんでした。Consoleの検索欄を空にし、エラーの表示を有効にして、赤い行の先頭を確認してください。": "Käännösvirheitä ei voitu lukea. Tyhjennä Consolen hakukenttä, ota virheiden näyttö käyttöön ja tarkista ensimmäinen punainen rivi.",
+    "ALCOM / VCCで商品本体と「ゆにさきポーズシステム」を最新版に更新し、再コンパイルが完了してから実行してください。直らない場合は、このメッセージを添えてお問い合わせください。": "Päivitä tuote ja Unisaki Posing System uusimpaan versioon ALCOM / VCC:llä, odota kääntämisen valmistumista ja yritä uudelleen. Jos ongelma jatkuu, ota yhteyttä tukeen ja liitä tämä viesti mukaan.",
+    "ポーズツール以外で起きているエラーです。発生元のツールを更新するか、配布元で対応状況をご確認ください。エラーが解消し、再コンパイルが完了してから実行してください。": "Tämä virhe ei johdu asentotyökalusta. Päivitä lähteeksi mainittu työkalu tai tarkista yhteensopivuustiedot sen jakelijalta. Yritä uudelleen, kun virhe on poistunut ja kääntäminen on valmis."
+  },
+  "fr": {
+    "エラーの発生元: {0}": "Origine de l'erreur : {0}",
+    "コンパイルエラーの内容を読み取れませんでした。Consoleの検索欄を空にし、エラーの表示を有効にして、赤い行の先頭を確認してください。": "Impossible de lire les erreurs de compilation. Videz le champ de recherche de la Console, activez l'affichage des erreurs, puis consultez la première ligne rouge.",
+    "ALCOM / VCCで商品本体と「ゆにさきポーズシステム」を最新版に更新し、再コンパイルが完了してから実行してください。直らない場合は、このメッセージを添えてお問い合わせください。": "Mettez à jour le produit et Unisaki Posing System vers la dernière version avec ALCOM / VCC, attendez la fin de la compilation, puis réessayez. Si le problème persiste, contactez l'assistance en joignant ce message.",
+    "ポーズツール以外で起きているエラーです。発生元のツールを更新するか、配布元で対応状況をご確認ください。エラーが解消し、再コンパイルが完了してから実行してください。": "Cette erreur ne provient pas de l'outil de pose. Mettez à jour l'outil indiqué comme origine, ou consultez les informations de compatibilité auprès de son distributeur. Réessayez une fois l'erreur disparue et la compilation terminée."
+  },
+  "he": {
+    "エラーの発生元: {0}": "מקור השגיאה: {0}",
+    "コンパイルエラーの内容を読み取れませんでした。Consoleの検索欄を空にし、エラーの表示を有効にして、赤い行の先頭を確認してください。": "לא ניתן היה לקרוא את שגיאות ההידור. נקו את תיבת החיפוש ב-Console, הפעילו את הצגת השגיאות ובדקו את השורה האדומה הראשונה.",
+    "ALCOM / VCCで商品本体と「ゆにさきポーズシステム」を最新版に更新し、再コンパイルが完了してから実行してください。直らない場合は、このメッセージを添えてお問い合わせください。": "עדכנו את המוצר ואת Unisaki Posing System לגרסה האחרונה דרך ALCOM / VCC, המתינו לסיום ההידור ונסו שוב. אם הבעיה נמשכת, פנו לתמיכה וצרפו את ההודעה הזו.",
+    "ポーズツール以外で起きているエラーです。発生元のツールを更新するか、配布元で対応状況をご確認ください。エラーが解消し、再コンパイルが完了してから実行してください。": "השגיאה הזו אינה מגיעה מכלי התנוחות. עדכנו את הכלי שמצוין כמקור השגיאה, או בדקו אצל המפיץ שלו מידע על תאימות. נסו שוב לאחר שהשגיאה נעלמה וההידור הסתיים."
+  },
+  "hi": {
+    "エラーの発生元: {0}": "त्रुटि का स्रोत: {0}",
+    "コンパイルエラーの内容を読み取れませんでした。Consoleの検索欄を空にし、エラーの表示を有効にして、赤い行の先頭を確認してください。": "संकलन त्रुटियाँ पढ़ी नहीं जा सकीं। Console का खोज बॉक्स खाली करें, त्रुटियों का प्रदर्शन चालू करें और पहली लाल पंक्ति देखें।",
+    "ALCOM / VCCで商品本体と「ゆにさきポーズシステム」を最新版に更新し、再コンパイルが完了してから実行してください。直らない場合は、このメッセージを添えてお問い合わせください。": "ALCOM / VCC से उत्पाद और Unisaki Posing System को नवीनतम संस्करण में अपडेट करें, संकलन पूरा होने दें और फिर प्रयास करें। समस्या बनी रहे तो यह संदेश साथ लगाकर सहायता से संपर्क करें।",
+    "ポーズツール以外で起きているエラーです。発生元のツールを更新するか、配布元で対応状況をご確認ください。エラーが解消し、再コンパイルが完了してから実行してください。": "यह त्रुटि पोज़ टूल के बाहर से आ रही है। स्रोत के रूप में दिखाए गए टूल को अपडेट करें, या उसके वितरक से संगतता की जानकारी देखें। त्रुटि हटने और संकलन पूरा होने के बाद फिर प्रयास करें।"
+  },
+  "id": {
+    "エラーの発生元: {0}": "Sumber kesalahan: {0}",
+    "コンパイルエラーの内容を読み取れませんでした。Consoleの検索欄を空にし、エラーの表示を有効にして、赤い行の先頭を確認してください。": "Kesalahan kompilasi tidak dapat dibaca. Kosongkan kotak pencarian Console, aktifkan tampilan kesalahan, lalu periksa baris merah pertama.",
+    "ALCOM / VCCで商品本体と「ゆにさきポーズシステム」を最新版に更新し、再コンパイルが完了してから実行してください。直らない場合は、このメッセージを添えてお問い合わせください。": "Perbarui produk serta Unisaki Posing System ke versi terbaru melalui ALCOM / VCC, tunggu kompilasi selesai, lalu coba lagi. Jika masalah berlanjut, hubungi dukungan dengan menyertakan pesan ini.",
+    "ポーズツール以外で起きているエラーです。発生元のツールを更新するか、配布元で対応状況をご確認ください。エラーが解消し、再コンパイルが完了してから実行してください。": "Kesalahan ini berasal dari luar alat pose. Perbarui alat yang disebut sebagai sumber, atau periksa informasi kompatibilitas dari distributornya. Coba lagi setelah kesalahan hilang dan kompilasi selesai."
+  },
+  "it": {
+    "エラーの発生元: {0}": "Origine dell'errore: {0}",
+    "コンパイルエラーの内容を読み取れませんでした。Consoleの検索欄を空にし、エラーの表示を有効にして、赤い行の先頭を確認してください。": "Impossibile leggere gli errori di compilazione. Svuota il campo di ricerca della Console, attiva la visualizzazione degli errori e controlla la prima riga rossa.",
+    "ALCOM / VCCで商品本体と「ゆにさきポーズシステム」を最新版に更新し、再コンパイルが完了してから実行してください。直らない場合は、このメッセージを添えてお問い合わせください。": "Aggiorna il prodotto e Unisaki Posing System all'ultima versione con ALCOM / VCC, attendi la fine della compilazione e riprova. Se il problema persiste, contatta l'assistenza allegando questo messaggio.",
+    "ポーズツール以外で起きているエラーです。発生元のツールを更新するか、配布元で対応状況をご確認ください。エラーが解消し、再コンパイルが完了してから実行してください。": "Questo errore non proviene dallo strumento di posa. Aggiorna lo strumento indicato come origine oppure verifica le informazioni di compatibilità presso il suo distributore. Riprova quando l'errore è scomparso e la compilazione è terminata."
+  },
+  "ko": {
+    "エラーの発生元: {0}": "오류 발생 위치: {0}",
+    "コンパイルエラーの内容を読み取れませんでした。Consoleの検索欄を空にし、エラーの表示を有効にして、赤い行の先頭を確認してください。": "컴파일 오류 내용을 읽지 못했습니다. Console의 검색란을 비우고 오류 표시를 켠 뒤 첫 번째 빨간 줄을 확인해 주세요.",
+    "ALCOM / VCCで商品本体と「ゆにさきポーズシステム」を最新版に更新し、再コンパイルが完了してから実行してください。直らない場合は、このメッセージを添えてお問い合わせください。": "ALCOM / VCC로 상품과 Unisaki Posing System을 최신 버전으로 업데이트하고 컴파일이 끝난 뒤 다시 시도해 주세요. 문제가 계속되면 이 메시지를 첨부하여 문의해 주세요.",
+    "ポーズツール以外で起きているエラーです。発生元のツールを更新するか、配布元で対応状況をご確認ください。エラーが解消し、再コンパイルが完了してから実行してください。": "포즈 도구가 아닌 다른 곳에서 발생한 오류입니다. 발생 위치로 표시된 도구를 업데이트하거나 배포처에서 호환 여부를 확인해 주세요. 오류가 사라지고 컴파일이 끝난 뒤 다시 시도해 주세요."
+  },
+  "nb": {
+    "エラーの発生元: {0}": "Feilkilde: {0}",
+    "コンパイルエラーの内容を読み取れませんでした。Consoleの検索欄を空にし、エラーの表示を有効にして、赤い行の先頭を確認してください。": "Kompileringsfeilene kunne ikke leses. Tøm søkefeltet i Console, slå på visning av feil og se på den første røde linjen.",
+    "ALCOM / VCCで商品本体と「ゆにさきポーズシステム」を最新版に更新し、再コンパイルが完了してから実行してください。直らない場合は、このメッセージを添えてお問い合わせください。": "Oppdater produktet og Unisaki Posing System til nyeste versjon med ALCOM / VCC, vent til kompileringen er ferdig og prøv igjen. Hvis problemet vedvarer, kontakt støtte og legg ved denne meldingen.",
+    "ポーズツール以外で起きているエラーです。発生元のツールを更新するか、配布元で対応状況をご確認ください。エラーが解消し、再コンパイルが完了してから実行してください。": "Denne feilen kommer ikke fra positurverktøyet. Oppdater verktøyet som er oppgitt som kilde, eller sjekk kompatibilitetsinformasjon hos utgiveren. Prøv igjen når feilen er borte og kompileringen er ferdig."
+  },
+  "nl": {
+    "エラーの発生元: {0}": "Bron van de fout: {0}",
+    "コンパイルエラーの内容を読み取れませんでした。Consoleの検索欄を空にし、エラーの表示を有効にして、赤い行の先頭を確認してください。": "De compilatiefouten konden niet worden gelezen. Maak het zoekveld van de Console leeg, schakel de weergave van fouten in en bekijk de eerste rode regel.",
+    "ALCOM / VCCで商品本体と「ゆにさきポーズシステム」を最新版に更新し、再コンパイルが完了してから実行してください。直らない場合は、このメッセージを添えてお問い合わせください。": "Werk het product en Unisaki Posing System met ALCOM / VCC bij naar de nieuwste versie, wacht tot het compileren klaar is en probeer opnieuw. Blijft het probleem bestaan, neem dan contact op met de ondersteuning en voeg dit bericht toe.",
+    "ポーズツール以外で起きているエラーです。発生元のツールを更新するか、配布元で対応状況をご確認ください。エラーが解消し、再コンパイルが完了してから実行してください。": "Deze fout komt niet van het posegereedschap. Werk het als bron genoemde gereedschap bij of bekijk bij de aanbieder of het compatibel is. Probeer opnieuw zodra de fout weg is en het compileren klaar is."
+  },
+  "pl": {
+    "エラーの発生元: {0}": "Źródło błędu: {0}",
+    "コンパイルエラーの内容を読み取れませんでした。Consoleの検索欄を空にし、エラーの表示を有効にして、赤い行の先頭を確認してください。": "Nie udało się odczytać błędów kompilacji. Wyczyść pole wyszukiwania w Console, włącz wyświetlanie błędów i sprawdź pierwszy czerwony wiersz.",
+    "ALCOM / VCCで商品本体と「ゆにさきポーズシステム」を最新版に更新し、再コンパイルが完了してから実行してください。直らない場合は、このメッセージを添えてお問い合わせください。": "Zaktualizuj produkt oraz Unisaki Posing System do najnowszej wersji przez ALCOM / VCC, poczekaj na zakończenie kompilacji i spróbuj ponownie. Jeśli problem trwa, skontaktuj się z pomocą techniczną i dołącz tę wiadomość.",
+    "ポーズツール以外で起きているエラーです。発生元のツールを更新するか、配布元で対応状況をご確認ください。エラーが解消し、再コンパイルが完了してから実行してください。": "Ten błąd nie pochodzi z narzędzia do poz. Zaktualizuj narzędzie wskazane jako źródło albo sprawdź u jego dystrybutora informacje o zgodności. Spróbuj ponownie, gdy błąd zniknie, a kompilacja się zakończy."
+  },
+  "pt": {
+    "エラーの発生元: {0}": "Origem do erro: {0}",
+    "コンパイルエラーの内容を読み取れませんでした。Consoleの検索欄を空にし、エラーの表示を有効にして、赤い行の先頭を確認してください。": "Não foi possível ler os erros de compilação. Limpe a caixa de pesquisa da Console, ative a apresentação de erros e verifique a primeira linha vermelha.",
+    "ALCOM / VCCで商品本体と「ゆにさきポーズシステム」を最新版に更新し、再コンパイルが完了してから実行してください。直らない場合は、このメッセージを添えてお問い合わせください。": "Atualize o produto e Unisaki Posing System para a versão mais recente com ALCOM / VCC, espere a compilação terminar e tente novamente. Se o problema continuar, contacte o suporte e inclua esta mensagem.",
+    "ポーズツール以外で起きているエラーです。発生元のツールを更新するか、配布元で対応状況をご確認ください。エラーが解消し、再コンパイルが完了してから実行してください。": "Este erro não vem da ferramenta de poses. Atualize a ferramenta indicada como origem ou consulte as informações de compatibilidade junto do seu distribuidor. Tente novamente quando o erro tiver desaparecido e a compilação tiver terminado."
+  },
+  "pt-BR": {
+    "エラーの発生元: {0}": "Origem do erro: {0}",
+    "コンパイルエラーの内容を読み取れませんでした。Consoleの検索欄を空にし、エラーの表示を有効にして、赤い行の先頭を確認してください。": "Não foi possível ler os erros de compilação. Limpe a caixa de pesquisa da Console, ative a exibição de erros e verifique a primeira linha vermelha.",
+    "ALCOM / VCCで商品本体と「ゆにさきポーズシステム」を最新版に更新し、再コンパイルが完了してから実行してください。直らない場合は、このメッセージを添えてお問い合わせください。": "Atualize o produto e Unisaki Posing System para a versão mais recente com ALCOM / VCC, espere a compilação terminar e tente novamente. Se o problema continuar, entre em contato com o suporte e inclua esta mensagem.",
+    "ポーズツール以外で起きているエラーです。発生元のツールを更新するか、配布元で対応状況をご確認ください。エラーが解消し、再コンパイルが完了してから実行してください。": "Este erro não vem da ferramenta de poses. Atualize a ferramenta indicada como origem ou consulte as informações de compatibilidade com o distribuidor dela. Tente novamente quando o erro tiver desaparecido e a compilação tiver terminado."
+  },
+  "ru": {
+    "エラーの発生元: {0}": "Источник ошибки: {0}",
+    "コンパイルエラーの内容を読み取れませんでした。Consoleの検索欄を空にし、エラーの表示を有効にして、赤い行の先頭を確認してください。": "Не удалось прочитать ошибки компиляции. Очистите поле поиска в Console, включите отображение ошибок и посмотрите первую красную строку.",
+    "ALCOM / VCCで商品本体と「ゆにさきポーズシステム」を最新版に更新し、再コンパイルが完了してから実行してください。直らない場合は、このメッセージを添えてお問い合わせください。": "Обновите продукт и Unisaki Posing System до последней версии через ALCOM / VCC, дождитесь завершения компиляции и повторите попытку. Если проблема остаётся, обратитесь в поддержку и приложите это сообщение.",
+    "ポーズツール以外で起きているエラーです。発生元のツールを更新するか、配布元で対応状況をご確認ください。エラーが解消し、再コンパイルが完了してから実行してください。": "Эта ошибка возникает не в инструменте поз. Обновите инструмент, указанный как источник, или уточните сведения о совместимости у его распространителя. Повторите попытку, когда ошибка исчезнет и компиляция завершится."
+  },
+  "sv": {
+    "エラーの発生元: {0}": "Felkälla: {0}",
+    "コンパイルエラーの内容を読み取れませんでした。Consoleの検索欄を空にし、エラーの表示を有効にして、赤い行の先頭を確認してください。": "Kompileringsfelen kunde inte läsas. Töm sökfältet i Console, slå på visning av fel och titta på den första röda raden.",
+    "ALCOM / VCCで商品本体と「ゆにさきポーズシステム」を最新版に更新し、再コンパイルが完了してから実行してください。直らない場合は、このメッセージを添えてお問い合わせください。": "Uppdatera produkten och Unisaki Posing System till senaste versionen med ALCOM / VCC, vänta tills kompileringen är klar och försök igen. Om problemet kvarstår, kontakta supporten och bifoga det här meddelandet.",
+    "ポーズツール以外で起きているエラーです。発生元のツールを更新するか、配布元で対応状況をご確認ください。エラーが解消し、再コンパイルが完了してから実行してください。": "Det här felet kommer inte från poseverktyget. Uppdatera verktyget som anges som källa, eller kontrollera kompatibilitetsinformation hos dess utgivare. Försök igen när felet är borta och kompileringen är klar."
+  },
+  "ta": {
+    "エラーの発生元: {0}": "பிழையின் மூலம்: {0}",
+    "コンパイルエラーの内容を読み取れませんでした。Consoleの検索欄を空にし、エラーの表示を有効にして、赤い行の先頭を確認してください。": "தொகுத்தல் பிழைகளைப் படிக்க முடியவில்லை. Console-இன் தேடல் பெட்டியைக் காலியாக்கி, பிழைகளின் காட்சியை இயக்கி, முதல் சிவப்பு வரியைப் பார்க்கவும்.",
+    "ALCOM / VCCで商品本体と「ゆにさきポーズシステム」を最新版に更新し、再コンパイルが完了してから実行してください。直らない場合は、このメッセージを添えてお問い合わせください。": "ALCOM / VCC மூலம் தயாரிப்பையும் Unisaki Posing System-ஐயும் சமீபத்திய பதிப்புக்குப் புதுப்பித்து, தொகுத்தல் முடிந்தபின் மீண்டும் முயலவும். சிக்கல் நீடித்தால் இந்தச் செய்தியை இணைத்து உதவியைத் தொடர்புகொள்ளவும்.",
+    "ポーズツール以外で起きているエラーです。発生元のツールを更新するか、配布元で対応状況をご確認ください。エラーが解消し、再コンパイルが完了してから実行してください。": "இந்தப் பிழை போஸ் கருவிக்கு வெளியே ஏற்படுகிறது. மூலமாகக் காட்டப்பட்ட கருவியைப் புதுப்பிக்கவும், அல்லது அதன் விநியோகஸ்தரிடம் பொருந்துதன்மைத் தகவலைப் பார்க்கவும். பிழை நீங்கி, தொகுத்தல் முடிந்தபின் மீண்டும் முயலவும்."
+  },
+  "te": {
+    "エラーの発生元: {0}": "లోపం మూలం: {0}",
+    "コンパイルエラーの内容を読み取れませんでした。Consoleの検索欄を空にし、エラーの表示を有効にして、赤い行の先頭を確認してください。": "కంపైల్ లోపాలను చదవలేకపోయాం. Console శోధన పెట్టెను ఖాళీ చేసి, లోపాల ప్రదర్శనను ఆన్ చేసి, మొదటి ఎరుపు వరుసను చూడండి.",
+    "ALCOM / VCCで商品本体と「ゆにさきポーズシステム」を最新版に更新し、再コンパイルが完了してから実行してください。直らない場合は、このメッセージを添えてお問い合わせください。": "ALCOM / VCC ద్వారా ఉత్పత్తిని, Unisaki Posing Systemను తాజా వెర్షన్‌కు అప్‌డేట్ చేసి, కంపైల్ పూర్తయ్యాక మళ్లీ ప్రయత్నించండి. సమస్య కొనసాగితే ఈ సందేశాన్ని జతచేసి సహాయాన్ని సంప్రదించండి.",
+    "ポーズツール以外で起きているエラーです。発生元のツールを更新するか、配布元で対応状況をご確認ください。エラーが解消し、再コンパイルが完了してから実行してください。": "ఈ లోపం భంగిమ సాధనం వెలుపల వస్తోంది. మూలంగా చూపిన సాధనాన్ని అప్‌డేట్ చేయండి, లేదా దాని పంపిణీదారు వద్ద అనుకూలత సమాచారాన్ని చూడండి. లోపం తొలగి, కంపైల్ పూర్తయ్యాక మళ్లీ ప్రయత్నించండి."
+  },
+  "th": {
+    "エラーの発生元: {0}": "ที่มาของข้อผิดพลาด: {0}",
+    "コンパイルエラーの内容を読み取れませんでした。Consoleの検索欄を空にし、エラーの表示を有効にして、赤い行の先頭を確認してください。": "อ่านข้อผิดพลาดคอมไพล์ไม่ได้ ล้างช่องค้นหาของ Console เปิดการแสดงข้อผิดพลาด แล้วดูบรรทัดสีแดงบรรทัดแรก",
+    "ALCOM / VCCで商品本体と「ゆにさきポーズシステム」を最新版に更新し、再コンパイルが完了してから実行してください。直らない場合は、このメッセージを添えてお問い合わせください。": "อัปเดตผลิตภัณฑ์และ Unisaki Posing System เป็นเวอร์ชันล่าสุดผ่าน ALCOM / VCC รอให้คอมไพล์เสร็จแล้วลองใหม่ หากยังมีปัญหา ให้ติดต่อฝ่ายสนับสนุนพร้อมแนบข้อความนี้",
+    "ポーズツール以外で起きているエラーです。発生元のツールを更新するか、配布元で対応状況をご確認ください。エラーが解消し、再コンパイルが完了してから実行してください。": "ข้อผิดพลาดนี้ไม่ได้มาจากเครื่องมือท่า อัปเดตเครื่องมือที่ระบุเป็นที่มา หรือตรวจสอบข้อมูลความเข้ากันได้จากผู้จัดจำหน่าย แล้วลองใหม่เมื่อข้อผิดพลาดหายไปและคอมไพล์เสร็จ"
+  },
+  "tr": {
+    "エラーの発生元: {0}": "Hatanın kaynağı: {0}",
+    "コンパイルエラーの内容を読み取れませんでした。Consoleの検索欄を空にし、エラーの表示を有効にして、赤い行の先頭を確認してください。": "Derleme hataları okunamadı. Console'daki arama kutusunu boşaltın, hata gösterimini açın ve ilk kırmızı satıra bakın.",
+    "ALCOM / VCCで商品本体と「ゆにさきポーズシステム」を最新版に更新し、再コンパイルが完了してから実行してください。直らない場合は、このメッセージを添えてお問い合わせください。": "Ürünü ve Unisaki Posing System'i ALCOM / VCC ile en son sürüme güncelleyin, derlemenin bitmesini bekleyin ve yeniden deneyin. Sorun sürerse bu iletiyi ekleyerek destekle iletişime geçin.",
+    "ポーズツール以外で起きているエラーです。発生元のツールを更新するか、配布元で対応状況をご確認ください。エラーが解消し、再コンパイルが完了してから実行してください。": "Bu hata poz aracının dışından kaynaklanıyor. Kaynak olarak gösterilen aracı güncelleyin veya uyumluluk bilgileri için dağıtıcısına bakın. Hata giderilip derleme bittikten sonra yeniden deneyin."
+  },
+  "uk": {
+    "エラーの発生元: {0}": "Джерело помилки: {0}",
+    "コンパイルエラーの内容を読み取れませんでした。Consoleの検索欄を空にし、エラーの表示を有効にして、赤い行の先頭を確認してください。": "Не вдалося прочитати помилки компіляції. Очистьте поле пошуку в Console, увімкніть показ помилок і перегляньте перший червоний рядок.",
+    "ALCOM / VCCで商品本体と「ゆにさきポーズシステム」を最新版に更新し、再コンパイルが完了してから実行してください。直らない場合は、このメッセージを添えてお問い合わせください。": "Оновіть продукт і Unisaki Posing System до останньої версії через ALCOM / VCC, дочекайтеся завершення компіляції та повторіть спробу. Якщо проблема залишається, зверніться до підтримки й додайте це повідомлення.",
+    "ポーズツール以外で起きているエラーです。発生元のツールを更新するか、配布元で対応状況をご確認ください。エラーが解消し、再コンパイルが完了してから実行してください。": "Ця помилка виникає не в інструменті поз. Оновіть інструмент, зазначений як джерело, або уточніть відомості про сумісність у його розповсюджувача. Повторіть спробу, коли помилка зникне й компіляція завершиться."
+  },
+  "vi": {
+    "エラーの発生元: {0}": "Nguồn lỗi: {0}",
+    "コンパイルエラーの内容を読み取れませんでした。Consoleの検索欄を空にし、エラーの表示を有効にして、赤い行の先頭を確認してください。": "Không đọc được lỗi biên dịch. Xóa ô tìm kiếm của Console, bật hiển thị lỗi rồi xem dòng màu đỏ đầu tiên.",
+    "ALCOM / VCCで商品本体と「ゆにさきポーズシステム」を最新版に更新し、再コンパイルが完了してから実行してください。直らない場合は、このメッセージを添えてお問い合わせください。": "Cập nhật sản phẩm cùng Unisaki Posing System lên phiên bản mới nhất qua ALCOM / VCC, chờ biên dịch xong rồi thử lại. Nếu vẫn lỗi, hãy liên hệ hỗ trợ và gửi kèm thông báo này.",
+    "ポーズツール以外で起きているエラーです。発生元のツールを更新するか、配布元で対応状況をご確認ください。エラーが解消し、再コンパイルが完了してから実行してください。": "Lỗi này không đến từ công cụ tạo dáng. Hãy cập nhật công cụ được nêu là nguồn lỗi, hoặc xem thông tin tương thích từ nhà phân phối của công cụ đó. Thử lại sau khi lỗi biến mất và biên dịch xong."
+  },
+  "zh-Hans": {
+    "エラーの発生元: {0}": "错误来源：{0}",
+    "コンパイルエラーの内容を読み取れませんでした。Consoleの検索欄を空にし、エラーの表示を有効にして、赤い行の先頭を確認してください。": "无法读取编译错误的内容。请清空Console的搜索框，开启错误显示，然后查看第一条红色信息。",
+    "ALCOM / VCCで商品本体と「ゆにさきポーズシステム」を最新版に更新し、再コンパイルが完了してから実行してください。直らない場合は、このメッセージを添えてお問い合わせください。": "请通过ALCOM / VCC将产品本体和Unisaki Posing System更新到最新版本，等待编译完成后再试。若问题仍然存在，请附上此信息联系支持。",
+    "ポーズツール以外で起きているエラーです。発生元のツールを更新するか、配布元で対応状況をご確認ください。エラーが解消し、再コンパイルが完了してから実行してください。": "此错误并非来自姿势工具。请更新错误来源所示的工具，或向其发布方确认兼容情况。待错误消失且编译完成后再试。"
+  },
+  "zh-Hant": {
+    "エラーの発生元: {0}": "錯誤來源：{0}",
+    "コンパイルエラーの内容を読み取れませんでした。Consoleの検索欄を空にし、エラーの表示を有効にして、赤い行の先頭を確認してください。": "無法讀取編譯錯誤的內容。請清空Console的搜尋欄，開啟錯誤顯示，然後查看第一則紅色訊息。",
+    "ALCOM / VCCで商品本体と「ゆにさきポーズシステム」を最新版に更新し、再コンパイルが完了してから実行してください。直らない場合は、このメッセージを添えてお問い合わせください。": "請透過ALCOM / VCC將產品本體和Unisaki Posing System更新至最新版本，等待編譯完成後再試。若問題仍然存在，請附上此訊息聯絡支援。",
+    "ポーズツール以外で起きているエラーです。発生元のツールを更新するか、配布元で対応状況をご確認ください。エラーが解消し、再コンパイルが完了してから実行してください。": "此錯誤並非來自姿勢工具。請更新錯誤來源所示的工具，或向其發布者確認相容情況。待錯誤消失且編譯完成後再試。"
+  }
+}

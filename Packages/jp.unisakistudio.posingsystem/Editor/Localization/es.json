@@ -25,6 +25,10 @@
       "value": "1 advertencia"
     },
     {
+      "key": "ALCOM / VCCで商品本体と「ゆにさきポーズシステム」を最新版に更新し、再コンパイルが完了してから実行してください。直らない場合は、このメッセージを添えてお問い合わせください。",
+      "value": "Actualiza el producto y Unisaki Posing System a la última versión con ALCOM / VCC, espera a que termine la compilación y vuelve a intentarlo. Si el problema continúa, contacta con el soporte e incluye este mensaje."
+    },
+    {
       "key": "AddStateMachineBehaviourに失敗しました。多くの場合原因は別のツールなどにエラーが発生していることです。アバタービルド・アップロード前にConsoleウィンドウを確認してエラーを解消してから再度お試しください",
       "value": "AddStateMachineBehaviour falló. Otra herramienta puede haber generado un error anterior. Resuelve el primer error relevante de la Console antes de volver a compilar o subir el avatar."
     },
@@ -1445,6 +1449,10 @@
       "value": "Error"
     },
     {
+      "key": "エラーの発生元: {0}",
+      "value": "Origen del error: {0}"
+    },
+    {
       "key": "オブジェクトがVRC用のアバターオブジェクトの中に入っていません。このオブジェクトはVRCAvatarDescriptorコンポーネントの付いたオブジェクトの中に配置してください",
       "value": "Coloca este objeto dentro de un avatar con componente VRCAvatarDescriptor."
     },
@@ -1471,6 +1479,10 @@
     {
       "key": "ゲーム内メニューの言語",
       "value": "Idioma del menú en juego"
+    },
+    {
+      "key": "コンパイルエラーの内容を読み取れませんでした。Consoleの検索欄を空にし、エラーの表示を有効にして、赤い行の先頭を確認してください。",
+      "value": "No se pudieron leer los errores de compilación. Vacía el cuadro de búsqueda de la Console, activa la visualización de errores y revisa la primera línea roja."
     },
     {
       "key": "コンパイルエラー（先頭から最大5件）",
@@ -1719,6 +1731,10 @@
     {
       "key": "ポーズツールで次のエラーが出ました。対処方法を教えてください。",
       "value": "La herramienta de poses mostró el siguiente error. ¿Cómo puedo resolverlo?"
+    },
+    {
+      "key": "ポーズツール以外で起きているエラーです。発生元のツールを更新するか、配布元で対応状況をご確認ください。エラーが解消し、再コンパイルが完了してから実行してください。",
+      "value": "Este error no procede de la herramienta de poses. Actualiza la herramienta indicada como origen o consulta la información de compatibilidad de su distribuidor. Vuelve a intentarlo cuando el error haya desaparecido y la compilación haya terminado."
     },
     {
       "key": "ポーズ・アバター設定の注意を非表示",

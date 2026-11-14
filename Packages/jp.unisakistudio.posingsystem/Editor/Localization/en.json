@@ -25,6 +25,10 @@
       "value": "1 warning"
     },
     {
+      "key": "ALCOM / VCCで商品本体と「ゆにさきポーズシステム」を最新版に更新し、再コンパイルが完了してから実行してください。直らない場合は、このメッセージを添えてお問い合わせください。",
+      "value": "Update the product and Unisaki Posing System to the latest version using ALCOM / VCC, wait for compilation to finish, then try again. If the problem continues, contact support and include this message."
+    },
+    {
       "key": "AddStateMachineBehaviourに失敗しました。多くの場合原因は別のツールなどにエラーが発生していることです。アバタービルド・アップロード前にConsoleウィンドウを確認してエラーを解消してから再度お試しください",
       "value": "AddStateMachineBehaviour failed. Another tool may have raised an earlier error. Resolve the first relevant Console error before building or uploading the avatar again."
     },
@@ -1445,6 +1449,10 @@
       "value": "Error"
     },
     {
+      "key": "エラーの発生元: {0}",
+      "value": "Error source: {0}"
+    },
+    {
       "key": "オブジェクトがVRC用のアバターオブジェクトの中に入っていません。このオブジェクトはVRCAvatarDescriptorコンポーネントの付いたオブジェクトの中に配置してください",
       "value": "Place this object inside an avatar object with a VRCAvatarDescriptor component."
     },
@@ -1471,6 +1479,10 @@
     {
       "key": "ゲーム内メニューの言語",
       "value": "In-game menu language"
+    },
+    {
+      "key": "コンパイルエラーの内容を読み取れませんでした。Consoleの検索欄を空にし、エラーの表示を有効にして、赤い行の先頭を確認してください。",
+      "value": "The compilation errors could not be read. Clear the Console search box, turn on the error display, and check the first red line."
     },
     {
       "key": "コンパイルエラー（先頭から最大5件）",
@@ -1719,6 +1731,10 @@
     {
       "key": "ポーズツールで次のエラーが出ました。対処方法を教えてください。",
       "value": "The pose tool reported the following error. How can I resolve it?"
+    },
+    {
+      "key": "ポーズツール以外で起きているエラーです。発生元のツールを更新するか、配布元で対応状況をご確認ください。エラーが解消し、再コンパイルが完了してから実行してください。",
+      "value": "This error comes from something other than the pose tool. Update the tool named as the source, or check its distributor for compatibility information. Try again after the error is gone and compilation has finished."
     },
     {
       "key": "ポーズ・アバター設定の注意を非表示",

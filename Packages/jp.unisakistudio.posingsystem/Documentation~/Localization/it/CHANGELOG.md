@@ -9,6 +9,10 @@
 - Apertura di README, cronologia e guida offline nella lingua scelta.
 - Preparati i nomi visualizzati delle 128 pose standard e le descrizioni di tutte le funzioni, mantenendo la terminologia esistente.
 
+### Modifiche
+
+- Quando non è possibile generare le pose a causa di un errore di compilazione (PS050), il messaggio ora indica lo strumento in cui si verifica l'errore. Gli errori vengono mostrati anche subito dopo il riavvio di Unity e quando la visualizzazione della Console è filtrata.
+
 ### Compatibilità
 
 - Conservati impostazioni esistenti dell’avatar, nomi personalizzati, riferimenti agli asset, identificatori dei parametri e archiviazione della licenza.

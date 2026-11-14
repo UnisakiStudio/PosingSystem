@@ -25,6 +25,10 @@
       "value": "1 uyarı"
     },
     {
+      "key": "ALCOM / VCCで商品本体と「ゆにさきポーズシステム」を最新版に更新し、再コンパイルが完了してから実行してください。直らない場合は、このメッセージを添えてお問い合わせください。",
+      "value": "Ürünü ve Unisaki Posing System'i ALCOM / VCC ile en son sürüme güncelleyin, derlemenin bitmesini bekleyin ve yeniden deneyin. Sorun sürerse bu iletiyi ekleyerek destekle iletişime geçin."
+    },
+    {
       "key": "AddStateMachineBehaviourに失敗しました。多くの場合原因は別のツールなどにエラーが発生していることです。アバタービルド・アップロード前にConsoleウィンドウを確認してエラーを解消してから再度お試しください",
       "value": "AddStateMachineBehaviour başarısız oldu. Başka bir araç daha önce hata vermiş olabilir. Avatarı yeniden derlemeden veya yüklemeden önce Console'daki ilgili ilk hatayı çözün."
     },
@@ -1445,6 +1449,10 @@
       "value": "Hata"
     },
     {
+      "key": "エラーの発生元: {0}",
+      "value": "Hatanın kaynağı: {0}"
+    },
+    {
       "key": "オブジェクトがVRC用のアバターオブジェクトの中に入っていません。このオブジェクトはVRCAvatarDescriptorコンポーネントの付いたオブジェクトの中に配置してください",
       "value": "Bu nesneyi VRCAvatarDescriptor bileşeni içeren bir avatarın içine yerleştirin."
     },
@@ -1471,6 +1479,10 @@
     {
       "key": "ゲーム内メニューの言語",
       "value": "Oyun içi menü dili"
+    },
+    {
+      "key": "コンパイルエラーの内容を読み取れませんでした。Consoleの検索欄を空にし、エラーの表示を有効にして、赤い行の先頭を確認してください。",
+      "value": "Derleme hataları okunamadı. Console'daki arama kutusunu boşaltın, hata gösterimini açın ve ilk kırmızı satıra bakın."
     },
     {
       "key": "コンパイルエラー（先頭から最大5件）",
@@ -1719,6 +1731,10 @@
     {
       "key": "ポーズツールで次のエラーが出ました。対処方法を教えてください。",
       "value": "Poz aracı aşağıdaki hatayı bildirdi. Nasıl çözebilirim?"
+    },
+    {
+      "key": "ポーズツール以外で起きているエラーです。発生元のツールを更新するか、配布元で対応状況をご確認ください。エラーが解消し、再コンパイルが完了してから実行してください。",
+      "value": "Bu hata poz aracının dışından kaynaklanıyor. Kaynak olarak gösterilen aracı güncelleyin veya uyumluluk bilgileri için dağıtıcısına bakın. Hata giderilip derleme bittikten sonra yeniden deneyin."
     },
     {
       "key": "ポーズ・アバター設定の注意を非表示",

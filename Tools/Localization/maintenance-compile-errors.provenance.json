@@ -1,0 +1,47 @@
+{
+  "authoring": "Claude AI, 2026-11-15",
+  "reason": "PS050 (script compilation failed): name the tool whose files fail, give guidance that fits whose files they are, and say how to find the errors when they cannot be read",
+  "keys": [
+    "エラーの発生元: {0}",
+    "コンパイルエラーの内容を読み取れませんでした。Consoleの検索欄を空にし、エラーの表示を有効にして、赤い行の先頭を確認してください。",
+    "ALCOM / VCCで商品本体と「ゆにさきポーズシステム」を最新版に更新し、再コンパイルが完了してから実行してください。直らない場合は、このメッセージを添えてお問い合わせください。",
+    "ポーズツール以外で起きているエラーです。発生元のツールを更新するか、配布元で対応状況をご確認ください。エラーが解消し、再コンパイルが完了してから実行してください。"
+  ],
+  "languages": [
+    "ar",
+    "bn",
+    "cs",
+    "da",
+    "de",
+    "en",
+    "es",
+    "fi",
+    "fr",
+    "he",
+    "hi",
+    "id",
+    "it",
+    "ko",
+    "nb",
+    "nl",
+    "pl",
+    "pt",
+    "pt-BR",
+    "ru",
+    "sv",
+    "ta",
+    "te",
+    "th",
+    "tr",
+    "uk",
+    "vi",
+    "zh-Hans",
+    "zh-Hant"
+  ],
+  "existing_terms_reused": [
+    "Console, compilation error and \"wait for compilation to finish, then try again\" as in the existing PS050 action",
+    "pose tool as in the support draft question",
+    "product and Unisaki Posing System, ALCOM / VCC and the form of address as in the shared restore guidance"
+  ],
+  "checks": "Placeholders and identifiers verified by this batch script; catalog validation, coverage and terminology audits run after integration. No native-speaker review."
+}

@@ -25,6 +25,10 @@
       "value": "1 peringatan"
     },
     {
+      "key": "ALCOM / VCCで商品本体と「ゆにさきポーズシステム」を最新版に更新し、再コンパイルが完了してから実行してください。直らない場合は、このメッセージを添えてお問い合わせください。",
+      "value": "Perbarui produk serta Unisaki Posing System ke versi terbaru melalui ALCOM / VCC, tunggu kompilasi selesai, lalu coba lagi. Jika masalah berlanjut, hubungi dukungan dengan menyertakan pesan ini."
+    },
+    {
       "key": "AddStateMachineBehaviourに失敗しました。多くの場合原因は別のツールなどにエラーが発生していることです。アバタービルド・アップロード前にConsoleウィンドウを確認してエラーを解消してから再度お試しください",
       "value": "AddStateMachineBehaviour gagal. Alat lain mungkin mengalami kesalahan sebelumnya. Atasi kesalahan terkait pertama di Console sebelum melakukan build atau mengunggah avatar lagi."
     },
@@ -1445,6 +1449,10 @@
       "value": "Kesalahan"
     },
     {
+      "key": "エラーの発生元: {0}",
+      "value": "Sumber kesalahan: {0}"
+    },
+    {
       "key": "オブジェクトがVRC用のアバターオブジェクトの中に入っていません。このオブジェクトはVRCAvatarDescriptorコンポーネントの付いたオブジェクトの中に配置してください",
       "value": "Tempatkan objek ini di dalam objek avatar yang memiliki komponen VRCAvatarDescriptor."
     },
@@ -1471,6 +1479,10 @@
     {
       "key": "ゲーム内メニューの言語",
       "value": "Bahasa menu dalam gim"
+    },
+    {
+      "key": "コンパイルエラーの内容を読み取れませんでした。Consoleの検索欄を空にし、エラーの表示を有効にして、赤い行の先頭を確認してください。",
+      "value": "Kesalahan kompilasi tidak dapat dibaca. Kosongkan kotak pencarian Console, aktifkan tampilan kesalahan, lalu periksa baris merah pertama."
     },
     {
       "key": "コンパイルエラー（先頭から最大5件）",
@@ -1719,6 +1731,10 @@
     {
       "key": "ポーズツールで次のエラーが出ました。対処方法を教えてください。",
       "value": "Alat pose melaporkan kesalahan berikut. Bagaimana mengatasinya?"
+    },
+    {
+      "key": "ポーズツール以外で起きているエラーです。発生元のツールを更新するか、配布元で対応状況をご確認ください。エラーが解消し、再コンパイルが完了してから実行してください。",
+      "value": "Kesalahan ini berasal dari luar alat pose. Perbarui alat yang disebut sebagai sumber, atau periksa informasi kompatibilitas dari distributornya. Coba lagi setelah kesalahan hilang dan kompilasi selesai."
     },
     {
       "key": "ポーズ・アバター設定の注意を非表示",

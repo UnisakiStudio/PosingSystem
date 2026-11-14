@@ -145,12 +145,14 @@
       "product": "PosingSystem",
       "kind": "changelog",
       "source": "PosingSystem/Packages/jp.unisakistudio.posingsystem/CHANGELOG.md",
-      "source_sha256": "eb8c5a67f30519706e5638551cf53f78105816b0628d3c446ef20dfd4fece65e",
+      "source_sha256": "9fb8bd9f6732dee47ec8de18cdf69162316340306541af519bc51d28a8f03d77",
       "blocks": [
         "3e9e4ae5e303de21",
         "1fea13aed5680b51",
         "545755f8035c08c9",
         "79fec8d04d3cf763",
+        "5ec0c3c554aaceac",
+        "b18c010c52ec0243",
         "25b732bdda1bb358",
         "25d84bc9d3caff87",
         "706843f119f826f7",
@@ -1454,6 +1456,25 @@
         "CoolPosing/changelog"
       ]
     },
+    "5ec0c3c554aaceac": {
+      "language": "ja",
+      "text": "### 変更",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/changelog",
+        "PosingSystem/changelog",
+        "KawaiiPosing/changelog",
+        "CoolPosing/changelog"
+      ]
+    },
+    "b18c010c52ec0243": {
+      "language": "ja",
+      "text": "- コンパイルエラーでポーズを生成できないとき（PS050）、エラーが起きているツールの名前を表示するようにしました。Unityを再起動した直後や、Consoleの表示を絞り込んでいるときにも、エラーの内容を確認できます。",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/changelog"
+      ]
+    },
     "25b732bdda1bb358": {
       "language": "ja",
       "text": "### 互換性",
@@ -1680,16 +1701,6 @@
       "invariant": false,
       "contexts": [
         "PosingSystem/changelog"
-      ]
-    },
-    "5ec0c3c554aaceac": {
-      "language": "ja",
-      "text": "### 変更",
-      "invariant": false,
-      "contexts": [
-        "PosingSystem/changelog",
-        "KawaiiPosing/changelog",
-        "CoolPosing/changelog"
       ]
     },
     "f26bc41975798f76": {
@@ -3947,5 +3958,5 @@
       ]
     }
   },
-  "source_sha256": "bb972d2c92e1eac4444f55382f8010957690588846125684827b0316d90a280c"
+  "source_sha256": "32dac343a5c8ce4da30f2917979e710e5ac52997ebda31c8e1d126196871866c"
 }

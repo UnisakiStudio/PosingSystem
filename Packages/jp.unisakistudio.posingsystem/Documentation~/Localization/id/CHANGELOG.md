@@ -9,6 +9,10 @@
 - README, riwayat perubahan, dan panduan luring kini dapat dibuka dalam bahasa terpilih.
 - Nama tampilan 128 pose standar dan deskripsi setiap fitur disediakan sesuai istilah yang sudah ada.
 
+### Diubah
+
+- Saat pose tidak dapat dibuat karena kesalahan kompilasi (PS050), pesan kini menyebutkan alat tempat kesalahan terjadi. Kesalahan juga ditampilkan tepat setelah Unity dimulai ulang dan saat tampilan Console sedang difilter.
+
 ### Kompatibilitas
 
 - Pengaturan avatar yang ada, nama khusus, referensi aset, pengenal parameter, dan metode penyimpanan lisensi tetap dipertahankan.

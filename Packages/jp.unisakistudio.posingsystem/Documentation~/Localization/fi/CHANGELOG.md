@@ -9,6 +9,10 @@
 - README, muutosloki ja offline-käyttöohje voidaan avata valitulla kielellä.
 - Kaikkien 128 vakioasennon näyttönimet ja toimintojen kuvaukset laadittu olemassa olevien termien mukaisesti.
 
+### Muutettu
+
+- Kun asentoja ei voida luoda käännösvirheen vuoksi (PS050), ilmoitus kertoo nyt, missä työkalussa virhe on. Virheet näytetään myös heti Unityn uudelleenkäynnistyksen jälkeen ja silloin, kun Consolen näkymää on suodatettu.
+
 ### Yhteensopivuus
 
 - Avatarin nykyiset asetukset, omat nimet, resurssiviittaukset, parametrien tunnisteet ja lisenssin tallennustapa säilyvät.

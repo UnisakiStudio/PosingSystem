@@ -25,6 +25,10 @@
       "value": "1 aviso"
     },
     {
+      "key": "ALCOM / VCCで商品本体と「ゆにさきポーズシステム」を最新版に更新し、再コンパイルが完了してから実行してください。直らない場合は、このメッセージを添えてお問い合わせください。",
+      "value": "Atualize o produto e Unisaki Posing System para a versão mais recente com ALCOM / VCC, espere a compilação terminar e tente novamente. Se o problema continuar, contacte o suporte e inclua esta mensagem."
+    },
+    {
       "key": "AddStateMachineBehaviourに失敗しました。多くの場合原因は別のツールなどにエラーが発生していることです。アバタービルド・アップロード前にConsoleウィンドウを確認してエラーを解消してから再度お試しください",
       "value": "AddStateMachineBehaviour falhou. Outra ferramenta pode ter gerado um erro anterior. Resolva o primeiro erro relevante da Console antes de compilar ou enviar o avatar novamente."
     },
@@ -1445,6 +1449,10 @@
       "value": "Erro"
     },
     {
+      "key": "エラーの発生元: {0}",
+      "value": "Origem do erro: {0}"
+    },
+    {
       "key": "オブジェクトがVRC用のアバターオブジェクトの中に入っていません。このオブジェクトはVRCAvatarDescriptorコンポーネントの付いたオブジェクトの中に配置してください",
       "value": "Coloque este objeto dentro de um avatar com o componente VRCAvatarDescriptor."
     },
@@ -1471,6 +1479,10 @@
     {
       "key": "ゲーム内メニューの言語",
       "value": "Idioma do menu no jogo"
+    },
+    {
+      "key": "コンパイルエラーの内容を読み取れませんでした。Consoleの検索欄を空にし、エラーの表示を有効にして、赤い行の先頭を確認してください。",
+      "value": "Não foi possível ler os erros de compilação. Limpe a caixa de pesquisa da Console, ative a apresentação de erros e verifique a primeira linha vermelha."
     },
     {
       "key": "コンパイルエラー（先頭から最大5件）",
@@ -1719,6 +1731,10 @@
     {
       "key": "ポーズツールで次のエラーが出ました。対処方法を教えてください。",
       "value": "A ferramenta de poses apresentou o erro a seguir. Como posso resolvê-lo?"
+    },
+    {
+      "key": "ポーズツール以外で起きているエラーです。発生元のツールを更新するか、配布元で対応状況をご確認ください。エラーが解消し、再コンパイルが完了してから実行してください。",
+      "value": "Este erro não vem da ferramenta de poses. Atualize a ferramenta indicada como origem ou consulte as informações de compatibilidade junto do seu distribuidor. Tente novamente quando o erro tiver desaparecido e a compilação tiver terminado."
     },
     {
       "key": "ポーズ・アバター設定の注意を非表示",

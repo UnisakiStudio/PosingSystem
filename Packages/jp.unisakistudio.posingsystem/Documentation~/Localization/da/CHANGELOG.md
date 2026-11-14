@@ -9,6 +9,10 @@
 - README, ændringshistorik og offlinevejledning kan åbnes på valgt sprog.
 - Visningsnavne for 128 standardpositurer og funktionsbeskrivelser følger eksisterende terminologi.
 
+### Ændret
+
+- Når positurer ikke kan genereres på grund af en kompileringsfejl (PS050), angiver meddelelsen nu, hvilket værktøj fejlen opstår i. Fejlene vises også lige efter en genstart af Unity, og når visningen i Console er filtreret.
+
 ### Kompatibilitet
 
 - Eksisterende avatarindstillinger, egne navne, assetreferencer, parameteridentifikatorer og licenslagring bevares.

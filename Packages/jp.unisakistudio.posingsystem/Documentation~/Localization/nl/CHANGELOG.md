@@ -9,6 +9,10 @@
 - README, geschiedenis en offline handleiding openen in de gekozen taal.
 - 128 standaardnamen en functiebeschrijvingen afgestemd op bestaande termen.
 
+### Wijzigingen
+
+- Wanneer poses niet kunnen worden gegenereerd door een compilatiefout (PS050), noemt de melding nu het gereedschap waarin de fout optreedt. De fouten worden ook getoond direct na het herstarten van Unity en wanneer de weergave van de Console is gefilterd.
+
 ### Compatibiliteit
 
 - Bestaande avataropties, eigen namen, assetverwijzingen, parameter-ID’s en licentieopslag behouden.

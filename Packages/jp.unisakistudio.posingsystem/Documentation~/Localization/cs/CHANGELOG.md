@@ -9,6 +9,10 @@
 - README, historie změn a offline návod se otevírají ve vybraném jazyce.
 - Připraveny názvy všech 128 standardních póz a popisy funkcí podle stávající terminologie.
 
+### Změněno
+
+- Pokud pózy nelze vygenerovat kvůli chybě kompilace (PS050), zpráva nyní uvádí nástroj, ve kterém chyba vzniká. Chyby se zobrazí i hned po restartování Unity a při filtrovaném zobrazení Console.
+
 ### Kompatibilita
 
 - Zachovávají se existující nastavení avatara, vlastní názvy, odkazy na prostředky, identifikátory parametrů a způsob ukládání licencí.

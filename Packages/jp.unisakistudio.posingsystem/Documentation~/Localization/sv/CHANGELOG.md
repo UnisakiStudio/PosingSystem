@@ -9,6 +9,10 @@
 - README, ändringshistorik och offlineanvisningar kan öppnas på valt språk.
 - Visningsnamn för 128 standardposer och funktionsbeskrivningar har tagits fram med befintlig terminologi.
 
+### Ändrat
+
+- När poser inte kan genereras på grund av ett kompileringsfel (PS050) anger meddelandet nu vilket verktyg felet uppstår i. Felen visas även direkt efter att Unity har startats om och när visningen i Console är filtrerad.
+
 ### Kompatibilitet
 
 - Befintliga avatarinställningar, egna namn, assetreferenser, parameteridentifierare och licensens lagringssätt bevaras.

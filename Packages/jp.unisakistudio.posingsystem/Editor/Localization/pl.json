@@ -25,6 +25,10 @@
       "value": "1 ostrzeżenie"
     },
     {
+      "key": "ALCOM / VCCで商品本体と「ゆにさきポーズシステム」を最新版に更新し、再コンパイルが完了してから実行してください。直らない場合は、このメッセージを添えてお問い合わせください。",
+      "value": "Zaktualizuj produkt oraz Unisaki Posing System do najnowszej wersji przez ALCOM / VCC, poczekaj na zakończenie kompilacji i spróbuj ponownie. Jeśli problem trwa, skontaktuj się z pomocą techniczną i dołącz tę wiadomość."
+    },
+    {
       "key": "AddStateMachineBehaviourに失敗しました。多くの場合原因は別のツールなどにエラーが発生していることです。アバタービルド・アップロード前にConsoleウィンドウを確認してエラーを解消してから再度お試しください",
       "value": "Błąd AddStateMachineBehaviour. Inne narzędzie mogło wcześniej zgłosić błąd. Usuń pierwszy powiązany błąd w Console przed ponownym zbudowaniem lub wysłaniem awatara."
     },
@@ -1445,6 +1449,10 @@
       "value": "Błąd"
     },
     {
+      "key": "エラーの発生元: {0}",
+      "value": "Źródło błędu: {0}"
+    },
+    {
       "key": "オブジェクトがVRC用のアバターオブジェクトの中に入っていません。このオブジェクトはVRCAvatarDescriptorコンポーネントの付いたオブジェクトの中に配置してください",
       "value": "Umieść ten obiekt wewnątrz awatara z komponentem VRCAvatarDescriptor."
     },
@@ -1471,6 +1479,10 @@
     {
       "key": "ゲーム内メニューの言語",
       "value": "Język menu w grze"
+    },
+    {
+      "key": "コンパイルエラーの内容を読み取れませんでした。Consoleの検索欄を空にし、エラーの表示を有効にして、赤い行の先頭を確認してください。",
+      "value": "Nie udało się odczytać błędów kompilacji. Wyczyść pole wyszukiwania w Console, włącz wyświetlanie błędów i sprawdź pierwszy czerwony wiersz."
     },
     {
       "key": "コンパイルエラー（先頭から最大5件）",
@@ -1719,6 +1731,10 @@
     {
       "key": "ポーズツールで次のエラーが出ました。対処方法を教えてください。",
       "value": "Narzędzie do poz zgłosiło następujący błąd. Jak go rozwiązać?"
+    },
+    {
+      "key": "ポーズツール以外で起きているエラーです。発生元のツールを更新するか、配布元で対応状況をご確認ください。エラーが解消し、再コンパイルが完了してから実行してください。",
+      "value": "Ten błąd nie pochodzi z narzędzia do poz. Zaktualizuj narzędzie wskazane jako źródło albo sprawdź u jego dystrybutora informacje o zgodności. Spróbuj ponownie, gdy błąd zniknie, a kompilacja się zakończy."
     },
     {
       "key": "ポーズ・アバター設定の注意を非表示",
