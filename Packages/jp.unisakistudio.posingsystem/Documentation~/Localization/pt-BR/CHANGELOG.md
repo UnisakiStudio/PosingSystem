@@ -12,6 +12,8 @@
 ### Alterações
 
 - Quando não é possível gerar as poses por causa de um erro de compilação (PS050), a mensagem agora indica a ferramenta em que o erro ocorre. Os erros também são exibidos logo após reiniciar o Unity e quando a exibição da Console está filtrada.
+- A atualização do pré-cálculo leva menos tempo. Quanto mais poses usarem “Virar”, maior é o efeito.
+- Quando a descrição de uma função em japonês ou chinês quebra de linha, nenhuma linha começa mais com ponto ou vírgula.
 
 ### Compatibilidade
 

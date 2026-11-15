@@ -12,6 +12,8 @@
 ### Changed
 
 - When poses cannot be generated because of a compilation error (PS050), the message now names the tool in which the error occurs. The errors are also shown right after restarting Unity and while the Console display is filtered.
+- Updating the prebuild takes less time. The more poses use Roll Over, the greater the effect.
+- When a feature description in Japanese or Chinese wraps, a line no longer begins with a full stop or comma.
 
 ### Compatibility
 

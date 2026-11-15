@@ -145,14 +145,14 @@
       "product": "PosingSystem",
       "kind": "changelog",
       "source": "PosingSystem/Packages/jp.unisakistudio.posingsystem/CHANGELOG.md",
-      "source_sha256": "9fb8bd9f6732dee47ec8de18cdf69162316340306541af519bc51d28a8f03d77",
+      "source_sha256": "2bbccd0b198b0e2c842d184a3decd9fa14a8e23f1db5874109be751557c29973",
       "blocks": [
         "3e9e4ae5e303de21",
         "1fea13aed5680b51",
         "545755f8035c08c9",
         "79fec8d04d3cf763",
         "5ec0c3c554aaceac",
-        "b18c010c52ec0243",
+        "e05414121826b6cb",
         "25b732bdda1bb358",
         "25d84bc9d3caff87",
         "706843f119f826f7",
@@ -1467,9 +1467,9 @@
         "CoolPosing/changelog"
       ]
     },
-    "b18c010c52ec0243": {
+    "e05414121826b6cb": {
       "language": "ja",
-      "text": "- コンパイルエラーでポーズを生成できないとき（PS050）、エラーが起きているツールの名前を表示するようにしました。Unityを再起動した直後や、Consoleの表示を絞り込んでいるときにも、エラーの内容を確認できます。",
+      "text": "- コンパイルエラーでポーズを生成できないとき（PS050）、エラーが起きているツールの名前を表示するようにしました。Unityを再起動した直後や、Consoleの表示を絞り込んでいるときにも、エラーの内容を確認できます。\n- プレビルドの更新にかかる時間を短くしました。寝返りを設定したポーズが多いほど効果があります。\n- 日本語・中国語の機能説明が折り返されるとき、行の先頭に「。」や「、」が来ないようにしました。",
       "invariant": false,
       "contexts": [
         "PosingSystem/changelog"
@@ -3958,5 +3958,5 @@
       ]
     }
   },
-  "source_sha256": "32dac343a5c8ce4da30f2917979e710e5ac52997ebda31c8e1d126196871866c"
+  "source_sha256": "dda51d1be0f3db72b327bd67d3d1c72b6dce7c728087eab79c2b344a81b99ecc"
 }

@@ -138,11 +138,15 @@ namespace jp.unisakistudio.posingsystemeditor
         }
         internal static void Register(Rect rect, GUIContent content)
         {
-            if (current == null || current.Window == null || current.Window != EditorWindow.mouseOverWindow ||
+            // The same conditions as before, cheapest first. Asking Unity which window the mouse is
+            // over is slow, and it was asked for every label and control of every frame, although
+            // only a control under the mouse with a tooltip that needs shaping can pass.
+            if (current == null || current.Window == null ||
                 Event.current.type != EventType.Repaint || !ComplexTooltip(content) ||
                 (!GUI.enabled && !current.AllowDisabled) || GUIUtility.hotControl != 0 ||
                 !rect.Contains(Event.current.mousePosition) || !TryVisibleRect(out var clip) ||
-                !clip.Contains(Event.current.mousePosition)) return;
+                !clip.Contains(Event.current.mousePosition) ||
+                current.Window != EditorWindow.mouseOverWindow) return;
             var mouse = GUIUtility.GUIToScreenPoint(Event.current.mousePosition);
             if (!current.Viewport.Contains(mouse)) return;
             // Use the same local hit test as native IMGUI, then convert all corners so

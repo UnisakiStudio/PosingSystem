@@ -12,6 +12,8 @@
 ### Wijzigingen
 
 - Wanneer poses niet kunnen worden gegenereerd door een compilatiefout (PS050), noemt de melding nu het gereedschap waarin de fout optreedt. De fouten worden ook getoond direct na het herstarten van Unity en wanneer de weergave van de Console is gefilterd.
+- Het bijwerken van de voorberekening duurt korter. Hoe meer poses ‘Omdraaien’ gebruiken, hoe groter het effect.
+- Wanneer een functiebeschrijving in het Japans of Chinees wordt afgebroken, begint een regel niet meer met een punt of komma.
 
 ### Compatibiliteit
 

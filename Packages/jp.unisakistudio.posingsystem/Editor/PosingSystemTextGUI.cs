@@ -256,8 +256,10 @@ namespace jp.unisakistudio.posingsystemeditor
             return result;
         }
 
+        // Native text is measured and drawn with the same line breaks (see PosingSystemTextKinsoku).
         internal static float MeasureHeight(string text, GUIStyle style, float width)
-            => PosingSystemTextRenderer.Requires(text ?? "") ? PosingSystemTextRenderer.MeasureHeight(text, style, width) : style.CalcHeight(Content(text), width);
+            => PosingSystemTextRenderer.Requires(text ?? "") ? PosingSystemTextRenderer.MeasureHeight(text, style, width) :
+                style.CalcHeight(Content(PosingSystemTextKinsoku.Wrap(text, style, width)), width);
         internal static float MeasureWidth(string text, GUIStyle style)
             => PosingSystemTextRenderer.Requires(text ?? "") ? PosingSystemTextRenderer.MeasureWidth(text, style) : style.CalcSize(Content(text)).x;
 
@@ -265,7 +267,7 @@ namespace jp.unisakistudio.posingsystemeditor
         // image; GUIContent overloads are required for help boxes and icon labels.
         internal static float MeasureHeight(GUIContent content, GUIStyle style, float width)
         {
-            if (!Complex(content)) return style.CalcHeight(content, width);
+            if (!Complex(content)) return content.image == null ? MeasureHeight(content.text, style, width) : style.CalcHeight(content, width);
             if (content.image == null) return MeasureHeight(content.text, style, width);
             var icon = EditorGUIUtility.GetIconSize();
             float iw = icon.x > 0 ? icon.x : content.image.width;
@@ -319,6 +321,11 @@ namespace jp.unisakistudio.posingsystemeditor
         internal static void Label(Rect rect, GUIContent content, GUIStyle style = null)
         {
             style = Style(style, GUI.skin.label);
+            if (content != null && content.image == null && !Complex(content))
+            {
+                var wrapped = PosingSystemTextKinsoku.Wrap(content.text, style, rect.width);
+                if (!ReferenceEquals(wrapped, content.text)) content = new GUIContent(content) { text = wrapped };
+            }
             GUI.Label(rect, Native(rect, content), Complex(content) ? Hidden(style) : style);
             DrawText(rect, content, style);
         }

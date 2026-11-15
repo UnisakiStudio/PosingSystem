@@ -75,10 +75,20 @@ namespace jp.unisakistudio.posingsystemeditor
                     for (var i = 0; i < transforms.Length; i++)
                     { transforms[i].localPosition = positions[i]; transforms[i].localRotation = rotations[i]; transforms[i].localScale = scales[i]; }
                 }
+                // Sampling writes the same properties with absolute values every time, so the
+                // neutral state has to be put back only before a different clip is sampled.
+                // Restoring every transform before each of several hundred samples took longer
+                // than the samples themselves on a dressed avatar.
+                AnimationClip sampled = null;
+                void SampleAt(AnimationClip source, float time)
+                {
+                    if (sampled != source) { Restore(); sampled = source; }
+                    source.SampleAnimation(clone, time);
+                    clone.transform.SetPositionAndRotation(Vector3.zero, Quaternion.identity);
+                }
                 Pose Read(AnimationClip source)
                 {
-                    Restore(); source.SampleAnimation(clone, 0);
-                    clone.transform.SetPositionAndRotation(Vector3.zero, Quaternion.identity);
+                    SampleAt(source, 0);
                     var human = new HumanPose(); handler.GetHumanPose(ref human);
                     var head = animator.GetBoneTransform(HumanBodyBones.Head);
                     var heading = head.position - animator.GetBoneTransform(HumanBodyBones.Hips).position;
@@ -145,10 +155,10 @@ namespace jp.unisakistudio.posingsystemeditor
                     // Use body vertices weighted to humanoid bones, excluding free hair/skirt bones.
                     // If a mesh is unavailable, bone positions provide a deterministic fallback.
                     using var support = new SupportSurface(animator);
+                    sampled = null; // the result clip was edited after the poses were read
                     float Minimum(float time)
                     {
-                        Restore(); result.SampleAnimation(clone, time);
-                        clone.transform.SetPositionAndRotation(Vector3.zero, Quaternion.identity);
+                        SampleAt(result, time);
                         return support.Minimum();
                     }
                     var floors = new[] { Minimum(0), Minimum(.5f), Minimum(1) };
@@ -183,6 +193,9 @@ namespace jp.unisakistudio.posingsystemeditor
             private readonly List<(SkinnedMeshRenderer renderer, int[] vertices)> surfaces = new();
             private readonly Transform[] bones;
             private readonly Mesh mesh = new Mesh();
+            private readonly List<Vector3> baked = new List<Vector3>();
+            // Far above float rounding at avatar scale, far below any difference that matters.
+            private const float Candidate = .0001f;
             public SupportSurface(Animator animator)
             {
                 bones = Enumerable.Range(0, (int)HumanBodyBones.LastBone).Select(i => animator.GetBoneTransform((HumanBodyBones)i)).Where(b => b != null).ToArray();
@@ -211,8 +224,27 @@ namespace jp.unisakistudio.posingsystemeditor
                 var min = float.PositiveInfinity;
                 foreach (var surface in surfaces)
                 {
-                    surface.renderer.BakeMesh(mesh); var vertices = mesh.vertices;
-                    foreach (var index in surface.vertices) min = Mathf.Min(min, surface.renderer.transform.TransformPoint(vertices[index]).y);
+                    // Reuse one list (Mesh.vertices allocates the whole array for every sample) and
+                    // find the lowest vertices by matrix arithmetic. The engine's own transform, one
+                    // call per vertex before, is asked only for those candidates, so the result is
+                    // the same value as before.
+                    surface.renderer.BakeMesh(mesh); mesh.GetVertices(baked);
+                    var transform = surface.renderer.transform;
+                    var matrix = transform.localToWorldMatrix;
+                    var lowest = float.PositiveInfinity;
+                    foreach (var index in surface.vertices)
+                    {
+                        var v = baked[index];
+                        var y = matrix.m10 * v.x + matrix.m11 * v.y + matrix.m12 * v.z + matrix.m13;
+                        if (y < lowest) lowest = y;
+                    }
+                    var limit = lowest + Candidate;
+                    foreach (var index in surface.vertices)
+                    {
+                        var v = baked[index];
+                        if (matrix.m10 * v.x + matrix.m11 * v.y + matrix.m12 * v.z + matrix.m13 <= limit)
+                            min = Mathf.Min(min, transform.TransformPoint(v).y);
+                    }
                 }
                 return float.IsInfinity(min) ? bones.Min(b => b.position.y) : min;
             }

@@ -39,8 +39,12 @@ def dialog_sources(text):
 def prepare(upstream,inputs,output):
     output.mkdir(parents=True,exist_ok=True)
     repo=HERE.parents[1]
-    helper=repo/'Packages/jp.unisakistudio.posingsystem/Editor/Setup/SetupLanguage.cs'
-    shutil.copy2(helper,output/'SetupLanguage.cs')
+    # The precompiled setup program keeps the tables as C# literals. The helper it leaves under
+    # Assets for the license scripts is compiled by Unity on every script change, so that one
+    # reads them from a data file, exactly like the package copy (see generate_language.py).
+    import generate_language
+    generate_language.render_standalone(output/'SetupLanguage.cs')
+    generate_language.write_helper(output/'Helper')
     src=upstream/'Assets/InstallerSource/VPMPackageAutoInstaller.cs'
     text=src.read_text(encoding='utf-8-sig').replace('using UnityEngine;','using UnityEngine;\nusing SetupLanguage = UnisakiStudio.Setup.Language;')
     text=text.replace('EditorUtility.DisplayDialog(', 'SetupLanguage.Dialog(').replace('EditorUtility.DisplayProgressBar(', 'SetupLanguage.Progress(')

@@ -39,7 +39,9 @@ class PackageTests(unittest.TestCase):
             build = root / 'build'
             (build / 'Sources').mkdir(parents=True)
             (build / 'Sources/TestLicenseActivator.cs').write_bytes(b'license fixture')
-            (build / 'Sources/SetupLanguage.cs').write_bytes(b'language fixture')
+            (build / 'Sources/Helper').mkdir()
+            (build / 'Sources/Helper/SetupLanguage.cs').write_bytes(b'language fixture')
+            (build / 'Sources/Helper/SetupLanguageData.bytes').write_bytes(b'table fixture')
             (build / 'Sources/LICENSE-VPMPackageAutoInstaller.txt').write_bytes(b'notice fixture')
             binary = build / 'Build/bin/Release/netstandard2.1/com.anatawa12.vpm-package-auto-installer.dll'
             binary.parent.mkdir(parents=True)
@@ -63,6 +65,14 @@ class PackageTests(unittest.TestCase):
                 self.assertEqual(archive.extractfile('b' * 32 + '/asset').read(), b'binary fixture')
                 config = json.load(archive.extractfile('c' * 32 + '/asset'))
                 self.assertEqual(config, {'vpmDependencies': {'example': '3.x.x'}})
+                # The helper compiled in the user's project is small; its tables travel as data
+                # under the GUID the helper looks for.
+                names = {archive.extractfile(m).read().decode(): m.name.split('/')[0] for m in archive if m.name.endswith('/pathname')}
+                helper, data = names['Assets/UniSakiStudio/Setup/Editor/UnisakiSetupLanguage.cs'], names['Assets/UniSakiStudio/Setup/Editor/SetupLanguageData.bytes']
+                self.assertEqual(archive.extractfile(helper + '/asset').read(), b'language fixture')
+                self.assertEqual(archive.extractfile(data + '/asset').read(), b'table fixture')
+                from generate_language import ASSETS_DATA_GUID
+                self.assertEqual(data, ASSETS_DATA_GUID)
             with self.assertRaises(ValueError):
                 package(original, build, output, {})
             # Pre-release bundles opt in explicitly; stable bundles never carry the flag.

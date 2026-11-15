@@ -37,7 +37,8 @@ def picker_span(source):
     return start,end
 
 
-def validate_captions(helper, assets):
+def validate_captions(helper, assets, tables=None):
+    """tables: (aliases, {locale: catalog}) when the helper reads them from a data file."""
     assets=Path(assets)
     manifest=json.loads((assets/'caption-manifest.json').read_text(encoding='utf-8-sig'))
     for name,expected in manifest['files'].items():
@@ -48,11 +49,11 @@ def validate_captions(helper, assets):
         raise ValueError('Expected exactly 21 reviewed captions in seven languages')
     codes=re.findall(r'"([\w-]+)"',re.search(r'Codes\s*=\s*\{([^}]+)\}',helper)[1])
     names=re.findall(r'"([^"]+)"',re.search(r'Names\s*=\s*\{([^}]+)\}',helper)[1])
-    aliases=dictionary(helper,'BuildAliases')
+    aliases=tables[0] if tables else dictionary(helper,'BuildAliases')
     for code in LANGUAGES:
         rows=[r for r in captions if r['locale']==code]
         if {r['role'] for r in rows}!={'autonym','help','apply'}:raise ValueError('Caption roles incomplete: '+code)
-        catalog=dictionary(helper,'Build_'+code)
+        catalog=tables[1][code] if tables else dictionary(helper,'Build_'+code)
         for row in rows:
             key=REMEMBER if row['role']=='help' else 'Apply'
             value=names[codes.index(code)] if row['role']=='autonym' else catalog.get(aliases.get(key,key),aliases.get(key,key))
@@ -77,9 +78,9 @@ def namespace_body(text):
     return result
 
 
-def embed(helper, assets):
+def embed(helper, assets, tables=None):
     """Return the augmented helper; preserves all existing APIs/dialog/menu code."""
-    assets=Path(assets);manifest=validate_captions(helper,assets)
+    assets=Path(assets);manifest=validate_captions(helper,assets,tables)
     if 'internal static partial class BootstrapCaptionImages' in helper:
         raise ValueError('Expected the base generated helper, not an already embedded output')
     start,end=picker_span(helper)

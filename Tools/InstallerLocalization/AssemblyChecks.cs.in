@@ -27,6 +27,15 @@ class Program
             var assembly = AssemblyLoadContext.Default.LoadFromAssemblyPath(Path.GetFullPath(file));
             var type = assembly.GetType("UnisakiStudio.Setup.Language", true);
             const BindingFlags flags = BindingFlags.NonPublic | BindingFlags.Static;
+            // The helper shipped beside the license scripts keeps its tables in a data file. Inside
+            // Unity it finds that file itself; here it is told where the build put it.
+            var tables = type.GetNestedType("SetupLanguageData", BindingFlags.NonPublic);
+            if (tables != null)
+            {
+                var data = Environment.GetEnvironmentVariable("UNISAKI_SETUP_LANGUAGE_DATA");
+                if (string.IsNullOrEmpty(data) || !File.Exists(data)) throw new Exception(Path.GetFileName(file) + ": the helper's data file was not given");
+                tables.GetField("PathOverride", flags).SetValue(null, data);
+            }
             object Call(string name, params object[] values) => type.GetMethod(name, flags).Invoke(null, values);
             void Check(bool value, string label) { if (!value) throw new Exception(Path.GetFileName(file) + ": " + label); checks++; }
             Check((string)Call("Resolve", "fr", "ja-JP", "Japanese") == "fr", "saved preference priority");

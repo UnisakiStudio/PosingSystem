@@ -37,6 +37,9 @@ Unity内部の `MenuItemExists` は末尾空白付きパスにfalseを返す場�
 - 固定captionの翻訳やautonymを変更した場合は、画像を再生成して描画を確認する。翻訳と画像のSHA対応が一致しなければ生成を停止する。`Bootstrap/caption-manifest.json` と3つの `.cs.in` を手動で食い違わせない。実行時にも画像を検証し、失敗したcaptionはnative表示を残す。画像生成元NotoのOFL通知は既存のthird-party通知へ追記する。
 - `Bootstrap/.gitattributes` はSHA検査対象の4素材とmanifestをLFに固定する。素材のraw-byte SHAはLFのGit保存／checkout表現から計算し、CRLFの作業コピーから登録しない。`python Tools/InstallerLocalization/test_bootstrap_embed.py` は改行・checkout属性・archive相当の再生成と、翻訳／画像の改変拒否を確認する。logical captionとPNG自体のSHAは改行規則の変更で書き換えない。
 - `SetupLanguage.cs.in` / `SetupMenus.cs.in`: パッケージと独立導入側に共通の言語処理。
+- 翻訳表の置き場所（2026-11-15）: Unityがコンパイルするhelper（パッケージ内の `Editor/Setup/SetupLanguage.cs` と、導入プログラムがAssetsに残す `UnisakiSetupLanguage.cs`。同じ内容）は翻訳表を持たず、隣の `SetupLanguageData.bytes` を最初に使うときに読みます。表をC#リテラルにすると7MBになり、編集用アセンブリの再コンパイルが約20秒、Assets側のコピーがある環境では利用者のスクリプト変更のたびに約12秒長くなりました（`Recordings/Performance_20261115`）。コンパイル済みの導入用DLLだけがリテラルの表を持ちます（`render_standalone`）。
+- データファイルは訳文を1回だけ持ちます。訳文から原文キーへ戻せる項目は `reversible:<言語>` に入れ、helperが逆向きに読んで別名表を作ります。生成時に同じ手順で作り直して一致を確認します。
+- Assets側のデータは `package.py` が固定GUIDで追加し、helperはそのGUIDで探します（フォルダーを動かしても見つかる）。Unity外の `AssemblyChecks` には、環境変数 `UNISAKI_SETUP_LANGUAGE_DATA` でデータの場所を渡します。helperを大きくする変更（表の埋め込み）は戻さないでください。
 - `bootstrap.translations.json`: 導入語彙・既存日本語からの対応表・確認文の構成。
 - `generate_language.py`: 本体の翻訳表も取り込み、`Editor/Setup/SetupLanguage.cs` を生成。
 - `prepare_sources.py`: 上流ソースと手元の配布元から抽出したActivatorにUI変更だけを適用。

@@ -130,6 +130,7 @@ namespace jp.unisakistudio.posingsystemeditor
 
             internal void Prepare()
             {
+                using var sample = PosingSystemProfiling.Sample("Posing: Session.Prepare");
                 foreach (var merge in avatar.GetComponentsInChildren<ModularAvatarMergeAnimator>(true).Where(m => BelongsTo(m, avatar)))
                     original[merge] = merge.animator;
                 var systems = avatar.GetComponentsInChildren<PosingSystem>(true)
@@ -202,6 +203,7 @@ namespace jp.unisakistudio.posingsystemeditor
 
             internal void Commit()
             {
+                using var sample = PosingSystemProfiling.Sample("Posing: Session.Commit");
                 if (oneFrameSelection) PosingSystemOneFrameSelection.Apply(main, SaveAsset);
                 else if (optimizeDesktopSelection) PosingSystemDesktopSelection.Apply(main, SaveAsset);
                 var merges = avatar.GetComponentsInChildren<ModularAvatarMergeAnimator>(true)
@@ -221,7 +223,8 @@ namespace jp.unisakistudio.posingsystemeditor
                 }
 
                 var owner = new Owner(avatar);
-                var reusable = owner.Matches(existing) && !HasOtherUsers(existing, avatar);
+                bool reusable;
+                using (PosingSystemProfiling.Sample("Posing: HasOtherUsers")) reusable = owner.Matches(existing) && !HasOtherUsers(existing, avatar);
                 var path = reusable ? AssetDatabase.GetAssetPath(existing) : NewPath(owner, avatar.name);
                 var previousControllers = reusable ? existing.controllers.Where(c => c != null).ToArray() : Array.Empty<AnimatorController>();
                 var remap = new Dictionary<Object, Object>();
@@ -263,11 +266,26 @@ namespace jp.unisakistudio.posingsystemeditor
                     metadata.controllers = controllers.Select(c => remap.TryGetValue(c, out var value) ? (AnimatorController)value : c).ToArray();
                     metadata.committedUtc = DateTime.UtcNow.ToString("O");
                     EditorUtility.SetDirty(metadata);
-                    AssetDatabase.SaveAssetIfDirty(metadata);
-                    var ids = new HashSet<long>(metadata.generatedLocalIds ?? Array.Empty<long>());
-                    foreach (var obj in graph.Select(o => remap.TryGetValue(o, out var mapped) ? mapped : o))
-                        if (AssetDatabase.TryGetGUIDAndLocalFileIdentifier(obj, out string _, out long localId) && localId != 0)
-                            ids.Add(localId);
+                    // An object has its local id as soon as it is part of the asset, so the ids can
+                    // normally be recorded before the file is written. Writing first and again
+                    // afterwards saved the whole generated controller twice (seconds on every
+                    // prebuild); that remains the fallback when an id is not available yet.
+                    var generated = graph.Select(o => remap.TryGetValue(o, out var mapped) ? mapped : o).ToArray();
+                    bool TryCollectIds(out HashSet<long> collected)
+                    {
+                        collected = new HashSet<long>(metadata.generatedLocalIds ?? Array.Empty<long>());
+                        var complete = true;
+                        foreach (var obj in generated)
+                            if (AssetDatabase.TryGetGUIDAndLocalFileIdentifier(obj, out string _, out long localId) && localId != 0)
+                                collected.Add(localId);
+                            else complete = false;
+                        return complete;
+                    }
+                    if (!TryCollectIds(out var ids))
+                    {
+                        AssetDatabase.SaveAssetIfDirty(metadata);
+                        TryCollectIds(out ids);
+                    }
                     metadata.generatedLocalIds = ids.OrderBy(id => id).ToArray();
                     EditorUtility.SetDirty(metadata);
                     AssetDatabase.SaveAssetIfDirty(metadata);
@@ -302,6 +320,7 @@ namespace jp.unisakistudio.posingsystemeditor
 
             public void Dispose()
             {
+                using var sample = PosingSystemProfiling.Sample("Posing: Session.Dispose");
                 if (!committed)
                 {
                     foreach (var pair in original) if (pair.Key != null) pair.Key.animator = pair.Value;

@@ -1085,10 +1085,10 @@ namespace jp.unisakistudio.posingsystemeditor
                 if (baseCurve != null)
                 {
                     // 既存のカーブがある場合は加算合成
-                    for (int i = 0; i < baseCurve.keys.Length && i < adjustmentCurve.keys.Length; i++)
+                    for (int i = 0; i < baseCurve.length && i < adjustmentCurve.length; i++)
                     {
-                        var baseKey = baseCurve.keys[i];
-                        var adjustmentKey = adjustmentCurve.keys[i];
+                        var baseKey = baseCurve[i];
+                        var adjustmentKey = adjustmentCurve[i];
 
                         // 時間が一致する場合のみ加算
                         if (Mathf.Approximately(baseKey.time, adjustmentKey.time))

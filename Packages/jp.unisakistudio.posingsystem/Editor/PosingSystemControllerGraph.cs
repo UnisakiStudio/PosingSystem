@@ -17,17 +17,43 @@ namespace jp.unisakistudio.posingsystemeditor
             obj is AnimatorStateMachine || obj is AnimatorState || obj is AnimatorTransitionBase ||
             obj is StateMachineBehaviour || obj is Motion || obj is AvatarMask;
 
+        // Object references sit only inside containers. Entering strings, curves, vectors and
+        // arrays of plain values would visit every character and keyframe of a clip, which was
+        // most of the time a prebuild took, without ever finding a reference there.
+        private static readonly HashSet<string> PlainElements = new HashSet<string> {
+            "int", "unsigned int", "float", "double", "bool", "char", "UInt8", "SInt8", "UInt16", "SInt16",
+            "SInt64", "UInt64", "long long", "unsigned long long", "string" };
+
+        internal static bool MayHoldReferences(SerializedProperty property)
+        {
+            switch (property.propertyType)
+            {
+                case SerializedPropertyType.Generic:
+                    return !property.isArray || !PlainElements.Contains(property.arrayElementType);
+                case SerializedPropertyType.ManagedReference:
+                case SerializedPropertyType.ExposedReference:
+                    return true;
+                default:
+                    return false;
+            }
+        }
+
         internal static IEnumerable<Object> References(Object obj)
         {
             using var serialized = new SerializedObject(obj);
             var it = serialized.GetIterator();
-            while (it.Next(true))
+            var enter = true;
+            while (it.Next(enter))
+            {
+                enter = MayHoldReferences(it);
                 if (it.propertyType == SerializedPropertyType.ObjectReference && it.objectReferenceValue != null)
                     yield return it.objectReferenceValue;
+            }
         }
 
         internal static HashSet<Object> Collect(IEnumerable<Object> roots, Func<Object, bool> include)
         {
+            using var sample = PosingSystemProfiling.Sample("Posing: Graph.Collect");
             var result = new HashSet<Object>();
             var pending = new Stack<Object>(roots.Where(o => o != null));
             while (pending.Count > 0)
@@ -43,14 +69,23 @@ namespace jp.unisakistudio.posingsystemeditor
         {
             using var serialized = new SerializedObject(obj);
             var it = serialized.GetIterator();
-            while (it.Next(true))
-                if (it.propertyType == SerializedPropertyType.ObjectReference && it.objectReferenceValue != null &&
-                    map.TryGetValue(it.objectReferenceValue, out var replacement)) it.objectReferenceValue = replacement;
-            serialized.ApplyModifiedPropertiesWithoutUndo();
+            var enter = true;
+            var changed = false;
+            while (it.Next(enter))
+            {
+                enter = MayHoldReferences(it);
+                if (it.propertyType != SerializedPropertyType.ObjectReference) continue;
+                var value = it.objectReferenceValue;
+                if (value == null || !map.TryGetValue(value, out var replacement) || replacement == value) continue;
+                it.objectReferenceValue = replacement;
+                changed = true;
+            }
+            if (changed) serialized.ApplyModifiedPropertiesWithoutUndo();
         }
 
         internal static Dictionary<Object, Object> Clone(IEnumerable<AnimatorController> roots)
         {
+            using var sample = PosingSystemProfiling.Sample("Posing: Graph.Clone");
             var controllers = roots.Where(c => c != null).Distinct().ToArray();
             var ownedPaths = controllers.Select(AssetDatabase.GetAssetPath).Where(p => p.Length > 0).ToHashSet();
             var source = Collect(controllers, o => IsGraphObject(o) &&

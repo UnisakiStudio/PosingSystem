@@ -45,7 +45,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 {
                     continue;
                 }
-                var key = result.keys[keyIndex];
+                var key = result[keyIndex];
                 key.value = baseValue + adjustmentValue;
                 result.MoveKey(keyIndex, key);
             }
@@ -91,7 +91,7 @@ namespace jp.unisakistudio.posingsystemeditor
         {
             for (var i = 0; i < curve.length; i++)
             {
-                if (Mathf.Abs(curve.keys[i].time - time) <= TimeTolerance)
+                if (Mathf.Abs(curve[i].time - time) <= TimeTolerance)
                 {
                     return i;
                 }

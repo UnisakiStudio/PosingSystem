@@ -12,6 +12,8 @@
 ### Đã thay đổi
 
 - Khi không thể tạo tư thế do lỗi biên dịch (PS050), thông báo giờ đây nêu tên công cụ phát sinh lỗi. Lỗi cũng được hiển thị ngay sau khi khởi động lại Unity và khi phần hiển thị của Console đang được lọc.
+- Việc cập nhật dữ liệu tạo trước mất ít thời gian hơn. Càng nhiều tư thế dùng “Lật người” thì hiệu quả càng rõ.
+- Khi mô tả tính năng bằng tiếng Nhật hoặc tiếng Trung xuống dòng, dòng không còn bắt đầu bằng dấu chấm hay dấu phẩy.
 
 ### Tương thích
 

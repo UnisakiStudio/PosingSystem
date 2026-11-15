@@ -10,17 +10,18 @@ import tempfile
 import unittest
 
 from bootstrap_embed import REMEMBER, embed, picker_span, validate_captions
+from generate_language import standalone_source
 
 HERE = Path(__file__).resolve().parent
 REPO = HERE.parents[1]
 ASSETS = HERE / 'Bootstrap'
-HELPER = REPO / 'Packages/jp.unisakistudio.posingsystem/Editor/Setup/SetupLanguage.cs'
 
 
-def base_helper():
+def base_helper(generated):
     # Reconstruct only the original private picker from its authoritative
     # template. No generator writes, Unity, preferences or license operations.
-    generated = HELPER.read_text('utf-8-sig')
+    # The setup program's helper carries the tables as literals; the package copy
+    # reads them from a data file and is covered by the Unity tests.
     base = generated.split('\n// BEGIN REVIEWED BOOTSTRAP CAPTION OVERLAY\n', 1)[0]
     start, end = picker_span(base)
     template = (HERE / 'SetupLanguage.cs.in').read_text('utf-8-sig')
@@ -31,8 +32,8 @@ def base_helper():
 class BootstrapEmbedTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.base = base_helper()
-        cls.expected = HELPER.read_text('utf-8-sig')
+        cls.expected = standalone_source()
+        cls.base = base_helper(cls.expected)
         cls.manifest = json.loads((ASSETS / 'caption-manifest.json').read_text('utf-8'))
 
     def test_manifest_raw_hashes_bind_canonical_lf_files(self):

@@ -21,11 +21,11 @@ namespace UnisakiStudio.Setup
         internal static readonly string[] Names = __NAMES__;
         // Preference reads must not initialize translation catalogs or diagnostic regexes.
         private static Dictionary<string, string> Aliases => TranslationData.Aliases;
-        private static Dictionary<string, Dictionary<string, string>> Catalogs => TranslationData.Catalogs;
+        private static __CATALOG_TYPE__ Catalogs => TranslationData.Catalogs;
         private static class TranslationData
         {
             internal static readonly Dictionary<string, string> Aliases = __ALIASES__;
-            internal static readonly Dictionary<string, Dictionary<string, string>> Catalogs = __CATALOGS__;
+            internal static readonly __CATALOG_TYPE__ Catalogs = __CATALOGS__;
             internal static readonly HashSet<string> Canonical = new HashSet<string>(Aliases.Values, StringComparer.Ordinal);
         }
         private static readonly Dictionary<string, int[]> LocalizedArguments = __LOCALIZED_ARGUMENTS__;

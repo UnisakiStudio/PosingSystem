@@ -172,7 +172,7 @@ namespace jp.unisakistudio.posingsystemeditor
             var times = new SortedSet<float> {0, duration};
             // Proxy assets contain an editor reference pose. Their original runtime substitutions remain in Base.
             // Imported animated motions need matching phase, cycle offset and speed, preserved in the projected tree.
-            if (curves.Any(c => c != null && c.keys.Any(k => !Mathf.Approximately(k.value, c.keys[0].value) ||
+            if (curves.Any(c => c != null && c.keys.Any(k => !Mathf.Approximately(k.value, c[0].value) ||
                     Mathf.Abs(k.inTangent) > .000001f || Mathf.Abs(k.outTangent) > .000001f)))
             {
                 var frames = Mathf.CeilToInt(duration * Mathf.Max(60, source.frameRate));
@@ -279,7 +279,7 @@ namespace jp.unisakistudio.posingsystemeditor
             var curves = "xyzw".Select(axis => AnimationUtility.GetEditorCurve(source,
                 EditorCurveBinding.FloatCurve("", typeof(Animator), "RootQ." + axis))).ToArray();
             var times = new SortedSet<float> { 0, duration };
-            if (curves.Any(c => c != null && c.keys.Any(k => !Mathf.Approximately(k.value, c.keys[0].value) ||
+            if (curves.Any(c => c != null && c.keys.Any(k => !Mathf.Approximately(k.value, c[0].value) ||
                     Mathf.Abs(k.inTangent) > .000001f || Mathf.Abs(k.outTangent) > .000001f)))
             {
                 var frames = Mathf.CeilToInt(duration * Mathf.Max(60, source.frameRate));

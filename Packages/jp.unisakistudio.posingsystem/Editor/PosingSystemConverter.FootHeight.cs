@@ -77,7 +77,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 EditorCurveBinding.FloatCurve("", typeof(Animator), "RootQ." + axis))).ToArray();
             var times = new SortedSet<float> { 0, duration };
             // Static poses only need two keys. Moving poses follow the changing body orientation.
-            if (rotation.Any(c => c != null && c.keys.Any(k => !Mathf.Approximately(k.value, c.keys[0].value) ||
+            if (rotation.Any(c => c != null && c.keys.Any(k => !Mathf.Approximately(k.value, c[0].value) ||
                     Mathf.Abs(k.inTangent) > .000001f || Mathf.Abs(k.outTangent) > .000001f)))
             {
                 var frames = Mathf.CeilToInt(duration * Mathf.Max(60, source.frameRate));

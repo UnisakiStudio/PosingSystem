@@ -12,6 +12,8 @@
 ### Ändrat
 
 - När poser inte kan genereras på grund av ett kompileringsfel (PS050) anger meddelandet nu vilket verktyg felet uppstår i. Felen visas även direkt efter att Unity har startats om och när visningen i Console är filtrerad.
+- Uppdateringen av förberäkningen går snabbare. Ju fler poser som använder ”Vänd dig”, desto större effekt.
+- När en funktionsbeskrivning på japanska eller kinesiska radbryts börjar en rad inte längre med punkt eller komma.
 
 ### Kompatibilitet
 

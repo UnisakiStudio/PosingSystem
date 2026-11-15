@@ -12,6 +12,8 @@
 ### Zmieniono
 
 - Gdy nie można utworzyć poz z powodu błędu kompilacji (PS050), komunikat podaje teraz nazwę narzędzia, w którym wystąpił błąd. Błędy są pokazywane także tuż po ponownym uruchomieniu Unity oraz gdy widok Console jest filtrowany.
+- Aktualizacja budowania wstępnego trwa krócej. Im więcej poz używa funkcji „Obróć się”, tym większy efekt.
+- Gdy opis funkcji po japońsku lub chińsku jest zawijany, wiersz nie zaczyna się już od kropki ani przecinka.
 
 ### Zgodność
 

@@ -12,6 +12,8 @@
 ### Änderungen
 
 - Wenn Posen wegen eines Kompilierungsfehlers nicht erstellt werden können (PS050), nennt die Meldung jetzt das Werkzeug, in dem der Fehler auftritt. Die Fehler werden auch direkt nach einem Neustart von Unity und bei gefilterter Console-Anzeige angezeigt.
+- Die Aktualisierung der Vorberechnung dauert kürzer. Je mehr Posen „Umdrehen“ verwenden, desto größer ist der Effekt.
+- Wenn eine Funktionsbeschreibung auf Japanisch oder Chinesisch umbricht, beginnt keine Zeile mehr mit einem Punkt oder Komma.
 
 ### Kompatibilität
 

@@ -12,6 +12,8 @@
 ### Muutettu
 
 - Kun asentoja ei voida luoda käännösvirheen vuoksi (PS050), ilmoitus kertoo nyt, missä työkalussa virhe on. Virheet näytetään myös heti Unityn uudelleenkäynnistyksen jälkeen ja silloin, kun Consolen näkymää on suodatettu.
+- Esikoonnin päivitys vie vähemmän aikaa. Mitä useampi asento käyttää Käänny-toimintoa, sitä suurempi vaikutus.
+- Kun japanin- tai kiinankielinen toiminnon kuvaus rivittyy, rivi ei enää ala pisteellä tai pilkulla.
 
 ### Yhteensopivuus
 

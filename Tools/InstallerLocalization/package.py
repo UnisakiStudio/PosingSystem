@@ -8,8 +8,11 @@ import json
 import tarfile
 import uuid
 
-NAMESPACE = uuid.UUID('80458ad0-046f-4f16-8e14-bf3ddd379a96')
+from generate_language import ASSETS_DATA_GUID, ASSETS_DATA_PATH, ASSETS_NAMESPACE, DATA_NAME
+
+NAMESPACE = ASSETS_NAMESPACE
 HELPER_PATH = 'Assets/UniSakiStudio/Setup/Editor/UnisakiSetupLanguage.cs'
+DATA_PATH = ASSETS_DATA_PATH
 NOTICE_PATH = 'Assets/UniSakiStudio/Setup/VPMPackageAutoInstaller-LICENSE.txt'
 UNITY_TAR_FILENAME = 'archtemp.tar'
 
@@ -71,8 +74,13 @@ def package(original, build, output, dependencies, include_prerelease=False):
         raise ValueError('Input is not a complete recognized license/setup package')
     # Shared helper GUIDs stay stable across the two products and differ from the package copy.
     # Keep the helper outside the VPAI folder, which upstream removes after completion.
+    # The helper is compiled with the user's own editor scripts: it carries no tables, they are
+    # in the data file beside it (the helper looks that file up by the GUID given here).
+    if uuid.uuid5(NAMESPACE, DATA_PATH).hex != ASSETS_DATA_GUID:
+        raise ValueError('The helper expects another GUID for its data file')
     additions = {
-        HELPER_PATH: (build / 'Sources/SetupLanguage.cs').read_bytes(),
+        HELPER_PATH: (build / 'Sources/Helper/SetupLanguage.cs').read_bytes(),
+        DATA_PATH: (build / 'Sources/Helper' / DATA_NAME).read_bytes(),
         NOTICE_PATH: (build / 'Sources/LICENSE-VPMPackageAutoInstaller.txt').read_bytes(),
     }
     folders = ['Assets/UniSakiStudio/Setup', 'Assets/UniSakiStudio/Setup/Editor']

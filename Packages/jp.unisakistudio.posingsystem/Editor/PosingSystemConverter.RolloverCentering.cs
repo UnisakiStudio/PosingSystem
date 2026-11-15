@@ -46,6 +46,7 @@ namespace jp.unisakistudio.posingsystemeditor
             }
 
             AnimationClip probe = null;
+            AnimationClip lastSampled = null;
             try
             {
                 // Measure the actual root-axis response on this avatar. This includes scale, modified
@@ -110,7 +111,11 @@ namespace jp.unisakistudio.posingsystemeditor
 
             Vector3 Sample(AnimationClip source, float time)
             {
-                Restore();
+                // Consecutive samples of the unedited clip overwrite the same properties with
+                // absolute values. The probe is edited between its samples, so it always starts
+                // from the saved state.
+                if (source != clip || lastSampled != clip) Restore();
+                lastSampled = source;
                 source.SampleAnimation(workingAvatar, time);
                 // Root motion extraction must not move the coordinate system being measured.
                 root.SetPositionAndRotation(rootPosition, rootRotation);

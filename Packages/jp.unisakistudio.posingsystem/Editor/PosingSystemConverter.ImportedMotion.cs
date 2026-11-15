@@ -155,7 +155,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 (binding, curve: AnimationUtility.GetEditorCurve(clip, binding))).ToArray();
             var objectCurves = AnimationUtility.GetObjectReferenceCurveBindings(clip).Select(binding =>
                 (binding, keys: AnimationUtility.GetObjectReferenceCurve(clip, binding))).ToArray();
-            if (curves.All(item => item.curve.keys.All(key => key.value == item.curve.keys[0].value &&
+            if (curves.All(item => item.curve.keys.All(key => key.value == item.curve[0].value &&
                     (key.inTangent == 0 || float.IsInfinity(key.inTangent)) &&
                     (key.outTangent == 0 || float.IsInfinity(key.outTangent)))) &&
                 objectCurves.All(item => item.keys.All(key => key.value == item.keys[0].value)))

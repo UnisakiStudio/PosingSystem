@@ -12,6 +12,8 @@
 ### Ændret
 
 - Når positurer ikke kan genereres på grund af en kompileringsfejl (PS050), angiver meddelelsen nu, hvilket værktøj fejlen opstår i. Fejlene vises også lige efter en genstart af Unity, og når visningen i Console er filtreret.
+- Opdateringen af forberegningen tager kortere tid. Jo flere positurer der bruger “Vend dig”, desto større er effekten.
+- Når en funktionsbeskrivelse på japansk eller kinesisk ombrydes, begynder en linje ikke længere med punktum eller komma.
 
 ### Kompatibilitet
 

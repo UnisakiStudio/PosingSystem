@@ -3,10 +3,11 @@ from pathlib import Path
 import argparse
 import hashlib
 import json
+import os
 import subprocess
 import xml.etree.ElementTree as ET
 
-from generate_language import render
+from generate_language import DATA_NAME, render
 from prepare_sources import prepare
 from verify_sources import verify
 
@@ -87,7 +88,7 @@ def build(upstream, inputs, output, unity, dotnet):
     for platform in ['WIN', 'OSX', 'LINUX']:
         path = builds / ('License' + platform + '.csproj')
         project(path, 'UnisakiStudio.LicenseSetup.Check.' + platform,
-                common + sorted(sources.glob('*LicenseActivator.cs')), managed, 'UNITY_EDITOR_' + platform)
+                [sources / 'Helper/SetupLanguage.cs'] + sorted(sources.glob('*LicenseActivator.cs')), managed, 'UNITY_EDITOR_' + platform)
         projects.append(path)
     for path in projects:
         log = output / (path.stem + '-build.log')
@@ -111,7 +112,8 @@ def build(upstream, inputs, output, unity, dotnet):
     with (output / 'assembly-checks.log').open('w', encoding='utf-8') as stream:
         result = subprocess.run([str(dotnet), 'run', '--project', str(checks / 'Checks.csproj'),
                                  '-c', 'Release', '--', str(managed)] + [str(p) for p in assemblies],
-                                stdout=stream, stderr=subprocess.STDOUT)
+                                stdout=stream, stderr=subprocess.STDOUT,
+                                env=dict(os.environ, UNISAKI_SETUP_LANGUAGE_DATA=str(sources / 'Helper' / DATA_NAME)))
     if result.returncode:
         raise RuntimeError('Standalone checks failed; see ' + str(output / 'assembly-checks.log'))
     print('Standalone assembly checks passed (no installers executed)')

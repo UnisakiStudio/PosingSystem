@@ -1269,37 +1269,37 @@ namespace jp.unisakistudio.posingsystemeditor
             PosingSystemFeatureUtility.Synchronize(posingSystem);
 
             // 自動生成するメニュー項目を一度削除する
-            DeletePosingMenuObjects(posingSystem);
+            using (PosingSystemProfiling.Sample("Posing: DeletePosingMenuObjects")) DeletePosingMenuObjects(posingSystem);
 
             // definesのTypeParameterとSyncedParameterを再設定する
-            ResetTypeAndSyncedParameter(posingSystem);
+            using (PosingSystemProfiling.Sample("Posing: ResetTypeAndSyncedParameter")) ResetTypeAndSyncedParameter(posingSystem);
 
             // SyncedParameterが8bitを超えていたら拡張する
-            ResetParametersWithSyncedParameter(posingSystem);
+            using (PosingSystemProfiling.Sample("Posing: ResetParametersWithSyncedParameter")) ResetParametersWithSyncedParameter(posingSystem);
 
             // メニューを再作成する
-            CreatePosingMenuObjects(posingSystem);
+            using (PosingSystemProfiling.Sample("Posing: CreatePosingMenuObjects")) CreatePosingMenuObjects(posingSystem);
 
             // MergeAnimatorのAnimatorControllerがオリジナルじゃなかったらベースを複製して設定する
-            CreateOriginalAnimatorController(posingSystem);
+            using (PosingSystemProfiling.Sample("Posing: CreateOriginalAnimatorController")) CreateOriginalAnimatorController(posingSystem);
 
             // Additive呼吸専用MergeAnimatorのControllerも、アバターごとの編集用に複製する
-            CreateOriginalAdditiveBreathingAnimatorController(posingSystem);
+            using (PosingSystemProfiling.Sample("Posing: CreateOriginalAdditiveBreathingAnimatorController")) CreateOriginalAdditiveBreathingAnimatorController(posingSystem);
 
             // MergeAnimatorのAnimatorControllerのParametersをセットする
-            ResetAnimatorControllerParameters(posingSystem);
+            using (PosingSystemProfiling.Sample("Posing: ResetAnimatorControllerParameters")) ResetAnimatorControllerParameters(posingSystem);
 
             // AnimatorControllerを変更する
-            ConvertAnimatorController(posingSystem, assetSaver);
+            using (PosingSystemProfiling.Sample("Posing: ConvertAnimatorController")) ConvertAnimatorController(posingSystem, assetSaver);
 
             // 姿勢ごとの呼吸アニメーションを設定する
-            ConvertAdditiveBreathingAnimations(posingSystem);
+            using (PosingSystemProfiling.Sample("Posing: ConvertAdditiveBreathingAnimations")) ConvertAdditiveBreathingAnimations(posingSystem);
 
             // アニメーションをOverrideする
-            ResetImportedMotionStates(posingSystem, assetSaver);
-            ConvertOverrideAnimations(posingSystem, assetSaver);
+            using (PosingSystemProfiling.Sample("Posing: ResetImportedMotionStates")) ResetImportedMotionStates(posingSystem, assetSaver);
+            using (PosingSystemProfiling.Sample("Posing: ConvertOverrideAnimations")) ConvertOverrideAnimations(posingSystem, assetSaver);
 
-            ConvertOptionalFeatures(posingSystem, assetSaver);
+            using (PosingSystemProfiling.Sample("Posing: ConvertOptionalFeatures")) ConvertOptionalFeatures(posingSystem, assetSaver);
 
             // アイコン画像ファイルがあったらメニューに設定する
             if (posingSystem.thumbnailPackObject != null)
@@ -1308,7 +1308,7 @@ namespace jp.unisakistudio.posingsystemeditor
             }
 
             // 変更を保存
-            posingSystem.data = GetDefineSerializeJson(posingSystem);
+            using (PosingSystemProfiling.Sample("Posing: GetDefineSerializeJson")) posingSystem.data = GetDefineSerializeJson(posingSystem);
 
             PosingSystemHierarchyBadge.Invalidate(posingSystem);
 
@@ -2071,6 +2071,8 @@ namespace jp.unisakistudio.posingsystemeditor
                                 AnimationMode.EndSampling();
                                 headPosision = workingAnimator.GetBoneTransform(HumanBodyBones.Head).transform.position;
 
+                                // The x, y and z curves normally share their key times: sample each time once.
+                                var rootAtTime = new Dictionary<float, Vector3>();
                                 foreach (var binding in AnimationUtility.GetCurveBindings(tempClipForCurves))
                                 {
                                     if (!binding.propertyName.StartsWith("RootT."))
@@ -2080,24 +2082,29 @@ namespace jp.unisakistudio.posingsystemeditor
                                     var curve = AnimationUtility.GetEditorCurve(tempClipForCurves, binding);
                                     if (curve == null) continue;
 
-                                    for (int i = 0; i < curve.keys.Length; i++)
+                                    // AnimationCurve.keys returns a new copy of the whole array on every access.
+                                    var keys = curve.keys;
+                                    for (int i = 0; i < keys.Length; i++)
                                     {
-                                        AnimationMode.BeginSampling();
-                                        AnimationMode.SampleAnimationClip(workingAvatar, animationClip, curve.keys[i].time);
-                                        AnimationMode.EndSampling();
-                                        var rootT = new Vector3();
-                                        var rootBinding = binding;
-                                        rootBinding.propertyName = "RootT.x";
-                                        AnimationUtility.GetFloatValue(workingAvatar, rootBinding, out rootT.x);
-                                        rootBinding.propertyName = "RootT.y";
-                                        AnimationUtility.GetFloatValue(workingAvatar, rootBinding, out rootT.y);
-                                        rootBinding.propertyName = "RootT.z";
-                                        AnimationUtility.GetFloatValue(workingAvatar, rootBinding, out rootT.z);
+                                        if (!rootAtTime.TryGetValue(keys[i].time, out var rootT))
+                                        {
+                                            AnimationMode.BeginSampling();
+                                            AnimationMode.SampleAnimationClip(workingAvatar, animationClip, keys[i].time);
+                                            AnimationMode.EndSampling();
+                                            var rootBinding = binding;
+                                            rootBinding.propertyName = "RootT.x";
+                                            AnimationUtility.GetFloatValue(workingAvatar, rootBinding, out rootT.x);
+                                            rootBinding.propertyName = "RootT.y";
+                                            AnimationUtility.GetFloatValue(workingAvatar, rootBinding, out rootT.y);
+                                            rootBinding.propertyName = "RootT.z";
+                                            AnimationUtility.GetFloatValue(workingAvatar, rootBinding, out rootT.z);
 
-                                        rootT -= GetHorizontalOffsetInRootUnits(
-                                            workingAvatar.transform,
-                                            headPosision,
-                                            workingAnimator.humanScale);
+                                            rootT -= GetHorizontalOffsetInRootUnits(
+                                                workingAvatar.transform,
+                                                headPosision,
+                                                workingAnimator.humanScale);
+                                            rootAtTime.Add(keys[i].time, rootT);
+                                        }
                                         if (binding.propertyName == "RootT.x")
                                             rootTxList.Add(rootT.x);
                                         if (binding.propertyName == "RootT.y")
@@ -2151,9 +2158,10 @@ namespace jp.unisakistudio.posingsystemeditor
                                     if (binding.propertyName == propertyName)
                                     {
                                         var curve = AnimationUtility.GetEditorCurve(newAnimationClip, binding);
-                                        for (int i = 0; i < curve.keys.Length; i++)
+                                        var keys = curve.keys;
+                                        for (int i = 0; i < keys.Length; i++)
                                         {
-                                            var key = curve.keys[i];
+                                            var key = keys[i];
                                             key.value = changer(key, i);
                                             curve.MoveKey(i, key);
                                         }
