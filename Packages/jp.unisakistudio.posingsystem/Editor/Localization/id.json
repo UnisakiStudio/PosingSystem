@@ -29,6 +29,10 @@
       "value": "Perbarui produk serta Unisaki Posing System ke versi terbaru melalui ALCOM / VCC, tunggu kompilasi selesai, lalu coba lagi. Jika masalah berlanjut, hubungi dukungan dengan menyertakan pesan ini."
     },
     {
+      "key": "ALCOM / VCCで商品本体と「ゆにさきポーズシステム」を最新版に更新してください。直らない場合は、「このエラーについて相談する」からお問い合わせください。",
+      "value": "Perbarui produk dan Unisaki Posing System ke versi terbaru dengan ALCOM / VCC. Jika masalah berlanjut, hubungi dukungan melalui \"Tanyakan tentang kesalahan ini\"."
+    },
+    {
       "key": "AddStateMachineBehaviourに失敗しました。多くの場合原因は別のツールなどにエラーが発生していることです。アバタービルド・アップロード前にConsoleウィンドウを確認してエラーを解消してから再度お試しください",
       "value": "AddStateMachineBehaviour gagal. Alat lain mungkin mengalami kesalahan sebelumnya. Atasi kesalahan terkait pertama di Console sebelum melakukan build atau mengunggah avatar lagi."
     },
@@ -303,6 +307,10 @@
     {
       "key": "ViewPosition（目の位置）",
       "value": "ViewPosition (posisi mata)"
+    },
+    {
+      "key": "Window > General > Consoleで、この操作中に最初に出た赤いエラーを確認してください。VRChat SDKの「Build & Test」でも失敗する場合は、ポーズツール以外が原因です。",
+      "value": "Pada Window > General > Console, periksa kesalahan merah pertama dari operasi ini. Jika \"Build & Test\" di VRChat SDK juga gagal, penyebabnya berada di luar alat pose."
     },
     {
       "key": "[PosingSystem] NDMFプレビュー用アバターを有効なSceneに作成できませんでした。",
@@ -1369,6 +1377,10 @@
       "value": "Tidak dapat mengukur panjang tetap yang valid dari skala avatar."
     },
     {
+      "key": "アバターのビルド前処理が失敗したため、ポーズ画像を更新できません。",
+      "value": "Gambar mini pose tidak dapat diperbarui karena prapemrosesan build avatar gagal."
+    },
+    {
       "key": "アバターのルートにAnimatorがありません。",
       "value": "Akar avatar tidak memiliki Animator."
     },
@@ -1593,6 +1605,10 @@
       "value": "Controller standar tidak ditemukan dalam paket."
     },
     {
+      "key": "ビルド前処理中のエラー（先頭から最大3件）",
+      "value": "Kesalahan selama prapemrosesan build (hingga 3 pertama)"
+    },
+    {
       "key": "ファイルに保存されている値に戻します。",
       "value": "Memulihkan nilai yang disimpan dalam berkas."
     },
@@ -1731,6 +1747,10 @@
     {
       "key": "ポーズツールで次のエラーが出ました。対処方法を教えてください。",
       "value": "Alat pose melaporkan kesalahan berikut. Bagaimana mengatasinya?"
+    },
+    {
+      "key": "ポーズツール以外で起きているエラーです。発生元のツールとVRChat SDKを最新版に更新してください。VRChat SDKの「Build & Test」でも同じエラーが出る場合は、発生元のツールの配布元で対応状況をご確認ください。",
+      "value": "Kesalahan ini berasal dari luar alat pose. Perbarui alat yang disebut sebagai sumber dan VRChat SDK ke versi terbaru. Jika kesalahan yang sama juga muncul pada \"Build & Test\" di VRChat SDK, periksa informasi kompatibilitas dari distributor alat tersebut."
     },
     {
       "key": "ポーズツール以外で起きているエラーです。発生元のツールを更新するか、配布元で対応状況をご確認ください。エラーが解消し、再コンパイルが完了してから実行してください。",

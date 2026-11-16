@@ -14,6 +14,7 @@
 - Saat pose tidak dapat dibuat karena kesalahan kompilasi (PS050), pesan kini menyebutkan alat tempat kesalahan terjadi. Kesalahan juga ditampilkan tepat setelah Unity dimulai ulang dan saat tampilan Console sedang difilter.
 - Pembaruan prabuild kini lebih cepat. Makin banyak pose yang memakai “Berguling”, makin besar pengaruhnya.
 - Saat deskripsi fitur berbahasa Jepang atau Tionghoa berpindah baris, baris tidak lagi diawali titik atau koma.
+- Saat gambar mini pose tidak dapat diperbarui karena kesalahan pada alat lain (PS036), pesan kini menyebutkan alat tempat kesalahan terjadi beserta isi kesalahannya.
 
 ### Kompatibilitas
 

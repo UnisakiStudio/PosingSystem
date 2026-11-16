@@ -29,6 +29,10 @@
       "value": "Päivitä tuote ja Unisaki Posing System uusimpaan versioon ALCOM / VCC:llä, odota kääntämisen valmistumista ja yritä uudelleen. Jos ongelma jatkuu, ota yhteyttä tukeen ja liitä tämä viesti mukaan."
     },
     {
+      "key": "ALCOM / VCCで商品本体と「ゆにさきポーズシステム」を最新版に更新してください。直らない場合は、「このエラーについて相談する」からお問い合わせください。",
+      "value": "Päivitä tuote ja Unisaki Posing System uusimpaan versioon ALCOM / VCC:llä. Jos ongelma jatkuu, ota yhteyttä tukeen painikkeella ”Kysy tästä virheestä”."
+    },
+    {
       "key": "AddStateMachineBehaviourに失敗しました。多くの場合原因は別のツールなどにエラーが発生していることです。アバタービルド・アップロード前にConsoleウィンドウを確認してエラーを解消してから再度お試しください",
       "value": "AddStateMachineBehaviour epäonnistui. Toinen työkalu on voinut aiheuttaa aiemman virheen. Korjaa Consolen ensimmäinen asiaan liittyvä virhe ennen avatarin uutta koontia tai latausta."
     },
@@ -303,6 +307,10 @@
     {
       "key": "ViewPosition（目の位置）",
       "value": "ViewPosition (silmien sijainti)"
+    },
+    {
+      "key": "Window > General > Consoleで、この操作中に最初に出た赤いエラーを確認してください。VRChat SDKの「Build & Test」でも失敗する場合は、ポーズツール以外が原因です。",
+      "value": "Tarkista tämän toiminnon ensimmäinen punainen virhe kohdasta Window > General > Console. Jos myös VRChat SDK:n ”Build & Test” epäonnistuu, syy ei ole asentotyökalussa."
     },
     {
       "key": "[PosingSystem] NDMFプレビュー用アバターを有効なSceneに作成できませんでした。",
@@ -1369,6 +1377,10 @@
       "value": "Avatarin mittakaavasta ei voitu mitata kelvollista kiinteää pituutta."
     },
     {
+      "key": "アバターのビルド前処理が失敗したため、ポーズ画像を更新できません。",
+      "value": "Asentojen pikkukuvia ei voi päivittää, koska avatarin koonnin esikäsittely epäonnistui."
+    },
+    {
       "key": "アバターのルートにAnimatorがありません。",
       "value": "Avatarin juuriobjektilta puuttuu Animator."
     },
@@ -1593,6 +1605,10 @@
       "value": "Paketin oletus-Controlleria ei löytynyt."
     },
     {
+      "key": "ビルド前処理中のエラー（先頭から最大3件）",
+      "value": "Virheet koonnin esikäsittelyn aikana (enintään 3 ensimmäistä)"
+    },
+    {
       "key": "ファイルに保存されている値に戻します。",
       "value": "Palauttaa tiedostoon tallennetut arvot."
     },
@@ -1731,6 +1747,10 @@
     {
       "key": "ポーズツールで次のエラーが出ました。対処方法を教えてください。",
       "value": "Asentotyökalu ilmoitti seuraavan virheen. Miten voin korjata sen?"
+    },
+    {
+      "key": "ポーズツール以外で起きているエラーです。発生元のツールとVRChat SDKを最新版に更新してください。VRChat SDKの「Build & Test」でも同じエラーが出る場合は、発生元のツールの配布元で対応状況をご確認ください。",
+      "value": "Tämä virhe ei johdu asentotyökalusta. Päivitä lähteeksi mainittu työkalu ja VRChat SDK uusimpaan versioon. Jos sama virhe tulee myös VRChat SDK:n ”Build & Test” -toiminnolla, tarkista yhteensopivuustiedot kyseisen työkalun jakelijalta."
     },
     {
       "key": "ポーズツール以外で起きているエラーです。発生元のツールを更新するか、配布元で対応状況をご確認ください。エラーが解消し、再コンパイルが完了してから実行してください。",

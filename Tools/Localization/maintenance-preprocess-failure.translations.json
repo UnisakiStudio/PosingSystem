@@ -1,0 +1,205 @@
+{
+  "en": {
+    "アバターのビルド前処理が失敗したため、ポーズ画像を更新できません。": "The pose thumbnails cannot be updated because preprocessing of the avatar build failed.",
+    "ビルド前処理中のエラー（先頭から最大3件）": "Errors during build preprocessing (up to the first 3)",
+    "ALCOM / VCCで商品本体と「ゆにさきポーズシステム」を最新版に更新してください。直らない場合は、「このエラーについて相談する」からお問い合わせください。": "Update the product and Unisaki Posing System to the latest version using ALCOM / VCC. If the problem continues, contact support using \"Ask about this error\".",
+    "ポーズツール以外で起きているエラーです。発生元のツールとVRChat SDKを最新版に更新してください。VRChat SDKの「Build & Test」でも同じエラーが出る場合は、発生元のツールの配布元で対応状況をご確認ください。": "This error comes from something other than the pose tool. Update the tool named as the source and the VRChat SDK to the latest version. If the same error also appears with \"Build & Test\" in the VRChat SDK, check the distributor of that tool for compatibility information.",
+    "Window > General > Consoleで、この操作中に最初に出た赤いエラーを確認してください。VRChat SDKの「Build & Test」でも失敗する場合は、ポーズツール以外が原因です。": "In Window > General > Console, check the first red error from this operation. If \"Build & Test\" in the VRChat SDK also fails, the cause is something other than the pose tool."
+  },
+  "ar": {
+    "アバターのビルド前処理が失敗したため、ポーズ画像を更新できません。": "تعذر تحديث صور الوضعيات المصغرة لأن المعالجة المسبقة لبناء الأفاتار فشلت.",
+    "ビルド前処理中のエラー（先頭から最大3件）": "الأخطاء أثناء المعالجة المسبقة للبناء (أول 3 كحد أقصى)",
+    "ALCOM / VCCで商品本体と「ゆにさきポーズシステム」を最新版に更新してください。直らない場合は、「このエラーについて相談する」からお問い合わせください。": "حدّث المنتج وUnisaki Posing System إلى أحدث إصدار باستخدام ALCOM / VCC. إذا استمرت المشكلة، فتواصل مع الدعم عبر «الاستفسار عن هذا الخطأ».",
+    "ポーズツール以外で起きているエラーです。発生元のツールとVRChat SDKを最新版に更新してください。VRChat SDKの「Build & Test」でも同じエラーが出る場合は、発生元のツールの配布元で対応状況をご確認ください。": "هذا الخطأ صادر من خارج أداة الوضعيات. حدّث الأداة المذكورة كمصدر للخطأ وVRChat SDK إلى أحدث إصدار. إذا ظهر الخطأ نفسه أيضًا مع «Build & Test» في VRChat SDK، فراجع معلومات التوافق لدى موزّع تلك الأداة.",
+    "Window > General > Consoleで、この操作中に最初に出た赤いエラーを確認してください。VRChat SDKの「Build & Test」でも失敗する場合は、ポーズツール以外が原因です。": "افحص أول خطأ أحمر من هذه العملية في Window > General > Console. إذا فشل «Build & Test» في VRChat SDK أيضًا، فالسبب خارج أداة الوضعيات."
+  },
+  "bn": {
+    "アバターのビルド前処理が失敗したため、ポーズ画像を更新できません。": "অ্যাভাটার বিল্ডের প্রাক-প্রক্রিয়া ব্যর্থ হওয়ায় পোজের ছোট ছবি হালনাগাদ করা যাচ্ছে না।",
+    "ビルド前処理中のエラー（先頭から最大3件）": "বিল্ডের প্রাক-প্রক্রিয়ার সময়ের ত্রুটি (প্রথম সর্বোচ্চ 3টি)",
+    "ALCOM / VCCで商品本体と「ゆにさきポーズシステム」を最新版に更新してください。直らない場合は、「このエラーについて相談する」からお問い合わせください。": "ALCOM / VCC থেকে পণ্য এবং Unisaki Posing System সর্বশেষ সংস্করণে আপডেট করুন। সমস্যা থাকলে «এই ত্রুটি সম্পর্কে জিজ্ঞাসা করুন» থেকে সহায়তায় যোগাযোগ করুন।",
+    "ポーズツール以外で起きているエラーです。発生元のツールとVRChat SDKを最新版に更新してください。VRChat SDKの「Build & Test」でも同じエラーが出る場合は、発生元のツールの配布元で対応状況をご確認ください。": "এই ত্রুটি পোজ টুলের বাইরের কিছু থেকে হচ্ছে। উৎস হিসেবে দেখানো টুলটি এবং VRChat SDK সর্বশেষ সংস্করণে আপডেট করুন। VRChat SDK-এর «Build & Test»-এও একই ত্রুটি দেখা গেলে সেই টুলের বিতরণকারীর কাছে সামঞ্জস্যের তথ্য দেখুন।",
+    "Window > General > Consoleで、この操作中に最初に出た赤いエラーを確認してください。VRChat SDKの「Build & Test」でも失敗する場合は、ポーズツール以外が原因です。": "Window > General > Console-এ এই কাজের প্রথম লাল ত্রুটি দেখুন। VRChat SDK-এর «Build & Test»-ও ব্যর্থ হলে কারণটি পোজ টুলের বাইরের।"
+  },
+  "cs": {
+    "アバターのビルド前処理が失敗したため、ポーズ画像を更新できません。": "Obrázky póz nelze aktualizovat, protože předzpracování sestavení avatara selhalo.",
+    "ビルド前処理中のエラー（先頭から最大3件）": "Chyby při předzpracování sestavení (až první 3)",
+    "ALCOM / VCCで商品本体と「ゆにさきポーズシステム」を最新版に更新してください。直らない場合は、「このエラーについて相談する」からお問い合わせください。": "Aktualizujte produkt a Unisaki Posing System na nejnovější verzi pomocí ALCOM / VCC. Pokud problém trvá, kontaktujte podporu tlačítkem „Zeptat se na tuto chybu“.",
+    "ポーズツール以外で起きているエラーです。発生元のツールとVRChat SDKを最新版に更新してください。VRChat SDKの「Build & Test」でも同じエラーが出る場合は、発生元のツールの配布元で対応状況をご確認ください。": "Tato chyba vzniká mimo nástroj pro pózy. Aktualizujte nástroj uvedený jako zdroj chyby a VRChat SDK na nejnovější verzi. Pokud se stejná chyba objeví i při „Build & Test“ ve VRChat SDK, ověřte si u distributora daného nástroje informace o kompatibilitě.",
+    "Window > General > Consoleで、この操作中に最初に出た赤いエラーを確認してください。VRChat SDKの「Build & Test」でも失敗する場合は、ポーズツール以外が原因です。": "Ve Window > General > Console zkontrolujte první červenou chybu této operace. Pokud selže i „Build & Test“ ve VRChat SDK, příčina je mimo nástroj pro pózy."
+  },
+  "da": {
+    "アバターのビルド前処理が失敗したため、ポーズ画像を更新できません。": "Positurminiaturerne kan ikke opdateres, fordi forbehandlingen af avatarbygningen mislykkedes.",
+    "ビルド前処理中のエラー（先頭から最大3件）": "Fejl under forbehandlingen af bygningen (op til de første 3)",
+    "ALCOM / VCCで商品本体と「ゆにさきポーズシステム」を最新版に更新してください。直らない場合は、「このエラーについて相談する」からお問い合わせください。": "Opdater produktet og Unisaki Posing System til nyeste version med ALCOM / VCC. Fortsætter problemet, så kontakt support via \"Spørg om denne fejl\".",
+    "ポーズツール以外で起きているエラーです。発生元のツールとVRChat SDKを最新版に更新してください。VRChat SDKの「Build & Test」でも同じエラーが出る場合は、発生元のツールの配布元で対応状況をご確認ください。": "Denne fejl kommer ikke fra positurværktøjet. Opdater det værktøj, der er angivet som kilde, og VRChat SDK til nyeste version. Opstår den samme fejl også med \"Build & Test\" i VRChat SDK, så se oplysninger om kompatibilitet hos værktøjets udgiver.",
+    "Window > General > Consoleで、この操作中に最初に出た赤いエラーを確認してください。VRChat SDKの「Build & Test」でも失敗する場合は、ポーズツール以外が原因です。": "Kontrollér den første røde fejl for denne handling under Window > General > Console. Mislykkes \"Build & Test\" i VRChat SDK også, ligger årsagen uden for positurværktøjet."
+  },
+  "de": {
+    "アバターのビルド前処理が失敗したため、ポーズ画像を更新できません。": "Die Posenvorschaubilder können nicht aktualisiert werden, weil die Vorverarbeitung des Avatar-Builds fehlgeschlagen ist.",
+    "ビルド前処理中のエラー（先頭から最大3件）": "Fehler während der Build-Vorverarbeitung (bis zu den ersten 3)",
+    "ALCOM / VCCで商品本体と「ゆにさきポーズシステム」を最新版に更新してください。直らない場合は、「このエラーについて相談する」からお問い合わせください。": "Aktualisiere das Produkt und Unisaki Posing System mit ALCOM / VCC auf die neueste Version. Besteht das Problem weiter, wende dich über „Hilfe zu diesem Fehler anfragen“ an den Support.",
+    "ポーズツール以外で起きているエラーです。発生元のツールとVRChat SDKを最新版に更新してください。VRChat SDKの「Build & Test」でも同じエラーが出る場合は、発生元のツールの配布元で対応状況をご確認ください。": "Dieser Fehler stammt nicht vom Posenwerkzeug. Aktualisiere das als Quelle genannte Werkzeug und das VRChat SDK auf die neueste Version. Tritt derselbe Fehler auch bei „Build & Test“ im VRChat SDK auf, prüfe beim Anbieter dieses Werkzeugs, ob es kompatibel ist.",
+    "Window > General > Consoleで、この操作中に最初に出た赤いエラーを確認してください。VRChat SDKの「Build & Test」でも失敗する場合は、ポーズツール以外が原因です。": "Prüfe unter Window > General > Console den ersten roten Fehler dieses Vorgangs. Schlägt auch „Build & Test“ im VRChat SDK fehl, liegt die Ursache nicht beim Posenwerkzeug."
+  },
+  "es": {
+    "アバターのビルド前処理が失敗したため、ポーズ画像を更新できません。": "No se pueden actualizar las miniaturas de poses porque falló el preprocesamiento de la compilación del avatar.",
+    "ビルド前処理中のエラー（先頭から最大3件）": "Errores durante el preprocesamiento de la compilación (hasta los primeros 3)",
+    "ALCOM / VCCで商品本体と「ゆにさきポーズシステム」を最新版に更新してください。直らない場合は、「このエラーについて相談する」からお問い合わせください。": "Actualiza el producto y Unisaki Posing System a la última versión con ALCOM / VCC. Si el problema continúa, contacta con el soporte desde «Consultar este error».",
+    "ポーズツール以外で起きているエラーです。発生元のツールとVRChat SDKを最新版に更新してください。VRChat SDKの「Build & Test」でも同じエラーが出る場合は、発生元のツールの配布元で対応状況をご確認ください。": "Este error no procede de la herramienta de poses. Actualiza la herramienta indicada como origen y el VRChat SDK a la última versión. Si el mismo error aparece también con «Build & Test» del VRChat SDK, consulta la información de compatibilidad del distribuidor de esa herramienta.",
+    "Window > General > Consoleで、この操作中に最初に出た赤いエラーを確認してください。VRChat SDKの「Build & Test」でも失敗する場合は、ポーズツール以外が原因です。": "En Window > General > Console, comprueba el primer error rojo de esta operación. Si «Build & Test» del VRChat SDK también falla, la causa no está en la herramienta de poses."
+  },
+  "fi": {
+    "アバターのビルド前処理が失敗したため、ポーズ画像を更新できません。": "Asentojen pikkukuvia ei voi päivittää, koska avatarin koonnin esikäsittely epäonnistui.",
+    "ビルド前処理中のエラー（先頭から最大3件）": "Virheet koonnin esikäsittelyn aikana (enintään 3 ensimmäistä)",
+    "ALCOM / VCCで商品本体と「ゆにさきポーズシステム」を最新版に更新してください。直らない場合は、「このエラーについて相談する」からお問い合わせください。": "Päivitä tuote ja Unisaki Posing System uusimpaan versioon ALCOM / VCC:llä. Jos ongelma jatkuu, ota yhteyttä tukeen painikkeella ”Kysy tästä virheestä”.",
+    "ポーズツール以外で起きているエラーです。発生元のツールとVRChat SDKを最新版に更新してください。VRChat SDKの「Build & Test」でも同じエラーが出る場合は、発生元のツールの配布元で対応状況をご確認ください。": "Tämä virhe ei johdu asentotyökalusta. Päivitä lähteeksi mainittu työkalu ja VRChat SDK uusimpaan versioon. Jos sama virhe tulee myös VRChat SDK:n ”Build & Test” -toiminnolla, tarkista yhteensopivuustiedot kyseisen työkalun jakelijalta.",
+    "Window > General > Consoleで、この操作中に最初に出た赤いエラーを確認してください。VRChat SDKの「Build & Test」でも失敗する場合は、ポーズツール以外が原因です。": "Tarkista tämän toiminnon ensimmäinen punainen virhe kohdasta Window > General > Console. Jos myös VRChat SDK:n ”Build & Test” epäonnistuu, syy ei ole asentotyökalussa."
+  },
+  "fr": {
+    "アバターのビルド前処理が失敗したため、ポーズ画像を更新できません。": "Les vignettes des poses ne peuvent pas être actualisées, car le prétraitement de la compilation de l'avatar a échoué.",
+    "ビルド前処理中のエラー（先頭から最大3件）": "Erreurs pendant le prétraitement de la compilation (3 premières au maximum)",
+    "ALCOM / VCCで商品本体と「ゆにさきポーズシステム」を最新版に更新してください。直らない場合は、「このエラーについて相談する」からお問い合わせください。": "Mettez à jour le produit et Unisaki Posing System vers la dernière version avec ALCOM / VCC. Si le problème persiste, contactez le support avec « Demander de l'aide sur cette erreur ».",
+    "ポーズツール以外で起きているエラーです。発生元のツールとVRChat SDKを最新版に更新してください。VRChat SDKの「Build & Test」でも同じエラーが出る場合は、発生元のツールの配布元で対応状況をご確認ください。": "Cette erreur ne provient pas de l'outil de pose. Mettez à jour l'outil indiqué comme origine et le VRChat SDK vers la dernière version. Si la même erreur apparaît aussi avec « Build & Test » du VRChat SDK, consultez les informations de compatibilité auprès du distributeur de cet outil.",
+    "Window > General > Consoleで、この操作中に最初に出た赤いエラーを確認してください。VRChat SDKの「Build & Test」でも失敗する場合は、ポーズツール以外が原因です。": "Dans Window > General > Console, vérifiez la première erreur rouge de cette opération. Si « Build & Test » du VRChat SDK échoue aussi, la cause ne vient pas de l'outil de pose."
+  },
+  "he": {
+    "アバターのビルド前処理が失敗したため、ポーズ画像を更新できません。": "לא ניתן לעדכן את תמונות התנוחות, כי העיבוד המקדים של בניית האווטאר נכשל.",
+    "ビルド前処理中のエラー（先頭から最大3件）": "שגיאות במהלך העיבוד המקדים של הבנייה (עד 3 הראשונות)",
+    "ALCOM / VCCで商品本体と「ゆにさきポーズシステム」を最新版に更新してください。直らない場合は、「このエラーについて相談する」からお問い合わせください。": "עדכנו את המוצר ואת Unisaki Posing System לגרסה האחרונה באמצעות ALCOM / VCC. אם הבעיה נמשכת, פנו לתמיכה דרך \"בקשת עזרה לגבי השגיאה הזאת\".",
+    "ポーズツール以外で起きているエラーです。発生元のツールとVRChat SDKを最新版に更新してください。VRChat SDKの「Build & Test」でも同じエラーが出る場合は、発生元のツールの配布元で対応状況をご確認ください。": "השגיאה הזו אינה מגיעה מכלי התנוחות. עדכנו את הכלי שמצוין כמקור השגיאה ואת VRChat SDK לגרסה האחרונה. אם אותה שגיאה מופיעה גם ב-\"Build & Test\" של VRChat SDK, בדקו אצל המפיץ של אותו כלי מידע על תאימות.",
+    "Window > General > Consoleで、この操作中に最初に出た赤いエラーを確認してください。VRChat SDKの「Build & Test」でも失敗する場合は、ポーズツール以外が原因です。": "בדקו את השגיאה האדומה הראשונה של הפעולה תחת Window > General > Console. אם גם \"Build & Test\" של VRChat SDK נכשל, הסיבה אינה בכלי התנוחות."
+  },
+  "hi": {
+    "アバターのビルド前処理が失敗したため、ポーズ画像を更新できません。": "अवतार बिल्ड की पूर्व-प्रक्रिया विफल होने के कारण पोज़ के छोटे चित्र अपडेट नहीं किए जा सकते।",
+    "ビルド前処理中のエラー（先頭から最大3件）": "बिल्ड की पूर्व-प्रक्रिया के दौरान त्रुटियाँ (पहली अधिकतम 3)",
+    "ALCOM / VCCで商品本体と「ゆにさきポーズシステム」を最新版に更新してください。直らない場合は、「このエラーについて相談する」からお問い合わせください。": "ALCOM / VCC से उत्पाद और Unisaki Posing System को नवीनतम संस्करण में अपडेट करें। समस्या बनी रहे तो «इस त्रुटि के बारे में पूछें» से सहायता से संपर्क करें।",
+    "ポーズツール以外で起きているエラーです。発生元のツールとVRChat SDKを最新版に更新してください。VRChat SDKの「Build & Test」でも同じエラーが出る場合は、発生元のツールの配布元で対応状況をご確認ください。": "यह त्रुटि पोज़ टूल के बाहर से आ रही है। स्रोत के रूप में दिखाए गए टूल और VRChat SDK को नवीनतम संस्करण में अपडेट करें। यदि VRChat SDK के «Build & Test» में भी वही त्रुटि आए, तो उस टूल के वितरक से संगतता की जानकारी देखें।",
+    "Window > General > Consoleで、この操作中に最初に出た赤いエラーを確認してください。VRChat SDKの「Build & Test」でも失敗する場合は、ポーズツール以外が原因です。": "Window > General > Console में इस कार्य की पहली लाल त्रुटि देखें। यदि VRChat SDK का «Build & Test» भी विफल हो, तो कारण पोज़ टूल के बाहर है।"
+  },
+  "id": {
+    "アバターのビルド前処理が失敗したため、ポーズ画像を更新できません。": "Gambar mini pose tidak dapat diperbarui karena prapemrosesan build avatar gagal.",
+    "ビルド前処理中のエラー（先頭から最大3件）": "Kesalahan selama prapemrosesan build (hingga 3 pertama)",
+    "ALCOM / VCCで商品本体と「ゆにさきポーズシステム」を最新版に更新してください。直らない場合は、「このエラーについて相談する」からお問い合わせください。": "Perbarui produk dan Unisaki Posing System ke versi terbaru dengan ALCOM / VCC. Jika masalah berlanjut, hubungi dukungan melalui \"Tanyakan tentang kesalahan ini\".",
+    "ポーズツール以外で起きているエラーです。発生元のツールとVRChat SDKを最新版に更新してください。VRChat SDKの「Build & Test」でも同じエラーが出る場合は、発生元のツールの配布元で対応状況をご確認ください。": "Kesalahan ini berasal dari luar alat pose. Perbarui alat yang disebut sebagai sumber dan VRChat SDK ke versi terbaru. Jika kesalahan yang sama juga muncul pada \"Build & Test\" di VRChat SDK, periksa informasi kompatibilitas dari distributor alat tersebut.",
+    "Window > General > Consoleで、この操作中に最初に出た赤いエラーを確認してください。VRChat SDKの「Build & Test」でも失敗する場合は、ポーズツール以外が原因です。": "Pada Window > General > Console, periksa kesalahan merah pertama dari operasi ini. Jika \"Build & Test\" di VRChat SDK juga gagal, penyebabnya berada di luar alat pose."
+  },
+  "it": {
+    "アバターのビルド前処理が失敗したため、ポーズ画像を更新できません。": "Impossibile aggiornare le miniature delle pose perché la pre-elaborazione della compilazione dell'avatar non è riuscita.",
+    "ビルド前処理中のエラー（先頭から最大3件）": "Errori durante la pre-elaborazione della compilazione (fino ai primi 3)",
+    "ALCOM / VCCで商品本体と「ゆにさきポーズシステム」を最新版に更新してください。直らない場合は、「このエラーについて相談する」からお問い合わせください。": "Aggiorna il prodotto e Unisaki Posing System all'ultima versione con ALCOM / VCC. Se il problema persiste, contatta l'assistenza con «Chiedi aiuto per questo errore».",
+    "ポーズツール以外で起きているエラーです。発生元のツールとVRChat SDKを最新版に更新してください。VRChat SDKの「Build & Test」でも同じエラーが出る場合は、発生元のツールの配布元で対応状況をご確認ください。": "Questo errore non proviene dallo strumento di posa. Aggiorna lo strumento indicato come origine e il VRChat SDK all'ultima versione. Se lo stesso errore compare anche con «Build & Test» del VRChat SDK, verifica le informazioni di compatibilità presso il distributore di quello strumento.",
+    "Window > General > Consoleで、この操作中に最初に出た赤いエラーを確認してください。VRChat SDKの「Build & Test」でも失敗する場合は、ポーズツール以外が原因です。": "In Window > General > Console, controlla il primo errore rosso di questa operazione. Se anche «Build & Test» del VRChat SDK non riesce, la causa non è lo strumento di posa."
+  },
+  "ko": {
+    "アバターのビルド前処理が失敗したため、ポーズ画像を更新できません。": "아바타 빌드 전처리에 실패하여 포즈 미리보기 이미지를 업데이트할 수 없습니다.",
+    "ビルド前処理中のエラー（先頭から最大3件）": "빌드 전처리 중 발생한 오류(앞에서 최대 3개)",
+    "ALCOM / VCCで商品本体と「ゆにさきポーズシステム」を最新版に更新してください。直らない場合は、「このエラーについて相談する」からお問い合わせください。": "ALCOM / VCC에서 제품 본체와 Unisaki Posing System을 최신 버전으로 업데이트해 주세요. 해결되지 않으면 '이 오류 문의'로 문의해 주세요.",
+    "ポーズツール以外で起きているエラーです。発生元のツールとVRChat SDKを最新版に更新してください。VRChat SDKの「Build & Test」でも同じエラーが出る場合は、発生元のツールの配布元で対応状況をご確認ください。": "포즈 도구가 아닌 다른 곳에서 발생한 오류입니다. 발생 위치로 표시된 도구와 VRChat SDK를 최신 버전으로 업데이트해 주세요. VRChat SDK의 'Build & Test'에서도 같은 오류가 나오면 해당 도구의 배포처에서 호환 여부를 확인해 주세요.",
+    "Window > General > Consoleで、この操作中に最初に出た赤いエラーを確認してください。VRChat SDKの「Build & Test」でも失敗する場合は、ポーズツール以外が原因です。": "Window > General > Console에서 이 작업의 첫 번째 빨간 오류를 확인해 주세요. VRChat SDK의 'Build & Test'도 실패한다면 포즈 도구가 아닌 다른 곳이 원인입니다."
+  },
+  "nb": {
+    "アバターのビルド前処理が失敗したため、ポーズ画像を更新できません。": "Positurminiatyrene kan ikke oppdateres fordi forbehandlingen av avatarbyggingen mislyktes.",
+    "ビルド前処理中のエラー（先頭から最大3件）": "Feil under forbehandlingen av byggingen (opptil de første 3)",
+    "ALCOM / VCCで商品本体と「ゆにさきポーズシステム」を最新版に更新してください。直らない場合は、「このエラーについて相談する」からお問い合わせください。": "Oppdater produktet og Unisaki Posing System til nyeste versjon med ALCOM / VCC. Hvis problemet fortsetter, kontakt støtte via «Spør om denne feilen».",
+    "ポーズツール以外で起きているエラーです。発生元のツールとVRChat SDKを最新版に更新してください。VRChat SDKの「Build & Test」でも同じエラーが出る場合は、発生元のツールの配布元で対応状況をご確認ください。": "Denne feilen kommer ikke fra positurverktøyet. Oppdater verktøyet som er oppgitt som kilde, og VRChat SDK til nyeste versjon. Hvis den samme feilen også oppstår med «Build & Test» i VRChat SDK, sjekk kompatibilitetsinformasjon hos utgiveren av verktøyet.",
+    "Window > General > Consoleで、この操作中に最初に出た赤いエラーを確認してください。VRChat SDKの「Build & Test」でも失敗する場合は、ポーズツール以外が原因です。": "Åpne Window > General > Console og kontroller den første røde feilen fra denne operasjonen. Hvis «Build & Test» i VRChat SDK også mislykkes, ligger årsaken utenfor positurverktøyet."
+  },
+  "nl": {
+    "アバターのビルド前処理が失敗したため、ポーズ画像を更新できません。": "De poseminiaturen kunnen niet worden bijgewerkt omdat de voorbewerking van de avatarbuild is mislukt.",
+    "ビルド前処理中のエラー（先頭から最大3件）": "Fouten tijdens de voorbewerking van de build (maximaal de eerste 3)",
+    "ALCOM / VCCで商品本体と「ゆにさきポーズシステム」を最新版に更新してください。直らない場合は、「このエラーについて相談する」からお問い合わせください。": "Werk het product en Unisaki Posing System bij naar de nieuwste versie met ALCOM / VCC. Blijft het probleem bestaan, neem dan contact op met ondersteuning via 'Hulp bij deze fout vragen'.",
+    "ポーズツール以外で起きているエラーです。発生元のツールとVRChat SDKを最新版に更新してください。VRChat SDKの「Build & Test」でも同じエラーが出る場合は、発生元のツールの配布元で対応状況をご確認ください。": "Deze fout komt niet van het posegereedschap. Werk het als bron genoemde gereedschap en de VRChat SDK bij naar de nieuwste versie. Treedt dezelfde fout ook op bij 'Build & Test' in de VRChat SDK, bekijk dan bij de aanbieder van dat gereedschap of het compatibel is.",
+    "Window > General > Consoleで、この操作中に最初に出た赤いエラーを確認してください。VRChat SDKの「Build & Test」でも失敗する場合は、ポーズツール以外が原因です。": "Controleer onder Window > General > Console de eerste rode fout van deze bewerking. Mislukt 'Build & Test' in de VRChat SDK ook, dan ligt de oorzaak niet bij het posegereedschap."
+  },
+  "pl": {
+    "アバターのビルド前処理が失敗したため、ポーズ画像を更新できません。": "Nie można odświeżyć miniatur poz, ponieważ wstępne przetwarzanie budowania awatara nie powiodło się.",
+    "ビルド前処理中のエラー（先頭から最大3件）": "Błędy podczas wstępnego przetwarzania budowania (do pierwszych 3)",
+    "ALCOM / VCCで商品本体と「ゆにさきポーズシステム」を最新版に更新してください。直らない場合は、「このエラーについて相談する」からお問い合わせください。": "Zaktualizuj produkt i Unisaki Posing System do najnowszej wersji w ALCOM / VCC. Jeśli problem nie ustąpi, skontaktuj się z pomocą przez „Zapytaj o ten błąd”.",
+    "ポーズツール以外で起きているエラーです。発生元のツールとVRChat SDKを最新版に更新してください。VRChat SDKの「Build & Test」でも同じエラーが出る場合は、発生元のツールの配布元で対応状況をご確認ください。": "Ten błąd nie pochodzi z narzędzia do poz. Zaktualizuj narzędzie wskazane jako źródło oraz VRChat SDK do najnowszej wersji. Jeśli ten sam błąd występuje także przy „Build & Test” w VRChat SDK, sprawdź u dystrybutora tego narzędzia informacje o zgodności.",
+    "Window > General > Consoleで、この操作中に最初に出た赤いエラーを確認してください。VRChat SDKの「Build & Test」でも失敗する場合は、ポーズツール以外が原因です。": "W Window > General > Console sprawdź pierwszy czerwony błąd tej operacji. Jeśli „Build & Test” w VRChat SDK także się nie powiedzie, przyczyna leży poza narzędziem do poz."
+  },
+  "pt-BR": {
+    "アバターのビルド前処理が失敗したため、ポーズ画像を更新できません。": "Não é possível atualizar as miniaturas das poses porque o pré-processamento da compilação do avatar falhou.",
+    "ビルド前処理中のエラー（先頭から最大3件）": "Erros durante o pré-processamento da compilação (até os primeiros 3)",
+    "ALCOM / VCCで商品本体と「ゆにさきポーズシステム」を最新版に更新してください。直らない場合は、「このエラーについて相談する」からお問い合わせください。": "Atualize o produto e o Unisaki Posing System para a versão mais recente com ALCOM / VCC. Se o problema continuar, entre em contato com o suporte por \"Pedir ajuda sobre este erro\".",
+    "ポーズツール以外で起きているエラーです。発生元のツールとVRChat SDKを最新版に更新してください。VRChat SDKの「Build & Test」でも同じエラーが出る場合は、発生元のツールの配布元で対応状況をご確認ください。": "Este erro não vem da ferramenta de poses. Atualize a ferramenta indicada como origem e o VRChat SDK para a versão mais recente. Se o mesmo erro também aparecer com \"Build & Test\" no VRChat SDK, consulte as informações de compatibilidade com o distribuidor dessa ferramenta.",
+    "Window > General > Consoleで、この操作中に最初に出た赤いエラーを確認してください。VRChat SDKの「Build & Test」でも失敗する場合は、ポーズツール以外が原因です。": "Em Window > General > Console, verifique o primeiro erro vermelho desta operação. Se \"Build & Test\" no VRChat SDK também falhar, a causa não está na ferramenta de poses."
+  },
+  "pt": {
+    "アバターのビルド前処理が失敗したため、ポーズ画像を更新できません。": "Não é possível atualizar as miniaturas das poses porque o pré-processamento da compilação do avatar falhou.",
+    "ビルド前処理中のエラー（先頭から最大3件）": "Erros durante o pré-processamento da compilação (até os primeiros 3)",
+    "ALCOM / VCCで商品本体と「ゆにさきポーズシステム」を最新版に更新してください。直らない場合は、「このエラーについて相談する」からお問い合わせください。": "Atualize o produto e o Unisaki Posing System para a versão mais recente com ALCOM / VCC. Se o problema continuar, contacte o suporte através de \"Pedir ajuda sobre este erro\".",
+    "ポーズツール以外で起きているエラーです。発生元のツールとVRChat SDKを最新版に更新してください。VRChat SDKの「Build & Test」でも同じエラーが出る場合は、発生元のツールの配布元で対応状況をご確認ください。": "Este erro não vem da ferramenta de poses. Atualize a ferramenta indicada como origem e o VRChat SDK para a versão mais recente. Se o mesmo erro também aparecer com \"Build & Test\" no VRChat SDK, consulte as informações de compatibilidade junto do distribuidor dessa ferramenta.",
+    "Window > General > Consoleで、この操作中に最初に出た赤いエラーを確認してください。VRChat SDKの「Build & Test」でも失敗する場合は、ポーズツール以外が原因です。": "Em Window > General > Console, verifique o primeiro erro vermelho desta operação. Se \"Build & Test\" no VRChat SDK também falhar, a causa não está na ferramenta de poses."
+  },
+  "ru": {
+    "アバターのビルド前処理が失敗したため、ポーズ画像を更新できません。": "Не удаётся обновить миниатюры поз, так как предварительная обработка сборки аватара завершилась с ошибкой.",
+    "ビルド前処理中のエラー（先頭から最大3件）": "Ошибки во время предварительной обработки сборки (до первых 3)",
+    "ALCOM / VCCで商品本体と「ゆにさきポーズシステム」を最新版に更新してください。直らない場合は、「このエラーについて相談する」からお問い合わせください。": "Обновите продукт и Unisaki Posing System до последней версии через ALCOM / VCC. Если проблема сохраняется, обратитесь в поддержку через «Спросить об этой ошибке».",
+    "ポーズツール以外で起きているエラーです。発生元のツールとVRChat SDKを最新版に更新してください。VRChat SDKの「Build & Test」でも同じエラーが出る場合は、発生元のツールの配布元で対応状況をご確認ください。": "Эта ошибка возникает не в инструменте поз. Обновите инструмент, указанный как источник, и VRChat SDK до последней версии. Если та же ошибка появляется и при «Build & Test» в VRChat SDK, уточните сведения о совместимости у распространителя этого инструмента.",
+    "Window > General > Consoleで、この操作中に最初に出た赤いエラーを確認してください。VRChat SDKの「Build & Test」でも失敗する場合は、ポーズツール以外が原因です。": "В Window > General > Console найдите первую красную ошибку этой операции. Если «Build & Test» в VRChat SDK тоже завершается ошибкой, причина не в инструменте поз."
+  },
+  "sv": {
+    "アバターのビルド前処理が失敗したため、ポーズ画像を更新できません。": "Poseminiatyrerna kan inte uppdateras eftersom förbearbetningen av avatarbygget misslyckades.",
+    "ビルド前処理中のエラー（先頭から最大3件）": "Fel under förbearbetningen av bygget (upp till de första 3)",
+    "ALCOM / VCCで商品本体と「ゆにさきポーズシステム」を最新版に更新してください。直らない場合は、「このエラーについて相談する」からお問い合わせください。": "Uppdatera produkten och Unisaki Posing System till senaste versionen med ALCOM / VCC. Om problemet kvarstår, kontakta support via ”Fråga om det här felet”.",
+    "ポーズツール以外で起きているエラーです。発生元のツールとVRChat SDKを最新版に更新してください。VRChat SDKの「Build & Test」でも同じエラーが出る場合は、発生元のツールの配布元で対応状況をご確認ください。": "Det här felet kommer inte från poseverktyget. Uppdatera verktyget som anges som källa och VRChat SDK till senaste versionen. Om samma fel även uppstår med ”Build & Test” i VRChat SDK, kontrollera kompatibilitetsinformation hos utgivaren av det verktyget.",
+    "Window > General > Consoleで、この操作中に最初に出た赤いエラーを確認してください。VRChat SDKの「Build & Test」でも失敗する場合は、ポーズツール以外が原因です。": "Kontrollera det första röda felet för åtgärden i Window > General > Console. Om ”Build & Test” i VRChat SDK också misslyckas ligger orsaken utanför poseverktyget."
+  },
+  "ta": {
+    "アバターのビルド前処理が失敗したため、ポーズ画像を更新できません。": "அவதார் கட்டமைப்பின் முன்செயலாக்கம் தோல்வியடைந்ததால் போஸ் சிறுபடங்களைப் புதுப்பிக்க முடியவில்லை.",
+    "ビルド前処理中のエラー（先頭から最大3件）": "கட்டமைப்பின் முன்செயலாக்கத்தின்போது ஏற்பட்ட பிழைகள் (முதல் அதிகபட்சம் 3)",
+    "ALCOM / VCCで商品本体と「ゆにさきポーズシステム」を最新版に更新してください。直らない場合は、「このエラーについて相談する」からお問い合わせください。": "ALCOM / VCC மூலம் தயாரிப்பையும் Unisaki Posing System-ஐயும் சமீபத்திய பதிப்பிற்குப் புதுப்பிக்கவும். சிக்கல் நீடித்தால் «இந்தப் பிழை பற்றிக் கேள்» மூலம் உதவியைத் தொடர்புகொள்ளவும்.",
+    "ポーズツール以外で起きているエラーです。発生元のツールとVRChat SDKを最新版に更新してください。VRChat SDKの「Build & Test」でも同じエラーが出る場合は、発生元のツールの配布元で対応状況をご確認ください。": "இந்தப் பிழை போஸ் கருவிக்கு வெளியே ஏற்படுகிறது. மூலமாகக் காட்டப்பட்ட கருவியையும் VRChat SDK-ஐயும் சமீபத்திய பதிப்பிற்குப் புதுப்பிக்கவும். VRChat SDK-இன் «Build & Test»-இலும் அதே பிழை வந்தால், அந்தக் கருவியின் விநியோகஸ்தரிடம் பொருந்துதன்மைத் தகவலைப் பார்க்கவும்.",
+    "Window > General > Consoleで、この操作中に最初に出た赤いエラーを確認してください。VRChat SDKの「Build & Test」でも失敗する場合は、ポーズツール以外が原因です。": "Window > General > Console-இல் இந்தச் செயலின் முதல் சிவப்புப் பிழையைச் சரிபார்க்கவும். VRChat SDK-இன் «Build & Test»-உம் தோல்வியடைந்தால், காரணம் போஸ் கருவிக்கு வெளியே உள்ளது."
+  },
+  "te": {
+    "アバターのビルド前処理が失敗したため、ポーズ画像を更新できません。": "అవతార్ నిర్మాణం ముందస్తు ప్రాసెసింగ్ విఫలమైనందున భంగిమ చిన్న చిత్రాలను నవీకరించలేము.",
+    "ビルド前処理中のエラー（先頭から最大3件）": "నిర్మాణం ముందస్తు ప్రాసెసింగ్ సమయంలో వచ్చిన లోపాలు (మొదటి గరిష్ఠంగా 3)",
+    "ALCOM / VCCで商品本体と「ゆにさきポーズシステム」を最新版に更新してください。直らない場合は、「このエラーについて相談する」からお問い合わせください。": "ALCOM / VCC ద్వారా ఉత్పత్తిని, Unisaki Posing Systemను తాజా వెర్షన్‌కు అప్‌డేట్ చేయండి. సమస్య కొనసాగితే «ఈ లోపం గురించి అడుగు» ద్వారా సహాయాన్ని సంప్రదించండి.",
+    "ポーズツール以外で起きているエラーです。発生元のツールとVRChat SDKを最新版に更新してください。VRChat SDKの「Build & Test」でも同じエラーが出る場合は、発生元のツールの配布元で対応状況をご確認ください。": "ఈ లోపం భంగిమ సాధనం వెలుపల వస్తోంది. మూలంగా చూపిన సాధనాన్ని, VRChat SDKను తాజా వెర్షన్‌కు అప్‌డేట్ చేయండి. VRChat SDKలోని «Build & Test»లో కూడా అదే లోపం వస్తే, ఆ సాధనం పంపిణీదారు వద్ద అనుకూలత సమాచారాన్ని చూడండి.",
+    "Window > General > Consoleで、この操作中に最初に出た赤いエラーを確認してください。VRChat SDKの「Build & Test」でも失敗する場合は、ポーズツール以外が原因です。": "Window > General > Consoleలో ఈ చర్య మొదటి ఎరుపు లోపాన్ని తనిఖీ చేయండి. VRChat SDKలోని «Build & Test» కూడా విఫలమైతే, కారణం భంగిమ సాధనం వెలుపల ఉంది."
+  },
+  "th": {
+    "アバターのビルド前処理が失敗したため、ポーズ画像を更新できません。": "อัปเดตภาพตัวอย่างท่าไม่ได้ เพราะการประมวลผลก่อนบิลด์อวาตาร์ล้มเหลว",
+    "ビルド前処理中のエラー（先頭から最大3件）": "ข้อผิดพลาดระหว่างการประมวลผลก่อนบิลด์ (สูงสุด 3 รายการแรก)",
+    "ALCOM / VCCで商品本体と「ゆにさきポーズシステム」を最新版に更新してください。直らない場合は、「このエラーについて相談する」からお問い合わせください。": "อัปเดตสินค้าและ Unisaki Posing System เป็นเวอร์ชันล่าสุดด้วย ALCOM / VCC หากยังแก้ไม่ได้ ให้ติดต่อฝ่ายสนับสนุนผ่าน “สอบถามเกี่ยวกับข้อผิดพลาดนี้”",
+    "ポーズツール以外で起きているエラーです。発生元のツールとVRChat SDKを最新版に更新してください。VRChat SDKの「Build & Test」でも同じエラーが出る場合は、発生元のツールの配布元で対応状況をご確認ください。": "ข้อผิดพลาดนี้ไม่ได้มาจากเครื่องมือท่า อัปเดตเครื่องมือที่ระบุเป็นที่มาและ VRChat SDK เป็นเวอร์ชันล่าสุด หาก “Build & Test” ของ VRChat SDK ก็เกิดข้อผิดพลาดเดียวกัน ให้ตรวจสอบข้อมูลความเข้ากันได้จากผู้จัดจำหน่ายของเครื่องมือนั้น",
+    "Window > General > Consoleで、この操作中に最初に出た赤いエラーを確認してください。VRChat SDKの「Build & Test」でも失敗する場合は、ポーズツール以外が原因です。": "ใน Window > General > Console ตรวจสอบข้อผิดพลาดสีแดงรายการแรกของงานนี้ หาก “Build & Test” ของ VRChat SDK ก็ล้มเหลวด้วย สาเหตุไม่ได้อยู่ที่เครื่องมือท่า"
+  },
+  "tr": {
+    "アバターのビルド前処理が失敗したため、ポーズ画像を更新できません。": "Avatar derlemesinin ön işlemi başarısız olduğu için poz küçük resimleri güncellenemiyor.",
+    "ビルド前処理中のエラー（先頭から最大3件）": "Derleme ön işlemi sırasındaki hatalar (ilk 3'e kadar)",
+    "ALCOM / VCCで商品本体と「ゆにさきポーズシステム」を最新版に更新してください。直らない場合は、「このエラーについて相談する」からお問い合わせください。": "Ürünü ve Unisaki Posing System'i ALCOM / VCC ile en son sürüme güncelleyin. Sorun devam ederse \"Bu hata hakkında sor\" ile desteğe ulaşın.",
+    "ポーズツール以外で起きているエラーです。発生元のツールとVRChat SDKを最新版に更新してください。VRChat SDKの「Build & Test」でも同じエラーが出る場合は、発生元のツールの配布元で対応状況をご確認ください。": "Bu hata poz aracının dışından kaynaklanıyor. Kaynak olarak gösterilen aracı ve VRChat SDK'yı en son sürüme güncelleyin. Aynı hata VRChat SDK'daki \"Build & Test\" ile de oluşuyorsa, uyumluluk bilgileri için o aracın dağıtıcısına bakın.",
+    "Window > General > Consoleで、この操作中に最初に出た赤いエラーを確認してください。VRChat SDKの「Build & Test」でも失敗する場合は、ポーズツール以外が原因です。": "Window > General > Console içinde bu işlemin ilk kırmızı hatasını kontrol edin. VRChat SDK'daki \"Build & Test\" de başarısız oluyorsa neden poz aracının dışındadır."
+  },
+  "uk": {
+    "アバターのビルド前処理が失敗したため、ポーズ画像を更新できません。": "Не вдається оновити мініатюри поз, оскільки попередня обробка збірки аватара завершилася з помилкою.",
+    "ビルド前処理中のエラー（先頭から最大3件）": "Помилки під час попередньої обробки збірки (до перших 3)",
+    "ALCOM / VCCで商品本体と「ゆにさきポーズシステム」を最新版に更新してください。直らない場合は、「このエラーについて相談する」からお問い合わせください。": "Оновіть продукт і Unisaki Posing System до останньої версії через ALCOM / VCC. Якщо проблема не зникає, зверніться до підтримки через «Запитати про цю помилку».",
+    "ポーズツール以外で起きているエラーです。発生元のツールとVRChat SDKを最新版に更新してください。VRChat SDKの「Build & Test」でも同じエラーが出る場合は、発生元のツールの配布元で対応状況をご確認ください。": "Ця помилка виникає не в інструменті поз. Оновіть інструмент, зазначений як джерело, і VRChat SDK до останньої версії. Якщо та сама помилка з'являється і під час «Build & Test» у VRChat SDK, уточніть відомості про сумісність у розповсюджувача цього інструмента.",
+    "Window > General > Consoleで、この操作中に最初に出た赤いエラーを確認してください。VRChat SDKの「Build & Test」でも失敗する場合は、ポーズツール以外が原因です。": "У Window > General > Console знайдіть першу червону помилку цієї операції. Якщо «Build & Test» у VRChat SDK теж завершується з помилкою, причина не в інструменті поз."
+  },
+  "vi": {
+    "アバターのビルド前処理が失敗したため、ポーズ画像を更新できません。": "Không thể cập nhật ảnh thu nhỏ tư thế vì bước tiền xử lý khi dựng avatar đã thất bại.",
+    "ビルド前処理中のエラー（先頭から最大3件）": "Lỗi trong bước tiền xử lý khi dựng (tối đa 3 lỗi đầu)",
+    "ALCOM / VCCで商品本体と「ゆにさきポーズシステム」を最新版に更新してください。直らない場合は、「このエラーについて相談する」からお問い合わせください。": "Hãy cập nhật sản phẩm và Unisaki Posing System lên phiên bản mới nhất bằng ALCOM / VCC. Nếu vẫn gặp sự cố, hãy liên hệ hỗ trợ qua \"Hỏi về lỗi này\".",
+    "ポーズツール以外で起きているエラーです。発生元のツールとVRChat SDKを最新版に更新してください。VRChat SDKの「Build & Test」でも同じエラーが出る場合は、発生元のツールの配布元で対応状況をご確認ください。": "Lỗi này không đến từ công cụ tạo dáng. Hãy cập nhật công cụ được nêu là nguồn lỗi và VRChat SDK lên phiên bản mới nhất. Nếu \"Build & Test\" của VRChat SDK cũng báo cùng lỗi, hãy xem thông tin tương thích từ nhà phân phối của công cụ đó.",
+    "Window > General > Consoleで、この操作中に最初に出た赤いエラーを確認してください。VRChat SDKの「Build & Test」でも失敗する場合は、ポーズツール以外が原因です。": "Trong Window > General > Console, kiểm tra lỗi đỏ đầu tiên của thao tác này. Nếu \"Build & Test\" của VRChat SDK cũng thất bại thì nguyên nhân không nằm ở công cụ tạo dáng."
+  },
+  "zh-Hans": {
+    "アバターのビルド前処理が失敗したため、ポーズ画像を更新できません。": "头像构建的预处理失败，无法更新姿势缩略图。",
+    "ビルド前処理中のエラー（先頭から最大3件）": "构建预处理期间的错误（最多前3项）",
+    "ALCOM / VCCで商品本体と「ゆにさきポーズシステム」を最新版に更新してください。直らない場合は、「このエラーについて相談する」からお問い合わせください。": "请通过ALCOM / VCC将商品本体和Unisaki Posing System更新到最新版本。若仍未解决，请通过“咨询此错误”联系我们。",
+    "ポーズツール以外で起きているエラーです。発生元のツールとVRChat SDKを最新版に更新してください。VRChat SDKの「Build & Test」でも同じエラーが出る場合は、発生元のツールの配布元で対応状況をご確認ください。": "此错误并非来自姿势工具。请将错误来源所示的工具和VRChat SDK更新到最新版本。若VRChat SDK的“Build & Test”也出现相同错误，请向该工具的发布方确认兼容情况。",
+    "Window > General > Consoleで、この操作中に最初に出た赤いエラーを確認してください。VRChat SDKの「Build & Test」でも失敗する場合は、ポーズツール以外が原因です。": "请在Window > General > Console中查看本次操作的第一个红色错误。若VRChat SDK的“Build & Test”也失败，则原因不在姿势工具。"
+  },
+  "zh-Hant": {
+    "アバターのビルド前処理が失敗したため、ポーズ画像を更新できません。": "虛擬化身建置的前置處理失敗，無法更新姿勢縮圖。",
+    "ビルド前処理中のエラー（先頭から最大3件）": "建置前置處理期間的錯誤（最多前3項）",
+    "ALCOM / VCCで商品本体と「ゆにさきポーズシステム」を最新版に更新してください。直らない場合は、「このエラーについて相談する」からお問い合わせください。": "請透過ALCOM / VCC將商品本體和Unisaki Posing System更新到最新版本。若仍未解決，請透過「詢問此錯誤」聯絡我們。",
+    "ポーズツール以外で起きているエラーです。発生元のツールとVRChat SDKを最新版に更新してください。VRChat SDKの「Build & Test」でも同じエラーが出る場合は、発生元のツールの配布元で対応状況をご確認ください。": "此錯誤並非來自姿勢工具。請將錯誤來源所示的工具和VRChat SDK更新到最新版本。若VRChat SDK的「Build & Test」也出現相同錯誤，請向該工具的發布者確認相容情況。",
+    "Window > General > Consoleで、この操作中に最初に出た赤いエラーを確認してください。VRChat SDKの「Build & Test」でも失敗する場合は、ポーズツール以外が原因です。": "請在Window > General > Console中查看本次操作的第一個紅色錯誤。若VRChat SDK的「Build & Test」也失敗，則原因不在姿勢工具。"
+  }
+}

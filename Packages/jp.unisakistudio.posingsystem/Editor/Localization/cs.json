@@ -29,6 +29,10 @@
       "value": "Aktualizujte produkt a Unisaki Posing System na nejnovější verzi pomocí ALCOM / VCC, počkejte na dokončení kompilace a zkuste to znovu. Pokud problém trvá, kontaktujte podporu a přiložte tuto zprávu."
     },
     {
+      "key": "ALCOM / VCCで商品本体と「ゆにさきポーズシステム」を最新版に更新してください。直らない場合は、「このエラーについて相談する」からお問い合わせください。",
+      "value": "Aktualizujte produkt a Unisaki Posing System na nejnovější verzi pomocí ALCOM / VCC. Pokud problém trvá, kontaktujte podporu tlačítkem „Zeptat se na tuto chybu“."
+    },
+    {
       "key": "AddStateMachineBehaviourに失敗しました。多くの場合原因は別のツールなどにエラーが発生していることです。アバタービルド・アップロード前にConsoleウィンドウを確認してエラーを解消してから再度お試しください",
       "value": "Selhalo AddStateMachineBehaviour. Jiný nástroj mohl dříve vyvolat chybu. Před dalším sestavením nebo nahráním avatara vyřešte první související chybu v Console."
     },
@@ -303,6 +307,10 @@
     {
       "key": "ViewPosition（目の位置）",
       "value": "ViewPosition (poloha očí)"
+    },
+    {
+      "key": "Window > General > Consoleで、この操作中に最初に出た赤いエラーを確認してください。VRChat SDKの「Build & Test」でも失敗する場合は、ポーズツール以外が原因です。",
+      "value": "Ve Window > General > Console zkontrolujte první červenou chybu této operace. Pokud selže i „Build & Test“ ve VRChat SDK, příčina je mimo nástroj pro pózy."
     },
     {
       "key": "[PosingSystem] NDMFプレビュー用アバターを有効なSceneに作成できませんでした。",
@@ -1369,6 +1377,10 @@
       "value": "Z měřítka avatara nelze změřit platnou pevnou délku."
     },
     {
+      "key": "アバターのビルド前処理が失敗したため、ポーズ画像を更新できません。",
+      "value": "Obrázky póz nelze aktualizovat, protože předzpracování sestavení avatara selhalo."
+    },
+    {
       "key": "アバターのルートにAnimatorがありません。",
       "value": "Kořen avatara nemá Animator."
     },
@@ -1593,6 +1605,10 @@
       "value": "Standardní Controller nebyl v balíčku nalezen."
     },
     {
+      "key": "ビルド前処理中のエラー（先頭から最大3件）",
+      "value": "Chyby při předzpracování sestavení (až první 3)"
+    },
+    {
       "key": "ファイルに保存されている値に戻します。",
       "value": "Obnoví hodnoty uložené v souboru."
     },
@@ -1731,6 +1747,10 @@
     {
       "key": "ポーズツールで次のエラーが出ました。対処方法を教えてください。",
       "value": "Nástroj pro pózy ohlásil tuto chybu. Jak ji vyřešit?"
+    },
+    {
+      "key": "ポーズツール以外で起きているエラーです。発生元のツールとVRChat SDKを最新版に更新してください。VRChat SDKの「Build & Test」でも同じエラーが出る場合は、発生元のツールの配布元で対応状況をご確認ください。",
+      "value": "Tato chyba vzniká mimo nástroj pro pózy. Aktualizujte nástroj uvedený jako zdroj chyby a VRChat SDK na nejnovější verzi. Pokud se stejná chyba objeví i při „Build & Test“ ve VRChat SDK, ověřte si u distributora daného nástroje informace o kompatibilitě."
     },
     {
       "key": "ポーズツール以外で起きているエラーです。発生元のツールを更新するか、配布元で対応状況をご確認ください。エラーが解消し、再コンパイルが完了してから実行してください。",

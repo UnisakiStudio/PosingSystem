@@ -51,6 +51,15 @@ namespace jp.unisakistudio.posingsystemeditor
             }
         }
 
+        // A clip refers to other objects only through object-reference curves and event
+        // parameters (its float curves name at most the script of the animated component).
+        // Nearly every generated clip has neither, and a prebuild with all features holds
+        // thousands of them: walking their curve bindings took longer than everything else
+        // when a prebuild was repeated.
+        internal static bool HasNoGraphReferences(Object obj) =>
+            obj is AnimationClip clip && AnimationUtility.GetObjectReferenceCurveBindings(clip).Length == 0 &&
+            AnimationUtility.GetAnimationEvents(clip).Length == 0;
+
         internal static HashSet<Object> Collect(IEnumerable<Object> roots, Func<Object, bool> include)
         {
             using var sample = PosingSystemProfiling.Sample("Posing: Graph.Collect");
@@ -60,6 +69,7 @@ namespace jp.unisakistudio.posingsystemeditor
             {
                 var obj = pending.Pop();
                 if (obj == null || !include(obj) || !result.Add(obj)) continue;
+                if (HasNoGraphReferences(obj)) continue;
                 foreach (var reference in References(obj)) pending.Push(reference);
             }
             return result;
@@ -67,6 +77,7 @@ namespace jp.unisakistudio.posingsystemeditor
 
         internal static void Remap(Object obj, IReadOnlyDictionary<Object, Object> map)
         {
+            if (HasNoGraphReferences(obj)) return;
             using var serialized = new SerializedObject(obj);
             var it = serialized.GetIterator();
             var enter = true;

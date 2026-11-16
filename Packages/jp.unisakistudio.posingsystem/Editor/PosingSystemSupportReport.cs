@@ -161,6 +161,20 @@ namespace jp.unisakistudio.posingsystemeditor
             return (string.IsNullOrEmpty(info.displayName) ? id : info.displayName + " (" + id + ")") + " " + info.version;
         }
 
+        // The same place for the web draft: a public package identifier with its version, or only
+        // the kind of place.
+        internal static string SafeOrigin(string path)
+        {
+            var match = OriginPath.Match(path ?? "");
+            if (!match.Success) return "";
+            if (!match.Groups[1].Success)
+                return match.Groups[2].Value.Replace(" ", "").Equals("UnisakiStudio", StringComparison.OrdinalIgnoreCase) ? "Assets/UnisakiStudio" : "Assets";
+            var id = match.Groups[1].Value;
+            if (!tools.Contains(id) && !InstalledFromListing(id)) return "Packages";
+            var version = SafeVersion(PackageInfo.FindForAssetPath("Packages/" + id)?.version);
+            return id.ToLowerInvariant() + (version.Length > 0 ? "@" + version : "");
+        }
+
         private static string SafeVersion(string version)
         {
             var match = Regex.Match(version ?? "", @"^\d+\.\d+\.\d+(?:-(?:alpha|beta|rc|pre|preview)[.-]?\d+)?", RegexOptions.IgnoreCase);
@@ -185,7 +199,7 @@ namespace jp.unisakistudio.posingsystemeditor
             return locked >= 0 && Regex.IsMatch(manifest.Substring(locked), "\"" + Regex.Escape(id) + "\"\\s*:\\s*\\{");
         }
 
-        private static string LocalLine(string text)
+        internal static string LocalLine(string text)
         {
             var line = text.Replace('\\','/');
             // Retain project-relative locations when the compiler supplies absolute paths.
@@ -316,20 +330,7 @@ namespace jp.unisakistudio.posingsystemeditor
                         .Select(f => f.Name + "=" + (f.FieldType == typeof(bool) ? ((bool)f.GetValue(ps.features) ? "1" : "0") : f.GetValue(ps.features).ToString()))) +
                         " ik=" + (ps.enablePoseIk ? 1 : 0) + " avatarAdjust=" + (ps.enableAvatarSpecificAdjustment ? 1 : 0) +
                         " kneeClamp=" + (ps.enableReverseKneeSafetyClamp ? 1 : 0) + " autoImport=" + (ps.autoImportAvatarAnimations ? 1 : 0));
-                var issues = PosingSystemDiagnostics.Collect(ps);
-                if (issues.Count > 0)
-                    lines.Add("[issues] " + string.Join(" ", issues.GroupBy(i => i.Code + "(" + (i.Severity == MessageType.Error ? "E" : i.Severity == MessageType.Warning ? "W" : "I") + ")")
-                        .Select(g => g.Key + (g.Count() > 1 ? "x" + g.Count() : "")).Take(12)));
-                if (issues.Any(i => i.Code == "PS010"))
-                {
-                    var avatar = ps.GetAvatar();
-                    var markers = PosingSystemDiagnostics.CommonAnimatorMarkers(ps);
-                    var recoverable = PosingSystemDiagnostics.CanRecoverCommonChild(ps, markers, out var orphan);
-                    var blocked = avatar != null ? PosingSystemHierarchy.BlockingParent(markers.FirstOrDefault()?.transform ?? orphan?.transform ?? ps.transform, avatar.transform) : null;
-                    lines.Add("[PS010] markers=" + markers.Length + " active=" + markers.Count(PosingSystemDiagnostics.ActiveCommonMarker) +
-                        " recoverable=" + (recoverable ? 1 : 0) + " blocked=" + (blocked == null ? "none" : blocked.CompareTag("EditorOnly") ? "editorOnly" : "inactive") +
-                        " prefab=" + PrefabUtility.GetPrefabInstanceStatus(ps.gameObject));
-                }
+                lines.AddRange(IssueLines(ps, PosingSystemDiagnostics.Collect(ps)));
                 // Position and asset kinds identify the row without quoting its name.
                 var rollover = new List<string>();
                 for (var i = 0; i < layers.Count; i++)
@@ -350,6 +351,78 @@ namespace jp.unisakistudio.posingsystemeditor
                 lines.Add("[tool] unavailable (" + exception.GetType().Name + ")");
             }
             return lines;
+        }
+
+        // Which checks fail, and why the shared Animator counts as unusable.
+        private static List<string> IssueLines(jp.unisakistudio.posingsystem.PosingSystem ps, List<PosingSystemDiagnostics.Issue> issues)
+        {
+            var lines = new List<string>();
+            if (issues.Count > 0)
+                lines.Add("[issues] " + string.Join(" ", issues.GroupBy(i => i.Code + "(" + (i.Severity == MessageType.Error ? "E" : i.Severity == MessageType.Warning ? "W" : "I") + ")")
+                    .Select(g => g.Key + (g.Count() > 1 ? "x" + g.Count() : "")).Take(12)));
+            if (issues.Any(i => i.Code == "PS010"))
+            {
+                var avatar = ps.GetAvatar();
+                var markers = PosingSystemDiagnostics.CommonAnimatorMarkers(ps);
+                var recoverable = PosingSystemDiagnostics.CanRecoverCommonChild(ps, markers, out var orphan);
+                var blocked = avatar != null ? PosingSystemHierarchy.BlockingParent(markers.FirstOrDefault()?.transform ?? orphan?.transform ?? ps.transform, avatar.transform) : null;
+                // "outside": the tag or the switched-off object is above the avatar, not inside it.
+                lines.Add("[PS010] markers=" + markers.Length + " active=" + markers.Count(PosingSystemDiagnostics.ActiveCommonMarker) +
+                    " recoverable=" + (recoverable ? 1 : 0) + " blocked=" + (blocked == null ? "none" : blocked.CompareTag("EditorOnly") ? "editorOnly" : "inactive") +
+                    " outside=" + (blocked != null && !blocked.IsChildOf(avatar.transform) ? 1 : 0) +
+                    " prefab=" + PrefabUtility.GetPrefabInstanceStatus(ps.gameObject));
+            }
+            return lines;
+        }
+
+        // ---- The state at the moment of a failure -------------------------------------------
+        // The notice of a failure stays in the Inspector, and the draft is written when the user
+        // presses its button: by then the scene can differ, and a failure inside a build happens on
+        // a temporary copy that no longer exists. These lines keep what was true when it failed.
+        private sealed class Moment
+        {
+            public int Target;
+            public string Code;
+            public double Time;
+            public List<string> Lines;
+        }
+
+        private const int Moments = 8;
+        private static readonly List<Moment> moments = new List<Moment>();
+
+        internal static void Remember(UnityEngine.Object target, string code, IEnumerable<string> lines)
+        {
+            if (moments.Count == Moments) moments.RemoveAt(0);
+            moments.Add(new Moment { Target = target != null ? target.GetInstanceID() : 0, Code = code,
+                Time = EditorApplication.timeSinceStartup, Lines = lines.ToList() });
+        }
+
+        // The object the checks ran on: the tool in the scene, or a copy made for a build.
+        internal static void RememberInvalid(jp.unisakistudio.posingsystem.PosingSystem ps, List<PosingSystemDiagnostics.Issue> issues)
+        {
+            try
+            {
+                var scene = ps.gameObject.scene;
+                var place = !scene.IsValid() ? "none" : UnityEditor.SceneManagement.EditorSceneManager.IsPreviewScene(scene) ? "preview"
+                    : string.IsNullOrEmpty(scene.path) ? "unsaved" : "saved";
+                var lines = new List<string> { "[object] scene=" + place + " hidden=" + (ps.transform.root.gameObject.hideFlags != HideFlags.None ? 1 : 0) +
+                    " active=" + (ps.gameObject.activeInHierarchy ? 1 : 0) + " playing=" + (EditorApplication.isPlayingOrWillChangePlaymode ? 1 : 0) };
+                lines.AddRange(IssueLines(ps, issues));
+                Remember(ps, "PS000", lines);
+            }
+            catch (Exception) { }
+        }
+
+        // What other objects (build copies) remembered since the given time.
+        internal static List<string> RememberedSince(double time, UnityEngine.Object except) =>
+            moments.Where(m => m.Time >= time && (except == null || m.Target != except.GetInstanceID())).SelectMany(m => m.Lines).Distinct().ToList();
+
+        internal static List<string> AtFailure(string[] codes, UnityEngine.Object target)
+        {
+            var moment = target == null ? null : moments.LastOrDefault(m => m.Target == target.GetInstanceID() && codes.Contains(m.Code));
+            if (moment == null) return new List<string>();
+            var age = (int)Math.Max(0, EditorApplication.timeSinceStartup - moment.Time);
+            return moment.Lines.Select(line => "[at-failure " + age + "s] " + line).ToList();
         }
 
         internal static string Draft(string failure, jp.unisakistudio.posingsystem.PosingSystem ps = null)
@@ -377,7 +450,9 @@ namespace jp.unisakistudio.posingsystemeditor
             if (errors.Length > 0) lines.Add(PosingSystemLocalization.Text("Consoleのエラー\n") + string.Join("\n",errors));
             // Zero in both counts means the errors could not be read, not that there are none.
             if (failed) lines.Add("[compile] failed=1 events=" + compiler.Count + " console=" + ReadConsole(Blocking).Count);
-            lines.AddRange(ToolDetails(Resolve(ps)));
+            var tool = Resolve(ps);
+            lines.AddRange(ToolDetails(tool));
+            lines.AddRange(AtFailure(codes, tool));
             lines.AddRange(ReadConsole(OtherErrors, whole: true).Select(ExceptionDetail).Where(s => s.Length > 0).Distinct().Take(3).Select(s => "[exception] " + s));
             return string.Join("\n",lines);
         }

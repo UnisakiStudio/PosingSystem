@@ -1,0 +1,49 @@
+{
+  "authoring": "Claude AI, 2026-11-16",
+  "reason": "PS036: pose images cannot be captured because the build step of the avatar fails in some installed tool; name the source of the error and give guidance that fits whose error it is",
+  "keys": [
+    "アバターのビルド前処理が失敗したため、ポーズ画像を更新できません。",
+    "ビルド前処理中のエラー（先頭から最大3件）",
+    "ALCOM / VCCで商品本体と「ゆにさきポーズシステム」を最新版に更新してください。直らない場合は、「このエラーについて相談する」からお問い合わせください。",
+    "ポーズツール以外で起きているエラーです。発生元のツールとVRChat SDKを最新版に更新してください。VRChat SDKの「Build & Test」でも同じエラーが出る場合は、発生元のツールの配布元で対応状況をご確認ください。",
+    "Window > General > Consoleで、この操作中に最初に出た赤いエラーを確認してください。VRChat SDKの「Build & Test」でも失敗する場合は、ポーズツール以外が原因です。"
+  ],
+  "languages": [
+    "ar",
+    "bn",
+    "cs",
+    "da",
+    "de",
+    "en",
+    "es",
+    "fi",
+    "fr",
+    "he",
+    "hi",
+    "id",
+    "it",
+    "ko",
+    "nb",
+    "nl",
+    "pl",
+    "pt",
+    "pt-BR",
+    "ru",
+    "sv",
+    "ta",
+    "te",
+    "th",
+    "tr",
+    "uk",
+    "vi",
+    "zh-Hans",
+    "zh-Hant"
+  ],
+  "existing_terms_reused": [
+    "pose thumbnails as in the \"Update pose thumbnails\" button; avatar and build as in the existing build-time strings",
+    "the quoted button is the catalog translation of \"このエラーについて相談する\" in each language (checked by the batch script)",
+    "the sentences about another tool, its distributor and the Console follow the PS050 action and the existing Console guidance",
+    "\"Build & Test\" is the label of the VRChat SDK and stays as it is"
+  ],
+  "checks": "Identifiers, the quoted button name and the absence of kana verified by this batch script; catalog validation, coverage and terminology audits run after integration. No native-speaker review."
+}

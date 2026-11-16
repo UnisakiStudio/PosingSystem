@@ -14,6 +14,7 @@
 - Pokud pózy nelze vygenerovat kvůli chybě kompilace (PS050), zpráva nyní uvádí nástroj, ve kterém chyba vzniká. Chyby se zobrazí i hned po restartování Unity a při filtrovaném zobrazení Console.
 - Aktualizace předgenerování trvá kratší dobu. Čím více póz používá funkci „Přetočit se“, tím větší je přínos.
 - Když se popis funkce v japonštině nebo čínštině zalomí, řádek už nezačíná tečkou ani čárkou.
+- Pokud obrázky póz nelze aktualizovat kvůli chybě v jiném nástroji (PS036), zpráva nyní uvádí nástroj, ve kterém chyba vzniká, a obsah chyby.
 
 ### Kompatibilita
 

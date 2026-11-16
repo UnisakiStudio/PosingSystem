@@ -14,6 +14,7 @@
 - Quando non è possibile generare le pose a causa di un errore di compilazione (PS050), il messaggio ora indica lo strumento in cui si verifica l'errore. Gli errori vengono mostrati anche subito dopo il riavvio di Unity e quando la visualizzazione della Console è filtrata.
 - L'aggiornamento del precalcolo richiede meno tempo. Più pose usano «Girarsi», maggiore è l'effetto.
 - Quando la descrizione di una funzione in giapponese o cinese va a capo, una riga non inizia più con un punto o una virgola.
+- Quando non è possibile aggiornare le miniature delle pose a causa di un errore di un altro strumento (PS036), il messaggio ora indica lo strumento in cui si verifica l'errore e ne mostra il contenuto.
 
 ### Compatibilità
 

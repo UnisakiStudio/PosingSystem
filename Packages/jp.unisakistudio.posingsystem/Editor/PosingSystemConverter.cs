@@ -3657,8 +3657,10 @@ namespace jp.unisakistudio.posingsystemeditor
                         try
                         {
                             thumbnailBuild = new ThumbnailBuild(srcAvatar.gameObject, posingSystem, clone, motions);
-                            if (!VRC.SDKBase.Editor.BuildPipeline.VRCBuildPipelineCallbacks.OnPreprocessAvatar(clone))
-                                throw new System.OperationCanceledException(nameof(VRC.SDKBase.Editor.BuildPipeline.VRCBuildPipelineCallbacks.OnPreprocessAvatar));
+                            // Every installed tool takes part in this step. When one of them fails, say which.
+                            using (var log = new PosingSystemPreprocessLog())
+                                if (!VRC.SDKBase.Editor.BuildPipeline.VRCBuildPipelineCallbacks.OnPreprocessAvatar(clone))
+                                    throw log.Failure(posingSystem);
                         }
                         finally
                         {

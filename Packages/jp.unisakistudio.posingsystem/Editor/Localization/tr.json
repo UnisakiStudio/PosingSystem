@@ -29,6 +29,10 @@
       "value": "Ürünü ve Unisaki Posing System'i ALCOM / VCC ile en son sürüme güncelleyin, derlemenin bitmesini bekleyin ve yeniden deneyin. Sorun sürerse bu iletiyi ekleyerek destekle iletişime geçin."
     },
     {
+      "key": "ALCOM / VCCで商品本体と「ゆにさきポーズシステム」を最新版に更新してください。直らない場合は、「このエラーについて相談する」からお問い合わせください。",
+      "value": "Ürünü ve Unisaki Posing System'i ALCOM / VCC ile en son sürüme güncelleyin. Sorun devam ederse \"Bu hata hakkında sor\" ile desteğe ulaşın."
+    },
+    {
       "key": "AddStateMachineBehaviourに失敗しました。多くの場合原因は別のツールなどにエラーが発生していることです。アバタービルド・アップロード前にConsoleウィンドウを確認してエラーを解消してから再度お試しください",
       "value": "AddStateMachineBehaviour başarısız oldu. Başka bir araç daha önce hata vermiş olabilir. Avatarı yeniden derlemeden veya yüklemeden önce Console'daki ilgili ilk hatayı çözün."
     },
@@ -303,6 +307,10 @@
     {
       "key": "ViewPosition（目の位置）",
       "value": "ViewPosition (göz konumu)"
+    },
+    {
+      "key": "Window > General > Consoleで、この操作中に最初に出た赤いエラーを確認してください。VRChat SDKの「Build & Test」でも失敗する場合は、ポーズツール以外が原因です。",
+      "value": "Window > General > Console içinde bu işlemin ilk kırmızı hatasını kontrol edin. VRChat SDK'daki \"Build & Test\" de başarısız oluyorsa neden poz aracının dışındadır."
     },
     {
       "key": "[PosingSystem] NDMFプレビュー用アバターを有効なSceneに作成できませんでした。",
@@ -1369,6 +1377,10 @@
       "value": "Avatar ölçeğinden geçerli sabit uzunluk ölçülemedi."
     },
     {
+      "key": "アバターのビルド前処理が失敗したため、ポーズ画像を更新できません。",
+      "value": "Avatar derlemesinin ön işlemi başarısız olduğu için poz küçük resimleri güncellenemiyor."
+    },
+    {
       "key": "アバターのルートにAnimatorがありません。",
       "value": "Avatarın kökünde Animator yok."
     },
@@ -1593,6 +1605,10 @@
       "value": "Pakette standart Controller bulunamadı."
     },
     {
+      "key": "ビルド前処理中のエラー（先頭から最大3件）",
+      "value": "Derleme ön işlemi sırasındaki hatalar (ilk 3'e kadar)"
+    },
+    {
       "key": "ファイルに保存されている値に戻します。",
       "value": "Dosyada kayıtlı değerleri geri yükler."
     },
@@ -1731,6 +1747,10 @@
     {
       "key": "ポーズツールで次のエラーが出ました。対処方法を教えてください。",
       "value": "Poz aracı aşağıdaki hatayı bildirdi. Nasıl çözebilirim?"
+    },
+    {
+      "key": "ポーズツール以外で起きているエラーです。発生元のツールとVRChat SDKを最新版に更新してください。VRChat SDKの「Build & Test」でも同じエラーが出る場合は、発生元のツールの配布元で対応状況をご確認ください。",
+      "value": "Bu hata poz aracının dışından kaynaklanıyor. Kaynak olarak gösterilen aracı ve VRChat SDK'yı en son sürüme güncelleyin. Aynı hata VRChat SDK'daki \"Build & Test\" ile de oluşuyorsa, uyumluluk bilgileri için o aracın dağıtıcısına bakın."
     },
     {
       "key": "ポーズツール以外で起きているエラーです。発生元のツールを更新するか、配布元で対応状況をご確認ください。エラーが解消し、再コンパイルが完了してから実行してください。",

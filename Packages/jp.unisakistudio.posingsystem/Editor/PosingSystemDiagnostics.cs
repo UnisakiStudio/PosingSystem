@@ -94,8 +94,11 @@ namespace jp.unisakistudio.posingsystemeditor
             return "[PosingSystem / " + code + "] " + PosingSystemLocalization.TextMessage(summary) + "\n" + PosingSystemLocalization.Text("対処:") + " " + PosingSystemLocalization.TextMessage(action);
         }
 
+        // The newest diagnostic: a failed build step compares it with what was logged meanwhile.
+        internal static DiagnosticException LastCreated;
+
         public static DiagnosticException Failure(string code, string summary, string action, UnityEngine.Object context, Exception inner = null)
-            => new DiagnosticException(code, summary, action, context, inner);
+            => LastCreated = new DiagnosticException(code, summary, action, context, inner);
 
         public static List<Issue> Collect(PosingSystem ps)
         {
@@ -219,8 +222,10 @@ namespace jp.unisakistudio.posingsystemeditor
         public static void ThrowIfInvalid(PosingSystem ps)
         {
             ThrowIfCompilationFailed(ps);
-            var errors = Collect(ps).Where(i => i.Severity == MessageType.Error).ToList();
+            var issues = Collect(ps);
+            var errors = issues.Where(i => i.Severity == MessageType.Error).ToList();
             if (errors.Count == 0) return;
+            PosingSystemSupportReport.RememberInvalid(ps, issues);
             throw Failure("PS000", "設定に問題があるため、ポーズの生成を開始できません。\n" + string.Join("\n\n", errors.Select(i => i.Message)),
                 "Inspectorの「設定の確認」で対象を選択し、表示された項目を直して再実行してください。", ps);
         }

@@ -14,6 +14,7 @@
 - Pozlar bir derleme hatası nedeniyle oluşturulamadığında (PS050), ileti artık hatanın oluştuğu aracın adını gösterir. Hatalar, Unity yeniden başlatıldıktan hemen sonra ve Console görünümü filtrelenmişken de gösterilir.
 - Ön oluşturmanın güncellenmesi daha kısa sürer. “Dön” kullanan poz sayısı arttıkça etki de artar.
 - Japonca veya Çince bir özellik açıklaması alt satıra geçtiğinde satır artık nokta veya virgülle başlamaz.
+- Poz küçük resimleri başka bir aracın hatası nedeniyle güncellenemediğinde (PS036), ileti artık hatanın oluştuğu aracın adını ve hatanın içeriğini gösterir.
 
 ### Uyumluluk
 

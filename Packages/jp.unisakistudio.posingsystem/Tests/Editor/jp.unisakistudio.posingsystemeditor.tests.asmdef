@@ -17,6 +17,7 @@
     "precompiledReferences": [
         "VRCSDK3A.dll",
         "VRCSDKBase.dll",
+        "VRCSDKBase-Editor.dll",
         "VRCCore-Editor.dll"
     ],
     "autoReferenced": true,

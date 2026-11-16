@@ -14,6 +14,7 @@
 - Cuando no se pueden generar las poses por un error de compilación (PS050), el mensaje indica ahora la herramienta en la que se produce el error. Los errores también se muestran justo después de reiniciar Unity y cuando la vista de la Console está filtrada.
 - La actualización del precálculo tarda menos. Cuantas más poses usen «Darse vuelta», mayor es el efecto.
 - Cuando la descripción de una función en japonés o chino pasa a otra línea, ninguna línea empieza ya con un punto o una coma.
+- Cuando no se pueden actualizar las miniaturas de poses por un error de otra herramienta (PS036), el mensaje indica ahora la herramienta en la que se produce el error y muestra su contenido.
 
 ### Compatibilidad
 

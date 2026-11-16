@@ -1,4 +1,3 @@
-#if NDMF && MODULAR_AVATAR
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
@@ -34,6 +33,12 @@ namespace jp.unisakistudio.posingsystemeditor.tests
             Assert.That(graph.OfType<AnimationClip>().Any() && graph.OfType<AnimatorStateTransition>().Any() && graph.OfType<StateMachineBehaviour>().Any(), Is.True);
             foreach (var obj in graph)
                 Assert.That(PosingSystemControllerGraph.References(obj).ToList(), Is.EqualTo(Everything(obj)), obj.GetType().Name + " " + obj.name);
+            // Clips that the collection and the remapping skip refer to nothing but scripts,
+            // which are never part of a controller graph or of a generated asset.
+            var skipped = graph.Where(PosingSystemControllerGraph.HasNoGraphReferences).ToList();
+            Assert.That(skipped.Count, Is.GreaterThan(0));
+            foreach (var clip in skipped)
+                Assert.That(Everything(clip).All(o => o is MonoScript), Is.True, clip.name);
         }
 
         [Test]
@@ -52,6 +57,16 @@ namespace jp.unisakistudio.posingsystemeditor.tests
                     new[] { new ObjectReferenceKeyframe { time = 0, value = material } });
                 Assert.That(PosingSystemControllerGraph.References(clip).ToList(), Is.EqualTo(Everything(clip)));
                 Assert.That(PosingSystemControllerGraph.References(clip), Does.Contain(material));
+                Assert.That(PosingSystemControllerGraph.HasNoGraphReferences(clip), Is.False, "a clip with an object curve is walked");
+                var plain = new AnimationClip();
+                try
+                {
+                    plain.SetCurve("", typeof(Animator), "RootT.y", AnimationCurve.Linear(0, 0, 1, 1));
+                    Assert.That(PosingSystemControllerGraph.HasNoGraphReferences(plain), Is.True);
+                    AnimationUtility.SetAnimationEvents(plain, new[] { new AnimationEvent { time = 0, functionName = "F", objectReferenceParameter = material } });
+                    Assert.That(PosingSystemControllerGraph.HasNoGraphReferences(plain), Is.False, "a clip with an event is walked");
+                }
+                finally { Object.DestroyImmediate(plain); }
 
                 var merge = go.AddComponent<nadena.dev.modular_avatar.core.ModularAvatarMergeAnimator>();
                 merge.animator = PosingSystemDiagnostics.CommonAnimatorTemplate().animator;
@@ -67,4 +82,3 @@ namespace jp.unisakistudio.posingsystemeditor.tests
         }
     }
 }
-#endif

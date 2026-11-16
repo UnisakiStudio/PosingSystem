@@ -29,6 +29,10 @@
       "value": "Uppdatera produkten och Unisaki Posing System till senaste versionen med ALCOM / VCC, vänta tills kompileringen är klar och försök igen. Om problemet kvarstår, kontakta supporten och bifoga det här meddelandet."
     },
     {
+      "key": "ALCOM / VCCで商品本体と「ゆにさきポーズシステム」を最新版に更新してください。直らない場合は、「このエラーについて相談する」からお問い合わせください。",
+      "value": "Uppdatera produkten och Unisaki Posing System till senaste versionen med ALCOM / VCC. Om problemet kvarstår, kontakta support via ”Fråga om det här felet”."
+    },
+    {
       "key": "AddStateMachineBehaviourに失敗しました。多くの場合原因は別のツールなどにエラーが発生していることです。アバタービルド・アップロード前にConsoleウィンドウを確認してエラーを解消してから再度お試しください",
       "value": "AddStateMachineBehaviour misslyckades. Ett annat verktyg kan ha orsakat ett tidigare fel. Lös det första relevanta felet i Console innan du bygger eller laddar upp avataren igen."
     },
@@ -303,6 +307,10 @@
     {
       "key": "ViewPosition（目の位置）",
       "value": "ViewPosition (ögonposition)"
+    },
+    {
+      "key": "Window > General > Consoleで、この操作中に最初に出た赤いエラーを確認してください。VRChat SDKの「Build & Test」でも失敗する場合は、ポーズツール以外が原因です。",
+      "value": "Kontrollera det första röda felet för åtgärden i Window > General > Console. Om ”Build & Test” i VRChat SDK också misslyckas ligger orsaken utanför poseverktyget."
     },
     {
       "key": "[PosingSystem] NDMFプレビュー用アバターを有効なSceneに作成できませんでした。",
@@ -1369,6 +1377,10 @@
       "value": "Kunde inte mäta en giltig fast längd från avatarskalan."
     },
     {
+      "key": "アバターのビルド前処理が失敗したため、ポーズ画像を更新できません。",
+      "value": "Poseminiatyrerna kan inte uppdateras eftersom förbearbetningen av avatarbygget misslyckades."
+    },
+    {
       "key": "アバターのルートにAnimatorがありません。",
       "value": "Avatarens rot har ingen Animator."
     },
@@ -1593,6 +1605,10 @@
       "value": "Standardcontrollern hittades inte i paketet."
     },
     {
+      "key": "ビルド前処理中のエラー（先頭から最大3件）",
+      "value": "Fel under förbearbetningen av bygget (upp till de första 3)"
+    },
+    {
       "key": "ファイルに保存されている値に戻します。",
       "value": "Återställer värdena som sparats i filen."
     },
@@ -1731,6 +1747,10 @@
     {
       "key": "ポーズツールで次のエラーが出ました。対処方法を教えてください。",
       "value": "Poseverktyget rapporterade följande fel. Hur kan jag lösa det?"
+    },
+    {
+      "key": "ポーズツール以外で起きているエラーです。発生元のツールとVRChat SDKを最新版に更新してください。VRChat SDKの「Build & Test」でも同じエラーが出る場合は、発生元のツールの配布元で対応状況をご確認ください。",
+      "value": "Det här felet kommer inte från poseverktyget. Uppdatera verktyget som anges som källa och VRChat SDK till senaste versionen. Om samma fel även uppstår med ”Build & Test” i VRChat SDK, kontrollera kompatibilitetsinformation hos utgivaren av det verktyget."
     },
     {
       "key": "ポーズツール以外で起きているエラーです。発生元のツールを更新するか、配布元で対応状況をご確認ください。エラーが解消し、再コンパイルが完了してから実行してください。",

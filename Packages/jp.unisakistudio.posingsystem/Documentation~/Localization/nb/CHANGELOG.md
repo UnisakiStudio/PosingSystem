@@ -14,6 +14,7 @@
 - Når positurer ikke kan genereres på grunn av en kompileringsfeil (PS050), oppgir meldingen nå hvilket verktøy feilen oppstår i. Feilene vises også rett etter at Unity er startet på nytt, og når visningen i Console er filtrert.
 - Oppdateringen av forhåndsbygget tar kortere tid. Jo flere positurer som bruker «Snu deg», desto større er effekten.
 - Når en funksjonsbeskrivelse på japansk eller kinesisk brytes, begynner en linje ikke lenger med punktum eller komma.
+- Når positurminiatyrene ikke kan oppdateres på grunn av en feil i et annet verktøy (PS036), oppgir meldingen nå hvilket verktøy feilen oppstår i, og viser feilen.
 
 ### Kompatibilitet
 

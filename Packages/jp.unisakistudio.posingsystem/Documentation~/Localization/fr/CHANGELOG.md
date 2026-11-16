@@ -14,6 +14,7 @@
 - Lorsque les poses ne peuvent pas être générées à cause d'une erreur de compilation (PS050), le message indique désormais l'outil dans lequel l'erreur se produit. Les erreurs sont aussi affichées juste après le redémarrage d'Unity et lorsque l'affichage de la Console est filtré.
 - La mise à jour du précalcul prend moins de temps. Plus il y a de poses utilisant « Se retourner », plus le gain est important.
 - Lorsqu'une description de fonction en japonais ou en chinois passe à la ligne, une ligne ne commence plus par un point ou une virgule.
+- Lorsque les vignettes des poses ne peuvent pas être actualisées à cause d'une erreur d'un autre outil (PS036), le message indique désormais l'outil dans lequel l'erreur se produit et affiche son contenu.
 
 ### Compatibilité
 
