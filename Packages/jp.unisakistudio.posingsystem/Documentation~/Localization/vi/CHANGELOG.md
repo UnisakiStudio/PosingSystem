@@ -15,6 +15,7 @@
 - Việc cập nhật dữ liệu tạo trước mất ít thời gian hơn. Càng nhiều tư thế dùng “Lật người” thì hiệu quả càng rõ.
 - Khi mô tả tính năng bằng tiếng Nhật hoặc tiếng Trung xuống dòng, dòng không còn bắt đầu bằng dấu chấm hay dấu phẩy.
 - Khi không thể cập nhật ảnh thu nhỏ tư thế do lỗi của công cụ khác (PS036), thông báo giờ đây nêu tên công cụ phát sinh lỗi và nội dung lỗi.
+- Đã sửa lỗi khiến dữ liệu tạo trước vốn đã mới nhất vẫn có thể yêu cầu cập nhật lại mỗi lần khởi động lại Unity. Lỗi xảy ra khi bật "Dùng tư thế đứng, ngồi xổm và nằm sấp gốc" cho avatar có Controller riêng ở lớp Base.
 
 ### Tương thích
 

@@ -15,6 +15,7 @@
 - Die Aktualisierung der Vorberechnung dauert kürzer. Je mehr Posen „Umdrehen“ verwenden, desto größer ist der Effekt.
 - Wenn eine Funktionsbeschreibung auf Japanisch oder Chinesisch umbricht, beginnt keine Zeile mehr mit einem Punkt oder Komma.
 - Wenn die Posenvorschaubilder wegen eines Fehlers in einem anderen Werkzeug nicht aktualisiert werden können (PS036), nennt die Meldung jetzt das Werkzeug, in dem der Fehler auftritt, und zeigt den Fehler an.
+- Behoben: Eine bereits aktuelle Vorberechnung konnte nach jedem Neustart von Unity erneut eine Aktualisierung verlangen. Das trat auf, wenn „Ursprüngliche Steh-, Hock- und Bauchlage verwenden“ bei einem Avatar mit eigenem Controller in der Base-Ebene eingeschaltet war.
 
 ### Kompatibilität
 

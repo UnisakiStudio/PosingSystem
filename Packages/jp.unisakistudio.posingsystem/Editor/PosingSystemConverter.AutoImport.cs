@@ -95,10 +95,12 @@ namespace jp.unisakistudio.posingsystemeditor
                 .OrderBy(d => d.stateType == StateType.Stand ? 1 : 0).ToList();
         }
 
-        private static string ImportedMotionInputSignature(PosingSystem ps)
+        // v2: clips are described without the editor curves Unity adds in memory (see
+        // PosingSystemClipFingerprint); v1 changed after every restart for some clips.
+        internal static string ImportedMotionInputSignature(PosingSystem ps)
         {
             var systems = ImportSystems(ps);
-            var text = new StringBuilder("auto-import-v1;");
+            var text = new StringBuilder("auto-import-v2;");
             var fingerprints = new Dictionary<Object, string>();
             string Fingerprint(Object root)
             {
@@ -110,7 +112,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 var source = new StringBuilder();
                 foreach (var obj in graph.OrderBy(GetStableObjectIdentifier, StringComparer.Ordinal))
                     source.Append(GetStableObjectIdentifier(obj)).Append(':')
-                        .Append(EditorJsonUtility.ToJson(obj)).Append(';');
+                        .Append(obj is AnimationClip clip ? PosingSystemClipFingerprint.Of(clip) : EditorJsonUtility.ToJson(obj)).Append(';');
                 return fingerprints[root] = Hash128.Compute(source.ToString()).ToString();
             }
             foreach (var system in systems)

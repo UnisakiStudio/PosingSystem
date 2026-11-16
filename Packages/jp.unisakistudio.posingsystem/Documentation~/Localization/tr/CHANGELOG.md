@@ -15,6 +15,7 @@
 - Ön oluşturmanın güncellenmesi daha kısa sürer. “Dön” kullanan poz sayısı arttıkça etki de artar.
 - Japonca veya Çince bir özellik açıklaması alt satıra geçtiğinde satır artık nokta veya virgülle başlamaz.
 - Poz küçük resimleri başka bir aracın hatası nedeniyle güncellenemediğinde (PS036), ileti artık hatanın oluştuğu aracın adını ve hatanın içeriğini gösterir.
+- Zaten güncel olan bir ön oluşturmanın Unity her yeniden başlatıldığında yeniden güncelleme isteyebilmesi sorunu düzeltildi. Sorun, Base katmanında kendi Controller'ı bulunan bir avatarda "Özgün ayakta, çömelme ve yüzüstü pozları kullan" açıkken oluşuyordu.
 
 ### Uyumluluk
 

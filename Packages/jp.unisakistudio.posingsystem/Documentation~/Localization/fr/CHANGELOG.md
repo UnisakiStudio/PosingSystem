@@ -15,6 +15,7 @@
 - La mise à jour du précalcul prend moins de temps. Plus il y a de poses utilisant « Se retourner », plus le gain est important.
 - Lorsqu'une description de fonction en japonais ou en chinois passe à la ligne, une ligne ne commence plus par un point ou une virgule.
 - Lorsque les vignettes des poses ne peuvent pas être actualisées à cause d'une erreur d'un autre outil (PS036), le message indique désormais l'outil dans lequel l'erreur se produit et affiche son contenu.
+- Correction d'un problème où un précalcul déjà à jour pouvait demander une nouvelle actualisation à chaque redémarrage d'Unity. Il se produisait lorsque « Utiliser les poses debout, accroupies et sur le ventre d'origine » était activé pour un avatar ayant son propre Controller dans la couche Base.
 
 ### Compatibilité
 

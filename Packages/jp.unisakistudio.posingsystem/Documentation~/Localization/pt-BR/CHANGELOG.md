@@ -15,6 +15,7 @@
 - A atualização do pré-cálculo leva menos tempo. Quanto mais poses usarem “Virar”, maior é o efeito.
 - Quando a descrição de uma função em japonês ou chinês quebra de linha, nenhuma linha começa mais com ponto ou vírgula.
 - Quando não é possível atualizar as miniaturas das poses por causa de um erro de outra ferramenta (PS036), a mensagem agora indica a ferramenta em que o erro ocorre e mostra o conteúdo do erro.
+- Corrigido um problema em que um pré-cálculo já atualizado podia pedir nova atualização toda vez que o Unity era reiniciado. Ocorria com "Usar poses originais em pé, agachado e de bruços" ativado em um avatar com seu próprio Controller na camada Base.
 
 ### Compatibilidade
 

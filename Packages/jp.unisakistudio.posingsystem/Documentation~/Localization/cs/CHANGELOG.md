@@ -15,6 +15,7 @@
 - Aktualizace předgenerování trvá kratší dobu. Čím více póz používá funkci „Přetočit se“, tím větší je přínos.
 - Když se popis funkce v japonštině nebo čínštině zalomí, řádek už nezačíná tečkou ani čárkou.
 - Pokud obrázky póz nelze aktualizovat kvůli chybě v jiném nástroji (PS036), zpráva nyní uvádí nástroj, ve kterém chyba vzniká, a obsah chyby.
+- Opravena chyba, kdy již aktuální předgenerování mohlo po každém restartování Unity znovu vyžadovat aktualizaci. Docházelo k tomu, když byla volba „Použít původní pózy ve stoje, v přikrčení a na břiše“ zapnutá u avatara s vlastním Controllerem ve vrstvě Base.
 
 ### Kompatibilita
 

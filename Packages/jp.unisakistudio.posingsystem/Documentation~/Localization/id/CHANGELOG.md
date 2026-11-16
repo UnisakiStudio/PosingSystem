@@ -15,6 +15,7 @@
 - Pembaruan prabuild kini lebih cepat. Makin banyak pose yang memakai “Berguling”, makin besar pengaruhnya.
 - Saat deskripsi fitur berbahasa Jepang atau Tionghoa berpindah baris, baris tidak lagi diawali titik atau koma.
 - Saat gambar mini pose tidak dapat diperbarui karena kesalahan pada alat lain (PS036), pesan kini menyebutkan alat tempat kesalahan terjadi beserta isi kesalahannya.
+- Memperbaiki masalah ketika prabuild yang sudah mutakhir dapat meminta diperbarui lagi setiap kali Unity dimulai ulang. Masalah ini terjadi saat "Gunakan pose berdiri, jongkok, dan tengkurap asli" diaktifkan pada avatar yang memiliki Controller sendiri di layer Base.
 
 ### Kompatibilitas
 
