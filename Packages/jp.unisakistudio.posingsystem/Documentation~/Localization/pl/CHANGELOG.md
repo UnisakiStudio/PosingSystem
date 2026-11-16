@@ -16,6 +16,7 @@
 - Gdy opis funkcji po japońsku lub chińsku jest zawijany, wiersz nie zaczyna się już od kropki ani przecinka.
 - Gdy nie można odświeżyć miniatur poz z powodu błędu w innym narzędziu (PS036), komunikat podaje teraz nazwę narzędzia, w którym wystąpił błąd, oraz jego treść.
 - Naprawiono problem, przez który aktualne już budowanie wstępne mogło po każdym ponownym uruchomieniu Unity znów wymagać aktualizacji. Występował, gdy opcja „Używaj oryginalnych poz stojących, kucających i na brzuchu” była włączona dla awatara z własnym Controllerem w warstwie Base.
+- Naprawiono pozostawanie ubrań i włosów dołączonych przez MA Merge Armature w pierwotnym miejscu podczas edycji i podglądu pozy. Teraz podążają za pozą podglądu przy zachowaniu ustawień i rozmieszczenia oryginalnego awatara.
 
 ### Zgodność
 

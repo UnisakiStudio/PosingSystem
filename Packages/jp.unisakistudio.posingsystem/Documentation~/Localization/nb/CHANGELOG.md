@@ -16,6 +16,7 @@
 - Når en funksjonsbeskrivelse på japansk eller kinesisk brytes, begynner en linje ikke lenger med punktum eller komma.
 - Når positurminiatyrene ikke kan oppdateres på grunn av en feil i et annet verktøy (PS036), oppgir meldingen nå hvilket verktøy feilen oppstår i, og viser feilen.
 - Rettet et problem der et forhåndsbygg som allerede var oppdatert, kunne be om oppdatering på nytt hver gang Unity ble startet på nytt. Det skjedde når «Bruk opprinnelige stå-, huk- og mageleiepositurer» var slått på for en avatar med egen Controller i Base-laget.
+- Rettet at klær og hår festet med MA Merge Armature ble stående på opprinnelig plass under redigering eller forhåndsvisning av positurer. De følger nå forhåndsvisningens positur mens originalavatarens innstillinger og plassering beholdes.
 
 ### Kompatibilitet
 

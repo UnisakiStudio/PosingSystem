@@ -16,6 +16,7 @@
 - Quando la descrizione di una funzione in giapponese o cinese va a capo, una riga non inizia più con un punto o una virgola.
 - Quando non è possibile aggiornare le miniature delle pose a causa di un errore di un altro strumento (PS036), il messaggio ora indica lo strumento in cui si verifica l'errore e ne mostra il contenuto.
 - Risolto un problema per cui un precalcolo già aggiornato poteva richiedere un nuovo aggiornamento a ogni riavvio di Unity. Si verificava con «Usare le pose originali in piedi, accovacciate e prone» attivo su un avatar con un proprio Controller nel livello Base.
+- Corretto il problema di abiti e capelli collegati con MA Merge Armature che restavano nella posizione originale durante la modifica o l’anteprima delle pose. Ora seguono la posa dell’anteprima, preservando impostazioni e collocazione dell’avatar originale.
 
 ### Compatibilità
 

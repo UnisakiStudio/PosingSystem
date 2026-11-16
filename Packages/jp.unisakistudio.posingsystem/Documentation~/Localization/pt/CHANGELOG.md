@@ -16,6 +16,7 @@
 - Quando a descrição de uma função em japonês ou chinês muda de linha, nenhuma linha começa já com um ponto ou uma vírgula.
 - Quando não é possível atualizar as miniaturas das poses devido a um erro de outra ferramenta (PS036), a mensagem indica agora a ferramenta em que o erro ocorre e apresenta o conteúdo do erro.
 - Corrigido um problema em que um pré-cálculo já atualizado podia pedir nova atualização sempre que o Unity era reiniciado. Ocorria com "Usar poses originais em pé, agachado e de bruços" ativado num avatar com o seu próprio Controller na camada Base.
+- Corrigidas as roupas e os cabelos ligados com MA Merge Armature que permaneciam na posição original durante a edição ou pré-visualização de poses. Agora acompanham a pose da pré-visualização, preservando as definições e a colocação do avatar original.
 
 ### Compatibilidade
 

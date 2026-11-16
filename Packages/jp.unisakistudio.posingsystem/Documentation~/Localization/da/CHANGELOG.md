@@ -16,6 +16,7 @@
 - Når en funktionsbeskrivelse på japansk eller kinesisk ombrydes, begynder en linje ikke længere med punktum eller komma.
 - Når positurminiaturerne ikke kan opdateres på grund af en fejl i et andet værktøj (PS036), angiver meddelelsen nu, hvilket værktøj fejlen opstår i, og viser fejlen.
 - Rettede et problem, hvor en forberegning, der allerede var opdateret, kunne bede om opdatering igen, hver gang Unity blev genstartet. Det skete, når "Brug oprindelige stående, hug- og mavepositurer" var slået til for en avatar med sin egen Controller i Base-laget.
+- Rettet, at tøj og hår monteret med MA Merge Armature blev på deres oprindelige plads under redigering eller forhåndsvisning af positurer. De følger nu forhåndsvisningens positur, mens originalavatarens indstillinger og placering bevares.
 
 ### Kompatibilitet
 

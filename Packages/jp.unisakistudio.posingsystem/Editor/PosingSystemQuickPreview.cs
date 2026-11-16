@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using jp.unisakistudio.posingsystem;
 using nadena.dev.modular_avatar.core;
@@ -35,7 +36,10 @@ namespace jp.unisakistudio.posingsystemeditor
             Animator.cullingMode = AnimatorCullingMode.AlwaysAnimate;
             clone.transform.SetPositionAndRotation(source.transform.position, source.transform.rotation);
             clone.transform.localScale = source.transform.lossyScale;
+            // Both read references by path, so the outfit bones are looked up before anything moves.
+            var outfitBones = OutfitBones(clone);
             AttachBoneProxies(clone);
+            AttachOutfitBones(outfitBones);
             clone.SetActive(true);
             root.SetActive(true);
 
@@ -73,6 +77,25 @@ namespace jp.unisakistudio.posingsystemeditor
                 else transform.localRotation = Quaternion.identity;
                 if (item.proxy.matchScale) transform.localScale = Vector3.one;
             }
+        }
+
+        // Merge Armature joins an outfit to the body at build time. Before that, the outfit's bones
+        // follow the body only through a lock that runs while the component is enabled, and this
+        // copy has its behaviours switched off: clothes and hair stayed in the T-pose while the body
+        // took the pose. The pairs are Modular Avatar's own (prefix, suffix and nested outfits).
+        private static (Transform body, Transform worn)[] OutfitBones(GameObject clone) =>
+            clone.GetComponentsInChildren<ModularAvatarMergeArmature>(true)
+                .Where(merge => merge.mergeTarget != null)
+                .SelectMany(merge => merge.GetBonesMapping() ?? new List<(Transform, Transform)>())
+                .Where(pair => pair.Item1 != null && pair.Item2 != null && pair.Item1.IsChildOf(clone.transform))
+                .ToArray();
+
+        // As the build does: each outfit bone becomes a child of its body bone and keeps the place
+        // it has on the resting avatar. Bones only the outfit has stay with their outfit parent.
+        private static void AttachOutfitBones((Transform body, Transform worn)[] pairs)
+        {
+            foreach (var (body, worn) in pairs)
+                if (!body.IsChildOf(worn)) worn.SetParent(body, true);
         }
 
         public void Dispose()

@@ -16,6 +16,7 @@
 - When a feature description in Japanese or Chinese wraps, a line no longer begins with a full stop or comma.
 - When the pose thumbnails cannot be updated because of an error in another tool (PS036), the message now names the tool in which the error occurs and shows the error.
 - Fixed an issue where a prebuild that was already up to date could ask to be updated again every time Unity was restarted. It occurred with "Use original standing, crouching and prone poses" turned on for an avatar that has its own Controller in the Base layer.
+- Fixed outfits and hair attached with MA Merge Armature staying in their original positions while editing or previewing poses. They now follow the preview pose while preserving the original avatar settings and placement.
 
 ### Compatibility
 

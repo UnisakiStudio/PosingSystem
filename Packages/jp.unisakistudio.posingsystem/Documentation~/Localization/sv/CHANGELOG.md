@@ -16,6 +16,7 @@
 - När en funktionsbeskrivning på japanska eller kinesiska radbryts börjar en rad inte längre med punkt eller komma.
 - När poseminiatyrerna inte kan uppdateras på grund av ett fel i ett annat verktyg (PS036) anger meddelandet nu vilket verktyg felet uppstår i och visar felet.
 - Åtgärdade ett problem där en förberäkning som redan var aktuell kunde begära uppdatering igen varje gång Unity startades om. Det inträffade när ”Använd ursprungliga stående, hukande och magposer” var aktiverat för en avatar med en egen Controller i Base-lagret.
+- Åtgärdat att kläder och hår monterade med MA Merge Armature stannade på sin ursprungliga plats vid redigering eller förhandsvisning av poser. De följer nu förhandsvisningsposen medan originalavatarens inställningar och placering bevaras.
 
 ### Kompatibilitet
 

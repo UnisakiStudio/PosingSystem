@@ -542,6 +542,81 @@ MonoBehaviour:
             finally { context.DeactivateAllExtensionContexts(); }
         }
 
+        // An outfit attached with Merge Armature follows the body before a build only through a
+        // lock that runs while the component is enabled, and the preview copy has every behaviour
+        // switched off: clothes and hair stayed in the T-pose while the body took the pose
+        // (inquiries of 2026-11-11 and 2026-11-13, posing system 3.1.4).
+        [Test]
+        public void UserControls_PreviewMergeArmature_OutfitFollowsBodyAndLeavesSourceUntouched(
+            [Values(ArmatureLockMode.NotLocked, ArmatureLockMode.BaseToMerge, ArmatureLockMode.BidirectionalExact)] ArmatureLockMode lockMode,
+            [Values("", ".outfit")] string suffix, [Values(false, true)] bool cached)
+        {
+            UserSettings(out _);
+            root.transform.SetPositionAndRotation(new Vector3(3, 2, -4), Quaternion.Euler(0, 27, 0));
+            root.transform.localScale = Vector3.one * .7f;
+            var outfit = new GameObject("Outfit"); outfit.transform.SetParent(root.transform, false);
+            var outfitHips = Object.Instantiate(animator.GetBoneTransform(HumanBodyBones.Hips).gameObject, outfit.transform);
+            outfitHips.name = "Hips";
+            // Most outfits name their bones exactly as the avatar does.
+            foreach (var bone in outfitHips.GetComponentsInChildren<Transform>(true)) bone.name += suffix;
+            // A bone only the outfit has, and a bone that was fitted by hand.
+            var skirt = new GameObject("Skirt"); skirt.transform.SetParent(outfitHips.transform, false);
+            skirt.transform.localPosition = new Vector3(0, -.2f, .1f);
+            var fitted = outfit.GetComponentsInChildren<Transform>(true).Single(t => t.name == "LeftHand" + suffix);
+            fitted.localPosition += new Vector3(.01f, .02f, 0);
+            fitted.localRotation = Quaternion.Euler(4, 9, 14);
+            var merge = outfit.AddComponent<ModularAvatarMergeArmature>();
+            merge.mergeTarget.Set(root); merge.suffix = suffix; merge.LockMode = lockMode;
+            // An outfit whose target is not set must not stop the preview.
+            new GameObject("Unset outfit").AddComponent<ModularAvatarMergeArmature>().transform.SetParent(root.transform, false);
+            var pairs = merge.GetBonesMapping();
+            Assert.That(pairs.Count, Is.EqualTo(19), "every bone of the test avatar has its outfit bone");
+            var transforms = root.GetComponentsInChildren<Transform>(true);
+            var before = transforms.Select(t => (t.parent, t.localPosition, t.localRotation, t.localScale)).ToArray();
+
+            using var preview = new SceneAvatarPreview();
+            var model = animator;
+            if (cached)
+            {
+                var cache = Object.Instantiate(root); assets.Add(cache);
+                cache.transform.SetPositionAndRotation(new Vector3(100, 0, 0), Quaternion.identity);
+                cache.SetActive(false);
+                model = cache.GetComponent<Animator>();
+            }
+            preview.Start(animator, model, "MergeArmature test");
+            var clone = preview.Animator;
+            // The animator still drives the avatar's own bones, also when the outfit's have the same names.
+            foreach (var bone in new[] { HumanBodyBones.Hips, HumanBodyBones.Head, HumanBodyBones.LeftHand, HumanBodyBones.RightFoot })
+                Assert.That(AnimationUtility.CalculateTransformPath(clone.GetBoneTransform(bone), clone.transform),
+                    Is.EqualTo(AnimationUtility.CalculateTransformPath(animator.GetBoneTransform(bone), root.transform)), bone.ToString());
+            Transform Body(HumanBodyBones bone) => clone.GetBoneTransform(bone);
+            Transform Worn(HumanBodyBones bone) => Body(bone).Find(bone + suffix);
+            foreach (var (bodyBone, outfitBone) in pairs)
+            {
+                var body = clone.transform.Find(AnimationUtility.CalculateTransformPath(bodyBone, root.transform));
+                var worn = body.Find(outfitBone.name);
+                Assert.That(worn, Is.Not.Null, "the outfit bone is a child of its body bone: " + outfitBone.name);
+                // As the build does: the outfit bone keeps the place it has on the resting avatar.
+                Assert.That(Vector3.Distance(body.InverseTransformPoint(worn.position), bodyBone.InverseTransformPoint(outfitBone.position)),
+                    Is.LessThan(.0001f), outfitBone.name);
+                Assert.That(Quaternion.Angle(Quaternion.Inverse(body.rotation) * worn.rotation, Quaternion.Inverse(bodyBone.rotation) * outfitBone.rotation),
+                    Is.LessThan(.01f), outfitBone.name);
+            }
+            var wornSkirt = Worn(HumanBodyBones.Hips).Find("Skirt");
+            Assert.That(wornSkirt, Is.Not.Null, "a bone only the outfit has stays with its outfit parent");
+
+            var hand = Body(HumanBodyBones.LeftHand);
+            var wornHand = Worn(HumanBodyBones.LeftHand);
+            var local = hand.InverseTransformPoint(wornHand.position);
+            var skirtLocal = Body(HumanBodyBones.Hips).InverseTransformPoint(wornSkirt.position);
+            Body(HumanBodyBones.LeftUpperArm).localRotation *= Quaternion.Euler(10, 40, 70);
+            Body(HumanBodyBones.Hips).SetPositionAndRotation(clone.transform.position + Vector3.up * .4f, Quaternion.Euler(60, 20, 5));
+            Assert.That(Vector3.Distance(wornHand.position, hand.TransformPoint(local)), Is.LessThan(.0001f), "the outfit follows the posed arm");
+            Assert.That(Vector3.Distance(wornSkirt.position, Body(HumanBodyBones.Hips).TransformPoint(skirtLocal)), Is.LessThan(.0001f));
+            for (var i = 0; i < transforms.Length; i++)
+                Assert.That((transforms[i].parent, transforms[i].localPosition, transforms[i].localRotation, transforms[i].localScale), Is.EqualTo(before[i]), transforms[i].name);
+        }
+
         [Test]
         public void UserControls_Bake_PreservesOldAssetAndCatalog_ManualPreviewMatchesIk()
         {
