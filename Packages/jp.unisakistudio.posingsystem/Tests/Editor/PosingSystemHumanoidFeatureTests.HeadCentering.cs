@@ -40,6 +40,11 @@ namespace jp.unisakistudio.posingsystemeditor.tests
             Stale = 1024,        // scale and proportions are changed after the prebuild
             HumanoidScale = 2048, // another tool changes the Humanoid's scale in the middle of the build
             Rollover = 4096,     // a second pose of the list rolls over
+            HipsScale = 8192,    // the Hips bone itself is scaled
+            ChestStretch = 16384, // the Chest is scaled differently along each axis
+            BonesMoved = 32768,  // Hips, Chest and Neck are moved from where the model has them
+            Armature = 65536,    // the object between the avatar root and the Hips is scaled and moved
+            RootStretch = 131072, // the avatar root is scaled differently along each axis
         }
 
         private AnimationClip SupinePose(HeadCase options, string name = HeadCenterPose, float roll = 0)
@@ -176,6 +181,27 @@ namespace jp.unisakistudio.posingsystemeditor.tests
                 animator.GetBoneTransform(bone).localScale = Vector3.one * size;
         }
 
+        // The ways a body is resized by hand. Applied before the prebuild, or after it for a stale prebuild.
+        private void ResizeBody(HeadCase options)
+        {
+            if (options.HasFlag(HeadCase.BoneScale)) ChangeProportions();
+            if (options.HasFlag(HeadCase.HipsScale)) animator.GetBoneTransform(HumanBodyBones.Hips).localScale = Vector3.one * 1.27f;
+            if (options.HasFlag(HeadCase.ChestStretch)) animator.GetBoneTransform(HumanBodyBones.Chest).localScale = new Vector3(1.25f, .85f, 1.4f);
+            if (options.HasFlag(HeadCase.BonesMoved))
+            {
+                animator.GetBoneTransform(HumanBodyBones.Hips).localPosition += new Vector3(.02f, .11f, -.04f);
+                animator.GetBoneTransform(HumanBodyBones.Chest).localPosition += new Vector3(0, .06f, .05f);
+                animator.GetBoneTransform(HumanBodyBones.Neck).localPosition += new Vector3(0, -.03f, .02f);
+            }
+            if (options.HasFlag(HeadCase.Armature))
+            {
+                var armature = animator.GetBoneTransform(HumanBodyBones.Hips).parent;
+                armature.localScale = new Vector3(1.18f, 1.18f, 1.18f);
+                armature.localPosition = new Vector3(0, .04f, .03f);
+            }
+            if (options.HasFlag(HeadCase.RootStretch)) root.transform.localScale = Vector3.Scale(root.transform.localScale, new Vector3(1.1f, 1.3f, .9f));
+        }
+
         // scale: avatar root; floor: an MA Floor Adjuster below (-) or above (+) the origin in metres, 0 = none.
         [TestCase(1f, 0f, HeadCase.Plain)]
         [TestCase(1.34405f, 0f, HeadCase.Plain)]
@@ -197,6 +223,15 @@ namespace jp.unisakistudio.posingsystemeditor.tests
         [TestCase(1.34405f, -.12f, HeadCase.Rollover | HeadCase.BoneScale)]
         [TestCase(1f, 0f, HeadCase.Stale)]
         [TestCase(1f, 0f, HeadCase.Stale | HeadCase.NoFootHeight | HeadCase.Rollover)]
+        [TestCase(1f, 0f, HeadCase.HipsScale)]
+        [TestCase(1f, 0f, HeadCase.ChestStretch)]
+        [TestCase(1f, 0f, HeadCase.BonesMoved)]
+        [TestCase(1f, 0f, HeadCase.Armature)]
+        [TestCase(1f, 0f, HeadCase.RootStretch)]
+        [TestCase(1f, -.12f, HeadCase.HipsScale | HeadCase.BonesMoved)]
+        [TestCase(1f, .08f, HeadCase.Armature | HeadCase.ChestStretch)]
+        [TestCase(1.34405f, -.12f, HeadCase.HipsScale | HeadCase.ChestStretch | HeadCase.BonesMoved | HeadCase.Armature | HeadCase.RootStretch | HeadCase.BoneScale | HeadCase.Rollover)]
+        [TestCase(.7f, 0f, HeadCase.Stale | HeadCase.HipsScale | HeadCase.ChestStretch | HeadCase.BonesMoved | HeadCase.Armature | HeadCase.RootStretch)]
         [TestCase(1f, 0f, HeadCase.HumanoidScale)]
         [TestCase(1.34405f, 0f, HeadCase.HumanoidScale | HeadCase.NoFootHeight | HeadCase.Rollover)]
         // The avatar of the inquiry: scaled root, changed proportions, MA Floor Adjuster, moved viewpoint.
@@ -206,10 +241,17 @@ namespace jp.unisakistudio.posingsystemeditor.tests
         [TestCase(.6f, .08f, HeadCase.View | HeadCase.Unbaked | HeadCase.NoFootHeight | HeadCase.Adjusted | HeadCase.Rotated | HeadCase.Placed | HeadCase.Moving)]
         public void HeadCentering_BuiltPoseKeepsHeadAboveOrigin(float scale, float floor, HeadCase options)
         {
+            if (options.HasFlag(HeadCase.Armature))
+            {
+                // Most models have an object between the avatar root and the Hips.
+                var armature = new GameObject("Armature").transform;
+                armature.SetParent(root.transform, false);
+                animator.GetBoneTransform(HumanBodyBones.Hips).SetParent(armature, false);
+            }
             UseImportedStyleSkeleton();
             root.transform.localScale = Vector3.one * scale;
             if (options.HasFlag(HeadCase.Placed)) root.transform.SetPositionAndRotation(new Vector3(3, .4f, -2), Quaternion.Euler(0, 23, 0));
-            if (options.HasFlag(HeadCase.BoneScale)) ChangeProportions();
+            if (!options.HasFlag(HeadCase.Stale)) ResizeBody(options);
             if (options.HasFlag(HeadCase.ScaleAdjuster))
                 foreach (var bone in new[] { HumanBodyBones.Hips, HumanBodyBones.LeftUpperLeg, HumanBodyBones.RightUpperLeg })
                     animator.GetBoneTransform(bone).gameObject.AddComponent<ModularAvatarScaleAdjuster>().Scale = new Vector3(.83f, 1, .83f);
@@ -230,7 +272,7 @@ namespace jp.unisakistudio.posingsystemeditor.tests
             {
                 root.transform.localScale *= 1.25f;
                 descriptor.ViewPosition *= 1.25f;
-                ChangeProportions();
+                ResizeBody(options | HeadCase.BoneScale);
             }
             WithPersistedBuild(context =>
             {
