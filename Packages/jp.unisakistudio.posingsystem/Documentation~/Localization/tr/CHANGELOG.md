@@ -17,6 +17,7 @@
 - Poz küçük resimleri başka bir aracın hatası nedeniyle güncellenemediğinde (PS036), ileti artık hatanın oluştuğu aracın adını ve hatanın içeriğini gösterir.
 - Zaten güncel olan bir ön oluşturmanın Unity her yeniden başlatıldığında yeniden güncelleme isteyebilmesi sorunu düzeltildi. Sorun, Base katmanında kendi Controller'ı bulunan bir avatarda "Özgün ayakta, çömelme ve yüzüstü pozları kullan" açıkken oluşuyordu.
 - Poz düzenleme ve önizleme sırasında MA Merge Armature ile giydirilen kıyafet ve saçların eski yerlerinde kalması düzeltildi. Artık asıl avatarın ayarları ve yerleşimi korunarak önizleme pozunu izlerler.
+- Genel ölçeği değiştirilmiş veya MA Floor Adjuster kullanan avatarlarda sırtüstü ve benzeri pozlarda baş konumunun kayması ve bunun sonucunda VRChat’te bacakların tamamen gerilmesi sorunu düzeltildi. Aynı sorun Animasyon Düzeltmesi’nde değiştirilen pozlarda ve bazı kendi pozlarınızda da oluşuyordu.
 
 ### Uyumluluk
 

@@ -17,6 +17,7 @@
 - Wenn die Posenvorschaubilder wegen eines Fehlers in einem anderen Werkzeug nicht aktualisiert werden können (PS036), nennt die Meldung jetzt das Werkzeug, in dem der Fehler auftritt, und zeigt den Fehler an.
 - Behoben: Eine bereits aktuelle Vorberechnung konnte nach jedem Neustart von Unity erneut eine Aktualisierung verlangen. Das trat auf, wenn „Ursprüngliche Steh-, Hock- und Bauchlage verwenden“ bei einem Avatar mit eigenem Controller in der Base-Ebene eingeschaltet war.
 - Behoben, dass mit MA Merge Armature angelegte Outfits und Haare beim Bearbeiten oder Vorschauen von Posen an ihrer ursprünglichen Position blieben. Sie folgen nun der Vorschaupose, während Einstellungen und Platzierung des Originalavatars erhalten bleiben.
+- Behoben, dass bei Avataren mit geänderter Gesamtskalierung oder mit MA Floor Adjuster die Kopfposition in Rückenlage und ähnlichen Posen verschoben war, sodass die Beine in VRChat vollständig gestreckt sein konnten. Dasselbe trat bei Posen auf, die in der Animationsanpassung geändert wurden, und bei manchen eigenen Posen.
 
 ### Kompatibilität
 

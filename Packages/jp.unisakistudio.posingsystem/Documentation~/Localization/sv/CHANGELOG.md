@@ -17,6 +17,7 @@
 - När poseminiatyrerna inte kan uppdateras på grund av ett fel i ett annat verktyg (PS036) anger meddelandet nu vilket verktyg felet uppstår i och visar felet.
 - Åtgärdade ett problem där en förberäkning som redan var aktuell kunde begära uppdatering igen varje gång Unity startades om. Det inträffade när ”Använd ursprungliga stående, hukande och magposer” var aktiverat för en avatar med en egen Controller i Base-lagret.
 - Åtgärdat att kläder och hår monterade med MA Merge Armature stannade på sin ursprungliga plats vid redigering eller förhandsvisning av poser. De följer nu förhandsvisningsposen medan originalavatarens inställningar och placering bevaras.
+- Åtgärdat att huvudets position hamnade fel i ryggläge och liknande poser på avatarer med ändrad total skala eller med MA Floor Adjuster, vilket kunde göra att benen blev helt utsträckta i VRChat. Samma sak hände med poser som ändrats i animationsjustering och med vissa egna poser.
 
 ### Kompatibilitet
 

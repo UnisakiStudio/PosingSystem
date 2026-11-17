@@ -17,6 +17,7 @@
 - Saat gambar mini pose tidak dapat diperbarui karena kesalahan pada alat lain (PS036), pesan kini menyebutkan alat tempat kesalahan terjadi beserta isi kesalahannya.
 - Memperbaiki masalah ketika prabuild yang sudah mutakhir dapat meminta diperbarui lagi setiap kali Unity dimulai ulang. Masalah ini terjadi saat "Gunakan pose berdiri, jongkok, dan tengkurap asli" diaktifkan pada avatar yang memiliki Controller sendiri di layer Base.
 - Memperbaiki pakaian dan rambut yang dipasang dengan MA Merge Armature tetap berada di posisi semula selama penyuntingan atau pratinjau pose. Kini semuanya mengikuti pose pratinjau sambil mempertahankan pengaturan dan penempatan avatar asli.
+- Memperbaiki masalah ketika posisi kepala bergeser pada pose telentang dan sejenisnya di avatar yang skala keseluruhannya diubah atau yang memakai MA Floor Adjuster, sehingga kaki bisa menjadi lurus sepenuhnya di VRChat. Hal yang sama terjadi pada pose yang diubah di Penyesuaian Animasi dan pada sebagian pose buatan sendiri.
 
 ### Kompatibilitas
 

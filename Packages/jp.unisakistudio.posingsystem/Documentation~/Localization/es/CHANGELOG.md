@@ -17,6 +17,7 @@
 - Cuando no se pueden actualizar las miniaturas de poses por un error de otra herramienta (PS036), el mensaje indica ahora la herramienta en la que se produce el error y muestra su contenido.
 - Se corrigió un problema por el que un precálculo ya actualizado podía pedir actualizarse de nuevo cada vez que se reiniciaba Unity. Ocurría con «Usar las poses originales de pie, agachado y boca abajo» activado en un avatar con su propio Controller en la capa Base.
 - Corregido que la ropa y el pelo unidos con MA Merge Armature permanecieran en su posición original al editar o previsualizar poses. Ahora siguen la pose de la vista previa y mantienen los ajustes y la colocación del avatar original.
+- Corregido un problema por el que, en avatares con la escala general modificada o que usan MA Floor Adjuster, la posición de la cabeza quedaba desplazada en poses boca arriba y similares, y las piernas podían quedar totalmente estiradas en VRChat. Lo mismo ocurría con las poses modificadas en el ajuste de animación y con algunas poses propias.
 
 ### Compatibilidad
 

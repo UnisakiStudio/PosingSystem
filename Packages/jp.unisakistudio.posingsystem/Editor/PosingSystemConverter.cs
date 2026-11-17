@@ -339,7 +339,10 @@ namespace jp.unisakistudio.posingsystemeditor
             InPhase(BuildPhase.Optimizing)
                 .BeforePlugin("com.anatawa12.avatar-optimizer")
                 .AfterPlugin("nadena.dev.modular-avatar")
-                .Run("Create posing system menu", ctx =>
+                // Every tool of the Transforming phase has finished (MA Floor Adjuster rebuilds the Humanoid
+                // in its late stage, after the recalibration above).
+                .Run("Center pose heads on the final avatar", CenterPoseHeadsOnFinalAvatar)
+                .Then.Run("Create posing system menu", ctx =>
                 {
                     try
                     {
@@ -593,8 +596,8 @@ namespace jp.unisakistudio.posingsystemeditor
             foreach (var state in stateMachine.states)
             {
                 var motion = state.state.motion;
-                // 本ツールが生成した姿勢モーション（FootHeight BlendTree配下）のみを対象にする
-                if (motion == null || motion.name.IndexOf("_USSPS_") != 0 || motion.name.IndexOf("_footheight") == -1)
+                // 本ツールが生成した姿勢モーションのみを対象にする（FootHeight機能がオフのときはBlendTreeに包まれていない）
+                if (!IsGeneratedPoseMotion(motion))
                 {
                     continue;
                 }
@@ -1990,7 +1993,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 workingAvatar.transform.position = Vector3.zero;
                 workingAvatar.transform.rotation = Quaternion.identity;
                 AnimationMode.EndSampling();
-                avatarHeightUnit = headBone.position.y / 2;
+                avatarHeightUnit = headBone.position.y / 2 / Mathf.Max(0.0001f, Mathf.Abs(workingAvatar.transform.lossyScale.y));
             }
             catch (System.Exception e)
             {
@@ -2044,7 +2047,6 @@ namespace jp.unisakistudio.posingsystemeditor
                                 continue;
                             }
 
-                            Vector3 headPosision = Vector3.zero;
                             var rootTxList = new List<float>();
                             var rootTyList = new List<float>();
                             var rootTzList = new List<float>();
@@ -2065,11 +2067,6 @@ namespace jp.unisakistudio.posingsystemeditor
                             try
                             {
                                 AnimationMode.StartAnimationMode();
-                                AnimationMode.BeginSampling();
-                                AnimationMode.SampleAnimationClip(workingAvatar, animationClip, 0);
-                                workingAvatar.transform.LookAt(new Vector3(0, 0, 1));
-                                AnimationMode.EndSampling();
-                                headPosision = workingAnimator.GetBoneTransform(HumanBodyBones.Head).transform.position;
 
                                 // The x, y and z curves normally share their key times: sample each time once.
                                 var rootAtTime = new Dictionary<float, Vector3>();
@@ -2098,11 +2095,6 @@ namespace jp.unisakistudio.posingsystemeditor
                                             AnimationUtility.GetFloatValue(workingAvatar, rootBinding, out rootT.y);
                                             rootBinding.propertyName = "RootT.z";
                                             AnimationUtility.GetFloatValue(workingAvatar, rootBinding, out rootT.z);
-
-                                            rootT -= GetHorizontalOffsetInRootUnits(
-                                                workingAvatar.transform,
-                                                headPosision,
-                                                workingAnimator.humanScale);
                                             rootAtTime.Add(keys[i].time, rootT);
                                         }
                                         if (binding.propertyName == "RootT.x")
@@ -2184,9 +2176,12 @@ namespace jp.unisakistudio.posingsystemeditor
                                     setCurve("RootQ.w", (keyframe, i) => keyframe.value);
                             }
                             ApplyClipRotation(newAnimationClip, animationDefine);
+                            // Last, on the finished clip: the adjustments and the turn above move the head too.
+                            // A rollover is centred through its whole motion below.
+                            if (!animationDefine.isRollover) CenterHeadAtStart(workingAvatar, newAnimationClip);
 
                             // 生成したアニメーションクリップをAnimatorControllerのサブアセットとして永続化
-                            newAnimationClip.name = "_USSPS_" + (animationDefine.animationClip != null ? animationDefine.animationClip.name : "Animation") + "_Processed";
+                            newAnimationClip.name = "_USSPS_" + (animationDefine.animationClip != null ? animationDefine.animationClip.name : "Animation") + ProcessedPoseMarker;
                             if (animationDefine.isRollover)
                             {
                                 // Compose only after the center pose's own adjustments have been applied.
@@ -3132,18 +3127,6 @@ namespace jp.unisakistudio.posingsystemeditor
             AnimationUtility.SetAnimationClipSettings(resetClip, clipSettings);
             EditorUtility.SetDirty(resetClip);
             return resetClip;
-        }
-
-        private static Vector3 GetHorizontalOffsetInRootUnits(
-            Transform avatarRoot,
-            Vector3 worldPosition,
-            float humanScale)
-        {
-            // RootT uses humanScale units. Rotate the world offset into avatar axes while
-            // preserving its meter magnitude, then normalize it by the humanoid scale.
-            var worldOffset = worldPosition - avatarRoot.position;
-            var avatarSpaceOffset = Quaternion.Inverse(avatarRoot.rotation) * worldOffset;
-            return new Vector3(avatarSpaceOffset.x, 0f, avatarSpaceOffset.z) / humanScale;
         }
 
         private static bool HasValidHumanoidAnimator(GameObject avatarObject)

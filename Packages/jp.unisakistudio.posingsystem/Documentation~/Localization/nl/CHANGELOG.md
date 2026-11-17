@@ -17,6 +17,7 @@
 - Wanneer de poseminiaturen niet kunnen worden bijgewerkt door een fout in een ander gereedschap (PS036), noemt de melding nu het gereedschap waarin de fout optreedt en toont ze de fout.
 - Probleem opgelost waarbij een voorberekening die al actueel was na elke herstart van Unity opnieuw om bijwerken kon vragen. Dit gebeurde wanneer 'Oorspronkelijke staande, hurkende en buikposes gebruiken' was ingeschakeld voor een avatar met een eigen Controller in de Base-laag.
 - Hersteld dat kleding en haar met MA Merge Armature op hun oorspronkelijke plek bleven bij het bewerken of vooraf bekijken van poses. Ze volgen nu de voorbeeldpose met behoud van de instellingen en plaatsing van de oorspronkelijke avatar.
+- Hersteld dat bij avatars met een gewijzigde totale schaal of met MA Floor Adjuster de hoofdpositie verschoven was in poses op de rug en vergelijkbare poses, waardoor de benen in VRChat volledig gestrekt konden raken. Hetzelfde gebeurde bij poses die in animatieaanpassing waren gewijzigd en bij sommige eigen poses.
 
 ### Compatibiliteit
 

@@ -17,6 +17,7 @@
 - Pokud obrázky póz nelze aktualizovat kvůli chybě v jiném nástroji (PS036), zpráva nyní uvádí nástroj, ve kterém chyba vzniká, a obsah chyby.
 - Opravena chyba, kdy již aktuální předgenerování mohlo po každém restartování Unity znovu vyžadovat aktualizaci. Docházelo k tomu, když byla volba „Použít původní pózy ve stoje, v přikrčení a na břiše“ zapnutá u avatara s vlastním Controllerem ve vrstvě Base.
 - Opraveno setrvávání oblečení a vlasů připojených přes MA Merge Armature na původním místě během úprav a náhledu pózy. Nyní sledují pózu náhledu, přičemž nastavení a rozmístění původního avataru zůstávají zachována.
+- Opraven problém, kdy u avatarů se změněným celkovým měřítkem nebo s MA Floor Adjuster byla poloha hlavy v pózách na zádech a podobných posunutá, takže nohy mohly být ve VRChat zcela natažené. Totéž se dělo u póz změněných při úpravě animace a u některých vlastních póz.
 
 ### Kompatibilita
 

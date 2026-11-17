@@ -17,6 +17,7 @@
 - Lorsque les vignettes des poses ne peuvent pas être actualisées à cause d'une erreur d'un autre outil (PS036), le message indique désormais l'outil dans lequel l'erreur se produit et affiche son contenu.
 - Correction d'un problème où un précalcul déjà à jour pouvait demander une nouvelle actualisation à chaque redémarrage d'Unity. Il se produisait lorsque « Utiliser les poses debout, accroupies et sur le ventre d'origine » était activé pour un avatar ayant son propre Controller dans la couche Base.
 - Correction des tenues et cheveux attachés avec MA Merge Armature qui restaient à leur position d’origine pendant la modification ou l’aperçu des poses. Ils suivent désormais la pose de l’aperçu sans changer les réglages ni le placement de l’avatar d’origine.
+- Correction d’un problème où, sur les avatars dont l’échelle globale a été modifiée ou qui utilisent MA Floor Adjuster, la tête était décalée dans les poses sur le dos et similaires, ce qui pouvait laisser les jambes complètement tendues dans VRChat. Le même problème touchait les poses modifiées dans l’ajustement de l’animation et certaines poses personnelles.
 
 ### Compatibilité
 

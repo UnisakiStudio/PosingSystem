@@ -17,6 +17,7 @@
 - Kun asentojen pikkukuvia ei voida päivittää toisen työkalun virheen vuoksi (PS036), ilmoitus kertoo nyt, missä työkalussa virhe on, ja näyttää virheen sisällön.
 - Korjattu ongelma, jossa jo ajan tasalla oleva esikoonti saattoi pyytää päivitystä uudelleen aina, kun Unity käynnistettiin uudelleen. Ongelma ilmeni, kun ”Käytä alkuperäisiä seisoma-, kyykky- ja vatsa-asentoja” oli käytössä avatarilla, jonka Base-tasolla on oma Controller.
 - Korjattu ongelma, jossa MA Merge Armaturella kiinnitetyt vaatteet ja hiukset jäivät alkuperäiseen paikkaansa asennon muokkauksen tai esikatselun aikana. Ne seuraavat nyt esikatseluasentoa alkuperäisen avatarin asetuksia ja sijoittelua muuttamatta.
+- Korjattu ongelma, jossa pään sijainti siirtyi selinmakuulla ja vastaavissa asennoissa, kun avatarin koko mittakaavaa oli muutettu tai käytössä oli MA Floor Adjuster, jolloin jalat saattoivat jäädä VRChatissa täysin suoriksi. Sama ongelma esiintyi animaatiosäädöllä muutetuissa asennoissa ja joissakin omissa asennoissa.
 
 ### Yhteensopivuus
 

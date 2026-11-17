@@ -24,31 +24,6 @@ namespace jp.unisakistudio.posingsystemeditor.tests
             objectsToDestroy.Clear();
         }
 
-        [TestCase(0.5f)]
-        [TestCase(1f)]
-        [TestCase(2f)]
-        public void GetHorizontalOffsetInRootUnits_NormalizesAvatarSpaceOffsetByHumanScale(float humanScale)
-        {
-            var avatarRoot = new GameObject("HorizontalOffsetTestAvatar");
-            objectsToDestroy.Add(avatarRoot);
-            avatarRoot.transform.SetPositionAndRotation(
-                new Vector3(2.5f, 1.25f, -3f),
-                Quaternion.Euler(0f, 37f, 0f));
-
-            var expectedOffset = new Vector3(0.35f, 0f, -0.6f);
-            var worldPosition = avatarRoot.transform.position
-                + avatarRoot.transform.rotation * (expectedOffset * humanScale + Vector3.up * 0.8f);
-
-            var actualOffset = GetHorizontalOffsetInRootUnits(
-                avatarRoot.transform,
-                worldPosition,
-                humanScale);
-
-            Assert.AreEqual(expectedOffset.x, actualOffset.x, 0.00001f);
-            Assert.AreEqual(0f, actualOffset.y, 0.00001f);
-            Assert.AreEqual(expectedOffset.z, actualOffset.z, 0.00001f);
-        }
-
         [TestCase(false)]
         [TestCase(true)]
         [TestCase(true, "_USSPS_movement_offset_Vertical_Test")]
@@ -128,18 +103,6 @@ namespace jp.unisakistudio.posingsystemeditor.tests
                 context.AssetSaver.Dispose();
                 AssetDatabase.DeleteAsset(assetRoot);
             }
-        }
-
-        private static Vector3 GetHorizontalOffsetInRootUnits(
-            Transform avatarRoot,
-            Vector3 worldPosition,
-            float humanScale)
-        {
-            var method = typeof(PosingSystemConverter).GetMethod(
-                "GetHorizontalOffsetInRootUnits",
-                System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static);
-            Assert.IsNotNull(method, "The horizontal RootT correction method must exist.");
-            return (Vector3)method.Invoke(null, new object[] { avatarRoot, worldPosition, humanScale });
         }
     }
 }
