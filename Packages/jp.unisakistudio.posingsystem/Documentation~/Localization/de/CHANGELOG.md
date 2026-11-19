@@ -18,6 +18,9 @@
 - Behoben: Eine bereits aktuelle Vorberechnung konnte nach jedem Neustart von Unity erneut eine Aktualisierung verlangen. Das trat auf, wenn „Ursprüngliche Steh-, Hock- und Bauchlage verwenden“ bei einem Avatar mit eigenem Controller in der Base-Ebene eingeschaltet war.
 - Behoben, dass mit MA Merge Armature angelegte Outfits und Haare beim Bearbeiten oder Vorschauen von Posen an ihrer ursprünglichen Position blieben. Sie folgen nun der Vorschaupose, während Einstellungen und Platzierung des Originalavatars erhalten bleiben.
 - Behoben, dass bei Avataren mit geänderter Gesamtskalierung oder mit MA Floor Adjuster die Kopfposition in Rückenlage und ähnlichen Posen verschoben war, sodass die Beine in VRChat vollständig gestreckt sein konnten. Dasselbe trat bei Posen auf, die in der Animationsanpassung geändert wurden, und bei manchen eigenen Posen.
+- Behoben: In Projekten mit Modular Avatar vor Version 1.17.0 erzeugten die Skripte von Unisaki Posing System einen Kompilierungsfehler (CS1061), sodass die Posenwerkzeuge nicht mehr verwendet werden konnten.
+- Behoben: Konnte bei einer Pose mit Umdrehen die Kopfposition nicht gemessen werden, stoppten die Vorberechnung oder der Avatar-Build mit „Die RootT-Verschiebung für die Kopfzentrierung beim Umdrehen konnte nicht gemessen werden“. Solche Posen werden jetzt ohne Korrektur der Kopfposition weiterverarbeitet, und in der Console erscheint eine Warnung.
+- Behoben: In VR wurde schon bei kurzem Senken des Kopfes (Nicken, leichtes Beugen usw.) der Wechsel ins Hocken oder Sitzen vollständig abgespielt, und die Rückkehr zum Stehen dauerte über eine Sekunde. Hebst du den Kopf zwischendurch wieder an, kehrt die Haltung von der aktuellen Stelle aus zurück. Außerdem bleibt die Haltung bei wiederholtem Auf und Ab wie bei Kniebeugen weniger hinter der tatsächlichen Bewegung zurück. Wenn du eine Vorberechnung verwendest, klicke auf „Vorberechnung aktualisieren“.
 
 ### Kompatibilität
 

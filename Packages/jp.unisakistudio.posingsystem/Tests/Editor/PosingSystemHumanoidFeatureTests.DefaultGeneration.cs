@@ -53,7 +53,7 @@ namespace jp.unisakistudio.posingsystemeditor.tests
             if (legacy)
             {
                 using (new PosingSystemControllerGeneration.Scope(root, false)) PrebuildPersistedSettings(ps);
-                ps.data = ps.data.Replace("\"controllerLogicVersion\":2", "\"controllerLogicVersion\":1");
+                ps.data = ps.data.Replace("\"controllerLogicVersion\":3", "\"controllerLogicVersion\":1");
                 Assert.That(PosingSystemConverter.IsPosingSystemDataUpdated(ps), Is.True, "alpha.3 cache must be invalidated");
             }
             string path = null;
@@ -101,7 +101,7 @@ namespace jp.unisakistudio.posingsystemeditor.tests
             if (cache == 2)
             {
                 using (new PosingSystemControllerGeneration.Scope(root, false)) PrebuildPersistedSettings(ps);
-                ps.data = ps.data.Replace("\"controllerLogicVersion\":2", "\"controllerLogicVersion\":1");
+                ps.data = ps.data.Replace("\"controllerLogicVersion\":3", "\"controllerLogicVersion\":1");
             }
             else if (cache != 0) PrebuildPersistedSettings(ps);
             if (cache == 3) ps.features.mirror = !ps.features.mirror;

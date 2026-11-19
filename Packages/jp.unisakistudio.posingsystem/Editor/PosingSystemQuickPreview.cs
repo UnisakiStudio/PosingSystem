@@ -75,9 +75,18 @@ namespace jp.unisakistudio.posingsystemeditor
                 if (mode == BoneProxyAttachmentMode.AsChildKeepWorldPose || mode == BoneProxyAttachmentMode.AsChildKeepRotation)
                     transform.rotation = item.rotation;
                 else transform.localRotation = Quaternion.identity;
-                if (item.proxy.matchScale) transform.localScale = Vector3.one;
+                if (MatchesScale(item.proxy)) transform.localScale = Vector3.one;
             }
         }
+
+        // "Match scale" exists since Modular Avatar 1.17.0, and this package also accepts older
+        // versions: naming the field directly stopped every script of the project from compiling
+        // there (CS1061). Without the field there is no such option to follow.
+        private static readonly System.Reflection.FieldInfo BoneProxyMatchScale =
+            typeof(ModularAvatarBoneProxy).GetField("matchScale");
+
+        internal static bool MatchesScale(ModularAvatarBoneProxy proxy) =>
+            BoneProxyMatchScale != null && BoneProxyMatchScale.FieldType == typeof(bool) && (bool)BoneProxyMatchScale.GetValue(proxy);
 
         // Merge Armature joins an outfit to the body at build time. Before that, the outfit's bones
         // follow the body only through a lock that runs while the component is enabled, and this

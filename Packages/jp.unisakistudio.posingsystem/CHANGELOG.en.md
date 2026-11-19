@@ -18,6 +18,9 @@
 - Fixed an issue where a prebuild that was already up to date could ask to be updated again every time Unity was restarted. It occurred with "Use original standing, crouching and prone poses" turned on for an avatar that has its own Controller in the Base layer.
 - Fixed outfits and hair attached with MA Merge Armature staying in their original positions while editing or previewing poses. They now follow the preview pose while preserving the original avatar settings and placement.
 - Fixed an issue where, on avatars whose overall scale was changed or that use MA Floor Adjuster, the head position was off in supine and similar poses, which could leave the legs fully stretched in VRChat. The same happened with poses changed in animation adjustment and with some custom poses.
+- Fixed an issue where, in projects using a Modular Avatar version older than 1.17.0, the scripts of Unisaki Posing System failed to compile (CS1061) and the pose tools could not be used.
+- Fixed an issue where, when the head position of a pose using Roll Over could not be measured, the prebuild or the avatar build stopped with "Could not measure RootT displacement for roll-over head centering". Such poses now continue without head position correction, and a warning is shown in the Console.
+- Fixed an issue in VR where even briefly lowering the head (nodding, bending slightly and so on) played the whole switch to the crouching or sitting posture, so returning to standing took more than a second. If the head returns to its height partway, the posture now goes back from where it is. Also reduced the posture continuing to lag behind your actual movement when moving up and down repeatedly, as in squats. If you use prebuilds, click Update prebuild.
 
 ### Compatibility
 

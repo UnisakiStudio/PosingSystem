@@ -18,6 +18,9 @@
 - Đã sửa lỗi khiến dữ liệu tạo trước vốn đã mới nhất vẫn có thể yêu cầu cập nhật lại mỗi lần khởi động lại Unity. Lỗi xảy ra khi bật "Dùng tư thế đứng, ngồi xổm và nằm sấp gốc" cho avatar có Controller riêng ở lớp Base.
 - Sửa trang phục và tóc gắn bằng MA Merge Armature còn ở vị trí gốc khi sửa hoặc xem trước tư thế. Nay chúng theo tư thế xem trước trong khi giữ thiết lập và cách bố trí avatar gốc.
 - Sửa lỗi vị trí đầu bị lệch ở tư thế nằm ngửa và các tư thế tương tự trên avatar đã đổi tỷ lệ toàn thân hoặc dùng MA Floor Adjuster, khiến chân có thể bị duỗi thẳng hoàn toàn trong VRChat. Lỗi tương tự cũng xảy ra với tư thế đã chỉnh trong Hiệu chỉnh hoạt ảnh và một số tư thế tự tạo.
+- Sửa lỗi trong dự án dùng Modular Avatar phiên bản trước 1.17.0, các script của Unisaki Posing System bị lỗi biên dịch (CS1061) khiến không thể dùng công cụ tư thế.
+- Sửa lỗi khi không đo được vị trí đầu ở tư thế dùng Lật người thì hiện “Không đo được độ dịch chuyển RootT để căn giữa đầu khi lật người” và dữ liệu tạo trước hoặc bản dựng avatar bị dừng. Nay các tư thế như vậy tiếp tục mà không hiệu chỉnh vị trí đầu, và cảnh báo được hiển thị trong Console.
+- Sửa lỗi trong VR chỉ cần cúi đầu một chút (gật đầu, hơi khom người, v.v.) cũng khiến việc chuyển sang tư thế ngồi xổm hoặc ngồi được phát đến hết, và mất hơn 1 giây mới trở lại tư thế đứng. Nếu đưa đầu về độ cao cũ giữa chừng, tư thế sẽ trở lại như cũ ngay từ vị trí đó. Cũng giảm tình trạng tư thế liên tục lệch so với chuyển động thực tế khi lên xuống lặp lại như khi squat. Nếu dùng dữ liệu tạo trước, hãy nhấn “Cập nhật dữ liệu tạo trước”.
 
 ### Tương thích
 

@@ -317,6 +317,10 @@
       "value": "[PosingSystem] Could not create the NDMF preview avatar in a valid Scene."
     },
     {
+      "key": "[PosingSystem] 寝返り「{0}」の頭の位置を計測できなかったため、頭の位置を補正せずに続行します。寝返りの途中で体が横にずれる場合は、このポーズのアニメーションと調整アニメーションを確認してください。",
+      "value": "[PosingSystem] The head position of the Roll Over pose \"{0}\" could not be measured, so processing continues without correcting its head position. If the body slides sideways during the roll over, check this pose's animation and its adjustment animation."
+    },
+    {
       "key": "[PosingSystem] 生成Motionの保存先AnimatorControllerが永続アセットではありません。",
       "value": "[PosingSystem] The target AnimatorController for saving generated Motion is not a persistent asset."
     },

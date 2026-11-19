@@ -397,6 +397,14 @@ namespace jp.unisakistudio.posingsystemeditor
                 Time = EditorApplication.timeSinceStartup, Lines = lines.ToList() });
         }
 
+        // Something that did not stop the operation but explains a later question (numbers only, no names).
+        private const string NoteCode = "note";
+        internal static void Note(string line) => Remember(null, NoteCode, new[] { line });
+
+        internal static List<string> Notes() => moments.Where(m => m.Code == NoteCode)
+            .SelectMany(m => m.Lines.Select(line => "[note " + (int)Math.Max(0, EditorApplication.timeSinceStartup - m.Time) + "s] " + line))
+            .GroupBy(line => line.Substring(line.IndexOf(']') + 1)).Select(group => group.Last()).ToList();
+
         // The object the checks ran on: the tool in the scene, or a copy made for a build.
         internal static void RememberInvalid(jp.unisakistudio.posingsystem.PosingSystem ps, List<PosingSystemDiagnostics.Issue> issues)
         {
@@ -453,6 +461,7 @@ namespace jp.unisakistudio.posingsystemeditor
             var tool = Resolve(ps);
             lines.AddRange(ToolDetails(tool));
             lines.AddRange(AtFailure(codes, tool));
+            lines.AddRange(Notes());
             lines.AddRange(ReadConsole(OtherErrors, whole: true).Select(ExceptionDetail).Where(s => s.Length > 0).Distinct().Take(3).Select(s => "[exception] " + s));
             return string.Join("\n",lines);
         }

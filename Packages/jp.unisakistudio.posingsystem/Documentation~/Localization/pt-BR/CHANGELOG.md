@@ -18,6 +18,9 @@
 - Corrigido um problema em que um pré-cálculo já atualizado podia pedir nova atualização toda vez que o Unity era reiniciado. Ocorria com "Usar poses originais em pé, agachado e de bruços" ativado em um avatar com seu próprio Controller na camada Base.
 - Corrigidas as roupas e os cabelos conectados com MA Merge Armature que permaneciam na posição original durante a edição ou prévia de poses. Agora acompanham a pose da prévia, preservando as configurações e o posicionamento do avatar original.
 - Corrigido um problema em que, em avatares com a escala geral alterada ou que usam MA Floor Adjuster, a posição da cabeça ficava deslocada em poses de costas e semelhantes, e as pernas podiam ficar totalmente esticadas no VRChat. O mesmo acontecia com poses alteradas no ajuste de animação e com algumas poses próprias.
+- Corrigido um problema em que, em projetos com uma versão do Modular Avatar anterior à 1.17.0, os scripts do Unisaki Posing System geravam um erro de compilação (CS1061) e as ferramentas de pose deixavam de funcionar.
+- Corrigido um problema em que, quando não era possível medir a posição da cabeça em uma pose que usa Virar, aparecia “Não foi possível medir o deslocamento RootT para centralizar a cabeça ao virar” e o pré-cálculo ou a compilação do avatar parava. Agora essas poses continuam sem correção da posição da cabeça, e um aviso é exibido na Console.
+- Corrigido um problema no VR em que apenas abaixar a cabeça por um instante (acenar com a cabeça, curvar-se levemente etc.) fazia a troca para a postura agachada ou sentada ser reproduzida até o fim, e voltar a ficar em pé levava mais de um segundo. Se a cabeça voltar à altura no meio da troca, a postura volta à original a partir dali. Também foi reduzido o descompasso contínuo entre a postura e o movimento real ao subir e descer repetidamente, como em agachamentos. Se você usa pré-cálculo, pressione “Atualizar pré-cálculo”.
 
 ### Compatibilidade
 

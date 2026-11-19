@@ -317,6 +317,10 @@
       "value": "[PosingSystem] Tidak dapat membuat avatar pratinjau NDMF dalam Scene yang valid."
     },
     {
+      "key": "[PosingSystem] 寝返り「{0}」の頭の位置を計測できなかったため、頭の位置を補正せずに続行します。寝返りの途中で体が横にずれる場合は、このポーズのアニメーションと調整アニメーションを確認してください。",
+      "value": "[PosingSystem] Posisi kepala pada pose Berguling “{0}” tidak dapat diukur, jadi proses dilanjutkan tanpa mengoreksi posisi kepala. Jika tubuh bergeser ke samping saat berguling, periksa animasi pose ini dan animasi penyesuaiannya."
+    },
+    {
       "key": "[PosingSystem] 生成Motionの保存先AnimatorControllerが永続アセットではありません。",
       "value": "[PosingSystem] AnimatorController tujuan untuk menyimpan Motion yang dihasilkan bukan aset persisten."
     },

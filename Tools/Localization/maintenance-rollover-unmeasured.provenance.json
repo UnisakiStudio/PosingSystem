@@ -1,0 +1,44 @@
+{
+  "authoring": "Claude AI, 2026-11-20",
+  "reason": "Roll Over head centering: a pose whose head position cannot be measured no longer stops the prebuild or the avatar build; the build continues without centring that pose and logs this Console warning (replaces the former exception text, which is no longer used by code)",
+  "keys": [
+    "[PosingSystem] 寝返り「{0}」の頭の位置を計測できなかったため、頭の位置を補正せずに続行します。寝返りの途中で体が横にずれる場合は、このポーズのアニメーションと調整アニメーションを確認してください。"
+  ],
+  "languages": [
+    "en",
+    "ar",
+    "bn",
+    "cs",
+    "da",
+    "de",
+    "es",
+    "fi",
+    "fr",
+    "he",
+    "hi",
+    "id",
+    "it",
+    "ko",
+    "nb",
+    "nl",
+    "pl",
+    "pt",
+    "pt-BR",
+    "ru",
+    "sv",
+    "ta",
+    "te",
+    "th",
+    "tr",
+    "uk",
+    "vi",
+    "zh-Hans",
+    "zh-Hant"
+  ],
+  "existing_terms_reused": [
+    "Roll Over (寝返り) as the feature name of each language's UI catalog (for example Roll Over, 뒤척이기, 翻身, Umdrehen, Se retourner)",
+    "Animation and adjustment animation (調整アニメーション) as in each language's UI catalog",
+    "[PosingSystem] prefix and Console as in the existing Console messages"
+  ],
+  "checks": "Placeholder {0} and the [PosingSystem] prefix verified by the batch script; catalog validation, coverage and terminology audits run after integration. No native-speaker review."
+}

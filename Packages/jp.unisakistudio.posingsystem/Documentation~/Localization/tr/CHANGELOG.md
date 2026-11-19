@@ -18,6 +18,9 @@
 - Zaten güncel olan bir ön oluşturmanın Unity her yeniden başlatıldığında yeniden güncelleme isteyebilmesi sorunu düzeltildi. Sorun, Base katmanında kendi Controller'ı bulunan bir avatarda "Özgün ayakta, çömelme ve yüzüstü pozları kullan" açıkken oluşuyordu.
 - Poz düzenleme ve önizleme sırasında MA Merge Armature ile giydirilen kıyafet ve saçların eski yerlerinde kalması düzeltildi. Artık asıl avatarın ayarları ve yerleşimi korunarak önizleme pozunu izlerler.
 - Genel ölçeği değiştirilmiş veya MA Floor Adjuster kullanan avatarlarda sırtüstü ve benzeri pozlarda baş konumunun kayması ve bunun sonucunda VRChat’te bacakların tamamen gerilmesi sorunu düzeltildi. Aynı sorun Animasyon Düzeltmesi’nde değiştirilen pozlarda ve bazı kendi pozlarınızda da oluşuyordu.
+- Modular Avatar’ın 1.17.0’dan eski bir sürümünü kullanan projelerde Unisaki Posing System betiklerinin derleme hatası (CS1061) vermesi ve poz araçlarının kullanılamaz hale gelmesi sorunu düzeltildi.
+- Dön kullanan bir pozda baş konumu ölçülemediğinde “Dönerken başı merkezlemek için RootT yer değiştirmesi ölçülemedi” iletisinin gösterilip ön oluşturmanın veya avatar derlemesinin durması sorunu düzeltildi. Ölçülemeyen pozlar artık baş konumu düzeltilmeden devam eder ve Console’da bir uyarı gösterilir.
+- VR’da başı yalnızca kısa bir an indirmenin (başla onaylama, hafifçe eğilme vb.) bile çömelme veya oturma duruşuna geçişin sonuna kadar oynatılmasına ve ayakta duruşa dönmenin bir saniyeden uzun sürmesine yol açması sorunu düzeltildi. Geçiş sırasında baş eski yüksekliğine dönerse duruş bulunduğu yerden eski haline döner. Squat gibi tekrar tekrar inip kalkarken duruşun gerçek hareketin gerisinde kalmaya devam etmesi de azaltıldı. Ön oluşturma kullanıyorsanız Ön oluşturmayı güncelle düğmesine basın.
 
 ### Uyumluluk
 

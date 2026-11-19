@@ -13,8 +13,21 @@ namespace jp.unisakistudio.posingsystemeditor
         // Retained by generated height wrappers, persisted prebuilds and NDMF copies.
         private const string RolloverCenteredMarker = "_USSPS_RolloverCentered";
 
+        // The numbers go to the Console and to the inquiry draft: they tell which of the causes it was.
+        private static void ReportUnmeasuredRollover(GameObject workingAvatar, Animator animator, AnimationClip clip, string poseName,
+            Vector3 origin, Vector3 xAxis, Vector3 zAxis)
+        {
+            var numbers = FormattableString.Invariant(
+                $"x=({xAxis.x:G4},{xAxis.z:G4}) z=({zAxis.x:G4},{zAxis.z:G4}) head=({origin.x:G4},{origin.y:G4},{origin.z:G4}) humanScale={animator.humanScale:G4} scale={workingAvatar.transform.lossyScale.y:G4} length={clip.length:G4}");
+            Debug.LogWarning(PosingSystemLocalization.Format(
+                "[PosingSystem] 寝返り「{0}」の頭の位置を計測できなかったため、頭の位置を補正せずに続行します。寝返りの途中で体が横にずれる場合は、このポーズのアニメーションと調整アニメーションを確認してください。",
+                string.IsNullOrEmpty(poseName) ? clip.name : poseName) + " [" + numbers + "]");
+            PosingSystemSupportReport.Note("[rollover] unmeasured " + numbers);
+        }
+
         /// <summary>Bake horizontal head centering into the final pose, leaving Y and joint motion intact.</summary>
-        private static void CenterRolloverHead(GameObject workingAvatar, AnimationClip clip)
+        /// <returns>False when the head's response could not be measured: the clip is left as it is.</returns>
+        private static bool CenterRolloverHead(GameObject workingAvatar, AnimationClip clip, string poseName = null)
         {
             var animator = workingAvatar != null ? workingAvatar.GetComponent<Animator>() : null;
             var head = animator != null && animator.isHuman ? animator.GetBoneTransform(HumanBodyBones.Head) : null;
@@ -61,7 +74,13 @@ namespace jp.unisakistudio.posingsystemeditor
                 var zAxis = Sample(probe, 0) - origin;
                 var determinant = xAxis.x * zAxis.z - xAxis.z * zAxis.x;
                 if (float.IsNaN(determinant) || float.IsInfinity(determinant) || Mathf.Abs(determinant) < .00000001f)
-                    throw new InvalidOperationException(PosingSystemLocalization.TextMessage("寝返りの頭位置補正で、RootTの移動量を計測できませんでした。"));
+                {
+                    // One pose that cannot be measured (seen with a root rotation of zero length and with
+                    // values out of float range) must not stop the whole prebuild, or an upload: this pose
+                    // keeps the horizontal position it has, every other pose is generated as usual.
+                    ReportUnmeasuredRollover(workingAvatar, animator, clip, poseName, origin, xAxis, zAxis);
+                    return false;
+                }
 
                 var values = new Dictionary<float, Vector2>();
                 Vector2 Evaluate(float time)
@@ -108,6 +127,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 Restore();
                 if (probe != null) Object.DestroyImmediate(probe);
             }
+            return true;
 
             Vector3 Sample(AnimationClip source, float time)
             {

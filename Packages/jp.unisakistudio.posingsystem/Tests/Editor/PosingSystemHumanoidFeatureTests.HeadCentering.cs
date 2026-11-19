@@ -265,7 +265,11 @@ namespace jp.unisakistudio.posingsystemeditor.tests
                 var adjuster = new GameObject("Floor");
                 adjuster.transform.SetParent(root.transform, false);
                 adjuster.transform.localPosition = new Vector3(0, floor, 0);
-                adjuster.AddComponent<ModularAvatarFloorAdjuster>();
+                // MA Floor Adjuster exists since Modular Avatar 1.17.0; the package also compiles with older versions,
+                // and its tests are compiled in every project that has the package.
+                var floorAdjuster = typeof(ModularAvatarScaleAdjuster).Assembly.GetType("nadena.dev.modular_avatar.core.ModularAvatarFloorAdjuster");
+                if (floorAdjuster == null) Assert.Ignore("MA Floor Adjuster needs Modular Avatar 1.17.0 or later.");
+                adjuster.AddComponent(floorAdjuster);
             }
             if (!options.HasFlag(HeadCase.NoPrebuild)) PrebuildPersistedSettings(ps);
             if (options.HasFlag(HeadCase.Stale))

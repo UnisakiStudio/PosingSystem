@@ -317,6 +317,10 @@
       "value": "[PosingSystem] Kunne ikke opprette NDMF-forhåndsvisningsavataren i en gyldig Scene."
     },
     {
+      "key": "[PosingSystem] 寝返り「{0}」の頭の位置を計測できなかったため、頭の位置を補正せずに続行します。寝返りの途中で体が横にずれる場合は、このポーズのアニメーションと調整アニメーションを確認してください。",
+      "value": "[PosingSystem] Hodets posisjon i Snu deg-posituren «{0}» kunne ikke måles, så arbeidet fortsetter uten å korrigere hodets posisjon. Hvis kroppen glir til siden under snuingen, kontroller animasjonen og justeringsanimasjonen til denne posituren."
+    },
+    {
       "key": "[PosingSystem] 生成Motionの保存先AnimatorControllerが永続アセットではありません。",
       "value": "[PosingSystem] Mål-AnimatorController for lagring av generert Motion er ikke et varig asset."
     },

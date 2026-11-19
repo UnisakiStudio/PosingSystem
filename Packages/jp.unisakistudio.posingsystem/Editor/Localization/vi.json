@@ -317,6 +317,10 @@
       "value": "[PosingSystem] Không thể tạo avatar xem trước NDMF trong một Scene hợp lệ."
     },
     {
+      "key": "[PosingSystem] 寝返り「{0}」の頭の位置を計測できなかったため、頭の位置を補正せずに続行します。寝返りの途中で体が横にずれる場合は、このポーズのアニメーションと調整アニメーションを確認してください。",
+      "value": "[PosingSystem] Không đo được vị trí đầu của tư thế Lật người “{0}”, nên quá trình tiếp tục mà không hiệu chỉnh vị trí đầu. Nếu cơ thể bị trượt sang bên khi lật người, hãy kiểm tra hoạt ảnh của tư thế này và hoạt ảnh hiệu chỉnh."
+    },
+    {
       "key": "[PosingSystem] 生成Motionの保存先AnimatorControllerが永続アセットではありません。",
       "value": "[PosingSystem] AnimatorController đích để lưu Motion được tạo không phải tài nguyên được lưu bền vững."
     },

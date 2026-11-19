@@ -317,6 +317,10 @@
       "value": "[PosingSystem] Avatara náhledu NDMF se nepodařilo vytvořit v platné Scene."
     },
     {
+      "key": "[PosingSystem] 寝返り「{0}」の頭の位置を計測できなかったため、頭の位置を補正せずに続行します。寝返りの途中で体が横にずれる場合は、このポーズのアニメーションと調整アニメーションを確認してください。",
+      "value": "[PosingSystem] Polohu hlavy v póze „{0}“ s funkcí Přetočit se nelze změřit, proto se pokračuje bez korekce polohy hlavy. Pokud se tělo během přetáčení posouvá do strany, zkontrolujte animaci této pózy a její animaci korekce."
+    },
+    {
       "key": "[PosingSystem] 生成Motionの保存先AnimatorControllerが永続アセットではありません。",
       "value": "[PosingSystem] Cílový AnimatorController pro uložení vygenerovaného Motion není trvalý asset."
     },

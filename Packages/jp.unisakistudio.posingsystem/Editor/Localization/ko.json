@@ -317,6 +317,10 @@
       "value": "[PosingSystem] NDMF 미리보기 아바타를 유효한 Scene에 생성하지 못했습니다."
     },
     {
+      "key": "[PosingSystem] 寝返り「{0}」の頭の位置を計測できなかったため、頭の位置を補正せずに続行します。寝返りの途中で体が横にずれる場合は、このポーズのアニメーションと調整アニメーションを確認してください。",
+      "value": "[PosingSystem] 뒤척이기 포즈 '{0}'의 머리 위치를 측정할 수 없어 머리 위치를 보정하지 않고 계속합니다. 뒤척이는 도중에 몸이 옆으로 밀리면 이 포즈의 애니메이션과 조정 애니메이션을 확인하세요."
+    },
+    {
       "key": "[PosingSystem] 生成Motionの保存先AnimatorControllerが永続アセットではありません。",
       "value": "[PosingSystem] 생성된 Motion을 저장할 대상 AnimatorController가 영구 에셋이 아닙니다."
     },

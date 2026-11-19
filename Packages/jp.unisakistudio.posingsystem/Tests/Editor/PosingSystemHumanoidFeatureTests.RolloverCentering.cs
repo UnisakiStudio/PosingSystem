@@ -13,8 +13,12 @@ namespace jp.unisakistudio.posingsystemeditor.tests
 {
     public partial class PosingSystemHumanoidFeatureTests
     {
-        private static object CenteringCall(string method, params object[] args) => typeof(PosingSystemConverter)
-            .GetMethod(method, BindingFlags.NonPublic | BindingFlags.Static).Invoke(null, args);
+        private static object CenteringCall(string method, params object[] args)
+        {
+            var target = typeof(PosingSystemConverter).GetMethod(method, BindingFlags.NonPublic | BindingFlags.Static);
+            // Optional parameters the caller leaves out take their declared defaults.
+            return target.Invoke(null, args.Concat(target.GetParameters().Skip(args.Length).Select(p => p.DefaultValue)).ToArray());
+        }
 
         private AnimationClip MovingRollover(float duration = 1, bool rootXZ = true)
         {
@@ -88,6 +92,36 @@ namespace jp.unisakistudio.posingsystemeditor.tests
             Assert.That(drift, Is.GreaterThan(.15f), "Fixture must move the head");
             Assert.That(residual, Is.LessThan(.0015f), "Maximum horizontal error, including interpolated frames");
             void Sample(AnimationClip clip, float time) { clip.SampleAnimation(root, time); root.transform.SetPositionAndRotation(position, rotation); }
+        }
+
+        // Inquiry c4d02a87 (2026-11-18): "寝返りの頭位置補正で、RootTの移動量を計測できませんでした" stopped the whole
+        // prebuild. The same check runs in the avatar build. A pose whose head does not answer to RootT is
+        // left as it is, with its numbers in the Console and in the inquiry draft.
+        [TestCase("zero root rotation")] [TestCase("root position out of range")] [TestCase("collapsed avatar")]
+        public void RolloverCentering_UnmeasurablePose_IsLeftAsItIsAndReported(string cause)
+        {
+            var source = MovingRollover();
+            switch (cause)
+            {
+                case "zero root rotation":
+                    foreach (var axis in "xyzw") AnimationUtility.SetEditorCurve(source, Binding("RootQ." + axis), AnimationCurve.Constant(0, 1, 0)); break;
+                case "root position out of range":
+                    AnimationUtility.SetEditorCurve(source, Binding("RootT.x"), AnimationCurve.Constant(0, 1, 1e12f)); break;
+                case "collapsed avatar": root.transform.localScale = new Vector3(0, 1, 1); break;
+            }
+            var result = Object.Instantiate(source); assets.Add(result);
+            // The curves, not the serialized clip: sampling fills in data Unity derives from them.
+            string Curves(AnimationClip clip) => string.Join("\n", AnimationUtility.GetCurveBindings(clip).Select(b => b.path + "|" + b.propertyName + "|" +
+                string.Join(",", AnimationUtility.GetEditorCurve(clip, b).keys.Select(k => k.time.ToString("R") + ":" + k.value.ToString("R")))));
+            var before = Curves(result);
+            var bones = root.GetComponentsInChildren<Transform>(true);
+            var poses = bones.Select(t => (t.localPosition, t.localRotation, t.localScale)).ToArray();
+            UnityEngine.TestTools.LogAssert.Expect(LogType.Warning, new System.Text.RegularExpressions.Regex(@"Probe pose.*\[x=\("));
+            Assert.That(CenteringCall("CenterRolloverHead", root, result, "Probe pose"), Is.False);
+            Assert.That(Curves(result), Is.EqualTo(before), "The clip is left as it is");
+            Assert.That(bones.Select(t => (t.localPosition, t.localRotation, t.localScale)).ToArray(), Is.EqualTo(poses), "The avatar is put back");
+            Assert.That(PosingSystemSupportReport.Notes().Any(line => line.Contains("[rollover] unmeasured x=(")), Is.True, "The inquiry draft gets the numbers");
+            Assert.That(PosingSystemSupportReport.Notes().Any(line => line.Contains("Probe pose")), Is.False, "No pose name leaves the project");
         }
 
         [Test] public void RolloverCentering_RepeatedBakeIsStable_AndSingleFrameWorks()

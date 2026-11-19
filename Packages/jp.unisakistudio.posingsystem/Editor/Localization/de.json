@@ -317,6 +317,10 @@
       "value": "[PosingSystem] Der NDMF-Vorschauavatar konnte nicht in einer gültigen Scene erstellt werden."
     },
     {
+      "key": "[PosingSystem] 寝返り「{0}」の頭の位置を計測できなかったため、頭の位置を補正せずに続行します。寝返りの途中で体が横にずれる場合は、このポーズのアニメーションと調整アニメーションを確認してください。",
+      "value": "[PosingSystem] Die Kopfposition der Umdrehen-Pose „{0}“ konnte nicht gemessen werden. Es wird ohne Korrektur der Kopfposition fortgefahren. Wenn der Körper beim Umdrehen seitlich verrutscht, prüfe die Animation und die Anpassungsanimation dieser Pose."
+    },
+    {
       "key": "[PosingSystem] 生成Motionの保存先AnimatorControllerが永続アセットではありません。",
       "value": "[PosingSystem] Der Ziel-AnimatorController zum Speichern des erzeugten Motion ist kein dauerhaftes Asset."
     },

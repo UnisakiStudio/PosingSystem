@@ -1,0 +1,89 @@
+{
+  "en": {
+    "[PosingSystem] 寝返り「{0}」の頭の位置を計測できなかったため、頭の位置を補正せずに続行します。寝返りの途中で体が横にずれる場合は、このポーズのアニメーションと調整アニメーションを確認してください。": "[PosingSystem] The head position of the Roll Over pose \"{0}\" could not be measured, so processing continues without correcting its head position. If the body slides sideways during the roll over, check this pose's animation and its adjustment animation."
+  },
+  "ar": {
+    "[PosingSystem] 寝返り「{0}」の頭の位置を計測できなかったため、頭の位置を補正せずに続行します。寝返りの途中で体が横にずれる場合は、このポーズのアニメーションと調整アニメーションを確認してください。": "[PosingSystem] تعذّر قياس موضع الرأس في وضعية التقلب «{0}»، لذا تستمر المعالجة دون تصحيح موضع الرأس. إذا انزلق الجسم جانبًا أثناء التقلب، فتحقق من حركة هذه الوضعية ومن حركة الضبط الخاصة بها."
+  },
+  "bn": {
+    "[PosingSystem] 寝返り「{0}」の頭の位置を計測できなかったため、頭の位置を補正せずに続行します。寝返りの途中で体が横にずれる場合は、このポーズのアニメーションと調整アニメーションを確認してください。": "[PosingSystem] “পাশ ফিরুন” পোজ “{0}”-এর মাথার অবস্থান মাপা যায়নি, তাই মাথার অবস্থান সংশোধন না করেই কাজ চলবে। পাশ ফেরার সময় শরীর পাশে সরে গেলে এই পোজের অ্যানিমেশন ও সমন্বয় অ্যানিমেশন পরীক্ষা করুন।"
+  },
+  "cs": {
+    "[PosingSystem] 寝返り「{0}」の頭の位置を計測できなかったため、頭の位置を補正せずに続行します。寝返りの途中で体が横にずれる場合は、このポーズのアニメーションと調整アニメーションを確認してください。": "[PosingSystem] Polohu hlavy v póze „{0}“ s funkcí Přetočit se nelze změřit, proto se pokračuje bez korekce polohy hlavy. Pokud se tělo během přetáčení posouvá do strany, zkontrolujte animaci této pózy a její animaci korekce."
+  },
+  "da": {
+    "[PosingSystem] 寝返り「{0}」の頭の位置を計測できなかったため、頭の位置を補正せずに続行します。寝返りの途中で体が横にずれる場合は、このポーズのアニメーションと調整アニメーションを確認してください。": "[PosingSystem] Hovedets position i Vend dig-posituren “{0}” kunne ikke måles, så der fortsættes uden at korrigere hovedets position. Hvis kroppen glider til siden under vendingen, skal du kontrollere denne positurs animation og justeringsanimation."
+  },
+  "de": {
+    "[PosingSystem] 寝返り「{0}」の頭の位置を計測できなかったため、頭の位置を補正せずに続行します。寝返りの途中で体が横にずれる場合は、このポーズのアニメーションと調整アニメーションを確認してください。": "[PosingSystem] Die Kopfposition der Umdrehen-Pose „{0}“ konnte nicht gemessen werden. Es wird ohne Korrektur der Kopfposition fortgefahren. Wenn der Körper beim Umdrehen seitlich verrutscht, prüfe die Animation und die Anpassungsanimation dieser Pose."
+  },
+  "es": {
+    "[PosingSystem] 寝返り「{0}」の頭の位置を計測できなかったため、頭の位置を補正せずに続行します。寝返りの途中で体が横にずれる場合は、このポーズのアニメーションと調整アニメーションを確認してください。": "[PosingSystem] No se pudo medir la posición de la cabeza de la pose «{0}» con Darse vuelta, así que se continúa sin corregir la posición de la cabeza. Si el cuerpo se desplaza hacia un lado al darse vuelta, revisa la animación de esta pose y su animación de ajuste."
+  },
+  "fi": {
+    "[PosingSystem] 寝返り「{0}」の頭の位置を計測できなかったため、頭の位置を補正せずに続行します。寝返りの途中で体が横にずれる場合は、このポーズのアニメーションと調整アニメーションを確認してください。": "[PosingSystem] Käänny-asennon ”{0}” pään sijaintia ei voitu mitata, joten jatketaan korjaamatta pään sijaintia. Jos vartalo liukuu sivulle kääntymisen aikana, tarkista tämän asennon animaatio ja säätöanimaatio."
+  },
+  "fr": {
+    "[PosingSystem] 寝返り「{0}」の頭の位置を計測できなかったため、頭の位置を補正せずに続行します。寝返りの途中で体が横にずれる場合は、このポーズのアニメーションと調整アニメーションを確認してください。": "[PosingSystem] La position de la tête de la pose « {0} » avec Se retourner n’a pas pu être mesurée ; le traitement continue sans corriger la position de la tête. Si le corps glisse sur le côté pendant le retournement, vérifiez l’animation de cette pose et son animation d’ajustement."
+  },
+  "he": {
+    "[PosingSystem] 寝返り「{0}」の頭の位置を計測できなかったため、頭の位置を補正せずに続行します。寝返りの途中で体が横にずれる場合は、このポーズのアニメーションと調整アニメーションを確認してください。": "[PosingSystem] לא ניתן היה למדוד את מיקום הראש בתנוחת ההתהפכות \"{0}\", ולכן העיבוד ממשיך בלי לתקן את מיקום הראש. אם הגוף זז הצידה במהלך ההתהפכות, בדקו את האנימציה של תנוחה זו ואת אנימציית ההתאמה שלה."
+  },
+  "hi": {
+    "[PosingSystem] 寝返り「{0}」の頭の位置を計測できなかったため、頭の位置を補正せずに続行します。寝返りの途中で体が横にずれる場合は、このポーズのアニメーションと調整アニメーションを確認してください。": "[PosingSystem] “करवट लें” वाले पोज़ “{0}” में सिर की स्थिति मापी नहीं जा सकी, इसलिए सिर की स्थिति सुधारे बिना काम जारी है। करवट लेते समय शरीर बगल की ओर खिसके तो इस पोज़ का ऐनिमेशन और उसका समायोजन ऐनिमेशन जाँचें।"
+  },
+  "id": {
+    "[PosingSystem] 寝返り「{0}」の頭の位置を計測できなかったため、頭の位置を補正せずに続行します。寝返りの途中で体が横にずれる場合は、このポーズのアニメーションと調整アニメーションを確認してください。": "[PosingSystem] Posisi kepala pada pose Berguling “{0}” tidak dapat diukur, jadi proses dilanjutkan tanpa mengoreksi posisi kepala. Jika tubuh bergeser ke samping saat berguling, periksa animasi pose ini dan animasi penyesuaiannya."
+  },
+  "it": {
+    "[PosingSystem] 寝返り「{0}」の頭の位置を計測できなかったため、頭の位置を補正せずに続行します。寝返りの途中で体が横にずれる場合は、このポーズのアニメーションと調整アニメーションを確認してください。": "[PosingSystem] Impossibile misurare la posizione della testa della posa «{0}» con Girarsi: si prosegue senza correggere la posizione della testa. Se durante la rotazione il corpo scivola di lato, controlla l’animazione di questa posa e la sua animazione di regolazione."
+  },
+  "ko": {
+    "[PosingSystem] 寝返り「{0}」の頭の位置を計測できなかったため、頭の位置を補正せずに続行します。寝返りの途中で体が横にずれる場合は、このポーズのアニメーションと調整アニメーションを確認してください。": "[PosingSystem] 뒤척이기 포즈 '{0}'의 머리 위치를 측정할 수 없어 머리 위치를 보정하지 않고 계속합니다. 뒤척이는 도중에 몸이 옆으로 밀리면 이 포즈의 애니메이션과 조정 애니메이션을 확인하세요."
+  },
+  "nb": {
+    "[PosingSystem] 寝返り「{0}」の頭の位置を計測できなかったため、頭の位置を補正せずに続行します。寝返りの途中で体が横にずれる場合は、このポーズのアニメーションと調整アニメーションを確認してください。": "[PosingSystem] Hodets posisjon i Snu deg-posituren «{0}» kunne ikke måles, så arbeidet fortsetter uten å korrigere hodets posisjon. Hvis kroppen glir til siden under snuingen, kontroller animasjonen og justeringsanimasjonen til denne posituren."
+  },
+  "nl": {
+    "[PosingSystem] 寝返り「{0}」の頭の位置を計測できなかったため、頭の位置を補正せずに続行します。寝返りの途中で体が横にずれる場合は、このポーズのアニメーションと調整アニメーションを確認してください。": "[PosingSystem] De hoofdpositie van de Omdraaien-pose ‘{0}’ kon niet worden gemeten; er wordt doorgegaan zonder de hoofdpositie te corrigeren. Schuift het lichaam tijdens het omdraaien opzij, controleer dan de animatie van deze pose en de aanpassingsanimatie."
+  },
+  "pl": {
+    "[PosingSystem] 寝返り「{0}」の頭の位置を計測できなかったため、頭の位置を補正せずに続行します。寝返りの途中で体が横にずれる場合は、このポーズのアニメーションと調整アニメーションを確認してください。": "[PosingSystem] Nie można zmierzyć położenia głowy w pozie „{0}” z funkcją „Obróć się”, więc praca jest kontynuowana bez korekty położenia głowy. Jeśli ciało przesuwa się w bok podczas obracania, sprawdź animację tej pozy i jej animację korekcji."
+  },
+  "pt": {
+    "[PosingSystem] 寝返り「{0}」の頭の位置を計測できなかったため、頭の位置を補正せずに続行します。寝返りの途中で体が横にずれる場合は、このポーズのアニメーションと調整アニメーションを確認してください。": "[PosingSystem] Não foi possível medir a posição da cabeça da pose «{0}» com Virar, pelo que o processo continua sem corrigir a posição da cabeça. Se o corpo deslizar para o lado durante a viragem, verifique a animação desta pose e a animação de ajuste."
+  },
+  "pt-BR": {
+    "[PosingSystem] 寝返り「{0}」の頭の位置を計測できなかったため、頭の位置を補正せずに続行します。寝返りの途中で体が横にずれる場合は、このポーズのアニメーションと調整アニメーションを確認してください。": "[PosingSystem] Não foi possível medir a posição da cabeça da pose “{0}” com Virar, então o processo continua sem corrigir a posição da cabeça. Se o corpo deslizar para o lado durante a virada, verifique a animação desta pose e a animação de ajuste."
+  },
+  "ru": {
+    "[PosingSystem] 寝返り「{0}」の頭の位置を計測できなかったため、頭の位置を補正せずに続行します。寝返りの途中で体が横にずれる場合は、このポーズのアニメーションと調整アニメーションを確認してください。": "[PosingSystem] Не удалось измерить положение головы в позе «{0}» с функцией «Перевернуться», поэтому обработка продолжается без коррекции положения головы. Если во время переворота тело смещается в сторону, проверьте анимацию этой позы и её анимацию коррекции."
+  },
+  "sv": {
+    "[PosingSystem] 寝返り「{0}」の頭の位置を計測できなかったため、頭の位置を補正せずに続行します。寝返りの途中で体が横にずれる場合は、このポーズのアニメーションと調整アニメーションを確認してください。": "[PosingSystem] Huvudets position i Vänd dig-posen ”{0}” kunde inte mätas, så arbetet fortsätter utan att huvudets position korrigeras. Om kroppen glider åt sidan under vändningen, kontrollera posens animation och justeringsanimation."
+  },
+  "ta": {
+    "[PosingSystem] 寝返り「{0}」の頭の位置を計測できなかったため、頭の位置を補正せずに続行します。寝返りの途中で体が横にずれる場合は、このポーズのアニメーションと調整アニメーションを確認してください。": "[PosingSystem] “புரளு” போஸ் “{0}”-இன் தலை இடத்தை அளவிட முடியவில்லை, எனவே தலை இடத்தைத் திருத்தாமல் தொடர்கிறது. புரளும்போது உடல் பக்கவாட்டில் நகர்ந்தால், இந்தப் போஸின் அசைவூட்டத்தையும் திருத்த அசைவூட்டத்தையும் சரிபார்க்கவும்."
+  },
+  "te": {
+    "[PosingSystem] 寝返り「{0}」の頭の位置を計測できなかったため、頭の位置を補正せずに続行します。寝返りの途中で体が横にずれる場合は、このポーズのアニメーションと調整アニメーションを確認してください。": "[PosingSystem] «పక్కకు తిరుగు» భంగిమ “{0}” తల స్థానాన్ని కొలవలేకపోయాం, కాబట్టి తల స్థానాన్ని సరిదిద్దకుండానే కొనసాగుతుంది. పక్కకు తిరిగేటప్పుడు శరీరం పక్కకు జరిగితే, ఈ భంగిమ యానిమేషన్‌ను, సర్దుబాటు యానిమేషన్‌ను తనిఖీ చేయండి."
+  },
+  "th": {
+    "[PosingSystem] 寝返り「{0}」の頭の位置を計測できなかったため、頭の位置を補正せずに続行します。寝返りの途中で体が横にずれる場合は、このポーズのアニメーションと調整アニメーションを確認してください。": "[PosingSystem] วัดตำแหน่งศีรษะของท่าพลิกตัว “{0}” ไม่ได้ จึงดำเนินการต่อโดยไม่ปรับตำแหน่งศีรษะ หากร่างกายเลื่อนไปด้านข้างระหว่างพลิกตัว ให้ตรวจสอบแอนิเมชันของท่านี้และแอนิเมชันปรับแต่ง"
+  },
+  "tr": {
+    "[PosingSystem] 寝返り「{0}」の頭の位置を計測できなかったため、頭の位置を補正せずに続行します。寝返りの途中で体が横にずれる場合は、このポーズのアニメーションと調整アニメーションを確認してください。": "[PosingSystem] Dön kullanan “{0}” pozunun baş konumu ölçülemedi; baş konumu düzeltilmeden devam ediliyor. Dönme sırasında vücut yana kayarsa bu pozun animasyonunu ve düzeltme animasyonunu kontrol edin."
+  },
+  "uk": {
+    "[PosingSystem] 寝返り「{0}」の頭の位置を計測できなかったため、頭の位置を補正せずに続行します。寝返りの途中で体が横にずれる場合は、このポーズのアニメーションと調整アニメーションを確認してください。": "[PosingSystem] Не вдалося виміряти положення голови в позі «{0}» з функцією «Перевернутися», тому обробка триває без корекції положення голови. Якщо під час перевертання тіло зсувається вбік, перевірте анімацію цієї пози та її анімацію корекції."
+  },
+  "vi": {
+    "[PosingSystem] 寝返り「{0}」の頭の位置を計測できなかったため、頭の位置を補正せずに続行します。寝返りの途中で体が横にずれる場合は、このポーズのアニメーションと調整アニメーションを確認してください。": "[PosingSystem] Không đo được vị trí đầu của tư thế Lật người “{0}”, nên quá trình tiếp tục mà không hiệu chỉnh vị trí đầu. Nếu cơ thể bị trượt sang bên khi lật người, hãy kiểm tra hoạt ảnh của tư thế này và hoạt ảnh hiệu chỉnh."
+  },
+  "zh-Hans": {
+    "[PosingSystem] 寝返り「{0}」の頭の位置を計測できなかったため、頭の位置を補正せずに続行します。寝返りの途中で体が横にずれる場合は、このポーズのアニメーションと調整アニメーションを確認してください。": "[PosingSystem] 无法测量翻身姿势“{0}”的头部位置，因此将不校正该姿势的头部位置并继续。如果翻身过程中身体向侧面偏移，请检查此姿势的动画和调整动画。"
+  },
+  "zh-Hant": {
+    "[PosingSystem] 寝返り「{0}」の頭の位置を計測できなかったため、頭の位置を補正せずに続行します。寝返りの途中で体が横にずれる場合は、このポーズのアニメーションと調整アニメーションを確認してください。": "[PosingSystem] 無法測量翻身姿勢「{0}」的頭部位置，因此將不校正該姿勢的頭部位置並繼續。如果翻身過程中身體向側面偏移，請檢查此姿勢的動畫和調整動畫。"
+  }
+}

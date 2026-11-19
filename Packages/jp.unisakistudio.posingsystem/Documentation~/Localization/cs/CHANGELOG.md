@@ -18,6 +18,9 @@
 - Opravena chyba, kdy již aktuální předgenerování mohlo po každém restartování Unity znovu vyžadovat aktualizaci. Docházelo k tomu, když byla volba „Použít původní pózy ve stoje, v přikrčení a na břiše“ zapnutá u avatara s vlastním Controllerem ve vrstvě Base.
 - Opraveno setrvávání oblečení a vlasů připojených přes MA Merge Armature na původním místě během úprav a náhledu pózy. Nyní sledují pózu náhledu, přičemž nastavení a rozmístění původního avataru zůstávají zachována.
 - Opraven problém, kdy u avatarů se změněným celkovým měřítkem nebo s MA Floor Adjuster byla poloha hlavy v pózách na zádech a podobných posunutá, takže nohy mohly být ve VRChat zcela natažené. Totéž se dělo u póz změněných při úpravě animace a u některých vlastních póz.
+- Opravena chyba, kdy v projektech s verzí Modular Avatar starší než 1.17.0 skripty Unisaki Posing System skončily chybou kompilace (CS1061) a nástroje pro pózy nebylo možné používat.
+- Opravena chyba, kdy se při nemožnosti změřit polohu hlavy u pózy s funkcí Přetočit se zobrazilo „Nelze změřit posun RootT pro vycentrování hlavy při přetáčení“ a předgenerování nebo sestavení avatara se zastavilo. Takové pózy nyní pokračují bez korekce polohy hlavy a v Console se zobrazí varování.
+- Opravena chyba ve VR, kdy se i při krátkém sklonění hlavy (přikývnutí, mírné předklonění apod.) přechod do podřepu nebo sedu přehrál celý a návrat do stoje trval déle než sekundu. Pokud se hlava v průběhu vrátí do původní výšky, postoj se vrátí z aktuálního místa. Zmírněno bylo také trvalé zaostávání postoje za skutečným pohybem při opakovaném pohybu nahoru a dolů, například při dřepech. Pokud používáte předgenerování, stiskněte Aktualizovat předgenerování.
 
 ### Kompatibilita
 

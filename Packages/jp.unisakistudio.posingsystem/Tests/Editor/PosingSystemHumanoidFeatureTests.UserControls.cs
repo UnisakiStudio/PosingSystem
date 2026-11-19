@@ -505,7 +505,10 @@ MonoBehaviour:
             accessory.transform.localScale = Vector3.one * .8f;
             var proxy = accessory.AddComponent<ModularAvatarBoneProxy>();
             proxy.boneReference = HumanBodyBones.Head; proxy.attachmentMode = mode;
-            proxy.matchScale = matchScale;
+            // The option exists since Modular Avatar 1.17.0; the package also compiles with older versions.
+            var matchScaleField = typeof(ModularAvatarBoneProxy).GetField("matchScale");
+            if (matchScaleField == null) Assume.That(matchScale, Is.False, "Match scale needs Modular Avatar 1.17.0 or later.");
+            else matchScaleField.SetValue(proxy, matchScale);
             var original = (accessory.transform.parent, accessory.transform.localPosition, accessory.transform.localRotation, accessory.transform.localScale);
             var expected = Object.Instantiate(root); assets.Add(expected);
             var expectedAccessory = expected.transform.Find("Glasses");

@@ -18,6 +18,9 @@
 - Rettet et problem der et forhåndsbygg som allerede var oppdatert, kunne be om oppdatering på nytt hver gang Unity ble startet på nytt. Det skjedde når «Bruk opprinnelige stå-, huk- og mageleiepositurer» var slått på for en avatar med egen Controller i Base-laget.
 - Rettet at klær og hår festet med MA Merge Armature ble stående på opprinnelig plass under redigering eller forhåndsvisning av positurer. De følger nå forhåndsvisningens positur mens originalavatarens innstillinger og plassering beholdes.
 - Rettet at hodets posisjon ble forskjøvet i ryggleie og lignende positurer på avatarer med endret samlet skala eller med MA Floor Adjuster, slik at bena kunne bli helt strake i VRChat. Det samme skjedde med positurer endret i animasjonsjustering og med noen egne positurer.
+- Rettet et problem der skriptene i Unisaki Posing System ga en kompileringsfeil (CS1061) i prosjekter med en Modular Avatar-versjon eldre enn 1.17.0, slik at positurverktøyene ikke kunne brukes.
+- Rettet et problem der forhåndsbygget eller avatarbygget stoppet med «Kunne ikke måle RootT-forskyvningen for hodesentrering ved snuing» når hodets posisjon ikke kunne måles i en positur som bruker Snu deg. Slike positurer fortsetter nå uten korrigering av hodets posisjon, og en advarsel vises i Console.
+- Rettet et problem i VR der selv en kort senking av hodet (et nikk, en lett bøyning o.l.) spilte av hele byttet til huk eller sittende, slik at det tok over ett sekund å komme tilbake til stående. Løfter du hodet igjen underveis, går stillingen tilbake derfra. Stillingen henger også mindre etter den faktiske bevegelsen når du beveger deg opp og ned gjentatte ganger, som ved knebøy. Bruker du forhåndsbygg, trykker du «Oppdater forhåndsbygget».
 
 ### Kompatibilitet
 

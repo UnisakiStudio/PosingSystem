@@ -18,6 +18,9 @@
 - Rettede et problem, hvor en forberegning, der allerede var opdateret, kunne bede om opdatering igen, hver gang Unity blev genstartet. Det skete, når "Brug oprindelige stående, hug- og mavepositurer" var slået til for en avatar med sin egen Controller i Base-laget.
 - Rettet, at tøj og hår monteret med MA Merge Armature blev på deres oprindelige plads under redigering eller forhåndsvisning af positurer. De følger nu forhåndsvisningens positur, mens originalavatarens indstillinger og placering bevares.
 - Rettet, at hovedets position blev forskudt i rygliggende og lignende positurer på avatarer med ændret samlet skala eller med MA Floor Adjuster, så benene kunne blive helt strakte i VRChat. Det samme skete med positurer ændret i animationsjustering og med nogle egne positurer.
+- Rettede et problem, hvor scripts i Unisaki Posing System gav en kompileringsfejl (CS1061) i projekter med en Modular Avatar-version før 1.17.0, så positurværktøjerne ikke kunne bruges.
+- Rettede et problem, hvor forberegningen eller avatar-buildet stoppede med “RootT-forskydningen til hovedcentrering ved vending kunne ikke måles”, når hovedets position ikke kunne måles i en positur, der bruger Vend dig. Sådanne positurer fortsætter nu uden korrektion af hovedets position, og der vises en advarsel i Console.
+- Rettede et problem i VR, hvor selv en kort sænkning af hovedet (et nik, en let bøjning osv.) afspillede hele skiftet til på hug eller siddende, så det tog over et sekund at komme tilbage til stående. Hæver du hovedet igen undervejs, vender stillingen tilbage derfra. Stillingen halter også mindre efter den faktiske bevægelse, når du bevæger dig op og ned gentagne gange som ved squats. Bruger du forberegning, skal du trykke ”Opdatér forberegning”.
 
 ### Kompatibilitet
 

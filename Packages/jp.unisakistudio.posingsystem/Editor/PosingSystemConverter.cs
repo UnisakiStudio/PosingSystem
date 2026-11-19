@@ -1391,7 +1391,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 autoPoseLogicVersion = 4,
                 importedMotionLogicVersion = 3,
                 generatedAssetLogicVersion = 1,
-                controllerLogicVersion = 2, // Desktop one-evaluation is now standard; invalidate alpha.3 prebuilds.
+                controllerLogicVersion = 3, // 3: a VR pose change turns back when the user does. 2: desktop one-evaluation is standard.
                 floatingPhotographyLogicVersion = 1, // Do not reuse a prebuild which samples the displaced photography head.
                 autoImportAvatarAnimations = posingSystem.autoImportAvatarAnimations,
                 importedMotionInputs = ImportedMotionInputSignature(posingSystem),
@@ -2199,7 +2199,7 @@ namespace jp.unisakistudio.posingsystemeditor
                                     finally { Object.DestroyImmediate(side); }
                                 }
                                 // An empty side field preserves existing authored-roll settings.
-                                CenterRolloverHead(workingAvatar, newAnimationClip);
+                                CenterRolloverHead(workingAvatar, newAnimationClip, animationDefine.displayName);
                                 newAnimationClip.name += RolloverCenteredMarker;
                             }
                             SaveGeneratedAsset(newAnimationClip, animatorController, assetSaver);

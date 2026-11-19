@@ -317,6 +317,10 @@
       "value": "[PosingSystem] 无法在有效的Scene中创建NDMF预览虚拟形象。"
     },
     {
+      "key": "[PosingSystem] 寝返り「{0}」の頭の位置を計測できなかったため、頭の位置を補正せずに続行します。寝返りの途中で体が横にずれる場合は、このポーズのアニメーションと調整アニメーションを確認してください。",
+      "value": "[PosingSystem] 无法测量翻身姿势“{0}”的头部位置，因此将不校正该姿势的头部位置并继续。如果翻身过程中身体向侧面偏移，请检查此姿势的动画和调整动画。"
+    },
+    {
       "key": "[PosingSystem] 生成Motionの保存先AnimatorControllerが永続アセットではありません。",
       "value": "[PosingSystem] 用于保存生成Motion的目标AnimatorController不是持久化资源。"
     },

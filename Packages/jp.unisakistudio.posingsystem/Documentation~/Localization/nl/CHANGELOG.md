@@ -18,6 +18,9 @@
 - Probleem opgelost waarbij een voorberekening die al actueel was na elke herstart van Unity opnieuw om bijwerken kon vragen. Dit gebeurde wanneer 'Oorspronkelijke staande, hurkende en buikposes gebruiken' was ingeschakeld voor een avatar met een eigen Controller in de Base-laag.
 - Hersteld dat kleding en haar met MA Merge Armature op hun oorspronkelijke plek bleven bij het bewerken of vooraf bekijken van poses. Ze volgen nu de voorbeeldpose met behoud van de instellingen en plaatsing van de oorspronkelijke avatar.
 - Hersteld dat bij avatars met een gewijzigde totale schaal of met MA Floor Adjuster de hoofdpositie verschoven was in poses op de rug en vergelijkbare poses, waardoor de benen in VRChat volledig gestrekt konden raken. Hetzelfde gebeurde bij poses die in animatieaanpassing waren gewijzigd en bij sommige eigen poses.
+- Probleem opgelost waarbij in projecten met een Modular Avatar-versie ouder dan 1.17.0 de scripts van Unisaki Posing System een compilatiefout (CS1061) gaven, waardoor de posegereedschappen niet meer konden worden gebruikt.
+- Probleem opgelost waarbij, als de hoofdpositie van een pose met Omdraaien niet kon worden gemeten, ‘De RootT-verplaatsing voor hoofdcentrering bij het omdraaien kon niet worden gemeten’ verscheen en de voorberekening of de avatarbuild stopte. Zulke poses gaan nu door zonder correctie van de hoofdpositie, en de Console toont een waarschuwing.
+- Probleem opgelost waarbij in VR al bij het kort laten zakken van het hoofd (knikken, licht bukken enz.) de overgang naar hurken of zitten volledig werd afgespeeld, zodat terugkeren naar staan meer dan een seconde duurde. Breng je het hoofd halverwege terug op hoogte, dan keert de houding vanaf dat punt terug. Ook loopt de houding bij herhaald op en neer bewegen, zoals bij squats, minder achter op je werkelijke beweging. Gebruik je voorberekening, klik dan op Voorberekening bijwerken.
 
 ### Compatibiliteit
 

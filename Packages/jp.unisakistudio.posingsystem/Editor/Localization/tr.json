@@ -317,6 +317,10 @@
       "value": "[PosingSystem] NDMF önizleme avatarı geçerli bir Scene içinde oluşturulamadı."
     },
     {
+      "key": "[PosingSystem] 寝返り「{0}」の頭の位置を計測できなかったため、頭の位置を補正せずに続行します。寝返りの途中で体が横にずれる場合は、このポーズのアニメーションと調整アニメーションを確認してください。",
+      "value": "[PosingSystem] Dön kullanan “{0}” pozunun baş konumu ölçülemedi; baş konumu düzeltilmeden devam ediliyor. Dönme sırasında vücut yana kayarsa bu pozun animasyonunu ve düzeltme animasyonunu kontrol edin."
+    },
+    {
       "key": "[PosingSystem] 生成Motionの保存先AnimatorControllerが永続アセットではありません。",
       "value": "[PosingSystem] Üretilen Motion'ı kaydetmek için hedeflenen AnimatorController kalıcı bir varlık değil."
     },
