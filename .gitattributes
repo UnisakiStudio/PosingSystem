@@ -1,0 +1,6 @@
+# The tests are development files. They are not part of the released package: a package installed by
+# ALCOM / VCC lies in the Packages folder, where Unity compiles its tests in every user's project.
+# `git archive`, which the release scripts read, leaves these paths out; .github/workflows/release.yml
+# removes them itself.
+Packages/jp.unisakistudio.posingsystem/Tests export-ignore
+Packages/jp.unisakistudio.posingsystem/Tests.meta export-ignore

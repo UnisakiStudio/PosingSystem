@@ -41,6 +41,16 @@ jobs:
       - name: Checkout
         uses: actions/checkout@3df4ab11eba7bda6032a0b82a6bb43b11571feac
 
+      # The tests are development files and are not released (see .gitattributes): Unity would compile
+      # them in every user's project. Removed here, before the zip and the list of .meta files are made.
+      - name: Remove Tests From The Package
+        run: |
+          rm -rf "${{ env.packagePath }}/Tests" "${{ env.packagePath }}/Tests.meta"
+          if find "${{ env.packagePath }}" -iname 'Tests' -o -iname 'Tests.meta' -o -iname '*tests.asmdef' | grep .; then
+            echo "The package still contains tests." >&2
+            exit 1
+          fi
+
       # Get the Package version based on the package.json file
       - name: Get Version
         id: version
