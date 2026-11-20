@@ -31,6 +31,7 @@ a { color: #2269b8; } a:visited { color: #7952ad; } li { margin-block: .35rem; }
 <li>Fixed an issue where, in projects using a Modular Avatar version older than 1.17.0, the scripts of Unisaki Posing System failed to compile (CS1061) and the pose tools could not be used.</li>
 <li>Fixed an issue where, when the head position of a pose using Roll Over could not be measured, the prebuild or the avatar build stopped with &quot;Could not measure RootT displacement for roll-over head centering&quot;. Such poses now continue without head position correction, and a warning is shown in the Console.</li>
 <li>Fixed an issue where, if you rolled over by jumping while lying down and then stood up right away before landing, the avatar stayed in the lying pose even though you were standing. It did not recover until you took a lying posture again. If you use prebuilds, click Update prebuild.</li>
+<li>Fixed an issue where, after sitting on a chair or similar seat in a world for only a few seconds and standing up again, the legs no longer took the shape of the pose and did not recover until you switched to another pose. Also fixed the viewpoint no longer matching the pose after getting up from a chair in desktop mode.</li>
 </ul>
 <h3>Compatibility</h3>
 <ul>

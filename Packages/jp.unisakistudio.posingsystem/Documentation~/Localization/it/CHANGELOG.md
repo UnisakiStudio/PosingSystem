@@ -21,6 +21,7 @@
 - Corretto un problema per cui, nei progetti con una versione di Modular Avatar precedente alla 1.17.0, gli script di Unisaki Posing System generavano un errore di compilazione (CS1061) e gli strumenti di posa non erano più utilizzabili.
 - Corretto un problema per cui, se non era possibile misurare la posizione della testa in una posa che usa Girarsi, compariva «Impossibile misurare lo spostamento RootT per il centraggio della testa durante la rotazione» e il precalcolo o la build dell’avatar si interrompeva. Ora queste pose proseguono senza correggere la posizione della testa e nella Console viene mostrato un avviso.
 - Corretto un problema per cui, se ci si alzava subito dopo essersi girati con un salto da sdraiati, prima di atterrare, l’avatar restava nella posa sdraiata pur essendo in piedi. Non tornava normale finché non ci si sdraiava di nuovo. Se usi il precalcolo, premi «Aggiorna precalcolo».
+- Corretto un problema per cui, sedendosi solo per pochi secondi su una sedia o simili in un mondo e rialzandosi, le gambe non tornavano nella forma della posa finché non si cambiava posa. Corretto anche il punto di vista che in desktop non corrispondeva più alla posa dopo essersi alzati da una sedia.
 
 ### Compatibilità
 

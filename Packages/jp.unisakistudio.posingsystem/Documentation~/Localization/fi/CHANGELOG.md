@@ -21,6 +21,7 @@
 - Korjattu ongelma, jossa Unisaki Posing Systemin skriptit aiheuttivat käännösvirheen (CS1061) projekteissa, joissa on Modular Avatarin 1.17.0:aa vanhempi versio, eikä asentotyökaluja voinut käyttää.
 - Korjattu ongelma, jossa esikoonti tai avatarin koonti pysähtyi ilmoitukseen ”RootT-siirtymää pään keskittämiseksi kääntyessä ei voitu mitata”, kun Käänny-toimintoa käyttävän asennon pään sijaintia ei voitu mitata. Tällaiset asennot jatkuvat nyt ilman pään sijainnin korjausta, ja Consoleen tulee varoitus.
 - Korjattu ongelma, jossa avatar jäi makuuasentoon, vaikka seisoit, jos käännyit makuulla hyppäämällä ja nousit heti sen jälkeen ennen alastuloa. Se palautui vasta, kun menit uudelleen makuulle. Jos käytät esikoontia, paina ”Päivitä esikoonti”.
+- Korjattu ongelma, jossa jalat eivät enää olleet asennon muotoiset, jos istuit maailmassa tuolilla tai vastaavalla vain muutaman sekunnin ja nousit ylös. Ne palautuivat vasta, kun vaihdoit asentoa. Korjattu myös, että näkymän sijainti ei työpöytätilassa enää vastannut asentoa tuolilta nousemisen jälkeen.
 
 ### Yhteensopivuus
 

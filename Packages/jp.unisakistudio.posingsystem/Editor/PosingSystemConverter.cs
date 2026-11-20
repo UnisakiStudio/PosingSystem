@@ -4847,6 +4847,9 @@ namespace jp.unisakistudio.posingsystemeditor
             }
 
             animator.parameters = parameters.ToArray();
+            // VRChat's Sitting controller writes tracking outside this merge; write the merged values again after it.
+            // Its own parameter stays inside this controller and is not an avatar parameter.
+            PosingSystemStationSettle.Apply(animator);
             RegisterGeneratedController(controllerContext, maMergeAnimator, animator);
             AddModularAvatarParameters(maObject, parameters);
         }

@@ -21,6 +21,7 @@
 - Probleem opgelost waarbij in projecten met een Modular Avatar-versie ouder dan 1.17.0 de scripts van Unisaki Posing System een compilatiefout (CS1061) gaven, waardoor de posegereedschappen niet meer konden worden gebruikt.
 - Probleem opgelost waarbij, als de hoofdpositie van een pose met Omdraaien niet kon worden gemeten, ‘De RootT-verplaatsing voor hoofdcentrering bij het omdraaien kon niet worden gemeten’ verscheen en de voorberekening of de avatarbuild stopte. Zulke poses gaan nu door zonder correctie van de hoofdpositie, en de Console toont een waarschuwing.
 - Probleem opgelost waarbij, als je je liggend met een sprong omdraaide en direct daarna opstond voordat je landde, de avatar in de liggende pose bleef terwijl je stond. Dat herstelde pas wanneer je weer ging liggen. Gebruik je voorberekening, klik dan op Voorberekening bijwerken.
+- Probleem opgelost waarbij, als je in een wereld maar een paar seconden op een stoel of iets dergelijks ging zitten en weer opstond, de benen niet meer de vorm van de pose aannamen totdat je naar een andere pose wisselde. Ook opgelost dat in desktop het gezichtspunt na het opstaan van een stoel niet meer bij de pose paste.
 
 ### Compatibiliteit
 

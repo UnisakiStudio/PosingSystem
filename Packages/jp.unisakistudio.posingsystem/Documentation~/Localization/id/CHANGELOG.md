@@ -21,6 +21,7 @@
 - Memperbaiki masalah ketika skrip Unisaki Posing System mengalami kesalahan kompilasi (CS1061) pada proyek yang memakai Modular Avatar versi sebelum 1.17.0, sehingga alat pose tidak dapat digunakan.
 - Memperbaiki masalah ketika posisi kepala pada pose yang memakai Berguling tidak dapat diukur, muncul “Perpindahan RootT untuk pemusatan kepala saat berguling tidak dapat diukur” dan prabuild atau build avatar terhenti. Kini pose seperti itu dilanjutkan tanpa koreksi posisi kepala, dan peringatan ditampilkan di Console.
 - Memperbaiki masalah ketika berdiri tepat setelah berguling dengan melompat saat berbaring, sebelum mendarat, membuat avatar tetap dalam pose berbaring meskipun sudah berdiri. Avatar tidak kembali sampai berbaring lagi. Jika memakai prabuild, tekan Perbarui prabuild.
+- Memperbaiki masalah ketika duduk di kursi atau tempat serupa di sebuah dunia hanya beberapa detik lalu berdiri membuat kaki tidak lagi mengikuti bentuk pose dan tidak kembali sampai pose diganti. Juga memperbaiki sudut pandang yang tidak lagi sesuai dengan pose setelah berdiri dari kursi dalam mode desktop.
 
 ### Kompatibilitas
 

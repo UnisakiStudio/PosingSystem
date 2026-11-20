@@ -21,6 +21,7 @@
 - Modular Avatar’ın 1.17.0’dan eski bir sürümünü kullanan projelerde Unisaki Posing System betiklerinin derleme hatası (CS1061) vermesi ve poz araçlarının kullanılamaz hale gelmesi sorunu düzeltildi.
 - Dön kullanan bir pozda baş konumu ölçülemediğinde “Dönerken başı merkezlemek için RootT yer değiştirmesi ölçülemedi” iletisinin gösterilip ön oluşturmanın veya avatar derlemesinin durması sorunu düzeltildi. Ölçülemeyen pozlar artık baş konumu düzeltilmeden devam eder ve Console’da bir uyarı gösterilir.
 - Yatarken zıplayarak döndükten hemen sonra, yere inmeden ayağa kalkıldığında, ayakta olunmasına rağmen avatarın yatış pozunda kalması sorunu düzeltildi. Yeniden yatış pozuna geçilene kadar düzelmiyordu. Ön oluşturma kullanıyorsanız Ön oluşturmayı güncelle düğmesine basın.
+- Bir dünyada sandalye gibi bir yere yalnızca birkaç saniye oturup kalkıldığında, bacakların poz şeklini almaması ve başka bir poza geçilene kadar düzelmemesi sorunu düzeltildi. Masaüstünde sandalyeden kalktıktan sonra bakış noktasının poza uymaması sorunu da düzeltildi.
 
 ### Uyumluluk
 

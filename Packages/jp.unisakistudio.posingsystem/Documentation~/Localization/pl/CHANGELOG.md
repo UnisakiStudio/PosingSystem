@@ -21,6 +21,7 @@
 - Naprawiono problem, przez który w projektach z wersją Modular Avatar starszą niż 1.17.0 skrypty Unisaki Posing System powodowały błąd kompilacji (CS1061) i nie można było używać narzędzi do póz.
 - Naprawiono problem, przez który gdy nie dało się zmierzyć położenia głowy w pozie używającej funkcji „Obróć się”, pojawiał się komunikat „Nie można zmierzyć przesunięcia RootT na potrzeby centrowania głowy przy obracaniu” i budowanie wstępne lub budowanie awatara zostawało przerwane. Takie pozy są teraz przetwarzane dalej bez korekty położenia głowy, a w Console pojawia się ostrzeżenie.
 - Naprawiono problem, przez który po obróceniu się skokiem w pozycji leżącej i wstaniu tuż po nim, przed wylądowaniem, awatar pozostawał w pozie leżącej, choć użytkownik już stał. Wracał dopiero po ponownym położeniu się. Jeśli korzystasz z budowania wstępnego, naciśnij „Aktualizuj budowanie wstępne”.
+- Naprawiono problem, przez który po siedzeniu w świecie na krześle lub podobnym miejscu tylko przez kilka sekund i wstaniu nogi przestawały przyjmować kształt pozy i wracały dopiero po zmianie pozy. Naprawiono też punkt widzenia, który w trybie pulpitu po wstaniu z krzesła przestawał pasować do pozy.
 
 ### Zgodność
 

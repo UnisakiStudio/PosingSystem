@@ -21,6 +21,7 @@
 - Sửa lỗi trong dự án dùng Modular Avatar phiên bản trước 1.17.0, các script của Unisaki Posing System bị lỗi biên dịch (CS1061) khiến không thể dùng công cụ tư thế.
 - Sửa lỗi khi không đo được vị trí đầu ở tư thế dùng Lật người thì hiện “Không đo được độ dịch chuyển RootT để căn giữa đầu khi lật người” và dữ liệu tạo trước hoặc bản dựng avatar bị dừng. Nay các tư thế như vậy tiếp tục mà không hiệu chỉnh vị trí đầu, và cảnh báo được hiển thị trong Console.
 - Sửa lỗi khi đang nằm mà nhảy để lật người rồi đứng dậy ngay trước khi tiếp đất, avatar vẫn giữ tư thế nằm dù bạn đã đứng. Avatar không trở lại cho đến khi bạn nằm xuống lần nữa. Nếu dùng dữ liệu tạo trước, hãy nhấn “Cập nhật dữ liệu tạo trước”.
+- Sửa lỗi khi ngồi trên ghế hoặc chỗ ngồi tương tự trong thế giới chỉ vài giây rồi đứng dậy, chân không còn theo hình dạng của tư thế và không trở lại cho đến khi bạn đổi tư thế. Cũng sửa lỗi góc nhìn không còn khớp với tư thế sau khi đứng dậy khỏi ghế trong chế độ máy tính.
 
 ### Tương thích
 

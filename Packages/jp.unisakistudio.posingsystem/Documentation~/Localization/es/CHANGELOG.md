@@ -21,6 +21,7 @@
 - Corregido un problema por el que, en proyectos con una versión de Modular Avatar anterior a 1.17.0, los scripts de Unisaki Posing System producían un error de compilación (CS1061) y no se podían usar las herramientas de poses.
 - Corregido un problema por el que, si no se podía medir la posición de la cabeza en una pose que usa Darse vuelta, aparecía «No se pudo medir el desplazamiento de RootT para centrar la cabeza al darse vuelta» y se detenía el precálculo o la compilación del avatar. Ahora esas poses continúan sin corregir la posición de la cabeza y se muestra una advertencia en la Console.
 - Corregido un problema por el que, si te levantabas justo después de darte la vuelta con un salto estando tumbado, antes de aterrizar, el avatar se quedaba en la pose tumbada aunque estuvieras de pie. No se recuperaba hasta volver a tumbarte. Si usas precálculo, pulsa «Actualizar precálculo».
+- Corregido un problema por el que, si te sentabas solo unos segundos en una silla u otro asiento de un mundo y te levantabas, las piernas dejaban de tener la forma de la pose y no se recuperaban hasta cambiar de pose. También se ha corregido que, en escritorio, el punto de vista dejara de coincidir con la pose después de levantarte de una silla.
 
 ### Compatibilidad
 
