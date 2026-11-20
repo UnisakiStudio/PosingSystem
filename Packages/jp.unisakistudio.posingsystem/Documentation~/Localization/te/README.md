@@ -24,8 +24,8 @@ v3.2.0కు కావలసిన వాతావరణం:
 
 - Unity 2022.3 VRChat అవతార్ ప్రాజెక్టు
 - VRChat Avatars SDK 3.10.4 లేదా కొత్తది
-- Modular Avatar 1.x శ్రేణిలో 1.15.1 లేదా కొత్తది
-- NDMF (Non-Destructive Modular Framework) 1.x శ్రేణిలో 1.14.0 లేదా కొత్తది
+- Modular Avatar 1.x శ్రేణిలో 1.16.2 లేదా కొత్తది
+- NDMF (Non-Destructive Modular Framework) 1.x శ్రేణిలో 1.14.8 లేదా కొత్తది
 
 Kawaii Posing Tool ఉపయోగిస్తే ALCOM / VCCలో దాన్ని 3.2.0కు నవీకరించి Unisaki Posing System కూడా 3.2.0 అయిందని నిర్ధారించండి. ప్రీబిల్డ్ ఉపయోగించినట్లయితే «ప్రీబిల్డ్ నవీకరించు» నొక్కి సీన్‌ను భద్రపరిచి అవతార్‌ను అప్‌లోడ్ చేయండి.
 

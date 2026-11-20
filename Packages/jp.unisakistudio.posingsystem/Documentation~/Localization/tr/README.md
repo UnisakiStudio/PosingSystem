@@ -24,8 +24,8 @@ v3.2.0 gereksinimleri:
 
 - Unity 2022.3 VRChat avatar projesi
 - VRChat Avatars SDK 3.10.4 veya sonrası
-- Modular Avatar 1.x serisi, en az 1.15.1
-- NDMF (Non-Destructive Modular Framework) 1.x serisi, en az 1.14.0
+- Modular Avatar 1.x serisi, en az 1.16.2
+- NDMF (Non-Destructive Modular Framework) 1.x serisi, en az 1.14.8
 
 Kawaii Posing Tool kullanıyorsanız ALCOM / VCC’de 3.2.0’a güncelleyin ve Unisaki Posing System’in de 3.2.0 olduğunu doğrulayın. Ön oluşturma kullandıysanız Ön oluşturmayı güncelle düğmesine basın, sahneyi kaydedin ve avatarı yükleyin.
 

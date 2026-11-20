@@ -2,7 +2,7 @@
 
 Unisaki Posing System เป็นระบบหลักร่วมของ Kawaii Posing, Cool Posing และเครื่องมือที่เกี่ยวข้อง
 ติดตั้งสินค้าที่ซื้อพร้อมระบบหลักนี้ผ่าน VCC หรือ ALCOM ใช้ Unity 2022.3,
-VRChat Avatars SDK 3.10.4+, Modular Avatar 1.15.1+ และ NDMF 1.14.0+
+VRChat Avatars SDK 3.10.4+, Modular Avatar 1.16.2+ และ NDMF 1.14.8+
 
 ## ภาษา
 

@@ -30,11 +30,12 @@ a { color: #2269b8; } a:visited { color: #7952ad; } li { margin-block: .35rem; }
 <li>Memperbaiki masalah ketika posisi kepala bergeser pada pose telentang dan sejenisnya di avatar yang skala keseluruhannya diubah atau yang memakai MA Floor Adjuster, sehingga kaki bisa menjadi lurus sepenuhnya di VRChat. Hal yang sama terjadi pada pose yang diubah di Penyesuaian Animasi dan pada sebagian pose buatan sendiri.</li>
 <li>Memperbaiki masalah ketika skrip Unisaki Posing System mengalami kesalahan kompilasi (CS1061) pada proyek yang memakai Modular Avatar versi sebelum 1.17.0, sehingga alat pose tidak dapat digunakan.</li>
 <li>Memperbaiki masalah ketika posisi kepala pada pose yang memakai Berguling tidak dapat diukur, muncul “Perpindahan RootT untuk pemusatan kepala saat berguling tidak dapat diukur” dan prabuild atau build avatar terhenti. Kini pose seperti itu dilanjutkan tanpa koreksi posisi kepala, dan peringatan ditampilkan di Console.</li>
-<li>Memperbaiki masalah di VR ketika menundukkan kepala sesaat saja (mengangguk, sedikit membungkuk, dan sebagainya) membuat peralihan ke postur jongkok atau duduk diputar sampai selesai, sehingga kembali ke postur berdiri memakan waktu lebih dari satu detik. Jika tinggi kepala kembali di tengah peralihan, postur kembali ke semula dari titik itu. Masalah postur yang terus tertinggal dari gerakan sebenarnya saat naik-turun berulang kali, seperti squat, juga dikurangi. Jika memakai prabuild, tekan Perbarui prabuild.</li>
+<li>Memperbaiki masalah ketika berdiri tepat setelah berguling dengan melompat saat berbaring, sebelum mendarat, membuat avatar tetap dalam pose berbaring meskipun sudah berdiri. Avatar tidak kembali sampai berbaring lagi. Jika memakai prabuild, tekan Perbarui prabuild.</li>
 </ul>
 <h3>Kompatibilitas</h3>
 <ul>
 <li>Pengaturan avatar yang ada, nama khusus, referensi aset, pengenal parameter, dan metode penyimpanan lisensi tetap dipertahankan.</li>
+<li>Keterangan versi yang diperlukan diubah menjadi versi yang sudah dipastikan berfungsi. Diperlukan Modular Avatar 1.16.2 atau lebih baru dan NDMF 1.14.8 atau lebih baru. Jika memakai versi yang lebih lama, perbarui juga melalui ALCOM / VCC.</li>
 </ul>
 <h2>[3.1.4] - 2026-11-11</h2>
 <ul>

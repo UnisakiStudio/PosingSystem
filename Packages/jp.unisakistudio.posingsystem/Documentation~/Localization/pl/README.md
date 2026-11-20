@@ -24,8 +24,8 @@ Wymagania wersji v3.2.0:
 
 - Projekt awatara VRChat w Unity 2022.3
 - VRChat Avatars SDK 3.10.4 lub nowszy
-- Modular Avatar z gałęzi 1.x, w wersji co najmniej 1.15.1
-- NDMF (Non-Destructive Modular Framework) z gałęzi 1.x, w wersji co najmniej 1.14.0
+- Modular Avatar z gałęzi 1.x, w wersji co najmniej 1.16.2
+- NDMF (Non-Destructive Modular Framework) z gałęzi 1.x, w wersji co najmniej 1.14.8
 
 Jeżeli używasz Kawaii Posing Tool, zaktualizuj go do 3.2.0 w ALCOM / VCC i sprawdź, czy Unisaki Posing System również ma wersję 3.2.0. Jeśli korzystasz z budowania wstępnego, naciśnij „Aktualizuj budowanie wstępne”, zapisz scenę, a następnie prześlij awatara.
 

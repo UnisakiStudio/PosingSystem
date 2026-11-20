@@ -24,8 +24,8 @@ v3.2.0の必要環境は次のとおりです。
 
 - Unity 2022.3のVRChatアバタープロジェクト
 - VRChat Avatars SDK 3.10.4以上
-- Modular Avatar 1.15.1以上の1.x系
-- NDMF（Non-Destructive Modular Framework）1.14.0以上の1.x系
+- Modular Avatar 1.16.2以上の1.x系
+- NDMF（Non-Destructive Modular Framework）1.14.8以上の1.x系
 
 可愛いポーズツールをお使いの方は、ALCOM / VCCで可愛いポーズツールを3.2.0に更新し、ゆにさきポーズシステムも3.2.0になったことを確認してください。プレビルドを使っていた場合は「プレビルドを更新」を押し、シーンを保存してからアバターをアップロードします。
 

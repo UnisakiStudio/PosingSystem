@@ -206,8 +206,8 @@ namespace jp.unisakistudio.posingsystemeditor
                 using var sample = PosingSystemProfiling.Sample("Posing: Session.Commit");
                 if (oneFrameSelection) PosingSystemOneFrameSelection.Apply(main, SaveAsset);
                 else if (optimizeDesktopSelection) PosingSystemDesktopSelection.Apply(main, SaveAsset);
-                // Last: the desktop passes above rebuild the pose layer and keep the VR states inside it.
-                PosingSystemResponsivePoseSwitch.Apply(main);
+                // After the desktop passes, which restore the conditions they saved before rebuilding their own.
+                PosingSystemSleepSwitchExit.Apply(main);
                 var merges = avatar.GetComponentsInChildren<ModularAvatarMergeAnimator>(true)
                     .Where(m => BelongsTo(m, avatar) && m.animator is AnimatorController c && (temporary.Contains(c) || roots.Contains(c))).ToArray();
                 var controllers = merges.Select(m => (AnimatorController)m.animator).Distinct().ToArray();

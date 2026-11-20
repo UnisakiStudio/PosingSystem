@@ -20,11 +20,12 @@
 - Korjattu ongelma, jossa pään sijainti siirtyi selinmakuulla ja vastaavissa asennoissa, kun avatarin koko mittakaavaa oli muutettu tai käytössä oli MA Floor Adjuster, jolloin jalat saattoivat jäädä VRChatissa täysin suoriksi. Sama ongelma esiintyi animaatiosäädöllä muutetuissa asennoissa ja joissakin omissa asennoissa.
 - Korjattu ongelma, jossa Unisaki Posing Systemin skriptit aiheuttivat käännösvirheen (CS1061) projekteissa, joissa on Modular Avatarin 1.17.0:aa vanhempi versio, eikä asentotyökaluja voinut käyttää.
 - Korjattu ongelma, jossa esikoonti tai avatarin koonti pysähtyi ilmoitukseen ”RootT-siirtymää pään keskittämiseksi kääntyessä ei voitu mitata”, kun Käänny-toimintoa käyttävän asennon pään sijaintia ei voitu mitata. Tällaiset asennot jatkuvat nyt ilman pään sijainnin korjausta, ja Consoleen tulee varoitus.
-- Korjattu ongelma, jossa VR:ssä jo lyhyt pään laskeminen (nyökkäys, kevyt kumartuminen tms.) toisti vaihdon kyykky- tai istuma-asentoon loppuun asti, ja seisoma-asentoon palaaminen kesti yli sekunnin. Jos pää palaa korkeudelleen kesken vaihdon, asento palaa alkuperäiseksi siitä kohdasta. Myös asennon jatkuvaa jättämistä todellisesta liikkeestä toistuvassa ylös–alas-liikkeessä, kuten kyykyissä, on vähennetty. Jos käytät esikoontia, paina ”Päivitä esikoonti”.
+- Korjattu ongelma, jossa avatar jäi makuuasentoon, vaikka seisoit, jos käännyit makuulla hyppäämällä ja nousit heti sen jälkeen ennen alastuloa. Se palautui vasta, kun menit uudelleen makuulle. Jos käytät esikoontia, paina ”Päivitä esikoonti”.
 
 ### Yhteensopivuus
 
 - Avatarin nykyiset asetukset, omat nimet, resurssiviittaukset, parametrien tunnisteet ja lisenssin tallennustapa säilyvät.
+- Ilmoitetut vaaditut versiot on muutettu versioiksi, joiden toiminta on varmistettu. Vaaditaan Modular Avatar 1.16.2 tai uudempi ja NDMF 1.14.8 tai uudempi. Jos käytät vanhempia versioita, päivitä ne yhdessä ALCOMissa / VCC:ssä.
 
 ## [3.1.4] - 2026-11-11
 

@@ -1391,7 +1391,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 autoPoseLogicVersion = 4,
                 importedMotionLogicVersion = 3,
                 generatedAssetLogicVersion = 1,
-                controllerLogicVersion = 3, // 3: a VR pose change turns back when the user does. 2: desktop one-evaluation is standard.
+                controllerLogicVersion = 3, // 3: the lying poses are left when the user stands up during a jump. 2: desktop one-evaluation is standard.
                 floatingPhotographyLogicVersion = 1, // Do not reuse a prebuild which samples the displaced photography head.
                 autoImportAvatarAnimations = posingSystem.autoImportAvatarAnimations,
                 importedMotionInputs = ImportedMotionInputSignature(posingSystem),

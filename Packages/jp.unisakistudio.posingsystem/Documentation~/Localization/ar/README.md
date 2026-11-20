@@ -24,8 +24,8 @@
 
 - مشروع أفاتار VRChat باستخدام Unity 2022.3
 - VRChat Avatars SDK بالإصدار 3.10.4 أو أحدث
-- Modular Avatar من سلسلة 1.x بالإصدار 1.15.1 أو أحدث
-- NDMF（Non-Destructive Modular Framework）من سلسلة 1.x بالإصدار 1.14.0 أو أحدث
+- Modular Avatar من سلسلة 1.x بالإصدار 1.16.2 أو أحدث
+- NDMF（Non-Destructive Modular Framework）من سلسلة 1.x بالإصدار 1.14.8 أو أحدث
 
 لمستخدمي Kawaii Posing Tool: حدّث الأداة إلى 3.2.0 عبر ALCOM / VCC وتأكد من وصول Unisaki Posing System إلى 3.2.0 أيضًا. إذا كنت تستخدم البناء المسبق، اضغط «تحديث البناء المسبق»، واحفظ المشهد ثم ارفع الأفاتار.
 

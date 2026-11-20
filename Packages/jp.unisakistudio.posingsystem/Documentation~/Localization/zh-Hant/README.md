@@ -24,8 +24,8 @@ v3.2.0所需環境如下。
 
 - 使用Unity 2022.3的VRChat虛擬化身專案
 - VRChat Avatars SDK 3.10.4或更高版本
-- Modular Avatar 1.15.1或更高版本，須為1.x系列
-- NDMF（Non-Destructive Modular Framework）1.14.0或更高版本，須為1.x系列
+- Modular Avatar 1.16.2或更高版本，須為1.x系列
+- NDMF（Non-Destructive Modular Framework）1.14.8或更高版本，須為1.x系列
 
 使用Kawaii Posing Tool時，請在ALCOM / VCC中將其更新為3.2.0，並確認Unisaki Posing System也已更新為3.2.0。如果使用過預先建置，請按一下“更新預先建置”，儲存場景後再上傳虛擬化身。
 

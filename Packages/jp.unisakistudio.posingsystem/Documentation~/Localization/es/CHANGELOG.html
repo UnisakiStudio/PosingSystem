@@ -30,11 +30,12 @@ a { color: #2269b8; } a:visited { color: #7952ad; } li { margin-block: .35rem; }
 <li>Corregido un problema por el que, en avatares con la escala general modificada o que usan MA Floor Adjuster, la posición de la cabeza quedaba desplazada en poses boca arriba y similares, y las piernas podían quedar totalmente estiradas en VRChat. Lo mismo ocurría con las poses modificadas en el ajuste de animación y con algunas poses propias.</li>
 <li>Corregido un problema por el que, en proyectos con una versión de Modular Avatar anterior a 1.17.0, los scripts de Unisaki Posing System producían un error de compilación (CS1061) y no se podían usar las herramientas de poses.</li>
 <li>Corregido un problema por el que, si no se podía medir la posición de la cabeza en una pose que usa Darse vuelta, aparecía «No se pudo medir el desplazamiento de RootT para centrar la cabeza al darse vuelta» y se detenía el precálculo o la compilación del avatar. Ahora esas poses continúan sin corregir la posición de la cabeza y se muestra una advertencia en la Console.</li>
-<li>Corregido un problema en VR por el que, con solo bajar la cabeza un momento (asentir, agacharse un poco, etc.), el cambio a la postura agachada o sentada se reproducía hasta el final y volver a estar de pie tardaba más de un segundo. Si la cabeza vuelve a su altura a mitad del cambio, la postura regresa a la original desde ese punto. También se ha reducido el desfase continuo entre la postura y el movimiento real al subir y bajar repetidamente, como en las sentadillas. Si usas precálculo, pulsa «Actualizar precálculo».</li>
+<li>Corregido un problema por el que, si te levantabas justo después de darte la vuelta con un salto estando tumbado, antes de aterrizar, el avatar se quedaba en la pose tumbada aunque estuvieras de pie. No se recuperaba hasta volver a tumbarte. Si usas precálculo, pulsa «Actualizar precálculo».</li>
 </ul>
 <h3>Compatibilidad</h3>
 <ul>
 <li>Se conservan configuración del avatar, nombres propios, referencias a recursos, identificadores de parámetros y almacenamiento de licencias.</li>
+<li>Las versiones requeridas indicadas se han ajustado a las versiones cuyo funcionamiento se ha comprobado. Se necesitan Modular Avatar 1.16.2 o posterior y NDMF 1.14.8 o posterior. Si usas versiones anteriores, actualízalas juntas en ALCOM / VCC.</li>
 </ul>
 <h2>[3.1.4] - 2026-11-11</h2>
 <ul>

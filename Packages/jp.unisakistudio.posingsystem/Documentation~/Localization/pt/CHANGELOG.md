@@ -20,11 +20,12 @@
 - Corrigido um problema em que, em avatares com a escala geral alterada ou que usam MA Floor Adjuster, a posição da cabeça ficava deslocada em poses de costas e semelhantes, podendo as pernas ficar totalmente esticadas no VRChat. O mesmo acontecia com poses alteradas no ajuste de animação e com algumas poses próprias.
 - Corrigido um problema em que, em projetos com uma versão do Modular Avatar anterior à 1.17.0, os scripts do Unisaki Posing System originavam um erro de compilação (CS1061) e as ferramentas de pose deixavam de poder ser usadas.
 - Corrigido um problema em que, quando não era possível medir a posição da cabeça numa pose que usa Virar, aparecia «Não foi possível medir o deslocamento RootT para centrar a cabeça ao virar» e o pré-cálculo ou a compilação do avatar parava. Agora essas poses continuam sem correção da posição da cabeça e é apresentado um aviso na Console.
-- Corrigido um problema em VR em que baixar a cabeça apenas por um instante (acenar com a cabeça, inclinar-se ligeiramente, etc.) fazia com que a mudança para a postura agachada ou sentada fosse reproduzida até ao fim, e voltar a ficar em pé demorava mais de um segundo. Se a cabeça voltar à sua altura a meio da mudança, a postura regressa à original a partir desse ponto. Também foi reduzido o desfasamento contínuo entre a postura e o movimento real ao subir e descer repetidamente, como em agachamentos. Se usa pré-cálculo, prima «Atualizar pré-cálculo».
+- Corrigido um problema em que, ao levantar-se logo depois de se virar com um salto estando deitado, antes de aterrar, o avatar ficava na pose deitada embora estivesse em pé. Só voltava ao normal quando se deitava de novo. Se usa pré-cálculo, prima «Atualizar pré-cálculo».
 
 ### Compatibilidade
 
 - Mantidas definições existentes, nomes próprios, referências a recursos, identificadores de parâmetros e armazenamento da licença.
+- As versões necessárias indicadas foram ajustadas às versões cujo funcionamento foi confirmado. São necessários Modular Avatar 1.16.2 ou posterior e NDMF 1.14.8 ou posterior. Se usa versões mais antigas, atualize-as em conjunto no ALCOM / VCC.
 
 ## [3.1.4] - 2026-11-11
 

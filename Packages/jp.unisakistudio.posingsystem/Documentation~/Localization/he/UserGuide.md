@@ -1,6 +1,6 @@
 # Unisaki Posing System 3.2.0 — מדריך
 
-Unisaki Posing System היא המערכת המשותפת של Kawaii Posing, Cool Posing וכלים נוספים. התקינו אותה עם המוצר שרכשתם באמצעות VCC או ALCOM. השתמשו ב-Unity 2022.3, ב-VRChat Avatars SDK 3.10.4 ומעלה, ב-Modular Avatar 1.15.1 ומעלה וב-NDMF 1.14.0 ומעלה.
+Unisaki Posing System היא המערכת המשותפת של Kawaii Posing, Cool Posing וכלים נוספים. התקינו אותה עם המוצר שרכשתם באמצעות VCC או ALCOM. השתמשו ב-Unity 2022.3, ב-VRChat Avatars SDK 3.10.4 ומעלה, ב-Modular Avatar 1.16.2 ומעלה וב-NDMF 1.14.8 ומעלה.
 
 ## שפה
 

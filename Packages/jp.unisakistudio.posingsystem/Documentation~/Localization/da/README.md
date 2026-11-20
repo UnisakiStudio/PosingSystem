@@ -24,8 +24,8 @@ v3.2.0 kræver følgende miljø:
 
 - Unity 2022.3-projekt til VRChat-avatarer
 - VRChat Avatars SDK 3.10.4 eller nyere
-- Modular Avatar 1.x fra 1.15.1
-- NDMF (Non-Destructive Modular Framework) 1.x fra 1.14.0
+- Modular Avatar 1.x fra 1.16.2
+- NDMF (Non-Destructive Modular Framework) 1.x fra 1.14.8
 
 Bruger du Kawaii Posing, skal du opdatere det til 3.2.0 i ALCOM / VCC og kontrollere, at Unisaki Posing System også er 3.2.0. Bruger du forberegning, skal du trykke ”Opdatér forberegning”, gemme scenen og uploade avataren.
 

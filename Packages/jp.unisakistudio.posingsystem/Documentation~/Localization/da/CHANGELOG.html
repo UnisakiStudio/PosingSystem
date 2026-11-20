@@ -30,11 +30,12 @@ a { color: #2269b8; } a:visited { color: #7952ad; } li { margin-block: .35rem; }
 <li>Rettet, at hovedets position blev forskudt i rygliggende og lignende positurer på avatarer med ændret samlet skala eller med MA Floor Adjuster, så benene kunne blive helt strakte i VRChat. Det samme skete med positurer ændret i animationsjustering og med nogle egne positurer.</li>
 <li>Rettede et problem, hvor scripts i Unisaki Posing System gav en kompileringsfejl (CS1061) i projekter med en Modular Avatar-version før 1.17.0, så positurværktøjerne ikke kunne bruges.</li>
 <li>Rettede et problem, hvor forberegningen eller avatar-buildet stoppede med “RootT-forskydningen til hovedcentrering ved vending kunne ikke måles”, når hovedets position ikke kunne måles i en positur, der bruger Vend dig. Sådanne positurer fortsætter nu uden korrektion af hovedets position, og der vises en advarsel i Console.</li>
-<li>Rettede et problem i VR, hvor selv en kort sænkning af hovedet (et nik, en let bøjning osv.) afspillede hele skiftet til på hug eller siddende, så det tog over et sekund at komme tilbage til stående. Hæver du hovedet igen undervejs, vender stillingen tilbage derfra. Stillingen halter også mindre efter den faktiske bevægelse, når du bevæger dig op og ned gentagne gange som ved squats. Bruger du forberegning, skal du trykke ”Opdatér forberegning”.</li>
+<li>Rettede et problem, hvor avataren blev i den liggende positur, selv om du stod, hvis du vendte dig med et hop, mens du lå, og rejste dig straks efter, før du landede. Den vendte først tilbage, når du lagde dig igen. Bruger du forberegning, skal du trykke ”Opdatér forberegning”.</li>
 </ul>
 <h3>Kompatibilitet</h3>
 <ul>
 <li>Eksisterende avatarindstillinger, egne navne, assetreferencer, parameteridentifikatorer og licenslagring bevares.</li>
+<li>De angivne versionskrav svarer nu til de versioner, der er bekræftet at virke. Modular Avatar 1.16.2 eller nyere og NDMF 1.14.8 eller nyere kræves. Bruger du ældre versioner, så opdatér dem sammen i ALCOM / VCC.</li>
 </ul>
 <h2>[3.1.4] - 2026-11-11</h2>
 <ul>

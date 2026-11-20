@@ -30,11 +30,12 @@ a { color: #2269b8; } a:visited { color: #7952ad; } li { margin-block: .35rem; }
 <li>Fixed an issue where, on avatars whose overall scale was changed or that use MA Floor Adjuster, the head position was off in supine and similar poses, which could leave the legs fully stretched in VRChat. The same happened with poses changed in animation adjustment and with some custom poses.</li>
 <li>Fixed an issue where, in projects using a Modular Avatar version older than 1.17.0, the scripts of Unisaki Posing System failed to compile (CS1061) and the pose tools could not be used.</li>
 <li>Fixed an issue where, when the head position of a pose using Roll Over could not be measured, the prebuild or the avatar build stopped with &quot;Could not measure RootT displacement for roll-over head centering&quot;. Such poses now continue without head position correction, and a warning is shown in the Console.</li>
-<li>Fixed an issue in VR where even briefly lowering the head (nodding, bending slightly and so on) played the whole switch to the crouching or sitting posture, so returning to standing took more than a second. If the head returns to its height partway, the posture now goes back from where it is. Also reduced the posture continuing to lag behind your actual movement when moving up and down repeatedly, as in squats. If you use prebuilds, click Update prebuild.</li>
+<li>Fixed an issue where, if you rolled over by jumping while lying down and then stood up right away before landing, the avatar stayed in the lying pose even though you were standing. It did not recover until you took a lying posture again. If you use prebuilds, click Update prebuild.</li>
 </ul>
 <h3>Compatibility</h3>
 <ul>
 <li>Existing avatar settings, custom names, asset references, parameter identifiers and license storage are preserved.</li>
+<li>The stated required versions now match the versions confirmed to work. Modular Avatar 1.16.2 or later and NDMF 1.14.8 or later are required. If you use older versions, update them together in ALCOM / VCC.</li>
 </ul>
 <h2>[3.1.4] - 2026-11-11</h2>
 <ul>

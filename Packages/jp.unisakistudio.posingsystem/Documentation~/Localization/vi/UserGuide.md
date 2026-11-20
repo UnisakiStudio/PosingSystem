@@ -2,7 +2,7 @@
 
 Unisaki Posing System là lõi chung cho Kawaii Posing, Cool Posing và các công cụ liên quan.
 Cài sản phẩm đã mua cùng lõi này bằng VCC hoặc ALCOM. Dùng Unity 2022.3,
-VRChat Avatars SDK 3.10.4+, Modular Avatar 1.15.1+ và NDMF 1.14.0+.
+VRChat Avatars SDK 3.10.4+, Modular Avatar 1.16.2+ và NDMF 1.14.8+.
 
 ## Ngôn ngữ
 

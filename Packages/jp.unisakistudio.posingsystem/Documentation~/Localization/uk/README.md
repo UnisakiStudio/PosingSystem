@@ -24,8 +24,8 @@ README, історію змін і посібник можна вибрати в
 
 - Проєкт аватара VRChat у Unity 2022.3
 - VRChat Avatars SDK 3.10.4 або новіший
-- Modular Avatar гілки 1.x, версії 1.15.1 або новішої
-- NDMF (Non-Destructive Modular Framework) гілки 1.x, версії 1.14.0 або новішої
+- Modular Avatar гілки 1.x, версії 1.16.2 або новішої
+- NDMF (Non-Destructive Modular Framework) гілки 1.x, версії 1.14.8 або новішої
 
 Якщо ви користуєтеся Kawaii Posing Tool, оновіть його до 3.2.0 через ALCOM / VCC і переконайтеся, що Unisaki Posing System також має версію 3.2.0. Якщо використовувалася попередня збірка, натисніть «Оновити попередню збірку», збережіть сцену й завантажте аватар.
 

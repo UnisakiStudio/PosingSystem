@@ -24,8 +24,8 @@ Krav för v3.2.0:
 
 - VRChat-avatarprojekt i Unity 2022.3
 - VRChat Avatars SDK 3.10.4 eller senare
-- Modular Avatar 1.x, version 1.15.1 eller senare
-- NDMF (Non-Destructive Modular Framework) 1.x, version 1.14.0 eller senare
+- Modular Avatar 1.x, version 1.16.2 eller senare
+- NDMF (Non-Destructive Modular Framework) 1.x, version 1.14.8 eller senare
 
 Uppdatera Kawaii Posing till 3.2.0 i ALCOM / VCC och kontrollera att även Unisaki Posing System är 3.2.0. Använder du förberäkning, klicka Uppdatera förberäkning, spara scenen och ladda upp.
 

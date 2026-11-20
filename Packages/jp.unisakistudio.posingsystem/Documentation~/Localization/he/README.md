@@ -24,8 +24,8 @@ README זה מיועד לגרסה v3.2.0 הנמצאת בפיתוח. טרם נק�
 
 - פרויקט אווטאר של VRChat ב-Unity 2022.3
 - VRChat Avatars SDK בגרסה 3.10.4 ומעלה
-- Modular Avatar מסדרת 1.x, בגרסה 1.15.1 ומעלה
-- NDMF (Non-Destructive Modular Framework) מסדרת 1.x, בגרסה 1.14.0 ומעלה
+- Modular Avatar מסדרת 1.x, בגרסה 1.16.2 ומעלה
+- NDMF (Non-Destructive Modular Framework) מסדרת 1.x, בגרסה 1.14.8 ומעלה
 
 משתמשי Kawaii Posing צריכים לעדכן את המוצר ל-3.2.0 ב-ALCOM / VCC ולוודא שגם Unisaki Posing System עודכן ל-3.2.0. אם השתמשתם בחישוב מקדים, לחצו על עדכון חישוב מקדים ושמרו את הסצנה לפני העלאת האווטאר.
 

@@ -53,7 +53,7 @@
       "product": "PosingSystem",
       "kind": "readme",
       "source": "PosingSystem/Packages/jp.unisakistudio.posingsystem/README.md",
-      "source_sha256": "098a94324d865f2dac2a5608c8046c04fdedf0c4d445cda9a6c5e7611c1a388f",
+      "source_sha256": "899fb4cad95ff9e40e31a213adcdb23022a58d14a75276bc680480b915f84767",
       "blocks": [
         "400f9d61ba8fe81c",
         "3384667be43ce486",
@@ -67,7 +67,7 @@
         "29b7574e70527eea",
         "0eb826cefdff818a",
         "a9c8afa886a35fa3",
-        "aa0e93c49ca876d3",
+        "f73cfc195c4430f5",
         "fc547ae5cc8c18cd",
         "064a37c64aaa4128",
         "bd5e80df85691664",
@@ -145,16 +145,16 @@
       "product": "PosingSystem",
       "kind": "changelog",
       "source": "PosingSystem/Packages/jp.unisakistudio.posingsystem/CHANGELOG.md",
-      "source_sha256": "245bf5b08a423e90e89c43e94e1d074f87ddbd94ee1937861d5bf7faefbbd32f",
+      "source_sha256": "50f2a824c4d062c424d3f9ec7ff9f641c97cb08acb5d549e6ee4c38e455368e1",
       "blocks": [
         "3e9e4ae5e303de21",
         "1fea13aed5680b51",
         "545755f8035c08c9",
         "79fec8d04d3cf763",
         "5ec0c3c554aaceac",
-        "64b4e541f8c44c74",
+        "7b469687d015da33",
         "25b732bdda1bb358",
-        "25d84bc9d3caff87",
+        "5771289b55690e9e",
         "706843f119f826f7",
         "89c1bfe490387d11",
         "27d079df354139bc",
@@ -223,10 +223,10 @@
       "product": "PosingSystem",
       "kind": "guide",
       "source": "PosingSystem/Packages/jp.unisakistudio.posingsystem/Documentation~/UserGuide.en.md",
-      "source_sha256": "b50a3e82156d05be50cc27340846cdeb652129d90c37c4e7bf4011bb7ed27cbd",
+      "source_sha256": "e9e595df05c8bd82e3bb2ad7545909a9f8bbd6d7ff25fb458d89d504f605e820",
       "blocks": [
         "2bae13658c19ab69",
-        "971cb3537679cb36",
+        "52425937959f927e",
         "e10754d0edc79b73",
         "3dad11475dca2a2e",
         "d767800351bcbf7b",
@@ -259,7 +259,7 @@
       "product": "KawaiiPosing",
       "kind": "readme",
       "source": "KawaiiPosing/Packages/jp.unisakistudio.kawaiiposing/README.md",
-      "source_sha256": "9720bc85e71b5bddd99997437e1bdbf59aaa7ae13b554dd0a0b52ae91075e044",
+      "source_sha256": "8378e468de6700cd1ca18e9eb699b0797e70113e25d20f1b0ff8b04f71fcbafb",
       "blocks": [
         "c6f4f4db27e61f12",
         "63ac3178b7280bc1",
@@ -282,7 +282,7 @@
         "8424f6e3d41f09e5",
         "e365c0379b008026",
         "c64a834af3a8c6bd",
-        "76cf9e2237b960ba",
+        "d1bc753add231591",
         "014aae827a3bded4",
         "c91b6d99606092e8",
         "b9fa3c428fac6fc0",
@@ -412,13 +412,13 @@
       "product": "KawaiiPosing",
       "kind": "guide",
       "source": "KawaiiPosing/Packages/jp.unisakistudio.kawaiiposing/Documentation~/UserGuide.en.md",
-      "source_sha256": "e169814c9de7b5dc74239112915710147f8b26ea5727e587fbfa619b2eafa3be",
+      "source_sha256": "1e69948256ef41a0ade309f79f8cbef281ae006fff9f208b6dfc381621fa04be",
       "blocks": [
         "f675a3d502bd6e37",
         "240461debb7fb962",
         "4b4ce8f2136c0a4d",
         "f0994b5bc6eab153",
-        "6ae60319e9c41d31",
+        "c7c4bed253169a22",
         "b58d5efb219e0955",
         "07d7ee924d86344a",
         "3c27365bd82f8dab",
@@ -501,7 +501,7 @@
       "product": "CoolPosing",
       "kind": "readme",
       "source": "CoolPosing/Packages/jp.unisakistudio.coolposing/README.md",
-      "source_sha256": "e76cd90f34493825505e3573d0761a9065676e81e04e582ca03f3515d3b3780e",
+      "source_sha256": "731b61d9a03fd709e2cf17ee1f25e139e1a3cf4fce63c04cde3f20e81ad8b612",
       "blocks": [
         "9ec15b083830389e",
         "c2493654393fac07",
@@ -525,7 +525,7 @@
         "573bec6044bc7d05",
         "e365c0379b008026",
         "8a4c9170dc7c119f",
-        "76cf9e2237b960ba",
+        "d1bc753add231591",
         "014aae827a3bded4",
         "c91b6d99606092e8",
         "4d5171a70112c334",
@@ -594,13 +594,13 @@
       "product": "CoolPosing",
       "kind": "guide",
       "source": "CoolPosing/Packages/jp.unisakistudio.coolposing/Documentation~/UserGuide.en.md",
-      "source_sha256": "6cc8826907ed7110a0ff78dda1ce9c34ec22a2f2fa3d6e077fac221672d162a8",
+      "source_sha256": "b0aa84d229f162641ff97f8c504916213f243735a86414b3e3fb783d66d14270",
       "blocks": [
         "9b3438889c475907",
         "759fd79caf261f73",
         "4b4ce8f2136c0a4d",
         "f0994b5bc6eab153",
-        "6ae60319e9c41d31",
+        "c7c4bed253169a22",
         "b58d5efb219e0955",
         "7888738c09012544",
         "3c27365bd82f8dab",
@@ -834,9 +834,9 @@
         "PosingSystem/readme"
       ]
     },
-    "aa0e93c49ca876d3": {
+    "f73cfc195c4430f5": {
       "language": "ja",
-      "text": "- Unity 2022.3のVRChatアバタープロジェクト\n- VRChat Avatars SDK 3.10.4以上\n- Modular Avatar 1.15.1以上の1.x系\n- NDMF（Non-Destructive Modular Framework）1.14.0以上の1.x系",
+      "text": "- Unity 2022.3のVRChatアバタープロジェクト\n- VRChat Avatars SDK 3.10.4以上\n- Modular Avatar 1.16.2以上の1.x系\n- NDMF（Non-Destructive Modular Framework）1.14.8以上の1.x系",
       "invariant": false,
       "contexts": [
         "PosingSystem/readme"
@@ -1467,9 +1467,9 @@
         "CoolPosing/changelog"
       ]
     },
-    "64b4e541f8c44c74": {
+    "7b469687d015da33": {
       "language": "ja",
-      "text": "- コンパイルエラーでポーズを生成できないとき（PS050）、エラーが起きているツールの名前を表示するようにしました。Unityを再起動した直後や、Consoleの表示を絞り込んでいるときにも、エラーの内容を確認できます。\n- プレビルドの更新にかかる時間を短くしました。寝返りを設定したポーズが多いほど効果があります。\n- 日本語・中国語の機能説明が折り返されるとき、行の先頭に「。」や「、」が来ないようにしました。\n- 他のツールのエラーでポーズ画像を更新できないとき（PS036）、エラーが起きているツールの名前とエラーの内容を表示するようにしました。\n- Unityを再起動するたびに、プレビルド済みなのにプレビルドの更新を求められることがある問題を修正しました。Baseレイヤーに独自のControllerを設定したアバターで「アバターの元の立ち・しゃがみ・伏せ姿勢を使う」をオンにしていると起きていました。\n- ポーズの編集・プレビュー中に、MA Merge Armatureで着せた衣装や髪が元の位置に残る問題を修正しました。元のアバターの設定や配置を保ったまま、プレビューの姿勢に追従します。\n- アバター全体のスケールを変えている場合や、MA Floor Adjusterを使っている場合に、仰向けなどのポーズで頭の位置がずれ、VRChatで足が伸びきってしまうことがある問題を修正しました。アニメーション調整をしたポーズや、一部の自作ポーズでも同じ問題が起きていました。\n- Modular Avatar 1.17.0より前の版を使っているプロジェクトで、ゆにさきポーズシステムのスクリプトがコンパイルエラー（CS1061）になり、ポーズツールを使えなくなる問題を修正しました。\n- 寝返りを使うポーズで頭の位置を計測できないと、「寝返りの頭位置補正で、RootTの移動量を計測できませんでした」と表示されてプレビルドやアバターのビルドが止まる問題を修正しました。計測できないポーズは頭の位置を補正せずに続行し、Consoleに警告を表示します。\n- VRで頭を一瞬下げただけ（うなずく、軽く屈むなど）でも、中腰や座りの姿勢への切り替えが最後まで再生され、立ち姿勢に戻るまで1秒以上かかる問題を修正しました。途中で頭の高さを戻すと、その場から元の姿勢に戻ります。スクワットのように上下を繰り返したときに、姿勢が実際の動きとずれ続ける問題も軽減しました。プレビルドを使っている場合は「プレビルドを更新」を押してください。",
+      "text": "- コンパイルエラーでポーズを生成できないとき（PS050）、エラーが起きているツールの名前を表示するようにしました。Unityを再起動した直後や、Consoleの表示を絞り込んでいるときにも、エラーの内容を確認できます。\n- プレビルドの更新にかかる時間を短くしました。寝返りを設定したポーズが多いほど効果があります。\n- 日本語・中国語の機能説明が折り返されるとき、行の先頭に「。」や「、」が来ないようにしました。\n- 他のツールのエラーでポーズ画像を更新できないとき（PS036）、エラーが起きているツールの名前とエラーの内容を表示するようにしました。\n- Unityを再起動するたびに、プレビルド済みなのにプレビルドの更新を求められることがある問題を修正しました。Baseレイヤーに独自のControllerを設定したアバターで「アバターの元の立ち・しゃがみ・伏せ姿勢を使う」をオンにしていると起きていました。\n- ポーズの編集・プレビュー中に、MA Merge Armatureで着せた衣装や髪が元の位置に残る問題を修正しました。元のアバターの設定や配置を保ったまま、プレビューの姿勢に追従します。\n- アバター全体のスケールを変えている場合や、MA Floor Adjusterを使っている場合に、仰向けなどのポーズで頭の位置がずれ、VRChatで足が伸びきってしまうことがある問題を修正しました。アニメーション調整をしたポーズや、一部の自作ポーズでも同じ問題が起きていました。\n- Modular Avatar 1.17.0より前の版を使っているプロジェクトで、ゆにさきポーズシステムのスクリプトがコンパイルエラー（CS1061）になり、ポーズツールを使えなくなる問題を修正しました。\n- 寝返りを使うポーズで頭の位置を計測できないと、「寝返りの頭位置補正で、RootTの移動量を計測できませんでした」と表示されてプレビルドやアバターのビルドが止まる問題を修正しました。計測できないポーズは頭の位置を補正せずに続行し、Consoleに警告を表示します。\n- 寝ている姿勢でジャンプして寝返りをした直後、着地する前に立ち上がると、立っているのにアバターが寝た姿勢のままになる問題を修正しました。もう一度寝る姿勢を取るまで戻りませんでした。プレビルドを使っている場合は「プレビルドを更新」を押してください。",
       "invariant": false,
       "contexts": [
         "PosingSystem/changelog"
@@ -1485,14 +1485,12 @@
         "CoolPosing/changelog"
       ]
     },
-    "25d84bc9d3caff87": {
+    "5771289b55690e9e": {
       "language": "ja",
-      "text": "- アバターの既存設定、独自の名前、アセット参照、パラメーター識別子、ライセンスの保存方法を維持します。",
+      "text": "- アバターの既存設定、独自の名前、アセット参照、パラメーター識別子、ライセンスの保存方法を維持します。\n- 必要なバージョンの表記を、動作を確認できたものに改めました。Modular Avatar 1.16.2以上、NDMF 1.14.8以上が必要です。それより古い版をお使いの場合は、ALCOM / VCCで併せて更新してください。",
       "invariant": false,
       "contexts": [
-        "PosingSystem/changelog",
-        "KawaiiPosing/changelog",
-        "CoolPosing/changelog"
+        "PosingSystem/changelog"
       ]
     },
     "706843f119f826f7": {
@@ -2002,9 +2000,9 @@
         "PosingSystem/guide"
       ]
     },
-    "971cb3537679cb36": {
+    "52425937959f927e": {
       "language": "en",
-      "text": "Unisaki Posing System is the shared core for Kawaii Posing, Cool Posing, and related tools.\nInstall the purchased product and this core together using VCC or ALCOM. Use Unity 2022.3,\nVRChat Avatars SDK 3.10.4+, Modular Avatar 1.15.1+, and NDMF 1.14.0+.",
+      "text": "Unisaki Posing System is the shared core for Kawaii Posing, Cool Posing, and related tools.\nInstall the purchased product and this core together using VCC or ALCOM. Use Unity 2022.3,\nVRChat Avatars SDK 3.10.4+, Modular Avatar 1.16.2+, and NDMF 1.14.8+.",
       "invariant": false,
       "contexts": [
         "PosingSystem/guide"
@@ -2253,9 +2251,9 @@
         "KawaiiPosing/readme"
       ]
     },
-    "76cf9e2237b960ba": {
+    "d1bc753add231591": {
       "language": "ja",
-      "text": "必要環境はUnity 2022.3、VRChat Avatars SDK 3.10.4以上、Modular Avatar 1.15.1以上の1.x系、NDMF 1.14.0以上の1.x系です。VCCやALCOMで必要なパッケージを併せて更新してください。",
+      "text": "必要環境はUnity 2022.3、VRChat Avatars SDK 3.10.4以上、Modular Avatar 1.16.2以上の1.x系、NDMF 1.14.8以上の1.x系です。VCCやALCOMで必要なパッケージを併せて更新してください。",
       "invariant": false,
       "contexts": [
         "KawaiiPosing/readme",
@@ -2610,6 +2608,15 @@
       "invariant": false,
       "contexts": [
         "KawaiiPosing/readme"
+      ]
+    },
+    "25d84bc9d3caff87": {
+      "language": "ja",
+      "text": "- アバターの既存設定、独自の名前、アセット参照、パラメーター識別子、ライセンスの保存方法を維持します。",
+      "invariant": false,
+      "contexts": [
+        "KawaiiPosing/changelog",
+        "CoolPosing/changelog"
       ]
     },
     "ecbfefbc2b3860bc": {
@@ -3017,9 +3024,9 @@
         "CoolPosing/guide"
       ]
     },
-    "6ae60319e9c41d31": {
+    "c7c4bed253169a22": {
       "language": "en",
-      "text": "- Use a Unity 2022.3 VRChat **avatar** project created or managed with VRChat Creator Companion (VCC) or ALCOM.\n- Required packages: VRChat Avatars SDK 3.10.4 or later; Modular Avatar 1.x, version 1.15.1 or later; and NDMF 1.x, version 1.14.0 or later.\n- The tool is for Humanoid avatars in desktop mode and three-point VR (headset and two controllers). Pose locking while full-body tracking is active is unsupported.\n- Back up an existing project before installing or updating. Finish any outstanding Unity compile errors first.\n- The installer downloads the product and dependencies from their package repositories. An internet connection is required. Avatar models, VRChat SDK, Modular Avatar, and NDMF are not included in this ZIP.",
+      "text": "- Use a Unity 2022.3 VRChat **avatar** project created or managed with VRChat Creator Companion (VCC) or ALCOM.\n- Required packages: VRChat Avatars SDK 3.10.4 or later; Modular Avatar 1.x, version 1.16.2 or later; and NDMF 1.x, version 1.14.8 or later.\n- The tool is for Humanoid avatars in desktop mode and three-point VR (headset and two controllers). Pose locking while full-body tracking is active is unsupported.\n- Back up an existing project before installing or updating. Finish any outstanding Unity compile errors first.\n- The installer downloads the product and dependencies from their package repositories. An internet connection is required. Avatar models, VRChat SDK, Modular Avatar, and NDMF are not included in this ZIP.",
       "invariant": false,
       "contexts": [
         "KawaiiPosing/guide",
@@ -3958,5 +3965,5 @@
       ]
     }
   },
-  "source_sha256": "7b5ab4ad781650ed28c1be5d0f35fd967aeb52daacb714990260aa2d273c4866"
+  "source_sha256": "b46738bc4eab0ed279172f636bc670c8cf1e805382f99b1de55ff33f768ac50e"
 }

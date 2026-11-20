@@ -24,8 +24,8 @@ v3.2.0-এর প্রয়োজনীয় পরিবেশ:
 
 - Unity 2022.3-এর VRChat অ্যাভাটার প্রকল্প
 - VRChat Avatars SDK 3.10.4 বা পরবর্তী সংস্করণ
-- Modular Avatar 1.x ধারার 1.15.1 বা পরবর্তী সংস্করণ
-- NDMF（Non-Destructive Modular Framework）1.x ধারার 1.14.0 বা পরবর্তী সংস্করণ
+- Modular Avatar 1.x ধারার 1.16.2 বা পরবর্তী সংস্করণ
+- NDMF（Non-Destructive Modular Framework）1.x ধারার 1.14.8 বা পরবর্তী সংস্করণ
 
 Kawaii Posing Tool ব্যবহার করলে ALCOM / VCC-তে টুলটি 3.2.0-তে হালনাগাদ করুন এবং Unisaki Posing System-ও 3.2.0 হয়েছে কি না দেখুন। প্রিবিল্ড ব্যবহার করে থাকলে “প্রিবিল্ড হালনাগাদ করুন” চাপুন, দৃশ্য সংরক্ষণ করুন, তারপর অ্যাভাটার আপলোড করুন।
 

@@ -2,7 +2,7 @@
 
 Unisaki Posing System هو الأساس المشترك لـKawaii Posing وCool Posing والأدوات المرتبطة.
 ثبّت المنتج المشترى وهذا النظام معًا عبر VCC أو ALCOM. استخدم Unity 2022.3،
-وVRChat Avatars SDK 3.10.4+ وModular Avatar 1.15.1+ وNDMF 1.14.0+.
+وVRChat Avatars SDK 3.10.4+ وModular Avatar 1.16.2+ وNDMF 1.14.8+.
 
 ## اللغة
 

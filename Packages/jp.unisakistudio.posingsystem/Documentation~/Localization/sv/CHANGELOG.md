@@ -20,11 +20,12 @@
 - Åtgärdat att huvudets position hamnade fel i ryggläge och liknande poser på avatarer med ändrad total skala eller med MA Floor Adjuster, vilket kunde göra att benen blev helt utsträckta i VRChat. Samma sak hände med poser som ändrats i animationsjustering och med vissa egna poser.
 - Åtgärdade ett problem där skripten i Unisaki Posing System gav ett kompileringsfel (CS1061) i projekt med en Modular Avatar-version äldre än 1.17.0, så att poseverktygen inte gick att använda.
 - Åtgärdade ett problem där förberäkningen eller avatarbygget stoppades med ”RootT-förflyttningen för huvudcentrering när du vänder dig kunde inte mätas” när huvudets position inte kunde mätas för en pose som använder Vänd dig. Sådana poser fortsätter nu utan korrigering av huvudets position, och en varning visas i Console.
-- Åtgärdade ett problem i VR där även en kort sänkning av huvudet (en nick, en lätt böjning o.d.) spelade upp hela bytet till hukande eller sittande, så att det tog mer än en sekund att komma tillbaka till stående. Om du höjer huvudet igen halvvägs återgår hållningen från där den är. Hållningen släpar också mindre efter den faktiska rörelsen när du rör dig upp och ner upprepade gånger, som vid knäböj. Använder du förberäkning, klicka Uppdatera förberäkning.
+- Åtgärdade ett problem där avataren låg kvar i liggande pose fast du stod, om du vände dig med ett hopp när du låg och reste dig direkt efteråt, innan du landade. Den återgick inte förrän du lade dig igen. Använder du förberäkning, klicka Uppdatera förberäkning.
 
 ### Kompatibilitet
 
 - Befintliga avatarinställningar, egna namn, assetreferenser, parameteridentifierare och licensens lagringssätt bevaras.
+- De angivna versionskraven motsvarar nu de versioner som har bekräftats fungera. Modular Avatar 1.16.2 eller senare och NDMF 1.14.8 eller senare krävs. Använder du äldre versioner, uppdatera dem tillsammans i ALCOM / VCC.
 
 ## [3.1.4] - 2026-11-11
 

@@ -20,11 +20,12 @@
 - Rettet at hodets posisjon ble forskjøvet i ryggleie og lignende positurer på avatarer med endret samlet skala eller med MA Floor Adjuster, slik at bena kunne bli helt strake i VRChat. Det samme skjedde med positurer endret i animasjonsjustering og med noen egne positurer.
 - Rettet et problem der skriptene i Unisaki Posing System ga en kompileringsfeil (CS1061) i prosjekter med en Modular Avatar-versjon eldre enn 1.17.0, slik at positurverktøyene ikke kunne brukes.
 - Rettet et problem der forhåndsbygget eller avatarbygget stoppet med «Kunne ikke måle RootT-forskyvningen for hodesentrering ved snuing» når hodets posisjon ikke kunne måles i en positur som bruker Snu deg. Slike positurer fortsetter nå uten korrigering av hodets posisjon, og en advarsel vises i Console.
-- Rettet et problem i VR der selv en kort senking av hodet (et nikk, en lett bøyning o.l.) spilte av hele byttet til huk eller sittende, slik at det tok over ett sekund å komme tilbake til stående. Løfter du hodet igjen underveis, går stillingen tilbake derfra. Stillingen henger også mindre etter den faktiske bevegelsen når du beveger deg opp og ned gjentatte ganger, som ved knebøy. Bruker du forhåndsbygg, trykker du «Oppdater forhåndsbygget».
+- Rettet et problem der avataren ble liggende i liggende positur selv om du sto, hvis du snudde deg med et hopp mens du lå og reiste deg rett etterpå, før du landet. Den gikk ikke tilbake før du la deg igjen. Bruker du forhåndsbygg, trykker du «Oppdater forhåndsbygget».
 
 ### Kompatibilitet
 
 - Eksisterende avatarinnstillinger, egne navn, assetreferanser, parameteridentifikatorer og lisenslagring beholdes.
+- De oppgitte versjonskravene tilsvarer nå versjonene som er bekreftet å fungere. Modular Avatar 1.16.2 eller nyere og NDMF 1.14.8 eller nyere kreves. Bruker du eldre versjoner, oppdaterer du dem sammen i ALCOM / VCC.
 
 ## [3.1.4] - 2026-11-11
 

@@ -20,11 +20,12 @@
 - Hersteld dat bij avatars met een gewijzigde totale schaal of met MA Floor Adjuster de hoofdpositie verschoven was in poses op de rug en vergelijkbare poses, waardoor de benen in VRChat volledig gestrekt konden raken. Hetzelfde gebeurde bij poses die in animatieaanpassing waren gewijzigd en bij sommige eigen poses.
 - Probleem opgelost waarbij in projecten met een Modular Avatar-versie ouder dan 1.17.0 de scripts van Unisaki Posing System een compilatiefout (CS1061) gaven, waardoor de posegereedschappen niet meer konden worden gebruikt.
 - Probleem opgelost waarbij, als de hoofdpositie van een pose met Omdraaien niet kon worden gemeten, ‘De RootT-verplaatsing voor hoofdcentrering bij het omdraaien kon niet worden gemeten’ verscheen en de voorberekening of de avatarbuild stopte. Zulke poses gaan nu door zonder correctie van de hoofdpositie, en de Console toont een waarschuwing.
-- Probleem opgelost waarbij in VR al bij het kort laten zakken van het hoofd (knikken, licht bukken enz.) de overgang naar hurken of zitten volledig werd afgespeeld, zodat terugkeren naar staan meer dan een seconde duurde. Breng je het hoofd halverwege terug op hoogte, dan keert de houding vanaf dat punt terug. Ook loopt de houding bij herhaald op en neer bewegen, zoals bij squats, minder achter op je werkelijke beweging. Gebruik je voorberekening, klik dan op Voorberekening bijwerken.
+- Probleem opgelost waarbij, als je je liggend met een sprong omdraaide en direct daarna opstond voordat je landde, de avatar in de liggende pose bleef terwijl je stond. Dat herstelde pas wanneer je weer ging liggen. Gebruik je voorberekening, klik dan op Voorberekening bijwerken.
 
 ### Compatibiliteit
 
 - Bestaande avataropties, eigen namen, assetverwijzingen, parameter-ID’s en licentieopslag behouden.
+- De vermelde vereiste versies komen nu overeen met de versies waarvan de werking is bevestigd. Vereist zijn Modular Avatar 1.16.2 of hoger en NDMF 1.14.8 of hoger. Gebruik je oudere versies, werk ze dan samen bij in ALCOM / VCC.
 
 ## [3.1.4] - 2026-11-11
 

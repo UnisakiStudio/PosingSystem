@@ -20,11 +20,12 @@
 - Naprawiono błąd, przez który w awatarach ze zmienioną skalą całości lub z MA Floor Adjuster położenie głowy było przesunięte w pozach na plecach i podobnych, a nogi w VRChat mogły być całkowicie wyprostowane. To samo dotyczyło póz zmienionych przy dostosowywaniu animacji oraz niektórych własnych póz.
 - Naprawiono problem, przez który w projektach z wersją Modular Avatar starszą niż 1.17.0 skrypty Unisaki Posing System powodowały błąd kompilacji (CS1061) i nie można było używać narzędzi do póz.
 - Naprawiono problem, przez który gdy nie dało się zmierzyć położenia głowy w pozie używającej funkcji „Obróć się”, pojawiał się komunikat „Nie można zmierzyć przesunięcia RootT na potrzeby centrowania głowy przy obracaniu” i budowanie wstępne lub budowanie awatara zostawało przerwane. Takie pozy są teraz przetwarzane dalej bez korekty położenia głowy, a w Console pojawia się ostrzeżenie.
-- Naprawiono problem w VR, przez który nawet krótkie opuszczenie głowy (skinienie, lekkie pochylenie itp.) odtwarzało całe przejście do przykucnięcia lub siedzenia, a powrót do stania trwał ponad sekundę. Jeśli w trakcie przejścia głowa wróci na swoją wysokość, postawa wraca do pierwotnej od miejsca, w którym się znajduje. Zmniejszono też ciągłe rozjeżdżanie się postawy z rzeczywistym ruchem przy powtarzanym ruchu w górę i w dół, np. podczas przysiadów. Jeśli korzystasz z budowania wstępnego, naciśnij „Aktualizuj budowanie wstępne”.
+- Naprawiono problem, przez który po obróceniu się skokiem w pozycji leżącej i wstaniu tuż po nim, przed wylądowaniem, awatar pozostawał w pozie leżącej, choć użytkownik już stał. Wracał dopiero po ponownym położeniu się. Jeśli korzystasz z budowania wstępnego, naciśnij „Aktualizuj budowanie wstępne”.
 
 ### Zgodność
 
 - Zachowywane są istniejące ustawienia awatara, własne nazwy, odwołania do zasobów, identyfikatory parametrów i sposób przechowywania licencji.
+- Podane wymagane wersje dostosowano do wersji, z którymi potwierdzono działanie. Wymagane są Modular Avatar 1.16.2 lub nowszy i NDMF 1.14.8 lub nowszy. Jeśli używasz starszych wersji, zaktualizuj je razem w ALCOM / VCC.
 
 ## [3.1.4] - 2026-11-11
 

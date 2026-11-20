@@ -1,6 +1,6 @@
 # Unisaki Posing System 3.2.0 — suomenkielinen käyttöohje
 
-Unisaki Posing System on Kawaii Posingin, Cool Posingin ja muiden vastaavien työkalujen yhteinen ydin. Asenna ostettu tuote ja ydin yhdessä VCC:n tai ALCOMin avulla. Käytä Unity 2022.3:a, VRChat Avatars SDK 3.10.4+:aa, Modular Avatar 1.15.1+:aa ja NDMF 1.14.0+:aa.
+Unisaki Posing System on Kawaii Posingin, Cool Posingin ja muiden vastaavien työkalujen yhteinen ydin. Asenna ostettu tuote ja ydin yhdessä VCC:n tai ALCOMin avulla. Käytä Unity 2022.3:a, VRChat Avatars SDK 3.10.4+:aa, Modular Avatar 1.16.2+:aa ja NDMF 1.14.8+:aa.
 
 ## Kieli
 

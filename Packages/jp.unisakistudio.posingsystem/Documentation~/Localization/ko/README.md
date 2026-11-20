@@ -24,8 +24,8 @@ v3.2.0의 필요 환경은 다음과 같습니다.
 
 - Unity 2022.3의 VRChat 아바타 프로젝트
 - VRChat Avatars SDK 3.10.4 이상
-- Modular Avatar 1.x 중 1.15.1 이상
-- NDMF(Non-Destructive Modular Framework) 1.x 중 1.14.0 이상
+- Modular Avatar 1.x 중 1.16.2 이상
+- NDMF(Non-Destructive Modular Framework) 1.x 중 1.14.8 이상
 
 Kawaii Posing 사용자는 ALCOM / VCC에서 Kawaii Posing을 3.2.0으로 업데이트하고 Unisaki Posing System도 3.2.0인지 확인하세요. 프리빌드를 사용했다면 프리빌드 업데이트를 누르고 씬을 저장한 뒤 아바타를 업로드합니다.
 

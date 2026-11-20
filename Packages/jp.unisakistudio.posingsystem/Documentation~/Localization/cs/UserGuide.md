@@ -1,6 +1,6 @@
 # Unisaki Posing System 3.2.0 — český návod
 
-Unisaki Posing System je společné jádro Kawaii Posing, Cool Posing a souvisejících nástrojů. Nainstalujte zakoupený produkt i jádro společně přes VCC nebo ALCOM. Použijte Unity 2022.3, VRChat Avatars SDK 3.10.4+, Modular Avatar 1.15.1+ a NDMF 1.14.0+.
+Unisaki Posing System je společné jádro Kawaii Posing, Cool Posing a souvisejících nástrojů. Nainstalujte zakoupený produkt i jádro společně přes VCC nebo ALCOM. Použijte Unity 2022.3, VRChat Avatars SDK 3.10.4+, Modular Avatar 1.16.2+ a NDMF 1.14.8+.
 
 ## Jazyk
 

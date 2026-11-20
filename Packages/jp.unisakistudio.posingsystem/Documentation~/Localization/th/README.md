@@ -24,8 +24,8 @@ README นี้สำหรับ v3.2.0 ที่อยู่ระหว่�
 
 - โปรเจกต์อวาตาร์ VRChat ใน Unity 2022.3
 - VRChat Avatars SDK 3.10.4 ขึ้นไป
-- Modular Avatar สาย 1.x เวอร์ชัน 1.15.1 ขึ้นไป
-- NDMF (Non-Destructive Modular Framework) สาย 1.x เวอร์ชัน 1.14.0 ขึ้นไป
+- Modular Avatar สาย 1.x เวอร์ชัน 1.16.2 ขึ้นไป
+- NDMF (Non-Destructive Modular Framework) สาย 1.x เวอร์ชัน 1.14.8 ขึ้นไป
 
 หากใช้ Kawaii Posing Tool ให้อัปเดตเป็น 3.2.0 ใน ALCOM / VCC และตรวจสอบว่า Unisaki Posing System เป็น 3.2.0 ด้วย หากเคยใช้พรีบิลด์ ให้กด «อัปเดตพรีบิลด์» บันทึกซีน แล้วอัปโหลดอวาตาร์
 
