@@ -2,7 +2,7 @@
 
 这是Kawaii Posing Tool、Cool Posing Tool等产品使用的共用姿势系统。通过Modular Avatar和NDMF，在上传虚拟形象时生成所需的菜单和动画。
 
-本README面向开发中的v3.2.0。正式发布日期尚未确定。已安装的版本可在姿势工具的Inspector顶部查看。另请参阅[新增功能与更新记录](CHANGELOG.md)。
+本README面向v3.2.0。已安装的版本可在姿势工具的Inspector顶部查看。另请参阅[新增功能与更新记录](CHANGELOG.md)。
 
 ## 显示语言与离线文档
 

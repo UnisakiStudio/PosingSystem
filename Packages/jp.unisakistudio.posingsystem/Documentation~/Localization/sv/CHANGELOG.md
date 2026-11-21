@@ -1,6 +1,6 @@
 # Ändringshistorik
 
-## [3.2.0] - Ej utgiven
+## [3.2.0] - 2026-11-22
 
 ### Tillagt
 
@@ -22,6 +22,7 @@
 - Åtgärdade ett problem där förberäkningen eller avatarbygget stoppades med ”RootT-förflyttningen för huvudcentrering när du vänder dig kunde inte mätas” när huvudets position inte kunde mätas för en pose som använder Vänd dig. Sådana poser fortsätter nu utan korrigering av huvudets position, och en varning visas i Console.
 - Åtgärdade ett problem där avataren låg kvar i liggande pose fast du stod, om du vände dig med ett hopp när du låg och reste dig direkt efteråt, innan du landade. Den återgick inte förrän du lade dig igen. Använder du förberäkning, klicka Uppdatera förberäkning.
 - Åtgärdade ett problem där benen inte längre fick posens form om du satt på en stol eller liknande i en värld bara några sekunder och reste dig, och det återgick inte förrän du bytte pose. Åtgärdade också att synvinkeln i skrivbordsläge inte längre stämde med posen efter att du rest dig från en stol.
+- Åtgärdade ett problem där ”Återställ avataren till T-pose” även återställde kroppsbyggnaden som justerats med skelettbenens skala eller position, och till och med själva avatarens position, rotation och skala, till originalmodellens värden. Kroppsbyggnad och placering behålls nu som de är; bara posen återställs.
 
 ### Kompatibilitet
 

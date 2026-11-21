@@ -2,7 +2,7 @@
 
 Hệ thống tư thế dùng chung cho Kawaii Posing Tool, Cool Posing Tool và các công cụ liên quan. Hệ thống sử dụng Modular Avatar và NDMF để tạo menu cùng hoạt ảnh cần thiết khi tải avatar lên.
 
-README này dành cho v3.2.0 đang được phát triển. Chưa xác định ngày phát hành chính thức. Kiểm tra phiên bản đã cài ở đầu Inspector của công cụ tư thế. Xem thêm [tính năng mới và lịch sử thay đổi](CHANGELOG.md).
+README này dành cho v3.2.0. Kiểm tra phiên bản đã cài ở đầu Inspector của công cụ tư thế. Xem thêm [tính năng mới và lịch sử thay đổi](CHANGELOG.md).
 
 ## Ngôn ngữ hiển thị và tài liệu ngoại tuyến
 

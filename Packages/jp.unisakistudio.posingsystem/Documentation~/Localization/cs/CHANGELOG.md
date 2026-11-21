@@ -1,6 +1,6 @@
 # Historie změn
 
-## [3.2.0] - Nevydáno
+## [3.2.0] - 2026-11-22
 
 ### Přidáno
 
@@ -22,6 +22,7 @@
 - Opravena chyba, kdy se při nemožnosti změřit polohu hlavy u pózy s funkcí Přetočit se zobrazilo „Nelze změřit posun RootT pro vycentrování hlavy při přetáčení“ a předgenerování nebo sestavení avatara se zastavilo. Takové pózy nyní pokračují bez korekce polohy hlavy a v Console se zobrazí varování.
 - Opravena chyba, kdy pokud jste se vleže přetočili skokem a hned poté, ještě před dopadem, vstali, zůstal avatar v ležící póze, přestože jste stáli. Vrátil se až poté, co jste si znovu lehli. Pokud používáte předgenerování, stiskněte Aktualizovat předgenerování.
 - Opravena chyba, kdy pokud jste si ve světě sedli na židli nebo podobné místo jen na několik sekund a vstali, nohy přestaly mít tvar pózy a vrátily se až po přepnutí na jinou pózu. Opravena také chyba, kdy v režimu plochy po vstání ze židle přestal pohled odpovídat póze.
+- Opravena chyba, kdy stisknutí „Obnovit avatara do T-pózy“ vrátilo na hodnoty původního modelu i proporce těla upravené měřítkem nebo polohou kostí, a dokonce i polohu, rotaci a měřítko samotného avatara. Proporce těla a rozmístění nyní zůstávají beze změny; obnoví se jen póza.
 
 ### Kompatibilita
 

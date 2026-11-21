@@ -53,11 +53,11 @@
       "product": "PosingSystem",
       "kind": "readme",
       "source": "PosingSystem/Packages/jp.unisakistudio.posingsystem/README.md",
-      "source_sha256": "899fb4cad95ff9e40e31a213adcdb23022a58d14a75276bc680480b915f84767",
+      "source_sha256": "cfa8fdcb2f2390fe54ad5be8e41cb098ebd385545f6e6960561fba077d79bb53",
       "blocks": [
         "400f9d61ba8fe81c",
         "3384667be43ce486",
-        "37b1b586e6f00193",
+        "19281f4e3d0590de",
         "dddcc5e2fa2e62d6",
         "f057ec94623ab83e",
         "e949435434fc5e4d",
@@ -145,14 +145,14 @@
       "product": "PosingSystem",
       "kind": "changelog",
       "source": "PosingSystem/Packages/jp.unisakistudio.posingsystem/CHANGELOG.md",
-      "source_sha256": "47c102fb9bee3a6af65c92bdf84b587c13a1a6d5ef96c1a1dac8a51b7b4a4d6a",
+      "source_sha256": "1cad1ea3f060424bd5aaa900ae9c5cbf45019a0c9e85fda1f0c278bca5e7dd8a",
       "blocks": [
         "3e9e4ae5e303de21",
-        "1fea13aed5680b51",
+        "8466863269dc2e8e",
         "545755f8035c08c9",
         "79fec8d04d3cf763",
         "5ec0c3c554aaceac",
-        "2cf19f143d21f603",
+        "8ec4b45f1e8a4d92",
         "25b732bdda1bb358",
         "5771289b55690e9e",
         "706843f119f826f7",
@@ -259,11 +259,11 @@
       "product": "KawaiiPosing",
       "kind": "readme",
       "source": "KawaiiPosing/Packages/jp.unisakistudio.kawaiiposing/README.md",
-      "source_sha256": "8378e468de6700cd1ca18e9eb699b0797e70113e25d20f1b0ff8b04f71fcbafb",
+      "source_sha256": "fbc7c8d8645ea10e4d0b2572d960181b3140940504bb6b858b75827ba1c03dc5",
       "blocks": [
         "c6f4f4db27e61f12",
         "63ac3178b7280bc1",
-        "359f541ee33a4bb9",
+        "b57fae49dd55e4e1",
         "c777006c3059a301",
         "dddcc5e2fa2e62d6",
         "f057ec94623ab83e",
@@ -332,10 +332,10 @@
       "product": "KawaiiPosing",
       "kind": "changelog",
       "source": "KawaiiPosing/Packages/jp.unisakistudio.kawaiiposing/CHANGELOG.md",
-      "source_sha256": "09044ad9157fddc1f622455e2d2ed449ef4658bc74320d3a520ca7cc308f9c3e",
+      "source_sha256": "d27e9b1b59372fc88dfc721a3fb23a9423c8a0a67b9b49bd8ff4c70102aed221",
       "blocks": [
         "3e9e4ae5e303de21",
-        "1fea13aed5680b51",
+        "8466863269dc2e8e",
         "545755f8035c08c9",
         "79fec8d04d3cf763",
         "25b732bdda1bb358",
@@ -412,7 +412,7 @@
       "product": "KawaiiPosing",
       "kind": "guide",
       "source": "KawaiiPosing/Packages/jp.unisakistudio.kawaiiposing/Documentation~/UserGuide.en.md",
-      "source_sha256": "1e69948256ef41a0ade309f79f8cbef281ae006fff9f208b6dfc381621fa04be",
+      "source_sha256": "d103d48656f620814c25888ea8ff23d9a8965ca9344a742ae0d70624507061d7",
       "blocks": [
         "f675a3d502bd6e37",
         "240461debb7fb962",
@@ -422,7 +422,7 @@
         "b58d5efb219e0955",
         "07d7ee924d86344a",
         "3c27365bd82f8dab",
-        "952ab3fb036b1c5b",
+        "3e25933ad68a7655",
         "a511a3ab974162c1",
         "bcb5eefe38ccacd0",
         "9b067be04670a030",
@@ -501,11 +501,11 @@
       "product": "CoolPosing",
       "kind": "readme",
       "source": "CoolPosing/Packages/jp.unisakistudio.coolposing/README.md",
-      "source_sha256": "731b61d9a03fd709e2cf17ee1f25e139e1a3cf4fce63c04cde3f20e81ad8b612",
+      "source_sha256": "cb7a8afc33dd900408732382c97c89fe8ec461037d7a783cdaefbb90893389b6",
       "blocks": [
         "9ec15b083830389e",
         "c2493654393fac07",
-        "ef9a7f895c6e482e",
+        "c8f089da9684463b",
         "42d11daea3442e03",
         "dddcc5e2fa2e62d6",
         "f057ec94623ab83e",
@@ -563,10 +563,10 @@
       "product": "CoolPosing",
       "kind": "changelog",
       "source": "CoolPosing/Packages/jp.unisakistudio.coolposing/CHANGELOG.md",
-      "source_sha256": "36373ccd98242308783275cee42905131028a596d2e43526f0132d6444c33a49",
+      "source_sha256": "d4088cf95c9ee83fba908d1b37e7956486c5d5e9c576a0fe0b9294969ac41676",
       "blocks": [
         "3e9e4ae5e303de21",
-        "62431d8d88608efa",
+        "4cfe29b892c22ec5",
         "545755f8035c08c9",
         "79fec8d04d3cf763",
         "25b732bdda1bb358",
@@ -594,7 +594,7 @@
       "product": "CoolPosing",
       "kind": "guide",
       "source": "CoolPosing/Packages/jp.unisakistudio.coolposing/Documentation~/UserGuide.en.md",
-      "source_sha256": "b0aa84d229f162641ff97f8c504916213f243735a86414b3e3fb783d66d14270",
+      "source_sha256": "c033875a13fcf047241479306af8993a816d3f32e948099112eeffe72f10f3eb",
       "blocks": [
         "9b3438889c475907",
         "759fd79caf261f73",
@@ -604,7 +604,7 @@
         "b58d5efb219e0955",
         "7888738c09012544",
         "3c27365bd82f8dab",
-        "790187b65aa5e389",
+        "89c1d07f33a31e02",
         "cd35a97066714f25",
         "bcb5eefe38ccacd0",
         "9b067be04670a030",
@@ -746,9 +746,9 @@
         "PosingSystem/readme"
       ]
     },
-    "37b1b586e6f00193": {
+    "19281f4e3d0590de": {
       "language": "ja",
-      "text": "このREADMEは開発中のv3.2.0向けです。正式リリース日は未定です。導入済みのバージョンは、ポーズツールのInspector上部で確認できます。[追加機能・変更履歴](CHANGELOG.md)もご覧ください。",
+      "text": "このREADMEはv3.2.0向けです。導入済みのバージョンは、ポーズツールのInspector上部で確認できます。[追加機能・変更履歴](CHANGELOG.md)もご覧ください。",
       "invariant": false,
       "contexts": [
         "PosingSystem/readme"
@@ -1424,10 +1424,10 @@
         "CoolPosing/changelog"
       ]
     },
-    "1fea13aed5680b51": {
+    "8466863269dc2e8e": {
       "language": "ja",
-      "text": "## [3.2.0] - 未リリース",
-      "invariant": false,
+      "text": "## [3.2.0] - 2026-11-22",
+      "invariant": true,
       "contexts": [
         "PosingSystem/changelog",
         "KawaiiPosing/changelog"
@@ -1467,9 +1467,9 @@
         "CoolPosing/changelog"
       ]
     },
-    "2cf19f143d21f603": {
+    "8ec4b45f1e8a4d92": {
       "language": "ja",
-      "text": "- コンパイルエラーでポーズを生成できないとき（PS050）、エラーが起きているツールの名前を表示するようにしました。Unityを再起動した直後や、Consoleの表示を絞り込んでいるときにも、エラーの内容を確認できます。\n- プレビルドの更新にかかる時間を短くしました。寝返りを設定したポーズが多いほど効果があります。\n- 日本語・中国語の機能説明が折り返されるとき、行の先頭に「。」や「、」が来ないようにしました。\n- 他のツールのエラーでポーズ画像を更新できないとき（PS036）、エラーが起きているツールの名前とエラーの内容を表示するようにしました。\n- Unityを再起動するたびに、プレビルド済みなのにプレビルドの更新を求められることがある問題を修正しました。Baseレイヤーに独自のControllerを設定したアバターで「アバターの元の立ち・しゃがみ・伏せ姿勢を使う」をオンにしていると起きていました。\n- ポーズの編集・プレビュー中に、MA Merge Armatureで着せた衣装や髪が元の位置に残る問題を修正しました。元のアバターの設定や配置を保ったまま、プレビューの姿勢に追従します。\n- アバター全体のスケールを変えている場合や、MA Floor Adjusterを使っている場合に、仰向けなどのポーズで頭の位置がずれ、VRChatで足が伸びきってしまうことがある問題を修正しました。アニメーション調整をしたポーズや、一部の自作ポーズでも同じ問題が起きていました。\n- Modular Avatar 1.17.0より前の版を使っているプロジェクトで、ゆにさきポーズシステムのスクリプトがコンパイルエラー（CS1061）になり、ポーズツールを使えなくなる問題を修正しました。\n- 寝返りを使うポーズで頭の位置を計測できないと、「寝返りの頭位置補正で、RootTの移動量を計測できませんでした」と表示されてプレビルドやアバターのビルドが止まる問題を修正しました。計測できないポーズは頭の位置を補正せずに続行し、Consoleに警告を表示します。\n- 寝ている姿勢でジャンプして寝返りをした直後、着地する前に立ち上がると、立っているのにアバターが寝た姿勢のままになる問題を修正しました。もう一度寝る姿勢を取るまで戻りませんでした。プレビルドを使っている場合は「プレビルドを更新」を押してください。\n- ワールドの椅子などに数秒だけ座って立ち上がると、ポーズ中の足がポーズの形にならず、ポーズを切り替えるまで戻らないことがある問題を修正しました。デスクトップモードで、椅子から立ったあとに視点の位置がポーズに合わなくなる問題も修正しました。",
+      "text": "- コンパイルエラーでポーズを生成できないとき（PS050）、エラーが起きているツールの名前を表示するようにしました。Unityを再起動した直後や、Consoleの表示を絞り込んでいるときにも、エラーの内容を確認できます。\n- プレビルドの更新にかかる時間を短くしました。寝返りを設定したポーズが多いほど効果があります。\n- 日本語・中国語の機能説明が折り返されるとき、行の先頭に「。」や「、」が来ないようにしました。\n- 他のツールのエラーでポーズ画像を更新できないとき（PS036）、エラーが起きているツールの名前とエラーの内容を表示するようにしました。\n- Unityを再起動するたびに、プレビルド済みなのにプレビルドの更新を求められることがある問題を修正しました。Baseレイヤーに独自のControllerを設定したアバターで「アバターの元の立ち・しゃがみ・伏せ姿勢を使う」をオンにしていると起きていました。\n- ポーズの編集・プレビュー中に、MA Merge Armatureで着せた衣装や髪が元の位置に残る問題を修正しました。元のアバターの設定や配置を保ったまま、プレビューの姿勢に追従します。\n- アバター全体のスケールを変えている場合や、MA Floor Adjusterを使っている場合に、仰向けなどのポーズで頭の位置がずれ、VRChatで足が伸びきってしまうことがある問題を修正しました。アニメーション調整をしたポーズや、一部の自作ポーズでも同じ問題が起きていました。\n- Modular Avatar 1.17.0より前の版を使っているプロジェクトで、ゆにさきポーズシステムのスクリプトがコンパイルエラー（CS1061）になり、ポーズツールを使えなくなる問題を修正しました。\n- 寝返りを使うポーズで頭の位置を計測できないと、「寝返りの頭位置補正で、RootTの移動量を計測できませんでした」と表示されてプレビルドやアバターのビルドが止まる問題を修正しました。計測できないポーズは頭の位置を補正せずに続行し、Consoleに警告を表示します。\n- 寝ている姿勢でジャンプして寝返りをした直後、着地する前に立ち上がると、立っているのにアバターが寝た姿勢のままになる問題を修正しました。もう一度寝る姿勢を取るまで戻りませんでした。プレビルドを使っている場合は「プレビルドを更新」を押してください。\n- ワールドの椅子などに数秒だけ座って立ち上がると、ポーズ中の足がポーズの形にならず、ポーズを切り替えるまで戻らないことがある問題を修正しました。デスクトップモードで、椅子から立ったあとに視点の位置がポーズに合わなくなる問題も修正しました。\n- 「アバターの姿勢をリセット（Tポーズに戻す）」を押すと、ボーンのスケールや位置で調整した体型や、アバター本体の位置・回転・スケールまで元のモデルの値に戻ってしまう問題を修正しました。体型と配置はそのままで、姿勢だけを戻します。",
       "invariant": false,
       "contexts": [
         "PosingSystem/changelog"
@@ -2129,9 +2129,9 @@
         "KawaiiPosing/readme"
       ]
     },
-    "359f541ee33a4bb9": {
+    "b57fae49dd55e4e1": {
       "language": "ja",
-      "text": "このREADMEは開発中のv3.2.0向けです。正式リリース日は未定です。導入済みのバージョンはInspector上部で確認できます。",
+      "text": "このREADMEはv3.2.0向けです。導入済みのバージョンはInspector上部で確認できます。",
       "invariant": false,
       "contexts": [
         "KawaiiPosing/readme"
@@ -3059,9 +3059,9 @@
         "CoolPosing/guide"
       ]
     },
-    "952ab3fb036b1c5b": {
+    "3e25933ad68a7655": {
       "language": "en",
-      "text": "**Kawaii Posing Tool 3.2.0 with Unisaki Posing System 3.2.0.** This version is in development and has not been released. It adds thirty-language setup dialogs, Unity Inspector and menus, standard pose names, in-game menus, and offline documentation. The release date has not been set. Use the top-of-Inspector language selector to change the tool language. After publication, the installer will download these versions and their compatible dependencies from VPM repositories. Local release preparation does not publish those packages.",
+      "text": "**Kawaii Posing Tool 3.2.0 with Unisaki Posing System 3.2.0.** This version adds thirty-language setup dialogs, Unity Inspector and menus, standard pose names, in-game menus, and offline documentation. Use the top-of-Inspector language selector to change the tool language. The installer downloads these versions and their compatible dependencies from VPM repositories.",
       "invariant": false,
       "contexts": [
         "KawaiiPosing/guide"
@@ -3604,9 +3604,9 @@
         "CoolPosing/readme"
       ]
     },
-    "ef9a7f895c6e482e": {
+    "c8f089da9684463b": {
       "language": "ja",
-      "text": "このREADMEは開発中のv1.2.0向けです。正式リリース日は未定です。導入済みのバージョンはInspector上部で確認できます。",
+      "text": "このREADMEはv1.2.0向けです。導入済みのバージョンはInspector上部で確認できます。",
       "invariant": false,
       "contexts": [
         "CoolPosing/readme"
@@ -3772,10 +3772,10 @@
         "CoolPosing/readme"
       ]
     },
-    "62431d8d88608efa": {
+    "4cfe29b892c22ec5": {
       "language": "ja",
-      "text": "## [1.2.0] - 未リリース",
-      "invariant": false,
+      "text": "## [1.2.0] - 2026-11-22",
+      "invariant": true,
       "contexts": [
         "CoolPosing/changelog"
       ]
@@ -3892,9 +3892,9 @@
         "CoolPosing/guide"
       ]
     },
-    "790187b65aa5e389": {
+    "89c1d07f33a31e02": {
       "language": "en",
-      "text": "**Cool Posing Tool 1.2.0 with Unisaki Posing System 3.2.0.** This version is in development and has not been released. It adds thirty-language setup dialogs, Unity Inspector and menus, standard pose names, in-game menus, and offline documentation. The release date has not been set. Use the top-of-Inspector language selector to change the tool language. After publication, the installer will download these versions and their compatible dependencies from VPM repositories. Local release preparation does not publish those packages.",
+      "text": "**Cool Posing Tool 1.2.0 with Unisaki Posing System 3.2.0.** This version adds thirty-language setup dialogs, Unity Inspector and menus, standard pose names, in-game menus, and offline documentation. Use the top-of-Inspector language selector to change the tool language. The installer downloads these versions and their compatible dependencies from VPM repositories.",
       "invariant": false,
       "contexts": [
         "CoolPosing/guide"
@@ -3965,5 +3965,5 @@
       ]
     }
   },
-  "source_sha256": "afdbf9b04ad51f56f113b75f1658899e3a625e4f73d2d365977b57947e3c6016"
+  "source_sha256": "5316df5b41ed37478566ac8a6502242637857f7eef9dd4e881aa5b316b3c301f"
 }

@@ -1,6 +1,6 @@
 # Wijzigingsgeschiedenis
 
-## [3.2.0] - Niet uitgebracht
+## [3.2.0] - 2026-11-22
 
 ### Toegevoegd
 
@@ -22,6 +22,7 @@
 - Probleem opgelost waarbij, als de hoofdpositie van een pose met Omdraaien niet kon worden gemeten, ‘De RootT-verplaatsing voor hoofdcentrering bij het omdraaien kon niet worden gemeten’ verscheen en de voorberekening of de avatarbuild stopte. Zulke poses gaan nu door zonder correctie van de hoofdpositie, en de Console toont een waarschuwing.
 - Probleem opgelost waarbij, als je je liggend met een sprong omdraaide en direct daarna opstond voordat je landde, de avatar in de liggende pose bleef terwijl je stond. Dat herstelde pas wanneer je weer ging liggen. Gebruik je voorberekening, klik dan op Voorberekening bijwerken.
 - Probleem opgelost waarbij, als je in een wereld maar een paar seconden op een stoel of iets dergelijks ging zitten en weer opstond, de benen niet meer de vorm van de pose aannamen totdat je naar een andere pose wisselde. Ook opgelost dat in desktop het gezichtspunt na het opstaan van een stoel niet meer bij de pose paste.
+- Probleem opgelost waarbij 'Avatar terugzetten naar T-pose' ook de met de schaal of positie van botten aangepaste lichaamsbouw, en zelfs de positie, rotatie en schaal van de avatar zelf, terugzette naar de waarden van het oorspronkelijke model. Lichaamsbouw en plaatsing blijven nu zoals ze zijn; alleen de pose wordt teruggezet.
 
 ### Compatibiliteit
 

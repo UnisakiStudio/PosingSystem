@@ -2,7 +2,7 @@
 
 Společný systém póz pro Kawaii Posing Tool, Cool Posing Tool a další nástroje. Pomocí Modular Avatar a NDMF vytváří potřebné nabídky a animace při nahrávání avatara.
 
-Tento README je určen pro vyvíjenou verzi v3.2.0. Datum oficiálního vydání zatím nebylo stanoveno. Nainstalovaná verze se zobrazuje nahoře v Inspectoru nástroje pro pózy. Viz také [nové funkce a historii změn](CHANGELOG.md).
+Tento README je určen pro verzi v3.2.0. Nainstalovaná verze se zobrazuje nahoře v Inspectoru nástroje pro pózy. Viz také [nové funkce a historii změn](CHANGELOG.md).
 
 ## Jazyk rozhraní a offline dokumentace
 

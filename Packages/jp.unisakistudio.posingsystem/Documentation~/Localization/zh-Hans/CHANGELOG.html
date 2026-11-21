@@ -11,7 +11,7 @@ a { color: #2269b8; } a:visited { color: #7952ad; } li { margin-block: .35rem; }
 @media print { nav { display: none; } body { max-width: none; padding: 0; } a { color: inherit; } }</style></head><body>
 <nav aria-label="Documentation"><a href="../index.html">简体中文 · 🌐</a><a href="README.html">README</a><a href="CHANGELOG.html">更新记录</a><a href="UserGuide.html">Unisaki Posing System 3.2.0 — 简体中文指南</a></nav>
 <main><h1>更新记录</h1>
-<h2>[3.2.0] - 尚未发布</h2>
+<h2>[3.2.0] - 2026-11-22</h2>
 <h3>新增</h3>
 <ul>
 <li>Inspector、编辑操作、安装对话框、标准姿势名和生成的VRChat菜单现支持30种显示语言。</li>
@@ -32,6 +32,7 @@ a { color: #2269b8; } a:visited { color: #7952ad; } li { margin-block: .35rem; }
 <li>修复了使用翻身的姿势无法测量头部位置时，会显示“翻身头部位置校正时无法测量RootT位移”并导致预构建或虚拟形象构建中止的问题。无法测量的姿势现在会在不校正头部位置的情况下继续处理，并在Console中显示警告。</li>
 <li>修复了在躺姿下跳跃翻身后，若在落地前立即站起，虽然已经站立，虚拟形象却仍保持躺姿的问题。此前要再次进入躺姿才会恢复。如果使用预构建，请点击“更新预构建”。</li>
 <li>修复了在世界中的椅子等处只坐几秒钟就站起来后，姿势中的腿部不再呈现姿势的形状，直到切换姿势才会恢复的问题。同时修复了在桌面模式中从椅子上站起后视点位置与姿势不再吻合的问题。</li>
+<li>修复了点击“将头像重置为T姿势”后，通过骨骼缩放或位置调整过的体型，乃至虚拟形象本身的位置、旋转和缩放，都会恢复为原始模型数值的问题。现在会保持体型和摆放不变，只重置姿势。</li>
 </ul>
 <h3>兼容性</h3>
 <ul>

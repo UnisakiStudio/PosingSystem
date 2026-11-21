@@ -11,7 +11,7 @@ a { color: #2269b8; } a:visited { color: #7952ad; } li { margin-block: .35rem; }
 @media print { nav { display: none; } body { max-width: none; padding: 0; } a { color: inherit; } }</style></head><body>
 <nav aria-label="Documentation"><a href="../index.html">Bahasa Indonesia · 🌐</a><a href="README.html">README</a><a href="CHANGELOG.html">Riwayat perubahan</a><a href="UserGuide.html">Unisaki Posing System 3.2.0 — Panduan bahasa Indonesia</a></nav>
 <main><h1>Riwayat perubahan</h1>
-<h2>[3.2.0] - Belum dirilis</h2>
+<h2>[3.2.0] - 2026-11-22</h2>
 <h3>Ditambahkan</h3>
 <ul>
 <li>Inspector, operasi penyuntingan, dialog pemasangan, nama pose standar, dan menu VRChat yang dihasilkan kini tersedia dalam 30 bahasa.</li>
@@ -32,6 +32,7 @@ a { color: #2269b8; } a:visited { color: #7952ad; } li { margin-block: .35rem; }
 <li>Memperbaiki masalah ketika posisi kepala pada pose yang memakai Berguling tidak dapat diukur, muncul “Perpindahan RootT untuk pemusatan kepala saat berguling tidak dapat diukur” dan prabuild atau build avatar terhenti. Kini pose seperti itu dilanjutkan tanpa koreksi posisi kepala, dan peringatan ditampilkan di Console.</li>
 <li>Memperbaiki masalah ketika berdiri tepat setelah berguling dengan melompat saat berbaring, sebelum mendarat, membuat avatar tetap dalam pose berbaring meskipun sudah berdiri. Avatar tidak kembali sampai berbaring lagi. Jika memakai prabuild, tekan Perbarui prabuild.</li>
 <li>Memperbaiki masalah ketika duduk di kursi atau tempat serupa di sebuah dunia hanya beberapa detik lalu berdiri membuat kaki tidak lagi mengikuti bentuk pose dan tidak kembali sampai pose diganti. Juga memperbaiki sudut pandang yang tidak lagi sesuai dengan pose setelah berdiri dari kursi dalam mode desktop.</li>
+<li>Memperbaiki masalah ketika menekan &quot;Reset avatar ke pose T&quot; juga mengembalikan bentuk tubuh yang disesuaikan dengan skala atau posisi tulang, bahkan posisi, rotasi, dan skala avatar itu sendiri, ke nilai model asli. Kini bentuk tubuh dan penempatan tetap seperti semula; hanya pose yang dikembalikan.</li>
 </ul>
 <h3>Kompatibilitas</h3>
 <ul>

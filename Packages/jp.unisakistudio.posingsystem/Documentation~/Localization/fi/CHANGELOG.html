@@ -11,7 +11,7 @@ a { color: #2269b8; } a:visited { color: #7952ad; } li { margin-block: .35rem; }
 @media print { nav { display: none; } body { max-width: none; padding: 0; } a { color: inherit; } }</style></head><body>
 <nav aria-label="Documentation"><a href="../index.html">Suomi · 🌐</a><a href="README.html">README</a><a href="CHANGELOG.html">Muutosloki</a><a href="UserGuide.html">Unisaki Posing System 3.2.0 — suomenkielinen käyttöohje</a></nav>
 <main><h1>Muutosloki</h1>
-<h2>[3.2.0] - Julkaisematon</h2>
+<h2>[3.2.0] - 2026-11-22</h2>
 <h3>Lisätty</h3>
 <ul>
 <li>Inspectorin, muokkaustoimintojen, asennusikkunoiden, vakioasentojen nimien ja luotavan VRChat-valikon näyttö 30 kielellä.</li>
@@ -32,6 +32,7 @@ a { color: #2269b8; } a:visited { color: #7952ad; } li { margin-block: .35rem; }
 <li>Korjattu ongelma, jossa esikoonti tai avatarin koonti pysähtyi ilmoitukseen ”RootT-siirtymää pään keskittämiseksi kääntyessä ei voitu mitata”, kun Käänny-toimintoa käyttävän asennon pään sijaintia ei voitu mitata. Tällaiset asennot jatkuvat nyt ilman pään sijainnin korjausta, ja Consoleen tulee varoitus.</li>
 <li>Korjattu ongelma, jossa avatar jäi makuuasentoon, vaikka seisoit, jos käännyit makuulla hyppäämällä ja nousit heti sen jälkeen ennen alastuloa. Se palautui vasta, kun menit uudelleen makuulle. Jos käytät esikoontia, paina ”Päivitä esikoonti”.</li>
 <li>Korjattu ongelma, jossa jalat eivät enää olleet asennon muotoiset, jos istuit maailmassa tuolilla tai vastaavalla vain muutaman sekunnin ja nousit ylös. Ne palautuivat vasta, kun vaihdoit asentoa. Korjattu myös, että näkymän sijainti ei työpöytätilassa enää vastannut asentoa tuolilta nousemisen jälkeen.</li>
+<li>Korjattu ongelma, jossa ”Palauta avatar T-asentoon” palautti alkuperäisen mallin arvoihin myös luiden mittakaavalla tai sijainnilla säädetyt mittasuhteet ja jopa itse avatarin sijainnin, kierron ja mittakaavan. Mittasuhteet ja sijoittelu säilyvät nyt ennallaan; vain asento palautetaan.</li>
 </ul>
 <h3>Yhteensopivuus</h3>
 <ul>

@@ -2,7 +2,7 @@
 
 Kawaii Posing Tool, Cool Posing Tool ve benzeri araçların kullandığı ortak poz sistemidir. Avatar yüklenirken gereken menü ve animasyonları Modular Avatar ve NDMF ile oluşturur.
 
-Bu README, geliştirilmekte olan v3.2.0 içindir. Resmî yayın tarihi henüz belirlenmemiştir. Kurulu sürümü poz aracının Inspector’ının üstünde görebilirsiniz. [Yeni özellikler ve değişiklik geçmişine](CHANGELOG.md) de bakın.
+Bu README, v3.2.0 içindir. Kurulu sürümü poz aracının Inspector’ının üstünde görebilirsiniz. [Yeni özellikler ve değişiklik geçmişine](CHANGELOG.md) de bakın.
 
 ## Görüntüleme dili ve çevrimdışı belgeler
 

@@ -1,6 +1,6 @@
 # Ændringshistorik
 
-## [3.2.0] - Ikke udgivet
+## [3.2.0] - 2026-11-22
 
 ### Tilføjet
 
@@ -22,6 +22,7 @@
 - Rettede et problem, hvor forberegningen eller avatar-buildet stoppede med “RootT-forskydningen til hovedcentrering ved vending kunne ikke måles”, når hovedets position ikke kunne måles i en positur, der bruger Vend dig. Sådanne positurer fortsætter nu uden korrektion af hovedets position, og der vises en advarsel i Console.
 - Rettede et problem, hvor avataren blev i den liggende positur, selv om du stod, hvis du vendte dig med et hop, mens du lå, og rejste dig straks efter, før du landede. Den vendte først tilbage, når du lagde dig igen. Bruger du forberegning, skal du trykke ”Opdatér forberegning”.
 - Rettede et problem, hvor benene ikke længere havde positurens form, hvis du satte dig på en stol eller lignende i en verden i blot få sekunder og rejste dig igen. Det vendte først tilbage, når du skiftede positur. Rettede også, at synspunktet på skrivebordet ikke længere passede til posituren, når du havde rejst dig fra en stol.
+- Rettede et problem, hvor et tryk på ”Nulstil avataren til T-positur” også satte kropsbygningen, der var tilpasset med knoglernes skala eller position, og endda selve avatarens position, rotation og skala tilbage til den oprindelige models værdier. Kropsbygning og placering forbliver nu uændret; kun posituren nulstilles.
 
 ### Kompatibilitet
 

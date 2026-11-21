@@ -1,6 +1,6 @@
 # Değişiklik geçmişi
 
-## [3.2.0] - Yayınlanmadı
+## [3.2.0] - 2026-11-22
 
 ### Eklenenler
 
@@ -22,6 +22,7 @@
 - Dön kullanan bir pozda baş konumu ölçülemediğinde “Dönerken başı merkezlemek için RootT yer değiştirmesi ölçülemedi” iletisinin gösterilip ön oluşturmanın veya avatar derlemesinin durması sorunu düzeltildi. Ölçülemeyen pozlar artık baş konumu düzeltilmeden devam eder ve Console’da bir uyarı gösterilir.
 - Yatarken zıplayarak döndükten hemen sonra, yere inmeden ayağa kalkıldığında, ayakta olunmasına rağmen avatarın yatış pozunda kalması sorunu düzeltildi. Yeniden yatış pozuna geçilene kadar düzelmiyordu. Ön oluşturma kullanıyorsanız Ön oluşturmayı güncelle düğmesine basın.
 - Bir dünyada sandalye gibi bir yere yalnızca birkaç saniye oturup kalkıldığında, bacakların poz şeklini almaması ve başka bir poza geçilene kadar düzelmemesi sorunu düzeltildi. Masaüstünde sandalyeden kalktıktan sonra bakış noktasının poza uymaması sorunu da düzeltildi.
+- "Avatarı T-pozuna sıfırla" düğmesine basıldığında, kemiklerin ölçeği veya konumuyla ayarlanmış vücut yapısının ve hatta avatarın kendi konumu, dönüşü ve ölçeğinin de asıl modelin değerlerine dönmesi sorunu düzeltildi. Vücut yapısı ve yerleşim artık olduğu gibi kalır; yalnızca poz sıfırlanır.
 
 ### Uyumluluk
 

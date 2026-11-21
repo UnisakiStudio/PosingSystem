@@ -11,7 +11,7 @@ a { color: #2269b8; } a:visited { color: #7952ad; } li { margin-block: .35rem; }
 @media print { nav { display: none; } body { max-width: none; padding: 0; } a { color: inherit; } }</style></head><body>
 <nav aria-label="Documentation"><a href="../index.html">한국어 · 🌐</a><a href="README.html">README</a><a href="CHANGELOG.html">변경 내역</a><a href="UserGuide.html">Unisaki Posing System 3.2.0 — 사용 설명서</a></nav>
 <main><h1>변경 내역</h1>
-<h2>[3.2.0] - 미출시</h2>
+<h2>[3.2.0] - 2026-11-22</h2>
 <h3>추가</h3>
 <ul>
 <li>Inspector, 편집 작업, 설치 대화 상자, 표준 포즈 이름, 생성되는 VRChat 메뉴를 30개 언어로 표시할 수 있도록 했습니다.</li>
@@ -32,6 +32,7 @@ a { color: #2269b8; } a:visited { color: #7952ad; } li { margin-block: .35rem; }
 <li>뒤척이기를 사용하는 포즈에서 머리 위치를 측정할 수 없으면 &#x27;뒤척이기 머리 위치 보정에서 RootT 이동량을 측정할 수 없습니다&#x27;가 표시되고 프리빌드나 아바타 빌드가 중단되는 문제를 수정했습니다. 측정할 수 없는 포즈는 머리 위치를 보정하지 않고 계속하며, Console에 경고를 표시합니다.</li>
 <li>누운 자세에서 점프로 몸을 뒤집은 직후 착지하기 전에 일어나면, 서 있는데도 아바타가 누운 자세 그대로 남는 문제를 수정했습니다. 다시 누운 자세를 취할 때까지 돌아오지 않았습니다. 프리빌드를 사용하는 경우 프리빌드 업데이트를 누르세요.</li>
 <li>월드의 의자 등에 몇 초만 앉았다가 일어나면 포즈 중인 다리가 포즈 모양이 되지 않고, 포즈를 바꿀 때까지 돌아오지 않는 경우가 있는 문제를 수정했습니다. 데스크톱 모드에서 의자에서 일어난 뒤 시점 위치가 포즈와 맞지 않게 되는 문제도 수정했습니다.</li>
+<li>&#x27;아바타를 T 포즈로 초기화&#x27;를 누르면 본의 스케일이나 위치로 조정한 체형은 물론 아바타 본체의 위치·회전·스케일까지 원래 모델의 값으로 돌아가 버리는 문제를 수정했습니다. 체형과 배치는 그대로 두고 자세만 되돌립니다.</li>
 </ul>
 <h3>호환성</h3>
 <ul>

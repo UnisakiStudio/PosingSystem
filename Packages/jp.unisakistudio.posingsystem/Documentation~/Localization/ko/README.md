@@ -2,7 +2,7 @@
 
 Kawaii Posing, Cool Posing 등에서 사용하는 공통 포즈 시스템입니다. Modular Avatar와 NDMF를 사용하여 아바타 업로드 시 필요한 메뉴와 애니메이션을 생성합니다.
 
-이 README는 개발 중인 v3.2.0용입니다. 정식 출시일은 정해지지 않았습니다. 설치된 버전은 포즈 도구의 Inspector 상단에서 확인할 수 있습니다. [추가 기능과 변경 내역](CHANGELOG.md)도 확인하세요.
+이 README는 v3.2.0용입니다. 설치된 버전은 포즈 도구의 Inspector 상단에서 확인할 수 있습니다. [추가 기능과 변경 내역](CHANGELOG.md)도 확인하세요.
 
 ## 표시 언어와 오프라인 문서
 

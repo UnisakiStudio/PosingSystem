@@ -1,6 +1,6 @@
 # Changelog
 
-## [3.2.0] - Unreleased
+## [3.2.0] - 2026-11-22
 
 ### Added
 
@@ -22,6 +22,7 @@
 - Fixed an issue where, when the head position of a pose using Roll Over could not be measured, the prebuild or the avatar build stopped with "Could not measure RootT displacement for roll-over head centering". Such poses now continue without head position correction, and a warning is shown in the Console.
 - Fixed an issue where, if you rolled over by jumping while lying down and then stood up right away before landing, the avatar stayed in the lying pose even though you were standing. It did not recover until you took a lying posture again. If you use prebuilds, click Update prebuild.
 - Fixed an issue where, after sitting on a chair or similar seat in a world for only a few seconds and standing up again, the legs no longer took the shape of the pose and did not recover until you switched to another pose. Also fixed the viewpoint no longer matching the pose after getting up from a chair in desktop mode.
+- Fixed an issue where clicking "Reset avatar to T-pose" also reset the body proportions adjusted with bone scale or position, and even the position, rotation and scale of the avatar itself, to the values of the original model. The body proportions and placement now stay as they are; only the pose is reset.
 
 ### Compatibility
 

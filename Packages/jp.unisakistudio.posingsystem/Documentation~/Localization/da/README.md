@@ -2,7 +2,7 @@
 
 Det fælles positursystem til blandt andet Kawaii Posing og Cool Posing. Med Modular Avatar og NDMF genererer det de nødvendige menuer og animationer ved avatarupload.
 
-Denne README gælder v3.2.0 under udvikling. Den endelige udgivelsesdato er ikke fastsat. Den installerede version vises øverst i værktøjets Inspector. Se også [nye funktioner og ændringshistorik](CHANGELOG.md).
+Denne README gælder v3.2.0. Den installerede version vises øverst i værktøjets Inspector. Se også [nye funktioner og ændringshistorik](CHANGELOG.md).
 
 ## Visningssprog og offlinedokumentation
 

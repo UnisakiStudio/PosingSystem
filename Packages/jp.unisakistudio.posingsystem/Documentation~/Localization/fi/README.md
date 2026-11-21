@@ -2,7 +2,7 @@
 
 Kawaii Posing Toolin, Cool Posing Toolin ja muiden tuotteiden yhteinen asentojärjestelmä. Se luo avatarin latauksessa tarvittavat valikot ja animaatiot Modular Avatarin ja NDMF:n avulla.
 
-Tämä README koskee kehitteillä olevaa versiota v3.2.0. Virallista julkaisupäivää ei ole päätetty. Asennetun version näet asentotyökalun Inspectorin yläosasta. Katso myös [uudet toiminnot ja muutosloki](CHANGELOG.md).
+Tämä README koskee versiota v3.2.0. Asennetun version näet asentotyökalun Inspectorin yläosasta. Katso myös [uudet toiminnot ja muutosloki](CHANGELOG.md).
 
 ## Näyttökieli ja offline-ohjeet
 

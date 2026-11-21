@@ -1,6 +1,6 @@
 # Histórico de alterações
 
-## [3.2.0] - Não lançado
+## [3.2.0] - 2026-11-22
 
 ### Adicionado
 
@@ -22,6 +22,7 @@
 - Corrigido um problema em que, quando não era possível medir a posição da cabeça numa pose que usa Virar, aparecia «Não foi possível medir o deslocamento RootT para centrar a cabeça ao virar» e o pré-cálculo ou a compilação do avatar parava. Agora essas poses continuam sem correção da posição da cabeça e é apresentado um aviso na Console.
 - Corrigido um problema em que, ao levantar-se logo depois de se virar com um salto estando deitado, antes de aterrar, o avatar ficava na pose deitada embora estivesse em pé. Só voltava ao normal quando se deitava de novo. Se usa pré-cálculo, prima «Atualizar pré-cálculo».
 - Corrigido um problema em que, ao sentar-se apenas alguns segundos numa cadeira ou assento semelhante de um mundo e levantar-se, as pernas deixavam de ficar na forma da pose e só voltavam ao normal quando mudava de pose. Também foi corrigido o ponto de vista que, no desktop, deixava de corresponder à pose depois de se levantar de uma cadeira.
+- Corrigido um problema em que premir «Restaurar avatar para T-pose» repunha nos valores do modelo original também as proporções ajustadas com a escala ou a posição dos ossos, e até a posição, a rotação e a escala do próprio avatar. Agora as proporções e a colocação mantêm-se; apenas a pose é reposta.
 
 ### Compatibilidade
 

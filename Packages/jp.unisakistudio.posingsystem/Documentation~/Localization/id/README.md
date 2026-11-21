@@ -2,7 +2,7 @@
 
 Sistem pose bersama untuk Kawaii Posing Tool, Cool Posing Tool, dan alat terkait. Sistem ini memakai Modular Avatar dan NDMF untuk membuat menu serta animasi yang diperlukan saat avatar diunggah.
 
-README ini ditujukan untuk v3.2.0 yang sedang dikembangkan. Tanggal rilis resmi belum ditetapkan. Versi terpasang terlihat di bagian atas Inspector alat pose. Lihat juga [fitur tambahan dan riwayat perubahan](CHANGELOG.md).
+README ini ditujukan untuk v3.2.0. Versi terpasang terlihat di bagian atas Inspector alat pose. Lihat juga [fitur tambahan dan riwayat perubahan](CHANGELOG.md).
 
 ## Bahasa tampilan dan dokumen offline
 

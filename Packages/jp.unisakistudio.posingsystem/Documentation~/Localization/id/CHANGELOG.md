@@ -1,6 +1,6 @@
 # Riwayat perubahan
 
-## [3.2.0] - Belum dirilis
+## [3.2.0] - 2026-11-22
 
 ### Ditambahkan
 
@@ -22,6 +22,7 @@
 - Memperbaiki masalah ketika posisi kepala pada pose yang memakai Berguling tidak dapat diukur, muncul “Perpindahan RootT untuk pemusatan kepala saat berguling tidak dapat diukur” dan prabuild atau build avatar terhenti. Kini pose seperti itu dilanjutkan tanpa koreksi posisi kepala, dan peringatan ditampilkan di Console.
 - Memperbaiki masalah ketika berdiri tepat setelah berguling dengan melompat saat berbaring, sebelum mendarat, membuat avatar tetap dalam pose berbaring meskipun sudah berdiri. Avatar tidak kembali sampai berbaring lagi. Jika memakai prabuild, tekan Perbarui prabuild.
 - Memperbaiki masalah ketika duduk di kursi atau tempat serupa di sebuah dunia hanya beberapa detik lalu berdiri membuat kaki tidak lagi mengikuti bentuk pose dan tidak kembali sampai pose diganti. Juga memperbaiki sudut pandang yang tidak lagi sesuai dengan pose setelah berdiri dari kursi dalam mode desktop.
+- Memperbaiki masalah ketika menekan "Reset avatar ke pose T" juga mengembalikan bentuk tubuh yang disesuaikan dengan skala atau posisi tulang, bahkan posisi, rotasi, dan skala avatar itu sendiri, ke nilai model asli. Kini bentuk tubuh dan penempatan tetap seperti semula; hanya pose yang dikembalikan.
 
 ### Kompatibilitas
 

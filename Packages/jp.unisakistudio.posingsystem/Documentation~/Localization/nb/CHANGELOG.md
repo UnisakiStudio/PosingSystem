@@ -1,6 +1,6 @@
 # Endringslogg
 
-## [3.2.0] - Ikke utgitt
+## [3.2.0] - 2026-11-22
 
 ### Lagt til
 
@@ -22,6 +22,7 @@
 - Rettet et problem der forhåndsbygget eller avatarbygget stoppet med «Kunne ikke måle RootT-forskyvningen for hodesentrering ved snuing» når hodets posisjon ikke kunne måles i en positur som bruker Snu deg. Slike positurer fortsetter nå uten korrigering av hodets posisjon, og en advarsel vises i Console.
 - Rettet et problem der avataren ble liggende i liggende positur selv om du sto, hvis du snudde deg med et hopp mens du lå og reiste deg rett etterpå, før du landet. Den gikk ikke tilbake før du la deg igjen. Bruker du forhåndsbygg, trykker du «Oppdater forhåndsbygget».
 - Rettet et problem der beina ikke lenger fulgte formen på posituren hvis du satte deg på en stol eller lignende i en verden i bare noen få sekunder og reiste deg igjen. Det gikk ikke tilbake før du byttet positur. Rettet også at synspunktet i skrivebordsmodus ikke lenger passet til posituren etter at du reiste deg fra en stol.
+- Rettet et problem der et trykk på «Tilbakestill avataren til T-positur» også satte kroppsbygningen som var justert med knoklenes skala eller posisjon, og til og med selve avatarens posisjon, rotasjon og skala, tilbake til verdiene i den opprinnelige modellen. Kroppsbygning og plassering beholdes nå som de er; bare posituren tilbakestilles.
 
 ### Kompatibilitet
 

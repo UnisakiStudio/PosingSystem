@@ -11,7 +11,7 @@ a { color: #2269b8; } a:visited { color: #7952ad; } li { margin-block: .35rem; }
 @media print { nav { display: none; } body { max-width: none; padding: 0; } a { color: inherit; } }</style></head><body>
 <nav aria-label="Documentation"><a href="../index.html">Português (Brasil) · 🌐</a><a href="README.html">README</a><a href="CHANGELOG.html">Histórico de alterações</a><a href="UserGuide.html">Unisaki Posing System 3.2.0 — Manual em português do Brasil</a></nav>
 <main><h1>Histórico de alterações</h1>
-<h2>[3.2.0] - Não lançado</h2>
+<h2>[3.2.0] - 2026-11-22</h2>
 <h3>Adicionado</h3>
 <ul>
 <li>Inspector, comandos de edição, diálogos de instalação, nomes de poses padrão e menus VRChat gerados em 30 idiomas.</li>
@@ -32,6 +32,7 @@ a { color: #2269b8; } a:visited { color: #7952ad; } li { margin-block: .35rem; }
 <li>Corrigido um problema em que, quando não era possível medir a posição da cabeça em uma pose que usa Virar, aparecia “Não foi possível medir o deslocamento RootT para centralizar a cabeça ao virar” e o pré-cálculo ou a compilação do avatar parava. Agora essas poses continuam sem correção da posição da cabeça, e um aviso é exibido na Console.</li>
 <li>Corrigido um problema em que, ao se levantar logo depois de virar com um pulo estando deitado, antes de aterrissar, o avatar ficava na pose deitada mesmo com você em pé. Só voltava ao normal quando você se deitava de novo. Se você usa pré-cálculo, pressione “Atualizar pré-cálculo”.</li>
 <li>Corrigido um problema em que, ao sentar por apenas alguns segundos em uma cadeira ou assento parecido de um mundo e se levantar, as pernas deixavam de ficar na forma da pose e só voltavam ao normal quando você trocava de pose. Também foi corrigido o ponto de vista que, no desktop, deixava de corresponder à pose depois de você se levantar de uma cadeira.</li>
+<li>Corrigido um problema em que pressionar “Restaurar avatar para T-pose” fazia voltar aos valores do modelo original também as proporções ajustadas com a escala ou a posição dos ossos, e até a posição, a rotação e a escala do próprio avatar. Agora as proporções e o posicionamento são mantidos; apenas a pose é restaurada.</li>
 </ul>
 <h3>Compatibilidade</h3>
 <ul>

@@ -1,6 +1,6 @@
 # Historique des modifications
 
-## [3.2.0] - Non publié
+## [3.2.0] - 2026-11-22
 
 ### Ajouts
 
@@ -22,6 +22,7 @@
 - Correction d’un problème où, lorsque la position de la tête d’une pose utilisant Se retourner ne pouvait pas être mesurée, le précalcul ou le build de l’avatar s’arrêtait avec « Impossible de mesurer le déplacement RootT pour le centrage de la tête lors du retournement ». Ces poses continuent désormais sans correction de la position de la tête, et un avertissement s’affiche dans la Console.
 - Correction d’un problème où, si vous vous releviez juste après vous être retourné en sautant en position allongée, avant d’atterrir, l’avatar restait allongé alors que vous étiez debout. Il ne revenait à la normale qu’en vous allongeant de nouveau. Si vous utilisez le précalcul, cliquez sur « Actualiser le précalcul ».
 - Correction d’un problème où, si vous vous asseyiez seulement quelques secondes sur une chaise ou un siège similaire dans un monde puis vous releviez, les jambes ne prenaient plus la forme de la pose jusqu’à ce que vous changiez de pose. Correction également du point de vue qui ne correspondait plus à la pose après vous être levé d’une chaise en mode bureau.
+- Correction d’un problème où « Rétablir la T-pose de l'avatar » ramenait aussi aux valeurs du modèle d’origine la morphologie ajustée par l’échelle ou la position des os, et même la position, la rotation et l’échelle de l’avatar lui-même. La morphologie et le placement sont désormais conservés, et seule la pose est rétablie.
 
 ### Compatibilité
 

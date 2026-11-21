@@ -2,7 +2,7 @@
 
 The shared posing system used by Kawaii Posing Tool, Cool Posing Tool and related products. It uses Modular Avatar and NDMF to generate the required menus and animations when you upload an avatar.
 
-This README covers v3.2.0, currently in development. A release date has not been set. Check the installed version at the top of the posing tool's Inspector. See also [new features and changelog](CHANGELOG.md).
+This README covers v3.2.0. Check the installed version at the top of the posing tool's Inspector. See also [new features and changelog](CHANGELOG.md).
 
 ## Display language and offline documentation
 

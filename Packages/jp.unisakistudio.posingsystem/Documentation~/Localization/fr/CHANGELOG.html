@@ -11,7 +11,7 @@ a { color: #2269b8; } a:visited { color: #7952ad; } li { margin-block: .35rem; }
 @media print { nav { display: none; } body { max-width: none; padding: 0; } a { color: inherit; } }</style></head><body>
 <nav aria-label="Documentation"><a href="../index.html">Français · 🌐</a><a href="README.html">README</a><a href="CHANGELOG.html">Historique des modifications</a><a href="UserGuide.html">Unisaki Posing System 3.2.0 — Guide en français</a></nav>
 <main><h1>Historique des modifications</h1>
-<h2>[3.2.0] - Non publié</h2>
+<h2>[3.2.0] - 2026-11-22</h2>
 <h3>Ajouts</h3>
 <ul>
 <li>Affichage de l’Inspector, des commandes d’édition, des dialogues d’installation, des noms de poses standards et des menus VRChat générés en 30 langues.</li>
@@ -32,6 +32,7 @@ a { color: #2269b8; } a:visited { color: #7952ad; } li { margin-block: .35rem; }
 <li>Correction d’un problème où, lorsque la position de la tête d’une pose utilisant Se retourner ne pouvait pas être mesurée, le précalcul ou le build de l’avatar s’arrêtait avec « Impossible de mesurer le déplacement RootT pour le centrage de la tête lors du retournement ». Ces poses continuent désormais sans correction de la position de la tête, et un avertissement s’affiche dans la Console.</li>
 <li>Correction d’un problème où, si vous vous releviez juste après vous être retourné en sautant en position allongée, avant d’atterrir, l’avatar restait allongé alors que vous étiez debout. Il ne revenait à la normale qu’en vous allongeant de nouveau. Si vous utilisez le précalcul, cliquez sur « Actualiser le précalcul ».</li>
 <li>Correction d’un problème où, si vous vous asseyiez seulement quelques secondes sur une chaise ou un siège similaire dans un monde puis vous releviez, les jambes ne prenaient plus la forme de la pose jusqu’à ce que vous changiez de pose. Correction également du point de vue qui ne correspondait plus à la pose après vous être levé d’une chaise en mode bureau.</li>
+<li>Correction d’un problème où « Rétablir la T-pose de l&#x27;avatar » ramenait aussi aux valeurs du modèle d’origine la morphologie ajustée par l’échelle ou la position des os, et même la position, la rotation et l’échelle de l’avatar lui-même. La morphologie et le placement sont désormais conservés, et seule la pose est rétablie.</li>
 </ul>
 <h3>Compatibilité</h3>
 <ul>

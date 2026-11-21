@@ -2,7 +2,7 @@
 
 Gemeinsames Posensystem für Kawaii Posing, Cool Posing und weitere Werkzeuge. Es erzeugt mit Modular Avatar und NDMF beim Avatar-Upload die erforderlichen Menüs und Animationen.
 
-Diese README gilt für die in Entwicklung befindliche v3.2.0. Ein offizieller Veröffentlichungstermin steht noch nicht fest. Die installierte Version steht oben im Inspector des Posenwerkzeugs. Siehe auch [Erweiterungen und Änderungen](CHANGELOG.md).
+Diese README gilt für v3.2.0. Die installierte Version steht oben im Inspector des Posenwerkzeugs. Siehe auch [Erweiterungen und Änderungen](CHANGELOG.md).
 
 ## Anzeigesprache und Offline-Dokumentation
 

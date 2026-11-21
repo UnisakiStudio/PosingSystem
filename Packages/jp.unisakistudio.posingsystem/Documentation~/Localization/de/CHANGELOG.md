@@ -1,6 +1,6 @@
 # Änderungsverlauf
 
-## [3.2.0] - Unveröffentlicht
+## [3.2.0] - 2026-11-22
 
 ### Hinzugefügt
 
@@ -22,6 +22,7 @@
 - Behoben: Konnte bei einer Pose mit Umdrehen die Kopfposition nicht gemessen werden, stoppten die Vorberechnung oder der Avatar-Build mit „Die RootT-Verschiebung für die Kopfzentrierung beim Umdrehen konnte nicht gemessen werden“. Solche Posen werden jetzt ohne Korrektur der Kopfposition weiterverarbeitet, und in der Console erscheint eine Warnung.
 - Behoben: Hast du dich im Liegen per Sprung umgedreht und bist direkt danach, noch vor der Landung, aufgestanden, blieb der Avatar in der Liegepose, obwohl du standest. Das änderte sich erst, wenn du dich erneut hinlegtest. Wenn du eine Vorberechnung verwendest, klicke auf „Vorberechnung aktualisieren“.
 - Behoben: Hast du dich in einer Welt nur wenige Sekunden auf einen Stuhl oder Ähnliches gesetzt und bist wieder aufgestanden, nahmen die Beine nicht mehr die Form der Pose an, bis du zu einer anderen Pose wechseltest. Ebenfalls behoben: Im Desktop passte der Blickpunkt nach dem Aufstehen von einem Stuhl nicht mehr zur Pose.
+- Behoben, dass ein Klick auf „Avatar auf T-Pose zurücksetzen“ auch den über Skalierung oder Position der Knochen angepassten Körperbau und sogar Position, Rotation und Skalierung des Avatars selbst auf die Werte des ursprünglichen Modells zurücksetzte. Körperbau und Platzierung bleiben jetzt erhalten; nur die Pose wird zurückgesetzt.
 
 ### Kompatibilität
 

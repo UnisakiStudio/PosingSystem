@@ -1,6 +1,6 @@
 # Historia zmian
 
-## [3.2.0] - Niewydane
+## [3.2.0] - 2026-11-22
 
 ### Dodano
 
@@ -22,6 +22,7 @@
 - Naprawiono problem, przez który gdy nie dało się zmierzyć położenia głowy w pozie używającej funkcji „Obróć się”, pojawiał się komunikat „Nie można zmierzyć przesunięcia RootT na potrzeby centrowania głowy przy obracaniu” i budowanie wstępne lub budowanie awatara zostawało przerwane. Takie pozy są teraz przetwarzane dalej bez korekty położenia głowy, a w Console pojawia się ostrzeżenie.
 - Naprawiono problem, przez który po obróceniu się skokiem w pozycji leżącej i wstaniu tuż po nim, przed wylądowaniem, awatar pozostawał w pozie leżącej, choć użytkownik już stał. Wracał dopiero po ponownym położeniu się. Jeśli korzystasz z budowania wstępnego, naciśnij „Aktualizuj budowanie wstępne”.
 - Naprawiono problem, przez który po siedzeniu w świecie na krześle lub podobnym miejscu tylko przez kilka sekund i wstaniu nogi przestawały przyjmować kształt pozy i wracały dopiero po zmianie pozy. Naprawiono też punkt widzenia, który w trybie pulpitu po wstaniu z krzesła przestawał pasować do pozy.
+- Naprawiono problem, przez który naciśnięcie „Przywróć awatar do pozy T” przywracało do wartości oryginalnego modelu także budowę ciała dostosowaną skalą lub położeniem kości, a nawet położenie, obrót i skalę samego awatara. Budowa ciała i rozmieszczenie pozostają teraz bez zmian; przywracana jest tylko poza.
 
 ### Zgodność
 
