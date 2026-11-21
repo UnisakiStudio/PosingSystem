@@ -543,6 +543,8 @@ namespace jp.unisakistudio.posingsystemeditor
         /// <summary>
         /// アバターの姿勢をFBX内のモデルの姿勢（通常はTポーズ）にリセットします。
         /// エディタ上でアバターの姿勢がおかしくなった場合の復旧用です。
+        /// 戻すのは姿勢だけです（Humanoidボーンの回転と、Hipsの位置）。ボーンのスケールや位置、
+        /// アバター本体の位置・回転・スケールで行った体型や配置の調整は変更しません。
         /// </summary>
         public static void ResetAvatarPose(VRC.SDK3.Avatars.Components.VRCAvatarDescriptor avatar)
         {
@@ -578,8 +580,8 @@ namespace jp.unisakistudio.posingsystemeditor
                 
                 if (sourcePrefab != null)
                 {
-                    // 元のプレハブ/FBXからボーンのローカル回転をコピー
-                    CopyBoneTransformsFromSource(avatar.gameObject, sourcePrefab);
+                    // 元のプレハブ/FBXから、姿勢にあたる値だけをコピー
+                    RestoreRestPose(animator, sourcePrefab);
                     Debug.Log("[PosingSystem] アバターの姿勢を元のFBX/Prefabの姿勢にリセットしました。");
                 }
                 else
@@ -589,11 +591,6 @@ namespace jp.unisakistudio.posingsystemeditor
                     animator.Rebind();
                     animator.Update(0f);
                 }
-
-                // Transform位置と回転もリセット
-                Undo.RecordObject(avatar.transform, "Reset Avatar Pose");
-                avatar.transform.localPosition = Vector3.zero;
-                avatar.transform.localRotation = Quaternion.identity;
 
                 // GameObjectをリフレッシュ
                 avatar.gameObject.SetActive(false);
@@ -767,13 +764,22 @@ namespace jp.unisakistudio.posingsystemeditor
         }
 
         /// <summary>
-        /// 元のPrefab/FBXからボーンのローカル回転をコピー
+        /// 元のPrefab/FBXから、姿勢にあたる値だけをコピーする。戻したボーンの数を返す。
         /// </summary>
-        private static void CopyBoneTransformsFromSource(GameObject targetAvatar, GameObject sourcePrefab)
+        // A pose is the rotation of the humanoid bones and the position of the hips, and that is all this
+        // restores. Scale and position are how a user (or the avatar's author, in a prefab) shapes the body
+        // and places the avatar: until 3.2.0-alpha.5 every transform found in the model, the avatar object
+        // included, had position, rotation and scale copied back, which undid all of it.
+        // The bones are taken from the Avatar asset by name, not from the Animator, which knows them only
+        // while its object is active; the path must exist in the model, so same-named bones of an outfit stay.
+        internal static int RestoreRestPose(Animator animator, GameObject sourcePrefab)
         {
-            // ターゲットの全てのTransformを取得
-            var targetTransforms = targetAvatar.GetComponentsInChildren<Transform>(true);
-            
+            var hips = HumanTrait.BoneName[(int)HumanBodyBones.Hips];
+            var humanBones = new Dictionary<string, string>();
+            if (animator.avatar != null && animator.avatar.isHuman)
+                foreach (var bone in animator.avatar.humanDescription.human)
+                    if (!string.IsNullOrEmpty(bone.boneName)) humanBones[bone.boneName] = bone.humanName;
+
             // ソースの全てのTransformを辞書化
             var sourceTransformDict = new Dictionary<string, Transform>();
             foreach (var t in sourcePrefab.GetComponentsInChildren<Transform>(true))
@@ -785,20 +791,23 @@ namespace jp.unisakistudio.posingsystemeditor
                     sourceTransformDict[path] = t;
                 }
             }
-            
-            // 各ターゲットTransformにソースの回転をコピー
-            foreach (var targetTransform in targetTransforms)
+
+            var restored = 0;
+            foreach (var targetTransform in animator.GetComponentsInChildren<Transform>(true))
             {
-                string path = GetTransformPath(targetTransform, targetAvatar.transform);
-                
-                if (sourceTransformDict.TryGetValue(path, out var sourceTransform))
-                {
-                    Undo.RecordObject(targetTransform, "Reset Bone Transform");
-                    targetTransform.localRotation = sourceTransform.localRotation;
-                    targetTransform.localPosition = sourceTransform.localPosition;
-                    targetTransform.localScale = sourceTransform.localScale;
-                }
+                if (targetTransform == animator.transform) continue;
+                // A rig that is not humanoid has no list of bones: every transform of the model is a bone then.
+                var humanName = "";
+                if (humanBones.Count > 0 && !humanBones.TryGetValue(targetTransform.name, out humanName)) continue;
+                string path = GetTransformPath(targetTransform, animator.transform);
+                if (!sourceTransformDict.TryGetValue(path, out var sourceTransform)) continue;
+
+                Undo.RecordObject(targetTransform, "Reset Avatar Pose");
+                targetTransform.localRotation = sourceTransform.localRotation;
+                if (humanName == hips) targetTransform.localPosition = sourceTransform.localPosition;
+                restored++;
             }
+            return restored;
         }
 
         /// <summary>
