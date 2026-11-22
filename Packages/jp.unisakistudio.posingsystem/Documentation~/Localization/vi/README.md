@@ -61,16 +61,16 @@ Các mục chọn trong “Tính năng > Tính năng menu” xuất hiện trong
 | Tắt cử chỉ | 1 bit |
 | Thêm hoạt ảnh thở | 0 bit |
 | Thở (ON/OFF trong trò chơi) | 1 bit |
-| Độ cao chân | 8 bit |
-| Độ cao sàn | 8 bit |
+| Độ cao chân | 0 bit |
+| Độ cao sàn | 0 bit |
 | Chế độ chụp (chỉ màn hình của bạn) | 0 bit |
 | Đồng bộ chế độ chụp | 16 bit |
 | Giữ đầu hiển thị trong chế độ chụp | 0 bit |
 | Tắt đung đưa khi đứng yên của VRChat | 0 bit |
-| Giảm méo tư thế do xoay đầu | 1 bit (dùng chung với Lật người) |
-| Lật người | 10 bit (trong đó 1 bit dùng chung với giảm méo tư thế) |
+| Giảm méo tư thế do xoay đầu | 1 bit |
+| Lật người | 1 bit |
 
-Lật người dùng 1 bit cho ON/OFF, 8 bit cho độ nghiêng đầu và 1 bit cho khóa cổ. Nếu đã bật giảm méo tư thế, thêm Lật người chỉ tăng 9 bit. Phần dùng chung không bị tính hai lần, và số hiển thị cập nhật khi đổi ô chọn.
+Mỗi máy khách tự tính độ nghiêng của đầu. Chỉ trạng thái hoạt động thực tế của thao tác trở mình được đồng bộ. Mở khóa cổ sẽ khôi phục cài đặt ban đầu.
 
 Tổng hiển thị chỉ là phần của các công cụ tư thế đã cài trên avatar đó, không phải tổng toàn avatar gồm trang phục và công cụ khác. Thiết lập chung cũng không bị tính hai lần khi dùng nhiều công cụ tư thế. Cấu hình có số tư thế vượt phạm vi đánh số cơ bản sẽ cần thêm bit để chọn tư thế.
 

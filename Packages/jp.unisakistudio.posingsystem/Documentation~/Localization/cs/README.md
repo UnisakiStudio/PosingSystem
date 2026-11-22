@@ -61,16 +61,16 @@ Položky vybrané v „Funkce > Funkce nabídky“ se objeví v herní nabídce.
 | Gesta vyp. | 1 bit |
 | Animovat dýchání | 0 bit |
 | Dýchání (přepínač ve hře) | 1 bit |
-| Výška chodidel | 8 bit |
-| Výška podlahy | 8 bit |
+| Výška chodidel | 0 bit |
+| Výška podlahy | 0 bit |
 | Režim focení (jen na vlastní obrazovce) | 0 bit |
 | Synchronizovat režim focení | 16 bit |
 | Ponechat hlavu viditelnou v režimu focení | 0 bit |
 | Vypnout pohupování VRChat v klidu | 0 bit |
-| Omezit deformaci pózy při otočení hlavy | 1 bit (sdílený s přetočením) |
-| Přetočit se | 10 bit (z toho 1 bit sdílený s omezením deformace) |
+| Omezit deformaci pózy při otočení hlavy | 1 bit |
+| Přetočit se | 1 bit |
 
-Přetočení používá 1 bit pro přepínač, 8 bit pro náklon hlavy a 1 bit pro její zamknutí. Pokud je omezení deformace pózy již zapnuté, přidání přetočení zvýší spotřebu o 9 bit. Sdílená část se nepočítá dvakrát a údaj se mění se zaškrtnutím.
+Každý klient počítá náklon hlavy. Synchronizuje se pouze skutečný stav přetáčení na bok. Odemknutím krku se obnoví původní nastavení.
 
 Zobrazený součet se týká pouze nástrojů pro pózy nainstalovaných na tomto avatarovi. Nejde o součet celého avatara s oblečením a ostatními funkcemi. Sdílená nastavení více nástrojů se rovněž nepočítají opakovaně. Pokud počet póz překročí základní rozsah čísel, výběr póz vyžaduje další bity.
 

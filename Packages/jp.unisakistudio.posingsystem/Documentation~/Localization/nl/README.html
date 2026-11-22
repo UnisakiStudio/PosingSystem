@@ -49,16 +49,16 @@ a { color: #2269b8; } a:visited { color: #7952ad; } li { margin-block: .35rem; }
 <tr><td>Gebaren uit</td><td>1 bit</td></tr>
 <tr><td>Ademhaling animeren</td><td>0 bit</td></tr>
 <tr><td>Ademhaling in het spel schakelen</td><td>1 bit</td></tr>
-<tr><td>Voethoogte</td><td>8 bit</td></tr>
-<tr><td>Vloerhoogte</td><td>8 bit</td></tr>
+<tr><td>Voethoogte</td><td>0 bit</td></tr>
+<tr><td>Vloerhoogte</td><td>0 bit</td></tr>
 <tr><td>Fotomodus alleen lokaal</td><td>0 bit</td></tr>
 <tr><td>Fotomodus synchroniseren</td><td>16 bit</td></tr>
 <tr><td>Hoofd zichtbaar houden in Fotomodus</td><td>0 bit</td></tr>
 <tr><td>Standaardwiegen van VRChat uitschakelen</td><td>0 bit</td></tr>
-<tr><td>Vervorming door hoofdrotatie verminderen</td><td>1 bit (gedeeld met Omdraaien)</td></tr>
-<tr><td>Omdraaien</td><td>10 bit (waarvan 1 bit gedeeld met de vervormingscorrectie)</td></tr>
+<tr><td>Vervorming door hoofdrotatie verminderen</td><td>1 bit</td></tr>
+<tr><td>Omdraaien</td><td>1 bit</td></tr>
 </tbody></table></div>
-<p>Omdraaien gebruikt 1 bit voor activering, 8 bit voor hoofdhelling en 1 bit voor nekvergrendeling. Met vervormingscorrectie al actief kost Omdraaien toevoegen dus 9 bit extra. Het gedeelde deel telt niet dubbel; de weergave volgt de gekozen functies.</p>
+<p>Elke client berekent de kanteling van het hoofd. Alleen de actieve stand van het omrollen wordt gesynchroniseerd. Na het ontgrendelen van de nek geldt de oorspronkelijke instelling weer.</p>
 <p>Het totaal betreft de posetools in de avatar, niet de hele avatar met kleding en andere systemen. Gedeelde opties van meerdere tools tellen niet dubbel. Meer poses dan het basisnummerbereik kunnen extra selectiebits vereisen.</p>
 <h3>Voethoogte en Vloerhoogte</h3>
 <ul>

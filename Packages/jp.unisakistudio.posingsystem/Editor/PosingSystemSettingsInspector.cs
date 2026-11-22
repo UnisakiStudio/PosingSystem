@@ -48,9 +48,9 @@ namespace jp.unisakistudio.posingsystemeditor
             new Setting("features.mirror", "左右反転", "VRChatのメニューに切り替え項目を追加します。使いたいときに、ポーズの左右を反転できます。", 1),
             new Setting("features.fingerGestureControl", "ジェスチャー無効", "指の形を固定・解除する切り替えをメニューに追加します。固定中はコントローラーを握っても形を保てます。", 1),
             new Setting("features.breathingControl", "呼吸", "VRChatのメニューで呼吸をつけたり止めたりできます。ON/OFFは他の人にも反映されます。", 1),
-            new Setting("features.rollover", "寝返り", "頭の向きに合わせて寝返りできます。一部の寝姿勢のみ対応しています。", 10, sharedHead: true),
-            new Setting("features.footHeight", "足の高さ", "頭の位置を保ち、足側の高さを変えられます。足が床に埋まる・浮くときに調整できます。", 8),
-            new Setting("features.floating", "床の高さ", "頭も含めた身体全体の高さを変えられます。VRChatの「床の高さ」で、50%を元の高さとして上下3mまで調整できます。", 8),
+            new Setting("features.rollover", "寝返り", "頭の向きに合わせて寝返りできます。一部の寝姿勢のみ対応しています。", 1, sharedHead: true),
+            new Setting("features.footHeight", "足の高さ", "頭の位置を保ち、足側の高さを変えられます。足が床に埋まる・浮くときに調整できます。", 0),
+            new Setting("features.floating", "床の高さ", "頭も含めた身体全体の高さを変えられます。VRChatの「床の高さ」で、50%を元の高さとして上下3mまで調整できます。", 0),
             new Setting("features.photography", "撮影モード", "メニューに撮影モードを追加します。前へ最大3m移動したり回転したりして、自分から見える位置を調整できます。")),
 
             new SettingGroup("便利機能",
@@ -235,11 +235,8 @@ namespace jp.unisakistudio.posingsystemeditor
                     cardToggled = true;
                 }
                 EditorGUI.EndProperty();
-                var bitDetails = setting.Path == "features.rollover"
-                    ? "チェックを付けると増える量／外すと減る量です。\n寝返りON/OFF：1 bit、頭の傾き：8 bit、首固定：1 bit。\nほかの設定で使用中のパラメーターは重複して数えません。"
-                    : setting.SharedHead ? "チェックを付けると増える量／外すと減る量です。\n首固定：1 bit（寝返りと共用）。\n寝返りなどで使用中なら0 bitです。" : null;
                 PosingSystemTextGUI.Label(new Rect(check.x - 49, check.y, 45, check.height),
-                    new GUIContent(displayedBits + " bit" + (setting.SharedHead ? " ※" : ""), PosingSystemLocalization.Text(bitDetails)), badgeStyle);
+                    new GUIContent(displayedBits + " bit"), badgeStyle);
             }
             var iconRect = new Rect(rect.x + 4, rect.y + 4, CardIconSize, CardIconSize);
             PosingSystemSettingIcons.Draw(iconRect, setting.Path, ps);

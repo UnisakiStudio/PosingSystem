@@ -53,7 +53,7 @@
       "product": "PosingSystem",
       "kind": "readme",
       "source": "PosingSystem/Packages/jp.unisakistudio.posingsystem/README.md",
-      "source_sha256": "cfa8fdcb2f2390fe54ad5be8e41cb098ebd385545f6e6960561fba077d79bb53",
+      "source_sha256": "8344c02b8f79fafae2f3b6bcd20fa7e2a9bd0adb543322ff298efc67f46f7dc8",
       "blocks": [
         "400f9d61ba8fe81c",
         "3384667be43ce486",
@@ -80,8 +80,8 @@
         "ef7802d53ffe53c1",
         "953ac2385dc6fc80",
         "7abe60caa96b545e",
-        "bddece415aadd3f2",
-        "86be79bc5a102629",
+        "8d390e4737ac0a57",
+        "9ca5cb40626e16ca",
         "7496dd3b030e5bc0",
         "9606e00d3187d305",
         "4e2acdd51f81bc24",
@@ -145,9 +145,11 @@
       "product": "PosingSystem",
       "kind": "changelog",
       "source": "PosingSystem/Packages/jp.unisakistudio.posingsystem/CHANGELOG.md",
-      "source_sha256": "1cad1ea3f060424bd5aaa900ae9c5cbf45019a0c9e85fda1f0c278bca5e7dd8a",
+      "source_sha256": "cb912ca5601334a206f1e4a64c1815b5dac6127a0636dd857b58d19da701c49d",
       "blocks": [
         "3e9e4ae5e303de21",
+        "8ab89cfbef13854c",
+        "0ba805870ac4d114",
         "8466863269dc2e8e",
         "545755f8035c08c9",
         "79fec8d04d3cf763",
@@ -259,7 +261,7 @@
       "product": "KawaiiPosing",
       "kind": "readme",
       "source": "KawaiiPosing/Packages/jp.unisakistudio.kawaiiposing/README.md",
-      "source_sha256": "fbc7c8d8645ea10e4d0b2572d960181b3140940504bb6b858b75827ba1c03dc5",
+      "source_sha256": "d6a138a98580984a8bda37ba9b013b83240600c2a2aedf92f64a7d03f0c31b91",
       "blocks": [
         "c6f4f4db27e61f12",
         "63ac3178b7280bc1",
@@ -293,7 +295,7 @@
         "6c231898ffae9e9d",
         "c7aa544668eeafda",
         "a2e123d42dc1cb54",
-        "b4e1669a45146eed",
+        "efc5c56491a8cefe",
         "f50f947135c16b8b",
         "3f5dab4b0ae24c6b",
         "0c2a28e088fdb629",
@@ -412,7 +414,7 @@
       "product": "KawaiiPosing",
       "kind": "guide",
       "source": "KawaiiPosing/Packages/jp.unisakistudio.kawaiiposing/Documentation~/UserGuide.en.md",
-      "source_sha256": "d103d48656f620814c25888ea8ff23d9a8965ca9344a742ae0d70624507061d7",
+      "source_sha256": "c8baa552a163ba10aa8d26614eab9d95798ed8fe666b4931ee1e46457dc6e592",
       "blocks": [
         "f675a3d502bd6e37",
         "240461debb7fb962",
@@ -465,8 +467,8 @@
         "a0005b4a60905702",
         "f5e8d80375e8baf8",
         "126ad096501b9c5b",
-        "94ad60ac38d64519",
-        "8e38def749eacdd0",
+        "bc4b4df3d14bad8b",
+        "8fa9b24bb9a61288",
         "f1fe1a80e2e195b5",
         "6821114682ad2934",
         "c43f66aca5cc509d",
@@ -501,7 +503,7 @@
       "product": "CoolPosing",
       "kind": "readme",
       "source": "CoolPosing/Packages/jp.unisakistudio.coolposing/README.md",
-      "source_sha256": "cb7a8afc33dd900408732382c97c89fe8ec461037d7a783cdaefbb90893389b6",
+      "source_sha256": "e408689ce8bc4e9085b064cb2796c62ce1ba80f5a0826a7bbe6600228054b415",
       "blocks": [
         "9ec15b083830389e",
         "c2493654393fac07",
@@ -536,7 +538,7 @@
         "6c231898ffae9e9d",
         "c7aa544668eeafda",
         "a2e123d42dc1cb54",
-        "4c66fbb298e8e9c2",
+        "a3d1410c9d5c2583",
         "f50f947135c16b8b",
         "3f5dab4b0ae24c6b",
         "0c2a28e088fdb629",
@@ -594,7 +596,7 @@
       "product": "CoolPosing",
       "kind": "guide",
       "source": "CoolPosing/Packages/jp.unisakistudio.coolposing/Documentation~/UserGuide.en.md",
-      "source_sha256": "c033875a13fcf047241479306af8993a816d3f32e948099112eeffe72f10f3eb",
+      "source_sha256": "2546d899d3a157ff1d7f21bfa5b2628983054b0bed60a3213eea9ff17ea5abe4",
       "blocks": [
         "9b3438889c475907",
         "759fd79caf261f73",
@@ -647,8 +649,8 @@
         "a0005b4a60905702",
         "f5e8d80375e8baf8",
         "126ad096501b9c5b",
-        "94ad60ac38d64519",
-        "8e38def749eacdd0",
+        "bc4b4df3d14bad8b",
+        "8fa9b24bb9a61288",
         "f1fe1a80e2e195b5",
         "fb5bf1d1e9e8a40c",
         "c43f66aca5cc509d",
@@ -938,17 +940,17 @@
         "PosingSystem/readme"
       ]
     },
-    "bddece415aadd3f2": {
+    "8d390e4737ac0a57": {
       "language": "ja",
-      "text": "| 機能 | 追加で使うbit数 |\n| --- | ---: |\n| 左右反転 | 1 bit |\n| ジェスチャー無効 | 1 bit |\n| 呼吸の動きをつける | 0 bit |\n| 呼吸（ゲーム内でのON/OFF） | 1 bit |\n| 足の高さ | 8 bit |\n| 床の高さ | 8 bit |\n| 撮影モード（自分の画面だけ） | 0 bit |\n| 撮影モードを同期する | 16 bit |\n| 撮影モード中は頭を非表示にしない | 0 bit |\n| VRChat標準の揺れを止める | 0 bit |\n| 首の向きの違いによる姿勢崩れを抑制 | 1 bit（寝返りと共用） |\n| 寝返り | 10 bit（うち1 bitを姿勢崩れ抑制と共用） |",
+      "text": "| 機能 | 追加で使うbit数 |\n| --- | ---: |\n| 左右反転 | 1 bit |\n| ジェスチャー無効 | 1 bit |\n| 呼吸の動きをつける | 0 bit |\n| 呼吸（ゲーム内でのON/OFF） | 1 bit |\n| 足の高さ | 0 bit |\n| 床の高さ | 0 bit |\n| 撮影モード（自分の画面だけ） | 0 bit |\n| 撮影モードを同期する | 16 bit |\n| 撮影モード中は頭を非表示にしない | 0 bit |\n| VRChat標準の揺れを止める | 0 bit |\n| 首の向きの違いによる姿勢崩れを抑制 | 1 bit |\n| 寝返り | 1 bit |",
       "invariant": false,
       "contexts": [
         "PosingSystem/readme"
       ]
     },
-    "86be79bc5a102629": {
+    "9ca5cb40626e16ca": {
       "language": "ja",
-      "text": "寝返りの内訳は、ON/OFFに1 bit、頭の傾きに8 bit、首固定に1 bitです。姿勢崩れ抑制をすでに有効にしている場合、寝返りを追加したときに増える量は9 bitになります。共用分は重複して数えず、チェックを変えると表示も更新されます。",
+      "text": "頭の傾きは各クライアントで計算します。同期するのは寝返りの有効状態だけです。首固定を解除すると、寝返りは元の設定に戻ります。",
       "invariant": false,
       "contexts": [
         "PosingSystem/readme"
@@ -1422,6 +1424,22 @@
         "PosingSystem/changelog",
         "KawaiiPosing/changelog",
         "CoolPosing/changelog"
+      ]
+    },
+    "8ab89cfbef13854c": {
+      "language": "ja",
+      "text": "## [3.2.1] - 未リリース",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/changelog"
+      ]
+    },
+    "0ba805870ac4d114": {
+      "language": "ja",
+      "text": "- 足の高さ 8 → 0 bit, 床の高さ 8 → 0 bit, 寝返り 10 → 1 bit. 頭の傾きは各クライアントで計算します。同期するのは寝返りの有効状態だけです。首固定を解除すると、寝返りは元の設定に戻ります。",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/changelog"
       ]
     },
     "8466863269dc2e8e": {
@@ -2349,9 +2367,9 @@
         "CoolPosing/readme"
       ]
     },
-    "b4e1669a45146eed": {
+    "efc5c56491a8cefe": {
       "language": "ja",
-      "text": "- 呼吸の動きは0 bitです。ゲーム内で止めたり再開したりする「メニュー追加 > 呼吸」を使う場合のみ、ON/OFFの同期に1 bitを使用します。\n- 撮影モードは自分の画面だけなら0 bitです。「便利機能 > 撮影モードを同期する」を選ぶと16 bitを使用します。「撮影モード中は頭を非表示にしない」は0 bitです。\n- 「足の高さ」「床の高さ」はそれぞれ8 bitです。床の高さは中央から動かすと上下へ移動し、50%付近へ戻すと補正が終了します。\n- 「寝返り」は単独で10 bitです。「首の向きの違いによる姿勢崩れを抑制」と1 bitを共用するため、両方を使っても合計10 bitです。\n- 「左右反転」「ジェスチャー無効」はそれぞれ1 bitです。",
+      "text": "- 呼吸の動きは0 bitです。ゲーム内で止めたり再開したりする「メニュー追加 > 呼吸」を使う場合のみ、ON/OFFの同期に1 bitを使用します。\n- 撮影モードは自分の画面だけなら0 bitです。「便利機能 > 撮影モードを同期する」を選ぶと16 bitを使用します。「撮影モード中は頭を非表示にしない」は0 bitです。\n- 「足の高さ」「床の高さ」はそれぞれ0 bitです。床の高さは中央から動かすと上下へ移動し、50%付近へ戻すと補正が終了します。\n- 寝返り (1 bit, Posing System 3.2.1+) — 頭の傾きは各クライアントで計算します。同期するのは寝返りの有効状態だけです。首固定を解除すると、寝返りは元の設定に戻ります。\n- 「左右反転」「ジェスチャー無効」はそれぞれ1 bitです。",
       "invariant": false,
       "contexts": [
         "KawaiiPosing/readme"
@@ -3440,18 +3458,18 @@
         "CoolPosing/guide"
       ]
     },
-    "94ad60ac38d64519": {
+    "bc4b4df3d14bad8b": {
       "language": "en",
-      "text": "| Feature | Additional synced bits |\n| --- | ---: |\n| Pose selection, minimum standard configuration | 8 |\n| Mirror | 1 |\n| Disable gestures | 1 |\n| Breathing movement | 0 |\n| Breathing menu toggle | 1 |\n| Foot height | 8 |\n| Floor height | 8 |\n| Photo mode, local only | 0 |\n| Sync photo mode | 16 |\n| Keep head visible during photo mode | 0 |\n| Disable VRChat's default idle sway | 0 |\n| Roll over | 10 |",
+      "text": "| Feature | Additional synced bits |\n| --- | ---: |\n| Pose selection, minimum standard configuration | 8 |\n| Mirror | 1 |\n| Disable gestures | 1 |\n| Breathing movement | 0 |\n| Breathing menu toggle | 1 |\n| Foot height | 0 |\n| Floor height | 0 |\n| Photo mode, local only | 0 |\n| Sync photo mode | 16 |\n| Keep head visible during photo mode | 0 |\n| Disable VRChat's default idle sway | 0 |\n| Roll over | 1 |",
       "invariant": false,
       "contexts": [
         "KawaiiPosing/guide",
         "CoolPosing/guide"
       ]
     },
-    "8e38def749eacdd0": {
+    "8fa9b24bb9a61288": {
       "language": "en",
-      "text": "Roll over shares 1 bit with the neck-direction posture correction: enabling both still uses 10 bits in total for those two features. The displayed usage in your installed version is the practical reference for your selected configuration.",
+      "text": "Each client calculates head tilt. Only the effective roll-over state is synced. Unlocking the neck restores the original roll-over setting.",
       "invariant": false,
       "contexts": [
         "KawaiiPosing/guide",
@@ -3724,9 +3742,9 @@
         "CoolPosing/readme"
       ]
     },
-    "4c66fbb298e8e9c2": {
+    "a3d1410c9d5c2583": {
       "language": "ja",
-      "text": "- 呼吸の動きは0 bitです。ゲーム内で止めたり再開したりする「メニュー追加 > 呼吸」を使う場合のみ、ON/OFFの同期に1 bitを使用します。\n- 撮影モードは自分の画面だけなら0 bitです。「便利機能 > 撮影モードを同期する」を選ぶと16 bitを使用します。「撮影モード中は頭を非表示にしない」は0 bitです。\n- 「足の高さ」「床の高さ」はそれぞれ8 bitです。床の高さは中央から動かすと身体全体が上下へ移動し、50%付近へ戻すと終了します。\n- 「寝返り」は単独で10 bitです。「首の向きの違いによる姿勢崩れを抑制」と1 bitを共用するため、両方を使っても合計10 bitです。\n- 「左右反転」「ジェスチャー無効」はそれぞれ1 bitです。",
+      "text": "- 呼吸の動きは0 bitです。ゲーム内で止めたり再開したりする「メニュー追加 > 呼吸」を使う場合のみ、ON/OFFの同期に1 bitを使用します。\n- 撮影モードは自分の画面だけなら0 bitです。「便利機能 > 撮影モードを同期する」を選ぶと16 bitを使用します。「撮影モード中は頭を非表示にしない」は0 bitです。\n- 「足の高さ」「床の高さ」はそれぞれ0 bitです。床の高さは中央から動かすと身体全体が上下へ移動し、50%付近へ戻すと終了します。\n- 寝返り (1 bit, Posing System 3.2.1+) — 頭の傾きは各クライアントで計算します。同期するのは寝返りの有効状態だけです。首固定を解除すると、寝返りは元の設定に戻ります。\n- 「左右反転」「ジェスチャー無効」はそれぞれ1 bitです。",
       "invariant": false,
       "contexts": [
         "CoolPosing/readme"
@@ -3965,5 +3983,5 @@
       ]
     }
   },
-  "source_sha256": "5316df5b41ed37478566ac8a6502242637857f7eef9dd4e881aa5b316b3c301f"
+  "source_sha256": "6d25e25a1a280dd43fcba6af260f993ad135a20251c44eb30f6e3fed859e77b3"
 }

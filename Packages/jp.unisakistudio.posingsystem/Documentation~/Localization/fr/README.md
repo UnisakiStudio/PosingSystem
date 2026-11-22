@@ -61,16 +61,16 @@ Les options choisies dans « Fonctions > Fonctions du menu » apparaissent dans 
 | Sans gestes | 1 bit |
 | Animer la respiration | 0 bit |
 | Respiration (activation dans le jeu) | 1 bit |
-| Hauteur pieds | 8 bit |
-| Hauteur sol | 8 bit |
+| Hauteur pieds | 0 bit |
+| Hauteur sol | 0 bit |
 | Mode photo (vue locale uniquement) | 0 bit |
 | Synchroniser le Mode photo | 16 bit |
 | Garder la tête visible en Mode photo | 0 bit |
 | Désactiver le balancement au repos de VRChat | 0 bit |
-| Réduire les déformations liées à la rotation de la tête | 1 bit (partagé avec Se retourner) |
-| Se retourner | 10 bit (dont 1 bit partagé avec la réduction des déformations) |
+| Réduire les déformations liées à la rotation de la tête | 1 bit |
+| Se retourner | 1 bit |
 
-Se retourner utilise 1 bit pour l’activation, 8 bit pour l’inclinaison de la tête et 1 bit pour le verrouillage du cou. Si la réduction des déformations est déjà active, l’ajout de Se retourner consomme donc 9 bit supplémentaires. Le bit partagé n’est compté qu’une fois, et le total affiché se met à jour lorsque vous modifiez les options.
+Chaque client calcule l’inclinaison de la tête. Seul l’état effectif du retournement est synchronisé. Déverrouiller le cou rétablit le réglage initial.
 
 Le total affiché concerne les outils de poses installés sur cet avatar. Il ne représente pas la consommation de l’avatar entier avec ses vêtements et autres systèmes. Les réglages communs ne sont pas comptés plusieurs fois lorsque plusieurs outils de poses sont utilisés. Si le nombre de poses dépasse la plage de numérotation de base, leur sélection nécessite également des bits supplémentaires.
 

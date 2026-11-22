@@ -24,9 +24,10 @@ namespace jp.unisakistudio.posingsystemeditor
         public const string FloatHeightAdjusting = "USSPS_FloatHeightAdjusting";
         public const string FloorHeightMenuName = "床の高さ";
         public const float FloatHeightCenter = .5f;
-        // Keep neutral stable after synced float quantization and small radial-input rounding.
+        // Keep neutral stable despite small radial-input rounding.
         public const float FloatHeightThreshold = .005f;
         public const string RollActive = "USSPS_Rollover";
+        public const string RollEffective = "USSPS_RolloverEffective";
         public const string RollSensor = "USSPS_RollSensor";
         public const string RollTime = "USSPS_RollTime";
         public const string FloatMenuName = "全身を浮かせる（試験機能）";
@@ -68,9 +69,9 @@ namespace jp.unisakistudio.posingsystemeditor
         {
             var f = ps.features ?? new PosingSystemFeatureSettings();
             if (ps.isEightBitVersion) return 0;
-            return (f.mirror ? 1 : 0) + (f.footHeight ? 8 : 0) + (UsesBreathingControl(ps) ? 1 : 0) + (f.fingerGestureControl ? 1 : 0) +
-                   (f.faceForward || f.rollover ? 1 : 0) + (f.photography && f.photographySynced ? 16 : 0) +
-                   (f.floating ? 8 : 0) + (f.rollover ? 9 : 0);
+            return (f.mirror ? 1 : 0) + (UsesBreathingControl(ps) ? 1 : 0) + (f.fingerGestureControl ? 1 : 0) +
+                   (f.faceForward ? 1 : 0) + (f.photography && f.photographySynced ? 16 : 0) +
+                   (f.rollover ? 1 : 0);
         }
 
         /// <summary>Bit difference between on and off, with all other feature selections held constant.</summary>
@@ -82,9 +83,7 @@ namespace jp.unisakistudio.posingsystemeditor
             var others = avatar == null ? Array.Empty<PosingSystemFeatureSettings>() : avatar.GetActiveAvatarChildren<PosingSystem>()
                 .Where(p => p != ps && p.tag != "EditorOnly" && !p.isEightBitVersion)
                 .Select(p => p.features ?? new PosingSystemFeatureSettings()).ToArray();
-            var headAlreadyUsed = (rollover ? f.faceForward : f.rollover) || others.Any(p => p.faceForward || p.rollover);
-            var rolloverAlreadyUsed = others.Any(p => p.rollover);
-            return (headAlreadyUsed ? 0 : 1) + (rollover && !rolloverAlreadyUsed ? 9 : 0);
+            return others.Any(p => rollover ? p.rollover : p.faceForward) ? 0 : 1;
         }
 
         public static int PoseBits(PosingSystem ps)
@@ -104,10 +103,10 @@ namespace jp.unisakistudio.posingsystemeditor
             if (avatar == null) return OptionalBits(ps);
             var systems = avatar.GetActiveAvatarChildren<PosingSystem>().Where(p => p.tag != "EditorOnly" && !p.isEightBitVersion).ToArray();
             var features = systems.Select(p => p.features ?? new PosingSystemFeatureSettings()).ToArray();
-            return (features.Any(f => f.mirror) ? 1 : 0) + (features.Any(f => f.footHeight) ? 8 : 0) +
+            return (features.Any(f => f.mirror) ? 1 : 0) +
                 (systems.Any(UsesBreathingControl) ? 1 : 0) + (features.Any(f => f.fingerGestureControl) ? 1 : 0) +
-                (features.Any(f => f.faceForward || f.rollover) ? 1 : 0) + (features.Any(f => f.photography && f.photographySynced) ? 16 : 0) +
-                (features.Any(f => f.floating) ? 8 : 0) + (features.Any(f => f.rollover) ? 9 : 0);
+                (features.Any(f => f.faceForward) ? 1 : 0) + (features.Any(f => f.photography && f.photographySynced) ? 16 : 0) +
+                (features.Any(f => f.rollover) ? 1 : 0);
         }
 
         public static void Synchronize(PosingSystem ps, bool recordUndo = false)
@@ -121,22 +120,23 @@ namespace jp.unisakistudio.posingsystemeditor
             if (parameters == null) return;
             if (recordUndo) Undo.RecordObject(parameters, "Update posing parameters");
             SetParameter(parameters, "USSPS_Mirror", ParameterSyncType.Bool, f.mirror, false, 0, true);
-            SetParameter(parameters, "FootHeight", ParameterSyncType.Float, f.footHeight, false, .5f, true);
+            SetParameter(parameters, "FootHeight", ParameterSyncType.Float, f.footHeight, true, .5f, true);
             SetParameter(parameters, "USSPS_Breathing", ParameterSyncType.Bool, UsesBreathingControl(ps), false, 1, true);
             // Existing local neck-lock control becomes synced only for the correction feature.
             var avatar = ps.GetAvatar();
-            var syncHead = f.faceForward || f.rollover || (avatar != null && avatar.GetActiveAvatarChildren<PosingSystem>()
-                .Any(p => p.tag != "EditorOnly" && p.features != null && (p.features.faceForward || p.features.rollover)));
+            var syncHead = f.faceForward || (avatar != null && avatar.GetActiveAvatarChildren<PosingSystem>()
+                .Any(p => p.tag != "EditorOnly" && p.features != null && p.features.faceForward));
             SetParameter(parameters, "HeadTrackingLock", ParameterSyncType.Bool, true, !syncHead, 0, true);
             SetParameter(parameters, PhotoActive, ParameterSyncType.Bool, f.photography, true, 0, false);
             SetParameter(parameters, PhotoDistance, ParameterSyncType.Float, f.photography, !f.photographySynced, 0, false);
             SetParameter(parameters, PhotoYaw, ParameterSyncType.Float, f.photography, !f.photographySynced, .5f, false);
             SetParameter(parameters, "USSPS_PhotoReset", ParameterSyncType.Bool, f.photography, true, 0, false);
             SetParameter(parameters, FloatActive, ParameterSyncType.Bool, f.floating, true, 0, false);
-            SetParameter(parameters, FloatHeight, ParameterSyncType.Float, f.floating, false, FloatHeightCenter, false);
+            SetParameter(parameters, FloatHeight, ParameterSyncType.Float, f.floating, true, FloatHeightCenter, false);
             SetParameter(parameters, FloatHeightAdjusting, ParameterSyncType.Bool, f.floating, true, 0, false);
-            SetParameter(parameters, RollActive, ParameterSyncType.Bool, f.rollover, false, 0, true);
-            SetParameter(parameters, RollSensor, ParameterSyncType.Float, f.rollover, false, .5f, false);
+            SetParameter(parameters, RollActive, ParameterSyncType.Bool, f.rollover, true, 0, true);
+            SetParameter(parameters, RollEffective, ParameterSyncType.Bool, f.rollover, false, 0, false);
+            SetParameter(parameters, RollSensor, ParameterSyncType.Float, f.rollover, true, .5f, false);
             EditorUtility.SetDirty(parameters);
             PrefabUtility.RecordPrefabInstancePropertyModifications(parameters);
             SetMenuAvailable(ps, "USSPS_Mirror", f.mirror, recordUndo);

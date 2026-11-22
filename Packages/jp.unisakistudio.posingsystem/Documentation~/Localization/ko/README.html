@@ -49,16 +49,16 @@ a { color: #2269b8; } a:visited { color: #7952ad; } li { margin-block: .35rem; }
 <tr><td>제스처 끄기</td><td>1 bit</td></tr>
 <tr><td>호흡 애니메이션 사용</td><td>0 bit</td></tr>
 <tr><td>호흡(게임 내 ON/OFF)</td><td>1 bit</td></tr>
-<tr><td>발 높이</td><td>8 bit</td></tr>
-<tr><td>바닥 높이</td><td>8 bit</td></tr>
+<tr><td>발 높이</td><td>0 bit</td></tr>
+<tr><td>바닥 높이</td><td>0 bit</td></tr>
 <tr><td>촬영 모드(자신의 화면만)</td><td>0 bit</td></tr>
 <tr><td>촬영 모드 동기화</td><td>16 bit</td></tr>
 <tr><td>촬영 모드에서 머리 표시 유지</td><td>0 bit</td></tr>
 <tr><td>VRChat 기본 대기 흔들림 끄기</td><td>0 bit</td></tr>
-<tr><td>머리 회전에 의한 포즈 변형 줄이기</td><td>1 bit(뒤척이기와 공유)</td></tr>
-<tr><td>뒤척이기</td><td>10 bit(이 중 1 bit를 포즈 변형 줄이기와 공유)</td></tr>
+<tr><td>머리 회전에 의한 포즈 변형 줄이기</td><td>1 bit</td></tr>
+<tr><td>뒤척이기</td><td>1 bit</td></tr>
 </tbody></table></div>
-<p>뒤척이기는 ON/OFF에 1 bit, 머리 기울기에 8 bit, 머리 고정에 1 bit를 사용합니다. 포즈 변형 줄이기를 이미 켰다면 뒤척이기를 추가할 때 증가하는 양은 9 bit입니다. 공유하는 부분은 중복 계산하지 않으며 체크를 바꾸면 표시도 갱신됩니다.</p>
+<p>머리 기울기는 각 클라이언트에서 계산하며, 뒤척임의 실제 활성 상태만 동기화합니다. 목 고정을 풀면 원래 설정으로 돌아갑니다.</p>
 <p>표시되는 합계는 해당 아바타에 설치한 포즈 도구의 사용량입니다. 의상이나 다른 기믹을 포함한 아바타 전체의 합계는 아닙니다. 여러 포즈 도구를 함께 사용해도 공통 설정을 중복 계산하지 않습니다. 포즈 수가 기본 번호 범위를 넘는 구성에서는 자세 선택에도 추가 bit가 필요할 수 있습니다.</p>
 <h3>발 높이와 바닥 높이</h3>
 <ul>

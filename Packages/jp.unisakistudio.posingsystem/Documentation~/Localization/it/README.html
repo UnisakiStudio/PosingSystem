@@ -49,16 +49,16 @@ a { color: #2269b8; } a:visited { color: #7952ad; } li { margin-block: .35rem; }
 <tr><td>Blocca gesti</td><td>1 bit</td></tr>
 <tr><td>Animare il respiro</td><td>0 bit</td></tr>
 <tr><td>Respiro (attivazione nel gioco)</td><td>1 bit</td></tr>
-<tr><td>Altezza piedi</td><td>8 bit</td></tr>
-<tr><td>Altezza suolo</td><td>8 bit</td></tr>
+<tr><td>Altezza piedi</td><td>0 bit</td></tr>
+<tr><td>Altezza suolo</td><td>0 bit</td></tr>
 <tr><td>Modalità foto (solo vista locale)</td><td>0 bit</td></tr>
 <tr><td>Sincronizzare la Modalità foto</td><td>16 bit</td></tr>
 <tr><td>Tenere visibile la testa in Modalità foto</td><td>0 bit</td></tr>
 <tr><td>Disattivare l&#x27;oscillazione da fermo di VRChat</td><td>0 bit</td></tr>
-<tr><td>Ridurre le deformazioni dovute alla rotazione della testa</td><td>1 bit (condiviso con Girarsi)</td></tr>
-<tr><td>Girarsi</td><td>10 bit (di cui 1 bit condiviso con la riduzione delle deformazioni)</td></tr>
+<tr><td>Ridurre le deformazioni dovute alla rotazione della testa</td><td>1 bit</td></tr>
+<tr><td>Girarsi</td><td>1 bit</td></tr>
 </tbody></table></div>
-<p>Girarsi richiede 1 bit per l’attivazione, 8 bit per l’inclinazione della testa e 1 bit per il blocco del collo. Se la riduzione delle deformazioni è già attiva, aggiungere Girarsi aumenta quindi il consumo di 9 bit. La parte condivisa non viene contata due volte; il totale cambia quando modifichi le caselle.</p>
+<p>Ogni client calcola l’inclinazione della testa. Viene sincronizzato solo lo stato effettivo della rotazione sul fianco. Sbloccando il collo si ripristina l’impostazione iniziale.</p>
 <p>Il totale mostrato riguarda gli strumenti per pose installati nell’avatar, non l’intero avatar con abiti e altri sistemi. Le impostazioni comuni non sono contate più volte usando più strumenti. Se il numero di pose supera l’intervallo di numerazione di base, servono bit aggiuntivi anche per la selezione.</p>
 <h3>Altezza piedi e Altezza suolo</h3>
 <ul>

@@ -61,16 +61,16 @@ Die unter „Funktionen > Menüfunktionen“ gewählten Einträge erscheinen im 
 | Gesten aus | 1 bit |
 | Atmung animieren | 0 bit |
 | Atmung im Spiel ein-/ausschalten | 1 bit |
-| Fußhöhe | 8 bit |
-| Bodenhöhe | 8 bit |
+| Fußhöhe | 0 bit |
+| Bodenhöhe | 0 bit |
 | Fotomodus nur lokal | 0 bit |
 | Fotomodus synchronisieren | 16 bit |
 | Kopf im Fotomodus sichtbar halten | 0 bit |
 | VRChat-Schwanken im Stand deaktivieren | 0 bit |
-| Verformungen durch Kopfdrehung verringern | 1 bit (mit Umdrehen geteilt) |
-| Umdrehen | 10 bit (davon 1 bit mit der Verformungskorrektur geteilt) |
+| Verformungen durch Kopfdrehung verringern | 1 bit |
+| Umdrehen | 1 bit |
 
-Umdrehen benötigt 1 bit zum Ein-/Ausschalten, 8 bit für die Kopfneigung und 1 bit für die Halsfixierung. Ist die Verformungskorrektur bereits aktiv, kommen durch Umdrehen daher nur 9 bit hinzu. Der gemeinsame Anteil wird nicht doppelt gezählt; die Anzeige folgt den gewählten Optionen.
+Jeder Client berechnet die Kopfneigung selbst. Nur der wirksame Ein/Aus-Zustand der Drehung auf die Seite wird synchronisiert. Nach dem Lösen der Halssperre gilt wieder die ursprüngliche Einstellung.
 
 Der angezeigte Gesamtwert betrifft die Posenwerkzeuge dieses Avatars, nicht den gesamten Avatar samt Kleidung und anderen Systemen. Gemeinsame Einstellungen mehrerer Posenwerkzeuge werden nicht doppelt gezählt. Überschreitet die Anzahl der Posen den grundlegenden Nummernbereich, benötigt auch die Posenauswahl weitere Bits.
 

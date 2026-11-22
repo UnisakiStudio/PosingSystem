@@ -1,5 +1,9 @@
 # Riwayat perubahan
 
+## [3.2.1] - Belum dirilis
+
+- Tinggi kaki 8 → 0 bit, Tinggi lantai 8 → 0 bit, Berguling 10 → 1 bit. Setiap klien menghitung kemiringan kepala. Hanya status aktif gerakan berguling yang disinkronkan. Membuka kunci leher memulihkan pengaturan semula.
+
 ## [3.2.0] - 2026-11-22
 
 ### Ditambahkan

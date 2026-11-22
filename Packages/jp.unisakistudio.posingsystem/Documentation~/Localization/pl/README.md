@@ -61,16 +61,16 @@ Pozycje wybrane w „Funkcje > Funkcje menu” pojawiają się w menu gry. Na pr
 | Bez gestów | 1 bit |
 | Animuj oddech | 0 bit |
 | Oddech (przełącznik w grze) | 1 bit |
-| Wysokość stóp | 8 bit |
-| Wysokość ziemi | 8 bit |
+| Wysokość stóp | 0 bit |
+| Wysokość ziemi | 0 bit |
 | Tryb zdjęć (tylko na własnym ekranie) | 0 bit |
 | Synchronizuj tryb zdjęć | 16 bit |
 | Pokazuj głowę w trybie zdjęć | 0 bit |
 | Wyłącz kołysanie w spoczynku VRChat | 0 bit |
-| Ogranicz deformację pozy przy obrocie głowy | 1 bit (wspólny z obracaniem) |
-| Obróć się | 10 bit (w tym 1 bit wspólny z ograniczeniem deformacji) |
+| Ogranicz deformację pozy przy obrocie głowy | 1 bit |
+| Obróć się | 1 bit |
 
-Obracanie używa 1 bit na przełącznik, 8 bit na nachylenie głowy i 1 bit na jej blokadę. Jeśli ograniczenie deformacji pozy już działa, dodanie obracania zwiększa zużycie o 9 bit. Wspólna część nie jest liczona dwa razy, a wynik aktualizuje się po zmianie zaznaczeń.
+Każdy klient oblicza nachylenie głowy. Synchronizowany jest tylko stan aktywności obrotu na bok. Odblokowanie szyi przywraca poprzednie ustawienie.
 
 Wyświetlana suma dotyczy tylko narzędzi póz zainstalowanych na tym awatarze. Nie obejmuje całego awatara z ubraniami i innymi funkcjami. Wspólne ustawienia kilku narzędzi również nie są liczone ponownie. Gdy liczba póz przekracza podstawowy zakres numeracji, ich wybór wymaga dodatkowych bitów.
 

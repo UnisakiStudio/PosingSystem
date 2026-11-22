@@ -1,5 +1,9 @@
 # Ändringshistorik
 
+## [3.2.1] - Ej utgiven
+
+- Fothöjd 8 → 0 bit, Golvhöjd 8 → 0 bit, Vänd dig 10 → 1 bit. Varje klient beräknar huvudets lutning. Endast om rullningen faktiskt är aktiv synkroniseras. När nacken låses upp återställs den ursprungliga inställningen.
+
 ## [3.2.0] - 2026-11-22
 
 ### Tillagt

@@ -49,16 +49,16 @@ a { color: #2269b8; } a:visited { color: #7952ad; } li { margin-block: .35rem; }
 <tr><td>Gestus fra</td><td>1 bit</td></tr>
 <tr><td>Animér vejrtrækning</td><td>0 bit</td></tr>
 <tr><td>Vejrtrækning (til/fra i spillet)</td><td>1 bit</td></tr>
-<tr><td>Fodhøjde</td><td>8 bit</td></tr>
-<tr><td>Gulvhøjde</td><td>8 bit</td></tr>
+<tr><td>Fodhøjde</td><td>0 bit</td></tr>
+<tr><td>Gulvhøjde</td><td>0 bit</td></tr>
 <tr><td>Fototilstand (kun lokalt)</td><td>0 bit</td></tr>
 <tr><td>Synkronisér Fototilstand</td><td>16 bit</td></tr>
 <tr><td>Hold hovedet synligt i Fototilstand</td><td>0 bit</td></tr>
 <tr><td>Slå VRChats svajen i stilstand fra</td><td>0 bit</td></tr>
-<tr><td>Reducér forvrængning fra hovedrotation</td><td>1 bit (deles med Vend dig)</td></tr>
-<tr><td>Vend dig</td><td>10 bit (1 deles med hovedrotationskorrektion)</td></tr>
+<tr><td>Reducér forvrængning fra hovedrotation</td><td>1 bit</td></tr>
+<tr><td>Vend dig</td><td>1 bit</td></tr>
 </tbody></table></div>
-<p>Vend dig bruger 1 bit til til/fra, 8 bit til hovedhældning og 1 bit til nakkelås. Hvis hovedrotationskorrektionen allerede er aktiv, øger Vend dig forbruget med 9 bit. Delte bit tælles ikke dobbelt, og visningen opdateres ved ændrede valg.</p>
+<p>Hver klient beregner hovedets hældning. Kun den faktiske aktivering af vendingen synkroniseres. Når nakken låses op, gendannes den oprindelige indstilling.</p>
 <p>Totalen omfatter positurværktøjerne på avataren, ikke hele avataren med tøj og andre værktøjer. Fælles indstillinger tælles ikke dobbelt ved flere positurværktøjer. Hvis antallet af positurer overstiger det normale nummerområde, kræver positurvalg også ekstra bit.</p>
 <h3>Fodhøjde og gulvhøjde</h3>
 <ul>

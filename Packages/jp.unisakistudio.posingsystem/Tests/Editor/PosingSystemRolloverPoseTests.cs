@@ -178,9 +178,40 @@ namespace jp.unisakistudio.posingsystemeditor.tests
             Assert.That(controller.parameters.Length, Is.EqualTo(1));
         }
 
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Rollover_OnlyOwnerDrivesEffectiveStateAndUnlockRestoresSelection(bool owner)
+        {
+            root = new GameObject("Effective rollover test");
+            var animator = root.AddComponent<Animator>();
+            controller.layers[0].stateMachine.AddState("Base");
+            Invoke("BuildRolloverEffective", controller, null);
+            var layer = controller.layers.Last();
+            graph = PlayableGraph.Create("Effective rollover");
+            graph.SetTimeUpdateMode(DirectorUpdateMode.Manual);
+            var playable = AnimatorControllerPlayable.Create(graph, controller);
+            AnimationPlayableOutput.Create(graph, "Test", animator).SetSourcePlayable(playable);
+            graph.Play();
+            playable.SetBool("IsLocal", owner);
+            foreach (var input in new[] { (false, false), (true, false), (true, true), (true, false), (false, true), (false, false) })
+            {
+                playable.SetBool(PosingSystemFeatureUtility.RollActive, input.Item1);
+                playable.SetBool("HeadTrackingLock", input.Item2);
+                for (int i = 0; i < 8; i++) graph.Evaluate(1f / 60);
+                var info = playable.GetCurrentAnimatorStateInfo(controller.layers.Length - 1);
+                var state = layer.stateMachine.states.Single(s => Animator.StringToHash(s.state.name) == info.shortNameHash).state;
+                var driver = state.behaviours.OfType<VRCAvatarParameterDriver>().Single();
+                Assert.That(driver.localOnly, Is.True);
+                var parameter = driver.parameters.Single();
+                Assert.That(parameter.name, Is.EqualTo(PosingSystemFeatureUtility.RollEffective));
+                Assert.That(parameter.value, Is.EqualTo(owner && input.Item1 && !input.Item2 ? 1 : 0));
+                Assert.That(playable.GetBool(PosingSystemFeatureUtility.RollActive), Is.EqualTo(input.Item1));
+            }
+        }
+
         [TestCase(false)]
         [TestCase(true)]
-        public void Rollover_PlaybackRespondsToHeadTilt_AndCentersWhenOffLockedOrPhotographing(bool reload)
+        public void Rollover_PlaybackRespondsToHeadTilt_AndCentersWhenDisabledOrPhotographing(bool reload)
         {
             root = new GameObject("Rollover playback test");
             var animator = root.AddComponent<Animator>();
@@ -204,17 +235,15 @@ namespace jp.unisakistudio.posingsystemeditor.tests
             AnimationPlayableOutput.Create(graph, "Pose", animator).SetSourcePlayable(playable);
             graph.Play();
             Check(.5f);
-            playable.SetBool(PosingSystemFeatureUtility.RollActive, true);
+            playable.SetBool(PosingSystemFeatureUtility.RollEffective, true);
             playable.SetFloat(PosingSystemFeatureUtility.RollSensor, .95f); Check(1);
             playable.SetFloat(PosingSystemFeatureUtility.RollSensor, .05f); Check(0);
             playable.SetFloat(PosingSystemFeatureUtility.RollSensor, .5f); Check(.5f);
             playable.SetFloat(PosingSystemFeatureUtility.RollSensor, .95f); Check(1);
-            playable.SetBool("HeadTrackingLock", true); Check(.5f);
-            playable.SetBool("HeadTrackingLock", false); Check(1);
             playable.SetBool(PosingSystemFeatureUtility.PhotoActive, true); Check(.5f);
             playable.SetBool(PosingSystemFeatureUtility.PhotoActive, false); Check(1);
-            playable.SetBool(PosingSystemFeatureUtility.RollActive, false); Check(.5f);
-            playable.SetBool(PosingSystemFeatureUtility.RollActive, true);
+            playable.SetBool(PosingSystemFeatureUtility.RollEffective, false); Check(.5f);
+            playable.SetBool(PosingSystemFeatureUtility.RollEffective, true);
             playable.SetFloat(PosingSystemFeatureUtility.RollSensor, 0); Check(.5f);
 
             void Check(float expected)

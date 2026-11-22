@@ -49,16 +49,16 @@ a { color: #2269b8; } a:visited { color: #7952ad; } li { margin-block: .35rem; }
 <tr><td>Gester av</td><td>1 bit</td></tr>
 <tr><td>Animer pusten</td><td>0 bit</td></tr>
 <tr><td>Pust (på/av i spillet)</td><td>1 bit</td></tr>
-<tr><td>Fothøyde</td><td>8 bit</td></tr>
-<tr><td>Gulvhøyde</td><td>8 bit</td></tr>
+<tr><td>Fothøyde</td><td>0 bit</td></tr>
+<tr><td>Gulvhøyde</td><td>0 bit</td></tr>
 <tr><td>Fotomodus (bare lokalt)</td><td>0 bit</td></tr>
 <tr><td>Synkroniser Fotomodus</td><td>16 bit</td></tr>
 <tr><td>Behold hodet synlig i Fotomodus</td><td>0 bit</td></tr>
 <tr><td>Deaktiver VRChats hvilebevegelse</td><td>0 bit</td></tr>
-<tr><td>Reduser positurforvrengning fra hoderotasjon</td><td>1 bit (deles med Snu deg)</td></tr>
-<tr><td>Snu deg</td><td>10 bit (1 deles med positurkorrigeringen)</td></tr>
+<tr><td>Reduser positurforvrengning fra hoderotasjon</td><td>1 bit</td></tr>
+<tr><td>Snu deg</td><td>1 bit</td></tr>
 </tbody></table></div>
-<p>Snu deg bruker 1 bit til på/av, 8 bit til hodehelling og 1 bit til nakkelås. Hvis positurkorrigeringen allerede er aktiv, øker Snu deg forbruket med 9 bit. Delte bit telles ikke dobbelt, og visningen oppdateres når valg endres.</p>
+<p>Hver klient beregner hodets helning. Bare hvorvidt vendingen faktisk er aktiv, synkroniseres. Når nakken låses opp, gjenopprettes den opprinnelige innstillingen.</p>
 <p>Summen omfatter positurverktøyene på avataren, ikke hele avataren med klær og andre verktøy. Felles innstillinger telles ikke dobbelt ved flere verktøy. Positurantall over det grunnleggende nummerområdet krever også ekstra valgbiter.</p>
 <h3>Fothøyde og gulvhøyde</h3>
 <ul>

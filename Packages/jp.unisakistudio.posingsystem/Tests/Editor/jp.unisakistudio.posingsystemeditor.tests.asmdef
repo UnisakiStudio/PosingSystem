@@ -16,6 +16,8 @@
     "overrideReferences": true,
     "precompiledReferences": [
         "VRCSDK3A.dll",
+        "VRC.Dynamics.dll",
+        "VRC.SDK3.Dynamics.Contact.dll",
         "VRCSDKBase.dll",
         "VRCSDKBase-Editor.dll",
         "VRCCore-Editor.dll"

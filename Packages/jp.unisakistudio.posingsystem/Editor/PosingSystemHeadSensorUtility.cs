@@ -64,7 +64,7 @@ namespace jp.unisakistudio.posingsystemeditor
             sender.shapeType = ContactBase.ShapeType.Sphere;
             sender.radius = radius * .0001f;
             sender.position = localForward.normalized * radius;
-            sender.localOnly = true;
+            sender.localOnly = false;
             var tag = "USSPS_Head_" + Guid.NewGuid().ToString("N");
             sender.collisionTags.Add(tag);
             var obj = new GameObject(PosingSystemFeatureUtility.RollSensor);
@@ -77,7 +77,7 @@ namespace jp.unisakistudio.posingsystemeditor
             receiver.useFaceProximity = true;
             receiver.allowSelf = true;
             receiver.allowOthers = false;
-            receiver.localOnly = true;
+            receiver.localOnly = false;
             receiver.parameter = PosingSystemFeatureUtility.RollSensor;
             receiver.collisionTags.Add(tag);
             // Keep the hierarchy tidy without changing the calibrated world geometry.

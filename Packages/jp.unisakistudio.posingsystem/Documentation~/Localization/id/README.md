@@ -61,16 +61,16 @@ Item yang dipilih dalam “Fitur > Fitur menu” muncul di menu gim. Misalnya, C
 | Gestur mati | 1 bit |
 | Animasikan napas | 0 bit |
 | Napas (sakelar dalam gim) | 1 bit |
-| Tinggi kaki | 8 bit |
-| Tinggi lantai | 8 bit |
+| Tinggi kaki | 0 bit |
+| Tinggi lantai | 0 bit |
 | Mode foto (hanya layar sendiri) | 0 bit |
 | Sinkronkan mode foto | 16 bit |
 | Tetap tampilkan kepala dalam mode foto | 0 bit |
 | Nonaktifkan goyangan diam VRChat | 0 bit |
-| Kurangi perubahan pose akibat rotasi kepala | 1 bit (bersama berguling) |
-| Berguling | 10 bit (1 bit bersama pengurangan perubahan pose) |
+| Kurangi perubahan pose akibat rotasi kepala | 1 bit |
+| Berguling | 1 bit |
 
-Berguling memakai 1 bit untuk sakelar, 8 bit untuk kemiringan kepala, dan 1 bit untuk kunci kepala. Jika pengurangan perubahan pose sudah aktif, penambahan Berguling memakai 9 bit tambahan. Bagian bersama tidak dihitung dua kali dan tampilan diperbarui saat pilihan berubah.
+Setiap klien menghitung kemiringan kepala. Hanya status aktif gerakan berguling yang disinkronkan. Membuka kunci leher memulihkan pengaturan semula.
 
 Jumlah yang ditampilkan hanya untuk alat pose yang dipasang pada avatar itu. Bukan total seluruh avatar termasuk pakaian dan fitur lain. Pengaturan bersama beberapa alat pose juga tidak dihitung berulang. Jika jumlah pose melebihi rentang nomor dasar, pemilihan pose memerlukan bit tambahan.
 

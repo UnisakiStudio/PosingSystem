@@ -1,5 +1,9 @@
 # Endringslogg
 
+## [3.2.1] - Ikke utgitt
+
+- Fothøyde 8 → 0 bit, Gulvhøyde 8 → 0 bit, Snu deg 10 → 1 bit. Hver klient beregner hodets helning. Bare hvorvidt vendingen faktisk er aktiv, synkroniseres. Når nakken låses opp, gjenopprettes den opprinnelige innstillingen.
+
 ## [3.2.0] - 2026-11-22
 
 ### Lagt til

@@ -1,5 +1,9 @@
 # Lịch sử thay đổi
 
+## [3.2.1] - Chưa phát hành
+
+- Độ cao chân 8 → 0 bit, Độ cao sàn 8 → 0 bit, Lật người 10 → 1 bit. Mỗi máy khách tự tính độ nghiêng của đầu. Chỉ trạng thái hoạt động thực tế của thao tác trở mình được đồng bộ. Mở khóa cổ sẽ khôi phục cài đặt ban đầu.
+
 ## [3.2.0] - 2026-11-22
 
 ### Đã thêm

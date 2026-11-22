@@ -61,16 +61,16 @@ Val under Funktioner > Menyfunktioner visas i spelet. Spegla gör effekten omkop
 | Gester av | 1 bit |
 | Animera andning | 0 bit |
 | Andning på/av i spelet | 1 bit |
-| Fothöjd | 8 bit |
-| Golvhöjd | 8 bit |
+| Fothöjd | 0 bit |
+| Golvhöjd | 0 bit |
 | Fotoläge endast lokalt | 0 bit |
 | Synkronisera Fotoläge | 16 bit |
 | Håll huvudet synligt i Fotoläge | 0 bit |
 | Stäng av VRChats stillastående svajning | 0 bit |
-| Minska förvrängning från huvudrotation | 1 bit (delas med Vänd dig) |
-| Vänd dig | 10 bit (1 bit delas med förvrängningskorrigering) |
+| Minska förvrängning från huvudrotation | 1 bit |
+| Vänd dig | 1 bit |
 
-Vänd dig använder 1 bit för aktivering, 8 bit för huvudlutning och 1 bit för nacklås. Med korrigeringen aktiv kostar tillägget därför 9 bit. Delad bit räknas bara en gång; visningen följer alternativen.
+Varje klient beräknar huvudets lutning. Endast om rullningen faktiskt är aktiv synkroniseras. När nacken låses upp återställs den ursprungliga inställningen.
 
 Summan gäller avatarens poseverktyg, inte hela avataren med kläder och andra system. Gemensamma inställningar räknas inte dubbelt. Många poser över grundintervallet kan kräva fler valbitar.
 

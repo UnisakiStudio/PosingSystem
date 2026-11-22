@@ -49,16 +49,16 @@ a { color: #2269b8; } a:visited { color: #7952ad; } li { margin-block: .35rem; }
 <tr><td>Bez gestów</td><td>1 bit</td></tr>
 <tr><td>Animuj oddech</td><td>0 bit</td></tr>
 <tr><td>Oddech (przełącznik w grze)</td><td>1 bit</td></tr>
-<tr><td>Wysokość stóp</td><td>8 bit</td></tr>
-<tr><td>Wysokość ziemi</td><td>8 bit</td></tr>
+<tr><td>Wysokość stóp</td><td>0 bit</td></tr>
+<tr><td>Wysokość ziemi</td><td>0 bit</td></tr>
 <tr><td>Tryb zdjęć (tylko na własnym ekranie)</td><td>0 bit</td></tr>
 <tr><td>Synchronizuj tryb zdjęć</td><td>16 bit</td></tr>
 <tr><td>Pokazuj głowę w trybie zdjęć</td><td>0 bit</td></tr>
 <tr><td>Wyłącz kołysanie w spoczynku VRChat</td><td>0 bit</td></tr>
-<tr><td>Ogranicz deformację pozy przy obrocie głowy</td><td>1 bit (wspólny z obracaniem)</td></tr>
-<tr><td>Obróć się</td><td>10 bit (w tym 1 bit wspólny z ograniczeniem deformacji)</td></tr>
+<tr><td>Ogranicz deformację pozy przy obrocie głowy</td><td>1 bit</td></tr>
+<tr><td>Obróć się</td><td>1 bit</td></tr>
 </tbody></table></div>
-<p>Obracanie używa 1 bit na przełącznik, 8 bit na nachylenie głowy i 1 bit na jej blokadę. Jeśli ograniczenie deformacji pozy już działa, dodanie obracania zwiększa zużycie o 9 bit. Wspólna część nie jest liczona dwa razy, a wynik aktualizuje się po zmianie zaznaczeń.</p>
+<p>Każdy klient oblicza nachylenie głowy. Synchronizowany jest tylko stan aktywności obrotu na bok. Odblokowanie szyi przywraca poprzednie ustawienie.</p>
 <p>Wyświetlana suma dotyczy tylko narzędzi póz zainstalowanych na tym awatarze. Nie obejmuje całego awatara z ubraniami i innymi funkcjami. Wspólne ustawienia kilku narzędzi również nie są liczone ponownie. Gdy liczba póz przekracza podstawowy zakres numeracji, ich wybór wymaga dodatkowych bitów.</p>
 <h3>Wysokość stóp i wysokość ziemi</h3>
 <ul>

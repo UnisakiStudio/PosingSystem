@@ -1,5 +1,9 @@
 # Wijzigingsgeschiedenis
 
+## [3.2.1] - Nog niet uitgebracht
+
+- Voethoogte 8 → 0 bit, Vloerhoogte 8 → 0 bit, Omdraaien 10 → 1 bit. Elke client berekent de kanteling van het hoofd. Alleen de actieve stand van het omrollen wordt gesynchroniseerd. Na het ontgrendelen van de nek geldt de oorspronkelijke instelling weer.
+
 ## [3.2.0] - 2026-11-22
 
 ### Toegevoegd

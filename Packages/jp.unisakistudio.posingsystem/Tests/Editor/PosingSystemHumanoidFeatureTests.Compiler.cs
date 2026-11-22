@@ -524,7 +524,7 @@ namespace jp.unisakistudio.posingsystemeditor.tests
         public void Compiler_OPT01_NET02_NdmfBuildPreservesFeaturesMenusAndSyncBits(bool features, bool additiveFootHeight)
         {
             using var scope = new PosingSystemControllerGeneration.Scope(root, true);
-            NdmfBuild_ExpressionParametersAndMenusMatchSelectedFeatures(features, features ? 53 : 8,
+            NdmfBuild_ExpressionParametersAndMenusMatchSelectedFeatures(features, features ? 29 : 8,
                 PosingSystemFeatureSettings.MovementBackend.PoseSpaceAdditive, additiveFootHeight);
             Assert.That(scope.Created, Is.EqualTo(1), "Source generation decisions: " + string.Join(";", scope.Decisions));
             var descriptor = root.GetComponent<VRCAvatarDescriptor>();

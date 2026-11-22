@@ -49,16 +49,16 @@ a { color: #2269b8; } a:visited { color: #7952ad; } li { margin-block: .35rem; }
 <tr><td>Jestleri kapat</td><td>1 bit</td></tr>
 <tr><td>Nefes animasyonu ekle</td><td>0 bit</td></tr>
 <tr><td>Nefes (oyun içi açma/kapatma)</td><td>1 bit</td></tr>
-<tr><td>Ayak yüksekliği</td><td>8 bit</td></tr>
-<tr><td>Zemin yüksekliği</td><td>8 bit</td></tr>
+<tr><td>Ayak yüksekliği</td><td>0 bit</td></tr>
+<tr><td>Zemin yüksekliği</td><td>0 bit</td></tr>
 <tr><td>Fotoğraf modu (yalnızca kendi ekranınız)</td><td>0 bit</td></tr>
 <tr><td>Fotoğraf modunu eşitle</td><td>16 bit</td></tr>
 <tr><td>Fotoğraf modunda başı görünür tut</td><td>0 bit</td></tr>
 <tr><td>VRChat bekleme sallanmasını kapat</td><td>0 bit</td></tr>
-<tr><td>Baş dönüşünden kaynaklanan poz bozulmasını azalt</td><td>1 bit (dönüşle ortak)</td></tr>
-<tr><td>Dön</td><td>10 bit (1 bit’i poz bozulmasını azaltmayla ortak)</td></tr>
+<tr><td>Baş dönüşünden kaynaklanan poz bozulmasını azalt</td><td>1 bit</td></tr>
+<tr><td>Dön</td><td>1 bit</td></tr>
 </tbody></table></div>
-<p>Dönüş; açma/kapatma için 1 bit, baş eğimi için 8 bit ve baş kilidi için 1 bit kullanır. Poz bozulmasını azaltma zaten açıksa dönüş eklemek kullanımı 9 bit artırır. Ortak kısım iki kez sayılmaz ve seçimler değişince gösterge güncellenir.</p>
+<p>Her istemci baş eğimini kendisi hesaplar. Yalnızca yana dönmenin etkin olup olmadığı eşitlenir. Boyun kilidi açıldığında önceki ayar geri yüklenir.</p>
 <p>Gösterilen toplam yalnızca o avatara kurulu poz araçlarına aittir. Kıyafetler ve diğer özellikler dâhil tüm avatarın toplamı değildir. Birden fazla poz aracının ortak ayarları da tekrar sayılmaz. Poz sayısı temel numara aralığını aşarsa poz seçimi için ek bit gerekir.</p>
 <h3>Ayak yüksekliği ve zemin yüksekliği</h3>
 <ul>

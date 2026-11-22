@@ -49,16 +49,16 @@ a { color: #2269b8; } a:visited { color: #7952ad; } li { margin-block: .35rem; }
 <tr><td>Gesta vyp.</td><td>1 bit</td></tr>
 <tr><td>Animovat dýchání</td><td>0 bit</td></tr>
 <tr><td>Dýchání (přepínač ve hře)</td><td>1 bit</td></tr>
-<tr><td>Výška chodidel</td><td>8 bit</td></tr>
-<tr><td>Výška podlahy</td><td>8 bit</td></tr>
+<tr><td>Výška chodidel</td><td>0 bit</td></tr>
+<tr><td>Výška podlahy</td><td>0 bit</td></tr>
 <tr><td>Režim focení (jen na vlastní obrazovce)</td><td>0 bit</td></tr>
 <tr><td>Synchronizovat režim focení</td><td>16 bit</td></tr>
 <tr><td>Ponechat hlavu viditelnou v režimu focení</td><td>0 bit</td></tr>
 <tr><td>Vypnout pohupování VRChat v klidu</td><td>0 bit</td></tr>
-<tr><td>Omezit deformaci pózy při otočení hlavy</td><td>1 bit (sdílený s přetočením)</td></tr>
-<tr><td>Přetočit se</td><td>10 bit (z toho 1 bit sdílený s omezením deformace)</td></tr>
+<tr><td>Omezit deformaci pózy při otočení hlavy</td><td>1 bit</td></tr>
+<tr><td>Přetočit se</td><td>1 bit</td></tr>
 </tbody></table></div>
-<p>Přetočení používá 1 bit pro přepínač, 8 bit pro náklon hlavy a 1 bit pro její zamknutí. Pokud je omezení deformace pózy již zapnuté, přidání přetočení zvýší spotřebu o 9 bit. Sdílená část se nepočítá dvakrát a údaj se mění se zaškrtnutím.</p>
+<p>Každý klient počítá náklon hlavy. Synchronizuje se pouze skutečný stav přetáčení na bok. Odemknutím krku se obnoví původní nastavení.</p>
 <p>Zobrazený součet se týká pouze nástrojů pro pózy nainstalovaných na tomto avatarovi. Nejde o součet celého avatara s oblečením a ostatními funkcemi. Sdílená nastavení více nástrojů se rovněž nepočítají opakovaně. Pokud počet póz překročí základní rozsah čísel, výběr póz vyžaduje další bity.</p>
 <h3>Výška chodidel a výška podlahy</h3>
 <ul>

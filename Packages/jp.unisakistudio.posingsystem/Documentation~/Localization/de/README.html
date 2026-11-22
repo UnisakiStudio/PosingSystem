@@ -49,16 +49,16 @@ a { color: #2269b8; } a:visited { color: #7952ad; } li { margin-block: .35rem; }
 <tr><td>Gesten aus</td><td>1 bit</td></tr>
 <tr><td>Atmung animieren</td><td>0 bit</td></tr>
 <tr><td>Atmung im Spiel ein-/ausschalten</td><td>1 bit</td></tr>
-<tr><td>Fußhöhe</td><td>8 bit</td></tr>
-<tr><td>Bodenhöhe</td><td>8 bit</td></tr>
+<tr><td>Fußhöhe</td><td>0 bit</td></tr>
+<tr><td>Bodenhöhe</td><td>0 bit</td></tr>
 <tr><td>Fotomodus nur lokal</td><td>0 bit</td></tr>
 <tr><td>Fotomodus synchronisieren</td><td>16 bit</td></tr>
 <tr><td>Kopf im Fotomodus sichtbar halten</td><td>0 bit</td></tr>
 <tr><td>VRChat-Schwanken im Stand deaktivieren</td><td>0 bit</td></tr>
-<tr><td>Verformungen durch Kopfdrehung verringern</td><td>1 bit (mit Umdrehen geteilt)</td></tr>
-<tr><td>Umdrehen</td><td>10 bit (davon 1 bit mit der Verformungskorrektur geteilt)</td></tr>
+<tr><td>Verformungen durch Kopfdrehung verringern</td><td>1 bit</td></tr>
+<tr><td>Umdrehen</td><td>1 bit</td></tr>
 </tbody></table></div>
-<p>Umdrehen benötigt 1 bit zum Ein-/Ausschalten, 8 bit für die Kopfneigung und 1 bit für die Halsfixierung. Ist die Verformungskorrektur bereits aktiv, kommen durch Umdrehen daher nur 9 bit hinzu. Der gemeinsame Anteil wird nicht doppelt gezählt; die Anzeige folgt den gewählten Optionen.</p>
+<p>Jeder Client berechnet die Kopfneigung selbst. Nur der wirksame Ein/Aus-Zustand der Drehung auf die Seite wird synchronisiert. Nach dem Lösen der Halssperre gilt wieder die ursprüngliche Einstellung.</p>
 <p>Der angezeigte Gesamtwert betrifft die Posenwerkzeuge dieses Avatars, nicht den gesamten Avatar samt Kleidung und anderen Systemen. Gemeinsame Einstellungen mehrerer Posenwerkzeuge werden nicht doppelt gezählt. Überschreitet die Anzahl der Posen den grundlegenden Nummernbereich, benötigt auch die Posenauswahl weitere Bits.</p>
 <h3>Fußhöhe und Bodenhöhe</h3>
 <ul>

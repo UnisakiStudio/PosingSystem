@@ -61,16 +61,16 @@ As escolhas em «Funções > Funções do menu» aparecem dentro do jogo. Por ex
 | Sem gestos | 1 bit |
 | Animar respiração | 0 bit |
 | Respiração: ativação no jogo | 1 bit |
-| Altura pés | 8 bit |
-| Altura chão | 8 bit |
+| Altura pés | 0 bit |
+| Altura chão | 0 bit |
 | Modo foto apenas local | 0 bit |
 | Sincronizar Modo foto | 16 bit |
 | Manter cabeça visível no Modo foto | 0 bit |
 | Desativar balanço em repouso do VRChat | 0 bit |
-| Reduzir deformação por rotação da cabeça | 1 bit (partilhado com Virar) |
-| Virar | 10 bit (1 bit partilhado com a correção de deformação) |
+| Reduzir deformação por rotação da cabeça | 1 bit |
+| Virar | 1 bit |
 
-Virar utiliza 1 bit para ativação, 8 bit para inclinação da cabeça e 1 bit para bloquear o pescoço. Se a correção de deformação já estiver ativa, adicionar Virar aumenta o consumo em 9 bit. A parte partilhada só é contada uma vez; a indicação acompanha as escolhas.
+Cada cliente calcula a inclinação da cabeça. Só é sincronizado o estado efetivo da função de virar de lado. Desbloquear o pescoço repõe a definição original.
 
 O total mostrado refere-se às ferramentas de poses instaladas no avatar, não ao avatar inteiro com roupa e outros sistemas. Opções comuns de várias ferramentas não são contadas duas vezes. Se o número de poses exceder o intervalo básico, a seleção também necessita de bits adicionais.
 

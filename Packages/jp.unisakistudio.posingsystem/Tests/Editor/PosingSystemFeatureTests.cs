@@ -147,9 +147,9 @@ namespace jp.unisakistudio.posingsystemeditor.tests
 
         [TestCase(false, false, 0)]
         [TestCase(true, false, 1)]
-        [TestCase(false, true, 10)]
-        [TestCase(true, true, 10)]
-        public void RolloverAndFaceForward_CountToggleAndTilt_AndShareOneHeadLock(bool faceForward, bool rollover, int expectedBits)
+        [TestCase(false, true, 1)]
+        [TestCase(true, true, 2)]
+        public void RolloverAndFaceForward_CountEffectiveRolloverAndFaceForwardIndependently(bool faceForward, bool rollover, int expectedBits)
         {
             ps.features = new PosingSystemFeatureSettings {
                 mirror = false, footHeight = false, breathing = false, fingerGestureControl = false,
@@ -162,9 +162,9 @@ namespace jp.unisakistudio.posingsystemeditor.tests
             Assert.That(parameters.Sum(p => p.syncType == ParameterSyncType.Bool ? 1 : 8), Is.EqualTo(expectedBits));
             Assert.That(PosingSystemFeatureUtility.OptionalBits(ps), Is.EqualTo(expectedBits));
             Assert.That(PosingSystemFeatureUtility.AvatarOptionalBits(ps), Is.EqualTo(expectedBits));
-            Assert.That(parameters.Count(p => p.nameOrPrefix == "HeadTrackingLock"), Is.EqualTo(faceForward || rollover ? 1 : 0));
-            Assert.That(parameters.Any(p => p.nameOrPrefix == PosingSystemFeatureUtility.RollActive && p.syncType == ParameterSyncType.Bool), Is.EqualTo(rollover));
-            Assert.That(parameters.Any(p => p.nameOrPrefix == PosingSystemFeatureUtility.RollSensor && p.syncType == ParameterSyncType.Float), Is.EqualTo(rollover));
+            Assert.That(parameters.Count(p => p.nameOrPrefix == "HeadTrackingLock"), Is.EqualTo(faceForward ? 1 : 0));
+            Assert.That(parameters.Any(p => p.nameOrPrefix == PosingSystemFeatureUtility.RollEffective && p.syncType == ParameterSyncType.Bool), Is.EqualTo(rollover));
+            Assert.That(parameters.Any(p => p.nameOrPrefix == PosingSystemFeatureUtility.RollSensor && p.syncType == ParameterSyncType.Float), Is.False);
             // Repeated toggles must release only the independent rollover parameters, retaining the shared lock.
             if (faceForward && rollover)
             {
@@ -173,17 +173,17 @@ namespace jp.unisakistudio.posingsystemeditor.tests
                 Assert.That(PosingSystemFeatureUtility.OptionalBits(ps), Is.EqualTo(1));
                 ps.features.rollover = true;
                 PosingSystemFeatureUtility.Synchronize(ps);
-                Assert.That(PosingSystemFeatureUtility.OptionalBits(ps) - 1, Is.EqualTo(9));
+                Assert.That(PosingSystemFeatureUtility.OptionalBits(ps) - 1, Is.EqualTo(1));
                 ps.features.faceForward = false;
                 PosingSystemFeatureUtility.Synchronize(ps);
-                Assert.That(PosingSystemFeatureUtility.OptionalBits(ps), Is.EqualTo(10));
+                Assert.That(PosingSystemFeatureUtility.OptionalBits(ps), Is.EqualTo(1));
             }
         }
 
-        [TestCase(false, false, 1, 10)]
-        [TestCase(true, false, 1, 9)]
-        [TestCase(false, true, 0, 10)]
-        [TestCase(true, true, 0, 9)]
+        [TestCase(false, false, 1, 1)]
+        [TestCase(true, false, 1, 1)]
+        [TestCase(false, true, 1, 1)]
+        [TestCase(true, true, 1, 1)]
         public void SharedHeadCardBits_MatchActualParameterChanges_WhenEitherCheckboxIsToggled(
             bool faceForward, bool rollover, int faceBits, int rolloverBits)
         {
@@ -226,7 +226,7 @@ namespace jp.unisakistudio.posingsystemeditor.tests
             try
             {
                 Assert.That(PosingSystemFeatureUtility.SharedHeadFeatureToggleBits(ps, false), Is.Zero);
-                Assert.That(PosingSystemFeatureUtility.SharedHeadFeatureToggleBits(ps, true), Is.EqualTo(9));
+                Assert.That(PosingSystemFeatureUtility.SharedHeadFeatureToggleBits(ps, true), Is.EqualTo(1));
                 other.features.rollover = true;
                 Assert.That(PosingSystemFeatureUtility.SharedHeadFeatureToggleBits(ps, true), Is.Zero);
                 otherObject.SetActive(false);
@@ -240,7 +240,7 @@ namespace jp.unisakistudio.posingsystemeditor.tests
             void AssertUnshared()
             {
                 Assert.That(PosingSystemFeatureUtility.SharedHeadFeatureToggleBits(ps, false), Is.EqualTo(1));
-                Assert.That(PosingSystemFeatureUtility.SharedHeadFeatureToggleBits(ps, true), Is.EqualTo(10));
+                Assert.That(PosingSystemFeatureUtility.SharedHeadFeatureToggleBits(ps, true), Is.EqualTo(1));
             }
         }
 
@@ -317,7 +317,7 @@ namespace jp.unisakistudio.posingsystemeditor.tests
         }
 
         [Test]
-        public void FloorHeight_MigratesOldSubmenu_AndUsesOnlyOneSyncedFloat()
+        public void FloorHeight_MigratesOldSubmenu_AndUsesLocalFloat()
         {
             ps.features.floating = true;
             PosingSystemFeatureUtility.Synchronize(ps);
@@ -339,7 +339,7 @@ namespace jp.unisakistudio.posingsystemeditor.tests
             var parameters = ps.GetComponent<ModularAvatarParameters>().parameters;
             Assert.That(parameters.Single(p => p.nameOrPrefix == PosingSystemFeatureUtility.FloatActive).localOnly, Is.True);
             Assert.That(parameters.Single(p => p.nameOrPrefix == PosingSystemFeatureUtility.FloatActive).saved, Is.False);
-            Assert.That(parameters.Single(p => p.nameOrPrefix == PosingSystemFeatureUtility.FloatHeight).localOnly, Is.False);
+            Assert.That(parameters.Single(p => p.nameOrPrefix == PosingSystemFeatureUtility.FloatHeight).localOnly, Is.True);
         }
 
         [TestCase("撮影用の移動・回転")]

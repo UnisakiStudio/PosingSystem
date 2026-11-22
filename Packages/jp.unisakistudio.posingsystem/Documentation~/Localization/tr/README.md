@@ -61,16 +61,16 @@ Ek ayarları olan bir öğede Ayarları aç’a basınca alanlar altında açıl
 | Jestleri kapat | 1 bit |
 | Nefes animasyonu ekle | 0 bit |
 | Nefes (oyun içi açma/kapatma) | 1 bit |
-| Ayak yüksekliği | 8 bit |
-| Zemin yüksekliği | 8 bit |
+| Ayak yüksekliği | 0 bit |
+| Zemin yüksekliği | 0 bit |
 | Fotoğraf modu (yalnızca kendi ekranınız) | 0 bit |
 | Fotoğraf modunu eşitle | 16 bit |
 | Fotoğraf modunda başı görünür tut | 0 bit |
 | VRChat bekleme sallanmasını kapat | 0 bit |
-| Baş dönüşünden kaynaklanan poz bozulmasını azalt | 1 bit (dönüşle ortak) |
-| Dön | 10 bit (1 bit’i poz bozulmasını azaltmayla ortak) |
+| Baş dönüşünden kaynaklanan poz bozulmasını azalt | 1 bit |
+| Dön | 1 bit |
 
-Dönüş; açma/kapatma için 1 bit, baş eğimi için 8 bit ve baş kilidi için 1 bit kullanır. Poz bozulmasını azaltma zaten açıksa dönüş eklemek kullanımı 9 bit artırır. Ortak kısım iki kez sayılmaz ve seçimler değişince gösterge güncellenir.
+Her istemci baş eğimini kendisi hesaplar. Yalnızca yana dönmenin etkin olup olmadığı eşitlenir. Boyun kilidi açıldığında önceki ayar geri yüklenir.
 
 Gösterilen toplam yalnızca o avatara kurulu poz araçlarına aittir. Kıyafetler ve diğer özellikler dâhil tüm avatarın toplamı değildir. Birden fazla poz aracının ortak ayarları da tekrar sayılmaz. Poz sayısı temel numara aralığını aşarsa poz seçimi için ek bit gerekir.
 

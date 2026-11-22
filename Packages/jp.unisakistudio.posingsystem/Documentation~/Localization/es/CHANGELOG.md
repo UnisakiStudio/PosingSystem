@@ -1,5 +1,9 @@
 # Historial de cambios
 
+## [3.2.1] - Sin publicar
+
+- Altura pies 8 → 0 bit, Altura suelo 8 → 0 bit, Darse vuelta 10 → 1 bit. Cada cliente calcula la inclinación de la cabeza. Solo se sincroniza si el giro está activo. Al desbloquear el cuello, se recupera el ajuste original.
+
 ## [3.2.0] - 2026-11-22
 
 ### Añadido

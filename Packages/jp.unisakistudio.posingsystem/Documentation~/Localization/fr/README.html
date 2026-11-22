@@ -49,16 +49,16 @@ a { color: #2269b8; } a:visited { color: #7952ad; } li { margin-block: .35rem; }
 <tr><td>Sans gestes</td><td>1 bit</td></tr>
 <tr><td>Animer la respiration</td><td>0 bit</td></tr>
 <tr><td>Respiration (activation dans le jeu)</td><td>1 bit</td></tr>
-<tr><td>Hauteur pieds</td><td>8 bit</td></tr>
-<tr><td>Hauteur sol</td><td>8 bit</td></tr>
+<tr><td>Hauteur pieds</td><td>0 bit</td></tr>
+<tr><td>Hauteur sol</td><td>0 bit</td></tr>
 <tr><td>Mode photo (vue locale uniquement)</td><td>0 bit</td></tr>
 <tr><td>Synchroniser le Mode photo</td><td>16 bit</td></tr>
 <tr><td>Garder la tête visible en Mode photo</td><td>0 bit</td></tr>
 <tr><td>Désactiver le balancement au repos de VRChat</td><td>0 bit</td></tr>
-<tr><td>Réduire les déformations liées à la rotation de la tête</td><td>1 bit (partagé avec Se retourner)</td></tr>
-<tr><td>Se retourner</td><td>10 bit (dont 1 bit partagé avec la réduction des déformations)</td></tr>
+<tr><td>Réduire les déformations liées à la rotation de la tête</td><td>1 bit</td></tr>
+<tr><td>Se retourner</td><td>1 bit</td></tr>
 </tbody></table></div>
-<p>Se retourner utilise 1 bit pour l’activation, 8 bit pour l’inclinaison de la tête et 1 bit pour le verrouillage du cou. Si la réduction des déformations est déjà active, l’ajout de Se retourner consomme donc 9 bit supplémentaires. Le bit partagé n’est compté qu’une fois, et le total affiché se met à jour lorsque vous modifiez les options.</p>
+<p>Chaque client calcule l’inclinaison de la tête. Seul l’état effectif du retournement est synchronisé. Déverrouiller le cou rétablit le réglage initial.</p>
 <p>Le total affiché concerne les outils de poses installés sur cet avatar. Il ne représente pas la consommation de l’avatar entier avec ses vêtements et autres systèmes. Les réglages communs ne sont pas comptés plusieurs fois lorsque plusieurs outils de poses sont utilisés. Si le nombre de poses dépasse la plage de numérotation de base, leur sélection nécessite également des bits supplémentaires.</p>
 <h3>Hauteur pieds et Hauteur sol</h3>
 <ul>

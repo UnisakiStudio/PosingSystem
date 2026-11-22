@@ -1,5 +1,9 @@
 # Cronologia delle modifiche
 
+## [3.2.1] - Non pubblicata
+
+- Altezza piedi 8 → 0 bit, Altezza suolo 8 → 0 bit, Girarsi 10 → 1 bit. Ogni client calcola l’inclinazione della testa. Viene sincronizzato solo lo stato effettivo della rotazione sul fianco. Sbloccando il collo si ripristina l’impostazione iniziale.
+
 ## [3.2.0] - 2026-11-22
 
 ### Aggiunte

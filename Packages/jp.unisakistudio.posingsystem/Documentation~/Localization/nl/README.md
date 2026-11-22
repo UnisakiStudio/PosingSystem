@@ -61,16 +61,16 @@ Keuzes onder Functies > Menufuncties verschijnen in het spel. Spiegelen toevoege
 | Gebaren uit | 1 bit |
 | Ademhaling animeren | 0 bit |
 | Ademhaling in het spel schakelen | 1 bit |
-| Voethoogte | 8 bit |
-| Vloerhoogte | 8 bit |
+| Voethoogte | 0 bit |
+| Vloerhoogte | 0 bit |
 | Fotomodus alleen lokaal | 0 bit |
 | Fotomodus synchroniseren | 16 bit |
 | Hoofd zichtbaar houden in Fotomodus | 0 bit |
 | Standaardwiegen van VRChat uitschakelen | 0 bit |
-| Vervorming door hoofdrotatie verminderen | 1 bit (gedeeld met Omdraaien) |
-| Omdraaien | 10 bit (waarvan 1 bit gedeeld met de vervormingscorrectie) |
+| Vervorming door hoofdrotatie verminderen | 1 bit |
+| Omdraaien | 1 bit |
 
-Omdraaien gebruikt 1 bit voor activering, 8 bit voor hoofdhelling en 1 bit voor nekvergrendeling. Met vervormingscorrectie al actief kost Omdraaien toevoegen dus 9 bit extra. Het gedeelde deel telt niet dubbel; de weergave volgt de gekozen functies.
+Elke client berekent de kanteling van het hoofd. Alleen de actieve stand van het omrollen wordt gesynchroniseerd. Na het ontgrendelen van de nek geldt de oorspronkelijke instelling weer.
 
 Het totaal betreft de posetools in de avatar, niet de hele avatar met kleding en andere systemen. Gedeelde opties van meerdere tools tellen niet dubbel. Meer poses dan het basisnummerbereik kunnen extra selectiebits vereisen.
 

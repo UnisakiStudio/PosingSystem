@@ -1,5 +1,9 @@
 # Değişiklik geçmişi
 
+## [3.2.1] - Henüz yayımlanmadı
+
+- Ayak yüksekliği 8 → 0 bit, Zemin yüksekliği 8 → 0 bit, Dön 10 → 1 bit. Her istemci baş eğimini kendisi hesaplar. Yalnızca yana dönmenin etkin olup olmadığı eşitlenir. Boyun kilidi açıldığında önceki ayar geri yüklenir.
+
 ## [3.2.0] - 2026-11-22
 
 ### Eklenenler

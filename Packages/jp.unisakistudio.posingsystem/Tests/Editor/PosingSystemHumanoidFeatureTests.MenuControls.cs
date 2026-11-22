@@ -15,7 +15,7 @@ namespace jp.unisakistudio.posingsystemeditor.tests
     {
         [TestCase(false)]
         [TestCase(true)]
-        public void FloorHeight_DerivesActivationOnBothClients_AndPhotoExitReleasesFeet(bool isLocal)
+        public void FloorHeight_DerivesActivationFromLocalHeight_AndPhotoExitReleasesFeet(bool isLocal)
         {
             var ps = PersistedBuildSettings();
             PrebuildPersistedSettings(ps);
@@ -27,7 +27,8 @@ namespace jp.unisakistudio.posingsystemeditor.tests
             Assert.That(floating.parameters.Single(p => p.name == PosingSystemFeatureUtility.FloatHeight).defaultFloat, Is.EqualTo(.5f));
             var parameter = ps.GetComponent<ModularAvatarParameters>().parameters.Single(p => p.nameOrPrefix == PosingSystemFeatureUtility.FloatHeight);
             Assert.That(parameter.defaultValue, Is.EqualTo(.5f));
-            Assert.That(parameter.saved || parameter.localOnly, Is.False);
+            Assert.That(parameter.saved, Is.False);
+            Assert.That(parameter.localOnly, Is.True);
             var graph = PlayableGraph.Create("FloorHeightActivationTest");
             try
             {
@@ -37,17 +38,18 @@ namespace jp.unisakistudio.posingsystemeditor.tests
                 graph.Play();
                 foreach (var height in new[] { .5f, 0f, .25f, .496f, .75f, 1f, .504f, 0f, .5f, 1f, .5f })
                 {
-                    playable.SetFloat(PosingSystemFeatureUtility.FloatHeight, height);
+                    var localHeight = isLocal ? height : .5f;
+                    playable.SetFloat(PosingSystemFeatureUtility.FloatHeight, localHeight);
                     for (var i = 0; i < 4; i++) graph.Evaluate(1f / 60);
                     var state = states.Single(s => playable.GetCurrentAnimatorStateInfo(layerIndex).shortNameHash == Animator.StringToHash(s.name));
                     var driver = state.behaviours.OfType<VRCAvatarParameterDriver>().Single();
-                    Assert.That(driver.localOnly, Is.False, "Remote clients derive activation from synced height too");
+                    Assert.That(driver.localOnly, Is.False, "Activation follows the height available on this client");
                     var change = driver.parameters.Single();
                     Assert.That(change.name, Is.EqualTo(PosingSystemFeatureUtility.FloatActive));
                     Assert.That(change.type, Is.EqualTo(VRC_AvatarParameterDriver.ChangeType.Set));
                     // VRChat executes the parameter driver. Test its effect without requiring the client.
                     if (isLocal || !driver.localOnly) playable.SetBool(change.name, change.value != 0);
-                    Assert.That(playable.GetBool(PosingSystemFeatureUtility.FloatActive), Is.EqualTo(Mathf.Abs(height - .5f) > .005f), "height=" + height);
+                    Assert.That(playable.GetBool(PosingSystemFeatureUtility.FloatActive), Is.EqualTo(Mathf.Abs(localHeight - .5f) > .005f), "height=" + height);
                 }
             }
             finally { graph.Destroy(); }

@@ -49,16 +49,16 @@ a { color: #2269b8; } a:visited { color: #7952ad; } li { margin-block: .35rem; }
 <tr><td>Eleet pois</td><td>1 bit</td></tr>
 <tr><td>Animoi hengitys</td><td>0 bit</td></tr>
 <tr><td>Hengitys (kytkin pelissä)</td><td>1 bit</td></tr>
-<tr><td>Jalkojen kork.</td><td>8 bit</td></tr>
-<tr><td>Lattian kork.</td><td>8 bit</td></tr>
+<tr><td>Jalkojen kork.</td><td>0 bit</td></tr>
+<tr><td>Lattian kork.</td><td>0 bit</td></tr>
 <tr><td>Kuvatila (vain omalla näytöllä)</td><td>0 bit</td></tr>
 <tr><td>Synkronoi Kuvatila</td><td>16 bit</td></tr>
 <tr><td>Pidä pää näkyvissä Kuvatilassa</td><td>0 bit</td></tr>
 <tr><td>Poista VRChatin oletushuojunta</td><td>0 bit</td></tr>
-<tr><td>Vähennä pään kierrosta aiheutuvaa asennon vääristymää</td><td>1 bit (yhteinen Käänny-toiminnon kanssa)</td></tr>
-<tr><td>Käänny</td><td>10 bit (joista 1 bit yhteinen vääristymän vähentämisen kanssa)</td></tr>
+<tr><td>Vähennä pään kierrosta aiheutuvaa asennon vääristymää</td><td>1 bit</td></tr>
+<tr><td>Käänny</td><td>1 bit</td></tr>
 </tbody></table></div>
-<p>Käänny-toiminto käyttää kytkimeen 1 bit, pään kallistukseen 8 bit ja pään lukitukseen 1 bit. Jos asennon vääristymän vähentäminen on jo käytössä, Käänny-toiminnon lisääminen kuluttaa 9 bit lisää. Yhteistä osuutta ei lasketa kahdesti, ja näyttö päivittyy valintoja muutettaessa.</p>
+<p>Jokainen asiakasohjelma laskee pään kallistuksen itse. Vain kyljelle kääntymisen aktiivinen tila synkronoidaan. Niskan lukituksen poistaminen palauttaa alkuperäisen asetuksen.</p>
 <p>Näytettävä yhteismäärä koskee tähän avatariin asennettuja asentotyökaluja. Se ei ole koko avatarin, asujen ja muiden toimintojen yhteiskulutus. Myös usean asentotyökalun yhteiset asetukset lasketaan vain kerran. Jos asentojen määrä ylittää perusnumeroinnin alueen, myös asennon valinta vaatii lisäbittejä.</p>
 <h3>Jalkojen korkeus ja lattian korkeus</h3>
 <ul>

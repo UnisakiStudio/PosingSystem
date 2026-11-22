@@ -64,7 +64,7 @@ namespace jp.unisakistudio.posingsystemeditor.tests
             ps.features = new PosingSystemFeatureSettings { floating = true, mirror = false, footHeight = false,
                 breathing = false, fingerGestureControl = false, floatingBackend = PosingSystemFeatureSettings.MovementBackend.PoseSpaceAdditive,
                 floatingPoseSpace = mode, photography = photoFirst.HasValue };
-            if (!photoFirst.HasValue) Assert.That(PosingSystemFeatureUtility.OptionalBits(ps), Is.EqualTo(8));
+            if (!photoFirst.HasValue) Assert.That(PosingSystemFeatureUtility.OptionalBits(ps), Is.Zero);
             testFolder = "Assets/USSPS_FeatureTests_" + Guid.NewGuid().ToString("N");
             AssetDatabase.CreateFolder("Assets", testFolder.Substring(7));
             var controller = AnimatorController.CreateAnimatorControllerAtPath(testFolder + "/Base.controller");

@@ -61,16 +61,16 @@ Valg under «Funksjoner > Menyfunksjoner» vises i spillmenyen. «Speilvend» gj
 | Gester av | 1 bit |
 | Animer pusten | 0 bit |
 | Pust (på/av i spillet) | 1 bit |
-| Fothøyde | 8 bit |
-| Gulvhøyde | 8 bit |
+| Fothøyde | 0 bit |
+| Gulvhøyde | 0 bit |
 | Fotomodus (bare lokalt) | 0 bit |
 | Synkroniser Fotomodus | 16 bit |
 | Behold hodet synlig i Fotomodus | 0 bit |
 | Deaktiver VRChats hvilebevegelse | 0 bit |
-| Reduser positurforvrengning fra hoderotasjon | 1 bit (deles med Snu deg) |
-| Snu deg | 10 bit (1 deles med positurkorrigeringen) |
+| Reduser positurforvrengning fra hoderotasjon | 1 bit |
+| Snu deg | 1 bit |
 
-Snu deg bruker 1 bit til på/av, 8 bit til hodehelling og 1 bit til nakkelås. Hvis positurkorrigeringen allerede er aktiv, øker Snu deg forbruket med 9 bit. Delte bit telles ikke dobbelt, og visningen oppdateres når valg endres.
+Hver klient beregner hodets helning. Bare hvorvidt vendingen faktisk er aktiv, synkroniseres. Når nakken låses opp, gjenopprettes den opprinnelige innstillingen.
 
 Summen omfatter positurverktøyene på avataren, ikke hele avataren med klær og andre verktøy. Felles innstillinger telles ikke dobbelt ved flere verktøy. Positurantall over det grunnleggende nummerområdet krever også ekstra valgbiter.
 

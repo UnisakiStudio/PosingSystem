@@ -1,5 +1,9 @@
 # Muutosloki
 
+## [3.2.1] - Julkaisematon
+
+- Jalkojen kork. 8 → 0 bit, Lattian kork. 8 → 0 bit, Käänny 10 → 1 bit. Jokainen asiakasohjelma laskee pään kallistuksen itse. Vain kyljelle kääntymisen aktiivinen tila synkronoidaan. Niskan lukituksen poistaminen palauttaa alkuperäisen asetuksen.
+
 ## [3.2.0] - 2026-11-22
 
 ### Lisätty

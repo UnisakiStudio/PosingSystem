@@ -1,5 +1,9 @@
 # Historie změn
 
+## [3.2.1] - Nevydáno
+
+- Výška chodidel 8 → 0 bit, Výška podlahy 8 → 0 bit, Přetočit se 10 → 1 bit. Každý klient počítá náklon hlavy. Synchronizuje se pouze skutečný stav přetáčení na bok. Odemknutím krku se obnoví původní nastavení.
+
 ## [3.2.0] - 2026-11-22
 
 ### Přidáno

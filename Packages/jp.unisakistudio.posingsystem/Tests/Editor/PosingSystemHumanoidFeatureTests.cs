@@ -201,7 +201,7 @@ namespace jp.unisakistudio.posingsystemeditor.tests
         private AnimationClip Clip() { var clip = new AnimationClip(); assets.Add(clip); return clip; }
 
         [Test]
-        public void FootHeight_PrebuildMigratesLegacySettings_KeepsOneFullPosePerState_AndEightBits()
+        public void FootHeight_PrebuildMigratesLegacySettings_KeepsOneFullPosePerState_AndZeroBits()
         {
             root.AddComponent<VRCAvatarDescriptor>();
             var settings = Object.Instantiate(AssetDatabase.LoadAssetAtPath<GameObject>(AssetDatabase.GUIDToAssetPath("ecde0b1d67f9e854992715d64f778d8c")), root.transform);
@@ -220,7 +220,7 @@ namespace jp.unisakistudio.posingsystemeditor.tests
             PosingSystemConverter.ConvertToModularAvatarComponents(ps);
             var controller = (AnimatorController)PosingSystemConverter.GetPrebuiltMergeAnimator(ps).animator;
             Assert.That(ps.features.footHeightBackend, Is.EqualTo(PosingSystemFeatureSettings.FootHeightBackend.PoseSpaceAdditive));
-            Assert.That(PosingSystemFeatureUtility.OptionalBits(ps), Is.EqualTo(8));
+            Assert.That(PosingSystemFeatureUtility.OptionalBits(ps), Is.Zero);
             var fullPoses = controller.animationClips.Distinct().Where(c => c.name.Contains("FootHeightTestPose") &&
                 AnimationUtility.GetCurveBindings(c).Length >= HumanTrait.MuscleCount).ToArray();
             var heightTrees = States(controller.layers.Single(l => l.name == "USSPS_Locomotion").stateMachine)
@@ -338,19 +338,19 @@ namespace jp.unisakistudio.posingsystemeditor.tests
         }
 
         [TestCase(false, 8, PosingSystemFeatureSettings.MovementBackend.BaseAdditive)]
-        [TestCase(true, 53, PosingSystemFeatureSettings.MovementBackend.BaseAdditive)]
-        [TestCase(true, 53, PosingSystemFeatureSettings.MovementBackend.AdditiveOverride)]
-        [TestCase(true, 53, PosingSystemFeatureSettings.MovementBackend.AdditiveAdditive)]
-        [TestCase(true, 53, PosingSystemFeatureSettings.MovementBackend.GestureAdditive)]
-        [TestCase(true, 53, PosingSystemFeatureSettings.MovementBackend.PoseSpaceAdditive)]
-        [TestCase(true, 53, PosingSystemFeatureSettings.MovementBackend.PoseSpaceAdditive, true)]
-        [TestCase(true, 53, PosingSystemFeatureSettings.MovementBackend.PoseSpaceAdditive, true, PosingSystemFeatureSettings.FloatingPoseSpaceMode.ReenterOnChange)]
-        [TestCase(true, 53, PosingSystemFeatureSettings.MovementBackend.PoseSpaceAdditive, true, PosingSystemFeatureSettings.FloatingPoseSpaceMode.ExitThenReenter)]
-        [TestCase(true, 53, PosingSystemFeatureSettings.MovementBackend.PoseSpaceAdditive, true, PosingSystemFeatureSettings.FloatingPoseSpaceMode.EnterEveryFrame)]
-        [TestCase(true, 53, PosingSystemFeatureSettings.MovementBackend.PoseSpaceAdditive, true, PosingSystemFeatureSettings.FloatingPoseSpaceMode.ReenterOnChangeImmediately)]
-        [TestCase(true, 53, PosingSystemFeatureSettings.MovementBackend.PoseSpaceAdditive, true, PosingSystemFeatureSettings.FloatingPoseSpaceMode.ReenterHeightImmediately)]
-        [TestCase(true, 53, PosingSystemFeatureSettings.MovementBackend.PoseSpaceAdditive, true, PosingSystemFeatureSettings.FloatingPoseSpaceMode.HeightMenuOnly)]
-        [TestCase(true, 53, PosingSystemFeatureSettings.MovementBackend.BaseAdditive, true)]
+        [TestCase(true, 29, PosingSystemFeatureSettings.MovementBackend.BaseAdditive)]
+        [TestCase(true, 29, PosingSystemFeatureSettings.MovementBackend.AdditiveOverride)]
+        [TestCase(true, 29, PosingSystemFeatureSettings.MovementBackend.AdditiveAdditive)]
+        [TestCase(true, 29, PosingSystemFeatureSettings.MovementBackend.GestureAdditive)]
+        [TestCase(true, 29, PosingSystemFeatureSettings.MovementBackend.PoseSpaceAdditive)]
+        [TestCase(true, 29, PosingSystemFeatureSettings.MovementBackend.PoseSpaceAdditive, true)]
+        [TestCase(true, 29, PosingSystemFeatureSettings.MovementBackend.PoseSpaceAdditive, true, PosingSystemFeatureSettings.FloatingPoseSpaceMode.ReenterOnChange)]
+        [TestCase(true, 29, PosingSystemFeatureSettings.MovementBackend.PoseSpaceAdditive, true, PosingSystemFeatureSettings.FloatingPoseSpaceMode.ExitThenReenter)]
+        [TestCase(true, 29, PosingSystemFeatureSettings.MovementBackend.PoseSpaceAdditive, true, PosingSystemFeatureSettings.FloatingPoseSpaceMode.EnterEveryFrame)]
+        [TestCase(true, 29, PosingSystemFeatureSettings.MovementBackend.PoseSpaceAdditive, true, PosingSystemFeatureSettings.FloatingPoseSpaceMode.ReenterOnChangeImmediately)]
+        [TestCase(true, 29, PosingSystemFeatureSettings.MovementBackend.PoseSpaceAdditive, true, PosingSystemFeatureSettings.FloatingPoseSpaceMode.ReenterHeightImmediately)]
+        [TestCase(true, 29, PosingSystemFeatureSettings.MovementBackend.PoseSpaceAdditive, true, PosingSystemFeatureSettings.FloatingPoseSpaceMode.HeightMenuOnly)]
+        [TestCase(true, 29, PosingSystemFeatureSettings.MovementBackend.BaseAdditive, true)]
         public void NdmfBuild_ExpressionParametersAndMenusMatchSelectedFeatures(bool enabled, int expectedBits, PosingSystemFeatureSettings.MovementBackend backend, bool additiveFootHeight = false,
             PosingSystemFeatureSettings.FloatingPoseSpaceMode floatingPoseSpace = PosingSystemFeatureSettings.FloatingPoseSpaceMode.Disabled)
         {
@@ -398,6 +398,8 @@ namespace jp.unisakistudio.posingsystemeditor.tests
                     Assert.That(heightMenu.parameter.name, Is.EqualTo(PosingSystemFeatureUtility.FloatHeightAdjusting));
                     Assert.That(heightMenu.value, Is.EqualTo(1));
                     var floorHeight = parameters.Single(p => p.name == PosingSystemFeatureUtility.FloatHeight);
+                    Assert.That(floorHeight.networkSynced, Is.False);
+                    Assert.That(parameters.Single(p => p.name == "FootHeight").networkSynced, Is.False);
                     Assert.That(floorHeight.defaultValue, Is.EqualTo(.5f));
                     Assert.That(floorHeight.saved, Is.False);
                     var adjusting = parameters.Single(p => p.name == PosingSystemFeatureUtility.FloatHeightAdjusting);

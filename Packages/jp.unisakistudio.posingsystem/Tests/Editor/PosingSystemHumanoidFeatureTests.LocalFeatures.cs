@@ -60,11 +60,11 @@ namespace jp.unisakistudio.posingsystemeditor.tests
 
         [TestCase(true, false, false, 1)]
         [TestCase(true, false, true, 1)]
-        [TestCase(false, true, false, 10)]
-        [TestCase(false, true, true, 10)]
-        [TestCase(true, true, false, 10)]
-        [TestCase(true, true, true, 10)]
-        public void RolloverAndFaceForward_NdmfBuildCountsOneSharedHeadLock(bool faceForward, bool rollover, bool prebuild, int optionalBits)
+        [TestCase(false, true, false, 1)]
+        [TestCase(false, true, true, 1)]
+        [TestCase(true, true, false, 2)]
+        [TestCase(true, true, true, 2)]
+        public void RolloverAndFaceForward_NdmfBuildAllocatesIndependentBits(bool faceForward, bool rollover, bool prebuild, int optionalBits)
         {
             var ps = DefaultIdleSettings(true, false);
             ps.features.faceForward = faceForward;
@@ -75,9 +75,22 @@ namespace jp.unisakistudio.posingsystemeditor.tests
             {
                 var parameters = descriptor.expressionParameters.parameters.Where(p => p.networkSynced).ToArray();
                 Assert.That(parameters.Sum(p => p.valueType == VRCExpressionParameters.ValueType.Bool ? 1 : 8), Is.EqualTo(8 + optionalBits));
-                Assert.That(parameters.Count(p => p.name == "HeadTrackingLock"), Is.EqualTo(1));
-                Assert.That(parameters.Any(p => p.name == PosingSystemFeatureUtility.RollActive && p.valueType == VRCExpressionParameters.ValueType.Bool), Is.EqualTo(rollover));
-                Assert.That(parameters.Any(p => p.name == PosingSystemFeatureUtility.RollSensor && p.valueType == VRCExpressionParameters.ValueType.Float), Is.EqualTo(rollover));
+                if (rollover)
+                {
+                    var receivers = descriptor.GetComponentsInChildren<VRC.SDK3.Dynamics.Contact.Components.VRCContactReceiver>(true);
+                    var receiver = receivers.Single(r => r.parameter == PosingSystemFeatureUtility.RollSensor);
+                    var sender = descriptor.GetComponentsInChildren<VRC.SDK3.Dynamics.Contact.Components.VRCContactSender>(true)
+                        .Single(contact => contact.collisionTags.Intersect(receiver.collisionTags).Any());
+                    Assert.That(receiver.allowSelf && !receiver.allowOthers, Is.True);
+                    Assert.That(receiver.localOnly || sender.localOnly, Is.False);
+                    var all = descriptor.expressionParameters.parameters;
+                    Assert.That(all.Single(p => p.name == PosingSystemFeatureUtility.RollActive).networkSynced, Is.False);
+                    Assert.That(all.Single(p => p.name == PosingSystemFeatureUtility.RollSensor).networkSynced, Is.False);
+                    Assert.That(all.Single(p => p.name == PosingSystemFeatureUtility.RollEffective).saved, Is.False);
+                }
+                Assert.That(parameters.Count(p => p.name == "HeadTrackingLock"), Is.EqualTo(faceForward ? 1 : 0));
+                Assert.That(parameters.Any(p => p.name == PosingSystemFeatureUtility.RollEffective && p.valueType == VRCExpressionParameters.ValueType.Bool), Is.EqualTo(rollover));
+                Assert.That(parameters.Any(p => p.name == PosingSystemFeatureUtility.RollSensor && p.valueType == VRCExpressionParameters.ValueType.Float), Is.False);
             });
         }
 

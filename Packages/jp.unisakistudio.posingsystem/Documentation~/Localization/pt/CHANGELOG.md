@@ -1,5 +1,9 @@
 # Histórico de alterações
 
+## [3.2.1] - Por lançar
+
+- Altura pés 8 → 0 bit, Altura chão 8 → 0 bit, Virar 10 → 1 bit. Cada cliente calcula a inclinação da cabeça. Só é sincronizado o estado efetivo da função de virar de lado. Desbloquear o pescoço repõe a definição original.
+
 ## [3.2.0] - 2026-11-22
 
 ### Adicionado

@@ -49,16 +49,16 @@ a { color: #2269b8; } a:visited { color: #7952ad; } li { margin-block: .35rem; }
 <tr><td>停用手勢</td><td>1 bit</td></tr>
 <tr><td>啟用呼吸動畫</td><td>0 bit</td></tr>
 <tr><td>呼吸（遊戲內開關）</td><td>1 bit</td></tr>
-<tr><td>腳部高度</td><td>8 bit</td></tr>
-<tr><td>地面高度</td><td>8 bit</td></tr>
+<tr><td>腳部高度</td><td>0 bit</td></tr>
+<tr><td>地面高度</td><td>0 bit</td></tr>
 <tr><td>拍照模式（僅自己的畫面）</td><td>0 bit</td></tr>
 <tr><td>同步拍照模式</td><td>16 bit</td></tr>
 <tr><td>拍照模式中保持頭部可見</td><td>0 bit</td></tr>
 <tr><td>關閉VRChat預設站立搖擺</td><td>0 bit</td></tr>
-<tr><td>減輕頭部旋轉造成的姿勢變形</td><td>1 bit（與翻身共用）</td></tr>
-<tr><td>翻身</td><td>10 bit（其中1 bit與姿勢變形抑制共用）</td></tr>
+<tr><td>減輕頭部旋轉造成的姿勢變形</td><td>1 bit</td></tr>
+<tr><td>翻身</td><td>1 bit</td></tr>
 </tbody></table></div>
-<p>翻身功能的用量分別為：開關1 bit、頭部傾斜8 bit、頸部固定1 bit。如果已經啟用姿勢變形抑制，新增翻身功能時新增用量為9 bit。共用部分不會重複計算，更改勾選項時顯示用量也會更新。</p>
+<p>每個用戶端各自計算頭部傾斜，只同步翻身的實際啟用狀態。解除頸部鎖定後，翻身會恢復原來的設定。</p>
 <p>顯示的合計值僅涵蓋安裝在該虛擬化身中的姿勢工具，不是包含服裝和其他功能元件在內的整個虛擬化身的總量。並用多個姿勢工具時，共用設定也不會重複計數。當姿勢數量超出基本編號範圍時，姿勢選擇還需要額外的bit。</p>
 <h3>腳部高度與地面高度</h3>
 <ul>

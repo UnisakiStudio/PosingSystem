@@ -1,5 +1,9 @@
 # Changelog
 
+## [3.2.1] - Unreleased
+
+- Foot Height 8 → 0 bit, Floor Height 8 → 0 bit, Roll Over 10 → 1 bit. Each client calculates head tilt. Only the effective roll-over state is synced. Unlocking the neck restores the original roll-over setting.
+
 ## [3.2.0] - 2026-11-22
 
 ### Added

@@ -61,16 +61,16 @@ Toiminnot-välilehden Valikkotoiminnot-kohdassa valitut toiminnot näkyvät peli
 | Eleet pois | 1 bit |
 | Animoi hengitys | 0 bit |
 | Hengitys (kytkin pelissä) | 1 bit |
-| Jalkojen kork. | 8 bit |
-| Lattian kork. | 8 bit |
+| Jalkojen kork. | 0 bit |
+| Lattian kork. | 0 bit |
 | Kuvatila (vain omalla näytöllä) | 0 bit |
 | Synkronoi Kuvatila | 16 bit |
 | Pidä pää näkyvissä Kuvatilassa | 0 bit |
 | Poista VRChatin oletushuojunta | 0 bit |
-| Vähennä pään kierrosta aiheutuvaa asennon vääristymää | 1 bit (yhteinen Käänny-toiminnon kanssa) |
-| Käänny | 10 bit (joista 1 bit yhteinen vääristymän vähentämisen kanssa) |
+| Vähennä pään kierrosta aiheutuvaa asennon vääristymää | 1 bit |
+| Käänny | 1 bit |
 
-Käänny-toiminto käyttää kytkimeen 1 bit, pään kallistukseen 8 bit ja pään lukitukseen 1 bit. Jos asennon vääristymän vähentäminen on jo käytössä, Käänny-toiminnon lisääminen kuluttaa 9 bit lisää. Yhteistä osuutta ei lasketa kahdesti, ja näyttö päivittyy valintoja muutettaessa.
+Jokainen asiakasohjelma laskee pään kallistuksen itse. Vain kyljelle kääntymisen aktiivinen tila synkronoidaan. Niskan lukituksen poistaminen palauttaa alkuperäisen asetuksen.
 
 Näytettävä yhteismäärä koskee tähän avatariin asennettuja asentotyökaluja. Se ei ole koko avatarin, asujen ja muiden toimintojen yhteiskulutus. Myös usean asentotyökalun yhteiset asetukset lasketaan vain kerran. Jos asentojen määrä ylittää perusnumeroinnin alueen, myös asennon valinta vaatii lisäbittejä.
 

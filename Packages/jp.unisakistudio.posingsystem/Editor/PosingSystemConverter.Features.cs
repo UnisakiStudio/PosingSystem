@@ -23,7 +23,7 @@ namespace jp.unisakistudio.posingsystemeditor
             settings.ApplyFinalizedMovementSettings();
             settings.rolloverAnimation = null; // Use the asset GUID and content hash, never a transient instance ID.
             // Existing prebuilds with face correction must regenerate their synchronized layer.
-            return (settings.faceForward ? "movement-final-v7:" : "movement-final-v6:") + JsonUtility.ToJson(settings);
+            return (settings.rollover || settings.footHeight || settings.floating ? "height-sync-v1:" : "") + (settings.faceForward ? "movement-final-v7:" : "movement-final-v6:") + JsonUtility.ToJson(settings);
         }
 
         public static void ConvertOptionalFeatures(PosingSystem ps, IAssetSaver saver = null)
@@ -54,7 +54,7 @@ namespace jp.unisakistudio.posingsystemeditor
             }
             // Rebuild only our generated layers. Never modify a distributed controller asset.
             controller.layers = controller.layers.Where(l => l.name != FaceForwardLayer && l.name != "USSPS_FaceForwardSwitch" &&
-                 !l.name.StartsWith(PhotoMoveLayer) && l.name != PhotoRotateLayer && l.name != "USSPS_PhotoReset" && l.name != "USSPS_Floating" && l.name != FootHeightAdditiveLayer && l.name != RolloverTimeLayer && !l.name.StartsWith(PoseSpaceMovementPrefix) && !l.name.StartsWith(FloatingPoseSpacePrefix)).ToArray();
+                 !l.name.StartsWith(PhotoMoveLayer) && l.name != PhotoRotateLayer && l.name != "USSPS_PhotoReset" && l.name != "USSPS_Floating" && l.name != FootHeightAdditiveLayer && l.name != RolloverEffectiveLayer && l.name != RolloverTimeLayer && !l.name.StartsWith(PoseSpaceMovementPrefix) && !l.name.StartsWith(FloatingPoseSpacePrefix)).ToArray();
             foreach (var item in ps.GetAvatar().GetComponentsInChildren<Transform>(true).Where(t =>
                 t.name == PosingSystemHeadSensorUtility.SensorRoot || t.name == "USSPS_HeadDirectionProbe" ||
                 t.name == "USSPS_PhotoTracking" || t.name == "USSPS_FloatActivation" || t.name == "USSPS_RolloverController" ||
@@ -68,6 +68,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 MovementController(floatingSystem, controller, "USSPS_FloatMotion", floatingSystem.features.floatingBackend, saver), saver);
             if (systems.Any(p => p.features.rollover))
             {
+                BuildRolloverEffective(controller, saver);
                 BuildRollover(ps, systems, saver);
                 if (systems.SelectMany(p => p.defines).SelectMany(d => d.animations).Any(a => a.enabled && a.isRollover))
                     BuildRolloverTime(controller, systems.First(p => p.features.rollover).features, saver);

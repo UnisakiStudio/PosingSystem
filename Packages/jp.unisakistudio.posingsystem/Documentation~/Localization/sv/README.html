@@ -49,16 +49,16 @@ a { color: #2269b8; } a:visited { color: #7952ad; } li { margin-block: .35rem; }
 <tr><td>Gester av</td><td>1 bit</td></tr>
 <tr><td>Animera andning</td><td>0 bit</td></tr>
 <tr><td>Andning på/av i spelet</td><td>1 bit</td></tr>
-<tr><td>Fothöjd</td><td>8 bit</td></tr>
-<tr><td>Golvhöjd</td><td>8 bit</td></tr>
+<tr><td>Fothöjd</td><td>0 bit</td></tr>
+<tr><td>Golvhöjd</td><td>0 bit</td></tr>
 <tr><td>Fotoläge endast lokalt</td><td>0 bit</td></tr>
 <tr><td>Synkronisera Fotoläge</td><td>16 bit</td></tr>
 <tr><td>Håll huvudet synligt i Fotoläge</td><td>0 bit</td></tr>
 <tr><td>Stäng av VRChats stillastående svajning</td><td>0 bit</td></tr>
-<tr><td>Minska förvrängning från huvudrotation</td><td>1 bit (delas med Vänd dig)</td></tr>
-<tr><td>Vänd dig</td><td>10 bit (1 bit delas med förvrängningskorrigering)</td></tr>
+<tr><td>Minska förvrängning från huvudrotation</td><td>1 bit</td></tr>
+<tr><td>Vänd dig</td><td>1 bit</td></tr>
 </tbody></table></div>
-<p>Vänd dig använder 1 bit för aktivering, 8 bit för huvudlutning och 1 bit för nacklås. Med korrigeringen aktiv kostar tillägget därför 9 bit. Delad bit räknas bara en gång; visningen följer alternativen.</p>
+<p>Varje klient beräknar huvudets lutning. Endast om rullningen faktiskt är aktiv synkroniseras. När nacken låses upp återställs den ursprungliga inställningen.</p>
 <p>Summan gäller avatarens poseverktyg, inte hela avataren med kläder och andra system. Gemensamma inställningar räknas inte dubbelt. Många poser över grundintervallet kan kräva fler valbitar.</p>
 <h3>Fothöjd och Golvhöjd</h3>
 <ul>

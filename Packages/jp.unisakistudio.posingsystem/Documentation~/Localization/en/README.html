@@ -49,16 +49,16 @@ a { color: #2269b8; } a:visited { color: #7952ad; } li { margin-block: .35rem; }
 <tr><td>Disable Gestures</td><td>1 bit</td></tr>
 <tr><td>Animate breathing</td><td>0 bit</td></tr>
 <tr><td>Breathing (in-game ON/OFF)</td><td>1 bit</td></tr>
-<tr><td>Foot Height</td><td>8 bit</td></tr>
-<tr><td>Floor Height</td><td>8 bit</td></tr>
+<tr><td>Foot Height</td><td>0 bit</td></tr>
+<tr><td>Floor Height</td><td>0 bit</td></tr>
 <tr><td>Photo Mode (local display only)</td><td>0 bit</td></tr>
 <tr><td>Sync Photo Mode</td><td>16 bit</td></tr>
 <tr><td>Keep your head visible in Photo Mode</td><td>0 bit</td></tr>
 <tr><td>Disable VRChat idle sway</td><td>0 bit</td></tr>
-<tr><td>Reduce pose distortion from head rotation</td><td>1 bit (shared with Roll Over)</td></tr>
-<tr><td>Roll Over</td><td>10 bit (including 1 bit shared with pose-distortion reduction)</td></tr>
+<tr><td>Reduce pose distortion from head rotation</td><td>1 bit</td></tr>
+<tr><td>Roll Over</td><td>1 bit</td></tr>
 </tbody></table></div>
-<p>Roll Over uses 1 bit for ON/OFF, 8 bit for head tilt and 1 bit for head lock. If pose-distortion reduction is already enabled, adding Roll Over costs an additional 9 bit. Shared parameters are counted once; the display updates as you change the checkboxes.</p>
+<p>Each client calculates head tilt. Only the effective roll-over state is synced. Unlocking the neck restores the original roll-over setting.</p>
 <p>The displayed total covers the posing tools installed on that avatar. It is not the avatar&#x27;s overall total including clothing and other gimmicks. Shared settings are counted once even when multiple posing tools are installed. If the pose count exceeds the basic index range, pose selection can also require additional bits.</p>
 <h3>Foot Height and floor height</h3>
 <ul>

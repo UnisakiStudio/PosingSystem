@@ -61,16 +61,16 @@ Le opzioni scelte in «Funzioni > Funzioni del menu» compaiono nel gioco. Per e
 | Blocca gesti | 1 bit |
 | Animare il respiro | 0 bit |
 | Respiro (attivazione nel gioco) | 1 bit |
-| Altezza piedi | 8 bit |
-| Altezza suolo | 8 bit |
+| Altezza piedi | 0 bit |
+| Altezza suolo | 0 bit |
 | Modalità foto (solo vista locale) | 0 bit |
 | Sincronizzare la Modalità foto | 16 bit |
 | Tenere visibile la testa in Modalità foto | 0 bit |
 | Disattivare l'oscillazione da fermo di VRChat | 0 bit |
-| Ridurre le deformazioni dovute alla rotazione della testa | 1 bit (condiviso con Girarsi) |
-| Girarsi | 10 bit (di cui 1 bit condiviso con la riduzione delle deformazioni) |
+| Ridurre le deformazioni dovute alla rotazione della testa | 1 bit |
+| Girarsi | 1 bit |
 
-Girarsi richiede 1 bit per l’attivazione, 8 bit per l’inclinazione della testa e 1 bit per il blocco del collo. Se la riduzione delle deformazioni è già attiva, aggiungere Girarsi aumenta quindi il consumo di 9 bit. La parte condivisa non viene contata due volte; il totale cambia quando modifichi le caselle.
+Ogni client calcola l’inclinazione della testa. Viene sincronizzato solo lo stato effettivo della rotazione sul fianco. Sbloccando il collo si ripristina l’impostazione iniziale.
 
 Il totale mostrato riguarda gli strumenti per pose installati nell’avatar, non l’intero avatar con abiti e altri sistemi. Le impostazioni comuni non sono contate più volte usando più strumenti. Se il numero di pose supera l’intervallo di numerazione di base, servono bit aggiuntivi anche per la selezione.
 

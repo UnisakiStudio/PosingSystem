@@ -49,16 +49,16 @@ a { color: #2269b8; } a:visited { color: #7952ad; } li { margin-block: .35rem; }
 <tr><td>Sin gestos</td><td>1 bit</td></tr>
 <tr><td>Animar la respiración</td><td>0 bit</td></tr>
 <tr><td>Respiración (activar en el juego)</td><td>1 bit</td></tr>
-<tr><td>Altura pies</td><td>8 bit</td></tr>
-<tr><td>Altura suelo</td><td>8 bit</td></tr>
+<tr><td>Altura pies</td><td>0 bit</td></tr>
+<tr><td>Altura suelo</td><td>0 bit</td></tr>
 <tr><td>Modo foto solo local</td><td>0 bit</td></tr>
 <tr><td>Sincronizar el Modo foto</td><td>16 bit</td></tr>
 <tr><td>Mantener la cabeza visible en Modo foto</td><td>0 bit</td></tr>
 <tr><td>Desactivar el balanceo en reposo de VRChat</td><td>0 bit</td></tr>
-<tr><td>Reducir deformaciones por la rotación de cabeza</td><td>1 bit (compartido con Darse vuelta)</td></tr>
-<tr><td>Darse vuelta</td><td>10 bit (1 bit compartido con la corrección de deformaciones)</td></tr>
+<tr><td>Reducir deformaciones por la rotación de cabeza</td><td>1 bit</td></tr>
+<tr><td>Darse vuelta</td><td>1 bit</td></tr>
 </tbody></table></div>
-<p>Darse vuelta utiliza 1 bit para activarse, 8 bit para la inclinación de cabeza y 1 bit para el bloqueo de cuello. Si la corrección de deformaciones ya está activa, añadir Darse vuelta aumenta el consumo en 9 bit. La parte compartida no se cuenta dos veces; la cifra cambia con las selecciones.</p>
+<p>Cada cliente calcula la inclinación de la cabeza. Solo se sincroniza si el giro está activo. Al desbloquear el cuello, se recupera el ajuste original.</p>
 <p>El total mostrado corresponde a las herramientas de poses instaladas en el avatar, no al avatar completo con ropa y otros sistemas. Los ajustes comunes de varias herramientas no se cuentan dos veces. Si las poses superan el intervalo básico de numeración, su selección también necesita bits adicionales.</p>
 <h3>Altura pies y Altura suelo</h3>
 <ul>

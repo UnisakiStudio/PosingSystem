@@ -61,16 +61,16 @@ Items enabled under Features > Menu features appear in the in-game menu. For exa
 | Disable Gestures | 1 bit |
 | Animate breathing | 0 bit |
 | Breathing (in-game ON/OFF) | 1 bit |
-| Foot Height | 8 bit |
-| Floor Height | 8 bit |
+| Foot Height | 0 bit |
+| Floor Height | 0 bit |
 | Photo Mode (local display only) | 0 bit |
 | Sync Photo Mode | 16 bit |
 | Keep your head visible in Photo Mode | 0 bit |
 | Disable VRChat idle sway | 0 bit |
-| Reduce pose distortion from head rotation | 1 bit (shared with Roll Over) |
-| Roll Over | 10 bit (including 1 bit shared with pose-distortion reduction) |
+| Reduce pose distortion from head rotation | 1 bit |
+| Roll Over | 1 bit |
 
-Roll Over uses 1 bit for ON/OFF, 8 bit for head tilt and 1 bit for head lock. If pose-distortion reduction is already enabled, adding Roll Over costs an additional 9 bit. Shared parameters are counted once; the display updates as you change the checkboxes.
+Each client calculates head tilt. Only the effective roll-over state is synced. Unlocking the neck restores the original roll-over setting.
 
 The displayed total covers the posing tools installed on that avatar. It is not the avatar's overall total including clothing and other gimmicks. Shared settings are counted once even when multiple posing tools are installed. If the pose count exceeds the basic index range, pose selection can also require additional bits.
 

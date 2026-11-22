@@ -61,16 +61,16 @@ Las opciones elegidas en «Funciones > Funciones del menú» aparecen dentro del
 | Sin gestos | 1 bit |
 | Animar la respiración | 0 bit |
 | Respiración (activar en el juego) | 1 bit |
-| Altura pies | 8 bit |
-| Altura suelo | 8 bit |
+| Altura pies | 0 bit |
+| Altura suelo | 0 bit |
 | Modo foto solo local | 0 bit |
 | Sincronizar el Modo foto | 16 bit |
 | Mantener la cabeza visible en Modo foto | 0 bit |
 | Desactivar el balanceo en reposo de VRChat | 0 bit |
-| Reducir deformaciones por la rotación de cabeza | 1 bit (compartido con Darse vuelta) |
-| Darse vuelta | 10 bit (1 bit compartido con la corrección de deformaciones) |
+| Reducir deformaciones por la rotación de cabeza | 1 bit |
+| Darse vuelta | 1 bit |
 
-Darse vuelta utiliza 1 bit para activarse, 8 bit para la inclinación de cabeza y 1 bit para el bloqueo de cuello. Si la corrección de deformaciones ya está activa, añadir Darse vuelta aumenta el consumo en 9 bit. La parte compartida no se cuenta dos veces; la cifra cambia con las selecciones.
+Cada cliente calcula la inclinación de la cabeza. Solo se sincroniza si el giro está activo. Al desbloquear el cuello, se recupera el ajuste original.
 
 El total mostrado corresponde a las herramientas de poses instaladas en el avatar, no al avatar completo con ropa y otros sistemas. Los ajustes comunes de varias herramientas no se cuentan dos veces. Si las poses superan el intervalo básico de numeración, su selección también necesita bits adicionales.
 

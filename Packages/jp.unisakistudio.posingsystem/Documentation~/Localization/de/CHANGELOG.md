@@ -1,5 +1,9 @@
 # Änderungsverlauf
 
+## [3.2.1] - Unveröffentlicht
+
+- Fußhöhe 8 → 0 bit, Bodenhöhe 8 → 0 bit, Umdrehen 10 → 1 bit. Jeder Client berechnet die Kopfneigung selbst. Nur der wirksame Ein/Aus-Zustand der Drehung auf die Seite wird synchronisiert. Nach dem Lösen der Halssperre gilt wieder die ursprüngliche Einstellung.
+
 ## [3.2.0] - 2026-11-22
 
 ### Hinzugefügt

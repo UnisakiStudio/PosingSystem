@@ -14,6 +14,36 @@ namespace jp.unisakistudio.posingsystemeditor
     {
         private const string RolloverTimeLayer = "USSPS_RolloverTime";
 
+        private const string RolloverEffectiveLayer = "USSPS_RolloverEffectiveState";
+
+        private static void BuildRolloverEffective(AnimatorController controller, IAssetSaver saver)
+        {
+            FeatureParameter(controller, "IsLocal", AnimatorControllerParameterType.Bool);
+            FeatureParameter(controller, "HeadTrackingLock", AnimatorControllerParameterType.Bool);
+            FeatureParameter(controller, PosingSystemFeatureUtility.RollActive, AnimatorControllerParameterType.Bool);
+            FeatureParameter(controller, PosingSystemFeatureUtility.RollEffective, AnimatorControllerParameterType.Bool);
+            var layer = FeatureLayer(controller, RolloverEffectiveLayer, AvatarMaskBodyPart.Root, false, saver);
+            var off = layer.stateMachine.AddState("Off");
+            var on = layer.stateMachine.AddState("On");
+            layer.stateMachine.defaultState = off;
+            foreach (var state in new[] { off, on })
+            {
+                state.writeDefaultValues = false;
+                var driver = state.AddStateMachineBehaviour<VRCAvatarParameterDriver>();
+                driver.localOnly = true;
+                driver.parameters.Add(new VRC_AvatarParameterDriver.Parameter {
+                    name = PosingSystemFeatureUtility.RollEffective, value = state == on ? 1 : 0
+                });
+            }
+            var enable = FeatureTransition(off.AddTransition(on));
+            enable.AddCondition(AnimatorConditionMode.If, 0, "IsLocal");
+            enable.AddCondition(AnimatorConditionMode.If, 0, PosingSystemFeatureUtility.RollActive);
+            enable.AddCondition(AnimatorConditionMode.IfNot, 0, "HeadTrackingLock");
+            FeatureTransition(on.AddTransition(off)).AddCondition(AnimatorConditionMode.IfNot, 0, PosingSystemFeatureUtility.RollActive);
+            FeatureTransition(on.AddTransition(off)).AddCondition(AnimatorConditionMode.If, 0, "HeadTrackingLock");
+            PersistFeatureStates(layer, controller, saver);
+        }
+
         private static void ConfigurePoseMotionTime(AnimatorController controller, AnimatorState state,
             PosingSystem.AnimationDefine pose)
         {
@@ -26,10 +56,9 @@ namespace jp.unisakistudio.posingsystemeditor
         {
             // Animated local parameters belong to their controller. Calculate inside Base too,
             // rather than relying on the legacy Gesture controller's animated RollTime value.
-            FeatureParameter(controller, PosingSystemFeatureUtility.RollActive, AnimatorControllerParameterType.Bool);
+            FeatureParameter(controller, PosingSystemFeatureUtility.RollEffective, AnimatorControllerParameterType.Bool);
             FeatureParameter(controller, PosingSystemFeatureUtility.RollSensor, AnimatorControllerParameterType.Float, .5f);
             FeatureParameter(controller, PosingSystemFeatureUtility.RollTime, AnimatorControllerParameterType.Float, .5f);
-            FeatureParameter(controller, "HeadTrackingLock", AnimatorControllerParameterType.Bool);
             FeatureParameter(controller, PosingSystemFeatureUtility.PhotoActive, AnimatorControllerParameterType.Bool);
             var layer = FeatureLayer(controller, RolloverTimeLayer, AvatarMaskBodyPart.Root, false, saver);
             MaskRolloverCalculation(layer);
@@ -44,11 +73,9 @@ namespace jp.unisakistudio.posingsystemeditor
             neutral.motion = clip;
             calculate.motion = CreateRolloverMapping(controller, settings, saver);
             var enter = FeatureTransition(neutral.AddTransition(calculate));
-            enter.AddCondition(AnimatorConditionMode.If, 0, PosingSystemFeatureUtility.RollActive);
-            enter.AddCondition(AnimatorConditionMode.IfNot, 0, "HeadTrackingLock");
+            enter.AddCondition(AnimatorConditionMode.If, 0, PosingSystemFeatureUtility.RollEffective);
             enter.AddCondition(AnimatorConditionMode.IfNot, 0, PosingSystemFeatureUtility.PhotoActive);
-            FeatureTransition(calculate.AddTransition(neutral)).AddCondition(AnimatorConditionMode.IfNot, 0, PosingSystemFeatureUtility.RollActive);
-            FeatureTransition(calculate.AddTransition(neutral)).AddCondition(AnimatorConditionMode.If, 0, "HeadTrackingLock");
+            FeatureTransition(calculate.AddTransition(neutral)).AddCondition(AnimatorConditionMode.IfNot, 0, PosingSystemFeatureUtility.RollEffective);
             FeatureTransition(calculate.AddTransition(neutral)).AddCondition(AnimatorConditionMode.If, 0, PosingSystemFeatureUtility.PhotoActive);
             PersistFeatureStates(layer, controller, saver);
         }
@@ -111,7 +138,7 @@ namespace jp.unisakistudio.posingsystemeditor
 
         private static void BuildFloatingActivation(PosingSystem ps, IAssetSaver saver)
         {
-            // Derive this unsynced flag on every client from the single synced height value.
+            // Follow the height dial on the client where it is adjusted.
             var controller = CreateFeatureController(ps, "USSPS_FloatActivation", VRCAvatarDescriptor.AnimLayerType.FX, saver);
             FeatureParameter(controller, PosingSystemFeatureUtility.FloatActive, AnimatorControllerParameterType.Bool);
             SetFloorHeightDefault(controller);
@@ -152,10 +179,9 @@ namespace jp.unisakistudio.posingsystemeditor
             var controller = CreateFeatureController(ps, "USSPS_RolloverController", VRCAvatarDescriptor.AnimLayerType.Gesture, saver);
             ps.GetComponentsInChildren<nadena.dev.modular_avatar.core.ModularAvatarMergeAnimator>()
                 .Single(m => m.animator == controller).matchAvatarWriteDefaults = true;
-            FeatureParameter(controller, PosingSystemFeatureUtility.RollActive, AnimatorControllerParameterType.Bool);
+            FeatureParameter(controller, PosingSystemFeatureUtility.RollEffective, AnimatorControllerParameterType.Bool);
             FeatureParameter(controller, PosingSystemFeatureUtility.RollSensor, AnimatorControllerParameterType.Float, .5f);
             FeatureParameter(controller, PosingSystemFeatureUtility.RollTime, AnimatorControllerParameterType.Float, .5f);
-            FeatureParameter(controller, "HeadTrackingLock", AnimatorControllerParameterType.Bool);
             FeatureParameter(controller, PosingSystemFeatureUtility.PhotoActive, AnimatorControllerParameterType.Bool);
             var mappingLayer = FeatureLayer(controller, "寝返りの傾き計算", AvatarMaskBodyPart.Root, false, saver);
             MaskRolloverCalculation(mappingLayer);
@@ -183,11 +209,9 @@ namespace jp.unisakistudio.posingsystemeditor
                 state.writeDefaultValues = false;
                 SetWeight(state, 1);
                 var enter = FeatureTransition(idle.AddTransition(state));
-                enter.AddCondition(AnimatorConditionMode.If, 0, PosingSystemFeatureUtility.RollActive);
-                enter.AddCondition(AnimatorConditionMode.IfNot, 0, "HeadTrackingLock");
+                enter.AddCondition(AnimatorConditionMode.If, 0, PosingSystemFeatureUtility.RollEffective);
                 enter.AddCondition(AnimatorConditionMode.IfNot, 0, PosingSystemFeatureUtility.PhotoActive);
-                FeatureTransition(state.AddTransition(idle)).AddCondition(AnimatorConditionMode.IfNot, 0, PosingSystemFeatureUtility.RollActive);
-                FeatureTransition(state.AddTransition(idle)).AddCondition(AnimatorConditionMode.If, 0, "HeadTrackingLock");
+                FeatureTransition(state.AddTransition(idle)).AddCondition(AnimatorConditionMode.IfNot, 0, PosingSystemFeatureUtility.RollEffective);
                 FeatureTransition(state.AddTransition(idle)).AddCondition(AnimatorConditionMode.If, 0, PosingSystemFeatureUtility.PhotoActive);
                 foreach (var parameter in SplitSyncParameters(pose.syncdParameterValue, maxPose).Where(p => p.sync))
                 {

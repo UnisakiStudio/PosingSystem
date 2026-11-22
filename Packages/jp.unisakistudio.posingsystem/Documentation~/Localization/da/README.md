@@ -61,16 +61,16 @@ Valg under ”Funktioner > Menufunktioner” vises i spilmenuen. ”Spejlvend”
 | Gestus fra | 1 bit |
 | Animér vejrtrækning | 0 bit |
 | Vejrtrækning (til/fra i spillet) | 1 bit |
-| Fodhøjde | 8 bit |
-| Gulvhøjde | 8 bit |
+| Fodhøjde | 0 bit |
+| Gulvhøjde | 0 bit |
 | Fototilstand (kun lokalt) | 0 bit |
 | Synkronisér Fototilstand | 16 bit |
 | Hold hovedet synligt i Fototilstand | 0 bit |
 | Slå VRChats svajen i stilstand fra | 0 bit |
-| Reducér forvrængning fra hovedrotation | 1 bit (deles med Vend dig) |
-| Vend dig | 10 bit (1 deles med hovedrotationskorrektion) |
+| Reducér forvrængning fra hovedrotation | 1 bit |
+| Vend dig | 1 bit |
 
-Vend dig bruger 1 bit til til/fra, 8 bit til hovedhældning og 1 bit til nakkelås. Hvis hovedrotationskorrektionen allerede er aktiv, øger Vend dig forbruget med 9 bit. Delte bit tælles ikke dobbelt, og visningen opdateres ved ændrede valg.
+Hver klient beregner hovedets hældning. Kun den faktiske aktivering af vendingen synkroniseres. Når nakken låses op, gendannes den oprindelige indstilling.
 
 Totalen omfatter positurværktøjerne på avataren, ikke hele avataren med tøj og andre værktøjer. Fælles indstillinger tælles ikke dobbelt ved flere positurværktøjer. Hvis antallet af positurer overstiger det normale nummerområde, kræver positurvalg også ekstra bit.
 

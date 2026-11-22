@@ -49,16 +49,16 @@ a { color: #2269b8; } a:visited { color: #7952ad; } li { margin-block: .35rem; }
 <tr><td>Sem gestos</td><td>1 bit</td></tr>
 <tr><td>Animar respiração</td><td>0 bit</td></tr>
 <tr><td>Respiração: ativação no jogo</td><td>1 bit</td></tr>
-<tr><td>Altura pés</td><td>8 bit</td></tr>
-<tr><td>Altura chão</td><td>8 bit</td></tr>
+<tr><td>Altura pés</td><td>0 bit</td></tr>
+<tr><td>Altura chão</td><td>0 bit</td></tr>
 <tr><td>Modo foto apenas local</td><td>0 bit</td></tr>
 <tr><td>Sincronizar Modo foto</td><td>16 bit</td></tr>
 <tr><td>Manter cabeça visível no Modo foto</td><td>0 bit</td></tr>
 <tr><td>Desativar balanço em repouso do VRChat</td><td>0 bit</td></tr>
-<tr><td>Reduzir deformação por rotação da cabeça</td><td>1 bit (partilhado com Virar)</td></tr>
-<tr><td>Virar</td><td>10 bit (1 bit partilhado com a correção de deformação)</td></tr>
+<tr><td>Reduzir deformação por rotação da cabeça</td><td>1 bit</td></tr>
+<tr><td>Virar</td><td>1 bit</td></tr>
 </tbody></table></div>
-<p>Virar utiliza 1 bit para ativação, 8 bit para inclinação da cabeça e 1 bit para bloquear o pescoço. Se a correção de deformação já estiver ativa, adicionar Virar aumenta o consumo em 9 bit. A parte partilhada só é contada uma vez; a indicação acompanha as escolhas.</p>
+<p>Cada cliente calcula a inclinação da cabeça. Só é sincronizado o estado efetivo da função de virar de lado. Desbloquear o pescoço repõe a definição original.</p>
 <p>O total mostrado refere-se às ferramentas de poses instaladas no avatar, não ao avatar inteiro com roupa e outros sistemas. Opções comuns de várias ferramentas não são contadas duas vezes. Se o número de poses exceder o intervalo básico, a seleção também necessita de bits adicionais.</p>
 <h3>Altura pés e Altura chão</h3>
 <ul>
