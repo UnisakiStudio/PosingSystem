@@ -2,6 +2,8 @@
 
 ## [3.2.1] - Sin publicar
 
+- Se eliminó la alineación automática de la orientación de la pose lateral al generar movimientos para darse vuelta, conservando la orientación ajustada en la animación original. Actualiza los precálculos existentes.
+
 - Altura pies 8 → 0 bit, Altura suelo 8 → 0 bit, Darse vuelta 10 → 1 bit. Cada cliente calcula la inclinación de la cabeza. Solo se sincroniza si el giro está activo. Al desbloquear el cuello, se recupera el ajuste original.
 
 ## [3.2.0] - 2026-11-22

@@ -1397,7 +1397,7 @@ namespace jp.unisakistudio.posingsystemeditor
                 importedMotionInputs = ImportedMotionInputSignature(posingSystem),
                 // Invalidate prebuilds generated before per-frame rollover head centering.
                 rolloverCenteringLogicVersion = 1,
-                rolloverGenerationLogicVersion = 1,
+                rolloverGenerationLogicVersion = 2,
                 autoPoseKneeSafetyEnabled = posingSystem.UsesAutoPoseCatalog &&
                     PosingSystemAvatarAdjustmentUtility.GetKneeSafety(posingSystem).Enabled,
                 autoPoseMinimumKneeAngle = posingSystem.reverseKneeSafetyAngle,

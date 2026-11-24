@@ -2,6 +2,8 @@
 
 ## [3.2.1] - Ikke utgitt
 
+- Automatisk retningsjustering av sideposen ved generering av snuing er fjernet. Orienteringen fra kildeanimasjonen beholdes. Oppdater eksisterende forhåndsbygg.
+
 - Fothøyde 8 → 0 bit, Gulvhøyde 8 → 0 bit, Snu deg 10 → 1 bit. Hver klient beregner hodets helning. Bare hvorvidt vendingen faktisk er aktiv, synkroniseres. Når nakken låses opp, gjenopprettes den opprinnelige innstillingen.
 
 ## [3.2.0] - 2026-11-22

@@ -100,7 +100,10 @@ namespace jp.unisakistudio.posingsystemeditor
                 var left = Read(side);
                 var toCanonical = Quaternion.FromToRotation(middle.heading, Vector3.back);
                 middle.Turn(toCanonical);
-                left.Turn(Quaternion.FromToRotation(left.heading, Vector3.back));
+                // Share the center's mirror frame without changing the authored side yaw.
+                // Independently aligning the side's hips-to-head direction rotates its limbs
+                // away from the pose the author adjusted (especially with a bent torso).
+                left.Turn(toCanonical);
                 if (left.face.x > 0) left = left.Mirror();
                 var right = left.Mirror();
                 var fromCanonical = Quaternion.Inverse(toCanonical);

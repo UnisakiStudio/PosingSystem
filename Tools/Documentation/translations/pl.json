@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "source_sha256": "6d25e25a1a280dd43fcba6af260f993ad135a20251c44eb30f6e3fed859e77b3",
+  "source_sha256": "c20c5220047b5eb2b723f8a1c14edc8d5ed06d47ac845221f1776d2e761dc559",
   "translator": "AI contextual translation",
   "translations": {
     "400f9d61ba8fe81c": "# Unisaki Posing System",
@@ -389,6 +389,7 @@
     "8ab89cfbef13854c": "## [3.2.1] - Niewydana",
     "0ba805870ac4d114": "- Wysokość stóp 8 → 0 bit, Wysokość ziemi 8 → 0 bit, Obróć się 10 → 1 bit. Każdy klient oblicza nachylenie głowy. Synchronizowany jest tylko stan aktywności obrotu na bok. Odblokowanie szyi przywraca poprzednie ustawienie.",
     "efc5c56491a8cefe": "- Ruch oddechu zużywa 0 bit. Tylko przełącznik zatrzymywania i wznawiania „Funkcje menu > Oddech” używa 1 bit synchronizacji.\n- Tryb zdjęć tylko na własnym ekranie to 0 bit. „Udogodnienia > Synchronizuj tryb zdjęć” używa 16 bit. Pokazuj głowę w trybie zdjęć to 0 bit.\n- Wysokość stóp i Wysokość ziemi zużywają po 0 bit. Odsunięcie wysokości ziemi od środka przesuwa ciało w górę lub w dół, a powrót w okolice 50% kończy korekcję.\n- Obróć się (1 bit, Posing System 3.2.1+) — Każdy klient oblicza nachylenie głowy. Synchronizowany jest tylko stan aktywności obrotu na bok. Odblokowanie szyi przywraca poprzednie ustawienie.\n- Odbicie i Bez gestów zużywają po 1 bit.",
-    "a3d1410c9d5c2583": "- Ruch oddechu zużywa 0 bit. Tylko przełącznik zatrzymywania i wznawiania „Funkcje menu > Oddech” używa 1 bit synchronizacji.\n- Tryb zdjęć tylko na własnym ekranie to 0 bit. „Udogodnienia > Synchronizuj tryb zdjęć” używa 16 bit. Pokazuj głowę w trybie zdjęć to 0 bit.\n- Wysokość stóp i Wysokość ziemi zużywają po 0 bit. Odsunięcie wysokości ziemi od środka przesuwa całe ciało w górę lub w dół, a powrót w okolice 50% kończy działanie.\n- Obróć się (1 bit, Posing System 3.2.1+) — Każdy klient oblicza nachylenie głowy. Synchronizowany jest tylko stan aktywności obrotu na bok. Odblokowanie szyi przywraca poprzednie ustawienie.\n- Odbicie i Bez gestów zużywają po 1 bit."
+    "a3d1410c9d5c2583": "- Ruch oddechu zużywa 0 bit. Tylko przełącznik zatrzymywania i wznawiania „Funkcje menu > Oddech” używa 1 bit synchronizacji.\n- Tryb zdjęć tylko na własnym ekranie to 0 bit. „Udogodnienia > Synchronizuj tryb zdjęć” używa 16 bit. Pokazuj głowę w trybie zdjęć to 0 bit.\n- Wysokość stóp i Wysokość ziemi zużywają po 0 bit. Odsunięcie wysokości ziemi od środka przesuwa całe ciało w górę lub w dół, a powrót w okolice 50% kończy działanie.\n- Obróć się (1 bit, Posing System 3.2.1+) — Każdy klient oblicza nachylenie głowy. Synchronizowany jest tylko stan aktywności obrotu na bok. Odblokowanie szyi przywraca poprzednie ustawienie.\n- Odbicie i Bez gestów zużywają po 1 bit.",
+    "486e627c853d3243": "- Usunięto automatyczne wyrównywanie kierunku pozycji na boku podczas generowania ruchu obracania się w leżeniu, zachowując orientację ustawioną w animacji źródłowej. Zaktualizuj dane budowania wstępnego."
   }
 }

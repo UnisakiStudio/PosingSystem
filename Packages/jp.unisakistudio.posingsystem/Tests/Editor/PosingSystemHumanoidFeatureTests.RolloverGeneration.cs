@@ -137,6 +137,50 @@ namespace jp.unisakistudio.posingsystemeditor.tests
             Assert.That(muscle.Evaluate(.75f), Is.EqualTo((muscle.Evaluate(1) + muscle.Evaluate(.5f)) / 2).Within(.00001f));
         }
 
+        [TestCase(-23f, false, 0f)] [TestCase(31f, false, 0f)]
+        [TestCase(-23f, true, 0f)] [TestCase(31f, true, 0f)]
+        [TestCase(-23f, false, .25f)] [TestCase(31f, false, .25f)]
+        [TestCase(-23f, true, .25f)] [TestCase(31f, true, .25f)]
+        public void RolloverGeneration_PreservesAuthoredSideHeading(float yaw, bool mirror, float strength)
+        {
+            var center = GenerationPose(false);
+            var side = GenerationPose(true, mirror);
+            // The center and side intentionally point in different directions.
+            TurnRoot(center, 19f); TurnRoot(side, yaw);
+            var bones = new[] { HumanBodyBones.Hips, HumanBodyBones.Head, HumanBodyBones.Neck,
+                HumanBodyBones.LeftHand, HumanBodyBones.RightHand,
+                HumanBodyBones.LeftLowerLeg, HumanBodyBones.RightLowerLeg,
+                HumanBodyBones.LeftFoot, HumanBodyBones.RightFoot };
+            var output = PosingSystemRolloverGenerator.Create(root, center, side, strength); assets.Add(output);
+            side.SampleAnimation(root, 0); root.transform.SetPositionAndRotation(Vector3.zero, Quaternion.identity);
+            var positions = bones.Select(b => animator.GetBoneTransform(b).position).ToArray();
+            var rotations = bones.Select(b => animator.GetBoneTransform(b).rotation).ToArray();
+            // Mirrored source clips may belong at either endpoint. Compare the closer one,
+            // then require every measured bone to retain the source position and orientation.
+            float endpoint = 0f, error = float.MaxValue;
+            foreach (var t in new[] { 0f, 1f })
+            {
+                output.SampleAnimation(root, t); root.transform.SetPositionAndRotation(Vector3.zero, Quaternion.identity);
+                var angle = Quaternion.Angle(rotations[0], animator.GetBoneTransform(bones[0]).rotation);
+                if (angle < error) { error = angle; endpoint = t; }
+            }
+            output.SampleAnimation(root, endpoint); root.transform.SetPositionAndRotation(Vector3.zero, Quaternion.identity);
+            for (var i = 0; i < bones.Length; i++)
+            {
+                Assert.That(Vector3.Distance(positions[i], animator.GetBoneTransform(bones[i]).position), Is.LessThan(.001f), bones[i] + " position");
+                Assert.That(Quaternion.Angle(rotations[i], animator.GetBoneTransform(bones[i]).rotation), Is.LessThan(.1f), bones[i] + " rotation");
+            }
+            void TurnRoot(AnimationClip clip, float degrees)
+            {
+                var q = new Quaternion();
+                for (var i = 0; i < 4; i++) q[i] = AnimationUtility.GetEditorCurve(clip,
+                    EditorCurveBinding.FloatCurve("", typeof(Animator), "RootQ." + "xyzw"[i])).Evaluate(0);
+                q = Quaternion.Euler(0, degrees, 0) * q;
+                for (var i = 0; i < 4; i++) AnimationUtility.SetEditorCurve(clip,
+                    EditorCurveBinding.FloatCurve("", typeof(Animator), "RootQ." + "xyzw"[i]), AnimationCurve.Constant(0, 1, q[i]));
+            }
+        }
+
         [TestCase(0f)] [TestCase(.25f)]
         public void RolloverGeneration_AutoDirectionWorksForMirroredSource(float strength)
         {
@@ -179,6 +223,9 @@ namespace jp.unisakistudio.posingsystemeditor.tests
             AssetDatabase.CreateFolder("Assets", testFolder.Substring(7));
             AssetDatabase.CreateAsset(pose.rolloverSideAnimation, testFolder + "/Side.anim");
             var before = PosingSystemConverter.GetDefineSerializeJson(ps);
+            StringAssert.Contains("\"rolloverGenerationLogicVersion\":2", before);
+            Assert.That(before.Replace("\"rolloverGenerationLogicVersion\":2", "\"rolloverGenerationLogicVersion\":1"), Is.Not.EqualTo(before),
+                "Prebuild snapshots made with independent heading alignment must be stale");
             pose.rolloverContactStrength = 0;
             Assert.That(PosingSystemConverter.GetDefineSerializeJson(ps), Is.Not.EqualTo(before));
             before = PosingSystemConverter.GetDefineSerializeJson(ps);

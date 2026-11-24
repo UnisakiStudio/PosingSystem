@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "source_sha256": "6d25e25a1a280dd43fcba6af260f993ad135a20251c44eb30f6e3fed859e77b3",
+  "source_sha256": "c20c5220047b5eb2b723f8a1c14edc8d5ed06d47ac845221f1776d2e761dc559",
   "translator": "AI contextual translation",
   "translations": {
     "400f9d61ba8fe81c": "# Unisaki Posing System",
@@ -389,6 +389,7 @@
     "8ab89cfbef13854c": "## [3.2.1] - Nog niet uitgebracht",
     "0ba805870ac4d114": "- Voethoogte 8 → 0 bit, Vloerhoogte 8 → 0 bit, Omdraaien 10 → 1 bit. Elke client berekent de kanteling van het hoofd. Alleen de actieve stand van het omrollen wordt gesynchroniseerd. Na het ontgrendelen van de nek geldt de oorspronkelijke instelling weer.",
     "efc5c56491a8cefe": "- Ademhaling alleen 0 bit; schakelmenu 1 bit.\n- Fotomodus lokaal 0 bit, synchroniseren 16 bit, eigen hoofd zichtbaar 0 bit.\n- Voet-/Vloerhoogte ieder 0 bit. Buiten midden beweegt de vloerhoogte, nabij 50% eindigt het.\n- Omdraaien (1 bit, Posing System 3.2.1+) — Elke client berekent de kanteling van het hoofd. Alleen de actieve stand van het omrollen wordt gesynchroniseerd. Na het ontgrendelen van de nek geldt de oorspronkelijke instelling weer.\n- Spiegelen/Gebaren uit ieder 1 bit.",
-    "a3d1410c9d5c2583": "- Ademhaling 0 bit, schakelmenu 1 bit.\n- Fotomodus lokaal 0 bit, synchronisatie 16 bit, zichtbaar hoofd 0 bit.\n- Voet-/Vloerhoogte ieder 0 bit; buiten midden beweegt lichaam, nabij 50% stopt.\n- Omdraaien (1 bit, Posing System 3.2.1+) — Elke client berekent de kanteling van het hoofd. Alleen de actieve stand van het omrollen wordt gesynchroniseerd. Na het ontgrendelen van de nek geldt de oorspronkelijke instelling weer.\n- Spiegelen/Gebaren uit ieder 1 bit."
+    "a3d1410c9d5c2583": "- Ademhaling 0 bit, schakelmenu 1 bit.\n- Fotomodus lokaal 0 bit, synchronisatie 16 bit, zichtbaar hoofd 0 bit.\n- Voet-/Vloerhoogte ieder 0 bit; buiten midden beweegt lichaam, nabij 50% stopt.\n- Omdraaien (1 bit, Posing System 3.2.1+) — Elke client berekent de kanteling van het hoofd. Alleen de actieve stand van het omrollen wordt gesynchroniseerd. Na het ontgrendelen van de nek geldt de oorspronkelijke instelling weer.\n- Spiegelen/Gebaren uit ieder 1 bit.",
+    "486e627c853d3243": "- Bij het genereren van omdraaibewegingen wordt de richting van de zijpose niet meer automatisch uitgelijnd. De oriëntatie uit de bronanimatie blijft behouden. Werk bestaande voorberekeningen bij."
   }
 }

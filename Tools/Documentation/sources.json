@@ -145,10 +145,11 @@
       "product": "PosingSystem",
       "kind": "changelog",
       "source": "PosingSystem/Packages/jp.unisakistudio.posingsystem/CHANGELOG.md",
-      "source_sha256": "cb912ca5601334a206f1e4a64c1815b5dac6127a0636dd857b58d19da701c49d",
+      "source_sha256": "d6b33cd15c2735ef1b6cb6c552d1faacb4be6a7a9390d875766d98bccea7098b",
       "blocks": [
         "3e9e4ae5e303de21",
         "8ab89cfbef13854c",
+        "486e627c853d3243",
         "0ba805870ac4d114",
         "8466863269dc2e8e",
         "545755f8035c08c9",
@@ -1429,6 +1430,14 @@
     "8ab89cfbef13854c": {
       "language": "ja",
       "text": "## [3.2.1] - 未リリース",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/changelog"
+      ]
+    },
+    "486e627c853d3243": {
+      "language": "ja",
+      "text": "- 寝返り生成時に横向き姿勢の向きを自動で揃える処理を外し、元のアニメーションで調整した向きを保持するようにしました。既存のプリビルドは更新してください。",
       "invariant": false,
       "contexts": [
         "PosingSystem/changelog"
@@ -3983,5 +3992,5 @@
       ]
     }
   },
-  "source_sha256": "6d25e25a1a280dd43fcba6af260f993ad135a20251c44eb30f6e3fed859e77b3"
+  "source_sha256": "c20c5220047b5eb2b723f8a1c14edc8d5ed06d47ac845221f1776d2e761dc559"
 }

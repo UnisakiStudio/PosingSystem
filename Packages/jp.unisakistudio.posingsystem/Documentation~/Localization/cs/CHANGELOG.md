@@ -2,6 +2,8 @@
 
 ## [3.2.1] - Nevydáno
 
+- Při generování přetáčení bylo odstraněno automatické zarovnávání směru polohy na boku. Zachovává se orientace nastavená ve zdrojové animaci. Znovu proveďte předgenerování.
+
 - Výška chodidel 8 → 0 bit, Výška podlahy 8 → 0 bit, Přetočit se 10 → 1 bit. Každý klient počítá náklon hlavy. Synchronizuje se pouze skutečný stav přetáčení na bok. Odemknutím krku se obnoví původní nastavení.
 
 ## [3.2.0] - 2026-11-22

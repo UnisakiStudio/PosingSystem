@@ -30,3 +30,7 @@ language. Read `Tools/Documentation/README.md`, keep current UI terms and standa
 pose names consistent, update the frozen source and affected translation paragraphs,
 then regenerate and run both documentation gates. No prose fallback counts as a
 completed document. Keep upcoming releases marked unreleased until actual publication.
+
+## 3.2.1 rollover heading (2026-11-25)
+
+User approved removing independent side-pose heading alignment after the paired Kawaii/Cool renders. The side now uses the center's canonical mirror frame, preserving its authored yaw; head centering/contact correction remain. `rolloverGenerationLogicVersion = 2` invalidates old prebuilds. Eight endpoint regressions fail with the previous generator and pass with this change; 83 rollover tests passed in PerfIT. Evidence: development workspace `Recordings/RolloverHeading_20261125`. All 30 changelogs updated; document generation and all three product gates pass. Terminology audit retains 18 pre-existing height-sync findings, with zero new findings. This commit is for `codex/v3.2.1-height-sync`; release/push remain separate. The Write Defaults fix on `codex/v3.2.0-localization` still needs integration before the complete 3.2.1 release.

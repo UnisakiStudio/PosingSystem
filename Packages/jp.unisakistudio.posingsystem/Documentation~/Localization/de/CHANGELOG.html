@@ -13,6 +13,9 @@ a { color: #2269b8; } a:visited { color: #7952ad; } li { margin-block: .35rem; }
 <main><h1>Änderungsverlauf</h1>
 <h2>[3.2.1] - Unveröffentlicht</h2>
 <ul>
+<li>Die automatische Ausrichtung der Seitenpose beim Erzeugen von Bewegungen zum Umdrehen wurde entfernt. Die in der Quellanimation eingestellte Orientierung bleibt erhalten. Vorhandene Vorberechnungen bitte aktualisieren.</li>
+</ul>
+<ul>
 <li>Fußhöhe 8 → 0 bit, Bodenhöhe 8 → 0 bit, Umdrehen 10 → 1 bit. Jeder Client berechnet die Kopfneigung selbst. Nur der wirksame Ein/Aus-Zustand der Drehung auf die Seite wird synchronisiert. Nach dem Lösen der Halssperre gilt wieder die ursprüngliche Einstellung.</li>
 </ul>
 <h2>[3.2.0] - 2026-11-22</h2>

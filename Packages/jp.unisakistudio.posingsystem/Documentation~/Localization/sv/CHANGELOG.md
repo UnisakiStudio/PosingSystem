@@ -2,6 +2,8 @@
 
 ## [3.2.1] - Ej utgiven
 
+- Den automatiska riktningsjusteringen av sidoposen vid generering av vändningar har tagits bort. Orienteringen från källanimationen bevaras. Uppdatera befintliga förberäkningar.
+
 - Fothöjd 8 → 0 bit, Golvhöjd 8 → 0 bit, Vänd dig 10 → 1 bit. Varje klient beräknar huvudets lutning. Endast om rullningen faktiskt är aktiv synkroniseras. När nacken låses upp återställs den ursprungliga inställningen.
 
 ## [3.2.0] - 2026-11-22

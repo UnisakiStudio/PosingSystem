@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "source_sha256": "6d25e25a1a280dd43fcba6af260f993ad135a20251c44eb30f6e3fed859e77b3",
+  "source_sha256": "c20c5220047b5eb2b723f8a1c14edc8d5ed06d47ac845221f1776d2e761dc559",
   "translator": "AI contextual translation",
   "translations": {
     "400f9d61ba8fe81c": "# Unisaki Posing System",
@@ -389,6 +389,7 @@
     "8ab89cfbef13854c": "## [3.2.1] - Sin publicar",
     "0ba805870ac4d114": "- Altura pies 8 → 0 bit, Altura suelo 8 → 0 bit, Darse vuelta 10 → 1 bit. Cada cliente calcula la inclinación de la cabeza. Solo se sincroniza si el giro está activo. Al desbloquear el cuello, se recupera el ajuste original.",
     "efc5c56491a8cefe": "- Respiración sola: 0 bit. El menú para detenerla y reanudarla, «Funciones del menú > Respiración», requiere 1 bit sincronizado.\n- Modo foto local: 0 bit. «Funciones prácticas > Sincronizar el Modo foto»: 16 bit. Mantener la cabeza visible: 0 bit.\n- Altura pies y Altura suelo: 0 bit cada una. Alejar el suelo del centro mueve verticalmente; volver cerca de 50% termina la corrección.\n- Darse vuelta (1 bit, Posing System 3.2.1+) — Cada cliente calcula la inclinación de la cabeza. Solo se sincroniza si el giro está activo. Al desbloquear el cuello, se recupera el ajuste original.\n- Reflejar y Sin gestos: 1 bit cada uno.",
-    "a3d1410c9d5c2583": "- Respiración sola 0 bit; «Funciones del menú > Respiración» usa 1 bit para detener y reanudar sincronizadamente.\n- Modo foto local 0 bit; «Funciones prácticas > Sincronizar el Modo foto» 16 bit; cabeza visible 0 bit.\n- Altura pies y suelo 0 bit cada una. Alejar el suelo del centro mueve el cuerpo; cerca de 50% termina.\n- Darse vuelta (1 bit, Posing System 3.2.1+) — Cada cliente calcula la inclinación de la cabeza. Solo se sincroniza si el giro está activo. Al desbloquear el cuello, se recupera el ajuste original.\n- Reflejar y Sin gestos 1 bit cada uno."
+    "a3d1410c9d5c2583": "- Respiración sola 0 bit; «Funciones del menú > Respiración» usa 1 bit para detener y reanudar sincronizadamente.\n- Modo foto local 0 bit; «Funciones prácticas > Sincronizar el Modo foto» 16 bit; cabeza visible 0 bit.\n- Altura pies y suelo 0 bit cada una. Alejar el suelo del centro mueve el cuerpo; cerca de 50% termina.\n- Darse vuelta (1 bit, Posing System 3.2.1+) — Cada cliente calcula la inclinación de la cabeza. Solo se sincroniza si el giro está activo. Al desbloquear el cuello, se recupera el ajuste original.\n- Reflejar y Sin gestos 1 bit cada uno.",
+    "486e627c853d3243": "- Se eliminó la alineación automática de la orientación de la pose lateral al generar movimientos para darse vuelta, conservando la orientación ajustada en la animación original. Actualiza los precálculos existentes."
   }
 }

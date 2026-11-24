@@ -2,6 +2,8 @@
 
 ## [3.2.1] - Belum dirilis
 
+- Penyelarasan arah otomatis pada pose menyamping saat membuat gerakan berguling telah dihapus, sehingga orientasi yang diatur dalam animasi sumber tetap dipertahankan. Perbarui hasil prabuild yang ada.
+
 - Tinggi kaki 8 → 0 bit, Tinggi lantai 8 → 0 bit, Berguling 10 → 1 bit. Setiap klien menghitung kemiringan kepala. Hanya status aktif gerakan berguling yang disinkronkan. Membuka kunci leher memulihkan pengaturan semula.
 
 ## [3.2.0] - 2026-11-22

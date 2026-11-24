@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "source_sha256": "6d25e25a1a280dd43fcba6af260f993ad135a20251c44eb30f6e3fed859e77b3",
+  "source_sha256": "c20c5220047b5eb2b723f8a1c14edc8d5ed06d47ac845221f1776d2e761dc559",
   "translator": "AI contextual translation",
   "translations": {
     "400f9d61ba8fe81c": "# Unisaki Posing System",
@@ -389,6 +389,7 @@
     "8ab89cfbef13854c": "## [3.2.1] - Non publié",
     "0ba805870ac4d114": "- Hauteur pieds 8 → 0 bit, Hauteur sol 8 → 0 bit, Se retourner 10 → 1 bit. Chaque client calcule l’inclinaison de la tête. Seul l’état effectif du retournement est synchronisé. Déverrouiller le cou rétablit le réglage initial.",
     "efc5c56491a8cefe": "- L’animation de respiration utilise 0 bit. Seul « Fonctions du menu > Respiration », qui permet de l’arrêter et de la relancer dans le jeu, utilise 1 bit pour synchroniser l’activation.\n- Le Mode photo utilise 0 bit en vue locale uniquement. « Fonctions pratiques > Synchroniser le Mode photo » utilise 16 bit. « Garder la tête visible en Mode photo » utilise 0 bit.\n- « Hauteur pieds » et « Hauteur sol » utilisent chacun 0 bit. Éloigner la hauteur du sol du centre déplace l’avatar verticalement ; revenir près de 50% termine la correction.\n- Se retourner (1 bit, Posing System 3.2.1+) — Chaque client calcule l’inclinaison de la tête. Seul l’état effectif du retournement est synchronisé. Déverrouiller le cou rétablit le réglage initial.\n- « Miroir » et « Sans gestes » utilisent chacun 1 bit.",
-    "a3d1410c9d5c2583": "- L’animation de respiration utilise 0 bit. Seul « Fonctions du menu > Respiration », qui permet de l’arrêter et de la relancer dans le jeu, utilise 1 bit pour synchroniser l’activation.\n- Le Mode photo utilise 0 bit en vue locale uniquement. « Fonctions pratiques > Synchroniser le Mode photo » utilise 16 bit. « Garder la tête visible en Mode photo » utilise 0 bit.\n- « Hauteur pieds » et « Hauteur sol » utilisent chacun 0 bit. Éloigner la hauteur du sol du centre déplace tout le corps verticalement ; revenir près de 50% termine le décalage.\n- Se retourner (1 bit, Posing System 3.2.1+) — Chaque client calcule l’inclinaison de la tête. Seul l’état effectif du retournement est synchronisé. Déverrouiller le cou rétablit le réglage initial.\n- « Miroir » et « Sans gestes » utilisent chacun 1 bit."
+    "a3d1410c9d5c2583": "- L’animation de respiration utilise 0 bit. Seul « Fonctions du menu > Respiration », qui permet de l’arrêter et de la relancer dans le jeu, utilise 1 bit pour synchroniser l’activation.\n- Le Mode photo utilise 0 bit en vue locale uniquement. « Fonctions pratiques > Synchroniser le Mode photo » utilise 16 bit. « Garder la tête visible en Mode photo » utilise 0 bit.\n- « Hauteur pieds » et « Hauteur sol » utilisent chacun 0 bit. Éloigner la hauteur du sol du centre déplace tout le corps verticalement ; revenir près de 50% termine le décalage.\n- Se retourner (1 bit, Posing System 3.2.1+) — Chaque client calcule l’inclinaison de la tête. Seul l’état effectif du retournement est synchronisé. Déverrouiller le cou rétablit le réglage initial.\n- « Miroir » et « Sans gestes » utilisent chacun 1 bit.",
+    "486e627c853d3243": "- La génération des mouvements de retournement ne réoriente plus automatiquement la pose sur le côté : elle conserve l’orientation définie dans l’animation source. Mettez à jour les précalculs existants."
   }
 }

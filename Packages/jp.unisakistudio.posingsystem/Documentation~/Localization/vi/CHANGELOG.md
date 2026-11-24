@@ -2,6 +2,8 @@
 
 ## [3.2.1] - Chưa phát hành
 
+- Đã bỏ việc tự động căn hướng tư thế nằm nghiêng khi tạo chuyển động lật người, giữ nguyên hướng đã chỉnh trong hoạt ảnh gốc. Hãy cập nhật dữ liệu tạo trước hiện có.
+
 - Độ cao chân 8 → 0 bit, Độ cao sàn 8 → 0 bit, Lật người 10 → 1 bit. Mỗi máy khách tự tính độ nghiêng của đầu. Chỉ trạng thái hoạt động thực tế của thao tác trở mình được đồng bộ. Mở khóa cổ sẽ khôi phục cài đặt ban đầu.
 
 ## [3.2.0] - 2026-11-22

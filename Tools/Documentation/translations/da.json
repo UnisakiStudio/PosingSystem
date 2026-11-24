@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "source_sha256": "6d25e25a1a280dd43fcba6af260f993ad135a20251c44eb30f6e3fed859e77b3",
+  "source_sha256": "c20c5220047b5eb2b723f8a1c14edc8d5ed06d47ac845221f1776d2e761dc559",
   "translator": "AI contextual translation",
   "translations": {
     "400f9d61ba8fe81c": "# Unisaki Posing System",
@@ -389,6 +389,7 @@
     "8ab89cfbef13854c": "## [3.2.1] - Ikke udgivet",
     "0ba805870ac4d114": "- Fodhøjde 8 → 0 bit, Gulvhøjde 8 → 0 bit, Vend dig 10 → 1 bit. Hver klient beregner hovedets hældning. Kun den faktiske aktivering af vendingen synkroniseres. Når nakken låses op, gendannes den oprindelige indstilling.",
     "efc5c56491a8cefe": "- Vejrtrækningsbevægelse bruger 0 bit. Kun ”Menufunktioner > Vejrtrækning” til stop/genstart i spillet bruger 1 bit til til/fra-synkronisering.\n- Fototilstand bruger 0 bit kun lokalt. ”Praktiske funktioner > Synkronisér Fototilstand” bruger 16 bit. ”Hold hovedet synligt i Fototilstand” bruger 0 bit.\n- Fodhøjde og Gulvhøjde bruger hver 0 bit. Gulvhøjde flytter op/ned fra midten og afslutter korrektion tæt på 50%.\n- Vend dig (1 bit, Posing System 3.2.1+) — Hver klient beregner hovedets hældning. Kun den faktiske aktivering af vendingen synkroniseres. Når nakken låses op, gendannes den oprindelige indstilling.\n- Spejlvend og Gestus fra bruger hver 1 bit.",
-    "a3d1410c9d5c2583": "- Vejrtrækningsbevægelse bruger 0 bit. Kun ”Menufunktioner > Vejrtrækning” til stop/genstart i spillet bruger 1 bit til til/fra-synkronisering.\n- Fototilstand bruger 0 bit kun lokalt. ”Praktiske funktioner > Synkronisér Fototilstand” bruger 16 bit. ”Hold hovedet synligt i Fototilstand” bruger 0 bit.\n- Fodhøjde og Gulvhøjde bruger hver 0 bit. Gulvhøjde flytter hele kroppen op/ned fra midten og afslutter korrektion tæt på 50%.\n- Vend dig (1 bit, Posing System 3.2.1+) — Hver klient beregner hovedets hældning. Kun den faktiske aktivering af vendingen synkroniseres. Når nakken låses op, gendannes den oprindelige indstilling.\n- Spejlvend og Gestus fra bruger hver 1 bit."
+    "a3d1410c9d5c2583": "- Vejrtrækningsbevægelse bruger 0 bit. Kun ”Menufunktioner > Vejrtrækning” til stop/genstart i spillet bruger 1 bit til til/fra-synkronisering.\n- Fototilstand bruger 0 bit kun lokalt. ”Praktiske funktioner > Synkronisér Fototilstand” bruger 16 bit. ”Hold hovedet synligt i Fototilstand” bruger 0 bit.\n- Fodhøjde og Gulvhøjde bruger hver 0 bit. Gulvhøjde flytter hele kroppen op/ned fra midten og afslutter korrektion tæt på 50%.\n- Vend dig (1 bit, Posing System 3.2.1+) — Hver klient beregner hovedets hældning. Kun den faktiske aktivering af vendingen synkroniseres. Når nakken låses op, gendannes den oprindelige indstilling.\n- Spejlvend og Gestus fra bruger hver 1 bit.",
+    "486e627c853d3243": "- Den automatiske retningsjustering af sideposen ved generering af vendinger er fjernet. Orienteringen fra kildeanimationen bevares. Opdater eksisterende forberegninger."
   }
 }

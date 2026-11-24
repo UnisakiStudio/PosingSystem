@@ -2,6 +2,8 @@
 
 ## [3.2.1] - Por lançar
 
+- Foi removido o alinhamento automático da orientação da pose lateral ao gerar movimentos para virar deitado, preservando a orientação definida na animação original. Atualize os pré-cálculos existentes.
+
 - Altura pés 8 → 0 bit, Altura chão 8 → 0 bit, Virar 10 → 1 bit. Cada cliente calcula a inclinação da cabeça. Só é sincronizado o estado efetivo da função de virar de lado. Desbloquear o pescoço repõe a definição original.
 
 ## [3.2.0] - 2026-11-22

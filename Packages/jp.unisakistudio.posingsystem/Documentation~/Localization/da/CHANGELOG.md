@@ -2,6 +2,8 @@
 
 ## [3.2.1] - Ikke udgivet
 
+- Den automatiske retningsjustering af sideposen ved generering af vendinger er fjernet. Orienteringen fra kildeanimationen bevares. Opdater eksisterende forberegninger.
+
 - Fodhøjde 8 → 0 bit, Gulvhøjde 8 → 0 bit, Vend dig 10 → 1 bit. Hver klient beregner hovedets hældning. Kun den faktiske aktivering af vendingen synkroniseres. Når nakken låses op, gendannes den oprindelige indstilling.
 
 ## [3.2.0] - 2026-11-22

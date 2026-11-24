@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "source_sha256": "6d25e25a1a280dd43fcba6af260f993ad135a20251c44eb30f6e3fed859e77b3",
+  "source_sha256": "c20c5220047b5eb2b723f8a1c14edc8d5ed06d47ac845221f1776d2e761dc559",
   "translator": "AI contextual translation",
   "translations": {
     "400f9d61ba8fe81c": "# Unisaki Posing System",
@@ -389,6 +389,7 @@
     "8ab89cfbef13854c": "## [3.2.1] - Nevydáno",
     "0ba805870ac4d114": "- Výška chodidel 8 → 0 bit, Výška podlahy 8 → 0 bit, Přetočit se 10 → 1 bit. Každý klient počítá náklon hlavy. Synchronizuje se pouze skutečný stav přetáčení na bok. Odemknutím krku se obnoví původní nastavení.",
     "efc5c56491a8cefe": "- Pohyb dýchání používá 0 bit. Jen herní přepínač zastavení a spuštění „Funkce nabídky > Dýchání“ používá 1 bit pro synchronizaci.\n- Režim focení pouze na vlastní obrazovce používá 0 bit. „Usnadnění > Synchronizovat režim focení“ používá 16 bit. Ponechat hlavu viditelnou v režimu focení používá 0 bit.\n- Výška chodidel i Výška podlahy používají každá 0 bit. Odchýlení výšky podlahy od středu posune tělo nahoru či dolů a návrat přibližně k 50% ukončí korekci.\n- Přetočit se (1 bit, Posing System 3.2.1+) — Každý klient počítá náklon hlavy. Synchronizuje se pouze skutečný stav přetáčení na bok. Odemknutím krku se obnoví původní nastavení.\n- Zrcadlit a Gesta vyp. používají každá 1 bit.",
-    "a3d1410c9d5c2583": "- Pohyb dýchání používá 0 bit. Jen herní přepínač zastavení a spuštění „Funkce nabídky > Dýchání“ používá 1 bit pro synchronizaci.\n- Režim focení pouze na vlastní obrazovce používá 0 bit. „Usnadnění > Synchronizovat režim focení“ používá 16 bit. Ponechat hlavu viditelnou v režimu focení používá 0 bit.\n- Výška chodidel i Výška podlahy používají každá 0 bit. Odchýlení výšky podlahy od středu posune celé tělo nahoru či dolů a návrat přibližně k 50% ukončí akci.\n- Přetočit se (1 bit, Posing System 3.2.1+) — Každý klient počítá náklon hlavy. Synchronizuje se pouze skutečný stav přetáčení na bok. Odemknutím krku se obnoví původní nastavení.\n- Zrcadlit a Gesta vyp. používají každá 1 bit."
+    "a3d1410c9d5c2583": "- Pohyb dýchání používá 0 bit. Jen herní přepínač zastavení a spuštění „Funkce nabídky > Dýchání“ používá 1 bit pro synchronizaci.\n- Režim focení pouze na vlastní obrazovce používá 0 bit. „Usnadnění > Synchronizovat režim focení“ používá 16 bit. Ponechat hlavu viditelnou v režimu focení používá 0 bit.\n- Výška chodidel i Výška podlahy používají každá 0 bit. Odchýlení výšky podlahy od středu posune celé tělo nahoru či dolů a návrat přibližně k 50% ukončí akci.\n- Přetočit se (1 bit, Posing System 3.2.1+) — Každý klient počítá náklon hlavy. Synchronizuje se pouze skutečný stav přetáčení na bok. Odemknutím krku se obnoví původní nastavení.\n- Zrcadlit a Gesta vyp. používají každá 1 bit.",
+    "486e627c853d3243": "- Při generování přetáčení bylo odstraněno automatické zarovnávání směru polohy na boku. Zachovává se orientace nastavená ve zdrojové animaci. Znovu proveďte předgenerování."
   }
 }

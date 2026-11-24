@@ -2,6 +2,8 @@
 
 ## [3.2.1] - Henüz yayımlanmadı
 
+- Yatarken dönme hareketleri oluşturulurken yan pozun yönünü otomatik hizalama kaldırıldı; kaynak animasyonda ayarlanan yön korunur. Mevcut ön oluşturma verilerini güncelleyin.
+
 - Ayak yüksekliği 8 → 0 bit, Zemin yüksekliği 8 → 0 bit, Dön 10 → 1 bit. Her istemci baş eğimini kendisi hesaplar. Yalnızca yana dönmenin etkin olup olmadığı eşitlenir. Boyun kilidi açıldığında önceki ayar geri yüklenir.
 
 ## [3.2.0] - 2026-11-22

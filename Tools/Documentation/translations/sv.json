@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "source_sha256": "6d25e25a1a280dd43fcba6af260f993ad135a20251c44eb30f6e3fed859e77b3",
+  "source_sha256": "c20c5220047b5eb2b723f8a1c14edc8d5ed06d47ac845221f1776d2e761dc559",
   "translator": "AI contextual translation",
   "translations": {
     "400f9d61ba8fe81c": "# Unisaki Posing System",
@@ -389,6 +389,7 @@
     "8ab89cfbef13854c": "## [3.2.1] - Ej utgiven",
     "0ba805870ac4d114": "- Fothöjd 8 → 0 bit, Golvhöjd 8 → 0 bit, Vänd dig 10 → 1 bit. Varje klient beräknar huvudets lutning. Endast om rullningen faktiskt är aktiv synkroniseras. När nacken låses upp återställs den ursprungliga inställningen.",
     "efc5c56491a8cefe": "- Andningsrörelse använder 0 bit. Endast ”Menyfunktioner > Andning”, som pausar/återupptar i spelet, använder 1 bit för på/av-synkronisering.\n- Fotoläge använder 0 bit om det bara syns lokalt. ”Praktiska funktioner > Synkronisera Fotoläge” använder 16 bit. ”Håll huvudet synligt i Fotoläge” använder 0 bit.\n- Fothöjd och Golvhöjd använder 0 bit vardera. Golvhöjd flyttar uppåt/nedåt från mitten, och korrigeringen avslutas nära 50%.\n- Vänd dig (1 bit, Posing System 3.2.1+) — Varje klient beräknar huvudets lutning. Endast om rullningen faktiskt är aktiv synkroniseras. När nacken låses upp återställs den ursprungliga inställningen.\n- Spegla och Gester av använder 1 bit vardera.",
-    "a3d1410c9d5c2583": "- Andningsrörelse använder 0 bit. Endast ”Menyfunktioner > Andning”, som pausar/återupptar i spelet, använder 1 bit för på/av-synkronisering.\n- Fotoläge använder 0 bit om det bara syns lokalt. ”Praktiska funktioner > Synkronisera Fotoläge” använder 16 bit. ”Håll huvudet synligt i Fotoläge” använder 0 bit.\n- Fothöjd och Golvhöjd använder 0 bit vardera. Golvhöjd flyttar hela kroppen uppåt/nedåt från mitten, och korrigeringen avslutas nära 50%.\n- Vänd dig (1 bit, Posing System 3.2.1+) — Varje klient beräknar huvudets lutning. Endast om rullningen faktiskt är aktiv synkroniseras. När nacken låses upp återställs den ursprungliga inställningen.\n- Spegla och Gester av använder 1 bit vardera."
+    "a3d1410c9d5c2583": "- Andningsrörelse använder 0 bit. Endast ”Menyfunktioner > Andning”, som pausar/återupptar i spelet, använder 1 bit för på/av-synkronisering.\n- Fotoläge använder 0 bit om det bara syns lokalt. ”Praktiska funktioner > Synkronisera Fotoläge” använder 16 bit. ”Håll huvudet synligt i Fotoläge” använder 0 bit.\n- Fothöjd och Golvhöjd använder 0 bit vardera. Golvhöjd flyttar hela kroppen uppåt/nedåt från mitten, och korrigeringen avslutas nära 50%.\n- Vänd dig (1 bit, Posing System 3.2.1+) — Varje klient beräknar huvudets lutning. Endast om rullningen faktiskt är aktiv synkroniseras. När nacken låses upp återställs den ursprungliga inställningen.\n- Spegla och Gester av använder 1 bit vardera.",
+    "486e627c853d3243": "- Den automatiska riktningsjusteringen av sidoposen vid generering av vändningar har tagits bort. Orienteringen från källanimationen bevaras. Uppdatera befintliga förberäkningar."
   }
 }

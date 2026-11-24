@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "source_sha256": "6d25e25a1a280dd43fcba6af260f993ad135a20251c44eb30f6e3fed859e77b3",
+  "source_sha256": "c20c5220047b5eb2b723f8a1c14edc8d5ed06d47ac845221f1776d2e761dc559",
   "translator": "AI contextual translation",
   "translations": {
     "400f9d61ba8fe81c": "# Unisaki Posing System",
@@ -389,6 +389,7 @@
     "8ab89cfbef13854c": "## [3.2.1] - Ikke utgitt",
     "0ba805870ac4d114": "- Fothøyde 8 → 0 bit, Gulvhøyde 8 → 0 bit, Snu deg 10 → 1 bit. Hver klient beregner hodets helning. Bare hvorvidt vendingen faktisk er aktiv, synkroniseres. Når nakken låses opp, gjenopprettes den opprinnelige innstillingen.",
     "efc5c56491a8cefe": "- Pustebevegelse bruker 0 bit. Bare «Menyfunksjoner > Pust» for stopp/start i spillet bruker 1 bit til på/av-synkronisering.\n- Fotomodus bruker 0 bit bare lokalt. «Praktiske funksjoner > Synkroniser Fotomodus» bruker 16 bit. «Behold hodet synlig i Fotomodus» bruker 0 bit.\n- Fothøyde og Gulvhøyde bruker hver 0 bit. Gulvhøyde flytter opp/ned fra midten, og korrigeringen slutter nær 50%.\n- Snu deg (1 bit, Posing System 3.2.1+) — Hver klient beregner hodets helning. Bare hvorvidt vendingen faktisk er aktiv, synkroniseres. Når nakken låses opp, gjenopprettes den opprinnelige innstillingen.\n- Speilvend og Gester av bruker hver 1 bit.",
-    "a3d1410c9d5c2583": "- Pustebevegelse bruker 0 bit. Bare «Menyfunksjoner > Pust» for stopp/start i spillet bruker 1 bit til på/av-synkronisering.\n- Fotomodus bruker 0 bit bare lokalt. «Praktiske funksjoner > Synkroniser Fotomodus» bruker 16 bit. «Behold hodet synlig i Fotomodus» bruker 0 bit.\n- Fothøyde og Gulvhøyde bruker hver 0 bit. Gulvhøyde flytter hele kroppen opp/ned fra midten, og korrigeringen slutter nær 50%.\n- Snu deg (1 bit, Posing System 3.2.1+) — Hver klient beregner hodets helning. Bare hvorvidt vendingen faktisk er aktiv, synkroniseres. Når nakken låses opp, gjenopprettes den opprinnelige innstillingen.\n- Speilvend og Gester av bruker hver 1 bit."
+    "a3d1410c9d5c2583": "- Pustebevegelse bruker 0 bit. Bare «Menyfunksjoner > Pust» for stopp/start i spillet bruker 1 bit til på/av-synkronisering.\n- Fotomodus bruker 0 bit bare lokalt. «Praktiske funksjoner > Synkroniser Fotomodus» bruker 16 bit. «Behold hodet synlig i Fotomodus» bruker 0 bit.\n- Fothøyde og Gulvhøyde bruker hver 0 bit. Gulvhøyde flytter hele kroppen opp/ned fra midten, og korrigeringen slutter nær 50%.\n- Snu deg (1 bit, Posing System 3.2.1+) — Hver klient beregner hodets helning. Bare hvorvidt vendingen faktisk er aktiv, synkroniseres. Når nakken låses opp, gjenopprettes den opprinnelige innstillingen.\n- Speilvend og Gester av bruker hver 1 bit.",
+    "486e627c853d3243": "- Automatisk retningsjustering av sideposen ved generering av snuing er fjernet. Orienteringen fra kildeanimasjonen beholdes. Oppdater eksisterende forhåndsbygg."
   }
 }

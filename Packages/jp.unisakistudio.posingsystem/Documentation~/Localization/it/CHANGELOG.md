@@ -2,6 +2,8 @@
 
 ## [3.2.1] - Non pubblicata
 
+- Rimosso l’allineamento automatico della direzione della posa laterale durante la generazione dei movimenti per girarsi, mantenendo l’orientamento impostato nell’animazione originale. Aggiornare il precalcolo esistente.
+
 - Altezza piedi 8 → 0 bit, Altezza suolo 8 → 0 bit, Girarsi 10 → 1 bit. Ogni client calcola l’inclinazione della testa. Viene sincronizzato solo lo stato effettivo della rotazione sul fianco. Sbloccando il collo si ripristina l’impostazione iniziale.
 
 ## [3.2.0] - 2026-11-22

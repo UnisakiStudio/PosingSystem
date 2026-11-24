@@ -2,6 +2,8 @@
 
 ## [3.2.1] - Non publié
 
+- La génération des mouvements de retournement ne réoriente plus automatiquement la pose sur le côté : elle conserve l’orientation définie dans l’animation source. Mettez à jour les précalculs existants.
+
 - Hauteur pieds 8 → 0 bit, Hauteur sol 8 → 0 bit, Se retourner 10 → 1 bit. Chaque client calcule l’inclinaison de la tête. Seul l’état effectif du retournement est synchronisé. Déverrouiller le cou rétablit le réglage initial.
 
 ## [3.2.0] - 2026-11-22

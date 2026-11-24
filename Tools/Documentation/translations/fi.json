@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "source_sha256": "6d25e25a1a280dd43fcba6af260f993ad135a20251c44eb30f6e3fed859e77b3",
+  "source_sha256": "c20c5220047b5eb2b723f8a1c14edc8d5ed06d47ac845221f1776d2e761dc559",
   "translator": "AI contextual translation",
   "translations": {
     "400f9d61ba8fe81c": "# Unisaki Posing System",
@@ -389,6 +389,7 @@
     "8ab89cfbef13854c": "## [3.2.1] - Julkaisematon",
     "0ba805870ac4d114": "- Jalkojen kork. 8 → 0 bit, Lattian kork. 8 → 0 bit, Käänny 10 → 1 bit. Jokainen asiakasohjelma laskee pään kallistuksen itse. Vain kyljelle kääntymisen aktiivinen tila synkronoidaan. Niskan lukituksen poistaminen palauttaa alkuperäisen asetuksen.",
     "efc5c56491a8cefe": "- Hengitysliike kuluttaa 0 bit. Vain jos käytät pelin pysäytys- ja jatkokytkintä ”Valikkotoiminnot > Hengitys”, kytkimen synkronointi kuluttaa 1 bit.\n- Kuvatila kuluttaa 0 bit vain omalla näytöllä. ”Lisätoiminnot > Synkronoi Kuvatila” kuluttaa 16 bit. ”Pidä pää näkyvissä Kuvatilassa” kuluttaa 0 bit.\n- ”Jalkojen kork.” ja ”Lattian kork.” kuluttavat kumpikin 0 bit. Lattian korkeuden siirtäminen keskeltä liikuttaa kehoa ylös tai alas. Paluu lähelle 50% lopettaa korjauksen.\n- Käänny (1 bit, Posing System 3.2.1+) — Jokainen asiakasohjelma laskee pään kallistuksen itse. Vain kyljelle kääntymisen aktiivinen tila synkronoidaan. Niskan lukituksen poistaminen palauttaa alkuperäisen asetuksen.\n- ”Peilaa” ja ”Eleet pois” kuluttavat kumpikin 1 bit.",
-    "a3d1410c9d5c2583": "- Hengitysliike kuluttaa 0 bit. Vain jos käytät pelin pysäytys- ja jatkokytkintä ”Valikkotoiminnot > Hengitys”, kytkimen synkronointi kuluttaa 1 bit.\n- Kuvatila kuluttaa 0 bit vain omalla näytöllä. ”Lisätoiminnot > Synkronoi Kuvatila” kuluttaa 16 bit. ”Pidä pää näkyvissä Kuvatilassa” kuluttaa 0 bit.\n- ”Jalkojen kork.” ja ”Lattian kork.” kuluttavat kumpikin 0 bit. Lattian korkeuden siirtäminen keskeltä liikuttaa koko kehoa pystysuunnassa. Paluu lähelle 50% lopettaa toiminnon.\n- Käänny (1 bit, Posing System 3.2.1+) — Jokainen asiakasohjelma laskee pään kallistuksen itse. Vain kyljelle kääntymisen aktiivinen tila synkronoidaan. Niskan lukituksen poistaminen palauttaa alkuperäisen asetuksen.\n- ”Peilaa” ja ”Eleet pois” kuluttavat kumpikin 1 bit."
+    "a3d1410c9d5c2583": "- Hengitysliike kuluttaa 0 bit. Vain jos käytät pelin pysäytys- ja jatkokytkintä ”Valikkotoiminnot > Hengitys”, kytkimen synkronointi kuluttaa 1 bit.\n- Kuvatila kuluttaa 0 bit vain omalla näytöllä. ”Lisätoiminnot > Synkronoi Kuvatila” kuluttaa 16 bit. ”Pidä pää näkyvissä Kuvatilassa” kuluttaa 0 bit.\n- ”Jalkojen kork.” ja ”Lattian kork.” kuluttavat kumpikin 0 bit. Lattian korkeuden siirtäminen keskeltä liikuttaa koko kehoa pystysuunnassa. Paluu lähelle 50% lopettaa toiminnon.\n- Käänny (1 bit, Posing System 3.2.1+) — Jokainen asiakasohjelma laskee pään kallistuksen itse. Vain kyljelle kääntymisen aktiivinen tila synkronoidaan. Niskan lukituksen poistaminen palauttaa alkuperäisen asetuksen.\n- ”Peilaa” ja ”Eleet pois” kuluttavat kumpikin 1 bit.",
+    "486e627c853d3243": "- Kylkiasennon automaattinen suunnan kohdistus poistettiin kääntymisliikkeiden luonnista, jotta lähdeanimaatiossa asetettu suunta säilyy. Suorita esikoonti uudelleen."
   }
 }

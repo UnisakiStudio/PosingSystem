@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "source_sha256": "6d25e25a1a280dd43fcba6af260f993ad135a20251c44eb30f6e3fed859e77b3",
+  "source_sha256": "c20c5220047b5eb2b723f8a1c14edc8d5ed06d47ac845221f1776d2e761dc559",
   "translator": "AI contextual translation",
   "translations": {
     "400f9d61ba8fe81c": "# Unisaki Posing System",
@@ -389,6 +389,7 @@
     "8ab89cfbef13854c": "## [3.2.1] - Non pubblicata",
     "0ba805870ac4d114": "- Altezza piedi 8 → 0 bit, Altezza suolo 8 → 0 bit, Girarsi 10 → 1 bit. Ogni client calcola l’inclinazione della testa. Viene sincronizzato solo lo stato effettivo della rotazione sul fianco. Sbloccando il collo si ripristina l’impostazione iniziale.",
     "efc5c56491a8cefe": "- Il movimento del respiro richiede 0 bit. Soltanto «Funzioni del menu > Respiro», per fermarlo e riprenderlo nel gioco, richiede 1 bit di sincronizzazione.\n- La Modalità foto richiede 0 bit solo locale. «Funzioni pratiche > Sincronizzare la Modalità foto» usa 16 bit. «Tenere visibile la testa in Modalità foto» usa 0 bit.\n- «Altezza piedi» e «Altezza suolo» usano 0 bit ciascuna. Spostando Altezza suolo dal centro l’avatar sale o scende; tornando vicino a 50% termina la correzione.\n- Girarsi (1 bit, Posing System 3.2.1+) — Ogni client calcola l’inclinazione della testa. Viene sincronizzato solo lo stato effettivo della rotazione sul fianco. Sbloccando il collo si ripristina l’impostazione iniziale.\n- «Specchio» e «Blocca gesti» usano 1 bit ciascuna.",
-    "a3d1410c9d5c2583": "- Il movimento del respiro richiede 0 bit. Soltanto «Funzioni del menu > Respiro», per fermarlo e riprenderlo nel gioco, richiede 1 bit di sincronizzazione.\n- La Modalità foto richiede 0 bit solo locale. «Funzioni pratiche > Sincronizzare la Modalità foto» usa 16 bit. «Tenere visibile la testa in Modalità foto» usa 0 bit.\n- «Altezza piedi» e «Altezza suolo» usano 0 bit ciascuna. Spostando Altezza suolo dal centro muovi tutto il corpo verticalmente; tornando vicino a 50% termini lo spostamento.\n- Girarsi (1 bit, Posing System 3.2.1+) — Ogni client calcola l’inclinazione della testa. Viene sincronizzato solo lo stato effettivo della rotazione sul fianco. Sbloccando il collo si ripristina l’impostazione iniziale.\n- «Specchio» e «Blocca gesti» usano 1 bit ciascuna."
+    "a3d1410c9d5c2583": "- Il movimento del respiro richiede 0 bit. Soltanto «Funzioni del menu > Respiro», per fermarlo e riprenderlo nel gioco, richiede 1 bit di sincronizzazione.\n- La Modalità foto richiede 0 bit solo locale. «Funzioni pratiche > Sincronizzare la Modalità foto» usa 16 bit. «Tenere visibile la testa in Modalità foto» usa 0 bit.\n- «Altezza piedi» e «Altezza suolo» usano 0 bit ciascuna. Spostando Altezza suolo dal centro muovi tutto il corpo verticalmente; tornando vicino a 50% termini lo spostamento.\n- Girarsi (1 bit, Posing System 3.2.1+) — Ogni client calcola l’inclinazione della testa. Viene sincronizzato solo lo stato effettivo della rotazione sul fianco. Sbloccando il collo si ripristina l’impostazione iniziale.\n- «Specchio» e «Blocca gesti» usano 1 bit ciascuna.",
+    "486e627c853d3243": "- Rimosso l’allineamento automatico della direzione della posa laterale durante la generazione dei movimenti per girarsi, mantenendo l’orientamento impostato nell’animazione originale. Aggiornare il precalcolo esistente."
   }
 }

@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "source_sha256": "6d25e25a1a280dd43fcba6af260f993ad135a20251c44eb30f6e3fed859e77b3",
+  "source_sha256": "c20c5220047b5eb2b723f8a1c14edc8d5ed06d47ac845221f1776d2e761dc559",
   "translator": "AI contextual translation",
   "translations": {
     "400f9d61ba8fe81c": "# Unisaki Posing System",
@@ -389,6 +389,7 @@
     "8ab89cfbef13854c": "## [3.2.1] - Por lançar",
     "0ba805870ac4d114": "- Altura pés 8 → 0 bit, Altura chão 8 → 0 bit, Virar 10 → 1 bit. Cada cliente calcula a inclinação da cabeça. Só é sincronizado o estado efetivo da função de virar de lado. Desbloquear o pescoço repõe a definição original.",
     "efc5c56491a8cefe": "- Respiração sozinha 0 bit; menu para parar/reiniciar usa 1 bit sincronizado.\n- Modo foto local 0 bit; Funções práticas > Sincronizar Modo foto usa 16 bit; cabeça visível 0 bit.\n- Altura pés e Altura chão usam 0 bit cada. Afastar o chão do centro move verticalmente; voltar perto de 50% termina.\n- Virar (1 bit, Posing System 3.2.1+) — Cada cliente calcula a inclinação da cabeça. Só é sincronizado o estado efetivo da função de virar de lado. Desbloquear o pescoço repõe a definição original.\n- Espelhar e Sem gestos usam 1 bit cada.",
-    "a3d1410c9d5c2583": "- Respiração 0 bit; menu para parar/reiniciar usa 1 bit sincronizado.\n- Modo foto local 0 bit, Sincronizar Modo foto 16 bit, cabeça visível 0 bit.\n- Pés e chão 0 bit cada. Afastar do centro move todo o corpo; perto de 50% termina.\n- Virar (1 bit, Posing System 3.2.1+) — Cada cliente calcula a inclinação da cabeça. Só é sincronizado o estado efetivo da função de virar de lado. Desbloquear o pescoço repõe a definição original.\n- Espelhar e Sem gestos 1 bit cada."
+    "a3d1410c9d5c2583": "- Respiração 0 bit; menu para parar/reiniciar usa 1 bit sincronizado.\n- Modo foto local 0 bit, Sincronizar Modo foto 16 bit, cabeça visível 0 bit.\n- Pés e chão 0 bit cada. Afastar do centro move todo o corpo; perto de 50% termina.\n- Virar (1 bit, Posing System 3.2.1+) — Cada cliente calcula a inclinação da cabeça. Só é sincronizado o estado efetivo da função de virar de lado. Desbloquear o pescoço repõe a definição original.\n- Espelhar e Sem gestos 1 bit cada.",
+    "486e627c853d3243": "- Foi removido o alinhamento automático da orientação da pose lateral ao gerar movimentos para virar deitado, preservando a orientação definida na animação original. Atualize os pré-cálculos existentes."
   }
 }

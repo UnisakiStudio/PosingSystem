@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "source_sha256": "6d25e25a1a280dd43fcba6af260f993ad135a20251c44eb30f6e3fed859e77b3",
+  "source_sha256": "c20c5220047b5eb2b723f8a1c14edc8d5ed06d47ac845221f1776d2e761dc559",
   "translator": "AI contextual translation",
   "translations": {
     "400f9d61ba8fe81c": "# Unisaki Posing System",
@@ -389,6 +389,7 @@
     "8ab89cfbef13854c": "## [3.2.1] - Chưa phát hành",
     "0ba805870ac4d114": "- Độ cao chân 8 → 0 bit, Độ cao sàn 8 → 0 bit, Lật người 10 → 1 bit. Mỗi máy khách tự tính độ nghiêng của đầu. Chỉ trạng thái hoạt động thực tế của thao tác trở mình được đồng bộ. Mở khóa cổ sẽ khôi phục cài đặt ban đầu.",
     "efc5c56491a8cefe": "- Hoạt ảnh thở dùng 0 bit. Chỉ khi dùng “Tính năng menu > Thở” để dừng/tiếp tục trong trò chơi, đồng bộ ON/OFF dùng 1 bit.\n- Chế độ chụp chỉ trên màn hình mình dùng 0 bit. Chọn “Tiện ích > Đồng bộ chế độ chụp” dùng 16 bit. “Giữ đầu hiển thị trong chế độ chụp” dùng 0 bit.\n- “Độ cao chân” và “Độ cao sàn” mỗi mục dùng 0 bit. Độ cao sàn di chuyển lên xuống khi lệch khỏi giữa và kết thúc hiệu chỉnh khi về gần 50%.\n- Lật người (1 bit, Posing System 3.2.1+) — Mỗi máy khách tự tính độ nghiêng của đầu. Chỉ trạng thái hoạt động thực tế của thao tác trở mình được đồng bộ. Mở khóa cổ sẽ khôi phục cài đặt ban đầu.\n- “Lật đối xứng” và “Tắt cử chỉ” mỗi mục dùng 1 bit.",
-    "a3d1410c9d5c2583": "- Hoạt ảnh thở dùng 0 bit. Chỉ khi dùng “Tính năng menu > Thở” để dừng/tiếp tục trong trò chơi, đồng bộ ON/OFF dùng 1 bit.\n- Chế độ chụp chỉ trên màn hình mình dùng 0 bit. Chọn “Tiện ích > Đồng bộ chế độ chụp” dùng 16 bit. “Giữ đầu hiển thị trong chế độ chụp” dùng 0 bit.\n- “Độ cao chân” và “Độ cao sàn” mỗi mục dùng 0 bit. Độ cao sàn di chuyển toàn thân lên xuống khi lệch khỏi giữa và kết thúc khi về gần 50%.\n- Lật người (1 bit, Posing System 3.2.1+) — Mỗi máy khách tự tính độ nghiêng của đầu. Chỉ trạng thái hoạt động thực tế của thao tác trở mình được đồng bộ. Mở khóa cổ sẽ khôi phục cài đặt ban đầu.\n- “Lật đối xứng” và “Tắt cử chỉ” mỗi mục dùng 1 bit."
+    "a3d1410c9d5c2583": "- Hoạt ảnh thở dùng 0 bit. Chỉ khi dùng “Tính năng menu > Thở” để dừng/tiếp tục trong trò chơi, đồng bộ ON/OFF dùng 1 bit.\n- Chế độ chụp chỉ trên màn hình mình dùng 0 bit. Chọn “Tiện ích > Đồng bộ chế độ chụp” dùng 16 bit. “Giữ đầu hiển thị trong chế độ chụp” dùng 0 bit.\n- “Độ cao chân” và “Độ cao sàn” mỗi mục dùng 0 bit. Độ cao sàn di chuyển toàn thân lên xuống khi lệch khỏi giữa và kết thúc khi về gần 50%.\n- Lật người (1 bit, Posing System 3.2.1+) — Mỗi máy khách tự tính độ nghiêng của đầu. Chỉ trạng thái hoạt động thực tế của thao tác trở mình được đồng bộ. Mở khóa cổ sẽ khôi phục cài đặt ban đầu.\n- “Lật đối xứng” và “Tắt cử chỉ” mỗi mục dùng 1 bit.",
+    "486e627c853d3243": "- Đã bỏ việc tự động căn hướng tư thế nằm nghiêng khi tạo chuyển động lật người, giữ nguyên hướng đã chỉnh trong hoạt ảnh gốc. Hãy cập nhật dữ liệu tạo trước hiện có."
   }
 }

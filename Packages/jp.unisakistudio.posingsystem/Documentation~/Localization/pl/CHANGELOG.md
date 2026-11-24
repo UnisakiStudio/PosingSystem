@@ -2,6 +2,8 @@
 
 ## [3.2.1] - Niewydana
 
+- Usunięto automatyczne wyrównywanie kierunku pozycji na boku podczas generowania ruchu obracania się w leżeniu, zachowując orientację ustawioną w animacji źródłowej. Zaktualizuj dane budowania wstępnego.
+
 - Wysokość stóp 8 → 0 bit, Wysokość ziemi 8 → 0 bit, Obróć się 10 → 1 bit. Każdy klient oblicza nachylenie głowy. Synchronizowany jest tylko stan aktywności obrotu na bok. Odblokowanie szyi przywraca poprzednie ustawienie.
 
 ## [3.2.0] - 2026-11-22
