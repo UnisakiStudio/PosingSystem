@@ -9,10 +9,10 @@ code,pre { direction: ltr; unicode-bidi: isolate; } code { background: #8882; pa
 a { color: #2269b8; } a:visited { color: #7952ad; } li { margin-block: .35rem; }
 @media(prefers-color-scheme:dark) { a { color: #8ec5ff; } a:visited { color: #cfacff; } }
 @media print { nav { display: none; } body { max-width: none; padding: 0; } a { color: inherit; } }</style></head><body>
-<nav aria-label="Documentation"><a href="../index.html">Suomi · 🌐</a><a href="README.html">README</a><a href="CHANGELOG.html">Muutosloki</a><a href="UserGuide.html">Unisaki Posing System 3.2.0 — suomenkielinen käyttöohje</a></nav>
+<nav aria-label="Documentation"><a href="../index.html">Suomi · 🌐</a><a href="README.html">README</a><a href="CHANGELOG.html">Muutosloki</a><a href="UserGuide.html">Unisaki Posing System 3.2.1 — suomenkielinen käyttöohje</a></nav>
 <main><h1>Unisaki Posing System</h1>
 <p>Kawaii Posing Toolin, Cool Posing Toolin ja muiden tuotteiden yhteinen asentojärjestelmä. Se luo avatarin latauksessa tarvittavat valikot ja animaatiot Modular Avatarin ja NDMF:n avulla.</p>
-<p>Tämä README koskee versiota v3.2.0. Asennetun version näet asentotyökalun Inspectorin yläosasta. Katso myös <a href="CHANGELOG.html">uudet toiminnot ja muutosloki</a>.</p>
+<p>Tämä README koskee versiota v3.2.1. Asennetun version näet asentotyökalun Inspectorin yläosasta. Katso myös <a href="CHANGELOG.html">uudet toiminnot ja muutosloki</a>.</p>
 <h2>Näyttökieli ja offline-ohjeet</h2>
 <p>Valitse näyttökieli Inspectorin yläosasta kohdasta ”Language / 言語”. Sama valinta koskee Inspectoria ja luotavaa VRChat-valikkoa. Lataa avatar uudelleen palveluun, jotta pelissä näkyvä kieli vaihtuu.</p>
 <p>Jos kieltä ei ole valittu, käytetään tietokoneen kieltä tai englantia, jos kieltä ei tueta. Windows, macOS ja Linux ovat tuettuja. Viimeksi valittu kieli tallennetaan EditorPrefsiin, ja sitä käytetään myös tämän tietokoneen saman käyttöjärjestelmäkäyttäjän muissa projekteissa. Kaikki poseeraustyökalut ja avatarit käyttävät samaa kieltä. Kielen vaihtaminen minkä tahansa työkalun Inspectorissa päivittää yhteisen asetuksen; avatarikohtaisia kielivalintoja ei käytetä. Valintaa ei synkronoida muihin tietokoneisiin. Lisenssin tallennustapa ei muutu. Kielipainike näkyy vain ensimmäisessä asennusvahvistuksessa, jos kieltä ei ole tallennettu. Myöhemmät kielenvaihdot tehdään Inspectorissa.</p>
@@ -21,15 +21,15 @@ a { color: #2269b8; } a:visited { color: #7952ad; } li { margin-block: .35rem; }
 <p>Työpöytätilassa seisoma-, kyykky- ja istuma-asentojen vaihdon viivettä on lyhennetty, jotta valittu asento tulee voimaan nopeammin. Muutos toimii tavallisessa koonnissa ja esikoonnissa ilman erillistä komentoa tai lisäasetuksia. VR-tilan ja erityistilanteiden aiempi toiminta säilyy. Päivitä vanhalla versiolla tehty esikoonti ennen avatarin lataamista.</p>
 <h2>Asennus ja päivittäminen</h2>
 <p>Lisää asentotyökalu VCC:n tai ALCOMin kautta tuotteen ostotiedostojen ja asennusohjeiden mukaisesti. Tämä järjestelmä asennetaan asentotyökalun riippuvuutena.</p>
-<p>Version v3.2.0 vaatimukset:</p>
+<p>Version v3.2.1 vaatimukset:</p>
 <ul>
 <li>Unity 2022.3:lla tehty VRChat-avatarprojekti</li>
 <li>VRChat Avatars SDK 3.10.4 tai uudempi</li>
 <li>Modular Avatar 1.x, vähintään 1.16.2</li>
 <li>NDMF (Non-Destructive Modular Framework) 1.x, vähintään 1.14.8</li>
 </ul>
-<p>Jos käytät Kawaii Posing Toolia, päivitä se versioon 3.2.0 ALCOMissa / VCC:ssä ja varmista, että myös Unisaki Posing System on päivittynyt versioon 3.2.0. Jos käytit esikoontia, paina ”Päivitä esikoonti”, tallenna kohtaus ja lataa sitten avatar palveluun.</p>
-<p>Cool Posing Tool 1.2.0 käyttää yhteistä järjestelmää 3.2.0. Päivitä sekä tuote että yhteinen järjestelmä yhteensopiviin versioihin.</p>
+<p>Jos käytät Kawaii Posing Toolia, päivitä se versioon 3.2.0 ALCOMissa / VCC:ssä ja varmista, että myös Unisaki Posing System on päivittynyt versioon 3.2.1. Jos käytit esikoontia, paina ”Päivitä esikoonti”, tallenna kohtaus ja lataa sitten avatar palveluun.</p>
+<p>Cool Posing Tool 1.3.0 käyttää yhteistä järjestelmää 3.2.1. Päivitä sekä tuote että yhteinen järjestelmä yhteensopiviin versioihin.</p>
 <h3>Aiemman 8bit-version käyttäjille</h3>
 <p>Uudet asennukset käyttävät nyt tavallista Prefabia. Voit vähentää muistinkulutusta poistamalla tarpeettomia toimintoja Toiminnot-välilehdessä. Pelkkä asennon valinta kuluttaa perustilanteessa 8 bit.</p>
 <p>Vanha 8bit-Prefab säilyy kunkin tuotteen ”Editor/Legacy”-kansiossa, jotta olemassa olevien avatarien ja esiasetusten viittaukset toimivat. Vanhaa 8bit-versiota käyttäessä Prefabia ei tarvitse poistaa tai korvata. 8bit-version valinta Unityn uuden asennuksen valikosta on poistettu.</p>

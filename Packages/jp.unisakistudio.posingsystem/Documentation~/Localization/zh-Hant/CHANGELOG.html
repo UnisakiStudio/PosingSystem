@@ -9,14 +9,18 @@ code,pre { direction: ltr; unicode-bidi: isolate; } code { background: #8882; pa
 a { color: #2269b8; } a:visited { color: #7952ad; } li { margin-block: .35rem; }
 @media(prefers-color-scheme:dark) { a { color: #8ec5ff; } a:visited { color: #cfacff; } }
 @media print { nav { display: none; } body { max-width: none; padding: 0; } a { color: inherit; } }</style></head><body>
-<nav aria-label="Documentation"><a href="../index.html">繁體中文 · 🌐</a><a href="README.html">README</a><a href="CHANGELOG.html">更新紀錄</a><a href="UserGuide.html">Unisaki Posing System 3.2.0 — 繁體中文指南</a></nav>
+<nav aria-label="Documentation"><a href="../index.html">繁體中文 · 🌐</a><a href="README.html">README</a><a href="CHANGELOG.html">更新紀錄</a><a href="UserGuide.html">Unisaki Posing System 3.2.1 — 繁體中文指南</a></nav>
 <main><h1>更新紀錄</h1>
-<h2>[3.2.1] - 尚未發布</h2>
+<h2>[3.2.1] - 2026-11-25</h2>
 <ul>
 <li>生成翻身動作時，不再自動對齊側躺姿勢的朝向，而是保留原動畫中調整好的朝向。請更新現有的預先建置。</li>
 </ul>
 <ul>
 <li>腳部高度 8 → 0 bit, 地面高度 8 → 0 bit, 翻身 10 → 1 bit. 每個用戶端各自計算頭部傾斜，只同步翻身的實際啟用狀態。解除頸部鎖定後，翻身會恢復原來的設定。</li>
+</ul>
+<ul>
+<li>修正了開啟“拍照模式中保持頭部可見”後，虛擬化身原有選單中的開關失效，以及透過手勢改變的表情無法恢復原狀的問題。此問題發生在Write Defaults為開啟的虛擬化身上。</li>
+<li>修正了僅新增姿勢工具，就可能導致虛擬化身原有選單中的開關失效或表情無法恢復原狀的問題。此問題發生在Write Defaults開啟與關閉混用的虛擬化身上。</li>
 </ul>
 <h2>[3.2.0] - 2026-11-22</h2>
 <h3>新增</h3>

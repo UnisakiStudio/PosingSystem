@@ -9,14 +9,18 @@ code,pre { direction: ltr; unicode-bidi: isolate; } code { background: #8882; pa
 a { color: #2269b8; } a:visited { color: #7952ad; } li { margin-block: .35rem; }
 @media(prefers-color-scheme:dark) { a { color: #8ec5ff; } a:visited { color: #cfacff; } }
 @media print { nav { display: none; } body { max-width: none; padding: 0; } a { color: inherit; } }</style></head><body>
-<nav aria-label="Documentation"><a href="../index.html">한국어 · 🌐</a><a href="README.html">README</a><a href="CHANGELOG.html">변경 내역</a><a href="UserGuide.html">Unisaki Posing System 3.2.0 — 사용 설명서</a></nav>
+<nav aria-label="Documentation"><a href="../index.html">한국어 · 🌐</a><a href="README.html">README</a><a href="CHANGELOG.html">변경 내역</a><a href="UserGuide.html">Unisaki Posing System 3.2.1 — 사용 설명서</a></nav>
 <main><h1>변경 내역</h1>
-<h2>[3.2.1] - 미출시</h2>
+<h2>[3.2.1] - 2026-11-25</h2>
 <ul>
 <li>뒤척임 동작을 생성할 때 옆으로 누운 자세의 방향을 자동으로 맞추는 처리를 제거하여 원본 애니메이션에서 조정한 방향을 유지합니다. 기존 프리빌드를 업데이트해 주세요.</li>
 </ul>
 <ul>
 <li>발 높이 8 → 0 bit, 바닥 높이 8 → 0 bit, 뒤척이기 10 → 1 bit. 머리 기울기는 각 클라이언트에서 계산하며, 뒤척임의 실제 활성 상태만 동기화합니다. 목 고정을 풀면 원래 설정으로 돌아갑니다.</li>
+</ul>
+<ul>
+<li>촬영 모드에서 머리 표시 유지를 켜면 아바타에 원래 들어 있던 메뉴의 켜기·끄기가 작동하지 않거나, 핸드 제스처로 바꾼 표정이 원래대로 돌아오지 않던 문제를 수정했습니다. Write Defaults가 켜진 아바타에서 발생했습니다.</li>
+<li>포즈 도구를 추가하기만 해도 아바타에 원래 들어 있던 메뉴의 켜기·끄기가 작동하지 않거나 표정이 원래대로 돌아오지 않을 수 있던 문제를 수정했습니다. Write Defaults의 켜짐과 꺼짐이 섞여 있는 아바타에서 발생했습니다.</li>
 </ul>
 <h2>[3.2.0] - 2026-11-22</h2>
 <h3>추가</h3>

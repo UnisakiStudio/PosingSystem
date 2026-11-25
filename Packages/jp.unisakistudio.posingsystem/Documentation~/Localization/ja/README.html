@@ -9,10 +9,10 @@ code,pre { direction: ltr; unicode-bidi: isolate; } code { background: #8882; pa
 a { color: #2269b8; } a:visited { color: #7952ad; } li { margin-block: .35rem; }
 @media(prefers-color-scheme:dark) { a { color: #8ec5ff; } a:visited { color: #cfacff; } }
 @media print { nav { display: none; } body { max-width: none; padding: 0; } a { color: inherit; } }</style></head><body>
-<nav aria-label="Documentation"><a href="../index.html">日本語 · 🌐</a><a href="README.html">README</a><a href="CHANGELOG.html">変更履歴</a><a href="UserGuide.html">ゆにさきポーズシステム 3.2.0 — 使い方</a></nav>
+<nav aria-label="Documentation"><a href="../index.html">日本語 · 🌐</a><a href="README.html">README</a><a href="CHANGELOG.html">変更履歴</a><a href="UserGuide.html">ゆにさきポーズシステム 3.2.1 — 使い方</a></nav>
 <main><h1>ゆにさきポーズシステム</h1>
 <p>「可愛いポーズツール」「カッコいいポーズツール」などで使う共通のポーズシステムです。Modular AvatarとNDMFを使用し、アバターのアップロード時に必要なメニューやアニメーションを生成します。</p>
-<p>このREADMEはv3.2.0向けです。導入済みのバージョンは、ポーズツールのInspector上部で確認できます。<a href="CHANGELOG.html">追加機能・変更履歴</a>もご覧ください。</p>
+<p>このREADMEはv3.2.1向けです。導入済みのバージョンは、ポーズツールのInspector上部で確認できます。<a href="CHANGELOG.html">追加機能・変更履歴</a>もご覧ください。</p>
 <h2>表示言語とオフライン文書</h2>
 <p>Inspector最上部の「Language / 言語」で表示言語を選びます。一つの選択がInspectorと生成するVRChatメニューの両方に適用されます。ゲーム内の表示を変更するにはアバターを再アップロードしてください。</p>
 <p>未選択の場合はパソコンの言語を使い、対応していない言語では英語を使います。Windows・macOS・Linuxに対応します。最後に選んだ言語はEditorPrefsに保存し、このパソコンの同じOSユーザーの別プロジェクトでも使用します。すべてのポーズツールとアバターで同じ言語を使用します。どのツールのInspectorで変更しても共通で反映され、アバターごとの言語指定は使用しません。他のパソコンには同期しません。ライセンスの保存方法は変更しません。 言語ボタンは言語が未選択の場合の最初の導入確認だけに表示されます。以後の言語変更はInspectorで行います。</p>
@@ -21,15 +21,15 @@ a { color: #2269b8; } a:visited { color: #7952ad; } li { margin-block: .35rem; }
 <p>デスクトップモードで立ち・中腰・座りを切り替えたとき、指定ポーズが反映されるまでの遅延を短縮しました。通常のビルドとプレビルドで有効になり、専用コマンドや追加設定は不要です。VRモードや特殊な状態では従来の処理を維持します。旧版のプレビルドは更新してからアップロードしてください。</p>
 <h2>導入とバージョンアップ</h2>
 <p>各商品の購入ファイルと導入手順に従い、VCCまたはALCOMからポーズツールを追加してください。このシステムはポーズツールの依存パッケージとして導入されます。</p>
-<p>v3.2.0の必要環境は次のとおりです。</p>
+<p>v3.2.1の必要環境は次のとおりです。</p>
 <ul>
 <li>Unity 2022.3のVRChatアバタープロジェクト</li>
 <li>VRChat Avatars SDK 3.10.4以上</li>
 <li>Modular Avatar 1.16.2以上の1.x系</li>
 <li>NDMF（Non-Destructive Modular Framework）1.14.8以上の1.x系</li>
 </ul>
-<p>可愛いポーズツールをお使いの方は、ALCOM / VCCで可愛いポーズツールを3.2.0に更新し、ゆにさきポーズシステムも3.2.0になったことを確認してください。プレビルドを使っていた場合は「プレビルドを更新」を押し、シーンを保存してからアバターをアップロードします。</p>
-<p>カッコいいポーズツール1.2.0は共通3.2.0を使用します。商品と共通システムを対応する版へ併せて更新してください。</p>
+<p>可愛いポーズツールをお使いの方は、ALCOM / VCCで可愛いポーズツールを3.2.0に更新し、ゆにさきポーズシステムも3.2.1になったことを確認してください。プレビルドを使っていた場合は「プレビルドを更新」を押し、シーンを保存してからアバターをアップロードします。</p>
+<p>カッコいいポーズツール1.3.0は共通3.2.1を使用します。商品と共通システムを対応する版へ併せて更新してください。</p>
 <h3>8bit版を使っていた方へ</h3>
 <p>新規追加は通常のPrefabに統一しました。「機能」で不要な項目をオフにすると、使用量を抑えられます。姿勢選択だけなら基本の使用量は8 bitです。</p>
 <p>旧8bit版Prefabは、配置済みのアバターやプリセットの参照を保つため、各商品の「Editor/Legacy」に残しています。既存の8bit版を使うために、Prefabを削除したり置き換えたりする必要はありません。Unityの新規追加メニューから8bit版を選ぶ手順は廃止しています。</p>

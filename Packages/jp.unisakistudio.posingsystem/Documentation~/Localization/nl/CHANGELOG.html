@@ -9,14 +9,18 @@ code,pre { direction: ltr; unicode-bidi: isolate; } code { background: #8882; pa
 a { color: #2269b8; } a:visited { color: #7952ad; } li { margin-block: .35rem; }
 @media(prefers-color-scheme:dark) { a { color: #8ec5ff; } a:visited { color: #cfacff; } }
 @media print { nav { display: none; } body { max-width: none; padding: 0; } a { color: inherit; } }</style></head><body>
-<nav aria-label="Documentation"><a href="../index.html">Nederlands · 🌐</a><a href="README.html">README</a><a href="CHANGELOG.html">Wijzigingsgeschiedenis</a><a href="UserGuide.html">Unisaki Posing System 3.2.0 — Nederlandse handleiding</a></nav>
+<nav aria-label="Documentation"><a href="../index.html">Nederlands · 🌐</a><a href="README.html">README</a><a href="CHANGELOG.html">Wijzigingsgeschiedenis</a><a href="UserGuide.html">Unisaki Posing System 3.2.1 — Nederlandse handleiding</a></nav>
 <main><h1>Wijzigingsgeschiedenis</h1>
-<h2>[3.2.1] - Nog niet uitgebracht</h2>
+<h2>[3.2.1] - 2026-11-25</h2>
 <ul>
 <li>Bij het genereren van omdraaibewegingen wordt de richting van de zijpose niet meer automatisch uitgelijnd. De oriëntatie uit de bronanimatie blijft behouden. Werk bestaande voorberekeningen bij.</li>
 </ul>
 <ul>
 <li>Voethoogte 8 → 0 bit, Vloerhoogte 8 → 0 bit, Omdraaien 10 → 1 bit. Elke client berekent de kanteling van het hoofd. Alleen de actieve stand van het omrollen wordt gesynchroniseerd. Na het ontgrendelen van de nek geldt de oorspronkelijke instelling weer.</li>
+</ul>
+<ul>
+<li>Probleem opgelost waarbij, wanneer Hoofd zichtbaar houden in Fotomodus was ingeschakeld, de aan/uit-schakelaars in het eigen menu van de avatar niet meer werkten en gezichtsuitdrukkingen die met handgebaren waren veranderd niet meer terugkeerden naar normaal. Het trad op bij avatars met Write Defaults ingeschakeld.</li>
+<li>Probleem opgelost waarbij alleen al het toevoegen van het posehulpmiddel ertoe kon leiden dat de aan/uit-schakelaars in het eigen menu van de avatar niet meer werkten of gezichtsuitdrukkingen niet meer terugkeerden naar normaal. Het trad op bij avatars waarin Write Defaults aan en uit door elkaar worden gebruikt.</li>
 </ul>
 <h2>[3.2.0] - 2026-11-22</h2>
 <h3>Toegevoegd</h3>

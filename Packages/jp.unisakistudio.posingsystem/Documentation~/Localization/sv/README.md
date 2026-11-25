@@ -2,7 +2,7 @@
 
 Gemensamt posesystem för Kawaii Posing, Cool Posing och andra verktyg. Modular Avatar och NDMF skapar menyer och animationer vid avataruppladdning.
 
-Denna README gäller v3.2.0. Versionen visas överst i Inspector. Se även [tillägg och ändringar](CHANGELOG.md).
+Denna README gäller v3.2.1. Versionen visas överst i Inspector. Se även [tillägg och ändringar](CHANGELOG.md).
 
 ## Visningsspråk och offlinedokumentation
 
@@ -20,16 +20,16 @@ Fördröjningen innan vald pose används vid byte mellan stående, hukande och s
 
 Lägg till poseverktyget med VCC eller ALCOM enligt köpta filer och instruktioner. Systemet installeras som ett beroende.
 
-Krav för v3.2.0:
+Krav för v3.2.1:
 
 - VRChat-avatarprojekt i Unity 2022.3
 - VRChat Avatars SDK 3.10.4 eller senare
 - Modular Avatar 1.x, version 1.16.2 eller senare
 - NDMF (Non-Destructive Modular Framework) 1.x, version 1.14.8 eller senare
 
-Uppdatera Kawaii Posing till 3.2.0 i ALCOM / VCC och kontrollera att även Unisaki Posing System är 3.2.0. Använder du förberäkning, klicka Uppdatera förberäkning, spara scenen och ladda upp.
+Uppdatera Kawaii Posing till 3.2.0 i ALCOM / VCC och kontrollera att även Unisaki Posing System är 3.2.1. Använder du förberäkning, klicka Uppdatera förberäkning, spara scenen och ladda upp.
 
-Cool Posing 1.2.0 använder gemensamma systemet 3.2.0. Uppdatera båda till motsvarande versioner.
+Cool Posing 1.3.0 använder gemensamma systemet 3.2.1. Uppdatera båda till motsvarande versioner.
 
 ### För tidigare användare av 8bit-versionen
 
@@ -70,7 +70,7 @@ Val under Funktioner > Menyfunktioner visas i spelet. Spegla gör effekten omkop
 | Minska förvrängning från huvudrotation | 1 bit |
 | Vänd dig | 1 bit |
 
-Varje klient beräknar huvudets lutning. Endast om rullningen faktiskt är aktiv synkroniseras. När nacken låses upp återställs den ursprungliga inställningen.
+Varje klient beräknar huvudets lutning. Endast om funktionen ”Vänd dig” faktiskt är aktiv synkroniseras. När nacken låses upp återställs den ursprungliga inställningen.
 
 Summan gäller avatarens poseverktyg, inte hela avataren med kläder och andra system. Gemensamma inställningar räknas inte dubbelt. Många poser över grundintervallet kan kräva fler valbitar.
 

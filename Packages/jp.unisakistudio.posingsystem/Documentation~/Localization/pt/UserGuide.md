@@ -1,4 +1,4 @@
-# Unisaki Posing System 3.2.0 — Manual em português
+# Unisaki Posing System 3.2.1 — Manual em português
 
 Unisaki Posing System é a base comum de Kawaii Posing, Cool Posing e ferramentas relacionadas.
 Instale produto e sistema juntos com VCC ou ALCOM. Utilize Unity 2022.3,

@@ -2,7 +2,7 @@
 
 Felles positursystem for blant annet Kawaii Posing og Cool Posing. Det bruker Modular Avatar og NDMF til å generere nødvendige menyer og animasjoner ved avataropplasting.
 
-Denne README gjelder v3.2.0. Installert versjon vises øverst i verktøyets Inspector. Se også [nye funksjoner og endringslogg](CHANGELOG.md).
+Denne README gjelder v3.2.1. Installert versjon vises øverst i verktøyets Inspector. Se også [nye funksjoner og endringslogg](CHANGELOG.md).
 
 ## Visningsspråk og dokumentasjon uten nett
 
@@ -20,16 +20,16 @@ Forsinkelsen før valgt positur vises ved bytte mellom stående, huk og sittende
 
 Følg kjøpsfilene og installasjonsanvisningene for produktet, og legg til verktøyet med VCC eller ALCOM. Dette systemet installeres som en avhengighet.
 
-v3.2.0 krever følgende:
+v3.2.1 krever følgende:
 
 - Unity 2022.3-prosjekt for VRChat-avatarer
 - VRChat Avatars SDK 3.10.4 eller nyere
 - Modular Avatar 1.x fra 1.16.2
 - NDMF (Non-Destructive Modular Framework) 1.x fra 1.14.8
 
-Bruker du Kawaii Posing, oppdaterer du til 3.2.0 i ALCOM / VCC og kontrollerer at Unisaki Posing System også er 3.2.0. Bruker du forhåndsbygg, trykker du «Oppdater forhåndsbygget», lagrer scenen og laster opp avataren.
+Bruker du Kawaii Posing, oppdaterer du til 3.2.0 i ALCOM / VCC og kontrollerer at Unisaki Posing System også er 3.2.1. Bruker du forhåndsbygg, trykker du «Oppdater forhåndsbygget», lagrer scenen og laster opp avataren.
 
-Cool Posing 1.2.0 bruker fellessystem 3.2.0. Oppdater produktet og fellessystemet sammen til samsvarende versjoner.
+Cool Posing 1.3.0 bruker fellessystem 3.2.1. Oppdater produktet og fellessystemet sammen til samsvarende versjoner.
 
 ### Til brukere av 8bit-versjonen
 
@@ -70,7 +70,7 @@ Valg under «Funksjoner > Menyfunksjoner» vises i spillmenyen. «Speilvend» gj
 | Reduser positurforvrengning fra hoderotasjon | 1 bit |
 | Snu deg | 1 bit |
 
-Hver klient beregner hodets helning. Bare hvorvidt vendingen faktisk er aktiv, synkroniseres. Når nakken låses opp, gjenopprettes den opprinnelige innstillingen.
+Hver klient beregner hodets helning. Bare hvorvidt «Snu deg» faktisk er aktivert, synkroniseres. Når nakken låses opp, gjenopprettes den opprinnelige innstillingen.
 
 Summen omfatter positurverktøyene på avataren, ikke hele avataren med klær og andre verktøy. Felles innstillinger telles ikke dobbelt ved flere verktøy. Positurantall over det grunnleggende nummerområdet krever også ekstra valgbiter.
 

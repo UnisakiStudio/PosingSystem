@@ -1,4 +1,4 @@
-# Unisaki Posing System 3.2.0 — الدليل العربي
+# Unisaki Posing System 3.2.1 — الدليل العربي
 
 Unisaki Posing System هو الأساس المشترك لـKawaii Posing وCool Posing والأدوات المرتبطة.
 ثبّت المنتج المشترى وهذا النظام معًا عبر VCC أو ALCOM. استخدم Unity 2022.3،

@@ -2,7 +2,7 @@
 
 Kawaii Posing Tool, Cool Posing Tool ve benzeri araçların kullandığı ortak poz sistemidir. Avatar yüklenirken gereken menü ve animasyonları Modular Avatar ve NDMF ile oluşturur.
 
-Bu README, v3.2.0 içindir. Kurulu sürümü poz aracının Inspector’ının üstünde görebilirsiniz. [Yeni özellikler ve değişiklik geçmişine](CHANGELOG.md) de bakın.
+Bu README, v3.2.1 içindir. Kurulu sürümü poz aracının Inspector’ının üstünde görebilirsiniz. [Yeni özellikler ve değişiklik geçmişine](CHANGELOG.md) de bakın.
 
 ## Görüntüleme dili ve çevrimdışı belgeler
 
@@ -20,16 +20,16 @@ Masaüstü modunda ayakta durma, çömelme ve oturma arasında geçerken seçile
 
 Satın aldığınız ürünün dosyalarını ve kurulum adımlarını izleyerek poz aracını VCC veya ALCOM üzerinden ekleyin. Bu sistem poz aracının bağımlılığı olarak kurulur.
 
-v3.2.0 gereksinimleri:
+v3.2.1 gereksinimleri:
 
 - Unity 2022.3 VRChat avatar projesi
 - VRChat Avatars SDK 3.10.4 veya sonrası
 - Modular Avatar 1.x serisi, en az 1.16.2
 - NDMF (Non-Destructive Modular Framework) 1.x serisi, en az 1.14.8
 
-Kawaii Posing Tool kullanıyorsanız ALCOM / VCC’de 3.2.0’a güncelleyin ve Unisaki Posing System’in de 3.2.0 olduğunu doğrulayın. Ön oluşturma kullandıysanız Ön oluşturmayı güncelle düğmesine basın, sahneyi kaydedin ve avatarı yükleyin.
+Kawaii Posing Tool kullanıyorsanız ALCOM / VCC’de 3.2.0’a güncelleyin ve Unisaki Posing System’in de 3.2.1 olduğunu doğrulayın. Ön oluşturma kullandıysanız Ön oluşturmayı güncelle düğmesine basın, sahneyi kaydedin ve avatarı yükleyin.
 
-Cool Posing Tool 1.2.0 ortak 3.2.0 sürümünü kullanır. Ürünü ve ortak sistemi birbiriyle uyumlu sürümlere birlikte güncelleyin.
+Cool Posing Tool 1.3.0 ortak 3.2.1 sürümünü kullanır. Ürünü ve ortak sistemi birbiriyle uyumlu sürümlere birlikte güncelleyin.
 
 ### Eski 8bit sürümünü kullananlar için
 

@@ -2,7 +2,7 @@
 
 Gemeinsames Posensystem für Kawaii Posing, Cool Posing und weitere Werkzeuge. Es erzeugt mit Modular Avatar und NDMF beim Avatar-Upload die erforderlichen Menüs und Animationen.
 
-Diese README gilt für v3.2.0. Die installierte Version steht oben im Inspector des Posenwerkzeugs. Siehe auch [Erweiterungen und Änderungen](CHANGELOG.md).
+Diese README gilt für v3.2.1. Die installierte Version steht oben im Inspector des Posenwerkzeugs. Siehe auch [Erweiterungen und Änderungen](CHANGELOG.md).
 
 ## Anzeigesprache und Offline-Dokumentation
 
@@ -20,16 +20,16 @@ Die Verzögerung bis zur Anwendung der gewählten Pose beim Wechsel zwischen Ste
 
 Füge das Posenwerkzeug mit VCC oder ALCOM gemäß den Dateien und Anweisungen deines Kaufs hinzu. Dieses System wird als Abhängigkeit des Posenwerkzeugs installiert.
 
-Für v3.2.0 gelten folgende Anforderungen.
+Für v3.2.1 gelten folgende Anforderungen.
 
 - VRChat-Avatarprojekt mit Unity 2022.3
 - VRChat Avatars SDK 3.10.4 oder neuer
 - Modular Avatar 1.x ab Version 1.16.2
 - NDMF (Non-Destructive Modular Framework) 1.x ab Version 1.14.8
 
-Wenn du Kawaii Posing verwendest, aktualisiere es in ALCOM / VCC auf 3.2.0 und prüfe, dass auch Unisaki Posing System auf 3.2.0 steht. Bei vorhandener Vorberechnung klicke auf „Vorberechnung aktualisieren“, speichere die Szene und lade den Avatar hoch.
+Wenn du Kawaii Posing verwendest, aktualisiere es in ALCOM / VCC auf 3.2.0 und prüfe, dass auch Unisaki Posing System auf 3.2.1 steht. Bei vorhandener Vorberechnung klicke auf „Vorberechnung aktualisieren“, speichere die Szene und lade den Avatar hoch.
 
-Cool Posing 1.2.0 verwendet das gemeinsame System 3.2.0. Aktualisiere Produkt und gemeinsames System zusammen auf die passenden Versionen.
+Cool Posing 1.3.0 verwendet das gemeinsame System 3.2.1. Aktualisiere Produkt und gemeinsames System zusammen auf die passenden Versionen.
 
 ### Für bisherige Nutzer der 8bit-Version
 
@@ -70,7 +70,7 @@ Die unter „Funktionen > Menüfunktionen“ gewählten Einträge erscheinen im 
 | Verformungen durch Kopfdrehung verringern | 1 bit |
 | Umdrehen | 1 bit |
 
-Jeder Client berechnet die Kopfneigung selbst. Nur der wirksame Ein/Aus-Zustand der Drehung auf die Seite wird synchronisiert. Nach dem Lösen der Halssperre gilt wieder die ursprüngliche Einstellung.
+Jeder Client berechnet die Kopfneigung selbst. Nur der wirksame Ein/Aus-Zustand der Funktion „Umdrehen“ wird synchronisiert. Nach dem Lösen der Halssperre gilt wieder die ursprüngliche Einstellung.
 
 Der angezeigte Gesamtwert betrifft die Posenwerkzeuge dieses Avatars, nicht den gesamten Avatar samt Kleidung und anderen Systemen. Gemeinsame Einstellungen mehrerer Posenwerkzeuge werden nicht doppelt gezählt. Überschreitet die Anzahl der Posen den grundlegenden Nummernbereich, benötigt auch die Posenauswahl weitere Bits.
 

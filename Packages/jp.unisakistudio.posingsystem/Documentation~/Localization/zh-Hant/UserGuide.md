@@ -1,4 +1,4 @@
-# Unisaki Posing System 3.2.0 — 繁體中文指南
+# Unisaki Posing System 3.2.1 — 繁體中文指南
 
 Unisaki Posing System是Kawaii Posing、Cool Posing及相關工具的共用核心。
 請通過VCC或ALCOM將購買的商品與此核心一同安裝。使用Unity 2022.3、

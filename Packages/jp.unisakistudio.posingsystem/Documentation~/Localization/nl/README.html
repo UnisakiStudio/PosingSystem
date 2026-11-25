@@ -9,10 +9,10 @@ code,pre { direction: ltr; unicode-bidi: isolate; } code { background: #8882; pa
 a { color: #2269b8; } a:visited { color: #7952ad; } li { margin-block: .35rem; }
 @media(prefers-color-scheme:dark) { a { color: #8ec5ff; } a:visited { color: #cfacff; } }
 @media print { nav { display: none; } body { max-width: none; padding: 0; } a { color: inherit; } }</style></head><body>
-<nav aria-label="Documentation"><a href="../index.html">Nederlands · 🌐</a><a href="README.html">README</a><a href="CHANGELOG.html">Wijzigingsgeschiedenis</a><a href="UserGuide.html">Unisaki Posing System 3.2.0 — Nederlandse handleiding</a></nav>
+<nav aria-label="Documentation"><a href="../index.html">Nederlands · 🌐</a><a href="README.html">README</a><a href="CHANGELOG.html">Wijzigingsgeschiedenis</a><a href="UserGuide.html">Unisaki Posing System 3.2.1 — Nederlandse handleiding</a></nav>
 <main><h1>Unisaki Posing System</h1>
 <p>Gedeeld posesysteem voor Kawaii Posing, Cool Posing en verwante tools. Met Modular Avatar en NDMF maakt het bij de avatarupload de benodigde menu’s en animaties.</p>
-<p>Deze README geldt voor v3.2.0. De versie staat boven in de Inspector. Zie ook <a href="CHANGELOG.html">toevoegingen en wijzigingen</a>.</p>
+<p>Deze README geldt voor v3.2.1. De versie staat boven in de Inspector. Zie ook <a href="CHANGELOG.html">toevoegingen en wijzigingen</a>.</p>
 <h2>Weergavetaal en offline documentatie</h2>
 <p>Kies de taal bij Language / 言語 boven in de Inspector. Eén keuze geldt voor de Inspector en de gegenereerde VRChat-menu’s. Upload de avatar opnieuw om de taal in het spel te veranderen.</p>
 <p>Zonder expliciete keuze wordt de computertaal gebruikt; niet-ondersteunde talen gebruiken Engels. Windows, macOS en Linux worden ondersteund. De laatste keuze wordt in EditorPrefs bewaard voor andere projecten van dezelfde systeemgebruiker op deze computer. Alle posehulpmiddelen en avatars gebruiken dezelfde taal. Een wijziging in de Inspector van een hulpmiddel werkt de gedeelde voorkeur bij; taalkeuzes per avatar worden genegeerd. Er is geen synchronisatie met andere computers. Licenties blijven op dezelfde manier opgeslagen. De taalknop verschijnt alleen bij de eerste installatiebevestiging als er nog geen taal is opgeslagen. Latere taalwijzigingen gebeuren in de Inspector.</p>
@@ -21,15 +21,15 @@ a { color: #2269b8; } a:visited { color: #7952ad; } li { margin-block: .35rem; }
 <p>De vertraging voordat de gekozen pose verschijnt bij wisselen tussen staan, hurken en zitten is verkort. Dit werkt voor gewone builds en voorberekening, zonder speciale opdrachten of extra instellingen. VR en bijzondere situaties behouden de oude verwerking. Werk oude voorberekeningen bij voordat je uploadt.</p>
 <h2>Installeren en bijwerken</h2>
 <p>Voeg de posetool met VCC of ALCOM toe volgens de gekochte bestanden en instructies. Dit systeem wordt als afhankelijkheid geïnstalleerd.</p>
-<p>Voor v3.2.0 zijn de volgende onderdelen nodig.</p>
+<p>Voor v3.2.1 zijn de volgende onderdelen nodig.</p>
 <ul>
 <li>VRChat-avatarproject met Unity 2022.3</li>
 <li>VRChat Avatars SDK 3.10.4 of hoger</li>
 <li>Modular Avatar 1.x, versie 1.16.2 of hoger</li>
 <li>NDMF (Non-Destructive Modular Framework) 1.x, versie 1.14.8 of hoger</li>
 </ul>
-<p>Werk Kawaii Posing in ALCOM / VCC bij naar 3.2.0 en controleer dat Unisaki Posing System ook 3.2.0 is. Gebruik je voorberekening, klik dan op Voorberekening bijwerken, sla de scène op en upload de avatar.</p>
-<p>Cool Posing 1.2.0 gebruikt het gedeelde systeem 3.2.0. Werk product en systeem samen bij naar de bijbehorende versies.</p>
+<p>Werk Kawaii Posing in ALCOM / VCC bij naar 3.2.0 en controleer dat Unisaki Posing System ook 3.2.1 is. Gebruik je voorberekening, klik dan op Voorberekening bijwerken, sla de scène op en upload de avatar.</p>
+<p>Cool Posing 1.3.0 gebruikt het gedeelde systeem 3.2.1. Werk product en systeem samen bij naar de bijbehorende versies.</p>
 <h3>Voor gebruikers van de 8bit-versie</h3>
 <p>Nieuwe installaties gebruiken alleen de normale Prefab. Schakel overbodige functies uit om verbruik te beperken. Alleen poseselectie gebruikt standaard 8 bit.</p>
 <p>Oude 8bit-Prefabs blijven in Editor/Legacy van elk product staan om verwijzingen van avatars en voorinstellingen te behouden. Je hoeft een bestaande Prefab niet te verwijderen of vervangen. De 8bit-versie is niet meer via het toevoegmenu beschikbaar.</p>
@@ -58,7 +58,7 @@ a { color: #2269b8; } a:visited { color: #7952ad; } li { margin-block: .35rem; }
 <tr><td>Vervorming door hoofdrotatie verminderen</td><td>1 bit</td></tr>
 <tr><td>Omdraaien</td><td>1 bit</td></tr>
 </tbody></table></div>
-<p>Elke client berekent de kanteling van het hoofd. Alleen de actieve stand van het omrollen wordt gesynchroniseerd. Na het ontgrendelen van de nek geldt de oorspronkelijke instelling weer.</p>
+<p>Elke client berekent de kanteling van het hoofd. Alleen de aan-uitstand van de functie ‘Omdraaien’ wordt gesynchroniseerd. Na het ontgrendelen van de nek geldt de oorspronkelijke instelling weer.</p>
 <p>Het totaal betreft de posetools in de avatar, niet de hele avatar met kleding en andere systemen. Gedeelde opties van meerdere tools tellen niet dubbel. Meer poses dan het basisnummerbereik kunnen extra selectiebits vereisen.</p>
 <h3>Voethoogte en Vloerhoogte</h3>
 <ul>

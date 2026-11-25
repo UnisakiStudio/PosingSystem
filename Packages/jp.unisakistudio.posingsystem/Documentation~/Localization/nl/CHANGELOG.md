@@ -1,10 +1,13 @@
 # Wijzigingsgeschiedenis
 
-## [3.2.1] - Nog niet uitgebracht
+## [3.2.1] - 2026-11-25
 
 - Bij het genereren van omdraaibewegingen wordt de richting van de zijpose niet meer automatisch uitgelijnd. De oriëntatie uit de bronanimatie blijft behouden. Werk bestaande voorberekeningen bij.
 
 - Voethoogte 8 → 0 bit, Vloerhoogte 8 → 0 bit, Omdraaien 10 → 1 bit. Elke client berekent de kanteling van het hoofd. Alleen de actieve stand van het omrollen wordt gesynchroniseerd. Na het ontgrendelen van de nek geldt de oorspronkelijke instelling weer.
+
+- Probleem opgelost waarbij, wanneer Hoofd zichtbaar houden in Fotomodus was ingeschakeld, de aan/uit-schakelaars in het eigen menu van de avatar niet meer werkten en gezichtsuitdrukkingen die met handgebaren waren veranderd niet meer terugkeerden naar normaal. Het trad op bij avatars met Write Defaults ingeschakeld.
+- Probleem opgelost waarbij alleen al het toevoegen van het posehulpmiddel ertoe kon leiden dat de aan/uit-schakelaars in het eigen menu van de avatar niet meer werkten of gezichtsuitdrukkingen niet meer terugkeerden naar normaal. Het trad op bij avatars waarin Write Defaults aan en uit door elkaar worden gebruikt.
 
 ## [3.2.0] - 2026-11-22
 

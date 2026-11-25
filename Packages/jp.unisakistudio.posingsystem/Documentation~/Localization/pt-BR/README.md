@@ -2,7 +2,7 @@
 
 Sistema de poses comum ao Kawaii Posing, Cool Posing e outras ferramentas. Utiliza Modular Avatar e NDMF para gerar menus e animações necessários ao enviar o avatar.
 
-Este README destina-se à versão v3.2.0. A versão instalada aparece no topo do Inspector. Consulte também as [novidades e alterações](CHANGELOG.md).
+Este README destina-se à versão v3.2.1. A versão instalada aparece no topo do Inspector. Consulte também as [novidades e alterações](CHANGELOG.md).
 
 ## Idioma de apresentação e documentos offline
 
@@ -20,16 +20,16 @@ Foi reduzido o atraso até aplicar a pose escolhida ao alternar entre em pé, ag
 
 Adicione a ferramenta através de VCC ou ALCOM, seguindo os arquivos e instruções da compra. Este sistema é instalado como dependência da ferramenta de poses.
 
-Requisitos da versão v3.2.0:
+Requisitos da versão v3.2.1:
 
 - Projeto de avatar VRChat com Unity 2022.3
 - VRChat Avatars SDK 3.10.4 ou posterior
 - Modular Avatar da série 1.x, versão 1.16.2 ou posterior
 - NDMF (Non-Destructive Modular Framework) da série 1.x, versão 1.14.8 ou posterior
 
-Se utiliza Kawaii Posing, atualize para 3.2.0 em ALCOM / VCC e confirme que Unisaki Posing System também está em 3.2.0. Se usava pré-cálculo, pressione «Atualizar pré-cálculo», salve a cena e envie o avatar.
+Se utiliza Kawaii Posing, atualize para 3.2.0 em ALCOM / VCC e confirme que Unisaki Posing System também está em 3.2.1. Se usava pré-cálculo, pressione «Atualizar pré-cálculo», salve a cena e envie o avatar.
 
-Cool Posing 1.2.0 utiliza o sistema comum 3.2.0. Atualize o produto e o sistema comum para as versões correspondentes.
+Cool Posing 1.3.0 utiliza o sistema comum 3.2.1. Atualize o produto e o sistema comum para as versões correspondentes.
 
 ### Para usuários da versão 8bit
 

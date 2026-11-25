@@ -9,14 +9,18 @@ code,pre { direction: ltr; unicode-bidi: isolate; } code { background: #8882; pa
 a { color: #2269b8; } a:visited { color: #7952ad; } li { margin-block: .35rem; }
 @media(prefers-color-scheme:dark) { a { color: #8ec5ff; } a:visited { color: #cfacff; } }
 @media print { nav { display: none; } body { max-width: none; padding: 0; } a { color: inherit; } }</style></head><body>
-<nav aria-label="Documentation"><a href="../index.html">ไทย · 🌐</a><a href="README.html">README</a><a href="CHANGELOG.html">ประวัติการอัปเดต</a><a href="UserGuide.html">Unisaki Posing System 3.2.0 — คู่มือภาษาไทย</a></nav>
+<nav aria-label="Documentation"><a href="../index.html">ไทย · 🌐</a><a href="README.html">README</a><a href="CHANGELOG.html">ประวัติการอัปเดต</a><a href="UserGuide.html">Unisaki Posing System 3.2.1 — คู่มือภาษาไทย</a></nav>
 <main><h1>ประวัติการอัปเดต</h1>
-<h2>[3.2.1] - ยังไม่เผยแพร่</h2>
+<h2>[3.2.1] - 2026-11-25</h2>
 <ul>
 <li>นำการปรับทิศทางท่านอนตะแคงโดยอัตโนมัติออกจากการสร้างท่าพลิกตัว เพื่อคงทิศทางที่ปรับไว้ในแอนิเมชันต้นฉบับ โปรดอัปเดตพรีบิลด์ที่มีอยู่</li>
 </ul>
 <ul>
 <li>ความสูงเท้า 8 → 0 bit, ความสูงพื้น 8 → 0 bit, พลิกตัว 10 → 1 bit. แต่ละไคลเอนต์คำนวณการเอียงศีรษะเอง โดยซิงค์เฉพาะสถานะว่าพลิกตัวได้อยู่หรือไม่ เมื่อปลดล็อกคอ การพลิกตัวจะกลับไปใช้ค่าที่ตั้งไว้</li>
+</ul>
+<ul>
+<li>แก้ไขปัญหาที่เมื่อเปิด «แสดงศีรษะในโหมดถ่ายภาพ» แล้ว รายการเปิด/ปิดในเมนูที่มีอยู่เดิมของอวาตาร์ใช้งานไม่ได้ และสีหน้าที่เปลี่ยนด้วยท่ามือไม่กลับคืนสู่ปกติ ปัญหานี้เกิดกับอวาตาร์ที่เปิด Write Defaults</li>
+<li>แก้ไขปัญหาที่เพียงแค่เพิ่มเครื่องมือโพสท่า รายการเปิด/ปิดในเมนูที่มีอยู่เดิมของอวาตาร์อาจใช้งานไม่ได้ หรือสีหน้าอาจไม่กลับคืนสู่ปกติ ปัญหานี้เกิดกับอวาตาร์ที่มี Write Defaults ทั้งแบบเปิดและแบบปิดปนกัน</li>
 </ul>
 <h2>[3.2.0] - 2026-11-22</h2>
 <h3>เพิ่ม</h3>

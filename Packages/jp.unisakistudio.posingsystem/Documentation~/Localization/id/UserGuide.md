@@ -1,4 +1,4 @@
-# Unisaki Posing System 3.2.0 — Panduan bahasa Indonesia
+# Unisaki Posing System 3.2.1 — Panduan bahasa Indonesia
 
 Unisaki Posing System adalah inti bersama untuk Kawaii Posing, Cool Posing, dan alat terkait.
 Pasang produk yang dibeli bersama inti ini menggunakan VCC atau ALCOM. Gunakan Unity 2022.3,

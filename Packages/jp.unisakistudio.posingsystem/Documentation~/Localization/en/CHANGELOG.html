@@ -9,14 +9,18 @@ code,pre { direction: ltr; unicode-bidi: isolate; } code { background: #8882; pa
 a { color: #2269b8; } a:visited { color: #7952ad; } li { margin-block: .35rem; }
 @media(prefers-color-scheme:dark) { a { color: #8ec5ff; } a:visited { color: #cfacff; } }
 @media print { nav { display: none; } body { max-width: none; padding: 0; } a { color: inherit; } }</style></head><body>
-<nav aria-label="Documentation"><a href="../index.html">English · 🌐</a><a href="README.html">README</a><a href="CHANGELOG.html">Changelog</a><a href="UserGuide.html">Unisaki Posing System 3.2.0 — English guide</a></nav>
+<nav aria-label="Documentation"><a href="../index.html">English · 🌐</a><a href="README.html">README</a><a href="CHANGELOG.html">Changelog</a><a href="UserGuide.html">Unisaki Posing System 3.2.1 — English guide</a></nav>
 <main><h1>Changelog</h1>
-<h2>[3.2.1] - Unreleased</h2>
+<h2>[3.2.1] - 2026-11-25</h2>
 <ul>
 <li>Removed automatic heading alignment of the side pose when generating roll-over motions, preserving the orientation authored in the source animation. Update existing prebuilds.</li>
 </ul>
 <ul>
 <li>Foot Height 8 → 0 bit, Floor Height 8 → 0 bit, Roll Over 10 → 1 bit. Each client calculates head tilt. Only the effective roll-over state is synced. Unlocking the neck restores the original roll-over setting.</li>
+</ul>
+<ul>
+<li>Fixed an issue where, with Keep your head visible in Photo Mode turned on, the toggles in the avatar&#x27;s own menu stopped working and facial expressions changed by hand gestures did not return to normal. It occurred on avatars with Write Defaults on.</li>
+<li>Fixed an issue where just adding the posing tool could stop the toggles in the avatar&#x27;s own menu from working or keep facial expressions from returning to normal. It occurred on avatars that mix Write Defaults on and off.</li>
 </ul>
 <h2>[3.2.0] - 2026-11-22</h2>
 <h3>Added</h3>

@@ -9,14 +9,18 @@ code,pre { direction: ltr; unicode-bidi: isolate; } code { background: #8882; pa
 a { color: #2269b8; } a:visited { color: #7952ad; } li { margin-block: .35rem; }
 @media(prefers-color-scheme:dark) { a { color: #8ec5ff; } a:visited { color: #cfacff; } }
 @media print { nav { display: none; } body { max-width: none; padding: 0; } a { color: inherit; } }</style></head><body>
-<nav aria-label="Documentation"><a href="../index.html">Dansk · 🌐</a><a href="README.html">README</a><a href="CHANGELOG.html">Ændringshistorik</a><a href="UserGuide.html">Unisaki Posing System 3.2.0 — Dansk vejledning</a></nav>
+<nav aria-label="Documentation"><a href="../index.html">Dansk · 🌐</a><a href="README.html">README</a><a href="CHANGELOG.html">Ændringshistorik</a><a href="UserGuide.html">Unisaki Posing System 3.2.1 — Dansk vejledning</a></nav>
 <main><h1>Ændringshistorik</h1>
-<h2>[3.2.1] - Ikke udgivet</h2>
+<h2>[3.2.1] - 2026-11-25</h2>
 <ul>
 <li>Den automatiske retningsjustering af sideposen ved generering af vendinger er fjernet. Orienteringen fra kildeanimationen bevares. Opdater eksisterende forberegninger.</li>
 </ul>
 <ul>
 <li>Fodhøjde 8 → 0 bit, Gulvhøjde 8 → 0 bit, Vend dig 10 → 1 bit. Hver klient beregner hovedets hældning. Kun den faktiske aktivering af vendingen synkroniseres. Når nakken låses op, gendannes den oprindelige indstilling.</li>
+</ul>
+<ul>
+<li>Rettede et problem, hvor tænd/sluk-punkterne i avatarens egen menu holdt op med at virke, og ansigtsudtryk ændret med håndbevægelser ikke vendte tilbage til normal, når ”Hold hovedet synligt i Fototilstand” var slået til. Det skete på avatarer med Write Defaults slået til.</li>
+<li>Rettede et problem, hvor blot det at tilføje poseværktøjet kunne få tænd/sluk-punkterne i avatarens egen menu til at holde op med at virke eller forhindre ansigtsudtryk i at vende tilbage til normal. Det skete på avatarer, hvor Write Defaults slået til og fra er blandet.</li>
 </ul>
 <h2>[3.2.0] - 2026-11-22</h2>
 <h3>Tilføjet</h3>

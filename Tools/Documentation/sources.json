@@ -53,11 +53,11 @@
       "product": "PosingSystem",
       "kind": "readme",
       "source": "PosingSystem/Packages/jp.unisakistudio.posingsystem/README.md",
-      "source_sha256": "8344c02b8f79fafae2f3b6bcd20fa7e2a9bd0adb543322ff298efc67f46f7dc8",
+      "source_sha256": "205635910ab28dd50c2fbd635981318bd68a2ba142fe90c08def64c285d590ee",
       "blocks": [
         "400f9d61ba8fe81c",
         "3384667be43ce486",
-        "19281f4e3d0590de",
+        "702c1ebd1b445b2b",
         "dddcc5e2fa2e62d6",
         "f057ec94623ab83e",
         "e949435434fc5e4d",
@@ -66,10 +66,10 @@
         "3240210502334b10",
         "29b7574e70527eea",
         "0eb826cefdff818a",
-        "a9c8afa886a35fa3",
+        "4ca3ab4101a3d6de",
         "f73cfc195c4430f5",
-        "fc547ae5cc8c18cd",
-        "064a37c64aaa4128",
+        "1ac13e0cbc79b4a9",
+        "660abbcb03fe760e",
         "bd5e80df85691664",
         "810eb63597d533a4",
         "868cf18738a90d19",
@@ -145,12 +145,13 @@
       "product": "PosingSystem",
       "kind": "changelog",
       "source": "PosingSystem/Packages/jp.unisakistudio.posingsystem/CHANGELOG.md",
-      "source_sha256": "d6b33cd15c2735ef1b6cb6c552d1faacb4be6a7a9390d875766d98bccea7098b",
+      "source_sha256": "73016bc67c8b84a2a6db19562b92baa01d582bb2cda8a0f8f402a2e2691edf33",
       "blocks": [
         "3e9e4ae5e303de21",
-        "8ab89cfbef13854c",
+        "844d8d0675906c7d",
         "486e627c853d3243",
         "0ba805870ac4d114",
+        "b1aa2e5026bce424",
         "8466863269dc2e8e",
         "545755f8035c08c9",
         "79fec8d04d3cf763",
@@ -226,9 +227,9 @@
       "product": "PosingSystem",
       "kind": "guide",
       "source": "PosingSystem/Packages/jp.unisakistudio.posingsystem/Documentation~/UserGuide.en.md",
-      "source_sha256": "e9e595df05c8bd82e3bb2ad7545909a9f8bbd6d7ff25fb458d89d504f605e820",
+      "source_sha256": "80f0d145196dd5922f88ddabd8ce360fc3347a39345ff8e7c1b47eb4c4f3ed4b",
       "blocks": [
-        "2bae13658c19ab69",
+        "54ba99ce038cb59a",
         "52425937959f927e",
         "e10754d0edc79b73",
         "3dad11475dca2a2e",
@@ -504,11 +505,11 @@
       "product": "CoolPosing",
       "kind": "readme",
       "source": "CoolPosing/Packages/jp.unisakistudio.coolposing/README.md",
-      "source_sha256": "e408689ce8bc4e9085b064cb2796c62ce1ba80f5a0826a7bbe6600228054b415",
+      "source_sha256": "ff5d9a2032d1e19a8caa7e591b0f1827e20211f81a08069910b363ad091466e3",
       "blocks": [
         "9ec15b083830389e",
-        "c2493654393fac07",
-        "c8f089da9684463b",
+        "211c68170b1204c5",
+        "127f3b7eea009c1c",
         "42d11daea3442e03",
         "dddcc5e2fa2e62d6",
         "f057ec94623ab83e",
@@ -516,16 +517,16 @@
         "ef58b910342a4f74",
         "2b2491db11188ac9",
         "51f028bd02b8dece",
-        "b1b3e5bceff0a199",
+        "4941df82de54f1ac",
         "c2701f328fe2cae9",
         "7c498ebeef28b23c",
         "3f6959796c4886ba",
-        "e0b5ec43fcbb30b1",
+        "c19fef484d701983",
         "7cfcd3bc6c58bd59",
         "b28495671138e6a0",
         "e34b262b52bfcb31",
         "93464ae028e1a8fa",
-        "573bec6044bc7d05",
+        "1fe7e89349aa84f0",
         "e365c0379b008026",
         "8a4c9170dc7c119f",
         "d1bc753add231591",
@@ -566,9 +567,11 @@
       "product": "CoolPosing",
       "kind": "changelog",
       "source": "CoolPosing/Packages/jp.unisakistudio.coolposing/CHANGELOG.md",
-      "source_sha256": "d4088cf95c9ee83fba908d1b37e7956486c5d5e9c576a0fe0b9294969ac41676",
+      "source_sha256": "79a0b0c2d121e037520d461ea3c33ae93d3b04fb96fa36d88f42c7780606a758",
       "blocks": [
         "3e9e4ae5e303de21",
+        "a70cee724b6b83a5",
+        "87af43ba20da4541",
         "4cfe29b892c22ec5",
         "545755f8035c08c9",
         "79fec8d04d3cf763",
@@ -597,17 +600,17 @@
       "product": "CoolPosing",
       "kind": "guide",
       "source": "CoolPosing/Packages/jp.unisakistudio.coolposing/Documentation~/UserGuide.en.md",
-      "source_sha256": "2546d899d3a157ff1d7f21bfa5b2628983054b0bed60a3213eea9ff17ea5abe4",
+      "source_sha256": "3e1198bbf44a0855e77f701bda77fa271e593f67817134afa1afc6f4f3d443b6",
       "blocks": [
         "9b3438889c475907",
-        "759fd79caf261f73",
+        "9610f3956324da0e",
         "4b4ce8f2136c0a4d",
         "f0994b5bc6eab153",
         "c7c4bed253169a22",
         "b58d5efb219e0955",
         "7888738c09012544",
         "3c27365bd82f8dab",
-        "89c1d07f33a31e02",
+        "30620aa19678ac51",
         "cd35a97066714f25",
         "bcb5eefe38ccacd0",
         "9b067be04670a030",
@@ -622,7 +625,7 @@
         "9df7843e8496a38b",
         "be9c9eff2128305e",
         "668fae5793d40c01",
-        "893f4ac7db85a756",
+        "0d30eed78aea4d24",
         "8b5a14e1b9abc7f5",
         "67e242f06ec825c5",
         "9175b123d4e1a515",
@@ -642,7 +645,7 @@
         "52ab85a1ae376835",
         "c226cdb39c8c1fb3",
         "56d27e2f6c98b9e9",
-        "a551cc9a490836e6",
+        "dbc5140e58bb7f9d",
         "60bb283b1da0925f",
         "9c1d9eae0539ad04",
         "2c4cd60737c88005",
@@ -657,7 +660,7 @@
         "c43f66aca5cc509d",
         "499b3bf6280b5942",
         "baa72162db9180d7",
-        "b55e87f4f36596e5",
+        "dda33f4b722b4830",
         "89fcad025f1817fd",
         "15861714eb6995df",
         "49bf131434354287",
@@ -749,9 +752,9 @@
         "PosingSystem/readme"
       ]
     },
-    "19281f4e3d0590de": {
+    "702c1ebd1b445b2b": {
       "language": "ja",
-      "text": "このREADMEはv3.2.0向けです。導入済みのバージョンは、ポーズツールのInspector上部で確認できます。[追加機能・変更履歴](CHANGELOG.md)もご覧ください。",
+      "text": "このREADMEはv3.2.1向けです。導入済みのバージョンは、ポーズツールのInspector上部で確認できます。[追加機能・変更履歴](CHANGELOG.md)もご覧ください。",
       "invariant": false,
       "contexts": [
         "PosingSystem/readme"
@@ -829,9 +832,9 @@
         "PosingSystem/readme"
       ]
     },
-    "a9c8afa886a35fa3": {
+    "4ca3ab4101a3d6de": {
       "language": "ja",
-      "text": "v3.2.0の必要環境は次のとおりです。",
+      "text": "v3.2.1の必要環境は次のとおりです。",
       "invariant": false,
       "contexts": [
         "PosingSystem/readme"
@@ -845,17 +848,17 @@
         "PosingSystem/readme"
       ]
     },
-    "fc547ae5cc8c18cd": {
+    "1ac13e0cbc79b4a9": {
       "language": "ja",
-      "text": "可愛いポーズツールをお使いの方は、ALCOM / VCCで可愛いポーズツールを3.2.0に更新し、ゆにさきポーズシステムも3.2.0になったことを確認してください。プレビルドを使っていた場合は「プレビルドを更新」を押し、シーンを保存してからアバターをアップロードします。",
+      "text": "可愛いポーズツールをお使いの方は、ALCOM / VCCで可愛いポーズツールを3.2.0に更新し、ゆにさきポーズシステムも3.2.1になったことを確認してください。プレビルドを使っていた場合は「プレビルドを更新」を押し、シーンを保存してからアバターをアップロードします。",
       "invariant": false,
       "contexts": [
         "PosingSystem/readme"
       ]
     },
-    "064a37c64aaa4128": {
+    "660abbcb03fe760e": {
       "language": "ja",
-      "text": "カッコいいポーズツール1.2.0は共通3.2.0を使用します。商品と共通システムを対応する版へ併せて更新してください。",
+      "text": "カッコいいポーズツール1.3.0は共通3.2.1を使用します。商品と共通システムを対応する版へ併せて更新してください。",
       "invariant": false,
       "contexts": [
         "PosingSystem/readme"
@@ -1427,10 +1430,10 @@
         "CoolPosing/changelog"
       ]
     },
-    "8ab89cfbef13854c": {
+    "844d8d0675906c7d": {
       "language": "ja",
-      "text": "## [3.2.1] - 未リリース",
-      "invariant": false,
+      "text": "## [3.2.1] - 2026-11-25",
+      "invariant": true,
       "contexts": [
         "PosingSystem/changelog"
       ]
@@ -1446,6 +1449,14 @@
     "0ba805870ac4d114": {
       "language": "ja",
       "text": "- 足の高さ 8 → 0 bit, 床の高さ 8 → 0 bit, 寝返り 10 → 1 bit. 頭の傾きは各クライアントで計算します。同期するのは寝返りの有効状態だけです。首固定を解除すると、寝返りは元の設定に戻ります。",
+      "invariant": false,
+      "contexts": [
+        "PosingSystem/changelog"
+      ]
+    },
+    "b1aa2e5026bce424": {
+      "language": "ja",
+      "text": "- 「撮影モード中は頭を非表示にしない」をオンにすると、アバターにもともと入っているメニューのオン・オフが効かなくなったり、ハンドジェスチャーで変えた表情が元に戻らなくなったりする問題を修正しました。Write Defaultsがオンのアバターで起きていました。\n- ポーズツールを追加しただけで、アバターにもともと入っているメニューのオン・オフが効かなくなったり、表情が元に戻らなくなったりすることがある問題を修正しました。Write Defaultsのオンとオフが混ざっているアバターで起きていました。",
       "invariant": false,
       "contexts": [
         "PosingSystem/changelog"
@@ -2019,9 +2030,9 @@
         "PosingSystem/changelog"
       ]
     },
-    "2bae13658c19ab69": {
+    "54ba99ce038cb59a": {
       "language": "en",
-      "text": "# Unisaki Posing System 3.2.0 — English guide",
+      "text": "# Unisaki Posing System 3.2.1 — English guide",
       "invariant": false,
       "contexts": [
         "PosingSystem/guide"
@@ -3623,17 +3634,17 @@
         "CoolPosing/repository"
       ]
     },
-    "c2493654393fac07": {
+    "211c68170b1204c5": {
       "language": "ja",
-      "text": "3点トラッキングやデスクトップでも、カッコいい姿勢に切り替えられるVRChat向けポーズ固定ツールです。立ち11・中腰9・座り14・仰向け寝9・うつ伏せ寝7の、合計50姿勢を収録しています。",
+      "text": "3点トラッキングやデスクトップでも、カッコいい姿勢に切り替えられるVRChat向けポーズ固定ツールです。立ち17・中腰16・座り17・仰向け寝12・うつ伏せ寝7の、合計69姿勢を収録しています。",
       "invariant": false,
       "contexts": [
         "CoolPosing/readme"
       ]
     },
-    "c8f089da9684463b": {
+    "127f3b7eea009c1c": {
       "language": "ja",
-      "text": "このREADMEはv1.2.0向けです。導入済みのバージョンはInspector上部で確認できます。",
+      "text": "このREADMEはv1.3.0向けです。導入済みのバージョンはInspector上部で確認できます。",
       "invariant": false,
       "contexts": [
         "CoolPosing/readme"
@@ -3655,9 +3666,9 @@
         "CoolPosing/readme"
       ]
     },
-    "b1b3e5bceff0a199": {
+    "4941df82de54f1ac": {
       "language": "ja",
-      "text": "- 撮影モード：アバターを前方へ最大3m動かし、向きを調整できます。自分の画面だけなら0 bit、他の人にも位置と向きを見せる場合は16 bitです。\n- 撮影中の頭の表示：近くにいる自分のアバターの頭が非表示になるのを、撮影モード中だけ防げます。\n- 床の高さ：頭を含む身体全体を上下3mまで移動できます。頭の位置を保って足側を動かす「足の高さ」と使い分けられます。\n- 寝返り：対応モーションを自分で設定したポーズで使用できます。付属ポーズには寝返りモーションを収録していません。\n- 呼吸：胸などに呼吸の動きを付けられます。姿勢の分類ごとに「なし・弱・中・強・急・カスタム」を選べます。\n- VRChat標準の揺れを止める：標準の待機中の揺れを抑えながら、ポーズツールの呼吸やほかのカスタム動作を使えます。\n- 首の向きの違いによる姿勢崩れを抑制：首固定を解除したとき、元のポーズと首の向きが異なることによる姿勢崩れを抑えます。\n- 機能の選択：必要なゲーム内メニューだけを追加し、ExpressionParametersの使用量をInspectorで確認できます。\n- ポーズ一覧の検索・一括追加・並べ替え：分類をまたいだ検索、複数クリップの読み込み、移動先の順番指定ができます。\n- Sceneでの簡易プレビュー：ポーズ一覧の「プレビュー」から、その場で姿勢を確認できます。",
+      "text": "- 撮影モード：アバターを前方へ最大3m動かし、向きを調整できます。自分の画面だけなら0 bit、他の人にも位置と向きを見せる場合は16 bitです。\n- 撮影中の頭の表示：近くにいる自分のアバターの頭が非表示になるのを、撮影モード中だけ防げます。\n- 床の高さ：頭を含む身体全体を上下3mまで移動できます。頭の位置を保って足側を動かす「足の高さ」と使い分けられます。\n- 19姿勢を追加しました。のび寝と丸まり寝は寝返りに対応しています。\n- 呼吸：胸などに呼吸の動きを付けられます。姿勢の分類ごとに「なし・弱・中・強・急・カスタム」を選べます。\n- VRChat標準の揺れを止める：標準の待機中の揺れを抑えながら、ポーズツールの呼吸やほかのカスタム動作を使えます。\n- 首の向きの違いによる姿勢崩れを抑制：首固定を解除したとき、元のポーズと首の向きが異なることによる姿勢崩れを抑えます。\n- 機能の選択：必要なゲーム内メニューだけを追加し、ExpressionParametersの使用量をInspectorで確認できます。\n- ポーズ一覧の検索・一括追加・並べ替え：分類をまたいだ検索、複数クリップの読み込み、移動先の順番指定ができます。\n- Sceneでの簡易プレビュー：ポーズ一覧の「プレビュー」から、その場で姿勢を確認できます。",
       "invariant": false,
       "contexts": [
         "CoolPosing/readme"
@@ -3687,9 +3698,9 @@
         "CoolPosing/readme"
       ]
     },
-    "e0b5ec43fcbb30b1": {
+    "c19fef484d701983": {
       "language": "ja",
-      "text": "今回の付属ポーズには寝返り用のモーションを収録していません。使いたい姿勢に対応するアニメーションを設定してください。",
+      "text": "19姿勢を追加しました。のび寝と丸まり寝は寝返りに対応しています。",
       "invariant": false,
       "contexts": [
         "CoolPosing/readme"
@@ -3727,9 +3738,9 @@
         "CoolPosing/readme"
       ]
     },
-    "573bec6044bc7d05": {
+    "1fe7e89349aa84f0": {
       "language": "ja",
-      "text": "手足の自動調整（IK）は初期状態で有効です。収録50姿勢のうち43姿勢でIKを使い、残り7姿勢は従来の姿勢別調整を使います。",
+      "text": "手足の自動調整（IK）は初期状態で有効です。収録69姿勢のうち55姿勢に対応しています。",
       "invariant": false,
       "contexts": [
         "CoolPosing/readme"
@@ -3797,6 +3808,22 @@
       "invariant": false,
       "contexts": [
         "CoolPosing/readme"
+      ]
+    },
+    "a70cee724b6b83a5": {
+      "language": "ja",
+      "text": "## [1.3.0] - 2026-11-25",
+      "invariant": true,
+      "contexts": [
+        "CoolPosing/changelog"
+      ]
+    },
+    "87af43ba20da4541": {
+      "language": "ja",
+      "text": "- 19姿勢を追加しました。のび寝と丸まり寝は寝返りに対応しています。",
+      "invariant": false,
+      "contexts": [
+        "CoolPosing/changelog"
       ]
     },
     "4cfe29b892c22ec5": {
@@ -3903,9 +3930,9 @@
         "CoolPosing/guide"
       ]
     },
-    "759fd79caf261f73": {
+    "9610f3956324da0e": {
       "language": "en",
-      "text": "Cool Posing provides 50 poses for desktop and three-point VR: 11 standing/crouching, 9 chair/perched-sitting, 14 floor-sitting, 9 back-lying, and 7 front-lying poses.",
+      "text": "Cool Posing provides 69 poses for desktop and three-point VR: 17 standing/crouching, 16 chair/perched-sitting, 17 floor-sitting, 12 back-lying, and 7 front-lying poses.",
       "invariant": false,
       "contexts": [
         "CoolPosing/guide"
@@ -3919,9 +3946,9 @@
         "CoolPosing/guide"
       ]
     },
-    "89c1d07f33a31e02": {
+    "30620aa19678ac51": {
       "language": "en",
-      "text": "**Cool Posing Tool 1.2.0 with Unisaki Posing System 3.2.0.** This version adds thirty-language setup dialogs, Unity Inspector and menus, standard pose names, in-game menus, and offline documentation. Use the top-of-Inspector language selector to change the tool language. The installer downloads these versions and their compatible dependencies from VPM repositories.",
+      "text": "**Cool Posing Tool 1.3.0 with Unisaki Posing System 3.2.1.** This version adds thirty-language setup dialogs, Unity Inspector and menus, standard pose names, in-game menus, and offline documentation. Use the top-of-Inspector language selector to change the tool language. The installer downloads these versions and their compatible dependencies from VPM repositories.",
       "invariant": false,
       "contexts": [
         "CoolPosing/guide"
@@ -3943,9 +3970,9 @@
         "CoolPosing/guide"
       ]
     },
-    "893f4ac7db85a756": {
+    "0d30eed78aea4d24": {
       "language": "en",
-      "text": "Cool Posing includes presets for **トネール**, **狛乃**, **士堂**, and **真央**; these are the original avatar names used in the preset picker. Other Humanoid avatars can be adjusted manually. Automatic hand/foot adjustment is provided for 43 of the 50 included poses; the remaining seven use their pose adjustments. The included pose library does **not** include side-lying roll-over motions.",
+      "text": "Cool Posing includes presets for **トネール**, **狛乃**, **士堂**, and **真央**; these are the original avatar names used in the preset picker. Other Humanoid avatars can be adjusted manually. Automatic limb adjustment (IK) is enabled by default and supports 55 of the 69 poses. Added 19 poses. Stretched Out and Curled Up support rolling over.",
       "invariant": false,
       "contexts": [
         "CoolPosing/guide"
@@ -3959,9 +3986,9 @@
         "CoolPosing/guide"
       ]
     },
-    "a551cc9a490836e6": {
+    "dbc5140e58bb7f9d": {
       "language": "en",
-      "text": "Cool Posing’s included poses have no bundled roll-over motions. Supply suitable animations for the poses you want to use with roll over.",
+      "text": "Added 19 poses. Stretched Out and Curled Up support rolling over.",
       "invariant": false,
       "contexts": [
         "CoolPosing/guide"
@@ -3975,9 +4002,9 @@
         "CoolPosing/guide"
       ]
     },
-    "b55e87f4f36596e5": {
+    "dda33f4b722b4830": {
       "language": "en",
-      "text": "| Symptom | What to check |\n| --- | --- |\n| No add-tool menu | Check that the product **and** Unisaki Posing System are installed, and resolve Unity Console compile errors. The license installer alone is not the pose library. |\n| Installer cancelled or files removed | Reimport the purchased installer when ready. Read its confirmations again. |\n| License appears missing in another project | Import the purchased installer under the same OS account. If you changed computer/account, install the license there too. Language preferences do not transfer between computers automatically. |\n| No poses in VRChat | Add the tool under the correct scene avatar, enable desired poses, review Inspector warnings, and upload that avatar. Check SDK and other locomotion tools. |\n| Z does not reach lying posture | Increase the lying-height threshold in the tool's in-game settings. |\n| Hands or knees do not line up | Try the matching avatar preset, then use supported IK and/or Animation Adjustment. Check outfit deformation in the final build. |\n| Roll over does not work | Use a supported lying pose, enable both the pose's roll-over setting and menu entry, and release head/neck lock. Cool Posing needs suitable side-lying animations to be supplied separately. |\n| Friends cannot see photo movement | Enable **Sync photo mode** in Unity, check parameter usage, and upload again. |\n| Language changes in Unity but not VRChat | Re-upload the avatar. Check the single top-of-Inspector language selector in localization-enabled builds. |\n| Build/prebuild errors | Read the **first** relevant Console error. Back up the scene, update/reacquire the product and shared system through VCC/ALCOM, and contact support if the issue continues. Keep adjusted objects and GeneratedResources unless support gives a specific recovery step. |",
+      "text": "| Symptom | What to check |\n| --- | --- |\n| No add-tool menu | Check that the product **and** Unisaki Posing System are installed, and resolve Unity Console compile errors. The license installer alone is not the pose library. |\n| Installer cancelled or files removed | Reimport the purchased installer when ready. Read its confirmations again. |\n| License appears missing in another project | Import the purchased installer under the same OS account. If you changed computer/account, install the license there too. Language preferences do not transfer between computers automatically. |\n| No poses in VRChat | Add the tool under the correct scene avatar, enable desired poses, review Inspector warnings, and upload that avatar. Check SDK and other locomotion tools. |\n| Z does not reach lying posture | Increase the lying-height threshold in the tool's in-game settings. |\n| Hands or knees do not line up | Try the matching avatar preset, then use supported IK and/or Animation Adjustment. Check outfit deformation in the final build. |\n| Roll over does not work | Roll over requires a supported lying pose and the **Roll Over** menu entry. Enable roll over for the pose and provide its side-lying animation when needed. In VRChat, choose that pose, enable roll over, and release head/neck lock. The head's sideways tilt then controls the roll. Normal MotionTime control is unavailable for that pose while roll over is used. |\n| Friends cannot see photo movement | Enable **Sync photo mode** in Unity, check parameter usage, and upload again. |\n| Language changes in Unity but not VRChat | Re-upload the avatar. Check the single top-of-Inspector language selector in localization-enabled builds. |\n| Build/prebuild errors | Read the **first** relevant Console error. Back up the scene, update/reacquire the product and shared system through VCC/ALCOM, and contact support if the issue continues. Keep adjusted objects and GeneratedResources unless support gives a specific recovery step. |",
       "invariant": false,
       "contexts": [
         "CoolPosing/guide"
@@ -3992,5 +4019,5 @@
       ]
     }
   },
-  "source_sha256": "c20c5220047b5eb2b723f8a1c14edc8d5ed06d47ac845221f1776d2e761dc559"
+  "source_sha256": "3a6b82d3decf89534351949a61183be2ec843ffbd28c98f938a41725fa3fca81"
 }

@@ -2,7 +2,7 @@
 
 The shared posing system used by Kawaii Posing Tool, Cool Posing Tool and related products. It uses Modular Avatar and NDMF to generate the required menus and animations when you upload an avatar.
 
-This README covers v3.2.0. Check the installed version at the top of the posing tool's Inspector. See also [new features and changelog](CHANGELOG.md).
+This README covers v3.2.1. Check the installed version at the top of the posing tool's Inspector. See also [new features and changelog](CHANGELOG.md).
 
 ## Display language and offline documentation
 
@@ -20,16 +20,16 @@ The delay before the selected pose takes effect when switching between standing,
 
 Follow the purchased product's installation instructions and add the posing tool using VCC or ALCOM. This system is installed as a dependency of the posing tool.
 
-Requirements for v3.2.0:
+Requirements for v3.2.1:
 
 - A Unity 2022.3 VRChat avatar project
 - VRChat Avatars SDK 3.10.4 or later
 - Modular Avatar 1.x, version 1.16.2 or later
 - NDMF (Non-Destructive Modular Framework) 1.x, version 1.14.8 or later
 
-For Kawaii Posing Tool, update the product to 3.2.0 in ALCOM / VCC and check that Unisaki Posing System is also 3.2.0. If you use prebuilds, click Update prebuild and save the scene before uploading the avatar.
+For Kawaii Posing Tool, update the product to 3.2.0 in ALCOM / VCC and check that Unisaki Posing System is also 3.2.1. If you use prebuilds, click Update prebuild and save the scene before uploading the avatar.
 
-Cool Posing Tool 1.2.0 uses shared system 3.2.0. Update the product and shared system together to compatible versions.
+Cool Posing Tool 1.3.0 uses shared system 3.2.1. Update the product and shared system together to compatible versions.
 
 ### If you used the 8bit edition
 

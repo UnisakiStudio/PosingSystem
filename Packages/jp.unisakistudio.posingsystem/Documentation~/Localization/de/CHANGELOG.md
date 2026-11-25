@@ -1,10 +1,13 @@
 # Änderungsverlauf
 
-## [3.2.1] - Unveröffentlicht
+## [3.2.1] - 2026-11-25
 
 - Die automatische Ausrichtung der Seitenpose beim Erzeugen von Bewegungen zum Umdrehen wurde entfernt. Die in der Quellanimation eingestellte Orientierung bleibt erhalten. Vorhandene Vorberechnungen bitte aktualisieren.
 
 - Fußhöhe 8 → 0 bit, Bodenhöhe 8 → 0 bit, Umdrehen 10 → 1 bit. Jeder Client berechnet die Kopfneigung selbst. Nur der wirksame Ein/Aus-Zustand der Drehung auf die Seite wird synchronisiert. Nach dem Lösen der Halssperre gilt wieder die ursprüngliche Einstellung.
+
+- Ein Problem wurde behoben, bei dem mit aktiviertem „Kopf im Fotomodus sichtbar halten“ die Ein/Aus-Schalter im eigenen Menü des Avatars nicht mehr funktionierten und per Handgeste geänderte Gesichtsausdrücke nicht mehr in den Normalzustand zurückkehrten. Es trat bei Avataren mit aktiviertem Write Defaults auf.
+- Ein Problem wurde behoben, bei dem schon das bloße Hinzufügen des Posenwerkzeugs dazu führen konnte, dass die Ein/Aus-Schalter im eigenen Menü des Avatars nicht mehr funktionierten oder Gesichtsausdrücke nicht mehr in den Normalzustand zurückkehrten. Es trat bei Avataren auf, in denen Write Defaults teils aktiviert und teils deaktiviert ist.
 
 ## [3.2.0] - 2026-11-22
 

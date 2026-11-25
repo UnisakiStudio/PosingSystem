@@ -362,10 +362,10 @@ namespace jp.unisakistudio.posingsystemeditor
             // A separate tracking request participates in the existing request merger. It never overwrites saved locks.
             var fx = CreateFeatureController(ps, "USSPS_PhotoTracking", VRCAvatarDescriptor.AnimLayerType.FX, saver);
             FeatureParameter(fx, PosingSystemFeatureUtility.PhotoActive, AnimatorControllerParameterType.Bool);
-            var layer = FeatureLayer(fx, "Photography tracking", AvatarMaskBodyPart.Root, false, saver);
+            var layer = FeatureLayer(fx, PhotographyTrackingLayer, AvatarMaskBodyPart.Root, false, saver);
             var off = layer.stateMachine.AddState("通常");
             var on = layer.stateMachine.AddState("撮影中");
-            off.writeDefaultValues = on.writeDefaultValues = false;
+            off.writeDefaultValues = on.writeDefaultValues = PosingSystemFxWriteDefaults.Authored;
             foreach (var state in new[] { off, on })
             {
                 var tracking = state.AddStateMachineBehaviour<VRCAnimatorTrackingControl>();

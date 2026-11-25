@@ -9,14 +9,18 @@ code,pre { direction: ltr; unicode-bidi: isolate; } code { background: #8882; pa
 a { color: #2269b8; } a:visited { color: #7952ad; } li { margin-block: .35rem; }
 @media(prefers-color-scheme:dark) { a { color: #8ec5ff; } a:visited { color: #cfacff; } }
 @media print { nav { display: none; } body { max-width: none; padding: 0; } a { color: inherit; } }</style></head><body>
-<nav aria-label="Documentation"><a href="../index.html">Deutsch · 🌐</a><a href="README.html">README</a><a href="CHANGELOG.html">Änderungsverlauf</a><a href="UserGuide.html">Unisaki Posing System 3.2.0 — Deutsche Anleitung</a></nav>
+<nav aria-label="Documentation"><a href="../index.html">Deutsch · 🌐</a><a href="README.html">README</a><a href="CHANGELOG.html">Änderungsverlauf</a><a href="UserGuide.html">Unisaki Posing System 3.2.1 — Deutsche Anleitung</a></nav>
 <main><h1>Änderungsverlauf</h1>
-<h2>[3.2.1] - Unveröffentlicht</h2>
+<h2>[3.2.1] - 2026-11-25</h2>
 <ul>
 <li>Die automatische Ausrichtung der Seitenpose beim Erzeugen von Bewegungen zum Umdrehen wurde entfernt. Die in der Quellanimation eingestellte Orientierung bleibt erhalten. Vorhandene Vorberechnungen bitte aktualisieren.</li>
 </ul>
 <ul>
 <li>Fußhöhe 8 → 0 bit, Bodenhöhe 8 → 0 bit, Umdrehen 10 → 1 bit. Jeder Client berechnet die Kopfneigung selbst. Nur der wirksame Ein/Aus-Zustand der Drehung auf die Seite wird synchronisiert. Nach dem Lösen der Halssperre gilt wieder die ursprüngliche Einstellung.</li>
+</ul>
+<ul>
+<li>Ein Problem wurde behoben, bei dem mit aktiviertem „Kopf im Fotomodus sichtbar halten“ die Ein/Aus-Schalter im eigenen Menü des Avatars nicht mehr funktionierten und per Handgeste geänderte Gesichtsausdrücke nicht mehr in den Normalzustand zurückkehrten. Es trat bei Avataren mit aktiviertem Write Defaults auf.</li>
+<li>Ein Problem wurde behoben, bei dem schon das bloße Hinzufügen des Posenwerkzeugs dazu führen konnte, dass die Ein/Aus-Schalter im eigenen Menü des Avatars nicht mehr funktionierten oder Gesichtsausdrücke nicht mehr in den Normalzustand zurückkehrten. Es trat bei Avataren auf, in denen Write Defaults teils aktiviert und teils deaktiviert ist.</li>
 </ul>
 <h2>[3.2.0] - 2026-11-22</h2>
 <h3>Hinzugefügt</h3>

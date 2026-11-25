@@ -2,7 +2,7 @@
 
 Kawaii Posing Toolin, Cool Posing Toolin ja muiden tuotteiden yhteinen asentojärjestelmä. Se luo avatarin latauksessa tarvittavat valikot ja animaatiot Modular Avatarin ja NDMF:n avulla.
 
-Tämä README koskee versiota v3.2.0. Asennetun version näet asentotyökalun Inspectorin yläosasta. Katso myös [uudet toiminnot ja muutosloki](CHANGELOG.md).
+Tämä README koskee versiota v3.2.1. Asennetun version näet asentotyökalun Inspectorin yläosasta. Katso myös [uudet toiminnot ja muutosloki](CHANGELOG.md).
 
 ## Näyttökieli ja offline-ohjeet
 
@@ -20,16 +20,16 @@ Työpöytätilassa seisoma-, kyykky- ja istuma-asentojen vaihdon viivettä on ly
 
 Lisää asentotyökalu VCC:n tai ALCOMin kautta tuotteen ostotiedostojen ja asennusohjeiden mukaisesti. Tämä järjestelmä asennetaan asentotyökalun riippuvuutena.
 
-Version v3.2.0 vaatimukset:
+Version v3.2.1 vaatimukset:
 
 - Unity 2022.3:lla tehty VRChat-avatarprojekti
 - VRChat Avatars SDK 3.10.4 tai uudempi
 - Modular Avatar 1.x, vähintään 1.16.2
 - NDMF (Non-Destructive Modular Framework) 1.x, vähintään 1.14.8
 
-Jos käytät Kawaii Posing Toolia, päivitä se versioon 3.2.0 ALCOMissa / VCC:ssä ja varmista, että myös Unisaki Posing System on päivittynyt versioon 3.2.0. Jos käytit esikoontia, paina ”Päivitä esikoonti”, tallenna kohtaus ja lataa sitten avatar palveluun.
+Jos käytät Kawaii Posing Toolia, päivitä se versioon 3.2.0 ALCOMissa / VCC:ssä ja varmista, että myös Unisaki Posing System on päivittynyt versioon 3.2.1. Jos käytit esikoontia, paina ”Päivitä esikoonti”, tallenna kohtaus ja lataa sitten avatar palveluun.
 
-Cool Posing Tool 1.2.0 käyttää yhteistä järjestelmää 3.2.0. Päivitä sekä tuote että yhteinen järjestelmä yhteensopiviin versioihin.
+Cool Posing Tool 1.3.0 käyttää yhteistä järjestelmää 3.2.1. Päivitä sekä tuote että yhteinen järjestelmä yhteensopiviin versioihin.
 
 ### Aiemman 8bit-version käyttäjille
 

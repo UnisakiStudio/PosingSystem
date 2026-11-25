@@ -9,14 +9,18 @@ code,pre { direction: ltr; unicode-bidi: isolate; } code { background: #8882; pa
 a { color: #2269b8; } a:visited { color: #7952ad; } li { margin-block: .35rem; }
 @media(prefers-color-scheme:dark) { a { color: #8ec5ff; } a:visited { color: #cfacff; } }
 @media print { nav { display: none; } body { max-width: none; padding: 0; } a { color: inherit; } }</style></head><body>
-<nav aria-label="Documentation"><a href="../index.html">Suomi · 🌐</a><a href="README.html">README</a><a href="CHANGELOG.html">Muutosloki</a><a href="UserGuide.html">Unisaki Posing System 3.2.0 — suomenkielinen käyttöohje</a></nav>
+<nav aria-label="Documentation"><a href="../index.html">Suomi · 🌐</a><a href="README.html">README</a><a href="CHANGELOG.html">Muutosloki</a><a href="UserGuide.html">Unisaki Posing System 3.2.1 — suomenkielinen käyttöohje</a></nav>
 <main><h1>Muutosloki</h1>
-<h2>[3.2.1] - Julkaisematon</h2>
+<h2>[3.2.1] - 2026-11-25</h2>
 <ul>
 <li>Kylkiasennon automaattinen suunnan kohdistus poistettiin kääntymisliikkeiden luonnista, jotta lähdeanimaatiossa asetettu suunta säilyy. Suorita esikoonti uudelleen.</li>
 </ul>
 <ul>
 <li>Jalkojen kork. 8 → 0 bit, Lattian kork. 8 → 0 bit, Käänny 10 → 1 bit. Jokainen asiakasohjelma laskee pään kallistuksen itse. Vain kyljelle kääntymisen aktiivinen tila synkronoidaan. Niskan lukituksen poistaminen palauttaa alkuperäisen asetuksen.</li>
+</ul>
+<ul>
+<li>Korjattu ongelma, jossa avatarin oman valikon päälle/pois-valinnat lakkasivat toimimasta ja käsieleillä muutetut ilmeet eivät palanneet ennalleen, kun ”Pidä pää näkyvissä Kuvatilassa” oli käytössä. Ongelma esiintyi avatareissa, joissa Write Defaults on käytössä.</li>
+<li>Korjattu ongelma, jossa pelkkä poseeraustyökalun lisääminen saattoi saada avatarin oman valikon päälle/pois-valinnat lakkaamaan toimimasta tai estää ilmeitä palaamasta ennalleen. Ongelma esiintyi avatareissa, joissa Write Defaults on osin käytössä ja osin pois käytöstä.</li>
 </ul>
 <h2>[3.2.0] - 2026-11-22</h2>
 <h3>Lisätty</h3>

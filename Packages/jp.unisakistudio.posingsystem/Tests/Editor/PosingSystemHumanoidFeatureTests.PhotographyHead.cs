@@ -222,9 +222,12 @@ namespace jp.unisakistudio.posingsystemeditor.tests
             Assert.That(chop.targetBones.Single().scaleFactor, Is.EqualTo(1));
             Assert.That(chop.targetBones.Single().applyCondition, Is.EqualTo(VRCHeadChop.HeadChopBone.ApplyCondition.AlwaysApply));
             Assert.That(fx.parameters.Single(p => p.name == "IsLocal").type, Is.EqualTo(AnimatorControllerParameterType.Bool));
+            // The layer is added after Modular Avatar: it has the Write Defaults Modular Avatar gave the photography layer.
+            var matched = fx.layers.Single(l => l.name == PosingSystemConverter.PhotographyTrackingLayer).stateMachine.states;
+            Assert.That(matched.Select(s => s.state.writeDefaultValues).Distinct().Count(), Is.EqualTo(1));
             foreach (var state in layers.Single().stateMachine.states)
             {
-                Assert.That(state.state.writeDefaultValues, Is.False);
+                Assert.That(state.state.writeDefaultValues, Is.EqualTo(matched[0].state.writeDefaultValues));
                 var binding = AnimationUtility.GetCurveBindings((AnimationClip)state.state.motion).Single();
                 Assert.That(binding.type, Is.EqualTo(typeof(VRCHeadChop)));
                 Assert.That(binding.propertyName, Is.EqualTo("m_Enabled"));

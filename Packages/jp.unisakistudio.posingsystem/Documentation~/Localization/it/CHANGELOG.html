@@ -9,14 +9,18 @@ code,pre { direction: ltr; unicode-bidi: isolate; } code { background: #8882; pa
 a { color: #2269b8; } a:visited { color: #7952ad; } li { margin-block: .35rem; }
 @media(prefers-color-scheme:dark) { a { color: #8ec5ff; } a:visited { color: #cfacff; } }
 @media print { nav { display: none; } body { max-width: none; padding: 0; } a { color: inherit; } }</style></head><body>
-<nav aria-label="Documentation"><a href="../index.html">Italiano · 🌐</a><a href="README.html">README</a><a href="CHANGELOG.html">Cronologia delle modifiche</a><a href="UserGuide.html">Unisaki Posing System 3.2.0 — Guida in italiano</a></nav>
+<nav aria-label="Documentation"><a href="../index.html">Italiano · 🌐</a><a href="README.html">README</a><a href="CHANGELOG.html">Cronologia delle modifiche</a><a href="UserGuide.html">Unisaki Posing System 3.2.1 — Guida in italiano</a></nav>
 <main><h1>Cronologia delle modifiche</h1>
-<h2>[3.2.1] - Non pubblicata</h2>
+<h2>[3.2.1] - 2026-11-25</h2>
 <ul>
 <li>Rimosso l’allineamento automatico della direzione della posa laterale durante la generazione dei movimenti per girarsi, mantenendo l’orientamento impostato nell’animazione originale. Aggiornare il precalcolo esistente.</li>
 </ul>
 <ul>
 <li>Altezza piedi 8 → 0 bit, Altezza suolo 8 → 0 bit, Girarsi 10 → 1 bit. Ogni client calcola l’inclinazione della testa. Viene sincronizzato solo lo stato effettivo della rotazione sul fianco. Sbloccando il collo si ripristina l’impostazione iniziale.</li>
+</ul>
+<ul>
+<li>Risolto un problema per cui, attivando «Tenere visibile la testa in Modalità foto», gli interruttori del menu già presente nell’avatar smettevano di funzionare e le espressioni facciali cambiate con i gesti della mano non tornavano più alla normalità. Si verificava sugli avatar con Write Defaults attivo.</li>
+<li>Risolto un problema per cui la sola aggiunta dello strumento di posa poteva far smettere di funzionare gli interruttori del menu già presente nell’avatar o impedire alle espressioni facciali di tornare alla normalità. Si verificava sugli avatar in cui Write Defaults attivo e disattivo sono mescolati.</li>
 </ul>
 <h2>[3.2.0] - 2026-11-22</h2>
 <h3>Aggiunte</h3>

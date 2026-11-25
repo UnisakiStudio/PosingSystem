@@ -9,14 +9,18 @@ code,pre { direction: ltr; unicode-bidi: isolate; } code { background: #8882; pa
 a { color: #2269b8; } a:visited { color: #7952ad; } li { margin-block: .35rem; }
 @media(prefers-color-scheme:dark) { a { color: #8ec5ff; } a:visited { color: #cfacff; } }
 @media print { nav { display: none; } body { max-width: none; padding: 0; } a { color: inherit; } }</style></head><body>
-<nav aria-label="Documentation"><a href="../index.html">Svenska · 🌐</a><a href="README.html">README</a><a href="CHANGELOG.html">Ändringshistorik</a><a href="UserGuide.html">Unisaki Posing System 3.2.0 — Svensk handbok</a></nav>
+<nav aria-label="Documentation"><a href="../index.html">Svenska · 🌐</a><a href="README.html">README</a><a href="CHANGELOG.html">Ändringshistorik</a><a href="UserGuide.html">Unisaki Posing System 3.2.1 — Svensk handbok</a></nav>
 <main><h1>Ändringshistorik</h1>
-<h2>[3.2.1] - Ej utgiven</h2>
+<h2>[3.2.1] - 2026-11-25</h2>
 <ul>
 <li>Den automatiska riktningsjusteringen av sidoposen vid generering av vändningar har tagits bort. Orienteringen från källanimationen bevaras. Uppdatera befintliga förberäkningar.</li>
 </ul>
 <ul>
 <li>Fothöjd 8 → 0 bit, Golvhöjd 8 → 0 bit, Vänd dig 10 → 1 bit. Varje klient beräknar huvudets lutning. Endast om rullningen faktiskt är aktiv synkroniseras. När nacken låses upp återställs den ursprungliga inställningen.</li>
+</ul>
+<ul>
+<li>Åtgärdade ett problem där av/på-reglagen i avatarens egen meny slutade fungera och ansiktsuttryck som ändrats med handgester inte återgick till det normala när Håll huvudet synligt i Fotoläge var aktiverat. Det inträffade på avatarer med Write Defaults påslaget.</li>
+<li>Åtgärdade ett problem där enbart tillägget av posverktyget kunde få av/på-reglagen i avatarens egen meny att sluta fungera eller hindra ansiktsuttryck från att återgå till det normala. Det inträffade på avatarer där Write Defaults påslaget och avslaget blandas.</li>
 </ul>
 <h2>[3.2.0] - 2026-11-22</h2>
 <h3>Tillagt</h3>

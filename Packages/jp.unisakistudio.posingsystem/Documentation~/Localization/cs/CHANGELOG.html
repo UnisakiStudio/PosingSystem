@@ -9,14 +9,18 @@ code,pre { direction: ltr; unicode-bidi: isolate; } code { background: #8882; pa
 a { color: #2269b8; } a:visited { color: #7952ad; } li { margin-block: .35rem; }
 @media(prefers-color-scheme:dark) { a { color: #8ec5ff; } a:visited { color: #cfacff; } }
 @media print { nav { display: none; } body { max-width: none; padding: 0; } a { color: inherit; } }</style></head><body>
-<nav aria-label="Documentation"><a href="../index.html">Čeština · 🌐</a><a href="README.html">README</a><a href="CHANGELOG.html">Historie změn</a><a href="UserGuide.html">Unisaki Posing System 3.2.0 — český návod</a></nav>
+<nav aria-label="Documentation"><a href="../index.html">Čeština · 🌐</a><a href="README.html">README</a><a href="CHANGELOG.html">Historie změn</a><a href="UserGuide.html">Unisaki Posing System 3.2.1 — český návod</a></nav>
 <main><h1>Historie změn</h1>
-<h2>[3.2.1] - Nevydáno</h2>
+<h2>[3.2.1] - 2026-11-25</h2>
 <ul>
 <li>Při generování přetáčení bylo odstraněno automatické zarovnávání směru polohy na boku. Zachovává se orientace nastavená ve zdrojové animaci. Znovu proveďte předgenerování.</li>
 </ul>
 <ul>
 <li>Výška chodidel 8 → 0 bit, Výška podlahy 8 → 0 bit, Přetočit se 10 → 1 bit. Každý klient počítá náklon hlavy. Synchronizuje se pouze skutečný stav přetáčení na bok. Odemknutím krku se obnoví původní nastavení.</li>
+</ul>
+<ul>
+<li>Opraven problém, kdy po zapnutí „Ponechat hlavu viditelnou v režimu focení“ přestávaly fungovat přepínače ve vlastní nabídce avatara a výrazy obličeje změněné gesty rukou se nevracely do normálu. Vyskytoval se u avatarů se zapnutým Write Defaults.</li>
+<li>Opraven problém, kdy samotné přidání nástroje pro pózy mohlo způsobit, že přepínače ve vlastní nabídce avatara přestaly fungovat nebo se výrazy obličeje nevracely do normálu. Vyskytoval se u avatarů, ve kterých se mísí zapnuté a vypnuté Write Defaults.</li>
 </ul>
 <h2>[3.2.0] - 2026-11-22</h2>
 <h3>Přidáno</h3>

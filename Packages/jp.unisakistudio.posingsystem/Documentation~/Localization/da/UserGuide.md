@@ -1,4 +1,4 @@
-# Unisaki Posing System 3.2.0 — Dansk vejledning
+# Unisaki Posing System 3.2.1 — Dansk vejledning
 
 Unisaki Posing System er fælles kerne for Kawaii Posing, Cool Posing og beslægtede værktøjer. Installér den købte vare og kernen sammen med VCC eller ALCOM. Brug Unity 2022.3, VRChat Avatars SDK 3.10.4+, Modular Avatar 1.16.2+ og NDMF 1.14.8+.
 

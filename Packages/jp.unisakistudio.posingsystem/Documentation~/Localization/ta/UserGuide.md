@@ -1,4 +1,4 @@
-# Unisaki Posing System 3.2.0 — தமிழ் வழிகாட்டி
+# Unisaki Posing System 3.2.1 — தமிழ் வழிகாட்டி
 
 Unisaki Posing System என்பது Kawaii Posing, Cool Posing மற்றும் தொடர்புடைய கருவிகளின் பொதுவான மைய அமைப்பு.
 வாங்கிய தயாரிப்பையும் இதையும் VCC அல்லது ALCOM மூலம் ஒன்றாக நிறுவவும். Unity 2022.3,

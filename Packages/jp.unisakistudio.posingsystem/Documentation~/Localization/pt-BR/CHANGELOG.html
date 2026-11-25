@@ -9,14 +9,18 @@ code,pre { direction: ltr; unicode-bidi: isolate; } code { background: #8882; pa
 a { color: #2269b8; } a:visited { color: #7952ad; } li { margin-block: .35rem; }
 @media(prefers-color-scheme:dark) { a { color: #8ec5ff; } a:visited { color: #cfacff; } }
 @media print { nav { display: none; } body { max-width: none; padding: 0; } a { color: inherit; } }</style></head><body>
-<nav aria-label="Documentation"><a href="../index.html">Português (Brasil) · 🌐</a><a href="README.html">README</a><a href="CHANGELOG.html">Histórico de alterações</a><a href="UserGuide.html">Unisaki Posing System 3.2.0 — Manual em português do Brasil</a></nav>
+<nav aria-label="Documentation"><a href="../index.html">Português (Brasil) · 🌐</a><a href="README.html">README</a><a href="CHANGELOG.html">Histórico de alterações</a><a href="UserGuide.html">Unisaki Posing System 3.2.1 — Manual em português do Brasil</a></nav>
 <main><h1>Histórico de alterações</h1>
-<h2>[3.2.1] - Ainda não lançada</h2>
+<h2>[3.2.1] - 2026-11-25</h2>
 <ul>
 <li>O alinhamento automático da orientação da pose lateral foi removido da geração de movimentos para virar deitado, preservando a orientação ajustada na animação original. Atualize os pré-cálculos existentes.</li>
 </ul>
 <ul>
 <li>Altura pés 8 → 0 bit, Altura chão 8 → 0 bit, Virar 10 → 1 bit. Cada cliente calcula a inclinação da cabeça. Só é sincronizado o estado efetivo da função de virar de lado. Desbloquear o pescoço restaura a configuração original.</li>
+</ul>
+<ul>
+<li>Corrigido um problema em que, ao ativar «Manter cabeça visível no Modo foto», os botões de ligar/desligar do menu que já vinha no avatar paravam de funcionar e as expressões faciais alteradas por gestos das mãos não voltavam ao normal. Acontecia em avatares com Write Defaults ativado.</li>
+<li>Corrigido um problema em que apenas adicionar a ferramenta de poses podia fazer os botões de ligar/desligar do menu que já vinha no avatar pararem de funcionar ou as expressões faciais não voltarem ao normal. Acontecia em avatares que misturam Write Defaults ativado e desativado.</li>
 </ul>
 <h2>[3.2.0] - 2026-11-22</h2>
 <h3>Adicionado</h3>

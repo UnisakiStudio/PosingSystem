@@ -1,10 +1,13 @@
 # Ändringshistorik
 
-## [3.2.1] - Ej utgiven
+## [3.2.1] - 2026-11-25
 
 - Den automatiska riktningsjusteringen av sidoposen vid generering av vändningar har tagits bort. Orienteringen från källanimationen bevaras. Uppdatera befintliga förberäkningar.
 
 - Fothöjd 8 → 0 bit, Golvhöjd 8 → 0 bit, Vänd dig 10 → 1 bit. Varje klient beräknar huvudets lutning. Endast om rullningen faktiskt är aktiv synkroniseras. När nacken låses upp återställs den ursprungliga inställningen.
+
+- Åtgärdade ett problem där av/på-reglagen i avatarens egen meny slutade fungera och ansiktsuttryck som ändrats med handgester inte återgick till det normala när Håll huvudet synligt i Fotoläge var aktiverat. Det inträffade på avatarer med Write Defaults påslaget.
+- Åtgärdade ett problem där enbart tillägget av posverktyget kunde få av/på-reglagen i avatarens egen meny att sluta fungera eller hindra ansiktsuttryck från att återgå till det normala. Det inträffade på avatarer där Write Defaults påslaget och avslaget blandas.
 
 ## [3.2.0] - 2026-11-22
 

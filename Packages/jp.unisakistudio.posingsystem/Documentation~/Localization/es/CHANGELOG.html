@@ -9,14 +9,18 @@ code,pre { direction: ltr; unicode-bidi: isolate; } code { background: #8882; pa
 a { color: #2269b8; } a:visited { color: #7952ad; } li { margin-block: .35rem; }
 @media(prefers-color-scheme:dark) { a { color: #8ec5ff; } a:visited { color: #cfacff; } }
 @media print { nav { display: none; } body { max-width: none; padding: 0; } a { color: inherit; } }</style></head><body>
-<nav aria-label="Documentation"><a href="../index.html">Español · 🌐</a><a href="README.html">README</a><a href="CHANGELOG.html">Historial de cambios</a><a href="UserGuide.html">Unisaki Posing System 3.2.0 — Manual en español</a></nav>
+<nav aria-label="Documentation"><a href="../index.html">Español · 🌐</a><a href="README.html">README</a><a href="CHANGELOG.html">Historial de cambios</a><a href="UserGuide.html">Unisaki Posing System 3.2.1 — Manual en español</a></nav>
 <main><h1>Historial de cambios</h1>
-<h2>[3.2.1] - Sin publicar</h2>
+<h2>[3.2.1] - 2026-11-25</h2>
 <ul>
 <li>Se eliminó la alineación automática de la orientación de la pose lateral al generar movimientos para darse vuelta, conservando la orientación ajustada en la animación original. Actualiza los precálculos existentes.</li>
 </ul>
 <ul>
 <li>Altura pies 8 → 0 bit, Altura suelo 8 → 0 bit, Darse vuelta 10 → 1 bit. Cada cliente calcula la inclinación de la cabeza. Solo se sincroniza si el giro está activo. Al desbloquear el cuello, se recupera el ajuste original.</li>
+</ul>
+<ul>
+<li>Se ha corregido un problema por el que, al activar «Mantener la cabeza visible en Modo foto», los interruptores del menú que el avatar trae de origen dejaban de funcionar y las expresiones faciales cambiadas con gestos de la mano no volvían a la normalidad. Ocurría en avatares con Write Defaults activado.</li>
+<li>Se ha corregido un problema por el que el simple hecho de añadir la herramienta de poses podía hacer que los interruptores del menú que el avatar trae de origen dejaran de funcionar o que las expresiones faciales no volvieran a la normalidad. Ocurría en avatares que mezclan Write Defaults activado y desactivado.</li>
 </ul>
 <h2>[3.2.0] - 2026-11-22</h2>
 <h3>Añadido</h3>

@@ -1,10 +1,13 @@
 # Lịch sử thay đổi
 
-## [3.2.1] - Chưa phát hành
+## [3.2.1] - 2026-11-25
 
 - Đã bỏ việc tự động căn hướng tư thế nằm nghiêng khi tạo chuyển động lật người, giữ nguyên hướng đã chỉnh trong hoạt ảnh gốc. Hãy cập nhật dữ liệu tạo trước hiện có.
 
 - Độ cao chân 8 → 0 bit, Độ cao sàn 8 → 0 bit, Lật người 10 → 1 bit. Mỗi máy khách tự tính độ nghiêng của đầu. Chỉ trạng thái hoạt động thực tế của thao tác trở mình được đồng bộ. Mở khóa cổ sẽ khôi phục cài đặt ban đầu.
+
+- Đã sửa lỗi khi bật “Giữ đầu hiển thị trong chế độ chụp”, các mục bật/tắt trong menu vốn có của avatar không còn hoạt động và biểu cảm khuôn mặt thay đổi bằng cử chỉ tay không trở lại bình thường. Lỗi xảy ra trên avatar bật Write Defaults.
+- Đã sửa lỗi chỉ cần thêm công cụ tạo dáng là các mục bật/tắt trong menu vốn có của avatar có thể không còn hoạt động hoặc biểu cảm khuôn mặt không trở lại bình thường. Lỗi xảy ra trên avatar có Write Defaults bật và tắt lẫn lộn.
 
 ## [3.2.0] - 2026-11-22
 

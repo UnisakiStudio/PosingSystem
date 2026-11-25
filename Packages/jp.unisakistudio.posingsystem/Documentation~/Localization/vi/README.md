@@ -2,7 +2,7 @@
 
 Hệ thống tư thế dùng chung cho Kawaii Posing Tool, Cool Posing Tool và các công cụ liên quan. Hệ thống sử dụng Modular Avatar và NDMF để tạo menu cùng hoạt ảnh cần thiết khi tải avatar lên.
 
-README này dành cho v3.2.0. Kiểm tra phiên bản đã cài ở đầu Inspector của công cụ tư thế. Xem thêm [tính năng mới và lịch sử thay đổi](CHANGELOG.md).
+README này dành cho v3.2.1. Kiểm tra phiên bản đã cài ở đầu Inspector của công cụ tư thế. Xem thêm [tính năng mới và lịch sử thay đổi](CHANGELOG.md).
 
 ## Ngôn ngữ hiển thị và tài liệu ngoại tuyến
 
@@ -20,16 +20,16 @@ Giảm độ trễ trước khi tư thế đã chọn được áp dụng khi ch
 
 Làm theo tệp mua hàng và hướng dẫn cài đặt của từng sản phẩm để thêm công cụ tư thế qua VCC hoặc ALCOM. Hệ thống này được cài như gói phụ thuộc của công cụ tư thế.
 
-Yêu cầu cho v3.2.0:
+Yêu cầu cho v3.2.1:
 
 - Dự án avatar VRChat dùng Unity 2022.3
 - VRChat Avatars SDK 3.10.4 trở lên
 - Modular Avatar dòng 1.x, phiên bản 1.16.2 trở lên
 - NDMF (Non-Destructive Modular Framework) dòng 1.x, phiên bản 1.14.8 trở lên
 
-Nếu dùng Kawaii Posing Tool, cập nhật sản phẩm lên 3.2.0 bằng ALCOM / VCC và kiểm tra Unisaki Posing System cũng là 3.2.0. Nếu dùng dữ liệu tạo trước, nhấn “Cập nhật dữ liệu tạo trước”, lưu Scene rồi tải avatar lên.
+Nếu dùng Kawaii Posing Tool, cập nhật sản phẩm lên 3.2.0 bằng ALCOM / VCC và kiểm tra Unisaki Posing System cũng là 3.2.1. Nếu dùng dữ liệu tạo trước, nhấn “Cập nhật dữ liệu tạo trước”, lưu Scene rồi tải avatar lên.
 
-Cool Posing Tool 1.2.0 dùng hệ thống chung 3.2.0. Cập nhật sản phẩm và hệ thống chung lên các phiên bản tương ứng.
+Cool Posing Tool 1.3.0 dùng hệ thống chung 3.2.1. Cập nhật sản phẩm và hệ thống chung lên các phiên bản tương ứng.
 
 ### Dành cho người từng dùng bản 8bit
 
@@ -70,7 +70,7 @@ Các mục chọn trong “Tính năng > Tính năng menu” xuất hiện trong
 | Giảm méo tư thế do xoay đầu | 1 bit |
 | Lật người | 1 bit |
 
-Mỗi máy khách tự tính độ nghiêng của đầu. Chỉ trạng thái hoạt động thực tế của thao tác trở mình được đồng bộ. Mở khóa cổ sẽ khôi phục cài đặt ban đầu.
+Mỗi máy khách tự tính độ nghiêng của đầu. Chỉ trạng thái hoạt động thực tế của thao tác lật người được đồng bộ. Mở khóa cổ sẽ khôi phục cài đặt ban đầu.
 
 Tổng hiển thị chỉ là phần của các công cụ tư thế đã cài trên avatar đó, không phải tổng toàn avatar gồm trang phục và công cụ khác. Thiết lập chung cũng không bị tính hai lần khi dùng nhiều công cụ tư thế. Cấu hình có số tư thế vượt phạm vi đánh số cơ bản sẽ cần thêm bit để chọn tư thế.
 

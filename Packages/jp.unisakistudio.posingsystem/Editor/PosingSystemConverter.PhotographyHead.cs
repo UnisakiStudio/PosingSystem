@@ -14,6 +14,8 @@ namespace jp.unisakistudio.posingsystemeditor
     {
         public const string PhotographyHeadObject = "USSPS_PhotographyHead";
         public const string PhotographyHeadLayer = "USSPS_PhotographyHeadVisibility";
+        /// <summary>The FX layer of photography mode that Modular Avatar merges (and matches to the avatar).</summary>
+        public const string PhotographyTrackingLayer = "Photography tracking";
 
         private static bool UsesPhotographyHeadVisibility(PosingSystem ps) =>
             ps != null && ps.gameObject.activeInHierarchy && !ps.isEightBitVersion &&
@@ -86,9 +88,13 @@ namespace jp.unisakistudio.posingsystemeditor
             var on = machine.AddState("撮影中は頭を表示");
             machine.defaultState = off;
             var path = AnimationUtility.CalculateTransformPath(obj.transform, ctx.AvatarRootTransform);
+            // This layer is added after Modular Avatar, so nothing matches it to the avatar. Up to 3.2.0 it always
+            // had Write Defaults off, and on an avatar with Write Defaults on it was the one layer that stopped the
+            // avatar's own toggles and expressions from going back.
+            var writeDefaults = PosingSystemFxWriteDefaults.AfterModularAvatar(controller, PhotographyTrackingLayer);
             foreach (var state in new[] { off, on })
             {
-                state.writeDefaultValues = false;
+                state.writeDefaultValues = writeDefaults;
                 var clip = new AnimationClip { name = PhotographyHeadLayer + (state == on ? "_On" : "_Off") };
                 AnimationUtility.SetEditorCurve(clip, EditorCurveBinding.FloatCurve(path, typeof(VRCHeadChop), "m_Enabled"),
                     AnimationCurve.Constant(0, 1, state == on ? 1 : 0));

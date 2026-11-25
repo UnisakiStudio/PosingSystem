@@ -1,10 +1,13 @@
 # Değişiklik geçmişi
 
-## [3.2.1] - Henüz yayımlanmadı
+## [3.2.1] - 2026-11-25
 
 - Yatarken dönme hareketleri oluşturulurken yan pozun yönünü otomatik hizalama kaldırıldı; kaynak animasyonda ayarlanan yön korunur. Mevcut ön oluşturma verilerini güncelleyin.
 
 - Ayak yüksekliği 8 → 0 bit, Zemin yüksekliği 8 → 0 bit, Dön 10 → 1 bit. Her istemci baş eğimini kendisi hesaplar. Yalnızca yana dönmenin etkin olup olmadığı eşitlenir. Boyun kilidi açıldığında önceki ayar geri yüklenir.
+
+- “Fotoğraf modunda başı görünür tut” açıkken avatarın kendi menüsündeki aç/kapat öğelerinin çalışmamasına ve el hareketleriyle değiştirilen yüz ifadelerinin normale dönmemesine neden olan sorun giderildi. Sorun, Write Defaults açık olan avatarlarda görülüyordu.
+- Yalnızca poz aracını eklemenin bile avatarın kendi menüsündeki aç/kapat öğelerinin çalışmamasına veya yüz ifadelerinin normale dönmemesine yol açabildiği sorun giderildi. Sorun, Write Defaults açık ve kapalı ayarlarının karışık olduğu avatarlarda görülüyordu.
 
 ## [3.2.0] - 2026-11-22
 

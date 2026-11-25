@@ -2,7 +2,7 @@
 
 Det fælles positursystem til blandt andet Kawaii Posing og Cool Posing. Med Modular Avatar og NDMF genererer det de nødvendige menuer og animationer ved avatarupload.
 
-Denne README gælder v3.2.0. Den installerede version vises øverst i værktøjets Inspector. Se også [nye funktioner og ændringshistorik](CHANGELOG.md).
+Denne README gælder v3.2.1. Den installerede version vises øverst i værktøjets Inspector. Se også [nye funktioner og ændringshistorik](CHANGELOG.md).
 
 ## Visningssprog og offlinedokumentation
 
@@ -20,16 +20,16 @@ Forsinkelsen fra skift mellem stående, hug og siddende til den valgte positur v
 
 Følg den købte fils og produktets installationsvejledning, og tilføj positurværktøjet via VCC eller ALCOM. Systemet installeres som en afhængighed af positurværktøjet.
 
-v3.2.0 kræver følgende miljø:
+v3.2.1 kræver følgende miljø:
 
 - Unity 2022.3-projekt til VRChat-avatarer
 - VRChat Avatars SDK 3.10.4 eller nyere
 - Modular Avatar 1.x fra 1.16.2
 - NDMF (Non-Destructive Modular Framework) 1.x fra 1.14.8
 
-Bruger du Kawaii Posing, skal du opdatere det til 3.2.0 i ALCOM / VCC og kontrollere, at Unisaki Posing System også er 3.2.0. Bruger du forberegning, skal du trykke ”Opdatér forberegning”, gemme scenen og uploade avataren.
+Bruger du Kawaii Posing, skal du opdatere det til 3.2.0 i ALCOM / VCC og kontrollere, at Unisaki Posing System også er 3.2.1. Bruger du forberegning, skal du trykke ”Opdatér forberegning”, gemme scenen og uploade avataren.
 
-Cool Posing 1.2.0 bruger det fælles system 3.2.0. Opdatér produkt og fælles system sammen til kompatible versioner.
+Cool Posing 1.3.0 bruger det fælles system 3.2.1. Opdatér produkt og fælles system sammen til kompatible versioner.
 
 ### Til brugere af 8bit-versionen
 

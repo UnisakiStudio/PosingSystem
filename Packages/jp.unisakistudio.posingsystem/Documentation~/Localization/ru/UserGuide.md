@@ -1,4 +1,4 @@
-# Unisaki Posing System 3.2.0 — руководство на русском языке
+# Unisaki Posing System 3.2.1 — руководство на русском языке
 
 Unisaki Posing System — общее ядро Kawaii Posing, Cool Posing и связанных инструментов. Устанавливайте приобретённый товар и ядро вместе через VCC или ALCOM. Используйте Unity 2022.3, VRChat Avatars SDK 3.10.4+, Modular Avatar 1.16.2+ и NDMF 1.14.8+.
 

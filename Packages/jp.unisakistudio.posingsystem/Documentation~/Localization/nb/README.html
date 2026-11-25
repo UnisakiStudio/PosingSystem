@@ -9,10 +9,10 @@ code,pre { direction: ltr; unicode-bidi: isolate; } code { background: #8882; pa
 a { color: #2269b8; } a:visited { color: #7952ad; } li { margin-block: .35rem; }
 @media(prefers-color-scheme:dark) { a { color: #8ec5ff; } a:visited { color: #cfacff; } }
 @media print { nav { display: none; } body { max-width: none; padding: 0; } a { color: inherit; } }</style></head><body>
-<nav aria-label="Documentation"><a href="../index.html">Norsk · 🌐</a><a href="README.html">README</a><a href="CHANGELOG.html">Endringslogg</a><a href="UserGuide.html">Unisaki Posing System 3.2.0 — Norsk brukerveiledning</a></nav>
+<nav aria-label="Documentation"><a href="../index.html">Norsk · 🌐</a><a href="README.html">README</a><a href="CHANGELOG.html">Endringslogg</a><a href="UserGuide.html">Unisaki Posing System 3.2.1 — Norsk brukerveiledning</a></nav>
 <main><h1>Unisaki Posing System</h1>
 <p>Felles positursystem for blant annet Kawaii Posing og Cool Posing. Det bruker Modular Avatar og NDMF til å generere nødvendige menyer og animasjoner ved avataropplasting.</p>
-<p>Denne README gjelder v3.2.0. Installert versjon vises øverst i verktøyets Inspector. Se også <a href="CHANGELOG.html">nye funksjoner og endringslogg</a>.</p>
+<p>Denne README gjelder v3.2.1. Installert versjon vises øverst i verktøyets Inspector. Se også <a href="CHANGELOG.html">nye funksjoner og endringslogg</a>.</p>
 <h2>Visningsspråk og dokumentasjon uten nett</h2>
 <p>Velg språk med «Language / 言語» øverst i Inspector. Ett valg styrer både Inspector og den genererte VRChat-menyen. Last opp avataren på nytt for å endre språket i spillet.</p>
 <p>Uten valg brukes datamaskinens språk, eller engelsk hvis språket ikke støttes. Windows, macOS og Linux støttes. Siste valg lagres i EditorPrefs og brukes i andre prosjekter for samme OS-bruker på denne maskinen. Alle positurverktøy og avatarer bruker samme språk. En endring i Inspector for et hvilket som helst verktøy oppdaterer den felles innstillingen; språkvalg for enkeltavatarer ignoreres. Det synkroniseres ikke til andre maskiner. Lisenslagringen endres ikke. Språkknappen vises bare ved den første installasjonsbekreftelsen hvis ingen språk er lagret. Senere språkendringer gjøres i Inspector.</p>
@@ -21,15 +21,15 @@ a { color: #2269b8; } a:visited { color: #7952ad; } li { margin-block: .35rem; }
 <p>Forsinkelsen før valgt positur vises ved bytte mellom stående, huk og sittende i skrivebordsmodus er redusert. Det gjelder vanlige bygg og forhåndsbygg uten egne kommandoer eller ekstra innstillinger. VR og spesielle tilstander bruker tidligere behandling. Oppdater gamle forhåndsbygg før opplasting.</p>
 <h2>Installasjon og oppdatering</h2>
 <p>Følg kjøpsfilene og installasjonsanvisningene for produktet, og legg til verktøyet med VCC eller ALCOM. Dette systemet installeres som en avhengighet.</p>
-<p>v3.2.0 krever følgende:</p>
+<p>v3.2.1 krever følgende:</p>
 <ul>
 <li>Unity 2022.3-prosjekt for VRChat-avatarer</li>
 <li>VRChat Avatars SDK 3.10.4 eller nyere</li>
 <li>Modular Avatar 1.x fra 1.16.2</li>
 <li>NDMF (Non-Destructive Modular Framework) 1.x fra 1.14.8</li>
 </ul>
-<p>Bruker du Kawaii Posing, oppdaterer du til 3.2.0 i ALCOM / VCC og kontrollerer at Unisaki Posing System også er 3.2.0. Bruker du forhåndsbygg, trykker du «Oppdater forhåndsbygget», lagrer scenen og laster opp avataren.</p>
-<p>Cool Posing 1.2.0 bruker fellessystem 3.2.0. Oppdater produktet og fellessystemet sammen til samsvarende versjoner.</p>
+<p>Bruker du Kawaii Posing, oppdaterer du til 3.2.0 i ALCOM / VCC og kontrollerer at Unisaki Posing System også er 3.2.1. Bruker du forhåndsbygg, trykker du «Oppdater forhåndsbygget», lagrer scenen og laster opp avataren.</p>
+<p>Cool Posing 1.3.0 bruker fellessystem 3.2.1. Oppdater produktet og fellessystemet sammen til samsvarende versjoner.</p>
 <h3>Til brukere av 8bit-versjonen</h3>
 <p>Nye tillegg bruker vanlig Prefab. Slå av unødvendige valg under «Funksjoner» for lavere forbruk. Bare positurvalg bruker som utgangspunkt 8 bit.</p>
 <p>Eldre 8bit-Prefab beholdes i hvert produkts «Editor/Legacy» for eksisterende avatar- og forhåndsinnstillingsreferanser. De trenger ikke slettes eller erstattes for videre bruk. Valg av 8bit i Unitys meny for nye tillegg er avviklet.</p>
@@ -58,7 +58,7 @@ a { color: #2269b8; } a:visited { color: #7952ad; } li { margin-block: .35rem; }
 <tr><td>Reduser positurforvrengning fra hoderotasjon</td><td>1 bit</td></tr>
 <tr><td>Snu deg</td><td>1 bit</td></tr>
 </tbody></table></div>
-<p>Hver klient beregner hodets helning. Bare hvorvidt vendingen faktisk er aktiv, synkroniseres. Når nakken låses opp, gjenopprettes den opprinnelige innstillingen.</p>
+<p>Hver klient beregner hodets helning. Bare hvorvidt «Snu deg» faktisk er aktivert, synkroniseres. Når nakken låses opp, gjenopprettes den opprinnelige innstillingen.</p>
 <p>Summen omfatter positurverktøyene på avataren, ikke hele avataren med klær og andre verktøy. Felles innstillinger telles ikke dobbelt ved flere verktøy. Positurantall over det grunnleggende nummerområdet krever også ekstra valgbiter.</p>
 <h3>Fothøyde og gulvhøyde</h3>
 <ul>

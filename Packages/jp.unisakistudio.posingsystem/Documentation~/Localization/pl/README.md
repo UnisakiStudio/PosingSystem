@@ -2,7 +2,7 @@
 
 Wspólny system póz dla Kawaii Posing Tool, Cool Posing Tool i innych narzędzi. Za pomocą Modular Avatar i NDMF tworzy potrzebne menu oraz animacje podczas przesyłania awatara.
 
-Ten README dotyczy wersji v3.2.0. Zainstalowana wersja jest widoczna u góry Inspectora narzędzia póz. Zobacz również [nowe funkcje i historię zmian](CHANGELOG.md).
+Ten README dotyczy wersji v3.2.1. Zainstalowana wersja jest widoczna u góry Inspectora narzędzia póz. Zobacz również [nowe funkcje i historię zmian](CHANGELOG.md).
 
 ## Język interfejsu i dokumentacja offline
 
@@ -20,16 +20,16 @@ Skrócono opóźnienie zastosowania wybranej pozy przy przechodzeniu między sta
 
 Dodaj narzędzie póz przez VCC lub ALCOM zgodnie z zakupionymi plikami i instrukcją danego produktu. Ten system jest instalowany jako zależność narzędzia póz.
 
-Wymagania wersji v3.2.0:
+Wymagania wersji v3.2.1:
 
 - Projekt awatara VRChat w Unity 2022.3
 - VRChat Avatars SDK 3.10.4 lub nowszy
 - Modular Avatar z gałęzi 1.x, w wersji co najmniej 1.16.2
 - NDMF (Non-Destructive Modular Framework) z gałęzi 1.x, w wersji co najmniej 1.14.8
 
-Jeżeli używasz Kawaii Posing Tool, zaktualizuj go do 3.2.0 w ALCOM / VCC i sprawdź, czy Unisaki Posing System również ma wersję 3.2.0. Jeśli korzystasz z budowania wstępnego, naciśnij „Aktualizuj budowanie wstępne”, zapisz scenę, a następnie prześlij awatara.
+Jeżeli używasz Kawaii Posing Tool, zaktualizuj go do 3.2.0 w ALCOM / VCC i sprawdź, czy Unisaki Posing System również ma wersję 3.2.1. Jeśli korzystasz z budowania wstępnego, naciśnij „Aktualizuj budowanie wstępne”, zapisz scenę, a następnie prześlij awatara.
 
-Cool Posing Tool 1.2.0 korzysta ze wspólnego systemu 3.2.0. Aktualizuj produkt i wspólny system razem do zgodnych wersji.
+Cool Posing Tool 1.3.0 korzysta ze wspólnego systemu 3.2.1. Aktualizuj produkt i wspólny system razem do zgodnych wersji.
 
 ### Dla użytkowników dawnej wersji 8bit
 
@@ -70,7 +70,7 @@ Pozycje wybrane w „Funkcje > Funkcje menu” pojawiają się w menu gry. Na pr
 | Ogranicz deformację pozy przy obrocie głowy | 1 bit |
 | Obróć się | 1 bit |
 
-Każdy klient oblicza nachylenie głowy. Synchronizowany jest tylko stan aktywności obrotu na bok. Odblokowanie szyi przywraca poprzednie ustawienie.
+Każdy klient oblicza nachylenie głowy. Synchronizowany jest tylko stan funkcji obracania się na bok. Odblokowanie szyi przywraca poprzednie ustawienie.
 
 Wyświetlana suma dotyczy tylko narzędzi póz zainstalowanych na tym awatarze. Nie obejmuje całego awatara z ubraniami i innymi funkcjami. Wspólne ustawienia kilku narzędzi również nie są liczone ponownie. Gdy liczba póz przekracza podstawowy zakres numeracji, ich wybór wymaga dodatkowych bitów.
 

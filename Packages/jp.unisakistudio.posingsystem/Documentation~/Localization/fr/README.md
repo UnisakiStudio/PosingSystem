@@ -2,7 +2,7 @@
 
 Système de poses commun utilisé notamment par Kawaii Posing et Cool Posing. Il s’appuie sur Modular Avatar et NDMF pour générer les menus et animations nécessaires lors de l’envoi de l’avatar.
 
-Ce README concerne la version v3.2.0. La version installée apparaît en haut de l’Inspector de l’outil de poses. Consultez également les [ajouts et modifications](CHANGELOG.md).
+Ce README concerne la version v3.2.1. La version installée apparaît en haut de l’Inspector de l’outil de poses. Consultez également les [ajouts et modifications](CHANGELOG.md).
 
 ## Langue d’affichage et documentation hors ligne
 
@@ -20,16 +20,16 @@ Le délai avant l’application de la pose choisie lors du passage entre les pos
 
 Ajoutez l’outil de poses avec VCC ou ALCOM en suivant les fichiers et instructions fournis avec votre achat. Ce système est installé comme dépendance de l’outil de poses.
 
-La version v3.2.0 nécessite l’environnement suivant.
+La version v3.2.1 nécessite l’environnement suivant.
 
 - Projet d’avatar VRChat sous Unity 2022.3
 - VRChat Avatars SDK 3.10.4 ou version ultérieure
 - Modular Avatar 1.x, version 1.16.2 ou ultérieure
 - NDMF (Non-Destructive Modular Framework) 1.x, version 1.14.8 ou ultérieure
 
-Si vous utilisez Kawaii Posing, mettez-le à jour vers 3.2.0 dans ALCOM / VCC, puis vérifiez que Unisaki Posing System est également en 3.2.0. Si vous utilisiez le précalcul, cliquez sur « Actualiser le précalcul », enregistrez la scène, puis envoyez l’avatar.
+Si vous utilisez Kawaii Posing, mettez-le à jour vers 3.2.0 dans ALCOM / VCC, puis vérifiez que Unisaki Posing System est également en 3.2.1. Si vous utilisiez le précalcul, cliquez sur « Actualiser le précalcul », enregistrez la scène, puis envoyez l’avatar.
 
-Cool Posing 1.2.0 utilise le système commun 3.2.0. Mettez à jour ensemble le produit et le système commun vers les versions correspondantes.
+Cool Posing 1.3.0 utilise le système commun 3.2.1. Mettez à jour ensemble le produit et le système commun vers les versions correspondantes.
 
 ### Pour les utilisateurs de la version 8bit
 

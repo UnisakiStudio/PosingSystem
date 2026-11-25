@@ -2,7 +2,7 @@
 
 Sistem pose bersama untuk Kawaii Posing Tool, Cool Posing Tool, dan alat terkait. Sistem ini memakai Modular Avatar dan NDMF untuk membuat menu serta animasi yang diperlukan saat avatar diunggah.
 
-README ini ditujukan untuk v3.2.0. Versi terpasang terlihat di bagian atas Inspector alat pose. Lihat juga [fitur tambahan dan riwayat perubahan](CHANGELOG.md).
+README ini ditujukan untuk v3.2.1. Versi terpasang terlihat di bagian atas Inspector alat pose. Lihat juga [fitur tambahan dan riwayat perubahan](CHANGELOG.md).
 
 ## Bahasa tampilan dan dokumen offline
 
@@ -20,16 +20,16 @@ Jeda hingga pose pilihan diterapkan saat beralih antara berdiri, berjongkok, dan
 
 Tambahkan alat pose melalui VCC atau ALCOM sesuai file pembelian dan petunjuk setiap produk. Sistem ini dipasang sebagai dependensi alat pose.
 
-Persyaratan v3.2.0:
+Persyaratan v3.2.1:
 
 - Proyek avatar VRChat Unity 2022.3
 - VRChat Avatars SDK 3.10.4 atau lebih baru
 - Modular Avatar seri 1.x, versi 1.16.2 atau lebih baru
 - NDMF (Non-Destructive Modular Framework) seri 1.x, versi 1.14.8 atau lebih baru
 
-Jika memakai Kawaii Posing Tool, perbarui ke 3.2.0 melalui ALCOM / VCC dan pastikan Unisaki Posing System juga menjadi 3.2.0. Jika sebelumnya memakai prabuild, tekan Perbarui prabuild, simpan scene, lalu unggah avatar.
+Jika memakai Kawaii Posing Tool, perbarui ke 3.2.0 melalui ALCOM / VCC dan pastikan Unisaki Posing System juga menjadi 3.2.1. Jika sebelumnya memakai prabuild, tekan Perbarui prabuild, simpan scene, lalu unggah avatar.
 
-Cool Posing Tool 1.2.0 memakai sistem bersama 3.2.0. Perbarui produk dan sistem bersama sekaligus ke versi yang sesuai.
+Cool Posing Tool 1.3.0 memakai sistem bersama 3.2.1. Perbarui produk dan sistem bersama sekaligus ke versi yang sesuai.
 
 ### Untuk pengguna versi 8bit lama
 

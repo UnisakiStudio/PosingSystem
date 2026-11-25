@@ -9,14 +9,18 @@ code,pre { direction: ltr; unicode-bidi: isolate; } code { background: #8882; pa
 a { color: #2269b8; } a:visited { color: #7952ad; } li { margin-block: .35rem; }
 @media(prefers-color-scheme:dark) { a { color: #8ec5ff; } a:visited { color: #cfacff; } }
 @media print { nav { display: none; } body { max-width: none; padding: 0; } a { color: inherit; } }</style></head><body>
-<nav aria-label="Documentation"><a href="../index.html">বাংলা · 🌐</a><a href="README.html">README</a><a href="CHANGELOG.html">পরিবর্তনের ইতিহাস</a><a href="UserGuide.html">Unisaki Posing System 3.2.0 — বাংলা নির্দেশিকা</a></nav>
+<nav aria-label="Documentation"><a href="../index.html">বাংলা · 🌐</a><a href="README.html">README</a><a href="CHANGELOG.html">পরিবর্তনের ইতিহাস</a><a href="UserGuide.html">Unisaki Posing System 3.2.1 — বাংলা নির্দেশিকা</a></nav>
 <main><h1>পরিবর্তনের ইতিহাস</h1>
-<h2>[3.2.1] - অপ্রকাশিত</h2>
+<h2>[3.2.1] - 2026-11-25</h2>
 <ul>
 <li>পাশ ফেরার গতি তৈরির সময় পাশের ভঙ্গির দিক স্বয়ংক্রিয়ভাবে মেলানো সরানো হয়েছে। এখন মূল অ্যানিমেশনে নির্ধারিত দিক বজায় থাকে। বিদ্যমান প্রিবিল্ড আপডেট করুন।</li>
 </ul>
 <ul>
 <li>পায়ের উচ্চতা 8 → 0 bit, মেঝের উচ্চতা 8 → 0 bit, পাশ ফিরুন 10 → 1 bit. প্রতিটি ক্লায়েন্ট নিজে মাথার ঝোঁক হিসাব করে। শুধু পাশ ফেরা সক্রিয় কি না তা সিঙ্ক হয়। ঘাড়ের লক খুললে আগের সেটিং ফিরে আসে।</li>
+</ul>
+<ul>
+<li>“ফটো মোডে মাথা দৃশ্যমান রাখুন” চালু করলে অ্যাভাটারের নিজস্ব মেনুর চালু/বন্ধ বিকল্প কাজ করা বন্ধ করত এবং হাতের অঙ্গভঙ্গিতে বদলানো মুখভঙ্গি স্বাভাবিক অবস্থায় ফিরত না—এই সমস্যা ঠিক করা হয়েছে। এটি Write Defaults চালু থাকা অ্যাভাটারে ঘটত।</li>
+<li>শুধু পোজ টুল যোগ করলেই অ্যাভাটারের নিজস্ব মেনুর চালু/বন্ধ বিকল্প কাজ করা বন্ধ করতে পারত বা মুখভঙ্গি স্বাভাবিক অবস্থায় ফিরত না—এই সমস্যা ঠিক করা হয়েছে। এটি যেসব অ্যাভাটারে Write Defaults চালু ও বন্ধ মিশে আছে, সেগুলোতে ঘটত।</li>
 </ul>
 <h2>[3.2.0] - 2026-11-22</h2>
 <h3>সংযোজন</h3>

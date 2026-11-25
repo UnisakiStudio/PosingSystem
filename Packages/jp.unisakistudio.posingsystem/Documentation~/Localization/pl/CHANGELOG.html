@@ -9,14 +9,18 @@ code,pre { direction: ltr; unicode-bidi: isolate; } code { background: #8882; pa
 a { color: #2269b8; } a:visited { color: #7952ad; } li { margin-block: .35rem; }
 @media(prefers-color-scheme:dark) { a { color: #8ec5ff; } a:visited { color: #cfacff; } }
 @media print { nav { display: none; } body { max-width: none; padding: 0; } a { color: inherit; } }</style></head><body>
-<nav aria-label="Documentation"><a href="../index.html">Polski · 🌐</a><a href="README.html">README</a><a href="CHANGELOG.html">Historia zmian</a><a href="UserGuide.html">Unisaki Posing System 3.2.0 — polska instrukcja</a></nav>
+<nav aria-label="Documentation"><a href="../index.html">Polski · 🌐</a><a href="README.html">README</a><a href="CHANGELOG.html">Historia zmian</a><a href="UserGuide.html">Unisaki Posing System 3.2.1 — polska instrukcja</a></nav>
 <main><h1>Historia zmian</h1>
-<h2>[3.2.1] - Niewydana</h2>
+<h2>[3.2.1] - 2026-11-25</h2>
 <ul>
 <li>Usunięto automatyczne wyrównywanie kierunku pozycji na boku podczas generowania ruchu obracania się w leżeniu, zachowując orientację ustawioną w animacji źródłowej. Zaktualizuj dane budowania wstępnego.</li>
 </ul>
 <ul>
 <li>Wysokość stóp 8 → 0 bit, Wysokość ziemi 8 → 0 bit, Obróć się 10 → 1 bit. Każdy klient oblicza nachylenie głowy. Synchronizowany jest tylko stan aktywności obrotu na bok. Odblokowanie szyi przywraca poprzednie ustawienie.</li>
+</ul>
+<ul>
+<li>Naprawiono problem, w którym po włączeniu „Pokazuj głowę w trybie zdjęć” przełączniki we własnym menu awatara przestawały działać, a wyrazy twarzy zmienione gestami dłoni nie wracały do normy. Występował on w awatarach z włączonym Write Defaults.</li>
+<li>Naprawiono problem, w którym samo dodanie narzędzia do póz mogło sprawić, że przełączniki we własnym menu awatara przestawały działać lub wyrazy twarzy nie wracały do normy. Występował on w awatarach, w których włączone i wyłączone Write Defaults są pomieszane.</li>
 </ul>
 <h2>[3.2.0] - 2026-11-22</h2>
 <h3>Dodano</h3>

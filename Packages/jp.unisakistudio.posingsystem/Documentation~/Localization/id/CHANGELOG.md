@@ -1,10 +1,13 @@
 # Riwayat perubahan
 
-## [3.2.1] - Belum dirilis
+## [3.2.1] - 2026-11-25
 
 - Penyelarasan arah otomatis pada pose menyamping saat membuat gerakan berguling telah dihapus, sehingga orientasi yang diatur dalam animasi sumber tetap dipertahankan. Perbarui hasil prabuild yang ada.
 
 - Tinggi kaki 8 → 0 bit, Tinggi lantai 8 → 0 bit, Berguling 10 → 1 bit. Setiap klien menghitung kemiringan kepala. Hanya status aktif gerakan berguling yang disinkronkan. Membuka kunci leher memulihkan pengaturan semula.
+
+- Memperbaiki masalah ketika “Tetap tampilkan kepala dalam mode foto” diaktifkan, tombol hidup/mati pada menu bawaan avatar tidak berfungsi dan ekspresi wajah yang diubah dengan gestur tangan tidak kembali normal. Masalah ini terjadi pada avatar dengan Write Defaults aktif.
+- Memperbaiki masalah ketika hanya dengan menambahkan alat pose, tombol hidup/mati pada menu bawaan avatar bisa tidak berfungsi atau ekspresi wajah tidak kembali normal. Masalah ini terjadi pada avatar yang mencampur Write Defaults aktif dan nonaktif.
 
 ## [3.2.0] - 2026-11-22
 

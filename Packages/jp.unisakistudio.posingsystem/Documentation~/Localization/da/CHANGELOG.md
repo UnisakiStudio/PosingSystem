@@ -1,10 +1,13 @@
 # Ændringshistorik
 
-## [3.2.1] - Ikke udgivet
+## [3.2.1] - 2026-11-25
 
 - Den automatiske retningsjustering af sideposen ved generering af vendinger er fjernet. Orienteringen fra kildeanimationen bevares. Opdater eksisterende forberegninger.
 
 - Fodhøjde 8 → 0 bit, Gulvhøjde 8 → 0 bit, Vend dig 10 → 1 bit. Hver klient beregner hovedets hældning. Kun den faktiske aktivering af vendingen synkroniseres. Når nakken låses op, gendannes den oprindelige indstilling.
+
+- Rettede et problem, hvor tænd/sluk-punkterne i avatarens egen menu holdt op med at virke, og ansigtsudtryk ændret med håndbevægelser ikke vendte tilbage til normal, når ”Hold hovedet synligt i Fototilstand” var slået til. Det skete på avatarer med Write Defaults slået til.
+- Rettede et problem, hvor blot det at tilføje poseværktøjet kunne få tænd/sluk-punkterne i avatarens egen menu til at holde op med at virke eller forhindre ansigtsudtryk i at vende tilbage til normal. Det skete på avatarer, hvor Write Defaults slået til og fra er blandet.
 
 ## [3.2.0] - 2026-11-22
 

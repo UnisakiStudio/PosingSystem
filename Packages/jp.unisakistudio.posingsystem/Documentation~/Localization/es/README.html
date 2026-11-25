@@ -9,10 +9,10 @@ code,pre { direction: ltr; unicode-bidi: isolate; } code { background: #8882; pa
 a { color: #2269b8; } a:visited { color: #7952ad; } li { margin-block: .35rem; }
 @media(prefers-color-scheme:dark) { a { color: #8ec5ff; } a:visited { color: #cfacff; } }
 @media print { nav { display: none; } body { max-width: none; padding: 0; } a { color: inherit; } }</style></head><body>
-<nav aria-label="Documentation"><a href="../index.html">Español · 🌐</a><a href="README.html">README</a><a href="CHANGELOG.html">Historial de cambios</a><a href="UserGuide.html">Unisaki Posing System 3.2.0 — Manual en español</a></nav>
+<nav aria-label="Documentation"><a href="../index.html">Español · 🌐</a><a href="README.html">README</a><a href="CHANGELOG.html">Historial de cambios</a><a href="UserGuide.html">Unisaki Posing System 3.2.1 — Manual en español</a></nav>
 <main><h1>Unisaki Posing System</h1>
 <p>Sistema de poses común para Kawaii Posing, Cool Posing y otras herramientas. Utiliza Modular Avatar y NDMF para generar los menús y animaciones necesarios al subir el avatar.</p>
-<p>Este README corresponde a v3.2.0. La versión instalada aparece arriba en el Inspector. Consulta también las <a href="CHANGELOG.html">novedades y cambios</a>.</p>
+<p>Este README corresponde a v3.2.1. La versión instalada aparece arriba en el Inspector. Consulta también las <a href="CHANGELOG.html">novedades y cambios</a>.</p>
 <h2>Idioma de la interfaz y documentación sin conexión</h2>
 <p>Elige el idioma en «Language / 言語», arriba del Inspector. Una sola selección controla el Inspector y los menús VRChat generados. Vuelve a subir el avatar para cambiar el idioma dentro del juego.</p>
 <p>Sin una selección explícita se usa el idioma del ordenador; si no está disponible, se utiliza inglés. Se admiten Windows, macOS y Linux. La última elección se guarda en EditorPrefs y se reutiliza en otros proyectos del mismo usuario del sistema en este ordenador. Todas las herramientas de poses y los avatares usan el mismo idioma. Cambiarlo en el Inspector de cualquier herramienta actualiza la preferencia común; se ignoran las elecciones de idioma de cada avatar. No se sincroniza con otros ordenadores. El almacenamiento de las licencias no cambia. El botón de idioma solo aparece en la confirmación inicial de instalación cuando no hay un idioma guardado. Los cambios posteriores se realizan en el Inspector.</p>
@@ -21,15 +21,15 @@ a { color: #2269b8; } a:visited { color: #7952ad; } li { margin-block: .35rem; }
 <p>Se ha reducido el retraso al aplicar la pose elegida al pasar entre de pie, agachado y sentado en escritorio. Funciona tanto en compilaciones normales como en el precálculo, sin comandos especiales ni ajustes adicionales. En VR y situaciones especiales se mantiene el procesamiento anterior. Actualiza los precálculos antiguos antes de subir el avatar.</p>
 <h2>Instalación y actualización</h2>
 <p>Añade la herramienta con VCC o ALCOM siguiendo los archivos e instrucciones de tu compra. Este sistema se instala como dependencia de la herramienta de poses.</p>
-<p>Los requisitos de v3.2.0 son los siguientes.</p>
+<p>Los requisitos de v3.2.1 son los siguientes.</p>
 <ul>
 <li>Proyecto de avatar VRChat con Unity 2022.3</li>
 <li>VRChat Avatars SDK 3.10.4 o posterior</li>
 <li>Modular Avatar de la serie 1.x, versión 1.16.2 o posterior</li>
 <li>NDMF (Non-Destructive Modular Framework) de la serie 1.x, versión 1.14.8 o posterior</li>
 </ul>
-<p>Si usas Kawaii Posing, actualízalo a 3.2.0 desde ALCOM / VCC y comprueba que Unisaki Posing System también sea 3.2.0. Si usabas precálculo, pulsa «Actualizar precálculo», guarda la escena y sube el avatar.</p>
-<p>Cool Posing 1.2.0 utiliza el sistema común 3.2.0. Actualiza juntos el producto y el sistema común a las versiones correspondientes.</p>
+<p>Si usas Kawaii Posing, actualízalo a 3.2.0 desde ALCOM / VCC y comprueba que Unisaki Posing System también sea 3.2.1. Si usabas precálculo, pulsa «Actualizar precálculo», guarda la escena y sube el avatar.</p>
+<p>Cool Posing 1.3.0 utiliza el sistema común 3.2.1. Actualiza juntos el producto y el sistema común a las versiones correspondientes.</p>
 <h3>Para usuarios de la versión 8bit</h3>
 <p>Las nuevas instalaciones usan el Prefab normal. Desactiva las funciones innecesarias para reducir el consumo. La selección de poses sola utiliza 8 bit de base.</p>
 <p>Los antiguos Prefabs 8bit permanecen en «Editor/Legacy» de cada producto para conservar las referencias de avatares y preajustes existentes. No es necesario eliminarlos ni sustituirlos para seguir usándolos. El menú de Unity para añadir herramientas ya no ofrece la versión 8bit.</p>
@@ -58,7 +58,7 @@ a { color: #2269b8; } a:visited { color: #7952ad; } li { margin-block: .35rem; }
 <tr><td>Reducir deformaciones por la rotación de cabeza</td><td>1 bit</td></tr>
 <tr><td>Darse vuelta</td><td>1 bit</td></tr>
 </tbody></table></div>
-<p>Cada cliente calcula la inclinación de la cabeza. Solo se sincroniza si el giro está activo. Al desbloquear el cuello, se recupera el ajuste original.</p>
+<p>Cada cliente calcula la inclinación de la cabeza. Solo se sincroniza si está activa la opción «Darse vuelta». Al desbloquear el cuello, se recupera el ajuste original.</p>
 <p>El total mostrado corresponde a las herramientas de poses instaladas en el avatar, no al avatar completo con ropa y otros sistemas. Los ajustes comunes de varias herramientas no se cuentan dos veces. Si las poses superan el intervalo básico de numeración, su selección también necesita bits adicionales.</p>
 <h3>Altura pies y Altura suelo</h3>
 <ul>

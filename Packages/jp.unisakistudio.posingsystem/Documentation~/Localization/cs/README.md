@@ -2,7 +2,7 @@
 
 Společný systém póz pro Kawaii Posing Tool, Cool Posing Tool a další nástroje. Pomocí Modular Avatar a NDMF vytváří potřebné nabídky a animace při nahrávání avatara.
 
-Tento README je určen pro verzi v3.2.0. Nainstalovaná verze se zobrazuje nahoře v Inspectoru nástroje pro pózy. Viz také [nové funkce a historii změn](CHANGELOG.md).
+Tento README je určen pro verzi v3.2.1. Nainstalovaná verze se zobrazuje nahoře v Inspectoru nástroje pro pózy. Viz také [nové funkce a historii změn](CHANGELOG.md).
 
 ## Jazyk rozhraní a offline dokumentace
 
@@ -20,16 +20,16 @@ Zkrátila se prodleva mezi přepnutím stoje, podřepu a sedu v režimu plochy a
 
 Přidejte nástroj pro pózy přes VCC nebo ALCOM podle zakoupených souborů a pokynů příslušného produktu. Tento systém se instaluje jako závislost nástroje.
 
-Požadavky verze v3.2.0:
+Požadavky verze v3.2.1:
 
 - Projekt avatara VRChat v Unity 2022.3
 - VRChat Avatars SDK 3.10.4 nebo novější
 - Modular Avatar řady 1.x, nejméně verze 1.16.2
 - NDMF (Non-Destructive Modular Framework) řady 1.x, nejméně verze 1.14.8
 
-Pokud používáte Kawaii Posing Tool, aktualizujte jej v ALCOM / VCC na 3.2.0 a ověřte, že i Unisaki Posing System má verzi 3.2.0. Pokud jste používali předgenerování, stiskněte Aktualizovat předgenerování, uložte scénu a poté nahrajte avatara.
+Pokud používáte Kawaii Posing Tool, aktualizujte jej v ALCOM / VCC na 3.2.0 a ověřte, že i Unisaki Posing System má verzi 3.2.1. Pokud jste používali předgenerování, stiskněte Aktualizovat předgenerování, uložte scénu a poté nahrajte avatara.
 
-Cool Posing Tool 1.2.0 používá společný systém 3.2.0. Aktualizujte produkt i společný systém společně na odpovídající verze.
+Cool Posing Tool 1.3.0 používá společný systém 3.2.1. Aktualizujte produkt i společný systém společně na odpovídající verze.
 
 ### Pro uživatele původní 8bit verze
 

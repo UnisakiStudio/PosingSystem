@@ -2,7 +2,7 @@
 
 Kawaii Posing, Cool Posing 등에서 사용하는 공통 포즈 시스템입니다. Modular Avatar와 NDMF를 사용하여 아바타 업로드 시 필요한 메뉴와 애니메이션을 생성합니다.
 
-이 README는 v3.2.0용입니다. 설치된 버전은 포즈 도구의 Inspector 상단에서 확인할 수 있습니다. [추가 기능과 변경 내역](CHANGELOG.md)도 확인하세요.
+이 README는 v3.2.1용입니다. 설치된 버전은 포즈 도구의 Inspector 상단에서 확인할 수 있습니다. [추가 기능과 변경 내역](CHANGELOG.md)도 확인하세요.
 
 ## 표시 언어와 오프라인 문서
 
@@ -20,16 +20,16 @@ Inspector 최상단의 Language / 言語에서 표시 언어를 선택합니다.
 
 각 상품의 구매 파일과 설치 안내에 따라 VCC 또는 ALCOM에서 포즈 도구를 추가하세요. 이 시스템은 포즈 도구의 의존 패키지로 설치됩니다.
 
-v3.2.0의 필요 환경은 다음과 같습니다.
+v3.2.1의 필요 환경은 다음과 같습니다.
 
 - Unity 2022.3의 VRChat 아바타 프로젝트
 - VRChat Avatars SDK 3.10.4 이상
 - Modular Avatar 1.x 중 1.16.2 이상
 - NDMF(Non-Destructive Modular Framework) 1.x 중 1.14.8 이상
 
-Kawaii Posing 사용자는 ALCOM / VCC에서 Kawaii Posing을 3.2.0으로 업데이트하고 Unisaki Posing System도 3.2.0인지 확인하세요. 프리빌드를 사용했다면 프리빌드 업데이트를 누르고 씬을 저장한 뒤 아바타를 업로드합니다.
+Kawaii Posing 사용자는 ALCOM / VCC에서 Kawaii Posing을 3.2.0으로 업데이트하고 Unisaki Posing System도 3.2.1인지 확인하세요. 프리빌드를 사용했다면 프리빌드 업데이트를 누르고 씬을 저장한 뒤 아바타를 업로드합니다.
 
-Cool Posing 1.2.0은 공통 시스템 3.2.0을 사용합니다. 상품과 공통 시스템을 서로 호환되는 버전으로 함께 업데이트하세요.
+Cool Posing 1.3.0은 공통 시스템 3.2.1을 사용합니다. 상품과 공통 시스템을 서로 호환되는 버전으로 함께 업데이트하세요.
 
 ### 8bit 버전을 사용했던 분께
 

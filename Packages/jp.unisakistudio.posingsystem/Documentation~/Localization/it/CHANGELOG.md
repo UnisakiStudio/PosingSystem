@@ -1,10 +1,13 @@
 # Cronologia delle modifiche
 
-## [3.2.1] - Non pubblicata
+## [3.2.1] - 2026-11-25
 
 - Rimosso l’allineamento automatico della direzione della posa laterale durante la generazione dei movimenti per girarsi, mantenendo l’orientamento impostato nell’animazione originale. Aggiornare il precalcolo esistente.
 
 - Altezza piedi 8 → 0 bit, Altezza suolo 8 → 0 bit, Girarsi 10 → 1 bit. Ogni client calcola l’inclinazione della testa. Viene sincronizzato solo lo stato effettivo della rotazione sul fianco. Sbloccando il collo si ripristina l’impostazione iniziale.
+
+- Risolto un problema per cui, attivando «Tenere visibile la testa in Modalità foto», gli interruttori del menu già presente nell’avatar smettevano di funzionare e le espressioni facciali cambiate con i gesti della mano non tornavano più alla normalità. Si verificava sugli avatar con Write Defaults attivo.
+- Risolto un problema per cui la sola aggiunta dello strumento di posa poteva far smettere di funzionare gli interruttori del menu già presente nell’avatar o impedire alle espressioni facciali di tornare alla normalità. Si verificava sugli avatar in cui Write Defaults attivo e disattivo sono mescolati.
 
 ## [3.2.0] - 2026-11-22
 

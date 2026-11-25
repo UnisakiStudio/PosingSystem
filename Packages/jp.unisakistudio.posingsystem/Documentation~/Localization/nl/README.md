@@ -2,7 +2,7 @@
 
 Gedeeld posesysteem voor Kawaii Posing, Cool Posing en verwante tools. Met Modular Avatar en NDMF maakt het bij de avatarupload de benodigde menu’s en animaties.
 
-Deze README geldt voor v3.2.0. De versie staat boven in de Inspector. Zie ook [toevoegingen en wijzigingen](CHANGELOG.md).
+Deze README geldt voor v3.2.1. De versie staat boven in de Inspector. Zie ook [toevoegingen en wijzigingen](CHANGELOG.md).
 
 ## Weergavetaal en offline documentatie
 
@@ -20,16 +20,16 @@ De vertraging voordat de gekozen pose verschijnt bij wisselen tussen staan, hurk
 
 Voeg de posetool met VCC of ALCOM toe volgens de gekochte bestanden en instructies. Dit systeem wordt als afhankelijkheid geïnstalleerd.
 
-Voor v3.2.0 zijn de volgende onderdelen nodig.
+Voor v3.2.1 zijn de volgende onderdelen nodig.
 
 - VRChat-avatarproject met Unity 2022.3
 - VRChat Avatars SDK 3.10.4 of hoger
 - Modular Avatar 1.x, versie 1.16.2 of hoger
 - NDMF (Non-Destructive Modular Framework) 1.x, versie 1.14.8 of hoger
 
-Werk Kawaii Posing in ALCOM / VCC bij naar 3.2.0 en controleer dat Unisaki Posing System ook 3.2.0 is. Gebruik je voorberekening, klik dan op Voorberekening bijwerken, sla de scène op en upload de avatar.
+Werk Kawaii Posing in ALCOM / VCC bij naar 3.2.0 en controleer dat Unisaki Posing System ook 3.2.1 is. Gebruik je voorberekening, klik dan op Voorberekening bijwerken, sla de scène op en upload de avatar.
 
-Cool Posing 1.2.0 gebruikt het gedeelde systeem 3.2.0. Werk product en systeem samen bij naar de bijbehorende versies.
+Cool Posing 1.3.0 gebruikt het gedeelde systeem 3.2.1. Werk product en systeem samen bij naar de bijbehorende versies.
 
 ### Voor gebruikers van de 8bit-versie
 
@@ -70,7 +70,7 @@ Keuzes onder Functies > Menufuncties verschijnen in het spel. Spiegelen toevoege
 | Vervorming door hoofdrotatie verminderen | 1 bit |
 | Omdraaien | 1 bit |
 
-Elke client berekent de kanteling van het hoofd. Alleen de actieve stand van het omrollen wordt gesynchroniseerd. Na het ontgrendelen van de nek geldt de oorspronkelijke instelling weer.
+Elke client berekent de kanteling van het hoofd. Alleen de aan-uitstand van de functie ‘Omdraaien’ wordt gesynchroniseerd. Na het ontgrendelen van de nek geldt de oorspronkelijke instelling weer.
 
 Het totaal betreft de posetools in de avatar, niet de hele avatar met kleding en andere systemen. Gedeelde opties van meerdere tools tellen niet dubbel. Meer poses dan het basisnummerbereik kunnen extra selectiebits vereisen.
 

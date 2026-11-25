@@ -1,10 +1,13 @@
 # Histórico de alterações
 
-## [3.2.1] - Por lançar
+## [3.2.1] - 2026-11-25
 
 - Foi removido o alinhamento automático da orientação da pose lateral ao gerar movimentos para virar deitado, preservando a orientação definida na animação original. Atualize os pré-cálculos existentes.
 
 - Altura pés 8 → 0 bit, Altura chão 8 → 0 bit, Virar 10 → 1 bit. Cada cliente calcula a inclinação da cabeça. Só é sincronizado o estado efetivo da função de virar de lado. Desbloquear o pescoço repõe a definição original.
+
+- Corrigido um problema em que, ao ativar «Manter cabeça visível no Modo foto», os interruptores do menu que o avatar já trazia deixavam de funcionar e as expressões faciais alteradas por gestos das mãos não voltavam ao normal. Ocorria em avatares com Write Defaults ativado.
+- Corrigido um problema em que apenas adicionar a ferramenta de poses podia fazer com que os interruptores do menu que o avatar já trazia deixassem de funcionar ou que as expressões faciais não voltassem ao normal. Ocorria em avatares que misturam Write Defaults ativado e desativado.
 
 ## [3.2.0] - 2026-11-22
 

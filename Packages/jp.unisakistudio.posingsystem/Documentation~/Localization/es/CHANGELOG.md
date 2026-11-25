@@ -1,10 +1,13 @@
 # Historial de cambios
 
-## [3.2.1] - Sin publicar
+## [3.2.1] - 2026-11-25
 
 - Se eliminó la alineación automática de la orientación de la pose lateral al generar movimientos para darse vuelta, conservando la orientación ajustada en la animación original. Actualiza los precálculos existentes.
 
 - Altura pies 8 → 0 bit, Altura suelo 8 → 0 bit, Darse vuelta 10 → 1 bit. Cada cliente calcula la inclinación de la cabeza. Solo se sincroniza si el giro está activo. Al desbloquear el cuello, se recupera el ajuste original.
+
+- Se ha corregido un problema por el que, al activar «Mantener la cabeza visible en Modo foto», los interruptores del menú que el avatar trae de origen dejaban de funcionar y las expresiones faciales cambiadas con gestos de la mano no volvían a la normalidad. Ocurría en avatares con Write Defaults activado.
+- Se ha corregido un problema por el que el simple hecho de añadir la herramienta de poses podía hacer que los interruptores del menú que el avatar trae de origen dejaran de funcionar o que las expresiones faciales no volvieran a la normalidad. Ocurría en avatares que mezclan Write Defaults activado y desactivado.
 
 ## [3.2.0] - 2026-11-22
 

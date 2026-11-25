@@ -9,14 +9,18 @@ code,pre { direction: ltr; unicode-bidi: isolate; } code { background: #8882; pa
 a { color: #2269b8; } a:visited { color: #7952ad; } li { margin-block: .35rem; }
 @media(prefers-color-scheme:dark) { a { color: #8ec5ff; } a:visited { color: #cfacff; } }
 @media print { nav { display: none; } body { max-width: none; padding: 0; } a { color: inherit; } }</style></head><body>
-<nav aria-label="Documentation"><a href="../index.html">Українська · 🌐</a><a href="README.html">README</a><a href="CHANGELOG.html">Історія змін</a><a href="UserGuide.html">Unisaki Posing System 3.2.0 — посібник українською мовою</a></nav>
+<nav aria-label="Documentation"><a href="../index.html">Українська · 🌐</a><a href="README.html">README</a><a href="CHANGELOG.html">Історія змін</a><a href="UserGuide.html">Unisaki Posing System 3.2.1 — посібник українською мовою</a></nav>
 <main><h1>Історія змін</h1>
-<h2>[3.2.1] - Ще не випущено</h2>
+<h2>[3.2.1] - 2026-11-25</h2>
 <ul>
 <li>Під час створення переворотів вимкнено автоматичне вирівнювання напрямку пози на боці: тепер зберігається орієнтація, задана у вихідній анімації. Оновіть наявні попередні збірки.</li>
 </ul>
 <ul>
 <li>Висота ніг 8 → 0 bit, Висота підлоги 8 → 0 bit, Перевернутися 10 → 1 bit. Кожен клієнт обчислює нахил голови. Синхронізується лише фактичний стан перевертання. Після розблокування шиї відновлюється початкове налаштування.</li>
+</ul>
+<ul>
+<li>Виправлено проблему: з увімкненим параметром «Не приховувати голову у фоторежимі» перемикачі у власному меню аватара переставали працювати, а вирази обличчя, змінені жестами рук, не поверталися до звичайного стану. Проблема виникала на аватарах з увімкненим Write Defaults.</li>
+<li>Виправлено проблему: саме лише додавання інструмента поз могло призводити до того, що перемикачі у власному меню аватара переставали працювати або вирази обличчя не поверталися до звичайного стану. Проблема виникала на аватарах, де ввімкнений і вимкнений Write Defaults змішані.</li>
 </ul>
 <h2>[3.2.0] - 2026-11-22</h2>
 <h3>Додано</h3>

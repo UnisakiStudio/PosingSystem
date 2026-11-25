@@ -1,4 +1,4 @@
-# Unisaki Posing System 3.2.0 — हिन्दी मार्गदर्शिका
+# Unisaki Posing System 3.2.1 — हिन्दी मार्गदर्शिका
 
 Unisaki Posing System, Kawaii Posing, Cool Posing और संबंधित टूल का साझा मुख्य सिस्टम है।
 खरीदा गया उत्पाद और यह सिस्टम VCC या ALCOM से एक साथ इंस्टॉल करें। Unity 2022.3,

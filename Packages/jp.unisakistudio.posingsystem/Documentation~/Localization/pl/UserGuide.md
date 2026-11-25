@@ -1,4 +1,4 @@
-# Unisaki Posing System 3.2.0 — polska instrukcja
+# Unisaki Posing System 3.2.1 — polska instrukcja
 
 Unisaki Posing System to wspólny rdzeń Kawaii Posing, Cool Posing i powiązanych narzędzi. Zainstaluj zakupiony produkt i rdzeń razem przez VCC lub ALCOM. Użyj Unity 2022.3, VRChat Avatars SDK 3.10.4+, Modular Avatar 1.16.2+ i NDMF 1.14.8+.
 

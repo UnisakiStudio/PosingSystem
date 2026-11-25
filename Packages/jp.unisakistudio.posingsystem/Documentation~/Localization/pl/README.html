@@ -9,10 +9,10 @@ code,pre { direction: ltr; unicode-bidi: isolate; } code { background: #8882; pa
 a { color: #2269b8; } a:visited { color: #7952ad; } li { margin-block: .35rem; }
 @media(prefers-color-scheme:dark) { a { color: #8ec5ff; } a:visited { color: #cfacff; } }
 @media print { nav { display: none; } body { max-width: none; padding: 0; } a { color: inherit; } }</style></head><body>
-<nav aria-label="Documentation"><a href="../index.html">Polski · 🌐</a><a href="README.html">README</a><a href="CHANGELOG.html">Historia zmian</a><a href="UserGuide.html">Unisaki Posing System 3.2.0 — polska instrukcja</a></nav>
+<nav aria-label="Documentation"><a href="../index.html">Polski · 🌐</a><a href="README.html">README</a><a href="CHANGELOG.html">Historia zmian</a><a href="UserGuide.html">Unisaki Posing System 3.2.1 — polska instrukcja</a></nav>
 <main><h1>Unisaki Posing System</h1>
 <p>Wspólny system póz dla Kawaii Posing Tool, Cool Posing Tool i innych narzędzi. Za pomocą Modular Avatar i NDMF tworzy potrzebne menu oraz animacje podczas przesyłania awatara.</p>
-<p>Ten README dotyczy wersji v3.2.0. Zainstalowana wersja jest widoczna u góry Inspectora narzędzia póz. Zobacz również <a href="CHANGELOG.html">nowe funkcje i historię zmian</a>.</p>
+<p>Ten README dotyczy wersji v3.2.1. Zainstalowana wersja jest widoczna u góry Inspectora narzędzia póz. Zobacz również <a href="CHANGELOG.html">nowe funkcje i historię zmian</a>.</p>
 <h2>Język interfejsu i dokumentacja offline</h2>
 <p>Wybierz język w polu „Language / 言語” u góry Inspectora. Jeden wybór obejmuje Inspector i generowane menu VRChat. Aby zmienić język w grze, prześlij awatara ponownie.</p>
 <p>Jeżeli nie wybrano języka, używany jest język komputera, a dla nieobsługiwanego języka — angielski. Obsługiwane są Windows, macOS i Linux. Ostatni wybór jest zapisywany w EditorPrefs i używany także w innych projektach tego samego użytkownika systemu na tym komputerze. Wszystkie narzędzia do pozowania i awatary używają tego samego języka. Zmiana w Inspectorze dowolnego narzędzia aktualizuje wspólne ustawienie; wybory języka poszczególnych awatarów są ignorowane. Nie jest synchronizowany z innymi komputerami. Sposób przechowywania licencji nie zmienia się. Przycisk języka pojawia się tylko przy pierwszym potwierdzeniu instalacji, gdy nie zapisano języka. Późniejszych zmian dokonuje się w Inspectorze.</p>
@@ -21,15 +21,15 @@ a { color: #2269b8; } a:visited { color: #7952ad; } li { margin-block: .35rem; }
 <p>Skrócono opóźnienie zastosowania wybranej pozy przy przechodzeniu między staniem, kucaniem i siedzeniem w trybie pulpitu. Zmiana działa podczas zwykłego budowania i budowania wstępnego bez specjalnych poleceń ani dodatkowych ustawień. VR i szczególne stany zachowują dotychczasową obsługę. Przed przesłaniem awatara zaktualizuj dane budowania wstępnego ze starej wersji.</p>
 <h2>Instalacja i aktualizacja</h2>
 <p>Dodaj narzędzie póz przez VCC lub ALCOM zgodnie z zakupionymi plikami i instrukcją danego produktu. Ten system jest instalowany jako zależność narzędzia póz.</p>
-<p>Wymagania wersji v3.2.0:</p>
+<p>Wymagania wersji v3.2.1:</p>
 <ul>
 <li>Projekt awatara VRChat w Unity 2022.3</li>
 <li>VRChat Avatars SDK 3.10.4 lub nowszy</li>
 <li>Modular Avatar z gałęzi 1.x, w wersji co najmniej 1.16.2</li>
 <li>NDMF (Non-Destructive Modular Framework) z gałęzi 1.x, w wersji co najmniej 1.14.8</li>
 </ul>
-<p>Jeżeli używasz Kawaii Posing Tool, zaktualizuj go do 3.2.0 w ALCOM / VCC i sprawdź, czy Unisaki Posing System również ma wersję 3.2.0. Jeśli korzystasz z budowania wstępnego, naciśnij „Aktualizuj budowanie wstępne”, zapisz scenę, a następnie prześlij awatara.</p>
-<p>Cool Posing Tool 1.2.0 korzysta ze wspólnego systemu 3.2.0. Aktualizuj produkt i wspólny system razem do zgodnych wersji.</p>
+<p>Jeżeli używasz Kawaii Posing Tool, zaktualizuj go do 3.2.0 w ALCOM / VCC i sprawdź, czy Unisaki Posing System również ma wersję 3.2.1. Jeśli korzystasz z budowania wstępnego, naciśnij „Aktualizuj budowanie wstępne”, zapisz scenę, a następnie prześlij awatara.</p>
+<p>Cool Posing Tool 1.3.0 korzysta ze wspólnego systemu 3.2.1. Aktualizuj produkt i wspólny system razem do zgodnych wersji.</p>
 <h3>Dla użytkowników dawnej wersji 8bit</h3>
 <p>Nowe instalacje korzystają teraz ze zwykłego Prefabu. Wyłącz niepotrzebne pozycje we Funkcjach, aby zmniejszyć zużycie. Sam wybór póz w podstawowej konfiguracji zużywa 8 bit.</p>
 <p>Dawny Prefab 8bit pozostaje w „Editor/Legacy” każdego produktu, aby zachować odwołania istniejących awatarów i presetów. Dalsze używanie dawnej wersji 8bit nie wymaga usuwania ani zastępowania Prefabu. Wybór wersji 8bit w menu dodawania Unity został usunięty.</p>
@@ -58,7 +58,7 @@ a { color: #2269b8; } a:visited { color: #7952ad; } li { margin-block: .35rem; }
 <tr><td>Ogranicz deformację pozy przy obrocie głowy</td><td>1 bit</td></tr>
 <tr><td>Obróć się</td><td>1 bit</td></tr>
 </tbody></table></div>
-<p>Każdy klient oblicza nachylenie głowy. Synchronizowany jest tylko stan aktywności obrotu na bok. Odblokowanie szyi przywraca poprzednie ustawienie.</p>
+<p>Każdy klient oblicza nachylenie głowy. Synchronizowany jest tylko stan funkcji obracania się na bok. Odblokowanie szyi przywraca poprzednie ustawienie.</p>
 <p>Wyświetlana suma dotyczy tylko narzędzi póz zainstalowanych na tym awatarze. Nie obejmuje całego awatara z ubraniami i innymi funkcjami. Wspólne ustawienia kilku narzędzi również nie są liczone ponownie. Gdy liczba póz przekracza podstawowy zakres numeracji, ich wybór wymaga dodatkowych bitów.</p>
 <h3>Wysokość stóp i wysokość ziemi</h3>
 <ul>

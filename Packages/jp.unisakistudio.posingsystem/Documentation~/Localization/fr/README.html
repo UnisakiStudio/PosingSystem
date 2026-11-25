@@ -9,10 +9,10 @@ code,pre { direction: ltr; unicode-bidi: isolate; } code { background: #8882; pa
 a { color: #2269b8; } a:visited { color: #7952ad; } li { margin-block: .35rem; }
 @media(prefers-color-scheme:dark) { a { color: #8ec5ff; } a:visited { color: #cfacff; } }
 @media print { nav { display: none; } body { max-width: none; padding: 0; } a { color: inherit; } }</style></head><body>
-<nav aria-label="Documentation"><a href="../index.html">Français · 🌐</a><a href="README.html">README</a><a href="CHANGELOG.html">Historique des modifications</a><a href="UserGuide.html">Unisaki Posing System 3.2.0 — Guide en français</a></nav>
+<nav aria-label="Documentation"><a href="../index.html">Français · 🌐</a><a href="README.html">README</a><a href="CHANGELOG.html">Historique des modifications</a><a href="UserGuide.html">Unisaki Posing System 3.2.1 — Guide en français</a></nav>
 <main><h1>Unisaki Posing System</h1>
 <p>Système de poses commun utilisé notamment par Kawaii Posing et Cool Posing. Il s’appuie sur Modular Avatar et NDMF pour générer les menus et animations nécessaires lors de l’envoi de l’avatar.</p>
-<p>Ce README concerne la version v3.2.0. La version installée apparaît en haut de l’Inspector de l’outil de poses. Consultez également les <a href="CHANGELOG.html">ajouts et modifications</a>.</p>
+<p>Ce README concerne la version v3.2.1. La version installée apparaît en haut de l’Inspector de l’outil de poses. Consultez également les <a href="CHANGELOG.html">ajouts et modifications</a>.</p>
 <h2>Langue d’affichage et documentation hors ligne</h2>
 <p>Choisissez la langue d’affichage dans « Language / 言語 », tout en haut de l’Inspector. Ce choix s’applique à la fois à l’Inspector et aux menus VRChat générés. Renvoyez l’avatar pour modifier l’affichage dans le jeu.</p>
 <p>Sans choix explicite, la langue de l’ordinateur est utilisée ; une langue non prise en charge est remplacée par l’anglais. Windows, macOS et Linux sont pris en charge. La dernière langue choisie est enregistrée dans EditorPrefs et réutilisée dans les autres projets du même utilisateur du système sur cet ordinateur. Tous les outils de poses et avatars utilisent la même langue. La modifier dans l’Inspector de n’importe quel outil met à jour le réglage commun ; les choix de langue propres aux avatars sont ignorés. Ce réglage n’est pas synchronisé avec d’autres ordinateurs. Le stockage de la licence reste inchangé. Le bouton de langue apparaît uniquement lors de la première confirmation d’installation si aucune langue n’est enregistrée. Les changements ultérieurs se font dans l’Inspector.</p>
@@ -21,15 +21,15 @@ a { color: #2269b8; } a:visited { color: #7952ad; } li { margin-block: .35rem; }
 <p>Le délai avant l’application de la pose choisie lors du passage entre les positions debout, accroupie et assise en mode bureau a été réduit. Cette amélioration s’applique aux builds ordinaires et au précalcul, sans commande spéciale ni réglage supplémentaire. Le traitement habituel est conservé en mode VR et dans les situations particulières. Actualisez les anciens précalculs avant d’envoyer l’avatar.</p>
 <h2>Installation et mise à jour</h2>
 <p>Ajoutez l’outil de poses avec VCC ou ALCOM en suivant les fichiers et instructions fournis avec votre achat. Ce système est installé comme dépendance de l’outil de poses.</p>
-<p>La version v3.2.0 nécessite l’environnement suivant.</p>
+<p>La version v3.2.1 nécessite l’environnement suivant.</p>
 <ul>
 <li>Projet d’avatar VRChat sous Unity 2022.3</li>
 <li>VRChat Avatars SDK 3.10.4 ou version ultérieure</li>
 <li>Modular Avatar 1.x, version 1.16.2 ou ultérieure</li>
 <li>NDMF (Non-Destructive Modular Framework) 1.x, version 1.14.8 ou ultérieure</li>
 </ul>
-<p>Si vous utilisez Kawaii Posing, mettez-le à jour vers 3.2.0 dans ALCOM / VCC, puis vérifiez que Unisaki Posing System est également en 3.2.0. Si vous utilisiez le précalcul, cliquez sur « Actualiser le précalcul », enregistrez la scène, puis envoyez l’avatar.</p>
-<p>Cool Posing 1.2.0 utilise le système commun 3.2.0. Mettez à jour ensemble le produit et le système commun vers les versions correspondantes.</p>
+<p>Si vous utilisez Kawaii Posing, mettez-le à jour vers 3.2.0 dans ALCOM / VCC, puis vérifiez que Unisaki Posing System est également en 3.2.1. Si vous utilisiez le précalcul, cliquez sur « Actualiser le précalcul », enregistrez la scène, puis envoyez l’avatar.</p>
+<p>Cool Posing 1.3.0 utilise le système commun 3.2.1. Mettez à jour ensemble le produit et le système commun vers les versions correspondantes.</p>
 <h3>Pour les utilisateurs de la version 8bit</h3>
 <p>Les nouveaux ajouts utilisent désormais le Prefab standard. Désactivez les options inutiles dans « Fonctions » pour réduire la consommation. La sélection des poses seule utilise 8 bit de base.</p>
 <p>Les anciens Prefabs 8bit restent dans « Editor/Legacy » de chaque produit afin de préserver les références des avatars et préréglages existants. Il n’est pas nécessaire de supprimer ou remplacer un Prefab pour continuer à utiliser une version 8bit déjà installée. Le menu d’ajout de Unity ne propose plus la version 8bit.</p>

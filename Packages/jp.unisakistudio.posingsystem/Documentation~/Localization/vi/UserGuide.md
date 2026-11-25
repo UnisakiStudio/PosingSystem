@@ -1,4 +1,4 @@
-# Unisaki Posing System 3.2.0 — Hướng dẫn tiếng Việt
+# Unisaki Posing System 3.2.1 — Hướng dẫn tiếng Việt
 
 Unisaki Posing System là lõi chung cho Kawaii Posing, Cool Posing và các công cụ liên quan.
 Cài sản phẩm đã mua cùng lõi này bằng VCC hoặc ALCOM. Dùng Unity 2022.3,

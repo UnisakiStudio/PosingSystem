@@ -334,6 +334,8 @@ namespace jp.unisakistudio.posingsystemeditor
                     MergeTrackingControl(ctx.VRChatAvatarDescriptor(), controllerContext);
                     MergeLocomotionControl(ctx.VRChatAvatarDescriptor(), controllerContext);
                 });
+                // Also without a tracking merge, and for the FX controllers of a prebuild made before 3.2.1.
+                sequence.Run("Author generated FX layers with Write Defaults on", PosingSystemFxWriteDefaults.AuthorGeneratedMerges);
             });
 
             InPhase(BuildPhase.Optimizing)
@@ -5156,10 +5158,10 @@ namespace jp.unisakistudio.posingsystemeditor
             AnimationUtility.SetEditorCurve(clip, EditorCurveBinding.FloatCurve("", typeof(Animator), noOp),
                 AnimationCurve.Constant(0, 1, 0));
             foreach (var state in controller.layers.SelectMany(l => AllFeatureStates(l.stateMachine)))
-            {
                 state.motion = clip;
-                state.writeDefaultValues = false;
-            }
+            // With a clip and Write Defaults off, these layers stopped every default value of the avatar's FX
+            // controller wherever Modular Avatar did not match them (an avatar it judges mixed).
+            PosingSystemFxWriteDefaults.Author(controller);
             controllerContext.Controllers[mergeAnimator] = controllerContext.Clone(controller);
         }
 

@@ -1,10 +1,13 @@
 # Muutosloki
 
-## [3.2.1] - Julkaisematon
+## [3.2.1] - 2026-11-25
 
 - Kylkiasennon automaattinen suunnan kohdistus poistettiin kääntymisliikkeiden luonnista, jotta lähdeanimaatiossa asetettu suunta säilyy. Suorita esikoonti uudelleen.
 
 - Jalkojen kork. 8 → 0 bit, Lattian kork. 8 → 0 bit, Käänny 10 → 1 bit. Jokainen asiakasohjelma laskee pään kallistuksen itse. Vain kyljelle kääntymisen aktiivinen tila synkronoidaan. Niskan lukituksen poistaminen palauttaa alkuperäisen asetuksen.
+
+- Korjattu ongelma, jossa avatarin oman valikon päälle/pois-valinnat lakkasivat toimimasta ja käsieleillä muutetut ilmeet eivät palanneet ennalleen, kun ”Pidä pää näkyvissä Kuvatilassa” oli käytössä. Ongelma esiintyi avatareissa, joissa Write Defaults on käytössä.
+- Korjattu ongelma, jossa pelkkä poseeraustyökalun lisääminen saattoi saada avatarin oman valikon päälle/pois-valinnat lakkaamaan toimimasta tai estää ilmeitä palaamasta ennalleen. Ongelma esiintyi avatareissa, joissa Write Defaults on osin käytössä ja osin pois käytöstä.
 
 ## [3.2.0] - 2026-11-22
 

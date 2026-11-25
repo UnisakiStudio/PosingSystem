@@ -1,4 +1,4 @@
-# Unisaki Posing System 3.2.0 — Türkçe kılavuz
+# Unisaki Posing System 3.2.1 — Türkçe kılavuz
 
 Unisaki Posing System, Kawaii Posing, Cool Posing ve ilgili araçların ortak çekirdeğidir. Satın aldığınız ürünü ve bu çekirdeği VCC veya ALCOM ile birlikte kurun. Unity 2022.3, VRChat Avatars SDK 3.10.4+, Modular Avatar 1.16.2+ ve NDMF 1.14.8+ kullanın.
 

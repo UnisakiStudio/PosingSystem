@@ -1,4 +1,4 @@
-# Unisaki Posing System 3.2.0 — Nederlandse handleiding
+# Unisaki Posing System 3.2.1 — Nederlandse handleiding
 
 Unisaki Posing System is de gedeelde kern voor Kawaii Posing, Cool Posing en verwante tools.
 Installeer product en kern samen met VCC of ALCOM. Gebruik Unity 2022.3,

@@ -2,7 +2,7 @@
 
 Sistema di pose comune usato da Kawaii Posing, Cool Posing e altri strumenti. Usa Modular Avatar e NDMF per generare i menu e le animazioni necessari durante il caricamento dell’avatar.
 
-Questo README riguarda la versione v3.2.0. La versione installata compare in alto nell’Inspector dello strumento. Consulta anche [aggiunte e modifiche](CHANGELOG.md).
+Questo README riguarda la versione v3.2.1. La versione installata compare in alto nell’Inspector dello strumento. Consulta anche [aggiunte e modifiche](CHANGELOG.md).
 
 ## Lingua dell’interfaccia e documentazione offline
 
@@ -20,16 +20,16 @@ Scegli la lingua di README, cronologia e guida dall’[elenco delle lingue](../i
 
 Aggiungi lo strumento tramite VCC o ALCOM seguendo i file e le istruzioni forniti con l’acquisto. Questo sistema viene installato come dipendenza dello strumento per pose.
 
-Per v3.2.0 sono richiesti i seguenti componenti.
+Per v3.2.1 sono richiesti i seguenti componenti.
 
 - Progetto avatar VRChat con Unity 2022.3
 - VRChat Avatars SDK 3.10.4 o successivo
 - Modular Avatar serie 1.x, versione 1.16.2 o successiva
 - NDMF (Non-Destructive Modular Framework) serie 1.x, versione 1.14.8 o successiva
 
-Se usi Kawaii Posing, aggiornalo a 3.2.0 in ALCOM / VCC e verifica che anche Unisaki Posing System sia alla versione 3.2.0. Se usavi il precalcolo, premi «Aggiorna precalcolo», salva la scena e carica l’avatar.
+Se usi Kawaii Posing, aggiornalo a 3.2.0 in ALCOM / VCC e verifica che anche Unisaki Posing System sia alla versione 3.2.1. Se usavi il precalcolo, premi «Aggiorna precalcolo», salva la scena e carica l’avatar.
 
-Cool Posing 1.2.0 usa il sistema comune 3.2.0. Aggiorna insieme prodotto e sistema comune alle versioni corrispondenti.
+Cool Posing 1.3.0 usa il sistema comune 3.2.1. Aggiorna insieme prodotto e sistema comune alle versioni corrispondenti.
 
 ### Per chi usava la versione 8bit
 
@@ -70,7 +70,7 @@ Le opzioni scelte in «Funzioni > Funzioni del menu» compaiono nel gioco. Per e
 | Ridurre le deformazioni dovute alla rotazione della testa | 1 bit |
 | Girarsi | 1 bit |
 
-Ogni client calcola l’inclinazione della testa. Viene sincronizzato solo lo stato effettivo della rotazione sul fianco. Sbloccando il collo si ripristina l’impostazione iniziale.
+Ogni client calcola l’inclinazione della testa. Viene sincronizzato solo lo stato effettivo della funzione «Girarsi». Sbloccando il collo si ripristina l’impostazione iniziale.
 
 Il totale mostrato riguarda gli strumenti per pose installati nell’avatar, non l’intero avatar con abiti e altri sistemi. Le impostazioni comuni non sono contate più volte usando più strumenti. Se il numero di pose supera l’intervallo di numerazione di base, servono bit aggiuntivi anche per la selezione.
 

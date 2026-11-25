@@ -2,7 +2,7 @@
 
 這是Kawaii Posing Tool、Cool Posing Tool等產品使用的共用姿勢系統。通過Modular Avatar和NDMF，在上傳虛擬化身時產生所需的選單和動畫。
 
-本README面向v3.2.0。已安裝的版本可在姿勢工具的Inspector頂部查看。另請參閱[新增功能與更新紀錄](CHANGELOG.md)。
+本README面向v3.2.1。已安裝的版本可在姿勢工具的Inspector頂部查看。另請參閱[新增功能與更新紀錄](CHANGELOG.md)。
 
 ## 顯示語言與離線文件
 
@@ -20,16 +20,16 @@
 
 請按照各商品購買檔案中的安裝說明，通過VCC或ALCOM新增姿勢工具。本系統會作為姿勢工具的相依套件一同安裝。
 
-v3.2.0所需環境如下。
+v3.2.1所需環境如下。
 
 - 使用Unity 2022.3的VRChat虛擬化身專案
 - VRChat Avatars SDK 3.10.4或更高版本
 - Modular Avatar 1.16.2或更高版本，須為1.x系列
 - NDMF（Non-Destructive Modular Framework）1.14.8或更高版本，須為1.x系列
 
-使用Kawaii Posing Tool時，請在ALCOM / VCC中將其更新為3.2.0，並確認Unisaki Posing System也已更新為3.2.0。如果使用過預先建置，請按一下“更新預先建置”，儲存場景後再上傳虛擬化身。
+使用Kawaii Posing Tool時，請在ALCOM / VCC中將其更新為3.2.0，並確認Unisaki Posing System也已更新為3.2.1。如果使用過預先建置，請按一下“更新預先建置”，儲存場景後再上傳虛擬化身。
 
-Cool Posing Tool 1.2.0使用共用系統3.2.0。請將商品和共用系統一同更新至對應版本。
+Cool Posing Tool 1.3.0使用共用系統3.2.1。請將商品和共用系統一同更新至對應版本。
 
 ### 曾使用8bit版本的使用者
 

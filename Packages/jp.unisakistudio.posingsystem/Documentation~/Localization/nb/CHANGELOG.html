@@ -9,14 +9,18 @@ code,pre { direction: ltr; unicode-bidi: isolate; } code { background: #8882; pa
 a { color: #2269b8; } a:visited { color: #7952ad; } li { margin-block: .35rem; }
 @media(prefers-color-scheme:dark) { a { color: #8ec5ff; } a:visited { color: #cfacff; } }
 @media print { nav { display: none; } body { max-width: none; padding: 0; } a { color: inherit; } }</style></head><body>
-<nav aria-label="Documentation"><a href="../index.html">Norsk · 🌐</a><a href="README.html">README</a><a href="CHANGELOG.html">Endringslogg</a><a href="UserGuide.html">Unisaki Posing System 3.2.0 — Norsk brukerveiledning</a></nav>
+<nav aria-label="Documentation"><a href="../index.html">Norsk · 🌐</a><a href="README.html">README</a><a href="CHANGELOG.html">Endringslogg</a><a href="UserGuide.html">Unisaki Posing System 3.2.1 — Norsk brukerveiledning</a></nav>
 <main><h1>Endringslogg</h1>
-<h2>[3.2.1] - Ikke utgitt</h2>
+<h2>[3.2.1] - 2026-11-25</h2>
 <ul>
 <li>Automatisk retningsjustering av sideposen ved generering av snuing er fjernet. Orienteringen fra kildeanimasjonen beholdes. Oppdater eksisterende forhåndsbygg.</li>
 </ul>
 <ul>
 <li>Fothøyde 8 → 0 bit, Gulvhøyde 8 → 0 bit, Snu deg 10 → 1 bit. Hver klient beregner hodets helning. Bare hvorvidt vendingen faktisk er aktiv, synkroniseres. Når nakken låses opp, gjenopprettes den opprinnelige innstillingen.</li>
+</ul>
+<ul>
+<li>Rettet et problem der av/på-valgene i avatarens egen meny sluttet å virke og ansiktsuttrykk endret med håndbevegelser ikke gikk tilbake til normalt når «Behold hodet synlig i Fotomodus» var slått på. Det skjedde på avatarer med Write Defaults slått på.</li>
+<li>Rettet et problem der det å bare legge til poseverktøyet kunne gjøre at av/på-valgene i avatarens egen meny sluttet å virke, eller at ansiktsuttrykk ikke gikk tilbake til normalt. Det skjedde på avatarer der Write Defaults slått på og av er blandet.</li>
 </ul>
 <h2>[3.2.0] - 2026-11-22</h2>
 <h3>Lagt til</h3>

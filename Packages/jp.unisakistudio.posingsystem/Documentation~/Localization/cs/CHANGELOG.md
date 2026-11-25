@@ -1,10 +1,13 @@
 # Historie změn
 
-## [3.2.1] - Nevydáno
+## [3.2.1] - 2026-11-25
 
 - Při generování přetáčení bylo odstraněno automatické zarovnávání směru polohy na boku. Zachovává se orientace nastavená ve zdrojové animaci. Znovu proveďte předgenerování.
 
 - Výška chodidel 8 → 0 bit, Výška podlahy 8 → 0 bit, Přetočit se 10 → 1 bit. Každý klient počítá náklon hlavy. Synchronizuje se pouze skutečný stav přetáčení na bok. Odemknutím krku se obnoví původní nastavení.
+
+- Opraven problém, kdy po zapnutí „Ponechat hlavu viditelnou v režimu focení“ přestávaly fungovat přepínače ve vlastní nabídce avatara a výrazy obličeje změněné gesty rukou se nevracely do normálu. Vyskytoval se u avatarů se zapnutým Write Defaults.
+- Opraven problém, kdy samotné přidání nástroje pro pózy mohlo způsobit, že přepínače ve vlastní nabídce avatara přestaly fungovat nebo se výrazy obličeje nevracely do normálu. Vyskytoval se u avatarů, ve kterých se mísí zapnuté a vypnuté Write Defaults.
 
 ## [3.2.0] - 2026-11-22
 

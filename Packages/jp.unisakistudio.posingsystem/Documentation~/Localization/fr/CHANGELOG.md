@@ -1,10 +1,13 @@
 # Historique des modifications
 
-## [3.2.1] - Non publié
+## [3.2.1] - 2026-11-25
 
 - La génération des mouvements de retournement ne réoriente plus automatiquement la pose sur le côté : elle conserve l’orientation définie dans l’animation source. Mettez à jour les précalculs existants.
 
 - Hauteur pieds 8 → 0 bit, Hauteur sol 8 → 0 bit, Se retourner 10 → 1 bit. Chaque client calcule l’inclinaison de la tête. Seul l’état effectif du retournement est synchronisé. Déverrouiller le cou rétablit le réglage initial.
+
+- Correction d’un problème : lorsque l’option « Garder la tête visible en Mode photo » était activée, les options à activer ou désactiver du menu propre à l’avatar ne fonctionnaient plus et les expressions faciales modifiées par les gestes de la main ne revenaient plus à la normale. Il se produisait sur les avatars dont Write Defaults est activé.
+- Correction d’un problème : le simple ajout de l’outil de pose pouvait empêcher les options à activer ou désactiver du menu propre à l’avatar de fonctionner, ou les expressions faciales de revenir à la normale. Il se produisait sur les avatars qui mélangent Write Defaults activé et désactivé.
 
 ## [3.2.0] - 2026-11-22
 

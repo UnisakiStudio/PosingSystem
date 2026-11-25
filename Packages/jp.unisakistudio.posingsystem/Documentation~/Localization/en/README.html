@@ -9,10 +9,10 @@ code,pre { direction: ltr; unicode-bidi: isolate; } code { background: #8882; pa
 a { color: #2269b8; } a:visited { color: #7952ad; } li { margin-block: .35rem; }
 @media(prefers-color-scheme:dark) { a { color: #8ec5ff; } a:visited { color: #cfacff; } }
 @media print { nav { display: none; } body { max-width: none; padding: 0; } a { color: inherit; } }</style></head><body>
-<nav aria-label="Documentation"><a href="../index.html">English · 🌐</a><a href="README.html">README</a><a href="CHANGELOG.html">Changelog</a><a href="UserGuide.html">Unisaki Posing System 3.2.0 — English guide</a></nav>
+<nav aria-label="Documentation"><a href="../index.html">English · 🌐</a><a href="README.html">README</a><a href="CHANGELOG.html">Changelog</a><a href="UserGuide.html">Unisaki Posing System 3.2.1 — English guide</a></nav>
 <main><h1>Unisaki Posing System</h1>
 <p>The shared posing system used by Kawaii Posing Tool, Cool Posing Tool and related products. It uses Modular Avatar and NDMF to generate the required menus and animations when you upload an avatar.</p>
-<p>This README covers v3.2.0. Check the installed version at the top of the posing tool&#x27;s Inspector. See also <a href="CHANGELOG.html">new features and changelog</a>.</p>
+<p>This README covers v3.2.1. Check the installed version at the top of the posing tool&#x27;s Inspector. See also <a href="CHANGELOG.html">new features and changelog</a>.</p>
 <h2>Display language and offline documentation</h2>
 <p>Choose a display language with Language / 言語 at the top of the Inspector. One selection controls both the Inspector and generated VRChat menu. Re-upload the avatar to change its in-game language.</p>
 <p>Without a saved choice, the tool follows the computer&#x27;s language and uses English for unsupported languages. This works on Windows, macOS and Linux. The last selection is saved in EditorPrefs and reused in other projects belonging to the same OS user on this computer. All posing tools and avatars use the same language. Changing it in any tool&#x27;s Inspector updates the shared preference; per-avatar language choices are ignored. Preferences do not sync to other computers. License storage is unchanged. The language button appears only on the initial setup confirmation when no language is saved. Later language changes are made in the Inspector.</p>
@@ -21,15 +21,15 @@ a { color: #2269b8; } a:visited { color: #7952ad; } li { margin-block: .35rem; }
 <p>The delay before the selected pose takes effect when switching between standing, crouching and sitting in desktop mode has been reduced. This applies to normal builds and prebuilds, with no special command or extra setting. Existing behavior is retained in VR mode and special states. Update older prebuilds before uploading.</p>
 <h2>Installation and updates</h2>
 <p>Follow the purchased product&#x27;s installation instructions and add the posing tool using VCC or ALCOM. This system is installed as a dependency of the posing tool.</p>
-<p>Requirements for v3.2.0:</p>
+<p>Requirements for v3.2.1:</p>
 <ul>
 <li>A Unity 2022.3 VRChat avatar project</li>
 <li>VRChat Avatars SDK 3.10.4 or later</li>
 <li>Modular Avatar 1.x, version 1.16.2 or later</li>
 <li>NDMF (Non-Destructive Modular Framework) 1.x, version 1.14.8 or later</li>
 </ul>
-<p>For Kawaii Posing Tool, update the product to 3.2.0 in ALCOM / VCC and check that Unisaki Posing System is also 3.2.0. If you use prebuilds, click Update prebuild and save the scene before uploading the avatar.</p>
-<p>Cool Posing Tool 1.2.0 uses shared system 3.2.0. Update the product and shared system together to compatible versions.</p>
+<p>For Kawaii Posing Tool, update the product to 3.2.0 in ALCOM / VCC and check that Unisaki Posing System is also 3.2.1. If you use prebuilds, click Update prebuild and save the scene before uploading the avatar.</p>
+<p>Cool Posing Tool 1.3.0 uses shared system 3.2.1. Update the product and shared system together to compatible versions.</p>
 <h3>If you used the 8bit edition</h3>
 <p>New installations now use the regular Prefab. Turn off unneeded items under Features to reduce parameter usage. Select Pose alone uses a base of 8 bit.</p>
 <p>The old 8bit Prefabs remain in each product&#x27;s Editor/Legacy folder to preserve references from existing avatars and presets. You can keep using an existing 8bit edition without deleting or replacing its Prefab. The Unity menu no longer offers the 8bit edition for new installations.</p>

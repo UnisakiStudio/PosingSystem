@@ -148,7 +148,7 @@ namespace jp.unisakistudio.posingsystemeditor
             layer.stateMachine.defaultState = off;
             foreach (var state in new[] { off, on })
             {
-                state.writeDefaultValues = false;
+                state.writeDefaultValues = PosingSystemFxWriteDefaults.Authored;
                 var driver = state.AddStateMachineBehaviour<VRCAvatarParameterDriver>();
                 driver.localOnly = false;
                 driver.parameters.Add(new VRC_AvatarParameterDriver.Parameter

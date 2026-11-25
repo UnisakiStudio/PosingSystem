@@ -2,7 +2,7 @@
 
 Sistema de poses común para Kawaii Posing, Cool Posing y otras herramientas. Utiliza Modular Avatar y NDMF para generar los menús y animaciones necesarios al subir el avatar.
 
-Este README corresponde a v3.2.0. La versión instalada aparece arriba en el Inspector. Consulta también las [novedades y cambios](CHANGELOG.md).
+Este README corresponde a v3.2.1. La versión instalada aparece arriba en el Inspector. Consulta también las [novedades y cambios](CHANGELOG.md).
 
 ## Idioma de la interfaz y documentación sin conexión
 
@@ -20,16 +20,16 @@ Se ha reducido el retraso al aplicar la pose elegida al pasar entre de pie, agac
 
 Añade la herramienta con VCC o ALCOM siguiendo los archivos e instrucciones de tu compra. Este sistema se instala como dependencia de la herramienta de poses.
 
-Los requisitos de v3.2.0 son los siguientes.
+Los requisitos de v3.2.1 son los siguientes.
 
 - Proyecto de avatar VRChat con Unity 2022.3
 - VRChat Avatars SDK 3.10.4 o posterior
 - Modular Avatar de la serie 1.x, versión 1.16.2 o posterior
 - NDMF (Non-Destructive Modular Framework) de la serie 1.x, versión 1.14.8 o posterior
 
-Si usas Kawaii Posing, actualízalo a 3.2.0 desde ALCOM / VCC y comprueba que Unisaki Posing System también sea 3.2.0. Si usabas precálculo, pulsa «Actualizar precálculo», guarda la escena y sube el avatar.
+Si usas Kawaii Posing, actualízalo a 3.2.0 desde ALCOM / VCC y comprueba que Unisaki Posing System también sea 3.2.1. Si usabas precálculo, pulsa «Actualizar precálculo», guarda la escena y sube el avatar.
 
-Cool Posing 1.2.0 utiliza el sistema común 3.2.0. Actualiza juntos el producto y el sistema común a las versiones correspondientes.
+Cool Posing 1.3.0 utiliza el sistema común 3.2.1. Actualiza juntos el producto y el sistema común a las versiones correspondientes.
 
 ### Para usuarios de la versión 8bit
 
@@ -70,7 +70,7 @@ Las opciones elegidas en «Funciones > Funciones del menú» aparecen dentro del
 | Reducir deformaciones por la rotación de cabeza | 1 bit |
 | Darse vuelta | 1 bit |
 
-Cada cliente calcula la inclinación de la cabeza. Solo se sincroniza si el giro está activo. Al desbloquear el cuello, se recupera el ajuste original.
+Cada cliente calcula la inclinación de la cabeza. Solo se sincroniza si está activa la opción «Darse vuelta». Al desbloquear el cuello, se recupera el ajuste original.
 
 El total mostrado corresponde a las herramientas de poses instaladas en el avatar, no al avatar completo con ropa y otros sistemas. Los ajustes comunes de varias herramientas no se cuentan dos veces. Si las poses superan el intervalo básico de numeración, su selección también necesita bits adicionales.
 

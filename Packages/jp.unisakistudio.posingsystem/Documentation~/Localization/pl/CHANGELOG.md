@@ -1,10 +1,13 @@
 # Historia zmian
 
-## [3.2.1] - Niewydana
+## [3.2.1] - 2026-11-25
 
 - Usunięto automatyczne wyrównywanie kierunku pozycji na boku podczas generowania ruchu obracania się w leżeniu, zachowując orientację ustawioną w animacji źródłowej. Zaktualizuj dane budowania wstępnego.
 
 - Wysokość stóp 8 → 0 bit, Wysokość ziemi 8 → 0 bit, Obróć się 10 → 1 bit. Każdy klient oblicza nachylenie głowy. Synchronizowany jest tylko stan aktywności obrotu na bok. Odblokowanie szyi przywraca poprzednie ustawienie.
+
+- Naprawiono problem, w którym po włączeniu „Pokazuj głowę w trybie zdjęć” przełączniki we własnym menu awatara przestawały działać, a wyrazy twarzy zmienione gestami dłoni nie wracały do normy. Występował on w awatarach z włączonym Write Defaults.
+- Naprawiono problem, w którym samo dodanie narzędzia do póz mogło sprawić, że przełączniki we własnym menu awatara przestawały działać lub wyrazy twarzy nie wracały do normy. Występował on w awatarach, w których włączone i wyłączone Write Defaults są pomieszane.
 
 ## [3.2.0] - 2026-11-22
 

@@ -1,10 +1,13 @@
 # Endringslogg
 
-## [3.2.1] - Ikke utgitt
+## [3.2.1] - 2026-11-25
 
 - Automatisk retningsjustering av sideposen ved generering av snuing er fjernet. Orienteringen fra kildeanimasjonen beholdes. Oppdater eksisterende forhåndsbygg.
 
 - Fothøyde 8 → 0 bit, Gulvhøyde 8 → 0 bit, Snu deg 10 → 1 bit. Hver klient beregner hodets helning. Bare hvorvidt vendingen faktisk er aktiv, synkroniseres. Når nakken låses opp, gjenopprettes den opprinnelige innstillingen.
+
+- Rettet et problem der av/på-valgene i avatarens egen meny sluttet å virke og ansiktsuttrykk endret med håndbevegelser ikke gikk tilbake til normalt når «Behold hodet synlig i Fotomodus» var slått på. Det skjedde på avatarer med Write Defaults slått på.
+- Rettet et problem der det å bare legge til poseverktøyet kunne gjøre at av/på-valgene i avatarens egen meny sluttet å virke, eller at ansiktsuttrykk ikke gikk tilbake til normalt. Det skjedde på avatarer der Write Defaults slått på og av er blandet.
 
 ## [3.2.0] - 2026-11-22
 

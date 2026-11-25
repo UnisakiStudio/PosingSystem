@@ -9,10 +9,10 @@ code,pre { direction: ltr; unicode-bidi: isolate; } code { background: #8882; pa
 a { color: #2269b8; } a:visited { color: #7952ad; } li { margin-block: .35rem; }
 @media(prefers-color-scheme:dark) { a { color: #8ec5ff; } a:visited { color: #cfacff; } }
 @media print { nav { display: none; } body { max-width: none; padding: 0; } a { color: inherit; } }</style></head><body>
-<nav aria-label="Documentation"><a href="../index.html">繁體中文 · 🌐</a><a href="README.html">README</a><a href="CHANGELOG.html">更新紀錄</a><a href="UserGuide.html">Unisaki Posing System 3.2.0 — 繁體中文指南</a></nav>
+<nav aria-label="Documentation"><a href="../index.html">繁體中文 · 🌐</a><a href="README.html">README</a><a href="CHANGELOG.html">更新紀錄</a><a href="UserGuide.html">Unisaki Posing System 3.2.1 — 繁體中文指南</a></nav>
 <main><h1>Unisaki Posing System</h1>
 <p>這是Kawaii Posing Tool、Cool Posing Tool等產品使用的共用姿勢系統。通過Modular Avatar和NDMF，在上傳虛擬化身時產生所需的選單和動畫。</p>
-<p>本README面向v3.2.0。已安裝的版本可在姿勢工具的Inspector頂部查看。另請參閱<a href="CHANGELOG.html">新增功能與更新紀錄</a>。</p>
+<p>本README面向v3.2.1。已安裝的版本可在姿勢工具的Inspector頂部查看。另請參閱<a href="CHANGELOG.html">新增功能與更新紀錄</a>。</p>
 <h2>顯示語言與離線文件</h2>
 <p>在Inspector最上方的“Language / 言語”中選擇顯示語言。同一項選擇會同時套用於Inspector和產生的VRChat選單。要更改遊戲內的顯示語言，請重新上傳虛擬化身。</p>
 <p>未選擇語言時，使用電腦的語言；不支援該語言時使用英語。支援Windows、macOS和Linux。最後選擇的語言儲存在EditorPrefs中，同一臺電腦上同一個OS使用者的其他專案也會使用此設定。所有姿勢工具和虛擬化身都使用同一種語言。在任意工具的Inspector中變更語言，都會更新共用設定；不採用個別虛擬化身的語言選擇。語言設定不會同步到其他電腦。授權的儲存方式不變。 僅在尚未儲存語言時的首次安裝確認中顯示語言按鈕。之後請在Inspector中變更語言。</p>
@@ -21,15 +21,15 @@ a { color: #2269b8; } a:visited { color: #7952ad; } li { margin-block: .35rem; }
 <p>在桌面模式下切換站立、半蹲和坐姿時，縮短了所選姿勢生效前的延遲。一般建置和預先建置均會啟用此改進，無需專用命令或額外設定。VR模式及特殊狀態下保留原有處理方式。使用舊版預先建置時，請先更新預先建置再上傳。</p>
 <h2>安裝與版本更新</h2>
 <p>請按照各商品購買檔案中的安裝說明，通過VCC或ALCOM新增姿勢工具。本系統會作為姿勢工具的相依套件一同安裝。</p>
-<p>v3.2.0所需環境如下。</p>
+<p>v3.2.1所需環境如下。</p>
 <ul>
 <li>使用Unity 2022.3的VRChat虛擬化身專案</li>
 <li>VRChat Avatars SDK 3.10.4或更高版本</li>
 <li>Modular Avatar 1.16.2或更高版本，須為1.x系列</li>
 <li>NDMF（Non-Destructive Modular Framework）1.14.8或更高版本，須為1.x系列</li>
 </ul>
-<p>使用Kawaii Posing Tool時，請在ALCOM / VCC中將其更新為3.2.0，並確認Unisaki Posing System也已更新為3.2.0。如果使用過預先建置，請按一下“更新預先建置”，儲存場景後再上傳虛擬化身。</p>
-<p>Cool Posing Tool 1.2.0使用共用系統3.2.0。請將商品和共用系統一同更新至對應版本。</p>
+<p>使用Kawaii Posing Tool時，請在ALCOM / VCC中將其更新為3.2.0，並確認Unisaki Posing System也已更新為3.2.1。如果使用過預先建置，請按一下“更新預先建置”，儲存場景後再上傳虛擬化身。</p>
+<p>Cool Posing Tool 1.3.0使用共用系統3.2.1。請將商品和共用系統一同更新至對應版本。</p>
 <h3>曾使用8bit版本的使用者</h3>
 <p>新增的物件統一使用一般Prefab。在“功能”中關閉不需要的項目，可以降低參數用量。僅使用姿勢選擇時，基本用量為8 bit。</p>
 <p>為保留已放置的虛擬化身和預設的參照，各商品的舊8bit版Prefab仍儲存在“Editor/Legacy”中。繼續使用現有8bit版本時，無需刪除或替換Prefab。Unity新建選單中選擇8bit版本的操作已取消。</p>
